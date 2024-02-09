@@ -125,47 +125,6 @@ public class UserChannel extends Resource {
         }
     }
 
-    public enum ChannelStatus {
-        JOINED("joined"),
-        INVITED("invited"),
-        NOT_PARTICIPATING("not_participating");
-
-        private final String value;
-
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
-        }
-    }
-
-    public enum NotificationLevel {
-        DEFAULT("default"),
-        MUTED("muted");
-
-        private final String value;
-
-        private NotificationLevel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NotificationLevel forValue(final String value) {
-            return Promoter.enumFromString(value, NotificationLevel.values());
-        }
-    }
-
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
@@ -320,5 +279,46 @@ public class UserChannel extends Resource {
             url,
             notificationLevel
         );
+    }
+
+    public enum ChannelStatus {
+        JOINED("joined"),
+        INVITED("invited"),
+        NOT_PARTICIPATING("not_participating");
+
+        private final String value;
+
+        private ChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelStatus.values());
+        }
+    }
+
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
+        }
     }
 }

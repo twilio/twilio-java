@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class UsAppToPerson extends Resource {
 
-    private static final long serialVersionUID = 67793860949596L;
+    private static final long serialVersionUID = 1672467414686L;
 
     public static UsAppToPersonCreator creator(
         final String pathMessagingServiceSid,
@@ -81,6 +81,30 @@ public class UsAppToPerson extends Resource {
         final String pathMessagingServiceSid
     ) {
         return new UsAppToPersonReader(pathMessagingServiceSid);
+    }
+
+    public static UsAppToPersonUpdater updater(
+        final String pathMessagingServiceSid,
+        final String pathSid,
+        final Boolean hasEmbeddedLinks,
+        final Boolean hasEmbeddedPhone,
+        final List<String> messageSamples,
+        final String messageFlow,
+        final String description,
+        final Boolean ageGated,
+        final Boolean directLending
+    ) {
+        return new UsAppToPersonUpdater(
+            pathMessagingServiceSid,
+            pathSid,
+            hasEmbeddedLinks,
+            hasEmbeddedPhone,
+            messageSamples,
+            messageFlow,
+            description,
+            ageGated,
+            directLending
+        );
     }
 
     /**
@@ -135,6 +159,9 @@ public class UsAppToPerson extends Resource {
     private final String usAppToPersonUsecase;
     private final Boolean hasEmbeddedLinks;
     private final Boolean hasEmbeddedPhone;
+    private final Boolean subscriberOptIn;
+    private final Boolean ageGated;
+    private final Boolean directLending;
     private final String campaignStatus;
     private final String campaignId;
     private final Boolean isExternallyRegistered;
@@ -167,6 +194,9 @@ public class UsAppToPerson extends Resource {
         ) final String usAppToPersonUsecase,
         @JsonProperty("has_embedded_links") final Boolean hasEmbeddedLinks,
         @JsonProperty("has_embedded_phone") final Boolean hasEmbeddedPhone,
+        @JsonProperty("subscriber_opt_in") final Boolean subscriberOptIn,
+        @JsonProperty("age_gated") final Boolean ageGated,
+        @JsonProperty("direct_lending") final Boolean directLending,
         @JsonProperty("campaign_status") final String campaignStatus,
         @JsonProperty("campaign_id") final String campaignId,
         @JsonProperty(
@@ -195,6 +225,9 @@ public class UsAppToPerson extends Resource {
         this.usAppToPersonUsecase = usAppToPersonUsecase;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         this.hasEmbeddedPhone = hasEmbeddedPhone;
+        this.subscriberOptIn = subscriberOptIn;
+        this.ageGated = ageGated;
+        this.directLending = directLending;
         this.campaignStatus = campaignStatus;
         this.campaignId = campaignId;
         this.isExternallyRegistered = isExternallyRegistered;
@@ -247,6 +280,18 @@ public class UsAppToPerson extends Resource {
 
     public final Boolean getHasEmbeddedPhone() {
         return this.hasEmbeddedPhone;
+    }
+
+    public final Boolean getSubscriberOptIn() {
+        return this.subscriberOptIn;
+    }
+
+    public final Boolean getAgeGated() {
+        return this.ageGated;
+    }
+
+    public final Boolean getDirectLending() {
+        return this.directLending;
     }
 
     public final String getCampaignStatus() {
@@ -335,6 +380,9 @@ public class UsAppToPerson extends Resource {
             Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&
             Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&
             Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&
+            Objects.equals(subscriberOptIn, other.subscriberOptIn) &&
+            Objects.equals(ageGated, other.ageGated) &&
+            Objects.equals(directLending, other.directLending) &&
             Objects.equals(campaignStatus, other.campaignStatus) &&
             Objects.equals(campaignId, other.campaignId) &&
             Objects.equals(
@@ -369,6 +417,9 @@ public class UsAppToPerson extends Resource {
             usAppToPersonUsecase,
             hasEmbeddedLinks,
             hasEmbeddedPhone,
+            subscriberOptIn,
+            ageGated,
+            directLending,
             campaignStatus,
             campaignId,
             isExternallyRegistered,

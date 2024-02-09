@@ -113,30 +113,6 @@ public class Task extends Resource {
         }
     }
 
-    public enum Status {
-        PENDING("pending"),
-        RESERVED("reserved"),
-        ASSIGNED("assigned"),
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        WRAPPING("wrapping");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final Integer age;
     private final Task.Status assignmentStatus;
@@ -377,5 +353,29 @@ public class Task extends Resource {
             links,
             virtualStartTime
         );
+    }
+
+    public enum Status {
+        PENDING("pending"),
+        RESERVED("reserved"),
+        ASSIGNED("assigned"),
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        WRAPPING("wrapping");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

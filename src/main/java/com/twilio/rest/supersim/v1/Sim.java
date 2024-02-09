@@ -103,29 +103,6 @@ public class Sim extends Resource {
         }
     }
 
-    public enum Status {
-        NEW("new"),
-        READY("ready"),
-        ACTIVE("active"),
-        INACTIVE("inactive"),
-        SCHEDULED("scheduled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum StatusUpdate {
         READY("ready"),
         ACTIVE("active"),
@@ -263,5 +240,28 @@ public class Sim extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        NEW("new"),
+        READY("ready"),
+        ACTIVE("active"),
+        INACTIVE("inactive"),
+        SCHEDULED("scheduled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

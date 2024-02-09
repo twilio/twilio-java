@@ -123,26 +123,6 @@ public class ConnectApp extends Resource {
         }
     }
 
-    public enum Permission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private Permission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Permission forValue(final String value) {
-            return Promoter.enumFromString(value, Permission.values());
-        }
-    }
-
     private final String accountSid;
     private final URI authorizeRedirectUrl;
     private final String companyName;
@@ -280,5 +260,25 @@ public class ConnectApp extends Resource {
             sid,
             uri
         );
+    }
+
+    public enum Permission {
+        GET_ALL("get-all"),
+        POST_ALL("post-all");
+
+        private final String value;
+
+        private Permission(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Permission forValue(final String value) {
+            return Promoter.enumFromString(value, Permission.values());
+        }
     }
 }

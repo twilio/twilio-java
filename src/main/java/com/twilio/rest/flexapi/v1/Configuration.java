@@ -40,10 +40,14 @@ import lombok.ToString;
 @ToString
 public class Configuration extends Resource {
 
-    private static final long serialVersionUID = 213218879201409L;
+    private static final long serialVersionUID = 32578567436971L;
 
     public static ConfigurationFetcher fetcher() {
         return new ConfigurationFetcher();
+    }
+
+    public static ConfigurationUpdater updater() {
+        return new ConfigurationUpdater();
     }
 
     /**
@@ -89,27 +93,6 @@ public class Configuration extends Resource {
         }
     }
 
-    public enum Status {
-        OK("ok"),
-        INPROGRESS("inprogress"),
-        NOTSTARTED("notstarted");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -127,6 +110,7 @@ public class Configuration extends Resource {
     private final String messagingServiceInstanceSid;
     private final String chatServiceInstanceSid;
     private final String flexServiceInstanceSid;
+    private final String flexInstanceSid;
     private final String uiLanguage;
     private final Map<String, Object> uiAttributes;
     private final Map<String, Object> uiDependencies;
@@ -157,6 +141,7 @@ public class Configuration extends Resource {
     private final Map<String, Object> flexUiStatusReport;
     private final Map<String, Object> agentConvEndMethods;
     private final Map<String, Object> citrixVoiceVdi;
+    private final Map<String, Object> offlineConfig;
 
     @JsonCreator
     private Configuration(
@@ -201,6 +186,7 @@ public class Configuration extends Resource {
         @JsonProperty(
             "flex_service_instance_sid"
         ) final String flexServiceInstanceSid,
+        @JsonProperty("flex_instance_sid") final String flexInstanceSid,
         @JsonProperty("ui_language") final String uiLanguage,
         @JsonProperty("ui_attributes") final Map<String, Object> uiAttributes,
         @JsonProperty("ui_dependencies") final Map<
@@ -274,7 +260,8 @@ public class Configuration extends Resource {
         @JsonProperty("citrix_voice_vdi") final Map<
             String,
             Object
-        > citrixVoiceVdi
+        > citrixVoiceVdi,
+        @JsonProperty("offline_config") final Map<String, Object> offlineConfig
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -293,6 +280,7 @@ public class Configuration extends Resource {
         this.messagingServiceInstanceSid = messagingServiceInstanceSid;
         this.chatServiceInstanceSid = chatServiceInstanceSid;
         this.flexServiceInstanceSid = flexServiceInstanceSid;
+        this.flexInstanceSid = flexInstanceSid;
         this.uiLanguage = uiLanguage;
         this.uiAttributes = uiAttributes;
         this.uiDependencies = uiDependencies;
@@ -323,6 +311,7 @@ public class Configuration extends Resource {
         this.flexUiStatusReport = flexUiStatusReport;
         this.agentConvEndMethods = agentConvEndMethods;
         this.citrixVoiceVdi = citrixVoiceVdi;
+        this.offlineConfig = offlineConfig;
     }
 
     public final String getAccountSid() {
@@ -391,6 +380,10 @@ public class Configuration extends Resource {
 
     public final String getFlexServiceInstanceSid() {
         return this.flexServiceInstanceSid;
+    }
+
+    public final String getFlexInstanceSid() {
+        return this.flexInstanceSid;
     }
 
     public final String getUiLanguage() {
@@ -513,6 +506,10 @@ public class Configuration extends Resource {
         return this.citrixVoiceVdi;
     }
 
+    public final Map<String, Object> getOfflineConfig() {
+        return this.offlineConfig;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -570,6 +567,7 @@ public class Configuration extends Resource {
                 flexServiceInstanceSid,
                 other.flexServiceInstanceSid
             ) &&
+            Objects.equals(flexInstanceSid, other.flexInstanceSid) &&
             Objects.equals(uiLanguage, other.uiLanguage) &&
             Objects.equals(uiAttributes, other.uiAttributes) &&
             Objects.equals(uiDependencies, other.uiDependencies) &&
@@ -614,7 +612,8 @@ public class Configuration extends Resource {
             Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
             Objects.equals(flexUiStatusReport, other.flexUiStatusReport) &&
             Objects.equals(agentConvEndMethods, other.agentConvEndMethods) &&
-            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi)
+            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi) &&
+            Objects.equals(offlineConfig, other.offlineConfig)
         );
     }
 
@@ -638,6 +637,7 @@ public class Configuration extends Resource {
             messagingServiceInstanceSid,
             chatServiceInstanceSid,
             flexServiceInstanceSid,
+            flexInstanceSid,
             uiLanguage,
             uiAttributes,
             uiDependencies,
@@ -667,7 +667,29 @@ public class Configuration extends Resource {
             debuggerIntegration,
             flexUiStatusReport,
             agentConvEndMethods,
-            citrixVoiceVdi
+            citrixVoiceVdi,
+            offlineConfig
         );
+    }
+
+    public enum Status {
+        OK("ok"),
+        INPROGRESS("inprogress"),
+        NOTSTARTED("notstarted");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

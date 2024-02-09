@@ -146,29 +146,6 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
 
-    public enum Type {
-        SUPERVISOR("supervisor"),
-        CUSTOMER("customer"),
-        EXTERNAL("external"),
-        AGENT("agent"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     private final String sid;
     private final InteractionChannelParticipant.Type type;
     private final String interactionSid;
@@ -234,5 +211,28 @@ public class InteractionChannelParticipant extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(sid, type, interactionSid, channelSid, url);
+    }
+
+    public enum Type {
+        SUPERVISOR("supervisor"),
+        CUSTOMER("customer"),
+        EXTERNAL("external"),
+        AGENT("agent"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
     }
 }

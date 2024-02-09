@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,17 +27,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class ConferenceReader extends Reader<Conference> {
 
     private String pathAccountSid;
     private LocalDate dateCreated;
-    private LocalDate dateCreatedBefore;
-    private LocalDate dateCreatedAfter;
     private LocalDate dateUpdated;
-    private LocalDate dateUpdatedBefore;
-    private LocalDate dateUpdatedAfter;
     private String friendlyName;
     private Conference.Status status;
     private Integer pageSize;
@@ -52,36 +48,8 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
-    public ConferenceReader setDateCreatedBefore(
-        final LocalDate dateCreatedBefore
-    ) {
-        this.dateCreatedBefore = dateCreatedBefore;
-        return this;
-    }
-
-    public ConferenceReader setDateCreatedAfter(
-        final LocalDate dateCreatedAfter
-    ) {
-        this.dateCreatedAfter = dateCreatedAfter;
-        return this;
-    }
-
     public ConferenceReader setDateUpdated(final LocalDate dateUpdated) {
         this.dateUpdated = dateUpdated;
-        return this;
-    }
-
-    public ConferenceReader setDateUpdatedBefore(
-        final LocalDate dateUpdatedBefore
-    ) {
-        this.dateUpdatedBefore = dateUpdatedBefore;
-        return this;
-    }
-
-    public ConferenceReader setDateUpdatedAfter(
-        final LocalDate dateUpdatedAfter
-    ) {
-        this.dateUpdatedAfter = dateUpdatedAfter;
         return this;
     }
 
@@ -143,7 +111,10 @@ public class ConferenceReader extends Reader<Conference> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -194,35 +165,17 @@ public class ConferenceReader extends Reader<Conference> {
         if (dateCreated != null) {
             request.addQueryParam(
                 "DateCreated",
-                dateCreated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_FORMAT
-                    )
-                )
-            );
-        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
-            request.addQueryDateRange(
-                "DateCreated",
-                dateCreatedAfter,
-                dateCreatedBefore
+                DateConverter.dateStringFromLocalDate(dateCreated)
             );
         }
+
         if (dateUpdated != null) {
             request.addQueryParam(
                 "DateUpdated",
-                dateUpdated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_FORMAT
-                    )
-                )
-            );
-        } else if (dateUpdatedAfter != null || dateUpdatedBefore != null) {
-            request.addQueryDateRange(
-                "DateUpdated",
-                dateUpdatedAfter,
-                dateUpdatedBefore
+                DateConverter.dateStringFromLocalDate(dateUpdated)
             );
         }
+
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
         }

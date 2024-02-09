@@ -125,27 +125,6 @@ public class MediaProcessor extends Resource {
         }
     }
 
-    public enum Status {
-        FAILED("failed"),
-        STARTED("started"),
-        ENDED("ended");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum UpdateStatus {
         ENDED("ended");
 
@@ -301,5 +280,26 @@ public class MediaProcessor extends Resource {
             statusCallbackMethod,
             maxDuration
         );
+    }
+
+    public enum Status {
+        FAILED("failed"),
+        STARTED("started"),
+        ENDED("ended");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

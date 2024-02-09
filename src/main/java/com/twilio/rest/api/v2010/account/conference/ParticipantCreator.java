@@ -81,6 +81,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private URI amdStatusCallback;
     private HttpMethod amdStatusCallbackMethod;
     private String trim;
+    private String callToken;
 
     public ParticipantCreator(
         final String pathConferenceSid,
@@ -459,6 +460,11 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setCallToken(final String callToken) {
+        this.callToken = callToken;
+        return this;
+    }
+
     @Override
     public Participant create(final TwilioRestClient client) {
         String path =
@@ -499,7 +505,10 @@ public class ParticipantCreator extends Creator<Participant> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -707,6 +716,9 @@ public class ParticipantCreator extends Creator<Participant> {
         }
         if (trim != null) {
             request.addPostParam("Trim", trim);
+        }
+        if (callToken != null) {
+            request.addPostParam("CallToken", callToken);
         }
     }
 }

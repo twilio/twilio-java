@@ -85,51 +85,6 @@ public class Metric extends Resource {
         }
     }
 
-    public enum StreamDirection {
-        UNKNOWN("unknown"),
-        INBOUND("inbound"),
-        OUTBOUND("outbound"),
-        BOTH("both");
-
-        private final String value;
-
-        private StreamDirection(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static StreamDirection forValue(final String value) {
-            return Promoter.enumFromString(value, StreamDirection.values());
-        }
-    }
-
-    public enum TwilioEdge {
-        UNKNOWN_EDGE("unknown_edge"),
-        CARRIER_EDGE("carrier_edge"),
-        SIP_EDGE("sip_edge"),
-        SDK_EDGE("sdk_edge"),
-        CLIENT_EDGE("client_edge");
-
-        private final String value;
-
-        private TwilioEdge(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TwilioEdge forValue(final String value) {
-            return Promoter.enumFromString(value, TwilioEdge.values());
-        }
-    }
-
     private final String timestamp;
     private final String callSid;
     private final String accountSid;
@@ -237,5 +192,50 @@ public class Metric extends Resource {
             sdkEdge,
             clientEdge
         );
+    }
+
+    public enum StreamDirection {
+        UNKNOWN("unknown"),
+        INBOUND("inbound"),
+        OUTBOUND("outbound"),
+        BOTH("both");
+
+        private final String value;
+
+        private StreamDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static StreamDirection forValue(final String value) {
+            return Promoter.enumFromString(value, StreamDirection.values());
+        }
+    }
+
+    public enum TwilioEdge {
+        UNKNOWN_EDGE("unknown_edge"),
+        CARRIER_EDGE("carrier_edge"),
+        SIP_EDGE("sip_edge"),
+        SDK_EDGE("sdk_edge"),
+        CLIENT_EDGE("client_edge");
+
+        private final String value;
+
+        private TwilioEdge(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TwilioEdge forValue(final String value) {
+            return Promoter.enumFromString(value, TwilioEdge.values());
+        }
     }
 }

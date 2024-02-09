@@ -95,27 +95,6 @@ public class PortingBulkPortability extends Resource {
         }
     }
 
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        EXPIRED("expired");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final PortingBulkPortability.Status status;
     private final ZonedDateTime datetimeCreated;
@@ -184,5 +163,26 @@ public class PortingBulkPortability extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(sid, status, datetimeCreated, phoneNumbers, url);
+    }
+
+    public enum Status {
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        EXPIRED("expired");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

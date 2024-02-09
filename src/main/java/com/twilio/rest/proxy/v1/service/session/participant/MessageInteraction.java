@@ -137,66 +137,6 @@ public class MessageInteraction extends Resource {
         }
     }
 
-    public enum ResourceStatus {
-        ACCEPTED("accepted"),
-        ANSWERED("answered"),
-        BUSY("busy"),
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        DELIVERED("delivered"),
-        DELIVERY_UNKNOWN("delivery-unknown"),
-        FAILED("failed"),
-        IN_PROGRESS("in-progress"),
-        INITIATED("initiated"),
-        NO_ANSWER("no-answer"),
-        QUEUED("queued"),
-        RECEIVED("received"),
-        RECEIVING("receiving"),
-        RINGING("ringing"),
-        SCHEDULED("scheduled"),
-        SENDING("sending"),
-        SENT("sent"),
-        UNDELIVERED("undelivered"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private ResourceStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ResourceStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ResourceStatus.values());
-        }
-    }
-
-    public enum Type {
-        MESSAGE("message"),
-        VOICE("voice"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     private final String sid;
     private final String sessionSid;
     private final String serviceSid;
@@ -425,5 +365,65 @@ public class MessageInteraction extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum Type {
+        MESSAGE("message"),
+        VOICE("voice"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum ResourceStatus {
+        ACCEPTED("accepted"),
+        ANSWERED("answered"),
+        BUSY("busy"),
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        DELIVERED("delivered"),
+        DELIVERY_UNKNOWN("delivery-unknown"),
+        FAILED("failed"),
+        IN_PROGRESS("in-progress"),
+        INITIATED("initiated"),
+        NO_ANSWER("no-answer"),
+        QUEUED("queued"),
+        RECEIVED("received"),
+        RECEIVING("receiving"),
+        RINGING("ringing"),
+        SCHEDULED("scheduled"),
+        SENDING("sending"),
+        SENT("sent"),
+        UNDELIVERED("undelivered"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private ResourceStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ResourceStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ResourceStatus.values());
+        }
     }
 }

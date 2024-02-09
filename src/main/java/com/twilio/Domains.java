@@ -13,7 +13,6 @@ package com.twilio.rest;
 public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
-    AUTOPILOT("autopilot"),
     BULKEXPORTS("bulkexports"),
     CHAT("chat"),
     CONTENT("content"),
@@ -32,7 +31,6 @@ public enum Domains {
     MONITOR("monitor"),
     NOTIFY("notify"),
     NUMBERS("numbers"),
-    OAUTH("oauth"),
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),

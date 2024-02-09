@@ -179,32 +179,6 @@ public class Call extends Resource {
         }
     }
 
-    public enum Status {
-        QUEUED("queued"),
-        RINGING("ringing"),
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        BUSY("busy"),
-        FAILED("failed"),
-        NO_ANSWER("no-answer"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum UpdateStatus {
         CANCELED("canceled"),
         COMPLETED("completed");
@@ -490,5 +464,31 @@ public class Call extends Resource {
             uri,
             subresourceUris
         );
+    }
+
+    public enum Status {
+        QUEUED("queued"),
+        RINGING("ringing"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        BUSY("busy"),
+        FAILED("failed"),
+        NO_ANSWER("no-answer"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

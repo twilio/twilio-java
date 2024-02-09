@@ -92,48 +92,6 @@ public class VerificationAttempt extends Resource {
         }
     }
 
-    public enum Channels {
-        SMS("sms"),
-        CALL("call"),
-        EMAIL("email"),
-        WHATSAPP("whatsapp");
-
-        private final String value;
-
-        private Channels(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Channels forValue(final String value) {
-            return Promoter.enumFromString(value, Channels.values());
-        }
-    }
-
-    public enum ConversionStatus {
-        CONVERTED("converted"),
-        UNCONVERTED("unconverted");
-
-        private final String value;
-
-        private ConversionStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConversionStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ConversionStatus.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -261,5 +219,47 @@ public class VerificationAttempt extends Resource {
             channelData,
             url
         );
+    }
+
+    public enum ConversionStatus {
+        CONVERTED("converted"),
+        UNCONVERTED("unconverted");
+
+        private final String value;
+
+        private ConversionStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversionStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ConversionStatus.values());
+        }
+    }
+
+    public enum Channels {
+        SMS("sms"),
+        CALL("call"),
+        EMAIL("email"),
+        WHATSAPP("whatsapp");
+
+        private final String value;
+
+        private Channels(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Channels forValue(final String value) {
+            return Promoter.enumFromString(value, Channels.values());
+        }
     }
 }

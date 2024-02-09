@@ -95,6 +95,174 @@ public class Today extends Resource {
         }
     }
 
+    private final String accountSid;
+    private final String apiVersion;
+    private final String asOf;
+    private final Today.Category category;
+    private final String count;
+    private final String countUnit;
+    private final String description;
+    private final LocalDate endDate;
+    private final BigDecimal price;
+    private final Currency priceUnit;
+    private final LocalDate startDate;
+    private final Map<String, String> subresourceUris;
+    private final String uri;
+    private final String usage;
+    private final String usageUnit;
+
+    @JsonCreator
+    private Today(
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("api_version") final String apiVersion,
+        @JsonProperty("as_of") final String asOf,
+        @JsonProperty("category") final Today.Category category,
+        @JsonProperty("count") final String count,
+        @JsonProperty("count_unit") final String countUnit,
+        @JsonProperty("description") final String description,
+        @JsonProperty("end_date") final String endDate,
+        @JsonProperty("price") final BigDecimal price,
+        @JsonProperty("price_unit") @JsonDeserialize(
+            using = com.twilio.converter.CurrencyDeserializer.class
+        ) final Currency priceUnit,
+        @JsonProperty("start_date") final String startDate,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty("usage") final String usage,
+        @JsonProperty("usage_unit") final String usageUnit
+    ) {
+        this.accountSid = accountSid;
+        this.apiVersion = apiVersion;
+        this.asOf = asOf;
+        this.category = category;
+        this.count = count;
+        this.countUnit = countUnit;
+        this.description = description;
+        this.endDate = DateConverter.localDateFromString(endDate);
+        this.price = price;
+        this.priceUnit = priceUnit;
+        this.startDate = DateConverter.localDateFromString(startDate);
+        this.subresourceUris = subresourceUris;
+        this.uri = uri;
+        this.usage = usage;
+        this.usageUnit = usageUnit;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getApiVersion() {
+        return this.apiVersion;
+    }
+
+    public final String getAsOf() {
+        return this.asOf;
+    }
+
+    public final Today.Category getCategory() {
+        return this.category;
+    }
+
+    public final String getCount() {
+        return this.count;
+    }
+
+    public final String getCountUnit() {
+        return this.countUnit;
+    }
+
+    public final String getDescription() {
+        return this.description;
+    }
+
+    public final LocalDate getEndDate() {
+        return this.endDate;
+    }
+
+    public final BigDecimal getPrice() {
+        return this.price;
+    }
+
+    public final Currency getPriceUnit() {
+        return this.priceUnit;
+    }
+
+    public final LocalDate getStartDate() {
+        return this.startDate;
+    }
+
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
+
+    public final String getUsage() {
+        return this.usage;
+    }
+
+    public final String getUsageUnit() {
+        return this.usageUnit;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Today other = (Today) o;
+
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(apiVersion, other.apiVersion) &&
+            Objects.equals(asOf, other.asOf) &&
+            Objects.equals(category, other.category) &&
+            Objects.equals(count, other.count) &&
+            Objects.equals(countUnit, other.countUnit) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(endDate, other.endDate) &&
+            Objects.equals(price, other.price) &&
+            Objects.equals(priceUnit, other.priceUnit) &&
+            Objects.equals(startDate, other.startDate) &&
+            Objects.equals(subresourceUris, other.subresourceUris) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(usage, other.usage) &&
+            Objects.equals(usageUnit, other.usageUnit)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            accountSid,
+            apiVersion,
+            asOf,
+            category,
+            count,
+            countUnit,
+            description,
+            endDate,
+            price,
+            priceUnit,
+            startDate,
+            subresourceUris,
+            uri,
+            usage,
+            usageUnit
+        );
+    }
+
     public enum Category {
         A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
@@ -458,173 +626,5 @@ public class Today extends Resource {
         public static Category forValue(final String value) {
             return Promoter.enumFromString(value, Category.values());
         }
-    }
-
-    private final String accountSid;
-    private final String apiVersion;
-    private final String asOf;
-    private final Today.Category category;
-    private final String count;
-    private final String countUnit;
-    private final String description;
-    private final LocalDate endDate;
-    private final BigDecimal price;
-    private final Currency priceUnit;
-    private final LocalDate startDate;
-    private final Map<String, String> subresourceUris;
-    private final String uri;
-    private final String usage;
-    private final String usageUnit;
-
-    @JsonCreator
-    private Today(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("as_of") final String asOf,
-        @JsonProperty("category") final Today.Category category,
-        @JsonProperty("count") final String count,
-        @JsonProperty("count_unit") final String countUnit,
-        @JsonProperty("description") final String description,
-        @JsonProperty("end_date") final String endDate,
-        @JsonProperty("price") final BigDecimal price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("start_date") final String startDate,
-        @JsonProperty("subresource_uris") final Map<
-            String,
-            String
-        > subresourceUris,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("usage") final String usage,
-        @JsonProperty("usage_unit") final String usageUnit
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.asOf = asOf;
-        this.category = category;
-        this.count = count;
-        this.countUnit = countUnit;
-        this.description = description;
-        this.endDate = DateConverter.localDateFromString(endDate);
-        this.price = price;
-        this.priceUnit = priceUnit;
-        this.startDate = DateConverter.localDateFromString(startDate);
-        this.subresourceUris = subresourceUris;
-        this.uri = uri;
-        this.usage = usage;
-        this.usageUnit = usageUnit;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getApiVersion() {
-        return this.apiVersion;
-    }
-
-    public final String getAsOf() {
-        return this.asOf;
-    }
-
-    public final Today.Category getCategory() {
-        return this.category;
-    }
-
-    public final String getCount() {
-        return this.count;
-    }
-
-    public final String getCountUnit() {
-        return this.countUnit;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final LocalDate getEndDate() {
-        return this.endDate;
-    }
-
-    public final BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final LocalDate getStartDate() {
-        return this.startDate;
-    }
-
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final String getUsage() {
-        return this.usage;
-    }
-
-    public final String getUsageUnit() {
-        return this.usageUnit;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Today other = (Today) o;
-
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(asOf, other.asOf) &&
-            Objects.equals(category, other.category) &&
-            Objects.equals(count, other.count) &&
-            Objects.equals(countUnit, other.countUnit) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(endDate, other.endDate) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(startDate, other.startDate) &&
-            Objects.equals(subresourceUris, other.subresourceUris) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(usage, other.usage) &&
-            Objects.equals(usageUnit, other.usageUnit)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            asOf,
-            category,
-            count,
-            countUnit,
-            description,
-            endDate,
-            price,
-            priceUnit,
-            startDate,
-            subresourceUris,
-            uri,
-            usage,
-            usageUnit
-        );
     }
 }

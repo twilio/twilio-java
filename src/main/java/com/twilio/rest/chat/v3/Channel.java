@@ -89,26 +89,6 @@ public class Channel extends Resource {
         }
     }
 
-    public enum ChannelType {
-        PUBLIC("public"),
-        PRIVATE("private");
-
-        private final String value;
-
-        private ChannelType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelType forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelType.values());
-        }
-    }
-
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
@@ -281,5 +261,25 @@ public class Channel extends Resource {
             messagingServiceSid,
             url
         );
+    }
+
+    public enum ChannelType {
+        PUBLIC("public"),
+        PRIVATE("private");
+
+        private final String value;
+
+        private ChannelType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelType forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelType.values());
+        }
     }
 }

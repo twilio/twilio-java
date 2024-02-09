@@ -106,47 +106,6 @@ public class Trunk extends Resource {
         }
     }
 
-    public enum TransferCallerId {
-        FROM_TRANSFEREE("from-transferee"),
-        FROM_TRANSFEROR("from-transferor");
-
-        private final String value;
-
-        private TransferCallerId(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TransferCallerId forValue(final String value) {
-            return Promoter.enumFromString(value, TransferCallerId.values());
-        }
-    }
-
-    public enum TransferSetting {
-        DISABLE_ALL("disable-all"),
-        ENABLE_ALL("enable-all"),
-        SIP_ONLY("sip-only");
-
-        private final String value;
-
-        private TransferSetting(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TransferSetting forValue(final String value) {
-            return Promoter.enumFromString(value, TransferSetting.values());
-        }
-    }
-
     private final String accountSid;
     private final String domainName;
     private final HttpMethod disasterRecoveryMethod;
@@ -333,5 +292,46 @@ public class Trunk extends Resource {
             url,
             links
         );
+    }
+
+    public enum TransferSetting {
+        DISABLE_ALL("disable-all"),
+        ENABLE_ALL("enable-all"),
+        SIP_ONLY("sip-only");
+
+        private final String value;
+
+        private TransferSetting(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TransferSetting forValue(final String value) {
+            return Promoter.enumFromString(value, TransferSetting.values());
+        }
+    }
+
+    public enum TransferCallerId {
+        FROM_TRANSFEREE("from-transferee"),
+        FROM_TRANSFEROR("from-transferor");
+
+        private final String value;
+
+        private TransferCallerId(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TransferCallerId forValue(final String value) {
+            return Promoter.enumFromString(value, TransferCallerId.values());
+        }
     }
 }

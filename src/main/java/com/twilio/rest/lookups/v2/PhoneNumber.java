@@ -87,30 +87,6 @@ public class PhoneNumber extends Resource {
         }
     }
 
-    public enum ValidationError {
-        TOO_SHORT("TOO_SHORT"),
-        TOO_LONG("TOO_LONG"),
-        INVALID_BUT_POSSIBLE("INVALID_BUT_POSSIBLE"),
-        INVALID_COUNTRY_CODE("INVALID_COUNTRY_CODE"),
-        INVALID_LENGTH("INVALID_LENGTH"),
-        NOT_A_NUMBER("NOT_A_NUMBER");
-
-        private final String value;
-
-        private ValidationError(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ValidationError forValue(final String value) {
-            return Promoter.enumFromString(value, ValidationError.values());
-        }
-    }
-
     private final String callingCountryCode;
     private final String countryCode;
     private final com.twilio.type.PhoneNumber phoneNumber;
@@ -303,5 +279,29 @@ public class PhoneNumber extends Resource {
             phoneNumberQualityScore,
             url
         );
+    }
+
+    public enum ValidationError {
+        TOO_SHORT("TOO_SHORT"),
+        TOO_LONG("TOO_LONG"),
+        INVALID_BUT_POSSIBLE("INVALID_BUT_POSSIBLE"),
+        INVALID_COUNTRY_CODE("INVALID_COUNTRY_CODE"),
+        INVALID_LENGTH("INVALID_LENGTH"),
+        NOT_A_NUMBER("NOT_A_NUMBER");
+
+        private final String value;
+
+        private ValidationError(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ValidationError forValue(final String value) {
+            return Promoter.enumFromString(value, ValidationError.values());
+        }
     }
 }

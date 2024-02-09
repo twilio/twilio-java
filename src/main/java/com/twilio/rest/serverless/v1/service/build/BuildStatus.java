@@ -87,27 +87,6 @@ public class BuildStatus extends Resource {
         }
     }
 
-    public enum Status {
-        BUILDING("building"),
-        COMPLETED("completed"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -173,5 +152,26 @@ public class BuildStatus extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, status, url);
+    }
+
+    public enum Status {
+        BUILDING("building"),
+        COMPLETED("completed"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

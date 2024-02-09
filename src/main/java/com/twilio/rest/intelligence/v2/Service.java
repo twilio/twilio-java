@@ -103,27 +103,6 @@ public class Service extends Resource {
         }
     }
 
-    public enum HttpMethod {
-        GET("GET"),
-        POST("POST"),
-        NULL("NULL");
-
-        private final String value;
-
-        private HttpMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static HttpMethod forValue(final String value) {
-            return Promoter.enumFromString(value, HttpMethod.values());
-        }
-    }
-
     private final String accountSid;
     private final Boolean autoRedaction;
     private final Boolean mediaRedaction;
@@ -287,5 +266,26 @@ public class Service extends Resource {
             webhookHttpMethod,
             version
         );
+    }
+
+    public enum HttpMethod {
+        GET("GET"),
+        POST("POST"),
+        NULL("NULL");
+
+        private final String value;
+
+        private HttpMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static HttpMethod forValue(final String value) {
+            return Promoter.enumFromString(value, HttpMethod.values());
+        }
     }
 }

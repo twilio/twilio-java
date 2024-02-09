@@ -42,6 +42,10 @@ public class BulkHostedNumberOrder extends Resource {
 
     private static final long serialVersionUID = 251635704058877L;
 
+    public static BulkHostedNumberOrderCreator creator() {
+        return new BulkHostedNumberOrderCreator();
+    }
+
     public static BulkHostedNumberOrderFetcher fetcher(
         final String pathBulkHostingSid
     ) {
@@ -88,27 +92,6 @@ public class BulkHostedNumberOrder extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    public enum RequestStatus {
-        QUEUED("QUEUED"),
-        IN_PROGRESS("IN_PROGRESS"),
-        PROCESSED("PROCESSED");
-
-        private final String value;
-
-        private RequestStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RequestStatus forValue(final String value) {
-            return Promoter.enumFromString(value, RequestStatus.values());
         }
     }
 
@@ -222,5 +205,26 @@ public class BulkHostedNumberOrder extends Resource {
             totalCount,
             results
         );
+    }
+
+    public enum RequestStatus {
+        QUEUED("QUEUED"),
+        IN_PROGRESS("IN_PROGRESS"),
+        PROCESSED("PROCESSED");
+
+        private final String value;
+
+        private RequestStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RequestStatus forValue(final String value) {
+            return Promoter.enumFromString(value, RequestStatus.values());
+        }
     }
 }

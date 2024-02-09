@@ -113,29 +113,6 @@ public class AuthorizationDocument extends Resource {
         }
     }
 
-    public enum Status {
-        OPENED("opened"),
-        SIGNING("signing"),
-        SIGNED("signed"),
-        CANCELED("canceled"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String addressSid;
     private final AuthorizationDocument.Status status;
@@ -243,5 +220,28 @@ public class AuthorizationDocument extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        OPENED("opened"),
+        SIGNING("signing"),
+        SIGNED("signed"),
+        CANCELED("canceled"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -108,51 +108,6 @@ public class FlexFlow extends Resource {
         }
     }
 
-    public enum ChannelType {
-        WEB("web"),
-        SMS("sms"),
-        FACEBOOK("facebook"),
-        WHATSAPP("whatsapp"),
-        LINE("line"),
-        CUSTOM("custom");
-
-        private final String value;
-
-        private ChannelType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelType forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelType.values());
-        }
-    }
-
-    public enum IntegrationType {
-        STUDIO("studio"),
-        EXTERNAL("external"),
-        TASK("task");
-
-        private final String value;
-
-        private IntegrationType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static IntegrationType forValue(final String value) {
-            return Promoter.enumFromString(value, IntegrationType.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -307,5 +262,50 @@ public class FlexFlow extends Resource {
             janitorEnabled,
             url
         );
+    }
+
+    public enum IntegrationType {
+        STUDIO("studio"),
+        EXTERNAL("external"),
+        TASK("task");
+
+        private final String value;
+
+        private IntegrationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static IntegrationType forValue(final String value) {
+            return Promoter.enumFromString(value, IntegrationType.values());
+        }
+    }
+
+    public enum ChannelType {
+        WEB("web"),
+        SMS("sms"),
+        FACEBOOK("facebook"),
+        WHATSAPP("whatsapp"),
+        LINE("line"),
+        CUSTOM("custom");
+
+        private final String value;
+
+        private ChannelType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelType forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelType.values());
+        }
     }
 }

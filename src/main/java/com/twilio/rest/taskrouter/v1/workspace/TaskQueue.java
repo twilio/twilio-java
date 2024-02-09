@@ -116,26 +116,6 @@ public class TaskQueue extends Resource {
         }
     }
 
-    public enum TaskOrder {
-        FIFO("FIFO"),
-        LIFO("LIFO");
-
-        private final String value;
-
-        private TaskOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TaskOrder forValue(final String value) {
-            return Promoter.enumFromString(value, TaskOrder.values());
-        }
-    }
-
     private final String accountSid;
     private final String assignmentActivitySid;
     private final String assignmentActivityName;
@@ -317,5 +297,25 @@ public class TaskQueue extends Resource {
             workspaceSid,
             links
         );
+    }
+
+    public enum TaskOrder {
+        FIFO("FIFO"),
+        LIFO("LIFO");
+
+        private final String value;
+
+        private TaskOrder(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TaskOrder forValue(final String value) {
+            return Promoter.enumFromString(value, TaskOrder.values());
+        }
     }
 }

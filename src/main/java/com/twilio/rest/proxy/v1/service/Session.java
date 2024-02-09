@@ -113,50 +113,6 @@ public class Session extends Resource {
         }
     }
 
-    public enum Mode {
-        MESSAGE_ONLY("message-only"),
-        VOICE_ONLY("voice-only"),
-        VOICE_AND_MESSAGE("voice-and-message");
-
-        private final String value;
-
-        private Mode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Mode forValue(final String value) {
-            return Promoter.enumFromString(value, Mode.values());
-        }
-    }
-
-    public enum Status {
-        OPEN("open"),
-        IN_PROGRESS("in-progress"),
-        CLOSED("closed"),
-        FAILED("failed"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
@@ -328,5 +284,49 @@ public class Session extends Resource {
             url,
             links
         );
+    }
+
+    public enum Mode {
+        MESSAGE_ONLY("message-only"),
+        VOICE_ONLY("voice-only"),
+        VOICE_AND_MESSAGE("voice-and-message");
+
+        private final String value;
+
+        private Mode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Mode forValue(final String value) {
+            return Promoter.enumFromString(value, Mode.values());
+        }
+    }
+
+    public enum Status {
+        OPEN("open"),
+        IN_PROGRESS("in-progress"),
+        CLOSED("closed"),
+        FAILED("failed"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

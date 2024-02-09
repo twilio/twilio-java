@@ -44,6 +44,9 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
     private List<String> optInKeywords;
     private List<String> optOutKeywords;
     private List<String> helpKeywords;
+    private Boolean subscriberOptIn;
+    private Boolean ageGated;
+    private Boolean directLending;
 
     public UsAppToPersonCreator(
         final String pathMessagingServiceSid,
@@ -162,6 +165,23 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return setHelpKeywords(Promoter.listOfOne(helpKeywords));
     }
 
+    public UsAppToPersonCreator setSubscriberOptIn(
+        final Boolean subscriberOptIn
+    ) {
+        this.subscriberOptIn = subscriberOptIn;
+        return this;
+    }
+
+    public UsAppToPersonCreator setAgeGated(final Boolean ageGated) {
+        this.ageGated = ageGated;
+        return this;
+    }
+
+    public UsAppToPersonCreator setDirectLending(final Boolean directLending) {
+        this.directLending = directLending;
+        return this;
+    }
+
     @Override
     public UsAppToPerson create(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
@@ -225,7 +245,10 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -289,6 +312,15 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
             for (String prop : helpKeywords) {
                 request.addPostParam("HelpKeywords", prop);
             }
+        }
+        if (subscriberOptIn != null) {
+            request.addPostParam("SubscriberOptIn", subscriberOptIn.toString());
+        }
+        if (ageGated != null) {
+            request.addPostParam("AgeGated", ageGated.toString());
+        }
+        if (directLending != null) {
+            request.addPostParam("DirectLending", directLending.toString());
         }
     }
 }

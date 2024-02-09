@@ -104,51 +104,6 @@ public class Service extends Resource {
         }
     }
 
-    public enum GeoMatchLevel {
-        AREA_CODE("area-code"),
-        OVERLAY("overlay"),
-        RADIUS("radius"),
-        COUNTRY("country");
-
-        private final String value;
-
-        private GeoMatchLevel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static GeoMatchLevel forValue(final String value) {
-            return Promoter.enumFromString(value, GeoMatchLevel.values());
-        }
-    }
-
-    public enum NumberSelectionBehavior {
-        AVOID_STICKY("avoid-sticky"),
-        PREFER_STICKY("prefer-sticky");
-
-        private final String value;
-
-        private NumberSelectionBehavior(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NumberSelectionBehavior forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                NumberSelectionBehavior.values()
-            );
-        }
-    }
-
     private final String sid;
     private final String uniqueName;
     private final String accountSid;
@@ -313,5 +268,50 @@ public class Service extends Resource {
             url,
             links
         );
+    }
+
+    public enum GeoMatchLevel {
+        AREA_CODE("area-code"),
+        OVERLAY("overlay"),
+        RADIUS("radius"),
+        COUNTRY("country");
+
+        private final String value;
+
+        private GeoMatchLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static GeoMatchLevel forValue(final String value) {
+            return Promoter.enumFromString(value, GeoMatchLevel.values());
+        }
+    }
+
+    public enum NumberSelectionBehavior {
+        AVOID_STICKY("avoid-sticky"),
+        PREFER_STICKY("prefer-sticky");
+
+        private final String value;
+
+        private NumberSelectionBehavior(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NumberSelectionBehavior forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                NumberSelectionBehavior.values()
+            );
+        }
     }
 }

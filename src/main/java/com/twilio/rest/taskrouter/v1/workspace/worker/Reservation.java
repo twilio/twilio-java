@@ -154,32 +154,6 @@ public class Reservation extends Resource {
         }
     }
 
-    public enum Status {
-        PENDING("pending"),
-        ACCEPTED("accepted"),
-        REJECTED("rejected"),
-        TIMEOUT("timeout"),
-        CANCELED("canceled"),
-        RESCINDED("rescinded"),
-        WRAPPING("wrapping"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -307,5 +281,31 @@ public class Reservation extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        PENDING("pending"),
+        ACCEPTED("accepted"),
+        REJECTED("rejected"),
+        TIMEOUT("timeout"),
+        CANCELED("canceled"),
+        RESCINDED("rescinded"),
+        WRAPPING("wrapping"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

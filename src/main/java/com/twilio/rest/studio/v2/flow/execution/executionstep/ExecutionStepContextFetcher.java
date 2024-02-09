@@ -70,7 +70,10 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

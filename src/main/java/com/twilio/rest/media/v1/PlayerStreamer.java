@@ -104,28 +104,6 @@ public class PlayerStreamer extends Resource {
         }
     }
 
-    public enum EndedReason {
-        ENDED_VIA_API("ended-via-api"),
-        MAX_DURATION_EXCEEDED("max-duration-exceeded"),
-        STREAM_DISCONNECTED_BY_SOURCE("stream-disconnected-by-source"),
-        UNEXPECTED_FAILURE("unexpected-failure");
-
-        private final String value;
-
-        private EndedReason(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EndedReason forValue(final String value) {
-            return Promoter.enumFromString(value, EndedReason.values());
-        }
-    }
-
     public enum Order {
         ASC("asc"),
         DESC("desc");
@@ -143,28 +121,6 @@ public class PlayerStreamer extends Resource {
         @JsonCreator
         public static Order forValue(final String value) {
             return Promoter.enumFromString(value, Order.values());
-        }
-    }
-
-    public enum Status {
-        CREATED("created"),
-        STARTED("started"),
-        ENDED("ended"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
         }
     }
 
@@ -325,5 +281,49 @@ public class PlayerStreamer extends Resource {
             endedReason,
             maxDuration
         );
+    }
+
+    public enum EndedReason {
+        ENDED_VIA_API("ended-via-api"),
+        MAX_DURATION_EXCEEDED("max-duration-exceeded"),
+        STREAM_DISCONNECTED_BY_SOURCE("stream-disconnected-by-source"),
+        UNEXPECTED_FAILURE("unexpected-failure");
+
+        private final String value;
+
+        private EndedReason(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EndedReason forValue(final String value) {
+            return Promoter.enumFromString(value, EndedReason.values());
+        }
+    }
+
+    public enum Status {
+        CREATED("created"),
+        STARTED("started"),
+        ENDED("ended"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

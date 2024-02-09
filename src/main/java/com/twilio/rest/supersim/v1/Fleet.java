@@ -99,25 +99,6 @@ public class Fleet extends Resource {
         }
     }
 
-    public enum DataMetering {
-        PAYG("payg");
-
-        private final String value;
-
-        private DataMetering(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static DataMetering forValue(final String value) {
-            return Promoter.enumFromString(value, DataMetering.values());
-        }
-    }
-
     private final String accountSid;
     private final String sid;
     private final String uniqueName;
@@ -284,5 +265,24 @@ public class Fleet extends Resource {
             ipCommandsUrl,
             ipCommandsMethod
         );
+    }
+
+    public enum DataMetering {
+        PAYG("payg");
+
+        private final String value;
+
+        private DataMetering(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static DataMetering forValue(final String value) {
+            return Promoter.enumFromString(value, DataMetering.values());
+        }
     }
 }

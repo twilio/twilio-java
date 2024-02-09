@@ -113,57 +113,6 @@ public class Conference extends Resource {
         }
     }
 
-    public enum ReasonConferenceEnded {
-        CONFERENCE_ENDED_VIA_API("conference-ended-via-api"),
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(
-            "participant-with-end-conference-on-exit-left"
-        ),
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED(
-            "participant-with-end-conference-on-exit-kicked"
-        ),
-        LAST_PARTICIPANT_KICKED("last-participant-kicked"),
-        LAST_PARTICIPANT_LEFT("last-participant-left");
-
-        private final String value;
-
-        private ReasonConferenceEnded(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ReasonConferenceEnded forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                ReasonConferenceEnded.values()
-            );
-        }
-    }
-
-    public enum Status {
-        INIT("init"),
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum UpdateStatus {
         COMPLETED("completed");
 
@@ -330,5 +279,56 @@ public class Conference extends Resource {
             reasonConferenceEnded,
             callSidEndingConference
         );
+    }
+
+    public enum ReasonConferenceEnded {
+        CONFERENCE_ENDED_VIA_API("conference-ended-via-api"),
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(
+            "participant-with-end-conference-on-exit-left"
+        ),
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED(
+            "participant-with-end-conference-on-exit-kicked"
+        ),
+        LAST_PARTICIPANT_KICKED("last-participant-kicked"),
+        LAST_PARTICIPANT_LEFT("last-participant-left");
+
+        private final String value;
+
+        private ReasonConferenceEnded(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ReasonConferenceEnded forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ReasonConferenceEnded.values()
+            );
+        }
+    }
+
+    public enum Status {
+        INIT("init"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

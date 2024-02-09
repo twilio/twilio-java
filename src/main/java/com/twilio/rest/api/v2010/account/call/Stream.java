@@ -114,26 +114,6 @@ public class Stream extends Resource {
         }
     }
 
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        STOPPED("stopped");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum Track {
         INBOUND_TRACK("inbound_track"),
         OUTBOUND_TRACK("outbound_track"),
@@ -263,5 +243,25 @@ public class Stream extends Resource {
             dateUpdated,
             uri
         );
+    }
+
+    public enum Status {
+        IN_PROGRESS("in-progress"),
+        STOPPED("stopped");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

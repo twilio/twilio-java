@@ -94,30 +94,6 @@ public class EsimProfile extends Resource {
         }
     }
 
-    public enum Status {
-        NEW("new"),
-        RESERVING("reserving"),
-        AVAILABLE("available"),
-        DOWNLOADED("downloaded"),
-        INSTALLED("installed"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String iccid;
@@ -270,5 +246,29 @@ public class EsimProfile extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum Status {
+        NEW("new"),
+        RESERVING("reserving"),
+        AVAILABLE("available"),
+        DOWNLOADED("downloaded"),
+        INSTALLED("installed"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

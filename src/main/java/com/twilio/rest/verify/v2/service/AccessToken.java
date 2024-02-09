@@ -97,25 +97,6 @@ public class AccessToken extends Resource {
         }
     }
 
-    public enum FactorTypes {
-        PUSH("push");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -232,5 +213,24 @@ public class AccessToken extends Resource {
             ttl,
             dateCreated
         );
+    }
+
+    public enum FactorTypes {
+        PUSH("push");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
+        }
     }
 }

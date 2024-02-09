@@ -115,69 +115,6 @@ public class Challenge extends Resource {
         }
     }
 
-    public enum ChallengeReasons {
-        NONE("none"),
-        NOT_NEEDED("not_needed"),
-        NOT_REQUESTED("not_requested");
-
-        private final String value;
-
-        private ChallengeReasons(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChallengeReasons forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeReasons.values());
-        }
-    }
-
-    public enum ChallengeStatuses {
-        PENDING("pending"),
-        EXPIRED("expired"),
-        APPROVED("approved"),
-        DENIED("denied");
-
-        private final String value;
-
-        private ChallengeStatuses(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChallengeStatuses forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeStatuses.values());
-        }
-    }
-
-    public enum FactorTypes {
-        PUSH("push"),
-        TOTP("totp");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
-        }
-    }
-
     public enum ListOrders {
         ASC("asc"),
         DESC("desc");
@@ -390,5 +327,68 @@ public class Challenge extends Resource {
             url,
             links
         );
+    }
+
+    public enum FactorTypes {
+        PUSH("push"),
+        TOTP("totp");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
+    public enum ChallengeReasons {
+        NONE("none"),
+        NOT_NEEDED("not_needed"),
+        NOT_REQUESTED("not_requested");
+
+        private final String value;
+
+        private ChallengeReasons(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChallengeReasons forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeReasons.values());
+        }
+    }
+
+    public enum ChallengeStatuses {
+        PENDING("pending"),
+        EXPIRED("expired"),
+        APPROVED("approved"),
+        DENIED("denied");
+
+        private final String value;
+
+        private ChallengeStatuses(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChallengeStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeStatuses.values());
+        }
     }
 }

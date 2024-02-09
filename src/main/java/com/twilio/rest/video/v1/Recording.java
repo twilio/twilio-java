@@ -97,91 +97,6 @@ public class Recording extends Resource {
         }
     }
 
-    public enum Codec {
-        VP8("VP8"),
-        H264("H264"),
-        OPUS("OPUS"),
-        PCMU("PCMU");
-
-        private final String value;
-
-        private Codec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Codec forValue(final String value) {
-            return Promoter.enumFromString(value, Codec.values());
-        }
-    }
-
-    public enum Format {
-        MKA("mka"),
-        MKV("mkv");
-
-        private final String value;
-
-        private Format(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Format forValue(final String value) {
-            return Promoter.enumFromString(value, Format.values());
-        }
-    }
-
-    public enum Status {
-        PROCESSING("processing"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Type {
-        AUDIO("audio"),
-        VIDEO("video"),
-        DATA("data");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     private final String accountSid;
     private final Recording.Status status;
     private final ZonedDateTime dateCreated;
@@ -379,5 +294,90 @@ public class Recording extends Resource {
             statusCallbackMethod,
             links
         );
+    }
+
+    public enum Format {
+        MKA("mka"),
+        MKV("mkv");
+
+        private final String value;
+
+        private Format(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Format forValue(final String value) {
+            return Promoter.enumFromString(value, Format.values());
+        }
+    }
+
+    public enum Status {
+        PROCESSING("processing"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Codec {
+        VP8("VP8"),
+        H264("H264"),
+        OPUS("OPUS"),
+        PCMU("PCMU");
+
+        private final String value;
+
+        private Codec(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Codec forValue(final String value) {
+            return Promoter.enumFromString(value, Codec.values());
+        }
+    }
+
+    public enum Type {
+        AUDIO("audio"),
+        VIDEO("video"),
+        DATA("data");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
     }
 }

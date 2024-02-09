@@ -122,66 +122,6 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Methods {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Methods(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Methods forValue(final String value) {
-            return Promoter.enumFromString(value, Methods.values());
-        }
-    }
-
-    public enum Status {
-        ENABLED("enabled"),
-        DISABLED("disabled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Version {
-        V1("v1"),
-        V2("v2");
-
-        private final String value;
-
-        private Version(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Version forValue(final String value) {
-            return Promoter.enumFromString(value, Version.values());
-        }
-    }
-
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
@@ -316,5 +256,65 @@ public class Webhook extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum Status {
+        ENABLED("enabled"),
+        DISABLED("disabled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Methods {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Methods(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Methods forValue(final String value) {
+            return Promoter.enumFromString(value, Methods.values());
+        }
+    }
+
+    public enum Version {
+        V1("v1"),
+        V2("v2");
+
+        private final String value;
+
+        private Version(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Version forValue(final String value) {
+            return Promoter.enumFromString(value, Version.values());
+        }
     }
 }

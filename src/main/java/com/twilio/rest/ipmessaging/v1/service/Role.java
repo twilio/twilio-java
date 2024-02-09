@@ -118,26 +118,6 @@ public class Role extends Resource {
         }
     }
 
-    public enum RoleType {
-        CHANNEL("channel"),
-        DEPLOYMENT("deployment");
-
-        private final String value;
-
-        private RoleType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoleType forValue(final String value) {
-            return Promoter.enumFromString(value, RoleType.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -245,5 +225,25 @@ public class Role extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum RoleType {
+        CHANNEL("channel"),
+        DEPLOYMENT("deployment");
+
+        private final String value;
+
+        private RoleType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RoleType forValue(final String value) {
+            return Promoter.enumFromString(value, RoleType.values());
+        }
     }
 }

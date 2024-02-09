@@ -104,26 +104,6 @@ public class Workspace extends Resource {
         }
     }
 
-    public enum QueueOrder {
-        FIFO("FIFO"),
-        LIFO("LIFO");
-
-        private final String value;
-
-        private QueueOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueueOrder forValue(final String value) {
-            return Promoter.enumFromString(value, QueueOrder.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -287,5 +267,25 @@ public class Workspace extends Resource {
             url,
             links
         );
+    }
+
+    public enum QueueOrder {
+        FIFO("FIFO"),
+        LIFO("LIFO");
+
+        private final String value;
+
+        private QueueOrder(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static QueueOrder forValue(final String value) {
+            return Promoter.enumFromString(value, QueueOrder.values());
+        }
     }
 }

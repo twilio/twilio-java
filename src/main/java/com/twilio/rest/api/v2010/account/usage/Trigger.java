@@ -146,6 +146,180 @@ public class Trigger extends Resource {
         }
     }
 
+    private final String accountSid;
+    private final String apiVersion;
+    private final HttpMethod callbackMethod;
+    private final URI callbackUrl;
+    private final String currentValue;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateFired;
+    private final ZonedDateTime dateUpdated;
+    private final String friendlyName;
+    private final Trigger.Recurring recurring;
+    private final String sid;
+    private final Trigger.TriggerField triggerBy;
+    private final String triggerValue;
+    private final String uri;
+    private final Trigger.UsageCategory usageCategory;
+    private final String usageRecordUri;
+
+    @JsonCreator
+    private Trigger(
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("api_version") final String apiVersion,
+        @JsonProperty("callback_method") final HttpMethod callbackMethod,
+        @JsonProperty("callback_url") final URI callbackUrl,
+        @JsonProperty("current_value") final String currentValue,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_fired") final String dateFired,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("recurring") final Trigger.Recurring recurring,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("trigger_by") final Trigger.TriggerField triggerBy,
+        @JsonProperty("trigger_value") final String triggerValue,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty(
+            "usage_category"
+        ) final Trigger.UsageCategory usageCategory,
+        @JsonProperty("usage_record_uri") final String usageRecordUri
+    ) {
+        this.accountSid = accountSid;
+        this.apiVersion = apiVersion;
+        this.callbackMethod = callbackMethod;
+        this.callbackUrl = callbackUrl;
+        this.currentValue = currentValue;
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateFired = DateConverter.rfc2822DateTimeFromString(dateFired);
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.friendlyName = friendlyName;
+        this.recurring = recurring;
+        this.sid = sid;
+        this.triggerBy = triggerBy;
+        this.triggerValue = triggerValue;
+        this.uri = uri;
+        this.usageCategory = usageCategory;
+        this.usageRecordUri = usageRecordUri;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getApiVersion() {
+        return this.apiVersion;
+    }
+
+    public final HttpMethod getCallbackMethod() {
+        return this.callbackMethod;
+    }
+
+    public final URI getCallbackUrl() {
+        return this.callbackUrl;
+    }
+
+    public final String getCurrentValue() {
+        return this.currentValue;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateFired() {
+        return this.dateFired;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final Trigger.Recurring getRecurring() {
+        return this.recurring;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final Trigger.TriggerField getTriggerBy() {
+        return this.triggerBy;
+    }
+
+    public final String getTriggerValue() {
+        return this.triggerValue;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
+
+    public final Trigger.UsageCategory getUsageCategory() {
+        return this.usageCategory;
+    }
+
+    public final String getUsageRecordUri() {
+        return this.usageRecordUri;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Trigger other = (Trigger) o;
+
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(apiVersion, other.apiVersion) &&
+            Objects.equals(callbackMethod, other.callbackMethod) &&
+            Objects.equals(callbackUrl, other.callbackUrl) &&
+            Objects.equals(currentValue, other.currentValue) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateFired, other.dateFired) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(recurring, other.recurring) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(triggerBy, other.triggerBy) &&
+            Objects.equals(triggerValue, other.triggerValue) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(usageCategory, other.usageCategory) &&
+            Objects.equals(usageRecordUri, other.usageRecordUri)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            accountSid,
+            apiVersion,
+            callbackMethod,
+            callbackUrl,
+            currentValue,
+            dateCreated,
+            dateFired,
+            dateUpdated,
+            friendlyName,
+            recurring,
+            sid,
+            triggerBy,
+            triggerValue,
+            uri,
+            usageCategory,
+            usageRecordUri
+        );
+    }
+
     public enum Recurring {
         DAILY("daily"),
         MONTHLY("monthly"),
@@ -552,179 +726,5 @@ public class Trigger extends Resource {
         public static UsageCategory forValue(final String value) {
             return Promoter.enumFromString(value, UsageCategory.values());
         }
-    }
-
-    private final String accountSid;
-    private final String apiVersion;
-    private final HttpMethod callbackMethod;
-    private final URI callbackUrl;
-    private final String currentValue;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateFired;
-    private final ZonedDateTime dateUpdated;
-    private final String friendlyName;
-    private final Trigger.Recurring recurring;
-    private final String sid;
-    private final Trigger.TriggerField triggerBy;
-    private final String triggerValue;
-    private final String uri;
-    private final Trigger.UsageCategory usageCategory;
-    private final String usageRecordUri;
-
-    @JsonCreator
-    private Trigger(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("callback_method") final HttpMethod callbackMethod,
-        @JsonProperty("callback_url") final URI callbackUrl,
-        @JsonProperty("current_value") final String currentValue,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_fired") final String dateFired,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("recurring") final Trigger.Recurring recurring,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("trigger_by") final Trigger.TriggerField triggerBy,
-        @JsonProperty("trigger_value") final String triggerValue,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty(
-            "usage_category"
-        ) final Trigger.UsageCategory usageCategory,
-        @JsonProperty("usage_record_uri") final String usageRecordUri
-    ) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
-        this.callbackMethod = callbackMethod;
-        this.callbackUrl = callbackUrl;
-        this.currentValue = currentValue;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateFired = DateConverter.rfc2822DateTimeFromString(dateFired);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.friendlyName = friendlyName;
-        this.recurring = recurring;
-        this.sid = sid;
-        this.triggerBy = triggerBy;
-        this.triggerValue = triggerValue;
-        this.uri = uri;
-        this.usageCategory = usageCategory;
-        this.usageRecordUri = usageRecordUri;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getApiVersion() {
-        return this.apiVersion;
-    }
-
-    public final HttpMethod getCallbackMethod() {
-        return this.callbackMethod;
-    }
-
-    public final URI getCallbackUrl() {
-        return this.callbackUrl;
-    }
-
-    public final String getCurrentValue() {
-        return this.currentValue;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateFired() {
-        return this.dateFired;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Trigger.Recurring getRecurring() {
-        return this.recurring;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Trigger.TriggerField getTriggerBy() {
-        return this.triggerBy;
-    }
-
-    public final String getTriggerValue() {
-        return this.triggerValue;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final Trigger.UsageCategory getUsageCategory() {
-        return this.usageCategory;
-    }
-
-    public final String getUsageRecordUri() {
-        return this.usageRecordUri;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Trigger other = (Trigger) o;
-
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(callbackMethod, other.callbackMethod) &&
-            Objects.equals(callbackUrl, other.callbackUrl) &&
-            Objects.equals(currentValue, other.currentValue) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateFired, other.dateFired) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(recurring, other.recurring) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(triggerBy, other.triggerBy) &&
-            Objects.equals(triggerValue, other.triggerValue) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(usageCategory, other.usageCategory) &&
-            Objects.equals(usageRecordUri, other.usageRecordUri)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            callbackMethod,
-            callbackUrl,
-            currentValue,
-            dateCreated,
-            dateFired,
-            dateUpdated,
-            friendlyName,
-            recurring,
-            sid,
-            triggerBy,
-            triggerValue,
-            uri,
-            usageCategory,
-            usageRecordUri
-        );
     }
 }

@@ -13,6 +13,8 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.util.Base64;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+
 public class ValidationExample {
 
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
@@ -47,7 +49,8 @@ public class ValidationExample {
         // Switch to validation client as the default client
         TwilioRestClient validationClient = new TwilioRestClient.Builder(signingKey.getSid(), signingKey.getSecret())
             .accountSid(ACCOUNT_SID)
-            .httpClient(new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate()))
+                // Validation client supports RS256 or PS256 algorithm. Default is RS256.
+                .httpClient(new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate(), SignatureAlgorithm.PS256))
             .build();
 
         // Make REST API requests

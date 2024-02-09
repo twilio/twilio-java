@@ -23,6 +23,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import static io.jsonwebtoken.SignatureAlgorithm.PS256;
+import static io.jsonwebtoken.SignatureAlgorithm.RS256;
 
 public class ValidationClient extends HttpClient {
 
@@ -50,6 +56,23 @@ public class ValidationClient extends HttpClient {
      * @param credentialSid Twilio Credential SID
      * @param signingKey    Twilio Signing key
      * @param privateKey    Private Key
+     * @param algorithm     Client validation algorithm
+     */
+    public ValidationClient(final String accountSid,
+                            final String credentialSid,
+                            final String signingKey,
+                            final PrivateKey privateKey,
+                            final SignatureAlgorithm algorithm) {
+        this(accountSid, credentialSid, signingKey, privateKey, DEFAULT_REQUEST_CONFIG, algorithm);
+    }
+
+    /**
+     * Create a new ValidationClient.
+     *
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKey    Twilio Signing key
+     * @param privateKey    Private Key
      * @param requestConfig HTTP Request Config
      */
     public ValidationClient(final String accountSid,
@@ -57,7 +80,26 @@ public class ValidationClient extends HttpClient {
                             final String signingKey,
                             final PrivateKey privateKey,
                             final RequestConfig requestConfig) {
-        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG);
+        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG, RS256);
+    }
+
+    /**
+     * Create a new ValidationClient.
+     *
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKey    Twilio Signing key
+     * @param privateKey    Private Key
+     * @param requestConfig HTTP Request Config
+     * @param algorithm     Client validation algorithm
+     */
+    public ValidationClient(final String accountSid,
+                            final String credentialSid,
+                            final String signingKey,
+                            final PrivateKey privateKey,
+                            final RequestConfig requestConfig,
+                            final SignatureAlgorithm algorithm) {
+        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG, algorithm);
     }
 
     /**
@@ -76,6 +118,29 @@ public class ValidationClient extends HttpClient {
                             final PrivateKey privateKey,
                             final RequestConfig requestConfig,
                             final SocketConfig socketConfig) {
+
+         this(accountSid, credentialSid, signingKey, privateKey, requestConfig, socketConfig, RS256);
+    }
+
+    /**
+     * Create a new ValidationClient.
+     *
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKey    Twilio Signing key
+     * @param privateKey    Private Key
+     * @param requestConfig HTTP Request Config
+     * @param socketConfig  HTTP Socket Config
+     * @param algorithm     Client validation algorithm
+     */
+    public ValidationClient(final String accountSid,
+                            final String credentialSid,
+                            final String signingKey,
+                            final PrivateKey privateKey,
+                            final RequestConfig requestConfig,
+                            final SocketConfig socketConfig,
+                            final SignatureAlgorithm algorithm) {
+
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
@@ -84,13 +149,19 @@ public class ValidationClient extends HttpClient {
 
         final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setDefaultSocketConfig(socketConfig);
-
+        /* 
+         *  Example: Lets say client has one server.
+         *  There are 4 servers on edge handling client request.
+         *  Each request takes on an average 500ms (2 request per second)
+         *  Total number request can be server in a second from a route: 20 * 4 * 2 (DefaultMaxPerRoute * edge servers * request per second)
+         */
+        connectionManager.setDefaultMaxPerRoute(20);
+        connectionManager.setMaxTotal(100);
         client = HttpClientBuilder.create()
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(requestConfig)
             .setDefaultHeaders(headers)
-            .setMaxConnPerRoute(10)
-            .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey))
+            .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey, algorithm))
             .setRedirectStrategy(this.getRedirectStrategy())
             .build();
     }

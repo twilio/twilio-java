@@ -31,7 +31,7 @@ public class ComplianceRegistrationInquiriesCreator
     private ComplianceRegistrationInquiries.EndUserType endUserType;
     private ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType;
     private ComplianceRegistrationInquiries.BusinessIdentityType businessIdentityType;
-    private String businessRegistrationAuthority;
+    private ComplianceRegistrationInquiries.BusinessRegistrationAuthority businessRegistrationAuthority;
     private String businessLegalName;
     private String notificationEmail;
     private Boolean acceptedNotificationReceipt;
@@ -58,6 +58,12 @@ public class ComplianceRegistrationInquiriesCreator
     private Boolean useAddressAsEmergencyAddress;
     private String fileName;
     private String _file;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
+    private String individualEmail;
+    private String individualPhone;
+    private Boolean isIsvEmbed;
 
     public ComplianceRegistrationInquiriesCreator(
         final ComplianceRegistrationInquiries.EndUserType endUserType,
@@ -89,7 +95,7 @@ public class ComplianceRegistrationInquiriesCreator
     }
 
     public ComplianceRegistrationInquiriesCreator setBusinessRegistrationAuthority(
-        final String businessRegistrationAuthority
+        final ComplianceRegistrationInquiries.BusinessRegistrationAuthority businessRegistrationAuthority
     ) {
         this.businessRegistrationAuthority = businessRegistrationAuthority;
         return this;
@@ -278,6 +284,48 @@ public class ComplianceRegistrationInquiriesCreator
         return this;
     }
 
+    public ComplianceRegistrationInquiriesCreator setFirstName(
+        final String firstName
+    ) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ComplianceRegistrationInquiriesCreator setLastName(
+        final String lastName
+    ) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ComplianceRegistrationInquiriesCreator setDateOfBirth(
+        final String dateOfBirth
+    ) {
+        this.dateOfBirth = dateOfBirth;
+        return this;
+    }
+
+    public ComplianceRegistrationInquiriesCreator setIndividualEmail(
+        final String individualEmail
+    ) {
+        this.individualEmail = individualEmail;
+        return this;
+    }
+
+    public ComplianceRegistrationInquiriesCreator setIndividualPhone(
+        final String individualPhone
+    ) {
+        this.individualPhone = individualPhone;
+        return this;
+    }
+
+    public ComplianceRegistrationInquiriesCreator setIsIsvEmbed(
+        final Boolean isIsvEmbed
+    ) {
+        this.isIsvEmbed = isIsvEmbed;
+        return this;
+    }
+
     @Override
     public ComplianceRegistrationInquiries create(
         final TwilioRestClient client
@@ -344,7 +392,7 @@ public class ComplianceRegistrationInquiriesCreator
         if (businessRegistrationAuthority != null) {
             request.addPostParam(
                 "BusinessRegistrationAuthority",
-                businessRegistrationAuthority
+                businessRegistrationAuthority.toString()
             );
         }
         if (businessLegalName != null) {
@@ -466,6 +514,24 @@ public class ComplianceRegistrationInquiriesCreator
         }
         if (_file != null) {
             request.addPostParam("File", _file);
+        }
+        if (firstName != null) {
+            request.addPostParam("FirstName", firstName);
+        }
+        if (lastName != null) {
+            request.addPostParam("LastName", lastName);
+        }
+        if (dateOfBirth != null) {
+            request.addPostParam("DateOfBirth", dateOfBirth);
+        }
+        if (individualEmail != null) {
+            request.addPostParam("IndividualEmail", individualEmail);
+        }
+        if (individualPhone != null) {
+            request.addPostParam("IndividualPhone", individualPhone);
+        }
+        if (isIsvEmbed != null) {
+            request.addPostParam("IsIsvEmbed", isIsvEmbed.toString());
         }
     }
 }

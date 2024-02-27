@@ -36,6 +36,7 @@ public class InteractionChannelParticipantCreator
     private String pathChannelSid;
     private InteractionChannelParticipant.Type type;
     private Map<String, Object> mediaProperties;
+    private Map<String, Object> routingProperties;
 
     public InteractionChannelParticipantCreator(
         final String pathInteractionSid,
@@ -60,6 +61,13 @@ public class InteractionChannelParticipantCreator
         final Map<String, Object> mediaProperties
     ) {
         this.mediaProperties = mediaProperties;
+        return this;
+    }
+
+    public InteractionChannelParticipantCreator setRoutingProperties(
+        final Map<String, Object> routingProperties
+    ) {
+        this.routingProperties = routingProperties;
         return this;
     }
 
@@ -125,6 +133,12 @@ public class InteractionChannelParticipantCreator
             request.addPostParam(
                 "MediaProperties",
                 Converter.mapToJson(mediaProperties)
+            );
+        }
+        if (routingProperties != null) {
+            request.addPostParam(
+                "RoutingProperties",
+                Converter.mapToJson(routingProperties)
             );
         }
     }

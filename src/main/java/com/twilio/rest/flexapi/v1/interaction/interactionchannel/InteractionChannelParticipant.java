@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class InteractionChannelParticipant extends Resource {
 
-    private static final long serialVersionUID = 108435204885654L;
+    private static final long serialVersionUID = 13330803139630L;
 
     public static InteractionChannelParticipantCreator creator(
         final String pathInteractionSid,
@@ -151,6 +151,7 @@ public class InteractionChannelParticipant extends Resource {
     private final String interactionSid;
     private final String channelSid;
     private final URI url;
+    private final Map<String, Object> routingProperties;
 
     @JsonCreator
     private InteractionChannelParticipant(
@@ -158,13 +159,18 @@ public class InteractionChannelParticipant extends Resource {
         @JsonProperty("type") final InteractionChannelParticipant.Type type,
         @JsonProperty("interaction_sid") final String interactionSid,
         @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("url") final URI url,
+        @JsonProperty("routing_properties") final Map<
+            String,
+            Object
+        > routingProperties
     ) {
         this.sid = sid;
         this.type = type;
         this.interactionSid = interactionSid;
         this.channelSid = channelSid;
         this.url = url;
+        this.routingProperties = routingProperties;
     }
 
     public final String getSid() {
@@ -187,6 +193,10 @@ public class InteractionChannelParticipant extends Resource {
         return this.url;
     }
 
+    public final Map<String, Object> getRoutingProperties() {
+        return this.routingProperties;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -204,13 +214,21 @@ public class InteractionChannelParticipant extends Resource {
             Objects.equals(type, other.type) &&
             Objects.equals(interactionSid, other.interactionSid) &&
             Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(url, other.url) &&
+            Objects.equals(routingProperties, other.routingProperties)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, type, interactionSid, channelSid, url);
+        return Objects.hash(
+            sid,
+            type,
+            interactionSid,
+            channelSid,
+            url,
+            routingProperties
+        );
     }
 
     public enum Type {

@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 193814234797897L;
+    private static final long serialVersionUID = 85967722263894L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -96,7 +96,7 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> callerName;
     private final Map<String, Object> simSwap;
     private final Map<String, Object> callForwarding;
-    private final Map<String, Object> liveActivity;
+    private final Map<String, Object> lineStatus;
     private final Map<String, Object> lineTypeIntelligence;
     private final Map<String, Object> identityMatch;
     private final Map<String, Object> reassignedNumber;
@@ -122,7 +122,7 @@ public class PhoneNumber extends Resource {
             String,
             Object
         > callForwarding,
-        @JsonProperty("live_activity") final Map<String, Object> liveActivity,
+        @JsonProperty("line_status") final Map<String, Object> lineStatus,
         @JsonProperty("line_type_intelligence") final Map<
             String,
             Object
@@ -151,7 +151,7 @@ public class PhoneNumber extends Resource {
         this.callerName = callerName;
         this.simSwap = simSwap;
         this.callForwarding = callForwarding;
-        this.liveActivity = liveActivity;
+        this.lineStatus = lineStatus;
         this.lineTypeIntelligence = lineTypeIntelligence;
         this.identityMatch = identityMatch;
         this.reassignedNumber = reassignedNumber;
@@ -196,8 +196,8 @@ public class PhoneNumber extends Resource {
         return this.callForwarding;
     }
 
-    public final Map<String, Object> getLiveActivity() {
-        return this.liveActivity;
+    public final Map<String, Object> getLineStatus() {
+        return this.lineStatus;
     }
 
     public final Map<String, Object> getLineTypeIntelligence() {
@@ -246,7 +246,7 @@ public class PhoneNumber extends Resource {
             Objects.equals(callerName, other.callerName) &&
             Objects.equals(simSwap, other.simSwap) &&
             Objects.equals(callForwarding, other.callForwarding) &&
-            Objects.equals(liveActivity, other.liveActivity) &&
+            Objects.equals(lineStatus, other.lineStatus) &&
             Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&
             Objects.equals(identityMatch, other.identityMatch) &&
             Objects.equals(reassignedNumber, other.reassignedNumber) &&
@@ -271,7 +271,7 @@ public class PhoneNumber extends Resource {
             callerName,
             simSwap,
             callForwarding,
-            liveActivity,
+            lineStatus,
             lineTypeIntelligence,
             identityMatch,
             reassignedNumber,

@@ -120,6 +120,34 @@ public class ComplianceRegistrationInquiries extends Resource {
         }
     }
 
+    public enum BusinessRegistrationAuthority {
+        UK_CRN("UK:CRN"),
+        US_EIN("US:EIN"),
+        CA_CBN("CA:CBN"),
+        AU_ACN("AU:ACN"),
+        OTHER("Other");
+
+        private final String value;
+
+        private BusinessRegistrationAuthority(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BusinessRegistrationAuthority forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                BusinessRegistrationAuthority.values()
+            );
+        }
+    }
+
     public enum EndUserType {
         INDIVIDUAL("Individual"),
         BUSINESS("Business");

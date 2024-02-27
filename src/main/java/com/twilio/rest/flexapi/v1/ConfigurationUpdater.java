@@ -26,7 +26,14 @@ import com.twilio.rest.Domains;
 
 public class ConfigurationUpdater extends Updater<Configuration> {
 
+    private Object body;
+
     public ConfigurationUpdater() {}
+
+    public ConfigurationUpdater setBody(final Object body) {
+        this.body = body;
+        return this;
+    }
 
     @Override
     public Configuration update(final TwilioRestClient client) {

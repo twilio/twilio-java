@@ -14,7 +14,9 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,7 +28,14 @@ import com.twilio.rest.Domains;
 
 public class EligibilityCreator extends Creator<Eligibility> {
 
+    private Object body;
+
     public EligibilityCreator() {}
+
+    public EligibilityCreator setBody(final Object body) {
+        this.body = body;
+        return this;
+    }
 
     @Override
     public Eligibility create(final TwilioRestClient client) {
@@ -37,6 +46,8 @@ public class EligibilityCreator extends Creator<Eligibility> {
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.JSON);
+        addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
@@ -60,5 +71,12 @@ public class EligibilityCreator extends Creator<Eligibility> {
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (body != null) {
+            request.setBody(Eligibility.toJson(body, objectMapper));
+        }
     }
 }

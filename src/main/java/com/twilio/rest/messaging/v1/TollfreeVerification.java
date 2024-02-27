@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class TollfreeVerification extends Resource {
 
-    private static final long serialVersionUID = 166300127143413L;
+    private static final long serialVersionUID = 271545419096190L;
 
     public static TollfreeVerificationCreator creator(
         final String businessName,
@@ -161,6 +161,7 @@ public class TollfreeVerification extends Resource {
     private final Integer errorCode;
     private final ZonedDateTime editExpiration;
     private final Boolean editAllowed;
+    private final List<Map<String, Object>> rejectionReasons;
     private final Map<String, Object> resourceLinks;
     private final String externalReferenceId;
 
@@ -224,6 +225,9 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("edit_expiration") final String editExpiration,
         @JsonProperty("edit_allowed") final Boolean editAllowed,
+        @JsonProperty("rejection_reasons") final List<
+            Map<String, Object>
+        > rejectionReasons,
         @JsonProperty("resource_links") final Map<String, Object> resourceLinks,
         @JsonProperty("external_reference_id") final String externalReferenceId
     ) {
@@ -262,6 +266,7 @@ public class TollfreeVerification extends Resource {
         this.editExpiration =
             DateConverter.iso8601DateTimeFromString(editExpiration);
         this.editAllowed = editAllowed;
+        this.rejectionReasons = rejectionReasons;
         this.resourceLinks = resourceLinks;
         this.externalReferenceId = externalReferenceId;
     }
@@ -402,6 +407,10 @@ public class TollfreeVerification extends Resource {
         return this.editAllowed;
     }
 
+    public final List<Map<String, Object>> getRejectionReasons() {
+        return this.rejectionReasons;
+    }
+
     public final Map<String, Object> getResourceLinks() {
         return this.resourceLinks;
     }
@@ -481,6 +490,7 @@ public class TollfreeVerification extends Resource {
             Objects.equals(errorCode, other.errorCode) &&
             Objects.equals(editExpiration, other.editExpiration) &&
             Objects.equals(editAllowed, other.editAllowed) &&
+            Objects.equals(rejectionReasons, other.rejectionReasons) &&
             Objects.equals(resourceLinks, other.resourceLinks) &&
             Objects.equals(externalReferenceId, other.externalReferenceId)
         );
@@ -523,6 +533,7 @@ public class TollfreeVerification extends Resource {
             errorCode,
             editExpiration,
             editAllowed,
+            rejectionReasons,
             resourceLinks,
             externalReferenceId
         );

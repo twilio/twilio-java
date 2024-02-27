@@ -14,7 +14,9 @@
 
 package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -28,11 +30,17 @@ public class TaskQueueBulkRealTimeStatisticsCreator
     extends Creator<TaskQueueBulkRealTimeStatistics> {
 
     private String pathWorkspaceSid;
+    private Object body;
 
     public TaskQueueBulkRealTimeStatisticsCreator(
         final String pathWorkspaceSid
     ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
+    }
+
+    public TaskQueueBulkRealTimeStatisticsCreator setBody(final Object body) {
+        this.body = body;
+        return this;
     }
 
     @Override
@@ -53,6 +61,8 @@ public class TaskQueueBulkRealTimeStatisticsCreator
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.JSON);
+        addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
@@ -76,5 +86,14 @@ public class TaskQueueBulkRealTimeStatisticsCreator
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (body != null) {
+            request.setBody(
+                TaskQueueBulkRealTimeStatistics.toJson(body, objectMapper)
+            );
+        }
     }
 }

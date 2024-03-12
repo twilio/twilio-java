@@ -72,6 +72,12 @@ If you run into trouble with local tests, use:
 mvn package -Dmaven.test.skip=true
 ```
 
+When required within a modular Java application, use the directive:
+
+```java
+requires twilio;
+```
+
 ### Test your installation
 
 Try sending yourself an SMS message, like this:

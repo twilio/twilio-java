@@ -30,15 +30,13 @@ import java.util.Map;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private com.twilio.type.PhoneNumber pathPhoneNumber;
+    private String pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(
-        final com.twilio.type.PhoneNumber pathPhoneNumber
-    ) {
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
@@ -79,7 +77,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.encode("utf-8")
+                this.pathPhoneNumber.toString()
             );
 
         Request request = new Request(

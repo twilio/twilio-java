@@ -64,6 +64,8 @@ public class ComplianceRegistrationInquiriesCreator
     private String individualEmail;
     private String individualPhone;
     private Boolean isIsvEmbed;
+    private String isvRegisteringForSelfOrTenant;
+    private String statusCallbackUrl;
 
     public ComplianceRegistrationInquiriesCreator(
         final ComplianceRegistrationInquiries.EndUserType endUserType,
@@ -326,6 +328,20 @@ public class ComplianceRegistrationInquiriesCreator
         return this;
     }
 
+    public ComplianceRegistrationInquiriesCreator setIsvRegisteringForSelfOrTenant(
+        final String isvRegisteringForSelfOrTenant
+    ) {
+        this.isvRegisteringForSelfOrTenant = isvRegisteringForSelfOrTenant;
+        return this;
+    }
+
+    public ComplianceRegistrationInquiriesCreator setStatusCallbackUrl(
+        final String statusCallbackUrl
+    ) {
+        this.statusCallbackUrl = statusCallbackUrl;
+        return this;
+    }
+
     @Override
     public ComplianceRegistrationInquiries create(
         final TwilioRestClient client
@@ -532,6 +548,15 @@ public class ComplianceRegistrationInquiriesCreator
         }
         if (isIsvEmbed != null) {
             request.addPostParam("IsIsvEmbed", isIsvEmbed.toString());
+        }
+        if (isvRegisteringForSelfOrTenant != null) {
+            request.addPostParam(
+                "IsvRegisteringForSelfOrTenant",
+                isvRegisteringForSelfOrTenant
+            );
+        }
+        if (statusCallbackUrl != null) {
+            request.addPostParam("StatusCallbackUrl", statusCallbackUrl);
         }
     }
 }

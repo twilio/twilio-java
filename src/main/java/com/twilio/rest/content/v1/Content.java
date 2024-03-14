@@ -365,6 +365,100 @@ public class Content extends Resource {
     }
 
     @ToString
+    public static class CatalogItem {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("section_title")
+        @Getter
+        @Setter
+        private String sectionTitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("media_url")
+        @Getter
+        @Setter
+        private String mediaUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("price")
+        @Getter
+        @Setter
+        private BigDecimal price;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        @Setter
+        private String description;
+
+        public static CatalogItem fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CatalogItem.class);
+        }
+    }
+
+    @ToString
+    public static class TwilioCatalog {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("subtitle")
+        @Getter
+        @Setter
+        private String subtitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("items")
+        @Getter
+        @Setter
+        private List<CatalogItem> items;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("dynamic_items")
+        @Getter
+        @Setter
+        private String dynamicItems;
+
+        public static TwilioCatalog fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioCatalog.class);
+        }
+    }
+
+    @ToString
     public static class WhatsappCard {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -501,6 +595,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private TwilioCard twilioCard;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/catalog")
+        @Getter
+        @Setter
+        private TwilioCatalog twilioCatalog;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")

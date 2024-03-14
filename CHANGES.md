@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2024-03-14] Version 10.1.2
+---------------------------
+**Oauth**
+- Add new APIs for vendor authorize and token endpoints
+
+
 [2024-03-12] Version 10.1.1
 ---------------------------
 **Api**

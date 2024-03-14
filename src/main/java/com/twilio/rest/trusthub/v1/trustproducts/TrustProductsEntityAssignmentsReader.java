@@ -30,12 +30,20 @@ public class TrustProductsEntityAssignmentsReader
     extends Reader<TrustProductsEntityAssignments> {
 
     private String pathTrustProductSid;
+    private String objectType;
     private Integer pageSize;
 
     public TrustProductsEntityAssignmentsReader(
         final String pathTrustProductSid
     ) {
         this.pathTrustProductSid = pathTrustProductSid;
+    }
+
+    public TrustProductsEntityAssignmentsReader setObjectType(
+        final String objectType
+    ) {
+        this.objectType = objectType;
+        return this;
     }
 
     public TrustProductsEntityAssignmentsReader setPageSize(
@@ -139,6 +147,9 @@ public class TrustProductsEntityAssignmentsReader
     }
 
     private void addQueryParams(final Request request) {
+        if (objectType != null) {
+            request.addQueryParam("ObjectType", objectType);
+        }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

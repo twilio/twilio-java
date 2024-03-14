@@ -30,12 +30,20 @@ public class CustomerProfilesEntityAssignmentsReader
     extends Reader<CustomerProfilesEntityAssignments> {
 
     private String pathCustomerProfileSid;
+    private String objectType;
     private Integer pageSize;
 
     public CustomerProfilesEntityAssignmentsReader(
         final String pathCustomerProfileSid
     ) {
         this.pathCustomerProfileSid = pathCustomerProfileSid;
+    }
+
+    public CustomerProfilesEntityAssignmentsReader setObjectType(
+        final String objectType
+    ) {
+        this.objectType = objectType;
+        return this;
     }
 
     public CustomerProfilesEntityAssignmentsReader setPageSize(
@@ -140,6 +148,9 @@ public class CustomerProfilesEntityAssignmentsReader
     }
 
     private void addQueryParams(final Request request) {
+        if (objectType != null) {
+            request.addQueryParam("ObjectType", objectType);
+        }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

@@ -25,22 +25,22 @@ public class Request {
     public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
-    private final HttpMethod method;
-    private final String url;
-    private final Map<String, List<String>> queryParams;
-    private final Map<String, List<String>> postParams;
-    private final Map<String, List<String>> headerParams;
+    protected final HttpMethod method;
+    protected final String url;
+    protected final Map<String, List<String>> queryParams;
+    protected final Map<String, List<String>> postParams;
+    protected final Map<String, List<String>> headerParams;
 
-    private String region;
-    private String edge;
+    protected String region;
+    protected String edge;
     private String username;
     private String password;
 
-    private List<String> userAgentExtensions;
+    protected List<String> userAgentExtensions;
 
-    private EnumConstants.ContentType contentType;
+    protected EnumConstants.ContentType contentType;
 
-    private String body;
+    protected String body;
 
     /**
      * Create a new API request.

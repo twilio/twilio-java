@@ -33,15 +33,12 @@ public class TokenCreator extends Creator<Token> {
     private String code;
     private String redirectUri;
     private String audience;
+    private String refreshToken;
+    private String scope;
 
-    public TokenCreator(
-        final String grantType,
-        final String clientId,
-        final String clientSecret
-    ) {
+    public TokenCreator(final String grantType, final String clientId) {
         this.grantType = grantType;
         this.clientId = clientId;
-        this.clientSecret = clientSecret;
     }
 
     public TokenCreator setGrantType(final String grantType) {
@@ -74,17 +71,22 @@ public class TokenCreator extends Creator<Token> {
         return this;
     }
 
+    public TokenCreator setRefreshToken(final String refreshToken) {
+        this.refreshToken = refreshToken;
+        return this;
+    }
+
+    public TokenCreator setScope(final String scope) {
+        this.scope = scope;
+        return this;
+    }
+
     @Override
     public Token create(final TwilioRestClient client) {
         String path = "/v1/token";
 
         path = path.replace("{" + "GrantType" + "}", this.grantType.toString());
         path = path.replace("{" + "ClientId" + "}", this.clientId.toString());
-        path =
-            path.replace(
-                "{" + "ClientSecret" + "}",
-                this.clientSecret.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -133,6 +135,12 @@ public class TokenCreator extends Creator<Token> {
         }
         if (audience != null) {
             request.addPostParam("Audience", audience);
+        }
+        if (refreshToken != null) {
+            request.addPostParam("RefreshToken", refreshToken);
+        }
+        if (scope != null) {
+            request.addPostParam("Scope", scope);
         }
     }
 }

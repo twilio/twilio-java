@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
-    private String pathSid;
+    private String pathContentSid;
     private ApprovalCreate.ContentApprovalRequest contentApprovalRequest;
 
     public ApprovalCreateCreator(
-        final String pathSid,
+        final String pathContentSid,
         final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
     ) {
-        this.pathSid = pathSid;
+        this.pathContentSid = pathContentSid;
         this.contentApprovalRequest = contentApprovalRequest;
     }
 
@@ -48,9 +48,13 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
     @Override
     public ApprovalCreate create(final TwilioRestClient client) {
-        String path = "/v1/Content/{Sid}/ApprovalRequests/whatsapp";
+        String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ContentSid" + "}",
+                this.pathContentSid.toString()
+            );
         path =
             path.replace(
                 "{" + "ContentApprovalRequest" + "}",

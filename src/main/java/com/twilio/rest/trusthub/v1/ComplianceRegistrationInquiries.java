@@ -47,6 +47,12 @@ public class ComplianceRegistrationInquiries extends Resource {
         );
     }
 
+    public static ComplianceRegistrationInquiriesUpdater updater(
+        final String pathRegistrationId
+    ) {
+        return new ComplianceRegistrationInquiriesUpdater(pathRegistrationId);
+    }
+
     /**
      * Converts a JSON String into a ComplianceRegistrationInquiries object using the provided ObjectMapper.
      *

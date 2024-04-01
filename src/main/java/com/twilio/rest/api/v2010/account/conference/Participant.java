@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Participant extends Resource {
 
-    private static final long serialVersionUID = 78654773226378L;
+    private static final long serialVersionUID = 178960491032323L;
 
     public static ParticipantCreator creator(
         final String pathConferenceSid,
@@ -184,6 +184,7 @@ public class Participant extends Resource {
     private final Boolean hold;
     private final Boolean startConferenceOnEnter;
     private final Participant.Status status;
+    private final String queueTime;
     private final String uri;
 
     @JsonCreator
@@ -205,6 +206,7 @@ public class Participant extends Resource {
             "start_conference_on_enter"
         ) final Boolean startConferenceOnEnter,
         @JsonProperty("status") final Participant.Status status,
+        @JsonProperty("queue_time") final String queueTime,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
@@ -220,6 +222,7 @@ public class Participant extends Resource {
         this.hold = hold;
         this.startConferenceOnEnter = startConferenceOnEnter;
         this.status = status;
+        this.queueTime = queueTime;
         this.uri = uri;
     }
 
@@ -275,6 +278,10 @@ public class Participant extends Resource {
         return this.status;
     }
 
+    public final String getQueueTime() {
+        return this.queueTime;
+    }
+
     public final String getUri() {
         return this.uri;
     }
@@ -308,6 +315,7 @@ public class Participant extends Resource {
                 other.startConferenceOnEnter
             ) &&
             Objects.equals(status, other.status) &&
+            Objects.equals(queueTime, other.queueTime) &&
             Objects.equals(uri, other.uri)
         );
     }
@@ -328,6 +336,7 @@ public class Participant extends Resource {
             hold,
             startConferenceOnEnter,
             status,
+            queueTime,
             uri
         );
     }

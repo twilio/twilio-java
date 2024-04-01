@@ -26,17 +26,21 @@ import com.twilio.rest.Domains;
 
 public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
 
-    private String pathSid;
+    private String pathContentSid;
 
-    public ApprovalFetchFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public ApprovalFetchFetcher(final String pathContentSid) {
+        this.pathContentSid = pathContentSid;
     }
 
     @Override
     public ApprovalFetch fetch(final TwilioRestClient client) {
-        String path = "/v1/Content/{Sid}/ApprovalRequests";
+        String path = "/v1/Content/{ContentSid}/ApprovalRequests";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ContentSid" + "}",
+                this.pathContentSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,

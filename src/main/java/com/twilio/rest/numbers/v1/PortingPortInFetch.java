@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortInFetch extends Resource {
 
-    private static final long serialVersionUID = 150418680319007L;
+    private static final long serialVersionUID = 3228491846364L;
 
     public static PortingPortInFetchFetcher fetcher(
         final String pathPortInRequestSid
@@ -97,6 +97,7 @@ public class PortingPortInFetch extends Resource {
     private final LocalDate targetPortInDate;
     private final String targetPortInTimeRangeStart;
     private final String targetPortInTimeRangeEnd;
+    private final String portInRequestStatus;
     private final Map<String, Object> losingCarrierInformation;
     private final List<Map<String, Object>> phoneNumbers;
     private final List<String> documents;
@@ -116,6 +117,9 @@ public class PortingPortInFetch extends Resource {
         @JsonProperty(
             "target_port_in_time_range_end"
         ) final String targetPortInTimeRangeEnd,
+        @JsonProperty(
+            "port_in_request_status"
+        ) final String portInRequestStatus,
         @JsonProperty("losing_carrier_information") final Map<
             String,
             Object
@@ -133,6 +137,7 @@ public class PortingPortInFetch extends Resource {
             DateConverter.localDateFromString(targetPortInDate);
         this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
         this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
+        this.portInRequestStatus = portInRequestStatus;
         this.losingCarrierInformation = losingCarrierInformation;
         this.phoneNumbers = phoneNumbers;
         this.documents = documents;
@@ -164,6 +169,10 @@ public class PortingPortInFetch extends Resource {
 
     public final String getTargetPortInTimeRangeEnd() {
         return this.targetPortInTimeRangeEnd;
+    }
+
+    public final String getPortInRequestStatus() {
+        return this.portInRequestStatus;
     }
 
     public final Map<String, Object> getLosingCarrierInformation() {
@@ -204,6 +213,7 @@ public class PortingPortInFetch extends Resource {
                 targetPortInTimeRangeEnd,
                 other.targetPortInTimeRangeEnd
             ) &&
+            Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
             Objects.equals(
                 losingCarrierInformation,
                 other.losingCarrierInformation
@@ -223,6 +233,7 @@ public class PortingPortInFetch extends Resource {
             targetPortInDate,
             targetPortInTimeRangeStart,
             targetPortInTimeRangeEnd,
+            portInRequestStatus,
             losingCarrierInformation,
             phoneNumbers,
             documents

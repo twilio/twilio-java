@@ -31,8 +31,6 @@ public class PluginCreator extends Creator<Plugin> {
     private String flexMetadata;
     private String friendlyName;
     private String description;
-    private String cliVersion;
-    private String validateStatus;
 
     public PluginCreator(final String uniqueName) {
         this.uniqueName = uniqueName;
@@ -55,16 +53,6 @@ public class PluginCreator extends Creator<Plugin> {
 
     public PluginCreator setDescription(final String description) {
         this.description = description;
-        return this;
-    }
-
-    public PluginCreator setCliVersion(final String cliVersion) {
-        this.cliVersion = cliVersion;
-        return this;
-    }
-
-    public PluginCreator setValidateStatus(final String validateStatus) {
-        this.validateStatus = validateStatus;
         return this;
     }
 
@@ -114,12 +102,6 @@ public class PluginCreator extends Creator<Plugin> {
         }
         if (description != null) {
             request.addPostParam("Description", description);
-        }
-        if (cliVersion != null) {
-            request.addPostParam("CliVersion", cliVersion);
-        }
-        if (validateStatus != null) {
-            request.addPostParam("ValidateStatus", validateStatus);
         }
     }
 

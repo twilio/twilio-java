@@ -36,6 +36,8 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
     private String flexMetadata;
     private String changelog;
     private Boolean _private;
+    private String cliVersion;
+    private String validateStatus;
 
     public PluginVersionsCreator(
         final String pathPluginSid,
@@ -73,6 +75,18 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
 
     public PluginVersionsCreator set_private(final Boolean _private) {
         this._private = _private;
+        return this;
+    }
+
+    public PluginVersionsCreator setCliVersion(final String cliVersion) {
+        this.cliVersion = cliVersion;
+        return this;
+    }
+
+    public PluginVersionsCreator setValidateStatus(
+        final String validateStatus
+    ) {
+        this.validateStatus = validateStatus;
         return this;
     }
 
@@ -133,6 +147,12 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
         }
         if (_private != null) {
             request.addPostParam("Private", _private.toString());
+        }
+        if (cliVersion != null) {
+            request.addPostParam("CliVersion", cliVersion);
+        }
+        if (validateStatus != null) {
+            request.addPostParam("ValidateStatus", validateStatus);
         }
     }
 

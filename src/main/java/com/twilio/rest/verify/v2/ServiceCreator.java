@@ -44,6 +44,8 @@ public class ServiceCreator extends Creator<Service> {
     private Integer totpCodeLength;
     private Integer totpSkew;
     private String defaultTemplateSid;
+    private String whatsappMsgServiceSid;
+    private String whatsappFrom;
     private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceCreator(final String friendlyName) {
@@ -146,6 +148,18 @@ public class ServiceCreator extends Creator<Service> {
         final String defaultTemplateSid
     ) {
         this.defaultTemplateSid = defaultTemplateSid;
+        return this;
+    }
+
+    public ServiceCreator setWhatsappMsgServiceSid(
+        final String whatsappMsgServiceSid
+    ) {
+        this.whatsappMsgServiceSid = whatsappMsgServiceSid;
+        return this;
+    }
+
+    public ServiceCreator setWhatsappFrom(final String whatsappFrom) {
+        this.whatsappFrom = whatsappFrom;
         return this;
     }
 
@@ -261,6 +275,15 @@ public class ServiceCreator extends Creator<Service> {
         }
         if (defaultTemplateSid != null) {
             request.addPostParam("DefaultTemplateSid", defaultTemplateSid);
+        }
+        if (whatsappMsgServiceSid != null) {
+            request.addPostParam(
+                "Whatsapp.MsgServiceSid",
+                whatsappMsgServiceSid
+            );
+        }
+        if (whatsappFrom != null) {
+            request.addPostParam("Whatsapp.From", whatsappFrom);
         }
         if (verifyEventSubscriptionEnabled != null) {
             request.addPostParam(

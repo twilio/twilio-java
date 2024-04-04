@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 85967722263894L;
+    private static final long serialVersionUID = 129217577072488L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -102,6 +102,7 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> reassignedNumber;
     private final Map<String, Object> smsPumpingRisk;
     private final Map<String, Object> phoneNumberQualityScore;
+    private final Map<String, Object> preFill;
     private final URI url;
 
     @JsonCreator
@@ -140,6 +141,7 @@ public class PhoneNumber extends Resource {
             String,
             Object
         > phoneNumberQualityScore,
+        @JsonProperty("pre_fill") final Map<String, Object> preFill,
         @JsonProperty("url") final URI url
     ) {
         this.callingCountryCode = callingCountryCode;
@@ -157,6 +159,7 @@ public class PhoneNumber extends Resource {
         this.reassignedNumber = reassignedNumber;
         this.smsPumpingRisk = smsPumpingRisk;
         this.phoneNumberQualityScore = phoneNumberQualityScore;
+        this.preFill = preFill;
         this.url = url;
     }
 
@@ -220,6 +223,10 @@ public class PhoneNumber extends Resource {
         return this.phoneNumberQualityScore;
     }
 
+    public final Map<String, Object> getPreFill() {
+        return this.preFill;
+    }
+
     public final URI getUrl() {
         return this.url;
     }
@@ -255,6 +262,7 @@ public class PhoneNumber extends Resource {
                 phoneNumberQualityScore,
                 other.phoneNumberQualityScore
             ) &&
+            Objects.equals(preFill, other.preFill) &&
             Objects.equals(url, other.url)
         );
     }
@@ -277,6 +285,7 @@ public class PhoneNumber extends Resource {
             reassignedNumber,
             smsPumpingRisk,
             phoneNumberQualityScore,
+            preFill,
             url
         );
     }

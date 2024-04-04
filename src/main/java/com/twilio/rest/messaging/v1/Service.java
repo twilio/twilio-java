@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 59018314319448L;
+    private static final long serialVersionUID = 3267241615221L;
 
     public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
@@ -128,6 +128,7 @@ public class Service extends Resource {
     private final String usecase;
     private final Boolean usAppToPersonRegistered;
     private final Boolean useInboundWebhookOnNumber;
+    private final Map<String, Object> sendingWindows;
 
     @JsonCreator
     private Service(
@@ -161,7 +162,11 @@ public class Service extends Resource {
         ) final Boolean usAppToPersonRegistered,
         @JsonProperty(
             "use_inbound_webhook_on_number"
-        ) final Boolean useInboundWebhookOnNumber
+        ) final Boolean useInboundWebhookOnNumber,
+        @JsonProperty("sending_windows") final Map<
+            String,
+            Object
+        > sendingWindows
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -186,6 +191,7 @@ public class Service extends Resource {
         this.usecase = usecase;
         this.usAppToPersonRegistered = usAppToPersonRegistered;
         this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
+        this.sendingWindows = sendingWindows;
     }
 
     public final String getSid() {
@@ -280,6 +286,10 @@ public class Service extends Resource {
         return this.useInboundWebhookOnNumber;
     }
 
+    public final Map<String, Object> getSendingWindows() {
+        return this.sendingWindows;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -324,7 +334,8 @@ public class Service extends Resource {
             Objects.equals(
                 useInboundWebhookOnNumber,
                 other.useInboundWebhookOnNumber
-            )
+            ) &&
+            Objects.equals(sendingWindows, other.sendingWindows)
         );
     }
 
@@ -353,7 +364,8 @@ public class Service extends Resource {
             links,
             usecase,
             usAppToPersonRegistered,
-            useInboundWebhookOnNumber
+            useInboundWebhookOnNumber,
+            sendingWindows
         );
     }
 

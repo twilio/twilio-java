@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
 import java.util.List;
 
 @UtilityClass
-class HttpUtility {
+public class HttpUtility {
     public String getUserAgentString(final List<String> userAgentExtensions) {
         StringBuilder userAgentString = new StringBuilder();
         userAgentString.append("twilio-java/")

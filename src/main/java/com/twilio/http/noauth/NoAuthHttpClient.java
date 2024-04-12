@@ -1,9 +1,13 @@
-package com.twilio.http;
+package com.twilio.http.noauth;
 
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
-import com.twilio.http.bearertoken.BearerTokenRequest;
+import com.twilio.http.HttpClient;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
+import com.twilio.http.IRequest;
+import com.twilio.http.Response;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -26,40 +30,21 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class NetworkHttpClient extends HttpClient {
-
+public class NoAuthHttpClient extends HttpClient {
     protected final org.apache.http.client.HttpClient client;
-
-    private boolean isCustomClient;
-
-    /**
-     * Create a new HTTP Client.
-     */
-    public NetworkHttpClient() {
+    public NoAuthHttpClient() {
         this(DEFAULT_REQUEST_CONFIG);
     }
 
-    /**
-     * Create a new HTTP Client with a custom request config.
-     *
-     * @param requestConfig a RequestConfig.
-     */
-    public NetworkHttpClient(final RequestConfig requestConfig) {
+    public NoAuthHttpClient(final RequestConfig requestConfig) {
         this(requestConfig, DEFAULT_SOCKET_CONFIG);
     }
 
-    /**
-     * Create a new HTTP Client with a custom request and socket config.
-     *
-     * @param requestConfig a RequestConfig.
-     * @param socketConfig  a SocketConfig.
-     */
-    public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
+    public NoAuthHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
-            new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-           // new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
-            //new BasicHeader(HttpHeaders.ACCEPT, "application/scim+json"),
-            new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
+                new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
+                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+                new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
@@ -83,56 +68,20 @@ public class NetworkHttpClient extends HttpClient {
         connectionManager.setMaxTotal(100);
 
         client = clientBuilder
-            .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(requestConfig)
-            .setDefaultHeaders(headers)
-            .setRedirectStrategy(this.getRedirectStrategy())
-            .build();
+                .setConnectionManager(connectionManager)
+                .setDefaultRequestConfig(requestConfig)
+                .setDefaultHeaders(headers)
+                .setRedirectStrategy(this.getRedirectStrategy())
+                .build();
     }
-
-    /**
-     * Create a new HTTP Client using custom configuration.
-     * @param clientBuilder an HttpClientBuilder.
-     */
-    public NetworkHttpClient(HttpClientBuilder clientBuilder) {
-        Collection<BasicHeader> headers = Arrays.asList(
-                new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
-                new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
-        );
-        isCustomClient = true;
-
-        client = clientBuilder
-            .setDefaultHeaders(headers)
-            .setRedirectStrategy(this.getRedirectStrategy())
-            .build();
-    }
-
-    /**
-     * Make a request.
-     *
-     * @param request request to make
-     * @return Response of the HTTP request
-     */
-    public <T extends IRequest> Response makeRequest(final T request) {
-
+    
+    @Override
+    public Response makeRequest(IRequest request) {
         HttpMethod method = request.getMethod();
         RequestBuilder builder = RequestBuilder.create(method.toString())
-            .setUri(request.constructURL().toString())
-            .setVersion(HttpVersion.HTTP_1_1)
-            .setCharset(StandardCharsets.UTF_8);
-        if (request instanceof Request) {
-            Request basicRequest = (Request) request;
-           // builder.setHeader(HttpHeaders.AUTHORIZATION, basicRequest.getAuthString(accessToken));
-            if (basicRequest.requiresAuthentication()) {
-                builder.addHeader(HttpHeaders.AUTHORIZATION, basicRequest.getAuthString());
-            }
-        } else if (request instanceof BearerTokenRequest) {
-            BearerTokenRequest bearerTokenRequest = (BearerTokenRequest) request;
-            if (bearerTokenRequest.requiresAuthentication()) {
-                builder.addHeader(HttpHeaders.AUTHORIZATION, bearerTokenRequest.getAuthString());
-            }
-        }
+                .setUri(request.constructURL().toString())
+                .setVersion(HttpVersion.HTTP_1_1)
+                .setCharset(StandardCharsets.UTF_8);
 
         for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
             for (String value : entry.getValue()) {
@@ -159,7 +108,7 @@ public class NetworkHttpClient extends HttpClient {
             }
 
         }
-        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), isCustomClient));
+        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
 
         HttpResponse response = null;
 
@@ -167,10 +116,10 @@ public class NetworkHttpClient extends HttpClient {
             response = client.execute(builder.build());
             HttpEntity entity = response.getEntity();
             return new Response(
-                // Consume the entire HTTP response before returning the stream
-                entity == null ? null : new BufferedHttpEntity(entity).getContent(),
-                response.getStatusLine().getStatusCode(),
-                response.getAllHeaders()
+                    // Consume the entire HTTP response before returning the stream
+                    entity == null ? null : new BufferedHttpEntity(entity).getContent(),
+                    response.getStatusLine().getStatusCode(),
+                    response.getAllHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);
@@ -180,5 +129,6 @@ public class NetworkHttpClient extends HttpClient {
             HttpClientUtils.closeQuietly(response);
 
         }
+
     }
 }

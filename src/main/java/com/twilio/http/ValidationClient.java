@@ -3,6 +3,7 @@ package com.twilio.http;
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -23,11 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
 
 public class ValidationClient extends HttpClient {
@@ -167,7 +164,8 @@ public class ValidationClient extends HttpClient {
     }
 
     @Override
-    public Response makeRequest(Request request) {
+    public Response makeRequest(IRequest iRequest) {
+        Request request = (Request)iRequest;
         RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
             .setUri(request.constructURL().toString())
             .setVersion(HttpVersion.HTTP_1_1)

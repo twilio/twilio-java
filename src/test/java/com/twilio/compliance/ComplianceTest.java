@@ -48,6 +48,7 @@ public class ComplianceTest {
         assertTrue(twilioClasses.size() > 0);
         assertTrue(resourceClasses.size() > 1);
         variantClasses.add(com.twilio.rest.voice.v1.ArchivedCall.class);
+        variantClasses.add(com.twilio.rest.numbers.v1.PortingPortInPhoneNumber.class);
     }
 
     @Test
@@ -82,8 +83,10 @@ public class ComplianceTest {
 
         GivenClasses filteredClasses = (GivenClasses) classes().that(areNotInVariantList());
         GivenClassesConjunction resourceClasses = filteredClasses.that().areAssignableTo(Resource.class).and()
-                .doNotHaveFullyQualifiedName(Resource.class.getName()).and().
-                doNotBelongToAnyOf(variantClasses.get(0));
+                .doNotHaveFullyQualifiedName(Resource.class.getName());
+        for (Class<?> variantClass : variantClasses) {
+            resourceClasses = resourceClasses.and().doNotBelongToAnyOf(variantClass);
+        }
 
         resourceClasses.should()
                 .beAnnotatedWith(com.fasterxml.jackson.annotation.JsonIgnoreProperties.class)

@@ -41,6 +41,12 @@ public class PortingPortIn extends Resource {
         return new PortingPortInCreator();
     }
 
+    public static PortingPortInDeleter deleter(
+        final String pathPortInRequestSid
+    ) {
+        return new PortingPortInDeleter(pathPortInRequestSid);
+    }
+
     /**
      * Converts a JSON String into a PortingPortIn object using the provided ObjectMapper.
      *

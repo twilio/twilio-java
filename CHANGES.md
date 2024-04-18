@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2024-04-18] Version 10.1.5
+---------------------------
+**Library - Chore**
+- [PR #791](https://github.com/twilio/twilio-java/pull/791): add variant class to compliance tests. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #789](https://github.com/twilio/twilio-java/pull/789): bumping nexus staging maven plugin version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- Add header `ui_version` to `web_channels` API
+
+**Messaging**
+- Redeploy after failed pipeline
+
+**Numbers**
+- Add Delete Port In request phone number api and Add Delete Port In request api
+
+
 [2024-04-04] Version 10.1.4
 ---------------------------
 **Api**

@@ -326,6 +326,7 @@
           <source>8</source>
           <target>8</target>
           <showDeprecation>true</showDeprecation>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
         </configuration>
       </plugin>
       <plugin>

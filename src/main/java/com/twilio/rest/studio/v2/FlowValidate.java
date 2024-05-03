@@ -89,26 +89,6 @@ public class FlowValidate extends Resource {
         }
     }
 
-    public enum Status {
-        DRAFT("draft"),
-        PUBLISHED("published");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final Boolean valid;
 
     @JsonCreator
@@ -138,5 +118,25 @@ public class FlowValidate extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(valid);
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PUBLISHED("published");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

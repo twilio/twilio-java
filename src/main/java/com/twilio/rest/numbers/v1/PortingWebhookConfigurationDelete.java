@@ -14,11 +14,13 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
@@ -84,6 +86,26 @@ public class PortingWebhookConfigurationDelete extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public enum WebhookType {
+        PORT_IN("PORT_IN"),
+        PORT_OUT("PORT_OUT");
+
+        private final String value;
+
+        private WebhookType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookType.values());
         }
     }
 }

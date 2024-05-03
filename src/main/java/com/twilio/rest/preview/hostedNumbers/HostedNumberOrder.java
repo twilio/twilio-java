@@ -402,6 +402,26 @@ public class HostedNumberOrder extends Resource {
         );
     }
 
+    public enum VerificationType {
+        PHONE_CALL("phone-call"),
+        PHONE_BILL("phone-bill");
+
+        private final String value;
+
+        private VerificationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VerificationType forValue(final String value) {
+            return Promoter.enumFromString(value, VerificationType.values());
+        }
+    }
+
     public enum Status {
         RECEIVED("received"),
         PENDING_VERIFICATION("pending-verification"),
@@ -426,26 +446,6 @@ public class HostedNumberOrder extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum VerificationType {
-        PHONE_CALL("phone-call"),
-        PHONE_BILL("phone-bill");
-
-        private final String value;
-
-        private VerificationType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VerificationType forValue(final String value) {
-            return Promoter.enumFromString(value, VerificationType.values());
         }
     }
 }

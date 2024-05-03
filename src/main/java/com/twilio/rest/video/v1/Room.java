@@ -366,6 +366,28 @@ public class Room extends Resource {
         );
     }
 
+    public enum RoomType {
+        GO("go"),
+        PEER_TO_PEER("peer-to-peer"),
+        GROUP("group"),
+        GROUP_SMALL("group-small");
+
+        private final String value;
+
+        private RoomType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RoomType forValue(final String value) {
+            return Promoter.enumFromString(value, RoomType.values());
+        }
+    }
+
     public enum VideoCodec {
         VP8("VP8"),
         H264("H264");
@@ -404,28 +426,6 @@ public class Room extends Resource {
         @JsonCreator
         public static RoomStatus forValue(final String value) {
             return Promoter.enumFromString(value, RoomStatus.values());
-        }
-    }
-
-    public enum RoomType {
-        GO("go"),
-        PEER_TO_PEER("peer-to-peer"),
-        GROUP("group"),
-        GROUP_SMALL("group-small");
-
-        private final String value;
-
-        private RoomType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomType forValue(final String value) {
-            return Promoter.enumFromString(value, RoomType.values());
         }
     }
 }

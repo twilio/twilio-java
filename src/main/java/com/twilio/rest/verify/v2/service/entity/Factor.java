@@ -115,27 +115,6 @@ public class Factor extends Resource {
         }
     }
 
-    public enum TotpAlgorithms {
-        SHA1("sha1"),
-        SHA256("sha256"),
-        SHA512("sha512");
-
-        private final String value;
-
-        private TotpAlgorithms(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TotpAlgorithms forValue(final String value) {
-            return Promoter.enumFromString(value, TotpAlgorithms.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -298,6 +277,27 @@ public class Factor extends Resource {
         @JsonCreator
         public static FactorTypes forValue(final String value) {
             return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
+    public enum TotpAlgorithms {
+        SHA1("sha1"),
+        SHA256("sha256"),
+        SHA512("sha512");
+
+        private final String value;
+
+        private TotpAlgorithms(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TotpAlgorithms forValue(final String value) {
+            return Promoter.enumFromString(value, TotpAlgorithms.values());
         }
     }
 

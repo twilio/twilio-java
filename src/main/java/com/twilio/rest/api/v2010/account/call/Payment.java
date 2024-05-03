@@ -134,112 +134,6 @@ public class Payment extends Resource {
         }
     }
 
-    public enum BankAccountType {
-        CONSUMER_CHECKING("consumer-checking"),
-        CONSUMER_SAVINGS("consumer-savings"),
-        COMMERCIAL_CHECKING("commercial-checking");
-
-        private final String value;
-
-        private BankAccountType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BankAccountType forValue(final String value) {
-            return Promoter.enumFromString(value, BankAccountType.values());
-        }
-    }
-
-    public enum Capture {
-        PAYMENT_CARD_NUMBER("payment-card-number"),
-        EXPIRATION_DATE("expiration-date"),
-        SECURITY_CODE("security-code"),
-        POSTAL_CODE("postal-code"),
-        BANK_ROUTING_NUMBER("bank-routing-number"),
-        BANK_ACCOUNT_NUMBER("bank-account-number");
-
-        private final String value;
-
-        private Capture(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Capture forValue(final String value) {
-            return Promoter.enumFromString(value, Capture.values());
-        }
-    }
-
-    public enum PaymentMethod {
-        CREDIT_CARD("credit-card"),
-        ACH_DEBIT("ach-debit");
-
-        private final String value;
-
-        private PaymentMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PaymentMethod forValue(final String value) {
-            return Promoter.enumFromString(value, PaymentMethod.values());
-        }
-    }
-
-    public enum Status {
-        COMPLETE("complete"),
-        CANCEL("cancel");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum TokenType {
-        ONE_TIME("one-time"),
-        REUSABLE("reusable"),
-        PAYMENT_METHOD("payment-method");
-
-        private final String value;
-
-        private TokenType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TokenType forValue(final String value) {
-            return Promoter.enumFromString(value, TokenType.values());
-        }
-    }
-
     private final String accountSid;
     private final String callSid;
     private final String sid;
@@ -320,5 +214,111 @@ public class Payment extends Resource {
             dateUpdated,
             uri
         );
+    }
+
+    public enum PaymentMethod {
+        CREDIT_CARD("credit-card"),
+        ACH_DEBIT("ach-debit");
+
+        private final String value;
+
+        private PaymentMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PaymentMethod forValue(final String value) {
+            return Promoter.enumFromString(value, PaymentMethod.values());
+        }
+    }
+
+    public enum TokenType {
+        ONE_TIME("one-time"),
+        REUSABLE("reusable"),
+        PAYMENT_METHOD("payment-method");
+
+        private final String value;
+
+        private TokenType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TokenType forValue(final String value) {
+            return Promoter.enumFromString(value, TokenType.values());
+        }
+    }
+
+    public enum Status {
+        COMPLETE("complete"),
+        CANCEL("cancel");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum BankAccountType {
+        CONSUMER_CHECKING("consumer-checking"),
+        CONSUMER_SAVINGS("consumer-savings"),
+        COMMERCIAL_CHECKING("commercial-checking");
+
+        private final String value;
+
+        private BankAccountType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BankAccountType forValue(final String value) {
+            return Promoter.enumFromString(value, BankAccountType.values());
+        }
+    }
+
+    public enum Capture {
+        PAYMENT_CARD_NUMBER("payment-card-number"),
+        EXPIRATION_DATE("expiration-date"),
+        SECURITY_CODE("security-code"),
+        POSTAL_CODE("postal-code"),
+        BANK_ROUTING_NUMBER("bank-routing-number"),
+        BANK_ACCOUNT_NUMBER("bank-account-number");
+
+        private final String value;
+
+        private Capture(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Capture forValue(final String value) {
+            return Promoter.enumFromString(value, Capture.values());
+        }
     }
 }

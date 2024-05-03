@@ -16,6 +16,7 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -23,11 +24,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -35,7 +37,45 @@ import lombok.ToString;
 @ToString
 public class SharedCost extends Resource {
 
-    private static final long serialVersionUID = 211749226408502L;
+    private static final long serialVersionUID = 109676871411957L;
+
+    @ToString
+    public static class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mms")
+        @Getter
+        @Setter
+        private Boolean mms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms")
+        @Getter
+        @Setter
+        private Boolean sms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("voice")
+        @Getter
+        @Setter
+        private Boolean voice;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fax")
+        @Getter
+        @Setter
+        private Boolean fax;
+
+        public static ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities.class
+            );
+        }
+    }
 
     public static SharedCostReader reader(final String pathCountryCode) {
         return new SharedCostReader(pathCountryCode);
@@ -103,7 +143,7 @@ public class SharedCost extends Resource {
     private final String isoCountry;
     private final String addressRequirements;
     private final Boolean beta;
-    private final PhoneNumberCapabilities capabilities;
+    private final ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities capabilities;
 
     @JsonCreator
     private SharedCost(
@@ -123,7 +163,9 @@ public class SharedCost extends Resource {
         @JsonProperty("iso_country") final String isoCountry,
         @JsonProperty("address_requirements") final String addressRequirements,
         @JsonProperty("beta") final Boolean beta,
-        @JsonProperty("capabilities") final PhoneNumberCapabilities capabilities
+        @JsonProperty(
+            "capabilities"
+        ) final ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities capabilities
     ) {
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
@@ -188,7 +230,7 @@ public class SharedCost extends Resource {
         return this.beta;
     }
 
-    public final PhoneNumberCapabilities getCapabilities() {
+    public final ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities getCapabilities() {
         return this.capabilities;
     }
 

@@ -16,6 +16,7 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -26,12 +27,13 @@ import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -39,7 +41,45 @@ import lombok.ToString;
 @ToString
 public class Local extends Resource {
 
-    private static final long serialVersionUID = 226189121371341L;
+    private static final long serialVersionUID = 230446470139574L;
+
+    @ToString
+    public static class ApiV2010AccountIncomingPhoneNumberCapabilities {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mms")
+        @Getter
+        @Setter
+        private Boolean mms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms")
+        @Getter
+        @Setter
+        private Boolean sms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("voice")
+        @Getter
+        @Setter
+        private Boolean voice;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fax")
+        @Getter
+        @Setter
+        private Boolean fax;
+
+        public static ApiV2010AccountIncomingPhoneNumberCapabilities fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ApiV2010AccountIncomingPhoneNumberCapabilities.class
+            );
+        }
+    }
 
     public static LocalCreator creator(
         final com.twilio.type.PhoneNumber phoneNumber
@@ -110,7 +150,7 @@ public class Local extends Resource {
     private final Local.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
-    private final PhoneNumberCapabilities capabilities;
+    private final ApiV2010AccountIncomingPhoneNumberCapabilities capabilities;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
@@ -151,7 +191,7 @@ public class Local extends Resource {
         @JsonProperty("beta") final Boolean beta,
         @JsonProperty(
             "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
+        ) final ApiV2010AccountIncomingPhoneNumberCapabilities capabilities,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
@@ -251,7 +291,7 @@ public class Local extends Resource {
         return this.beta;
     }
 
-    public final PhoneNumberCapabilities getCapabilities() {
+    public final ApiV2010AccountIncomingPhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 

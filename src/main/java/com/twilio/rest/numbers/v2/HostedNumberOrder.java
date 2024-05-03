@@ -16,6 +16,7 @@ package com.twilio.rest.numbers.v2;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -25,13 +26,14 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -39,7 +41,45 @@ import lombok.ToString;
 @ToString
 public class HostedNumberOrder extends Resource {
 
-    private static final long serialVersionUID = 181489495524580L;
+    private static final long serialVersionUID = 259629941693300L;
+
+    @ToString
+    public static class NumbersV2HostedNumberOrderCapabilities {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mms")
+        @Getter
+        @Setter
+        private Boolean mms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms")
+        @Getter
+        @Setter
+        private Boolean sms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("voice")
+        @Getter
+        @Setter
+        private Boolean voice;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fax")
+        @Getter
+        @Setter
+        private Boolean fax;
+
+        public static NumbersV2HostedNumberOrderCapabilities fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV2HostedNumberOrderCapabilities.class
+            );
+        }
+    }
 
     public static HostedNumberOrderCreator creator(
         final com.twilio.type.PhoneNumber phoneNumber,
@@ -116,7 +156,7 @@ public class HostedNumberOrder extends Resource {
     private final String addressSid;
     private final String signingDocumentSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
-    private final PhoneNumberCapabilities capabilities;
+    private final NumbersV2HostedNumberOrderCapabilities capabilities;
     private final String friendlyName;
     private final HostedNumberOrder.Status status;
     private final String failureReason;
@@ -144,7 +184,7 @@ public class HostedNumberOrder extends Resource {
         ) final com.twilio.type.PhoneNumber phoneNumber,
         @JsonProperty(
             "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
+        ) final NumbersV2HostedNumberOrderCapabilities capabilities,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("status") final HostedNumberOrder.Status status,
         @JsonProperty("failure_reason") final String failureReason,
@@ -207,7 +247,7 @@ public class HostedNumberOrder extends Resource {
         return this.phoneNumber;
     }
 
-    public final PhoneNumberCapabilities getCapabilities() {
+    public final NumbersV2HostedNumberOrderCapabilities getCapabilities() {
         return this.capabilities;
     }
 

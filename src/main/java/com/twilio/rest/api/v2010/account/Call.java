@@ -179,26 +179,6 @@ public class Call extends Resource {
         }
     }
 
-    public enum UpdateStatus {
-        CANCELED("canceled"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
-        }
-    }
-
     private final String sid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -464,6 +444,26 @@ public class Call extends Resource {
             uri,
             subresourceUris
         );
+    }
+
+    public enum UpdateStatus {
+        CANCELED("canceled"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
+        }
     }
 
     public enum Status {

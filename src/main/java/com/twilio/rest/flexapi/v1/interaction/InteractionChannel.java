@@ -107,26 +107,6 @@ public class InteractionChannel extends Resource {
         }
     }
 
-    public enum UpdateChannelStatus {
-        CLOSED("closed"),
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private UpdateChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateChannelStatus.values());
-        }
-    }
-
     private final String sid;
     private final String interactionSid;
     private final InteractionChannel.Type type;
@@ -273,6 +253,26 @@ public class InteractionChannel extends Resource {
         @JsonCreator
         public static ChannelStatus forValue(final String value) {
             return Promoter.enumFromString(value, ChannelStatus.values());
+        }
+    }
+
+    public enum UpdateChannelStatus {
+        CLOSED("closed"),
+        INACTIVE("inactive");
+
+        private final String value;
+
+        private UpdateChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateChannelStatus.values());
         }
     }
 }

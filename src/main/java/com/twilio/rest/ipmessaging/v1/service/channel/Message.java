@@ -121,26 +121,6 @@ public class Message extends Resource {
         }
     }
 
-    public enum OrderType {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private OrderType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OrderType forValue(final String value) {
-            return Promoter.enumFromString(value, OrderType.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String attributes;
@@ -284,5 +264,25 @@ public class Message extends Resource {
             index,
             url
         );
+    }
+
+    public enum OrderType {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private OrderType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OrderType forValue(final String value) {
+            return Promoter.enumFromString(value, OrderType.values());
+        }
     }
 }

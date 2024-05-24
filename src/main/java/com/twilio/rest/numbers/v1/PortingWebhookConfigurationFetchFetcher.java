@@ -24,20 +24,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class PortingBulkPortabilityFetcher
-    extends Fetcher<PortingBulkPortability> {
+public class PortingWebhookConfigurationFetchFetcher
+    extends Fetcher<PortingWebhookConfigurationFetch> {
 
-    private String pathSid;
-
-    public PortingBulkPortabilityFetcher(final String pathSid) {
-        this.pathSid = pathSid;
-    }
+    public PortingWebhookConfigurationFetchFetcher() {}
 
     @Override
-    public PortingBulkPortability fetch(final TwilioRestClient client) {
-        String path = "/v1/Porting/Portability/{Sid}";
-
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+    public PortingWebhookConfigurationFetch fetch(
+        final TwilioRestClient client
+    ) {
+        String path = "/v1/Porting/Configuration/Webhook";
 
         Request request = new Request(
             HttpMethod.GET,
@@ -48,7 +44,7 @@ public class PortingBulkPortabilityFetcher
 
         if (response == null) {
             throw new ApiConnectionException(
-                "PortingBulkPortability fetch failed: Unable to connect to server"
+                "PortingWebhookConfigurationFetch fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
@@ -64,7 +60,7 @@ public class PortingBulkPortabilityFetcher
             throw new ApiException(restException);
         }
 
-        return PortingBulkPortability.fromJson(
+        return PortingWebhookConfigurationFetch.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );

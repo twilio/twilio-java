@@ -316,6 +316,27 @@ public class Recording extends Resource {
         }
     }
 
+    public enum Type {
+        AUDIO("audio"),
+        VIDEO("video"),
+        DATA("data");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
     public enum Status {
         PROCESSING("processing"),
         COMPLETED("completed"),
@@ -357,27 +378,6 @@ public class Recording extends Resource {
         @JsonCreator
         public static Codec forValue(final String value) {
             return Promoter.enumFromString(value, Codec.values());
-        }
-    }
-
-    public enum Type {
-        AUDIO("audio"),
-        VIDEO("video"),
-        DATA("data");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
         }
     }
 }

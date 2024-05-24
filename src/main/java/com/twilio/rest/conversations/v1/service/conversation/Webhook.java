@@ -139,47 +139,6 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
-        }
-    }
-
-    public enum Target {
-        WEBHOOK("webhook"),
-        TRIGGER("trigger"),
-        STUDIO("studio");
-
-        private final String value;
-
-        private Target(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Target forValue(final String value) {
-            return Promoter.enumFromString(value, Target.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String chatServiceSid;
@@ -287,5 +246,46 @@ public class Webhook extends Resource {
             dateCreated,
             dateUpdated
         );
+    }
+
+    public enum Target {
+        WEBHOOK("webhook"),
+        TRIGGER("trigger"),
+        STUDIO("studio");
+
+        private final String value;
+
+        private Target(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Target forValue(final String value) {
+            return Promoter.enumFromString(value, Target.values());
+        }
+    }
+
+    public enum Method {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
     }
 }

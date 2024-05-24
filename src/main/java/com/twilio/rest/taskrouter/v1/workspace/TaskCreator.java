@@ -35,6 +35,9 @@ public class TaskCreator extends Creator<Task> {
     private String workflowSid;
     private String attributes;
     private ZonedDateTime virtualStartTime;
+    private String routingTarget;
+    private String ignoreCapacity;
+    private String taskQueueSid;
 
     public TaskCreator(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -69,6 +72,21 @@ public class TaskCreator extends Creator<Task> {
         final ZonedDateTime virtualStartTime
     ) {
         this.virtualStartTime = virtualStartTime;
+        return this;
+    }
+
+    public TaskCreator setRoutingTarget(final String routingTarget) {
+        this.routingTarget = routingTarget;
+        return this;
+    }
+
+    public TaskCreator setIgnoreCapacity(final String ignoreCapacity) {
+        this.ignoreCapacity = ignoreCapacity;
+        return this;
+    }
+
+    public TaskCreator setTaskQueueSid(final String taskQueueSid) {
+        this.taskQueueSid = taskQueueSid;
         return this;
     }
 
@@ -132,6 +150,15 @@ public class TaskCreator extends Creator<Task> {
                 "VirtualStartTime",
                 virtualStartTime.toInstant().toString()
             );
+        }
+        if (routingTarget != null) {
+            request.addPostParam("RoutingTarget", routingTarget);
+        }
+        if (ignoreCapacity != null) {
+            request.addPostParam("IgnoreCapacity", ignoreCapacity);
+        }
+        if (taskQueueSid != null) {
+            request.addPostParam("TaskQueueSid", taskQueueSid);
         }
     }
 }

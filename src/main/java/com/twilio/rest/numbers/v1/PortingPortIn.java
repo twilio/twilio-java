@@ -22,11 +22,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortIn extends Resource {
 
-    private static final long serialVersionUID = 82589675481462L;
+    private static final long serialVersionUID = 3228491846364L;
 
     public static PortingPortInCreator creator() {
         return new PortingPortInCreator();
@@ -45,6 +50,12 @@ public class PortingPortIn extends Resource {
         final String pathPortInRequestSid
     ) {
         return new PortingPortInDeleter(pathPortInRequestSid);
+    }
+
+    public static PortingPortInFetcher fetcher(
+        final String pathPortInRequestSid
+    ) {
+        return new PortingPortInFetcher(pathPortInRequestSid);
     }
 
     /**
@@ -104,14 +115,55 @@ public class PortingPortIn extends Resource {
 
     private final String portInRequestSid;
     private final URI url;
+    private final String accountSid;
+    private final List<String> notificationEmails;
+    private final LocalDate targetPortInDate;
+    private final String targetPortInTimeRangeStart;
+    private final String targetPortInTimeRangeEnd;
+    private final String portInRequestStatus;
+    private final Map<String, Object> losingCarrierInformation;
+    private final List<Map<String, Object>> phoneNumbers;
+    private final List<String> documents;
 
     @JsonCreator
     private PortingPortIn(
         @JsonProperty("port_in_request_sid") final String portInRequestSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("url") final URI url,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("notification_emails") final List<
+            String
+        > notificationEmails,
+        @JsonProperty("target_port_in_date") final String targetPortInDate,
+        @JsonProperty(
+            "target_port_in_time_range_start"
+        ) final String targetPortInTimeRangeStart,
+        @JsonProperty(
+            "target_port_in_time_range_end"
+        ) final String targetPortInTimeRangeEnd,
+        @JsonProperty(
+            "port_in_request_status"
+        ) final String portInRequestStatus,
+        @JsonProperty("losing_carrier_information") final Map<
+            String,
+            Object
+        > losingCarrierInformation,
+        @JsonProperty("phone_numbers") final List<
+            Map<String, Object>
+        > phoneNumbers,
+        @JsonProperty("documents") final List<String> documents
     ) {
         this.portInRequestSid = portInRequestSid;
         this.url = url;
+        this.accountSid = accountSid;
+        this.notificationEmails = notificationEmails;
+        this.targetPortInDate =
+            DateConverter.localDateFromString(targetPortInDate);
+        this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
+        this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
+        this.portInRequestStatus = portInRequestStatus;
+        this.losingCarrierInformation = losingCarrierInformation;
+        this.phoneNumbers = phoneNumbers;
+        this.documents = documents;
     }
 
     public final String getPortInRequestSid() {
@@ -120,6 +172,42 @@ public class PortingPortIn extends Resource {
 
     public final URI getUrl() {
         return this.url;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final List<String> getNotificationEmails() {
+        return this.notificationEmails;
+    }
+
+    public final LocalDate getTargetPortInDate() {
+        return this.targetPortInDate;
+    }
+
+    public final String getTargetPortInTimeRangeStart() {
+        return this.targetPortInTimeRangeStart;
+    }
+
+    public final String getTargetPortInTimeRangeEnd() {
+        return this.targetPortInTimeRangeEnd;
+    }
+
+    public final String getPortInRequestStatus() {
+        return this.portInRequestStatus;
+    }
+
+    public final Map<String, Object> getLosingCarrierInformation() {
+        return this.losingCarrierInformation;
+    }
+
+    public final List<Map<String, Object>> getPhoneNumbers() {
+        return this.phoneNumbers;
+    }
+
+    public final List<String> getDocuments() {
+        return this.documents;
     }
 
     @Override
@@ -136,12 +224,42 @@ public class PortingPortIn extends Resource {
 
         return (
             Objects.equals(portInRequestSid, other.portInRequestSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(url, other.url) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(notificationEmails, other.notificationEmails) &&
+            Objects.equals(targetPortInDate, other.targetPortInDate) &&
+            Objects.equals(
+                targetPortInTimeRangeStart,
+                other.targetPortInTimeRangeStart
+            ) &&
+            Objects.equals(
+                targetPortInTimeRangeEnd,
+                other.targetPortInTimeRangeEnd
+            ) &&
+            Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
+            Objects.equals(
+                losingCarrierInformation,
+                other.losingCarrierInformation
+            ) &&
+            Objects.equals(phoneNumbers, other.phoneNumbers) &&
+            Objects.equals(documents, other.documents)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(portInRequestSid, url);
+        return Objects.hash(
+            portInRequestSid,
+            url,
+            accountSid,
+            notificationEmails,
+            targetPortInDate,
+            targetPortInTimeRangeStart,
+            targetPortInTimeRangeEnd,
+            portInRequestStatus,
+            losingCarrierInformation,
+            phoneNumbers,
+            documents
+        );
     }
 }

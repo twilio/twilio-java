@@ -320,49 +320,6 @@ public class Trigger extends Resource {
         );
     }
 
-    public enum Recurring {
-        DAILY("daily"),
-        MONTHLY("monthly"),
-        YEARLY("yearly"),
-        ALLTIME("alltime");
-
-        private final String value;
-
-        private Recurring(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Recurring forValue(final String value) {
-            return Promoter.enumFromString(value, Recurring.values());
-        }
-    }
-
-    public enum TriggerField {
-        COUNT("count"),
-        USAGE("usage"),
-        PRICE("price");
-
-        private final String value;
-
-        private TriggerField(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TriggerField forValue(final String value) {
-            return Promoter.enumFromString(value, TriggerField.values());
-        }
-    }
-
     public enum UsageCategory {
         A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
@@ -725,6 +682,49 @@ public class Trigger extends Resource {
         @JsonCreator
         public static UsageCategory forValue(final String value) {
             return Promoter.enumFromString(value, UsageCategory.values());
+        }
+    }
+
+    public enum TriggerField {
+        COUNT("count"),
+        USAGE("usage"),
+        PRICE("price");
+
+        private final String value;
+
+        private TriggerField(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TriggerField forValue(final String value) {
+            return Promoter.enumFromString(value, TriggerField.values());
+        }
+    }
+
+    public enum Recurring {
+        DAILY("daily"),
+        MONTHLY("monthly"),
+        YEARLY("yearly"),
+        ALLTIME("alltime");
+
+        private final String value;
+
+        private Recurring(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Recurring forValue(final String value) {
+            return Promoter.enumFromString(value, Recurring.values());
         }
     }
 }

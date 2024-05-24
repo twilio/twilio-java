@@ -539,28 +539,6 @@ public class TollfreeVerification extends Resource {
         );
     }
 
-    public enum Status {
-        PENDING_REVIEW("PENDING_REVIEW"),
-        IN_REVIEW("IN_REVIEW"),
-        TWILIO_APPROVED("TWILIO_APPROVED"),
-        TWILIO_REJECTED("TWILIO_REJECTED");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum OptInType {
         VERBAL("VERBAL"),
         WEB_FORM("WEB_FORM"),
@@ -581,6 +559,28 @@ public class TollfreeVerification extends Resource {
         @JsonCreator
         public static OptInType forValue(final String value) {
             return Promoter.enumFromString(value, OptInType.values());
+        }
+    }
+
+    public enum Status {
+        PENDING_REVIEW("PENDING_REVIEW"),
+        IN_REVIEW("IN_REVIEW"),
+        TWILIO_APPROVED("TWILIO_APPROVED"),
+        TWILIO_REJECTED("TWILIO_REJECTED");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 }

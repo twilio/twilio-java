@@ -14,15 +14,21 @@
 
 package com.twilio.rest.numbers.v1;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.time.ZonedDateTime;
+import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -30,13 +36,23 @@ import lombok.ToString;
 @ToString
 public class PortingPortInPhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 239545094006478L;
 
     public static PortingPortInPhoneNumberDeleter deleter(
         final String pathPortInRequestSid,
         final String pathPhoneNumberSid
     ) {
         return new PortingPortInPhoneNumberDeleter(
+            pathPortInRequestSid,
+            pathPhoneNumberSid
+        );
+    }
+
+    public static PortingPortInPhoneNumberFetcher fetcher(
+        final String pathPortInRequestSid,
+        final String pathPhoneNumberSid
+    ) {
+        return new PortingPortInPhoneNumberFetcher(
             pathPortInRequestSid,
             pathPhoneNumberSid
         );
@@ -83,5 +99,186 @@ public class PortingPortInPhoneNumber extends Resource {
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
+    }
+
+    private final String portInRequestSid;
+    private final String phoneNumberSid;
+    private final URI url;
+    private final String accountSid;
+    private final String phoneNumberType;
+    private final ZonedDateTime dateCreated;
+    private final String country;
+    private final Boolean missingRequiredFields;
+    private final ZonedDateTime statusLastTimeUpdatedTimestamp;
+    private final com.twilio.type.PhoneNumber phoneNumber;
+    private final Boolean portable;
+    private final String notPortabilityReason;
+    private final String notPortabilityReasonCode;
+    private final String portInPhoneNumberStatus;
+
+    @JsonCreator
+    private PortingPortInPhoneNumber(
+        @JsonProperty("port_in_request_sid") final String portInRequestSid,
+        @JsonProperty("phone_number_sid") final String phoneNumberSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("phone_number_type") final String phoneNumberType,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("country") final String country,
+        @JsonProperty(
+            "missing_required_fields"
+        ) final Boolean missingRequiredFields,
+        @JsonProperty(
+            "status_last_time_updated_timestamp"
+        ) final String statusLastTimeUpdatedTimestamp,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("portable") final Boolean portable,
+        @JsonProperty(
+            "not_portability_reason"
+        ) final String notPortabilityReason,
+        @JsonProperty(
+            "not_portability_reason_code"
+        ) final String notPortabilityReasonCode,
+        @JsonProperty(
+            "port_in_phone_number_status"
+        ) final String portInPhoneNumberStatus
+    ) {
+        this.portInRequestSid = portInRequestSid;
+        this.phoneNumberSid = phoneNumberSid;
+        this.url = url;
+        this.accountSid = accountSid;
+        this.phoneNumberType = phoneNumberType;
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.country = country;
+        this.missingRequiredFields = missingRequiredFields;
+        this.statusLastTimeUpdatedTimestamp =
+            DateConverter.iso8601DateTimeFromString(
+                statusLastTimeUpdatedTimestamp
+            );
+        this.phoneNumber = phoneNumber;
+        this.portable = portable;
+        this.notPortabilityReason = notPortabilityReason;
+        this.notPortabilityReasonCode = notPortabilityReasonCode;
+        this.portInPhoneNumberStatus = portInPhoneNumberStatus;
+    }
+
+    public final String getPortInRequestSid() {
+        return this.portInRequestSid;
+    }
+
+    public final String getPhoneNumberSid() {
+        return this.phoneNumberSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getPhoneNumberType() {
+        return this.phoneNumberType;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final String getCountry() {
+        return this.country;
+    }
+
+    public final Boolean getMissingRequiredFields() {
+        return this.missingRequiredFields;
+    }
+
+    public final ZonedDateTime getStatusLastTimeUpdatedTimestamp() {
+        return this.statusLastTimeUpdatedTimestamp;
+    }
+
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public final Boolean getPortable() {
+        return this.portable;
+    }
+
+    public final String getNotPortabilityReason() {
+        return this.notPortabilityReason;
+    }
+
+    public final String getNotPortabilityReasonCode() {
+        return this.notPortabilityReasonCode;
+    }
+
+    public final String getPortInPhoneNumberStatus() {
+        return this.portInPhoneNumberStatus;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        PortingPortInPhoneNumber other = (PortingPortInPhoneNumber) o;
+
+        return (
+            Objects.equals(portInRequestSid, other.portInRequestSid) &&
+            Objects.equals(phoneNumberSid, other.phoneNumberSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(phoneNumberType, other.phoneNumberType) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(country, other.country) &&
+            Objects.equals(
+                missingRequiredFields,
+                other.missingRequiredFields
+            ) &&
+            Objects.equals(
+                statusLastTimeUpdatedTimestamp,
+                other.statusLastTimeUpdatedTimestamp
+            ) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(portable, other.portable) &&
+            Objects.equals(notPortabilityReason, other.notPortabilityReason) &&
+            Objects.equals(
+                notPortabilityReasonCode,
+                other.notPortabilityReasonCode
+            ) &&
+            Objects.equals(
+                portInPhoneNumberStatus,
+                other.portInPhoneNumberStatus
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            portInRequestSid,
+            phoneNumberSid,
+            url,
+            accountSid,
+            phoneNumberType,
+            dateCreated,
+            country,
+            missingRequiredFields,
+            statusLastTimeUpdatedTimestamp,
+            phoneNumber,
+            portable,
+            notPortabilityReason,
+            notPortabilityReasonCode,
+            portInPhoneNumberStatus
+        );
     }
 }

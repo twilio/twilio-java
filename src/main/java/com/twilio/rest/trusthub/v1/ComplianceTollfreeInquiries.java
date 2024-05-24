@@ -96,29 +96,6 @@ public class ComplianceTollfreeInquiries extends Resource {
         }
     }
 
-    public enum OptInType {
-        VERBAL("VERBAL"),
-        WEB_FORM("WEB_FORM"),
-        PAPER_FORM("PAPER_FORM"),
-        VIA_TEXT("VIA_TEXT"),
-        MOBILE_QR_CODE("MOBILE_QR_CODE");
-
-        private final String value;
-
-        private OptInType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OptInType forValue(final String value) {
-            return Promoter.enumFromString(value, OptInType.values());
-        }
-    }
-
     private final String inquiryId;
     private final String inquirySessionToken;
     private final String registrationId;
@@ -181,5 +158,28 @@ public class ComplianceTollfreeInquiries extends Resource {
             registrationId,
             url
         );
+    }
+
+    public enum OptInType {
+        VERBAL("VERBAL"),
+        WEB_FORM("WEB_FORM"),
+        PAPER_FORM("PAPER_FORM"),
+        VIA_TEXT("VIA_TEXT"),
+        MOBILE_QR_CODE("MOBILE_QR_CODE");
+
+        private final String value;
+
+        private OptInType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OptInType forValue(final String value) {
+            return Promoter.enumFromString(value, OptInType.values());
+        }
     }
 }

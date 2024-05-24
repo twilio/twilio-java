@@ -126,26 +126,6 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
 
-    public enum Status {
-        CLOSED("closed"),
-        WRAPUP("wrapup");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final InteractionChannelParticipant.Type type;
     private final String interactionSid;
@@ -251,6 +231,26 @@ public class InteractionChannelParticipant extends Resource {
         @JsonCreator
         public static Type forValue(final String value) {
             return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum Status {
+        CLOSED("closed"),
+        WRAPUP("wrapup");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 }

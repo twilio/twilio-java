@@ -112,25 +112,6 @@ public class WebChannel extends Resource {
         }
     }
 
-    public enum ChatStatus {
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private ChatStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChatStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChatStatus.values());
-        }
-    }
-
     private final String accountSid;
     private final String flexFlowSid;
     private final String sid;
@@ -211,5 +192,24 @@ public class WebChannel extends Resource {
             dateCreated,
             dateUpdated
         );
+    }
+
+    public enum ChatStatus {
+        INACTIVE("inactive");
+
+        private final String value;
+
+        private ChatStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChatStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChatStatus.values());
+        }
     }
 }

@@ -176,7 +176,7 @@ public class RequestTest {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateTimeRange("baz", ZonedDateTime.of(2014, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), null);
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01T00:00:00");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01T00:00:00Z");
         assertUrlsEqual(expected, url);
     }
 
@@ -185,7 +185,7 @@ public class RequestTest {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateTimeRange("baz", null, ZonedDateTime.of(2014, 1, 1, 22, 0, 0, 0, ZoneOffset.UTC));
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz<=2014-01-01T22:00:00");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz<=2014-01-01T22:00:00Z");
         assertUrlsEqual(expected, url);
     }
 
@@ -195,7 +195,7 @@ public class RequestTest {
         r.addQueryDateTimeRange("baz", ZonedDateTime.of(2014, 1, 10, 14, 0, 0, 0, ZoneOffset.UTC),
             ZonedDateTime.of(2014, 6, 1, 16, 0, 0, 0, ZoneOffset.UTC));
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T14:00:00&baz<=2014-06-01T16:00:00");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T14:00:00Z&baz<=2014-06-01T16:00:00Z");
         assertUrlsEqual(expected, url);
     }
 
@@ -207,7 +207,7 @@ public class RequestTest {
         ZonedDateTime end = ZonedDateTime.of(2014, 6, 1, 16, 0, 0, 0, z);
         r.addQueryDateTimeRange("baz", begin, end);
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00&baz<=2014-06-01T21:00:00");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00Z&baz<=2014-06-01T21:00:00Z");
         assertUrlsEqual(expected, url);
     }
 

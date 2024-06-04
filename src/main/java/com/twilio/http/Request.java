@@ -22,7 +22,7 @@ public class Request {
 
     private static final String DEFAULT_REGION = "us1";
 
-    public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
     private final HttpMethod method;

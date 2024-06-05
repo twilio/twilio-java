@@ -9,6 +9,7 @@ public class EnumConstants {
     @RequiredArgsConstructor
     public enum ContentType {
         JSON("application/json"),
+        SCIM("application/scim"),
         FORM_URLENCODED("application/x-www-form-urlencoded");
 
         private final String value;

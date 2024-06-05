@@ -1,6 +1,8 @@
 package com.twilio.http.bearertoken;
 
+import static java.time.Instant.now;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -105,7 +107,7 @@ public class BearerTokenTwilioRestClient {
         }
         
         if (isAccessTokenExpired()) {
-            throw new AuthenticationException("Access Token is expired.");
+            throw new TokenExpiredException("Access Token is expired.", now());
         }
         
         request.setAuth(accessToken);

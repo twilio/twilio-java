@@ -17,6 +17,7 @@ package com.twilio.rest.content.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,16 +26,96 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
 
     private Integer pageSize;
+    private String sortByDate;
+    private String sortByContentName;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
+    private String contentName;
+    private String content;
+    private List<String> language;
+    private List<String> contentType;
+    private List<String> channelEligibility;
 
     public ContentAndApprovalsReader() {}
 
     public ContentAndApprovalsReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ContentAndApprovalsReader setSortByDate(final String sortByDate) {
+        this.sortByDate = sortByDate;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setSortByContentName(
+        final String sortByContentName
+    ) {
+        this.sortByContentName = sortByContentName;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setDateCreatedAfter(
+        final ZonedDateTime dateCreatedAfter
+    ) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setDateCreatedBefore(
+        final ZonedDateTime dateCreatedBefore
+    ) {
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setContentName(final String contentName) {
+        this.contentName = contentName;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setContent(final String content) {
+        this.content = content;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setLanguage(final List<String> language) {
+        this.language = language;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setLanguage(final String language) {
+        return setLanguage(Promoter.listOfOne(language));
+    }
+
+    public ContentAndApprovalsReader setContentType(
+        final List<String> contentType
+    ) {
+        this.contentType = contentType;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setContentType(final String contentType) {
+        return setContentType(Promoter.listOfOne(contentType));
+    }
+
+    public ContentAndApprovalsReader setChannelEligibility(
+        final List<String> channelEligibility
+    ) {
+        this.channelEligibility = channelEligibility;
+        return this;
+    }
+
+    public ContentAndApprovalsReader setChannelEligibility(
+        final String channelEligibility
+    ) {
+        return setChannelEligibility(Promoter.listOfOne(channelEligibility));
     }
 
     @Override
@@ -126,6 +207,47 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
+        }
+        if (sortByDate != null) {
+            request.addQueryParam("SortByDate", sortByDate);
+        }
+        if (sortByContentName != null) {
+            request.addQueryParam("SortByContentName", sortByContentName);
+        }
+        if (dateCreatedAfter != null) {
+            request.addQueryParam(
+                "DateCreatedAfter",
+                dateCreatedAfter.toInstant().toString()
+            );
+        }
+
+        if (dateCreatedBefore != null) {
+            request.addQueryParam(
+                "DateCreatedBefore",
+                dateCreatedBefore.toInstant().toString()
+            );
+        }
+
+        if (contentName != null) {
+            request.addQueryParam("ContentName", contentName);
+        }
+        if (content != null) {
+            request.addQueryParam("Content", content);
+        }
+        if (language != null) {
+            for (String prop : language) {
+                request.addQueryParam("Language", prop);
+            }
+        }
+        if (contentType != null) {
+            for (String prop : contentType) {
+                request.addQueryParam("ContentType", prop);
+            }
+        }
+        if (channelEligibility != null) {
+            for (String prop : channelEligibility) {
+                request.addQueryParam("ChannelEligibility", prop);
+            }
         }
 
         if (getPageSize() != null) {

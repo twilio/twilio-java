@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2024-06-06] Version 10.2.1
+---------------------------
+**Api**
+- Mark MaxPrice as obsolete
+
+**Lookups**
+- Update examples for `phone_number_quality_score`
+
+**Messaging**
+- List tollfree verifications on parent account and all sub-accounts
+
+
 [2024-05-24] Version 10.2.0
 ---------------------------
 **Library - Docs**

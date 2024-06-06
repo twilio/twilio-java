@@ -17,6 +17,7 @@ package com.twilio.rest.content.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,16 +26,92 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 public class ContentReader extends Reader<Content> {
 
     private Integer pageSize;
+    private String sortByDate;
+    private String sortByContentName;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
+    private String contentName;
+    private String content;
+    private List<String> language;
+    private List<String> contentType;
+    private List<String> channelEligibility;
 
     public ContentReader() {}
 
     public ContentReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
+    }
+
+    public ContentReader setSortByDate(final String sortByDate) {
+        this.sortByDate = sortByDate;
+        return this;
+    }
+
+    public ContentReader setSortByContentName(final String sortByContentName) {
+        this.sortByContentName = sortByContentName;
+        return this;
+    }
+
+    public ContentReader setDateCreatedAfter(
+        final ZonedDateTime dateCreatedAfter
+    ) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    public ContentReader setDateCreatedBefore(
+        final ZonedDateTime dateCreatedBefore
+    ) {
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    public ContentReader setContentName(final String contentName) {
+        this.contentName = contentName;
+        return this;
+    }
+
+    public ContentReader setContent(final String content) {
+        this.content = content;
+        return this;
+    }
+
+    public ContentReader setLanguage(final List<String> language) {
+        this.language = language;
+        return this;
+    }
+
+    public ContentReader setLanguage(final String language) {
+        return setLanguage(Promoter.listOfOne(language));
+    }
+
+    public ContentReader setContentType(final List<String> contentType) {
+        this.contentType = contentType;
+        return this;
+    }
+
+    public ContentReader setContentType(final String contentType) {
+        return setContentType(Promoter.listOfOne(contentType));
+    }
+
+    public ContentReader setChannelEligibility(
+        final List<String> channelEligibility
+    ) {
+        this.channelEligibility = channelEligibility;
+        return this;
+    }
+
+    public ContentReader setChannelEligibility(
+        final String channelEligibility
+    ) {
+        return setChannelEligibility(Promoter.listOfOne(channelEligibility));
     }
 
     @Override
@@ -124,6 +201,47 @@ public class ContentReader extends Reader<Content> {
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
+        }
+        if (sortByDate != null) {
+            request.addQueryParam("SortByDate", sortByDate);
+        }
+        if (sortByContentName != null) {
+            request.addQueryParam("SortByContentName", sortByContentName);
+        }
+        if (dateCreatedAfter != null) {
+            request.addQueryParam(
+                "DateCreatedAfter",
+                dateCreatedAfter.toInstant().toString()
+            );
+        }
+
+        if (dateCreatedBefore != null) {
+            request.addQueryParam(
+                "DateCreatedBefore",
+                dateCreatedBefore.toInstant().toString()
+            );
+        }
+
+        if (contentName != null) {
+            request.addQueryParam("ContentName", contentName);
+        }
+        if (content != null) {
+            request.addQueryParam("Content", content);
+        }
+        if (language != null) {
+            for (String prop : language) {
+                request.addQueryParam("Language", prop);
+            }
+        }
+        if (contentType != null) {
+            for (String prop : contentType) {
+                request.addQueryParam("ContentType", prop);
+            }
+        }
+        if (channelEligibility != null) {
+            for (String prop : channelEligibility) {
+                request.addQueryParam("ChannelEligibility", prop);
+            }
         }
 
         if (getPageSize() != null) {

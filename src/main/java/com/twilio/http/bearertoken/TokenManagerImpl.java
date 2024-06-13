@@ -2,7 +2,6 @@ package com.twilio.http.bearertoken;
 
 import lombok.Setter;
 import lombok.RequiredArgsConstructor;
-import jdk.internal.net.http.common.Pair;
 import com.twilio.rest.previewiam.organizations.Token;
 
 @RequiredArgsConstructor

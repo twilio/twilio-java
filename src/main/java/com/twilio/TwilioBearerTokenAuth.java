@@ -44,7 +44,6 @@ public class TwilioBearerTokenAuth {
                 }
             }
         }
-        //TwilioBearerTokenAuth.restClient.tokenManager = this.tokenManager;
         return TwilioBearerTokenAuth.restClient;
     }
     /**
@@ -64,6 +63,7 @@ public class TwilioBearerTokenAuth {
     }
     
     private static BearerTokenTwilioRestClient buildOAuthRestClient() {
+
         BearerTokenTwilioRestClient.Builder builder = new BearerTokenTwilioRestClient.Builder(accessToken);
 
         if (userAgentExtensions != null) {

@@ -2,7 +2,6 @@ package com.twilio.http.bearertoken;
 
 import com.auth0.jwt.JWT;
 import com.twilio.http.bearertoken.TokenManager;
-import jdk.internal.net.http.common.Pair;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -41,7 +40,6 @@ public class BearerTokenTwilioRestClient {
     @Getter
     private final List<String> userAgentExtensions;
     public static TokenManager tokenManager;
-//        = new TokenManagerImpl("client_credentials", "OQ8576fd024eb2f94c329dd5d77254fa35", "1OkIMnXTaVNqVpLmKyYI1Nyi1AVFu4OMTej0MYHKdfPFZbVmGGbBZFhf58q5Vi1X");
     private static final Logger logger = LoggerFactory.getLogger(BearerTokenTwilioRestClient.class);
 
     private BearerTokenTwilioRestClient(BearerTokenTwilioRestClient.Builder b) {

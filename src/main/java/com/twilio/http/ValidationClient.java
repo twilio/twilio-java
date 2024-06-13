@@ -178,7 +178,7 @@ public class ValidationClient extends HttpClient {
         }
 
         HttpMethod method = request.getMethod();
-        if (method != HttpMethod.GET) {
+        if (method == HttpMethod.POST || method == HttpMethod.PUT) {
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);

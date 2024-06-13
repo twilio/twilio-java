@@ -8,6 +8,7 @@ import lombok.Getter;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.twilio.http.bearertoken.TokenManager;
 
 @Preview
 public class TwilioBearerTokenAuth {
@@ -17,13 +18,14 @@ public class TwilioBearerTokenAuth {
     private static String region = System.getenv("TWILIO_REGION");
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile BearerTokenTwilioRestClient restClient;
+    private static TokenManager tokenManager;
 
     private static volatile ExecutorService executorService;
 
     private TwilioBearerTokenAuth() {
     }
 
-    public static synchronized void init(final String accessToken) {
+    public static synchronized void init(final String accessToken, final TokenManager tokenManager) {
         if (accessToken == null || accessToken.isEmpty()) {
             throw new AuthenticationException("Access Token can not be null or Empty");
         }
@@ -31,6 +33,7 @@ public class TwilioBearerTokenAuth {
             TwilioBearerTokenAuth.invalidate();
         }
         TwilioBearerTokenAuth.accessToken = accessToken;
+        TwilioBearerTokenAuth.tokenManager = tokenManager;
     }
 
     public static BearerTokenTwilioRestClient getRestClient() {
@@ -41,6 +44,7 @@ public class TwilioBearerTokenAuth {
                 }
             }
         }
+        //TwilioBearerTokenAuth.restClient.tokenManager = this.tokenManager;
         return TwilioBearerTokenAuth.restClient;
     }
     /**
@@ -60,7 +64,6 @@ public class TwilioBearerTokenAuth {
     }
     
     private static BearerTokenTwilioRestClient buildOAuthRestClient() {
-
         BearerTokenTwilioRestClient.Builder builder = new BearerTokenTwilioRestClient.Builder(accessToken);
 
         if (userAgentExtensions != null) {
@@ -69,6 +72,7 @@ public class TwilioBearerTokenAuth {
 
         builder.region(TwilioBearerTokenAuth.region);
         builder.edge(TwilioBearerTokenAuth.edge);
+        builder.tokenManager(TwilioBearerTokenAuth.tokenManager);
 
         return builder.build();
     }

@@ -1,6 +1,8 @@
 package com.twilio.http.bearertoken;
 
 import com.auth0.jwt.JWT;
+import com.twilio.http.bearertoken.TokenManager;
+import jdk.internal.net.http.common.Pair;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -29,7 +31,7 @@ public class BearerTokenTwilioRestClient {
     public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
     @Getter
     private final ObjectMapper objectMapper;
-    private final String accessToken;
+    private String accessToken;
     @Getter
     private final String region;
     @Getter
@@ -38,6 +40,8 @@ public class BearerTokenTwilioRestClient {
     private final HttpClient httpClient;
     @Getter
     private final List<String> userAgentExtensions;
+    public static TokenManager tokenManager;
+//        = new TokenManagerImpl("client_credentials", "OQ8576fd024eb2f94c329dd5d77254fa35", "1OkIMnXTaVNqVpLmKyYI1Nyi1AVFu4OMTej0MYHKdfPFZbVmGGbBZFhf58q5Vi1X");
     private static final Logger logger = LoggerFactory.getLogger(BearerTokenTwilioRestClient.class);
 
     private BearerTokenTwilioRestClient(BearerTokenTwilioRestClient.Builder b) {
@@ -47,6 +51,7 @@ public class BearerTokenTwilioRestClient {
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
         this.userAgentExtensions = b.userAgentExtensions;
+        this.tokenManager = b.tokenManager;
 
         // This module configures the ObjectMapper to use
         // public API methods for manipulating java.time.*
@@ -61,6 +66,7 @@ public class BearerTokenTwilioRestClient {
         private String edge;
         private HttpClient httpClient;
         private List<String> userAgentExtensions;
+        private TokenManager tokenManager;
 
         public Builder(String accessToken) {
             this.accessToken = accessToken;
@@ -76,6 +82,11 @@ public class BearerTokenTwilioRestClient {
 
         public BearerTokenTwilioRestClient.Builder edge(final String edge) {
             this.edge = edge;
+            return this;
+        }
+
+        public BearerTokenTwilioRestClient.Builder tokenManager(final TokenManager tokenManager) {
+            this.tokenManager = tokenManager;
             return this;
         }
 
@@ -103,9 +114,9 @@ public class BearerTokenTwilioRestClient {
         if (accessToken == null || accessToken.isEmpty()) {
             throw new AuthenticationException("Access Token can not be Null or Empty.");
         }
-        
+
         if (isAccessTokenExpired()) {
-            throw new AuthenticationException("Access Token is expired.");
+            this.accessToken = tokenManager.fetchAccessToken();
         }
         
         request.setAuth(accessToken);
@@ -119,9 +130,15 @@ public class BearerTokenTwilioRestClient {
         }
         logRequest(request);
         Response response = httpClient.reliableRequest(request);
+        int statusCode = response.getStatusCode();
+        if(statusCode == 401){
+            this.accessToken = tokenManager.fetchAccessToken();
+            request.setAuth(accessToken);
+            response = httpClient.reliableRequest(request);
+        }
 
         if (logger.isDebugEnabled()) {
-            logger.debug("status code: {}", response.getStatusCode());
+            logger.debug("status code: {}", statusCode);
             org.apache.http.Header[] responseHeaders = response.getHeaders();
             logger.debug("response headers:");
             for (int i = 0; i < responseHeaders.length; i++) {

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.previewiam.organizations;
 
+import com.twilio.base.noauth.Resource;
 
 public class Token extends Resource {
     private static final long serialVersionUID = 258139119277894L;

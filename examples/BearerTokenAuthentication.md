@@ -1,9 +1,9 @@
     class BearerTokenAuthenticationExamples {
         public static void main {
             //Getting access token
-            Token token  = Token.creator(GRANT_TYPE, CLIENT_ID).setClientSecret(CLIENT_SECRET).create();
+            TokenManager tokenManager = new TokenManagerImpl(GRANT_TYPE, CLIENT_ID, CLIENT_SECRET);
+            TwilioBearerTokenAuth.init(tokenManager);
 
-            TwilioBearerTokenAuth.init(token.getAccessToken());
             fetchAccountDetails();
         }
 

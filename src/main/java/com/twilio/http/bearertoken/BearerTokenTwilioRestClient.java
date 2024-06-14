@@ -39,7 +39,7 @@ public class BearerTokenTwilioRestClient {
     private final HttpClient httpClient;
     @Getter
     private final List<String> userAgentExtensions;
-    public static TokenManager tokenManager;
+    private static TokenManager tokenManager;
     private static final Logger logger = LoggerFactory.getLogger(BearerTokenTwilioRestClient.class);
 
     private BearerTokenTwilioRestClient(BearerTokenTwilioRestClient.Builder b) {
@@ -128,19 +128,21 @@ public class BearerTokenTwilioRestClient {
         }
         logRequest(request);
         Response response = httpClient.reliableRequest(request);
-        int statusCode = response.getStatusCode();
-        if(statusCode == 401){
-            this.accessToken = tokenManager.fetchAccessToken();
-            request.setAuth(accessToken);
-            response = httpClient.reliableRequest(request);
-        }
+        if(response != null) {
+            int statusCode = response.getStatusCode();
+            if (statusCode == 401) {
+                this.accessToken = tokenManager.fetchAccessToken();
+                request.setAuth(accessToken);
+                response = httpClient.reliableRequest(request);
+            }
 
-        if (logger.isDebugEnabled()) {
-            logger.debug("status code: {}", statusCode);
-            org.apache.http.Header[] responseHeaders = response.getHeaders();
-            logger.debug("response headers:");
-            for (int i = 0; i < responseHeaders.length; i++) {
-                logger.debug("responseHeader: {}", responseHeaders[i]);
+            if (logger.isDebugEnabled()) {
+                logger.debug("status code: {}", statusCode);
+                org.apache.http.Header[] responseHeaders = response.getHeaders();
+                logger.debug("response headers:");
+                for (int i = 0; i < responseHeaders.length; i++) {
+                    logger.debug("responseHeader: {}", responseHeaders[i]);
+                }
             }
         }
 

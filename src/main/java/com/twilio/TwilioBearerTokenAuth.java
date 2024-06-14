@@ -25,15 +25,12 @@ public class TwilioBearerTokenAuth {
     private TwilioBearerTokenAuth() {
     }
 
-    public static synchronized void init(final String accessToken, final TokenManager tokenManager) {
-        if (accessToken == null || accessToken.isEmpty()) {
-            throw new AuthenticationException("Access Token can not be null or Empty");
+    public static synchronized void init(final TokenManager tokenManager) {
+        if (tokenManager == null) {
+            throw new AuthenticationException("Token Manager cannot be null");
         }
-        if (!accessToken.equals(TwilioBearerTokenAuth.accessToken)) {
-            TwilioBearerTokenAuth.invalidate();
-        }
-        TwilioBearerTokenAuth.accessToken = accessToken;
         TwilioBearerTokenAuth.tokenManager = tokenManager;
+        TwilioBearerTokenAuth.accessToken = tokenManager.fetchAccessToken();
     }
 
     public static BearerTokenTwilioRestClient getRestClient() {

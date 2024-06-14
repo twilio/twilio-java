@@ -18,7 +18,7 @@ public class TokenManagerImpl implements TokenManager{
         return token.getAccessToken();
     }
 
-    public synchronized String fetchAccessToken(){
+    public String fetchAccessToken(){
         Token token = Token.creator(grantType, clientId).setClientSecret(clientSecret).create();
         return token.getAccessToken();
     }

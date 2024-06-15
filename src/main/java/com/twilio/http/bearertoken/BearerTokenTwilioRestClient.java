@@ -10,6 +10,7 @@ import com.twilio.http.HttpClient;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Response;
 import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,11 +40,11 @@ public class BearerTokenTwilioRestClient {
     private final HttpClient httpClient;
     @Getter
     private final List<String> userAgentExtensions;
-    private static TokenManager tokenManager;
+    @Setter
+    private final TokenManager tokenManager;
     private static final Logger logger = LoggerFactory.getLogger(BearerTokenTwilioRestClient.class);
 
     private BearerTokenTwilioRestClient(BearerTokenTwilioRestClient.Builder b) {
-        this.accessToken = b.accessToken;
         this.region = b.region;
         this.edge = b.edge;
         this.httpClient = b.httpClient;
@@ -59,15 +60,13 @@ public class BearerTokenTwilioRestClient {
     }
     
     public static class Builder {
-        private final String accessToken;
         private String region;
         private String edge;
         private HttpClient httpClient;
         private List<String> userAgentExtensions;
         private TokenManager tokenManager;
 
-        public Builder(String accessToken) {
-            this.accessToken = accessToken;
+        public Builder() {
             this.region = System.getenv("TWILIO_REGION");
             this.edge = System.getenv("TWILIO_EDGE");
             userAgentExtensions = new ArrayList<>();
@@ -108,12 +107,8 @@ public class BearerTokenTwilioRestClient {
         }
     }
     public Response request(BearerTokenRequest request) {
-        
-        if (accessToken == null || accessToken.isEmpty()) {
-            throw new AuthenticationException("Access Token can not be Null or Empty.");
-        }
 
-        if (isAccessTokenExpired()) {
+        if (accessToken == null || accessToken.isEmpty() || isTokenExpired(this.accessToken)) {
             this.accessToken = tokenManager.fetchAccessToken();
         }
         
@@ -149,8 +144,8 @@ public class BearerTokenTwilioRestClient {
         return response;
     }
 
-    public boolean isAccessTokenExpired() {
-        DecodedJWT jwt = JWT.decode(this.accessToken);
+    public boolean isTokenExpired(String token) {
+        DecodedJWT jwt = JWT.decode(token);
         Date expiresAt = jwt.getExpiresAt();
         // Add a buffer of 30 seconds
         long bufferMilliseconds = 30 * 1000;
@@ -178,7 +173,6 @@ public class BearerTokenTwilioRestClient {
                     }
                 }
             }
-
             logger.debug("-- END Twilio API BearerTokenRequest --");
         }
     }

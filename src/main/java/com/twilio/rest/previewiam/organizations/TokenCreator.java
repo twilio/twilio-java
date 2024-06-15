@@ -14,43 +14,20 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Creator;
-import com.twilio.http.Request;
-import com.twilio.http.TwilioRestClient;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-import com.twilio.converter.PrefixedCollapsibleMap;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
 import com.twilio.rest.Domains;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.time.LocalDate;
-import com.twilio.converter.Converter;
-import java.time.ZonedDateTime;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.time.format.DateTimeFormatter;
-import com.twilio.converter.DateConverter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
-import lombok.ToString;
 
-import java.net.URI;
+
+import com.twilio.base.noauth.Creator;
+import com.twilio.http.noauth.NoAuthRequest;
+import com.twilio.http.noauth.NoAuthTwilioRestClient;
 
 public class TokenCreator extends Creator<Token>{
     private String grantType;
@@ -101,13 +78,13 @@ public class TokenCreator extends Creator<Token>{
     }
 
     @Override
-    public Token create(final TwilioRestClient client){
+    public Token create(final NoAuthTwilioRestClient client){
         String path = "/v1/token";
 
         path = path.replace("{"+"grant_type"+"}", this.grantType.toString());
         path = path.replace("{"+"client_id"+"}", this.clientId.toString());
 
-        Request request = new Request(
+        NoAuthRequest request = new NoAuthRequest(
             HttpMethod.POST,
             Domains.PREVIEWIAM.toString(),
             path
@@ -117,7 +94,7 @@ public class TokenCreator extends Creator<Token>{
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException("Token creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+        } else if (!NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content", response.getStatusCode());
@@ -127,7 +104,7 @@ public class TokenCreator extends Creator<Token>{
 
         return Token.fromJson(response.getStream(), client.getObjectMapper());
     }
-    private void addPostParams(final Request request) {
+    private void addPostParams(final NoAuthRequest request) {
         if (grantType != null) {
             request.addPostParam("grant_type", grantType);
     

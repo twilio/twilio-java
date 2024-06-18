@@ -53,6 +53,7 @@ public class ComplianceTollfreeInquiriesCreator
     private String businessContactEmail;
     private com.twilio.type.PhoneNumber businessContactPhone;
     private String themeSetId;
+    private Boolean skipMessagingUseCase;
 
     public ComplianceTollfreeInquiriesCreator(
         final com.twilio.type.PhoneNumber tollfreePhoneNumber,
@@ -244,6 +245,13 @@ public class ComplianceTollfreeInquiriesCreator
         return this;
     }
 
+    public ComplianceTollfreeInquiriesCreator setSkipMessagingUseCase(
+        final Boolean skipMessagingUseCase
+    ) {
+        this.skipMessagingUseCase = skipMessagingUseCase;
+        return this;
+    }
+
     @Override
     public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
         String path = "/v1/ComplianceInquiries/Tollfree/Initialize";
@@ -388,6 +396,12 @@ public class ComplianceTollfreeInquiriesCreator
         }
         if (themeSetId != null) {
             request.addPostParam("ThemeSetId", themeSetId);
+        }
+        if (skipMessagingUseCase != null) {
+            request.addPostParam(
+                "SkipMessagingUseCase",
+                skipMessagingUseCase.toString()
+            );
         }
     }
 }

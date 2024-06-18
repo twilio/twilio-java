@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortIn extends Resource {
 
-    private static final long serialVersionUID = 3228491846364L;
+    private static final long serialVersionUID = 103086419202732L;
 
     public static PortingPortInCreator creator() {
         return new PortingPortInCreator();
@@ -124,6 +124,7 @@ public class PortingPortIn extends Resource {
     private final Map<String, Object> losingCarrierInformation;
     private final List<Map<String, Object>> phoneNumbers;
     private final List<String> documents;
+    private final LocalDate dateCreated;
 
     @JsonCreator
     private PortingPortIn(
@@ -150,7 +151,8 @@ public class PortingPortIn extends Resource {
         @JsonProperty("phone_numbers") final List<
             Map<String, Object>
         > phoneNumbers,
-        @JsonProperty("documents") final List<String> documents
+        @JsonProperty("documents") final List<String> documents,
+        @JsonProperty("date_created") final String dateCreated
     ) {
         this.portInRequestSid = portInRequestSid;
         this.url = url;
@@ -164,6 +166,7 @@ public class PortingPortIn extends Resource {
         this.losingCarrierInformation = losingCarrierInformation;
         this.phoneNumbers = phoneNumbers;
         this.documents = documents;
+        this.dateCreated = DateConverter.localDateFromString(dateCreated);
     }
 
     public final String getPortInRequestSid() {
@@ -210,6 +213,10 @@ public class PortingPortIn extends Resource {
         return this.documents;
     }
 
+    public final LocalDate getDateCreated() {
+        return this.dateCreated;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -242,7 +249,8 @@ public class PortingPortIn extends Resource {
                 other.losingCarrierInformation
             ) &&
             Objects.equals(phoneNumbers, other.phoneNumbers) &&
-            Objects.equals(documents, other.documents)
+            Objects.equals(documents, other.documents) &&
+            Objects.equals(dateCreated, other.dateCreated)
         );
     }
 
@@ -259,7 +267,8 @@ public class PortingPortIn extends Resource {
             portInRequestStatus,
             losingCarrierInformation,
             phoneNumbers,
-            documents
+            documents,
+            dateCreated
         );
     }
 }

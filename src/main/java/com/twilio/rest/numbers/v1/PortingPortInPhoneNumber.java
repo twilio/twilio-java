@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortInPhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 239545094006478L;
+    private static final long serialVersionUID = 245952123111286L;
 
     public static PortingPortInPhoneNumberDeleter deleter(
         final String pathPortInRequestSid,
@@ -109,12 +109,15 @@ public class PortingPortInPhoneNumber extends Resource {
     private final ZonedDateTime dateCreated;
     private final String country;
     private final Boolean missingRequiredFields;
-    private final ZonedDateTime statusLastTimeUpdatedTimestamp;
+    private final ZonedDateTime lastUpdated;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final Boolean portable;
     private final String notPortabilityReason;
-    private final String notPortabilityReasonCode;
+    private final Integer notPortabilityReasonCode;
     private final String portInPhoneNumberStatus;
+    private final Integer portOutPin;
+    private final String rejectionReason;
+    private final Integer rejectionReasonCode;
 
     @JsonCreator
     private PortingPortInPhoneNumber(
@@ -128,9 +131,7 @@ public class PortingPortInPhoneNumber extends Resource {
         @JsonProperty(
             "missing_required_fields"
         ) final Boolean missingRequiredFields,
-        @JsonProperty(
-            "status_last_time_updated_timestamp"
-        ) final String statusLastTimeUpdatedTimestamp,
+        @JsonProperty("last_updated") final String lastUpdated,
         @JsonProperty(
             "phone_number"
         ) final com.twilio.type.PhoneNumber phoneNumber,
@@ -140,10 +141,13 @@ public class PortingPortInPhoneNumber extends Resource {
         ) final String notPortabilityReason,
         @JsonProperty(
             "not_portability_reason_code"
-        ) final String notPortabilityReasonCode,
+        ) final Integer notPortabilityReasonCode,
         @JsonProperty(
             "port_in_phone_number_status"
-        ) final String portInPhoneNumberStatus
+        ) final String portInPhoneNumberStatus,
+        @JsonProperty("port_out_pin") final Integer portOutPin,
+        @JsonProperty("rejection_reason") final String rejectionReason,
+        @JsonProperty("rejection_reason_code") final Integer rejectionReasonCode
     ) {
         this.portInRequestSid = portInRequestSid;
         this.phoneNumberSid = phoneNumberSid;
@@ -153,15 +157,15 @@ public class PortingPortInPhoneNumber extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.country = country;
         this.missingRequiredFields = missingRequiredFields;
-        this.statusLastTimeUpdatedTimestamp =
-            DateConverter.iso8601DateTimeFromString(
-                statusLastTimeUpdatedTimestamp
-            );
+        this.lastUpdated = DateConverter.iso8601DateTimeFromString(lastUpdated);
         this.phoneNumber = phoneNumber;
         this.portable = portable;
         this.notPortabilityReason = notPortabilityReason;
         this.notPortabilityReasonCode = notPortabilityReasonCode;
         this.portInPhoneNumberStatus = portInPhoneNumberStatus;
+        this.portOutPin = portOutPin;
+        this.rejectionReason = rejectionReason;
+        this.rejectionReasonCode = rejectionReasonCode;
     }
 
     public final String getPortInRequestSid() {
@@ -196,8 +200,8 @@ public class PortingPortInPhoneNumber extends Resource {
         return this.missingRequiredFields;
     }
 
-    public final ZonedDateTime getStatusLastTimeUpdatedTimestamp() {
-        return this.statusLastTimeUpdatedTimestamp;
+    public final ZonedDateTime getLastUpdated() {
+        return this.lastUpdated;
     }
 
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -212,12 +216,24 @@ public class PortingPortInPhoneNumber extends Resource {
         return this.notPortabilityReason;
     }
 
-    public final String getNotPortabilityReasonCode() {
+    public final Integer getNotPortabilityReasonCode() {
         return this.notPortabilityReasonCode;
     }
 
     public final String getPortInPhoneNumberStatus() {
         return this.portInPhoneNumberStatus;
+    }
+
+    public final Integer getPortOutPin() {
+        return this.portOutPin;
+    }
+
+    public final String getRejectionReason() {
+        return this.rejectionReason;
+    }
+
+    public final Integer getRejectionReasonCode() {
+        return this.rejectionReasonCode;
     }
 
     @Override
@@ -244,10 +260,7 @@ public class PortingPortInPhoneNumber extends Resource {
                 missingRequiredFields,
                 other.missingRequiredFields
             ) &&
-            Objects.equals(
-                statusLastTimeUpdatedTimestamp,
-                other.statusLastTimeUpdatedTimestamp
-            ) &&
+            Objects.equals(lastUpdated, other.lastUpdated) &&
             Objects.equals(phoneNumber, other.phoneNumber) &&
             Objects.equals(portable, other.portable) &&
             Objects.equals(notPortabilityReason, other.notPortabilityReason) &&
@@ -258,7 +271,10 @@ public class PortingPortInPhoneNumber extends Resource {
             Objects.equals(
                 portInPhoneNumberStatus,
                 other.portInPhoneNumberStatus
-            )
+            ) &&
+            Objects.equals(portOutPin, other.portOutPin) &&
+            Objects.equals(rejectionReason, other.rejectionReason) &&
+            Objects.equals(rejectionReasonCode, other.rejectionReasonCode)
         );
     }
 
@@ -273,12 +289,15 @@ public class PortingPortInPhoneNumber extends Resource {
             dateCreated,
             country,
             missingRequiredFields,
-            statusLastTimeUpdatedTimestamp,
+            lastUpdated,
             phoneNumber,
             portable,
             notPortabilityReason,
             notPortabilityReasonCode,
-            portInPhoneNumberStatus
+            portInPhoneNumberStatus,
+            portOutPin,
+            rejectionReason,
+            rejectionReasonCode
         );
     }
 }

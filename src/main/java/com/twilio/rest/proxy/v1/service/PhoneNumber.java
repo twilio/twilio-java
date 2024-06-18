@@ -16,6 +16,7 @@ package com.twilio.rest.proxy.v1.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,12 +25,13 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -37,7 +39,45 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 71034679090032L;
+    private static final long serialVersionUID = 41553636276029L;
+
+    @ToString
+    public static class ProxyV1ServicePhoneNumberCapabilities {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mms")
+        @Getter
+        @Setter
+        private Boolean mms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms")
+        @Getter
+        @Setter
+        private Boolean sms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("voice")
+        @Getter
+        @Setter
+        private Boolean voice;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fax")
+        @Getter
+        @Setter
+        private Boolean fax;
+
+        public static ProxyV1ServicePhoneNumberCapabilities fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                ProxyV1ServicePhoneNumberCapabilities.class
+            );
+        }
+    }
 
     public static PhoneNumberCreator creator(final String pathServiceSid) {
         return new PhoneNumberCreator(pathServiceSid);
@@ -119,7 +159,7 @@ public class PhoneNumber extends Resource {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String friendlyName;
     private final String isoCountry;
-    private final PhoneNumberCapabilities capabilities;
+    private final ProxyV1ServicePhoneNumberCapabilities capabilities;
     private final URI url;
     private final Boolean isReserved;
     private final Integer inUse;
@@ -138,7 +178,7 @@ public class PhoneNumber extends Resource {
         @JsonProperty("iso_country") final String isoCountry,
         @JsonProperty(
             "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
+        ) final ProxyV1ServicePhoneNumberCapabilities capabilities,
         @JsonProperty("url") final URI url,
         @JsonProperty("is_reserved") final Boolean isReserved,
         @JsonProperty("in_use") final Integer inUse
@@ -189,7 +229,7 @@ public class PhoneNumber extends Resource {
         return this.isoCountry;
     }
 
-    public final PhoneNumberCapabilities getCapabilities() {
+    public final ProxyV1ServicePhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 

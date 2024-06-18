@@ -16,6 +16,7 @@ package com.twilio.rest.preview.hostedNumbers.authorizationdocument;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -25,12 +26,13 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -38,7 +40,45 @@ import lombok.ToString;
 @ToString
 public class DependentHostedNumberOrder extends Resource {
 
-    private static final long serialVersionUID = 65583991731077L;
+    private static final long serialVersionUID = 258314559026266L;
+
+    @ToString
+    public static class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mms")
+        @Getter
+        @Setter
+        private Boolean mms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms")
+        @Getter
+        @Setter
+        private Boolean sms;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("voice")
+        @Getter
+        @Setter
+        private Boolean voice;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fax")
+        @Getter
+        @Setter
+        private Boolean fax;
+
+        public static PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities.class
+            );
+        }
+    }
 
     public static DependentHostedNumberOrderReader reader(
         final String pathSigningDocumentSid
@@ -101,7 +141,7 @@ public class DependentHostedNumberOrder extends Resource {
     private final String addressSid;
     private final String signingDocumentSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
-    private final PhoneNumberCapabilities capabilities;
+    private final PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities capabilities;
     private final String friendlyName;
     private final String uniqueName;
     private final DependentHostedNumberOrder.Status status;
@@ -132,7 +172,7 @@ public class DependentHostedNumberOrder extends Resource {
         ) final com.twilio.type.PhoneNumber phoneNumber,
         @JsonProperty(
             "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
+        ) final PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities capabilities,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("status") final DependentHostedNumberOrder.Status status,
@@ -205,7 +245,7 @@ public class DependentHostedNumberOrder extends Resource {
         return this.phoneNumber;
     }
 
-    public final PhoneNumberCapabilities getCapabilities() {
+    public final PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities getCapabilities() {
         return this.capabilities;
     }
 

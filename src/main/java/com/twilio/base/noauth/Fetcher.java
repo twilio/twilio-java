@@ -1,7 +1,10 @@
-package com.twilio.base.bearertoken;
+package com.twilio.base.noauth;
 
-import com.twilio.TwilioOrgsTokenAuth;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.Twilio;
+
+import com.twilio.TwilioNoAuth;
+import com.twilio.base.noauth.Resource;
+import com.twilio.http.noauth.NoAuthTwilioRestClient;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -18,7 +21,7 @@ public abstract class Fetcher<T extends Resource> {
      * @return future that resolves to requested object
      */
     public CompletableFuture<T> fetchAsync() {
-        return fetchAsync(TwilioOrgsTokenAuth.getRestClient());
+        return fetchAsync(TwilioNoAuth.getRestClient());
     }
 
     /**
@@ -27,8 +30,8 @@ public abstract class Fetcher<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to requested object
      */
-    public CompletableFuture<T> fetchAsync(final BearerTokenTwilioRestClient client) {
-        return CompletableFuture.supplyAsync(() -> fetch(client), TwilioOrgsTokenAuth.getExecutorService());
+    public CompletableFuture<T> fetchAsync(final NoAuthTwilioRestClient client) {
+        return CompletableFuture.supplyAsync(() -> fetch(client), Twilio.getExecutorService());
     }
 
     /**
@@ -37,7 +40,7 @@ public abstract class Fetcher<T extends Resource> {
      * @return Requested object
      */
     public T fetch() {
-        return fetch(TwilioOrgsTokenAuth.getRestClient());
+        return fetch(TwilioNoAuth.getRestClient());
     }
 
     /**
@@ -46,5 +49,5 @@ public abstract class Fetcher<T extends Resource> {
      * @param client client used to make request
      * @return Requested object
      */
-    public abstract T fetch(final BearerTokenTwilioRestClient client);
+    public abstract T fetch(final NoAuthTwilioRestClient client);
 }

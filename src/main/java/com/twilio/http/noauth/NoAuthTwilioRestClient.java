@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 
 /*
@@ -30,6 +31,8 @@ public class NoAuthTwilioRestClient {
     @Getter
     private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(NoAuthTwilioRestClient.class);
+
+    public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
     private NoAuthTwilioRestClient(NoAuthTwilioRestClient.Builder b) {
         this.region = b.region;

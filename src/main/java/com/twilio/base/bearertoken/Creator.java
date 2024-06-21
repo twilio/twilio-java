@@ -1,6 +1,6 @@
 package com.twilio.base.bearertoken;
 
-import com.twilio.TwilioBearerTokenAuth;
+import com.twilio.TwilioOrgsTokenAuth;
 import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,7 +18,7 @@ public abstract class Creator<T extends Resource> {
      * @return future that resolves to requested object
      */
     public CompletableFuture<T> createAsync() {
-        return createAsync(TwilioBearerTokenAuth.getRestClient());
+        return createAsync(TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class Creator<T extends Resource> {
      * @return future that resolves to requested object
      */
     public CompletableFuture<T> createAsync(final BearerTokenTwilioRestClient client) {
-        return CompletableFuture.supplyAsync(() -> create(client), TwilioBearerTokenAuth.getExecutorService());
+        return CompletableFuture.supplyAsync(() -> create(client), TwilioOrgsTokenAuth.getExecutorService());
     }
 
     /**
@@ -37,7 +37,7 @@ public abstract class Creator<T extends Resource> {
      * @return Requested object
      */
     public T create() {
-        return create(TwilioBearerTokenAuth.getRestClient());
+        return create(TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**

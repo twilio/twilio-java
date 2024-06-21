@@ -20,7 +20,7 @@ public class TwilioOrgsTokenAuth {
     private static String region = System.getenv("TWILIO_REGION");
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile BearerTokenTwilioRestClient restClient;
-    @Setter
+    @Getter @Setter
     private static TokenManager tokenManager;
 
     private static volatile ExecutorService executorService;
@@ -87,7 +87,7 @@ public class TwilioOrgsTokenAuth {
         builder.region(TwilioOrgsTokenAuth.region);
         builder.edge(TwilioOrgsTokenAuth.edge);
         if(TwilioOrgsTokenAuth.tokenManager == null){
-            tokenManager = new OrgsTokenManager(grantType, clientId, clientSecret, code, redirectUri, audience, refreshToken, scope);
+            throw new AuthenticationException("Either initialize the authentications class or pass a custom token manager");
         }
         builder.tokenManager(TwilioOrgsTokenAuth.tokenManager);
 

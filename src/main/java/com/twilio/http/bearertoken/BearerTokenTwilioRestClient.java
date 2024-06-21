@@ -110,7 +110,9 @@ public class BearerTokenTwilioRestClient {
 
         if (accessToken == null || accessToken.isEmpty() || isTokenExpired(this.accessToken)) {
             synchronized (BearerTokenTwilioRestClient.class){
-                this.accessToken = tokenManager.fetchAccessToken();
+                if (accessToken == null || accessToken.isEmpty() || isTokenExpired(this.accessToken)) {
+                    this.accessToken = tokenManager.fetchAccessToken();
+                }
             }
         }
         

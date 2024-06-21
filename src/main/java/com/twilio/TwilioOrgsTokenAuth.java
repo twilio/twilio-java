@@ -13,7 +13,7 @@ import com.twilio.http.bearertoken.TokenManager;
 import com.twilio.http.bearertoken.OrgsTokenManager;
 
 @Preview
-public class TwilioBearerTokenAuth {
+public class TwilioOrgsTokenAuth {
     private static String accessToken;
     @Getter
     private static List<String> userAgentExtensions;
@@ -25,7 +25,7 @@ public class TwilioBearerTokenAuth {
 
     private static volatile ExecutorService executorService;
 
-    private TwilioBearerTokenAuth() {
+    private TwilioOrgsTokenAuth() {
     }
 
     public static synchronized void init(String grantType, String clientId, String clientSecret) {
@@ -51,14 +51,14 @@ public class TwilioBearerTokenAuth {
     }
 
     public static BearerTokenTwilioRestClient getRestClient() {
-        if (TwilioBearerTokenAuth.restClient == null) {
-            synchronized (TwilioBearerTokenAuth.class) {
-                if (TwilioBearerTokenAuth.restClient == null) {
-                    TwilioBearerTokenAuth.restClient = buildOAuthRestClient();
+        if (TwilioOrgsTokenAuth.restClient == null) {
+            synchronized (TwilioOrgsTokenAuth.class) {
+                if (TwilioOrgsTokenAuth.restClient == null) {
+                    TwilioOrgsTokenAuth.restClient = buildOAuthRestClient();
                 }
             }
         }
-        return TwilioBearerTokenAuth.restClient;
+        return TwilioOrgsTokenAuth.restClient;
     }
     /**
      * Returns the Twilio executor service.
@@ -66,14 +66,14 @@ public class TwilioBearerTokenAuth {
      * @return the Twilio executor service
      */
     public static ExecutorService getExecutorService() {
-        if (TwilioBearerTokenAuth.executorService == null) {
-            synchronized (TwilioBearerTokenAuth.class) {
-                if (TwilioBearerTokenAuth.executorService == null) {
-                    TwilioBearerTokenAuth.executorService = Executors.newCachedThreadPool();
+        if (TwilioOrgsTokenAuth.executorService == null) {
+            synchronized (TwilioOrgsTokenAuth.class) {
+                if (TwilioOrgsTokenAuth.executorService == null) {
+                    TwilioOrgsTokenAuth.executorService = Executors.newCachedThreadPool();
                 }
             }
         }
-        return TwilioBearerTokenAuth.executorService;
+        return TwilioOrgsTokenAuth.executorService;
     }
     
     private static BearerTokenTwilioRestClient buildOAuthRestClient() {
@@ -81,13 +81,15 @@ public class TwilioBearerTokenAuth {
         BearerTokenTwilioRestClient.Builder builder = new BearerTokenTwilioRestClient.Builder();
 
         if (userAgentExtensions != null) {
-            builder.userAgentExtensions(TwilioBearerTokenAuth.userAgentExtensions);
+            builder.userAgentExtensions(TwilioOrgsTokenAuth.userAgentExtensions);
         }
 
-        builder.region(TwilioBearerTokenAuth.region);
-        builder.edge(TwilioBearerTokenAuth.edge);
-        builder.tokenManager(TwilioBearerTokenAuth.tokenManager);
-        builder.tokenManager(TwilioBearerTokenAuth.tokenManager);
+        builder.region(TwilioOrgsTokenAuth.region);
+        builder.edge(TwilioOrgsTokenAuth.edge);
+        if(TwilioOrgsTokenAuth.tokenManager == null){
+            tokenManager = new OrgsTokenManager(grantType, clientId, clientSecret, code, redirectUri, audience, refreshToken, scope);
+        }
+        builder.tokenManager(TwilioOrgsTokenAuth.tokenManager);
 
         return builder.build();
     }
@@ -96,7 +98,8 @@ public class TwilioBearerTokenAuth {
      * Invalidates the volatile state held in the Twilio singleton.
      */
     private static void invalidate() {
-        TwilioBearerTokenAuth.restClient = null;
+        TwilioOrgsTokenAuth.restClient = null;
+        TwilioOrgsTokenAuth.tokenManager = null;
     }
 
 

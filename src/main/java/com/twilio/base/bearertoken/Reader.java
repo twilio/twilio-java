@@ -1,6 +1,6 @@
 package com.twilio.base.bearertoken;
 
-import com.twilio.TwilioBearerTokenAuth;
+import com.twilio.TwilioOrgsTokenAuth;
 import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +21,7 @@ public abstract class Reader<T extends Resource> {
      * @return ResourceSet of objects
      */
     public ResourceSet<T> read() {
-        return read(TwilioBearerTokenAuth.getRestClient());
+        return read(TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class Reader<T extends Resource> {
      * @return future that resolves to the ResourceSet of objects
      */
     public CompletableFuture<ResourceSet<T>> readAsync() {
-        return readAsync(TwilioBearerTokenAuth.getRestClient());
+        return readAsync(TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**
@@ -48,7 +48,7 @@ public abstract class Reader<T extends Resource> {
      * @return future that resolves to the ResourceSet of objects
      */
     public CompletableFuture<ResourceSet<T>> readAsync(final BearerTokenTwilioRestClient client) {
-        return CompletableFuture.supplyAsync(() -> read(client), TwilioBearerTokenAuth.getExecutorService());
+        return CompletableFuture.supplyAsync(() -> read(client), TwilioOrgsTokenAuth.getExecutorService());
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class Reader<T extends Resource> {
      * @return Page containing the first pageSize of resources
      */
     public Page<T> firstPage() {
-        return firstPage(TwilioBearerTokenAuth.getRestClient());
+        return firstPage(TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class Reader<T extends Resource> {
      * @return Page containing the target pageSize of resources
      */
     public Page<T> getPage(final String targetUrl) {
-        return getPage(targetUrl, TwilioBearerTokenAuth.getRestClient());
+        return getPage(targetUrl, TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**
@@ -94,7 +94,7 @@ public abstract class Reader<T extends Resource> {
      * @return Page containing the next pageSize of resources
      */
     public Page<T> nextPage(final Page<T> page) {
-        return nextPage(page, TwilioBearerTokenAuth.getRestClient());
+        return nextPage(page, TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**
@@ -113,7 +113,7 @@ public abstract class Reader<T extends Resource> {
      * @return Page containing the previous pageSize of resources
      */
     public Page<T> previousPage(final Page<T> page) {
-        return previousPage(page, TwilioBearerTokenAuth.getRestClient());
+        return previousPage(page, TwilioOrgsTokenAuth.getRestClient());
     }
 
     /**

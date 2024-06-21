@@ -43,6 +43,9 @@ public class OrgsTokenManager implements TokenManager{
         Token token;
         try {
             token = tokenCreator.create();
+            if(token == null || token.getAccessToken() == null){
+                throw new ApiException("Token creation failed");
+            }
         } catch(Exception e){
             throw new ApiException("Token creation failed");
         }

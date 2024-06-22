@@ -169,7 +169,7 @@ public class Example {
   }
 }
 ```
-
+Detailed example [here](https://github.com/twilio/twilio-java/blob/auth-rest-client/examples/BearerTokenAuthentication.md)
 
 ### Environment Variables
 

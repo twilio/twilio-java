@@ -126,6 +126,51 @@ public class Example {
 }
 ```
 
+### Initialize the client to access endpoints which does not support basic authentication
+You need to use TwilioNoAuth class for endpoints which does not require authentication. Clients specific to the Api needs to be initialised according to the use case. For example Organization Apis support bearer token authentication.
+Here TwilioOrgsTokenAuth client needs to be used
+
+```java
+import com.twilio.TwilioOrgsTokenAuth;
+import com.twilio.exception.AuthenticationException;
+
+public class Example {
+
+  private static final String GRANT_TYPE =
+          "client_credentials";
+  private static final String CLIENT_SID =
+    "client_id_of_organization";
+  private static final String CLIENT_SECRET = "client_secret_of_organization";
+
+  public static void main(String[] args) throws AuthenticationException {
+    TwilioOrgsTokenAuth.init(GRANT_TYPE, CLIENT_ID, CLIENT_SECRET);
+  }
+}
+```
+
+### Passing a custom token manager instead of initialization
+You can pass a custom token manager to bypass the initialization step. If there is a specific domain which accepts different authentication method like bearer token authentication, 
+you can create a custom manager to manage the tokens.
+
+```java
+import com.twilio.TwilioOrgsTokenAuth;
+import com.twilio.exception.AuthenticationException;
+
+public class Example {
+
+  private static final String GRANT_TYPE =
+          "client_credentials";
+  private static final String CLIENT_SID =
+    "client_id_of_organization";
+  private static final String CLIENT_SECRET = "client_secret_of_organization";
+
+  public static void main(String[] args) throws AuthenticationException {
+    TwilioOrgsTokenAuth.setTokenManager(new CustomTokenManagerImpl(REQUIRED_ARGS));
+  }
+}
+```
+
+
 ### Environment Variables
 
 `twilio-java` supports the credentials, region, and edge values stored in the following environment variables:

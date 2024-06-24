@@ -115,26 +115,6 @@ public class Challenge extends Resource {
         }
     }
 
-    public enum ListOrders {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private ListOrders(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ListOrders forValue(final String value) {
-            return Promoter.enumFromString(value, ListOrders.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -329,6 +309,48 @@ public class Challenge extends Resource {
         );
     }
 
+    public enum ListOrders {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private ListOrders(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ListOrders forValue(final String value) {
+            return Promoter.enumFromString(value, ListOrders.values());
+        }
+    }
+
+    public enum ChallengeStatuses {
+        PENDING("pending"),
+        EXPIRED("expired"),
+        APPROVED("approved"),
+        DENIED("denied");
+
+        private final String value;
+
+        private ChallengeStatuses(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChallengeStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeStatuses.values());
+        }
+    }
+
     public enum FactorTypes {
         PUSH("push"),
         TOTP("totp");
@@ -367,28 +389,6 @@ public class Challenge extends Resource {
         @JsonCreator
         public static ChallengeReasons forValue(final String value) {
             return Promoter.enumFromString(value, ChallengeReasons.values());
-        }
-    }
-
-    public enum ChallengeStatuses {
-        PENDING("pending"),
-        EXPIRED("expired"),
-        APPROVED("approved"),
-        DENIED("denied");
-
-        private final String value;
-
-        private ChallengeStatuses(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChallengeStatuses forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeStatuses.values());
         }
     }
 }

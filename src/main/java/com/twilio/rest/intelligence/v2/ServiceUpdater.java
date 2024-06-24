@@ -32,7 +32,6 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean autoTranscribe;
     private Boolean dataLogging;
     private String friendlyName;
-    private String languageCode;
     private String uniqueName;
     private Boolean autoRedaction;
     private Boolean mediaRedaction;
@@ -60,11 +59,6 @@ public class ServiceUpdater extends Updater<Service> {
 
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
-        return this;
-    }
-
-    public ServiceUpdater setLanguageCode(final String languageCode) {
-        this.languageCode = languageCode;
         return this;
     }
 
@@ -140,9 +134,6 @@ public class ServiceUpdater extends Updater<Service> {
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-        }
-        if (languageCode != null) {
-            request.addPostParam("LanguageCode", languageCode);
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);

@@ -85,27 +85,6 @@ public class UsageRecord extends Resource {
         }
     }
 
-    public enum Granularity {
-        HOURLY("hourly"),
-        DAILY("daily"),
-        ALL("all");
-
-        private final String value;
-
-        private Granularity(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
-        }
-    }
-
     private final String simSid;
     private final String accountSid;
     private final Map<String, Object> period;
@@ -171,5 +150,26 @@ public class UsageRecord extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(simSid, accountSid, period, commands, data);
+    }
+
+    public enum Granularity {
+        HOURLY("hourly"),
+        DAILY("daily"),
+        ALL("all");
+
+        private final String value;
+
+        private Granularity(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Granularity forValue(final String value) {
+            return Promoter.enumFromString(value, Granularity.values());
+        }
     }
 }

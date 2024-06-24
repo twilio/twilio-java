@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class PluginVersions extends Resource {
 
-    private static final long serialVersionUID = 255808209327953L;
+    private static final long serialVersionUID = 230518982157206L;
 
     public static PluginVersionsCreator creator(
         final String pathPluginSid,
@@ -108,6 +108,7 @@ public class PluginVersions extends Resource {
     private final String changelog;
     private final Boolean _private;
     private final Boolean archived;
+    private final Boolean validated;
     private final ZonedDateTime dateCreated;
     private final URI url;
 
@@ -121,6 +122,7 @@ public class PluginVersions extends Resource {
         @JsonProperty("changelog") final String changelog,
         @JsonProperty("_private") final Boolean _private,
         @JsonProperty("archived") final Boolean archived,
+        @JsonProperty("validated") final Boolean validated,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
     ) {
@@ -132,6 +134,7 @@ public class PluginVersions extends Resource {
         this.changelog = changelog;
         this._private = _private;
         this.archived = archived;
+        this.validated = validated;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
     }
@@ -168,6 +171,10 @@ public class PluginVersions extends Resource {
         return this.archived;
     }
 
+    public final Boolean getValidated() {
+        return this.validated;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
@@ -197,6 +204,7 @@ public class PluginVersions extends Resource {
             Objects.equals(changelog, other.changelog) &&
             Objects.equals(_private, other._private) &&
             Objects.equals(archived, other.archived) &&
+            Objects.equals(validated, other.validated) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(url, other.url)
         );
@@ -213,6 +221,7 @@ public class PluginVersions extends Resource {
             changelog,
             _private,
             archived,
+            validated,
             dateCreated,
             url
         );

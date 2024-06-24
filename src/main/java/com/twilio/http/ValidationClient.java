@@ -146,7 +146,7 @@ public class ValidationClient extends HttpClient {
 
         final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setDefaultSocketConfig(socketConfig);
-        /* 
+        /*
          *  Example: Lets say client has one server.
          *  There are 4 servers on edge handling client request.
          *  Each request takes on an average 500ms (2 request per second)
@@ -177,8 +177,6 @@ public class ValidationClient extends HttpClient {
 
         HttpMethod method = request.getMethod();
         if (method != HttpMethod.GET) {
-            // TODO: It will be removed after one RC Release.
-            if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);

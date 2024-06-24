@@ -1,6 +1,105 @@
 twilio-java changelog
 =====================
 
+[2024-06-18] Version 10.3.0
+---------------------------
+**Library - Chore**
+- [PR #799](https://github.com/twilio/twilio-java/pull/799): process form and body params for all methods except GET. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Add `status` and `documentation_url` to Event Types
+
+**Lookups**
+- Removed unused `fraud` lookups in V1 only to facilitate rest proxy migration
+
+**Numbers**
+- Add date_created field to the Get Port In Request API
+- Rename the `status_last_time_updated_timestamp` field to `last_updated` in the Get Port In Phone Number API **(breaking change)**
+- Add Rejection reason and rejection reason code to the Get Port In Phone Number API
+- Remove the carrier information from the Portability API
+
+**Proxy**
+- Change property `type` from enum to ienum
+
+**Trusthub**
+- Add skipMessagingUseCase field in compliance_tollfree_inquiry.
+
+
+[2024-06-06] Version 10.2.1
+---------------------------
+**Api**
+- Mark MaxPrice as obsolete
+
+**Lookups**
+- Update examples for `phone_number_quality_score`
+
+**Messaging**
+- List tollfree verifications on parent account and all sub-accounts
+
+
+[2024-05-24] Version 10.2.0
+---------------------------
+**Library - Docs**
+- [PR #792](https://github.com/twilio/twilio-java/pull/792): added json examples. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Chore**
+- [PR #796](https://github.com/twilio/twilio-java/pull/796): adding variant class. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #794](https://github.com/twilio/twilio-java/pull/794): Update pom.xml. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Add ie1 as supported region for UserDefinedMessage and UserDefinedMessageSubscription.
+
+**Flex**
+- Adding validated field to `plugin_versions`
+- Corrected the data type for `runtime_domain`, `call_recording_webhook_url`, `crm_callback_url`, `crm_fallback_url`, `flex_url` in Flex Configuration
+- Making `routing` optional in Create Interactions endpoint
+
+**Intelligence**
+- Expose operator authoring apis to public visibility
+- Deleted `language_code` parameter from updating service in v2 **(breaking change)**
+- Add read_only_attached_operator_sids to v2 services
+
+**Numbers**
+- Add API endpoint for GET Porting Webhook Configurations By Account SID
+- Remove bulk portability api under version `/v1`. **(breaking change)**
+- Removed porting_port_in_fetch.json files and move the content into porting_port_in.json files
+- Add API endpoint to deleting Webhook Configurations
+- Add Get Phone Number by Port in request SID and Phone Number SID api
+- Add Create Porting webhook configuration API
+- Added bundle_sid and losing_carrier_information fields to Create PortInRequest api to support Japan porting
+
+**Taskrouter**
+- Add back `routing_target` property to tasks
+- Add back `ignore_capacity` property to tasks
+- Removing `routing_target` property to tasks due to revert
+- Removing `ignore_capacity` property to tasks due to revert
+- Add `routing_target` property to tasks
+- Add `ignore_capacity` property to tasks
+
+**Trusthub**
+- Add new field errors to bundle as part of public API response in customer_profile.json and trust_product.json **(breaking change)**
+- Add themeSetId field in compliance_tollfree_inquiry.
+
+**Verify**
+- Update `friendly_name` description on service docs
+
+
+[2024-04-18] Version 10.1.5
+---------------------------
+**Library - Chore**
+- [PR #791](https://github.com/twilio/twilio-java/pull/791): add variant class to compliance tests. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #789](https://github.com/twilio/twilio-java/pull/789): bumping nexus staging maven plugin version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- Add header `ui_version` to `web_channels` API
+
+**Messaging**
+- Redeploy after failed pipeline
+
+**Numbers**
+- Add Delete Port In request phone number api and Add Delete Port In request api
+
+
 [2024-04-04] Version 10.1.4
 ---------------------------
 **Api**

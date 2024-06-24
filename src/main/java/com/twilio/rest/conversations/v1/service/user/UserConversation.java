@@ -325,26 +325,6 @@ public class UserConversation extends Resource {
         );
     }
 
-    public enum NotificationLevel {
-        DEFAULT("default"),
-        MUTED("muted");
-
-        private final String value;
-
-        private NotificationLevel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NotificationLevel forValue(final String value) {
-            return Promoter.enumFromString(value, NotificationLevel.values());
-        }
-    }
-
     public enum State {
         INACTIVE("inactive"),
         ACTIVE("active"),
@@ -363,6 +343,26 @@ public class UserConversation extends Resource {
         @JsonCreator
         public static State forValue(final String value) {
             return Promoter.enumFromString(value, State.values());
+        }
+    }
+
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
         }
     }
 }

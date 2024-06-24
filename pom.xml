@@ -5,7 +5,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>10.1.4</version>
+  <version>10.3.0</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -19,7 +19,7 @@
     <url>git@github.com:twilio/twilio-java.git</url>
     <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
     <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
-    <tag>10.1.4</tag>
+    <tag>10.3.0</tag>
   </scm>
   <developers>
     <developer>
@@ -337,6 +337,7 @@
           <source>8</source>
           <target>8</target>
           <showDeprecation>true</showDeprecation>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
         </configuration>
       </plugin>
       <plugin>

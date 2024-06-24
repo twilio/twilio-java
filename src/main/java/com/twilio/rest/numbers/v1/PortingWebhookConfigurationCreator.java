@@ -14,7 +14,9 @@
 
 package com.twilio.rest.numbers.v1;
 
-import com.twilio.base.Fetcher;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,34 +26,33 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class PortingPortInFetchFetcher extends Fetcher<PortingPortInFetch> {
+public class PortingWebhookConfigurationCreator
+    extends Creator<PortingWebhookConfiguration> {
 
-    private String pathPortInRequestSid;
+    private Object body;
 
-    public PortingPortInFetchFetcher(final String pathPortInRequestSid) {
-        this.pathPortInRequestSid = pathPortInRequestSid;
+    public PortingWebhookConfigurationCreator() {}
+
+    public PortingWebhookConfigurationCreator setBody(final Object body) {
+        this.body = body;
+        return this;
     }
 
     @Override
-    public PortingPortInFetch fetch(final TwilioRestClient client) {
-        String path = "/v1/Porting/PortIn/{PortInRequestSid}";
-
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
+    public PortingWebhookConfiguration create(final TwilioRestClient client) {
+        String path = "/v1/Porting/Configuration/Webhook";
 
         Request request = new Request(
-            HttpMethod.GET,
+            HttpMethod.POST,
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.JSON);
+        addPostParams(request, client);
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
-                "PortingPortInFetch fetch failed: Unable to connect to server"
+                "PortingWebhookConfiguration creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
@@ -67,9 +68,18 @@ public class PortingPortInFetchFetcher extends Fetcher<PortingPortInFetch> {
             throw new ApiException(restException);
         }
 
-        return PortingPortInFetch.fromJson(
+        return PortingWebhookConfiguration.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (body != null) {
+            request.setBody(
+                PortingWebhookConfiguration.toJson(body, objectMapper)
+            );
+        }
     }
 }

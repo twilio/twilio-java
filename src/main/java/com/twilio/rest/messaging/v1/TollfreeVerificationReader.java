@@ -30,6 +30,8 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
 
     private String tollfreePhoneNumberSid;
     private TollfreeVerification.Status status;
+    private String externalReferenceId;
+    private Boolean includeSubAccounts;
     private Integer pageSize;
 
     public TollfreeVerificationReader() {}
@@ -45,6 +47,20 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         final TollfreeVerification.Status status
     ) {
         this.status = status;
+        return this;
+    }
+
+    public TollfreeVerificationReader setExternalReferenceId(
+        final String externalReferenceId
+    ) {
+        this.externalReferenceId = externalReferenceId;
+        return this;
+    }
+
+    public TollfreeVerificationReader setIncludeSubAccounts(
+        final Boolean includeSubAccounts
+    ) {
+        this.includeSubAccounts = includeSubAccounts;
         return this;
     }
 
@@ -148,6 +164,15 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         }
         if (status != null) {
             request.addQueryParam("Status", status.toString());
+        }
+        if (externalReferenceId != null) {
+            request.addQueryParam("ExternalReferenceId", externalReferenceId);
+        }
+        if (includeSubAccounts != null) {
+            request.addQueryParam(
+                "IncludeSubAccounts",
+                includeSubAccounts.toString()
+            );
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

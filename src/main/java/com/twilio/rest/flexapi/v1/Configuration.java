@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class Configuration extends Resource {
 
-    private static final long serialVersionUID = 32578567436971L;
+    private static final long serialVersionUID = 254841674782325L;
 
     public static ConfigurationFetcher fetcher() {
         return new ConfigurationFetcher();
@@ -119,7 +119,7 @@ public class Configuration extends Resource {
     private final Map<String, Object> taskrouterWorkerChannels;
     private final Map<String, Object> taskrouterWorkerAttributes;
     private final String taskrouterOfflineActivitySid;
-    private final URI runtimeDomain;
+    private final String runtimeDomain;
     private final String messagingServiceInstanceSid;
     private final String chatServiceInstanceSid;
     private final String flexServiceInstanceSid;
@@ -130,11 +130,11 @@ public class Configuration extends Resource {
     private final String uiVersion;
     private final String serviceVersion;
     private final Boolean callRecordingEnabled;
-    private final URI callRecordingWebhookUrl;
+    private final String callRecordingWebhookUrl;
     private final Boolean crmEnabled;
     private final String crmType;
-    private final URI crmCallbackUrl;
-    private final URI crmFallbackUrl;
+    private final String crmCallbackUrl;
+    private final String crmFallbackUrl;
     private final Map<String, Object> crmAttributes;
     private final Map<String, Object> publicAttributes;
     private final Boolean pluginServiceEnabled;
@@ -148,7 +148,7 @@ public class Configuration extends Resource {
     private final URI url;
     private final Map<String, Object> flexInsightsHr;
     private final Boolean flexInsightsDrilldown;
-    private final URI flexUrl;
+    private final String flexUrl;
     private final List<Map<String, Object>> channelConfigs;
     private final Map<String, Object> debuggerIntegration;
     private final Map<String, Object> flexUiStatusReport;
@@ -189,7 +189,7 @@ public class Configuration extends Resource {
         @JsonProperty(
             "taskrouter_offline_activity_sid"
         ) final String taskrouterOfflineActivitySid,
-        @JsonProperty("runtime_domain") final URI runtimeDomain,
+        @JsonProperty("runtime_domain") final String runtimeDomain,
         @JsonProperty(
             "messaging_service_instance_sid"
         ) final String messagingServiceInstanceSid,
@@ -213,11 +213,11 @@ public class Configuration extends Resource {
         ) final Boolean callRecordingEnabled,
         @JsonProperty(
             "call_recording_webhook_url"
-        ) final URI callRecordingWebhookUrl,
+        ) final String callRecordingWebhookUrl,
         @JsonProperty("crm_enabled") final Boolean crmEnabled,
         @JsonProperty("crm_type") final String crmType,
-        @JsonProperty("crm_callback_url") final URI crmCallbackUrl,
-        @JsonProperty("crm_fallback_url") final URI crmFallbackUrl,
+        @JsonProperty("crm_callback_url") final String crmCallbackUrl,
+        @JsonProperty("crm_fallback_url") final String crmFallbackUrl,
         @JsonProperty("crm_attributes") final Map<String, Object> crmAttributes,
         @JsonProperty("public_attributes") final Map<
             String,
@@ -254,7 +254,7 @@ public class Configuration extends Resource {
         @JsonProperty(
             "flex_insights_drilldown"
         ) final Boolean flexInsightsDrilldown,
-        @JsonProperty("flex_url") final URI flexUrl,
+        @JsonProperty("flex_url") final String flexUrl,
         @JsonProperty("channel_configs") final List<
             Map<String, Object>
         > channelConfigs,
@@ -379,7 +379,7 @@ public class Configuration extends Resource {
         return this.taskrouterOfflineActivitySid;
     }
 
-    public final URI getRuntimeDomain() {
+    public final String getRuntimeDomain() {
         return this.runtimeDomain;
     }
 
@@ -423,7 +423,7 @@ public class Configuration extends Resource {
         return this.callRecordingEnabled;
     }
 
-    public final URI getCallRecordingWebhookUrl() {
+    public final String getCallRecordingWebhookUrl() {
         return this.callRecordingWebhookUrl;
     }
 
@@ -435,11 +435,11 @@ public class Configuration extends Resource {
         return this.crmType;
     }
 
-    public final URI getCrmCallbackUrl() {
+    public final String getCrmCallbackUrl() {
         return this.crmCallbackUrl;
     }
 
-    public final URI getCrmFallbackUrl() {
+    public final String getCrmFallbackUrl() {
         return this.crmFallbackUrl;
     }
 
@@ -495,7 +495,7 @@ public class Configuration extends Resource {
         return this.flexInsightsDrilldown;
     }
 
-    public final URI getFlexUrl() {
+    public final String getFlexUrl() {
         return this.flexUrl;
     }
 

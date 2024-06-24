@@ -129,6 +129,26 @@ public class Recording extends Resource {
         return Objects.hash(mode, trim);
     }
 
+    public enum RecordingTrim {
+        TRIM_SILENCE("trim-silence"),
+        DO_NOT_TRIM("do-not-trim");
+
+        private final String value;
+
+        private RecordingTrim(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RecordingTrim forValue(final String value) {
+            return Promoter.enumFromString(value, RecordingTrim.values());
+        }
+    }
+
     public enum RecordingMode {
         DO_NOT_RECORD("do-not-record"),
         RECORD_FROM_RINGING("record-from-ringing"),
@@ -149,26 +169,6 @@ public class Recording extends Resource {
         @JsonCreator
         public static RecordingMode forValue(final String value) {
             return Promoter.enumFromString(value, RecordingMode.values());
-        }
-    }
-
-    public enum RecordingTrim {
-        TRIM_SILENCE("trim-silence"),
-        DO_NOT_TRIM("do-not-trim");
-
-        private final String value;
-
-        private RecordingTrim(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RecordingTrim forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingTrim.values());
         }
     }
 }

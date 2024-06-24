@@ -207,104 +207,6 @@ public class Message extends Resource {
         }
     }
 
-    public enum AddressRetention {
-        RETAIN("retain"),
-        OBFUSCATE("obfuscate");
-
-        private final String value;
-
-        private AddressRetention(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AddressRetention forValue(final String value) {
-            return Promoter.enumFromString(value, AddressRetention.values());
-        }
-    }
-
-    public enum ContentRetention {
-        RETAIN("retain"),
-        DISCARD("discard");
-
-        private final String value;
-
-        private ContentRetention(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ContentRetention forValue(final String value) {
-            return Promoter.enumFromString(value, ContentRetention.values());
-        }
-    }
-
-    public enum RiskCheck {
-        ENABLE("enable"),
-        DISABLE("disable");
-
-        private final String value;
-
-        private RiskCheck(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RiskCheck forValue(final String value) {
-            return Promoter.enumFromString(value, RiskCheck.values());
-        }
-    }
-
-    public enum ScheduleType {
-        FIXED("fixed");
-
-        private final String value;
-
-        private ScheduleType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ScheduleType forValue(final String value) {
-            return Promoter.enumFromString(value, ScheduleType.values());
-        }
-    }
-
-    public enum UpdateStatus {
-        CANCELED("canceled");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
-        }
-    }
-
     private final String body;
     private final String numSegments;
     private final Message.Direction direction;
@@ -518,6 +420,45 @@ public class Message extends Resource {
         );
     }
 
+    public enum AddressRetention {
+        RETAIN("retain"),
+        OBFUSCATE("obfuscate");
+
+        private final String value;
+
+        private AddressRetention(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AddressRetention forValue(final String value) {
+            return Promoter.enumFromString(value, AddressRetention.values());
+        }
+    }
+
+    public enum ScheduleType {
+        FIXED("fixed");
+
+        private final String value;
+
+        private ScheduleType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ScheduleType forValue(final String value) {
+            return Promoter.enumFromString(value, ScheduleType.values());
+        }
+    }
+
     public enum Direction {
         INBOUND("inbound"),
         OUTBOUND_API("outbound-api"),
@@ -537,6 +478,65 @@ public class Message extends Resource {
         @JsonCreator
         public static Direction forValue(final String value) {
             return Promoter.enumFromString(value, Direction.values());
+        }
+    }
+
+    public enum RiskCheck {
+        ENABLE("enable"),
+        DISABLE("disable");
+
+        private final String value;
+
+        private RiskCheck(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RiskCheck forValue(final String value) {
+            return Promoter.enumFromString(value, RiskCheck.values());
+        }
+    }
+
+    public enum ContentRetention {
+        RETAIN("retain"),
+        DISCARD("discard");
+
+        private final String value;
+
+        private ContentRetention(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ContentRetention forValue(final String value) {
+            return Promoter.enumFromString(value, ContentRetention.values());
+        }
+    }
+
+    public enum UpdateStatus {
+        CANCELED("canceled");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
         }
     }
 

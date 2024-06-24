@@ -35,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortability extends Resource {
 
-    private static final long serialVersionUID = 225988214270980L;
+    private static final long serialVersionUID = 123066058600162L;
 
     public static PortingPortabilityFetcher fetcher(
         final com.twilio.type.PhoneNumber pathPhoneNumber
@@ -94,8 +94,6 @@ public class PortingPortability extends Resource {
     private final Integer notPortableReasonCode;
     private final PortingPortability.NumberType numberType;
     private final String country;
-    private final String messagingCarrier;
-    private final String voiceCarrier;
     private final URI url;
 
     @JsonCreator
@@ -116,8 +114,6 @@ public class PortingPortability extends Resource {
             "number_type"
         ) final PortingPortability.NumberType numberType,
         @JsonProperty("country") final String country,
-        @JsonProperty("messaging_carrier") final String messagingCarrier,
-        @JsonProperty("voice_carrier") final String voiceCarrier,
         @JsonProperty("url") final URI url
     ) {
         this.phoneNumber = phoneNumber;
@@ -128,8 +124,6 @@ public class PortingPortability extends Resource {
         this.notPortableReasonCode = notPortableReasonCode;
         this.numberType = numberType;
         this.country = country;
-        this.messagingCarrier = messagingCarrier;
-        this.voiceCarrier = voiceCarrier;
         this.url = url;
     }
 
@@ -165,14 +159,6 @@ public class PortingPortability extends Resource {
         return this.country;
     }
 
-    public final String getMessagingCarrier() {
-        return this.messagingCarrier;
-    }
-
-    public final String getVoiceCarrier() {
-        return this.voiceCarrier;
-    }
-
     public final URI getUrl() {
         return this.url;
     }
@@ -204,8 +190,6 @@ public class PortingPortability extends Resource {
             ) &&
             Objects.equals(numberType, other.numberType) &&
             Objects.equals(country, other.country) &&
-            Objects.equals(messagingCarrier, other.messagingCarrier) &&
-            Objects.equals(voiceCarrier, other.voiceCarrier) &&
             Objects.equals(url, other.url)
         );
     }
@@ -221,8 +205,6 @@ public class PortingPortability extends Resource {
             notPortableReasonCode,
             numberType,
             country,
-            messagingCarrier,
-            voiceCarrier,
             url
         );
     }

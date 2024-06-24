@@ -107,74 +107,6 @@ public class Reservation extends Resource {
         }
     }
 
-    public enum CallStatus {
-        INITIATED("initiated"),
-        RINGING("ringing"),
-        ANSWERED("answered"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private CallStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallStatus forValue(final String value) {
-            return Promoter.enumFromString(value, CallStatus.values());
-        }
-    }
-
-    public enum ConferenceEvent {
-        START("start"),
-        END("end"),
-        JOIN("join"),
-        LEAVE("leave"),
-        MUTE("mute"),
-        HOLD("hold"),
-        SPEAKER("speaker");
-
-        private final String value;
-
-        private ConferenceEvent(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceEvent forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceEvent.values());
-        }
-    }
-
-    public enum SupervisorMode {
-        MONITOR("monitor"),
-        WHISPER("whisper"),
-        BARGE("barge");
-
-        private final String value;
-
-        private SupervisorMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SupervisorMode forValue(final String value) {
-            return Promoter.enumFromString(value, SupervisorMode.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -327,6 +259,74 @@ public class Reservation extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum SupervisorMode {
+        MONITOR("monitor"),
+        WHISPER("whisper"),
+        BARGE("barge");
+
+        private final String value;
+
+        private SupervisorMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SupervisorMode forValue(final String value) {
+            return Promoter.enumFromString(value, SupervisorMode.values());
+        }
+    }
+
+    public enum ConferenceEvent {
+        START("start"),
+        END("end"),
+        JOIN("join"),
+        LEAVE("leave"),
+        MUTE("mute"),
+        HOLD("hold"),
+        SPEAKER("speaker");
+
+        private final String value;
+
+        private ConferenceEvent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConferenceEvent forValue(final String value) {
+            return Promoter.enumFromString(value, ConferenceEvent.values());
+        }
+    }
+
+    public enum CallStatus {
+        INITIATED("initiated"),
+        RINGING("ringing"),
+        ANSWERED("answered"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private CallStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallStatus forValue(final String value) {
+            return Promoter.enumFromString(value, CallStatus.values());
         }
     }
 }

@@ -38,6 +38,7 @@ public class TaskReader extends Reader<Task> {
     private String taskQueueSid;
     private String taskQueueName;
     private String evaluateTaskAttributes;
+    private String routingTarget;
     private String ordering;
     private Boolean hasAddons;
     private Integer pageSize;
@@ -84,6 +85,11 @@ public class TaskReader extends Reader<Task> {
         final String evaluateTaskAttributes
     ) {
         this.evaluateTaskAttributes = evaluateTaskAttributes;
+        return this;
+    }
+
+    public TaskReader setRoutingTarget(final String routingTarget) {
+        this.routingTarget = routingTarget;
         return this;
     }
 
@@ -217,6 +223,9 @@ public class TaskReader extends Reader<Task> {
                 "EvaluateTaskAttributes",
                 evaluateTaskAttributes
             );
+        }
+        if (routingTarget != null) {
+            request.addQueryParam("RoutingTarget", routingTarget);
         }
         if (ordering != null) {
             request.addQueryParam("Ordering", ordering);

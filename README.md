@@ -127,27 +127,10 @@ public class Example {
 ```
 ### Initialize the client when endpoints does not use basic authentication
 The above example shows how to initialize the client in case the endpoints use basic authentication. When the endpoint does not require any authentication, use TwilioNoAuth client instead.
-Also there are endpoints like Organization domain which uses bearer token authentication. Custom Clients needs to be used in such cases and initialize them with the values required for access token generation
-
-```java
-import com.twilio.TwilioOrgsTokenAuth;
-import com.twilio.exception.AuthenticationException;
-
-public class Example {
-
-  private static final String GRANT_TYPE = "grant_type_to_be_used";
-  private static final String CLIENT_SID =
-    "client_id_of_the_organization";
-  private static final String CLIENT_SECRET = "client_secret_of_organization";
-
-  public static void main(String[] args) throws AuthenticationException {
-    TwilioOrgsTokenAuth.init(GRANT_TYPE, CLIENT_SID, CLIENT_SECRET);
-  }
-}
-```
+There are endpoints like Organization domain which uses bearer token authentication. Custom Clients needs to be used in such cases and initialize them with the values required for access token generation.
 
 To bypass the initialization step you can also use a custom token manager implementation. Token manager class should implement the Token interface and call a token generation endpoint of your choice.
-Detailed example [here](https://github.com/twilio/twilio-java/tree/main/examples)
+Detailed examples [here](https://github.com/twilio/twilio-java/tree/main/examples)
 
 ### Environment Variables
 

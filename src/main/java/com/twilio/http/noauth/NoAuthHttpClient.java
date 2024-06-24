@@ -89,7 +89,7 @@ public class NoAuthHttpClient extends HttpClient {
             }
         }
 
-        if (method == HttpMethod.POST) {
+        if (method == HttpMethod.POST || method == HttpMethod.PUT) {
             // TODO: It will be removed after one RC Release.
             if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {

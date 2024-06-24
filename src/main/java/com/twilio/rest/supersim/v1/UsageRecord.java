@@ -89,49 +89,6 @@ public class UsageRecord extends Resource {
         }
     }
 
-    public enum Granularity {
-        HOUR("hour"),
-        DAY("day"),
-        ALL("all");
-
-        private final String value;
-
-        private Granularity(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
-        }
-    }
-
-    public enum Group {
-        SIM("sim"),
-        FLEET("fleet"),
-        NETWORK("network"),
-        ISOCOUNTRY("isoCountry");
-
-        private final String value;
-
-        private Group(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Group forValue(final String value) {
-            return Promoter.enumFromString(value, Group.values());
-        }
-    }
-
     private final String accountSid;
     private final String simSid;
     private final String networkSid;
@@ -259,5 +216,48 @@ public class UsageRecord extends Resource {
             dataTotalBilled,
             billedUnit
         );
+    }
+
+    public enum Granularity {
+        HOUR("hour"),
+        DAY("day"),
+        ALL("all");
+
+        private final String value;
+
+        private Granularity(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Granularity forValue(final String value) {
+            return Promoter.enumFromString(value, Granularity.values());
+        }
+    }
+
+    public enum Group {
+        SIM("sim"),
+        FLEET("fleet"),
+        NETWORK("network"),
+        ISOCOUNTRY("isoCountry");
+
+        private final String value;
+
+        private Group(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Group forValue(final String value) {
+            return Promoter.enumFromString(value, Group.values());
+        }
     }
 }

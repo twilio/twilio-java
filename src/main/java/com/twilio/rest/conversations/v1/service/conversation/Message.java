@@ -135,46 +135,6 @@ public class Message extends Resource {
         }
     }
 
-    public enum OrderType {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private OrderType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OrderType forValue(final String value) {
-            return Promoter.enumFromString(value, OrderType.values());
-        }
-    }
-
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
-    }
-
     private final String accountSid;
     private final String chatServiceSid;
     private final String conversationSid;
@@ -345,5 +305,45 @@ public class Message extends Resource {
             links,
             contentSid
         );
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
+    public enum OrderType {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private OrderType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OrderType forValue(final String value) {
+            return Promoter.enumFromString(value, OrderType.values());
+        }
     }
 }

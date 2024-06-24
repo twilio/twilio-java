@@ -40,6 +40,7 @@ public class ValidationClientTest {
         final HttpUrl url = server.url(path);
         final ValidationClient client = new ValidationClient("dummy-sid1", "dummy-sid2", "dummy-signing-key", keyPair.getPrivate());
         final Request request = new Request(httpMethod, url.url().toString());
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         final Response response = client.makeRequest(request);
         assertEquals(200, response.getStatusCode());
         final RecordedRequest recordedRequest = server.takeRequest();

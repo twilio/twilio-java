@@ -113,26 +113,6 @@ public class Participant extends Resource {
         }
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
-    }
-
     private final String accountSid;
     private final String conversationSid;
     private final String sid;
@@ -272,5 +252,25 @@ public class Participant extends Resource {
             lastReadMessageIndex,
             lastReadTimestamp
         );
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
     }
 }

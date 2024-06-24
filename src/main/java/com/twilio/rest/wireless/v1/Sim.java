@@ -352,25 +352,6 @@ public class Sim extends Resource {
         );
     }
 
-    public enum ResetStatus {
-        RESETTING("resetting");
-
-        private final String value;
-
-        private ResetStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ResetStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ResetStatus.values());
-        }
-    }
-
     public enum Status {
         NEW("new"),
         READY("ready"),
@@ -394,6 +375,25 @@ public class Sim extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum ResetStatus {
+        RESETTING("resetting");
+
+        private final String value;
+
+        private ResetStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ResetStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ResetStatus.values());
         }
     }
 }

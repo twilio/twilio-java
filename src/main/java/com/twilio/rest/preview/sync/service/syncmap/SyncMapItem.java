@@ -130,46 +130,6 @@ public class SyncMapItem extends Resource {
         }
     }
 
-    public enum QueryFromBoundType {
-        INCLUSIVE("inclusive"),
-        EXCLUSIVE("exclusive");
-
-        private final String value;
-
-        private QueryFromBoundType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryFromBoundType forValue(final String value) {
-            return Promoter.enumFromString(value, QueryFromBoundType.values());
-        }
-    }
-
-    public enum QueryResultOrder {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private QueryResultOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryResultOrder forValue(final String value) {
-            return Promoter.enumFromString(value, QueryResultOrder.values());
-        }
-    }
-
     private final String key;
     private final String accountSid;
     private final String serviceSid;
@@ -286,5 +246,45 @@ public class SyncMapItem extends Resource {
             dateUpdated,
             createdBy
         );
+    }
+
+    public enum QueryFromBoundType {
+        INCLUSIVE("inclusive"),
+        EXCLUSIVE("exclusive");
+
+        private final String value;
+
+        private QueryFromBoundType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static QueryFromBoundType forValue(final String value) {
+            return Promoter.enumFromString(value, QueryFromBoundType.values());
+        }
+    }
+
+    public enum QueryResultOrder {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private QueryResultOrder(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static QueryResultOrder forValue(final String value) {
+            return Promoter.enumFromString(value, QueryResultOrder.values());
+        }
     }
 }

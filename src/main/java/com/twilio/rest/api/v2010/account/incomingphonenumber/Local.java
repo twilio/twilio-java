@@ -460,13 +460,13 @@ public class Local extends Resource {
         );
     }
 
-    public enum VoiceReceiveMode {
-        VOICE("voice"),
-        FAX("fax");
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
 
         private final String value;
 
-        private VoiceReceiveMode(final String value) {
+        private EmergencyStatus(final String value) {
             this.value = value;
         }
 
@@ -475,8 +475,8 @@ public class Local extends Resource {
         }
 
         @JsonCreator
-        public static VoiceReceiveMode forValue(final String value) {
-            return Promoter.enumFromString(value, VoiceReceiveMode.values());
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
         }
     }
 
@@ -502,13 +502,13 @@ public class Local extends Resource {
         }
     }
 
-    public enum EmergencyStatus {
-        ACTIVE("Active"),
-        INACTIVE("Inactive");
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
 
         private final String value;
 
-        private EmergencyStatus(final String value) {
+        private VoiceReceiveMode(final String value) {
             this.value = value;
         }
 
@@ -517,8 +517,8 @@ public class Local extends Resource {
         }
 
         @JsonCreator
-        public static EmergencyStatus forValue(final String value) {
-            return Promoter.enumFromString(value, EmergencyStatus.values());
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
         }
     }
 

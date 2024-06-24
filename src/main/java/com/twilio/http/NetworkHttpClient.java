@@ -140,9 +140,7 @@ public class NetworkHttpClient extends HttpClient {
             }
         }
 
-        if (method == HttpMethod.POST) {
-            // TODO: It will be removed after one RC Release.
-            if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        if (method == HttpMethod.POST || method == HttpMethod.PUT) {
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);

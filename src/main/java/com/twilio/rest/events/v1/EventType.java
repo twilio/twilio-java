@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class EventType extends Resource {
 
-    private static final long serialVersionUID = 236822326358907L;
+    private static final long serialVersionUID = 10451435371801L;
 
     public static EventTypeFetcher fetcher(final String pathType) {
         return new EventTypeFetcher(pathType);
@@ -96,6 +96,8 @@ public class EventType extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String description;
+    private final String status;
+    private final String documentationUrl;
     private final URI url;
     private final Map<String, String> links;
 
@@ -106,6 +108,8 @@ public class EventType extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("description") final String description,
+        @JsonProperty("status") final String status,
+        @JsonProperty("documentation_url") final String documentationUrl,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -114,6 +118,8 @@ public class EventType extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.description = description;
+        this.status = status;
+        this.documentationUrl = documentationUrl;
         this.url = url;
         this.links = links;
     }
@@ -136,6 +142,14 @@ public class EventType extends Resource {
 
     public final String getDescription() {
         return this.description;
+    }
+
+    public final String getStatus() {
+        return this.status;
+    }
+
+    public final String getDocumentationUrl() {
+        return this.documentationUrl;
     }
 
     public final URI getUrl() {
@@ -164,6 +178,8 @@ public class EventType extends Resource {
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(description, other.description) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(documentationUrl, other.documentationUrl) &&
             Objects.equals(url, other.url) &&
             Objects.equals(links, other.links)
         );
@@ -177,6 +193,8 @@ public class EventType extends Resource {
             dateCreated,
             dateUpdated,
             description,
+            status,
+            documentationUrl,
             url,
             links
         );

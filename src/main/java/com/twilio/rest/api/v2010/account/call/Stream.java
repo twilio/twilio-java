@@ -114,46 +114,6 @@ public class Stream extends Resource {
         }
     }
 
-    public enum Track {
-        INBOUND_TRACK("inbound_track"),
-        OUTBOUND_TRACK("outbound_track"),
-        BOTH_TRACKS("both_tracks");
-
-        private final String value;
-
-        private Track(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Track forValue(final String value) {
-            return Promoter.enumFromString(value, Track.values());
-        }
-    }
-
-    public enum UpdateStatus {
-        STOPPED("stopped");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String callSid;
@@ -245,6 +205,25 @@ public class Stream extends Resource {
         );
     }
 
+    public enum UpdateStatus {
+        STOPPED("stopped");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
+        }
+    }
+
     public enum Status {
         IN_PROGRESS("in-progress"),
         STOPPED("stopped");
@@ -262,6 +241,27 @@ public class Stream extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Track {
+        INBOUND_TRACK("inbound_track"),
+        OUTBOUND_TRACK("outbound_track"),
+        BOTH_TRACKS("both_tracks");
+
+        private final String value;
+
+        private Track(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Track forValue(final String value) {
+            return Promoter.enumFromString(value, Track.values());
         }
     }
 }

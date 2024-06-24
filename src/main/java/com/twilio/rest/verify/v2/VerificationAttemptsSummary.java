@@ -91,28 +91,6 @@ public class VerificationAttemptsSummary extends Resource {
         }
     }
 
-    public enum Channels {
-        SMS("sms"),
-        CALL("call"),
-        EMAIL("email"),
-        WHATSAPP("whatsapp");
-
-        private final String value;
-
-        private Channels(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Channels forValue(final String value) {
-            return Promoter.enumFromString(value, Channels.values());
-        }
-    }
-
     private final Integer totalAttempts;
     private final Integer totalConverted;
     private final Integer totalUnconverted;
@@ -189,5 +167,27 @@ public class VerificationAttemptsSummary extends Resource {
             conversionRatePercentage,
             url
         );
+    }
+
+    public enum Channels {
+        SMS("sms"),
+        CALL("call"),
+        EMAIL("email"),
+        WHATSAPP("whatsapp");
+
+        private final String value;
+
+        private Channels(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Channels forValue(final String value) {
+            return Promoter.enumFromString(value, Channels.values());
+        }
     }
 }

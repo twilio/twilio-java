@@ -2,7 +2,6 @@ package com.twilio.http;
 
 import com.twilio.jwt.Jwt;
 import com.twilio.jwt.validation.ValidationToken;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
@@ -12,6 +11,8 @@ import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.Arrays;
 import java.util.List;
+
+import io.jsonwebtoken.SignatureAlgorithm;
 
 public class ValidationInterceptor implements HttpRequestInterceptor {
 

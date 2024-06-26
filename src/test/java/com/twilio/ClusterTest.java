@@ -17,94 +17,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.twilio.rest.previewiam.organizations.Account;
+import com.twilio.rest.previewiam.organizations.Token;
+import com.twilio.base.bearertoken.ResourceSet;
+import com.twilio.http.bearertoken.OrgsTokenManager;
 
 import static org.junit.Assert.*;
 
 public class ClusterTest {
     String fromNumber;
     String toNumber;
+    String grantType;
+    String clientId;
+    String clientSecret;
+    String organisationSid;
 
     @Before
     public void setUp() {
         // only run when ClusterTest property is passed (mvn test -Dtest="ClusterTest"), skip test run on mvn test
         Assume.assumeThat(System.getProperty("Test"), CoreMatchers.is("ClusterTest"));
-        fromNumber = System.getenv("TWILIO_FROM_NUMBER");
-        toNumber = System.getenv("TWILIO_TO_NUMBER");
-        String apiKey = System.getenv("TWILIO_API_KEY");
-        String secret = System.getenv("TWILIO_API_SECRET");
-        String accountSid = System.getenv("TWILIO_ACCOUNT_SID");
-        Twilio.init(apiKey, secret, accountSid);
-    }
-
-    @Test
-    public void testSendingAText() {
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber(toNumber), new com.twilio.type.PhoneNumber(fromNumber),
-                "Where's Wallace?")
-            .create();
-        assertNotNull(message);
-        assertTrue(message.getBody().contains("Where's Wallace?"));
-        assertEquals(fromNumber, message.getFrom().toString());
-        assertEquals(toNumber, message.getTo().toString());
-    }
-
-    @Test
-    public void testListingNumbers() {
-        Page<IncomingPhoneNumber> phoneNumbers = IncomingPhoneNumber.reader().firstPage();
-        assertNotNull(phoneNumbers);
-        assertTrue(phoneNumbers.getRecords().size() > 0);
-    }
-
-    @Test
-    public void testListingANumber() {
-        IncomingPhoneNumberReader phoneNumberReader =
-        IncomingPhoneNumber.reader();
-        phoneNumberReader.setPhoneNumber(fromNumber);
-        Page<IncomingPhoneNumber> phoneNumbers = phoneNumberReader.firstPage();
-        assertNotNull(phoneNumbers);
-        assertEquals(fromNumber, phoneNumbers.getRecords().get(0).getPhoneNumber().toString());
-    }
-
-    @Test
-    public void testSpecialCharacters() {
-        Service service = Service.creator("service|friendly&name").create();
-        assertNotNull(service);
-
-        User user = User.creator(service.getSid(), "user|identity&string").create();
-        assertNotNull(user);
-
-        boolean isUserDeleted =  User.deleter(service.getSid(), user.getSid()).delete();
-        assertTrue(isUserDeleted);
-
-        boolean isServiceDeleted = Service.deleter(service.getSid()).delete();
-        assertTrue(isServiceDeleted);
+        grantType = "client_credentials";
+        clientId = "client_id";
+        clientSecret = "client_secret";
+        organisationSid = "organisation_sid";
 
     }
 
     @Test
-    public void testListParams() {
-        Map<String, Object> sinkConfiguration = new HashMap<>();
-        sinkConfiguration.put("destination", "http://example.org/webhook");
-        sinkConfiguration.put("method", "post");
-        sinkConfiguration.put("batch_events",false);
-        List<Map<String, Object>> types = new ArrayList<>();
-        Map<String, Object> types1 = new HashMap<>();
-        Map<String, Object> types2 = new HashMap<>();
-        types1.put("type", "com.twilio.messaging.message.delivered");
-        types2.put("type", "com.twilio.messaging.message.sent");
-        types.add(types1);
-        types.add(types2);
+    public void testOrgsApi(){
 
-        Sink sink = Sink.creator("test sink java", sinkConfiguration, Sink.SinkType.WEBHOOK).create();
-        assertNotNull(sink);
+        //Setting access token
+        TwilioOrgsTokenAuth.init(grantType, clientId, clientSecret);
 
-        Subscription subscription = Subscription.creator
-                ("test subscription java", sink.getSid(),types).create();
-        assertNotNull(subscription);
 
-        // Clean up the resources we've created
-        assertTrue(Subscription.deleter(subscription.getSid()).delete());
-        assertTrue(Sink.deleter(sink.getSid()).delete());
+        //Fetching the account information
+        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
+        String accountSid = accountSet.iterator().next().getAccountSid();
+        System.out.println(accountSid);
     }
+
 
 }

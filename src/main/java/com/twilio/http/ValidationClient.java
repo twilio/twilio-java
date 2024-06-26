@@ -3,7 +3,6 @@ package com.twilio.http;
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -24,7 +23,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
 
 public class ValidationClient extends HttpClient {
@@ -164,8 +167,7 @@ public class ValidationClient extends HttpClient {
     }
 
     @Override
-    public Response makeRequest(IRequest iRequest) {
-        Request request = (Request)iRequest;
+    public Response makeRequest(Request request) {
         RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
             .setUri(request.constructURL().toString())
             .setVersion(HttpVersion.HTTP_1_1)
@@ -176,9 +178,7 @@ public class ValidationClient extends HttpClient {
         }
 
         HttpMethod method = request.getMethod();
-        if (method != HttpMethod.GET) {
-            // TODO: It will be removed after one RC Release.
-            if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        if (method == HttpMethod.POST || method == HttpMethod.PUT) {
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);

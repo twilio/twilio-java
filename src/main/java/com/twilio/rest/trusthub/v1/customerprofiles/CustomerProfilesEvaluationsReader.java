@@ -17,6 +17,7 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -69,6 +70,7 @@ public class CustomerProfilesEvaluationsReader
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 

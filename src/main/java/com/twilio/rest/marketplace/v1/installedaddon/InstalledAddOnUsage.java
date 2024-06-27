@@ -39,10 +39,10 @@ import lombok.ToString;
 @ToString
 public class InstalledAddOnUsage extends Resource {
 
-    private static final long serialVersionUID = 271578178238748L;
+    private static final long serialVersionUID = 244026319744874L;
 
     @ToString
-    public static class CreateMarketplaceBillingUsageRequestBillableItems {
+    public static class CreateBillingUsageRequestBillableItems {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quantity")
@@ -56,43 +56,41 @@ public class InstalledAddOnUsage extends Resource {
         @Setter
         private String sid;
 
-        public static CreateMarketplaceBillingUsageRequestBillableItems fromJson(
+        public static CreateBillingUsageRequestBillableItems fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                CreateMarketplaceBillingUsageRequestBillableItems.class
+                CreateBillingUsageRequestBillableItems.class
             );
         }
     }
 
     @ToString
-    public static class CreateMarketplaceBillingUsageRequest {
+    public static class CreateBillingUsageRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("billable_items")
         @Getter
         @Setter
-        private List<
-            CreateMarketplaceBillingUsageRequestBillableItems
-        > billableItems;
+        private List<CreateBillingUsageRequestBillableItems> billableItems;
 
-        public CreateMarketplaceBillingUsageRequest() {}
+        public CreateBillingUsageRequest() {}
 
-        public static CreateMarketplaceBillingUsageRequest fromJson(
+        public static CreateBillingUsageRequest fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                CreateMarketplaceBillingUsageRequest.class
+                CreateBillingUsageRequest.class
             );
         }
     }
 
     @ToString
-    public static class MarketplaceInstalledAddOnBillingUsageResponseBillableItems {
+    public static class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quantity")
@@ -112,24 +110,24 @@ public class InstalledAddOnUsage extends Resource {
         @Setter
         private Boolean submitted;
 
-        public static MarketplaceInstalledAddOnBillingUsageResponseBillableItems fromJson(
+        public static MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                MarketplaceInstalledAddOnBillingUsageResponseBillableItems.class
+                MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems.class
             );
         }
     }
 
     public static InstalledAddOnUsageCreator creator(
         final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.CreateMarketplaceBillingUsageRequest createMarketplaceBillingUsageRequest
+        final InstalledAddOnUsage.CreateBillingUsageRequest createBillingUsageRequest
     ) {
         return new InstalledAddOnUsageCreator(
             pathInstalledAddOnSid,
-            createMarketplaceBillingUsageRequest
+            createBillingUsageRequest
         );
     }
 
@@ -189,14 +187,14 @@ public class InstalledAddOnUsage extends Resource {
     }
 
     private final List<
-        MarketplaceInstalledAddOnBillingUsageResponseBillableItems
+        MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
     > billableItems;
     private final BigDecimal totalSubmitted;
 
     @JsonCreator
     private InstalledAddOnUsage(
         @JsonProperty("billable_items") final List<
-            MarketplaceInstalledAddOnBillingUsageResponseBillableItems
+            MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
         > billableItems,
         @JsonProperty("total_submitted") final BigDecimal totalSubmitted
     ) {
@@ -205,7 +203,7 @@ public class InstalledAddOnUsage extends Resource {
     }
 
     public final List<
-        MarketplaceInstalledAddOnBillingUsageResponseBillableItems
+        MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
     > getBillableItems() {
         return this.billableItems;
     }

@@ -28,45 +28,30 @@ import com.twilio.rest.Domains;
 
 public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
-    private String pathContentSid;
-    private ApprovalCreate.ContentApprovalRequest contentApprovalRequest;
+    private String pathSid;
+    private Object body;
 
-    public ApprovalCreateCreator(
-        final String pathContentSid,
-        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
-    ) {
-        this.pathContentSid = pathContentSid;
-        this.contentApprovalRequest = contentApprovalRequest;
+    public ApprovalCreateCreator(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public ApprovalCreateCreator setContentApprovalRequest(
-        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
-    ) {
-        this.contentApprovalRequest = contentApprovalRequest;
+    public ApprovalCreateCreator setBody(final Object body) {
+        this.body = body;
         return this;
     }
 
     @Override
     public ApprovalCreate create(final TwilioRestClient client) {
-        String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
+        String path = "/v1/Content/{Sid}/ApprovalRequests/whatsapp";
 
-        path =
-            path.replace(
-                "{" + "ContentSid" + "}",
-                this.pathContentSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ContentApprovalRequest" + "}",
-                this.contentApprovalRequest.toString()
-            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONTENT.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.JSON);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
@@ -95,10 +80,8 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (contentApprovalRequest != null) {
-            request.setBody(
-                ApprovalCreate.toJson(contentApprovalRequest, objectMapper)
-            );
+        if (body != null) {
+            request.setBody(ApprovalCreate.toJson(body, objectMapper));
         }
     }
 }

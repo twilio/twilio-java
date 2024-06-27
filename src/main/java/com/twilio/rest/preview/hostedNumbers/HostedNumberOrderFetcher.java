@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -43,6 +44,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

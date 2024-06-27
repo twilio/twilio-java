@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.wireless.sim;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -56,6 +57,7 @@ public class UsageFetcher extends Fetcher<Usage> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

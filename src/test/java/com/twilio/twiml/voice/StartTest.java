@@ -79,6 +79,22 @@ public class StartTest {
                     .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
                     .build());
 
+        builder.transcription(new Transcription.Builder()
+                    .name("name")
+                    .track(Transcription.Track.INBOUND_TRACK)
+                    .statusCallbackUrl("status_callback_url")
+                    .statusCallbackMethod(Transcription.StatusCallbackMethod.GET)
+                    .inboundTrackLabel("inbound_track_label")
+                    .outboundTrackLabel("outbound_track_label")
+                    .partialResults(true)
+                    .languageCode("language_code")
+                    .transcriptionEngine("transcription_engine")
+                    .profanityFilter(true)
+                    .speechModel("speech_model")
+                    .hints("hints")
+                    .enableAutomaticPunctuation(true)
+                    .build());
+
         Start elem = builder.build();
 
         Assert.assertEquals(
@@ -86,6 +102,7 @@ public class StartTest {
             "<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
+                "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
             "</Start>",
             elem.toXml()
         );
@@ -200,12 +217,29 @@ public class StartTest {
                     .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
                     .build());
 
+        builder.transcription(new Transcription.Builder()
+                    .name("name")
+                    .track(Transcription.Track.INBOUND_TRACK)
+                    .statusCallbackUrl("status_callback_url")
+                    .statusCallbackMethod(Transcription.StatusCallbackMethod.GET)
+                    .inboundTrackLabel("inbound_track_label")
+                    .outboundTrackLabel("outbound_track_label")
+                    .partialResults(true)
+                    .languageCode("language_code")
+                    .transcriptionEngine("transcription_engine")
+                    .profanityFilter(true)
+                    .speechModel("speech_model")
+                    .hints("hints")
+                    .enableAutomaticPunctuation(true)
+                    .build());
+
         final Start elem = builder.build();
 
         Assert.assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
+                "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>" +
             "</Start>").build().toXml(),
             elem.toXml()
         );
@@ -219,12 +253,15 @@ public class StartTest {
 
         builder.siprec(new Siprec.Builder().build());
 
+        builder.transcription(new Transcription.Builder().build());
+
         final Start elem = builder.build();
 
         Assert.assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream/>" +
                 "<Siprec/>" +
+                "<Transcription/>" +
             "</Start>").build().toXml(),
             elem.toXml()
         );

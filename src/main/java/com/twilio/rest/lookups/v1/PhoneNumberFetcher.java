@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.PrefixedCollapsibleMap;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -86,6 +87,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

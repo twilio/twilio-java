@@ -29,22 +29,20 @@ import com.twilio.rest.Domains;
 public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
 
     private String pathInstalledAddOnSid;
-    private InstalledAddOnUsage.CreateMarketplaceBillingUsageRequest createMarketplaceBillingUsageRequest;
+    private InstalledAddOnUsage.CreateBillingUsageRequest createBillingUsageRequest;
 
     public InstalledAddOnUsageCreator(
         final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.CreateMarketplaceBillingUsageRequest createMarketplaceBillingUsageRequest
+        final InstalledAddOnUsage.CreateBillingUsageRequest createBillingUsageRequest
     ) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
-        this.createMarketplaceBillingUsageRequest =
-            createMarketplaceBillingUsageRequest;
+        this.createBillingUsageRequest = createBillingUsageRequest;
     }
 
-    public InstalledAddOnUsageCreator setCreateMarketplaceBillingUsageRequest(
-        final InstalledAddOnUsage.CreateMarketplaceBillingUsageRequest createMarketplaceBillingUsageRequest
+    public InstalledAddOnUsageCreator setCreateBillingUsageRequest(
+        final InstalledAddOnUsage.CreateBillingUsageRequest createBillingUsageRequest
     ) {
-        this.createMarketplaceBillingUsageRequest =
-            createMarketplaceBillingUsageRequest;
+        this.createBillingUsageRequest = createBillingUsageRequest;
         return this;
     }
 
@@ -59,8 +57,8 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
             );
         path =
             path.replace(
-                "{" + "CreateMarketplaceBillingUsageRequest" + "}",
-                this.createMarketplaceBillingUsageRequest.toString()
+                "{" + "CreateBillingUsageRequest" + "}",
+                this.createBillingUsageRequest.toString()
             );
 
         Request request = new Request(
@@ -68,7 +66,7 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
             Domains.MARKETPLACE.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.JSON);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
@@ -97,10 +95,10 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (createMarketplaceBillingUsageRequest != null) {
+        if (createBillingUsageRequest != null) {
             request.setBody(
                 InstalledAddOnUsage.toJson(
-                    createMarketplaceBillingUsageRequest,
+                    createBillingUsageRequest,
                     objectMapper
                 )
             );

@@ -28,18 +28,12 @@ import com.twilio.rest.Domains;
 
 public class ContentCreator extends Creator<Content> {
 
-    private Content.ContentCreateRequest contentCreateRequest;
+    private Object body;
 
-    public ContentCreator(
-        final Content.ContentCreateRequest contentCreateRequest
-    ) {
-        this.contentCreateRequest = contentCreateRequest;
-    }
+    public ContentCreator() {}
 
-    public ContentCreator setContentCreateRequest(
-        final Content.ContentCreateRequest contentCreateRequest
-    ) {
-        this.contentCreateRequest = contentCreateRequest;
+    public ContentCreator setBody(final Object body) {
+        this.body = body;
         return this;
     }
 
@@ -47,18 +41,12 @@ public class ContentCreator extends Creator<Content> {
     public Content create(final TwilioRestClient client) {
         String path = "/v1/Content";
 
-        path =
-            path.replace(
-                "{" + "ContentCreateRequest" + "}",
-                this.contentCreateRequest.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONTENT.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.JSON);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
@@ -84,8 +72,8 @@ public class ContentCreator extends Creator<Content> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (contentCreateRequest != null) {
-            request.setBody(Content.toJson(contentCreateRequest, objectMapper));
+        if (body != null) {
+            request.setBody(Content.toJson(body, objectMapper));
         }
     }
 }

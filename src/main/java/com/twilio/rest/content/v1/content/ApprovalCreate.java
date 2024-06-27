@@ -16,7 +16,6 @@ package com.twilio.rest.content.v1.content;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -39,45 +36,8 @@ public class ApprovalCreate extends Resource {
 
     private static final long serialVersionUID = 150858338844938L;
 
-    @ToString
-    public static class ContentApprovalRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("category")
-        @Getter
-        @Setter
-        private String category;
-
-        public ContentApprovalRequest(
-            final String name,
-            final String category
-        ) {
-            this.name = name;
-            this.category = category;
-        }
-
-        public static ContentApprovalRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, ContentApprovalRequest.class);
-        }
-    }
-
-    public static ApprovalCreateCreator creator(
-        final String pathContentSid,
-        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
-    ) {
-        return new ApprovalCreateCreator(
-            pathContentSid,
-            contentApprovalRequest
-        );
+    public static ApprovalCreateCreator creator(final String pathSid) {
+        return new ApprovalCreateCreator(pathSid);
     }
 
     /**

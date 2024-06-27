@@ -17,6 +17,7 @@ package com.twilio.rest.notify.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -96,6 +97,7 @@ public class BindingReader extends Reader<Binding> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 

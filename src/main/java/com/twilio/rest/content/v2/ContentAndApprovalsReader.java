@@ -17,6 +17,7 @@ package com.twilio.rest.content.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -135,6 +136,7 @@ public class ContentAndApprovalsReader extends Reader<ContentAndApprovals> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 

@@ -1,6 +1,28 @@
 twilio-java changelog
 =====================
 
+[2024-06-27] Version 10.4.0
+---------------------------
+**Library - Feature**
+- [PR #803](https://github.com/twilio/twilio-java/pull/803): Support for bearer token authentication and no authentication and PUT method in REST calls. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Api**
+- Add `transcription` resource
+- Add beta feature request managed cert
+
+**Flex**
+- Changed mount name for flex_team v2 api
+
+**Intelligence**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to Operator resources
+
+**Numbers**
+- Added include_constraints query parameter to the Regulations API
+
+**Twiml**
+- Add support for `<Transcription>` noun
+
+
 [2024-06-18] Version 10.3.0
 ---------------------------
 **Library - Chore**

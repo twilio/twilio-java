@@ -14,22 +14,19 @@
 
 package com.twilio.rest.previewiam.organizations;
 
+import com.twilio.base.noauth.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.rest.Domains;
-
-
-
-
-import com.twilio.base.noauth.Creator;
 import com.twilio.http.noauth.NoAuthRequest;
 import com.twilio.http.noauth.NoAuthTwilioRestClient;
+import com.twilio.rest.Domains;
 
-public class TokenCreator extends Creator<Token>{
+public class TokenCreator extends Creator<Token> {
+
     private String grantType;
     private String clientId;
     private String clientSecret;
@@ -44,45 +41,53 @@ public class TokenCreator extends Creator<Token>{
         this.clientId = clientId;
     }
 
-    public TokenCreator setGrantType(final String grantType){
+    public TokenCreator setGrantType(final String grantType) {
         this.grantType = grantType;
         return this;
     }
-    public TokenCreator setClientId(final String clientId){
+
+    public TokenCreator setClientId(final String clientId) {
         this.clientId = clientId;
         return this;
     }
-    public TokenCreator setClientSecret(final String clientSecret){
+
+    public TokenCreator setClientSecret(final String clientSecret) {
         this.clientSecret = clientSecret;
         return this;
     }
-    public TokenCreator setCode(final String code){
+
+    public TokenCreator setCode(final String code) {
         this.code = code;
         return this;
     }
-    public TokenCreator setRedirectUri(final String redirectUri){
+
+    public TokenCreator setRedirectUri(final String redirectUri) {
         this.redirectUri = redirectUri;
         return this;
     }
-    public TokenCreator setAudience(final String audience){
+
+    public TokenCreator setAudience(final String audience) {
         this.audience = audience;
         return this;
     }
-    public TokenCreator setRefreshToken(final String refreshToken){
+
+    public TokenCreator setRefreshToken(final String refreshToken) {
         this.refreshToken = refreshToken;
         return this;
     }
-    public TokenCreator setScope(final String scope){
+
+    public TokenCreator setScope(final String scope) {
         this.scope = scope;
         return this;
     }
 
     @Override
-    public Token create(final NoAuthTwilioRestClient client){
+    public Token create(final NoAuthTwilioRestClient client) {
         String path = "/v1/token";
 
-        path = path.replace("{"+"grant_type"+"}", this.grantType.toString());
-        path = path.replace("{"+"client_id"+"}", this.clientId.toString());
+        path =
+            path.replace("{" + "grant_type" + "}", this.grantType.toString());
+        path = path.replace("{" + "client_id" + "}", this.clientId.toString());
 
         NoAuthRequest request = new NoAuthRequest(
             HttpMethod.POST,
@@ -93,49 +98,52 @@ public class TokenCreator extends Creator<Token>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Token creation failed: Unable to connect to server");
-        } else if (!NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            throw new ApiConnectionException(
+                "Token creation failed: Unable to connect to server"
+            );
+        } else if (
+            !NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())
+        ) {
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Token.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final NoAuthRequest request) {
         if (grantType != null) {
             request.addPostParam("grant_type", grantType);
-    
         }
         if (clientId != null) {
             request.addPostParam("client_id", clientId);
-    
         }
         if (clientSecret != null) {
             request.addPostParam("client_secret", clientSecret);
-    
         }
         if (code != null) {
             request.addPostParam("code", code);
-    
         }
         if (redirectUri != null) {
             request.addPostParam("redirect_uri", redirectUri);
-    
         }
         if (audience != null) {
             request.addPostParam("audience", audience);
-    
         }
         if (refreshToken != null) {
             request.addPostParam("refresh_token", refreshToken);
-    
         }
         if (scope != null) {
             request.addPostParam("scope", scope);
-    
         }
     }
 }

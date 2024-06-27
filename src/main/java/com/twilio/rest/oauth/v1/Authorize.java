@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+import com.twilio.base.noauth.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;

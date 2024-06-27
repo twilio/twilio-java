@@ -14,14 +14,15 @@
 
 package com.twilio.rest.oauth.v1;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.noauth.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
 import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
+import com.twilio.http.noauth.NoAuthRequest;
+import com.twilio.http.noauth.NoAuthTwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AuthorizeFetcher extends Fetcher<Authorize> {
@@ -60,22 +61,25 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
     }
 
     @Override
-    public Authorize fetch(final TwilioRestClient client) {
+    public Authorize fetch(final NoAuthTwilioRestClient client) {
         String path = "/v1/authorize";
 
-        Request request = new Request(
+        NoAuthRequest request = new NoAuthRequest(
             HttpMethod.GET,
             Domains.OAUTH.toString(),
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException(
                 "Authorize fetch failed: Unable to connect to server"
             );
-        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
+        } else if (
+            !NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())
+        ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
@@ -95,7 +99,7 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
         );
     }
 
-    private void addQueryParams(final Request request) {
+    private void addQueryParams(final NoAuthRequest request) {
         if (responseType != null) {
             request.addQueryParam("ResponseType", responseType);
         }

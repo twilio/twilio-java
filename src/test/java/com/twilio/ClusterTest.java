@@ -1,6 +1,7 @@
 package com.twilio;
 
 import com.twilio.base.Page;
+
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumberReader;
 import com.twilio.rest.api.v2010.account.Message;
@@ -20,9 +21,16 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+import com.twilio.rest.previewiam.organizations.Account;
+import com.twilio.base.bearertoken.ResourceSet;
+
 public class ClusterTest {
     String fromNumber;
     String toNumber;
+    String grantType;
+    String clientId;
+    String clientSecret;
+    String organisationSid;
 
     @Before
     public void setUp() {
@@ -34,6 +42,12 @@ public class ClusterTest {
         String secret = System.getenv("TWILIO_API_SECRET");
         String accountSid = System.getenv("TWILIO_ACCOUNT_SID");
         Twilio.init(apiKey, secret, accountSid);
+
+        grantType = "client_credentials";
+        clientId = System.getenv("TWILIO_ORGS_CLIENT_ID");
+        clientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
+        organisationSid = System.getenv("TWILIO_ORG_SID");
+        TwilioOrgsTokenAuth.init(grantType, clientId, clientSecret);
     }
 
     @Test
@@ -105,6 +119,26 @@ public class ClusterTest {
         // Clean up the resources we've created
         assertTrue(Subscription.deleter(subscription.getSid()).delete());
         assertTrue(Sink.deleter(sink.getSid()).delete());
+    }
+
+    @Test
+    public void testOrgsApi(){
+
+        //Fetching the account information
+        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
+        String accountSid = accountSet.iterator().next().getAccountSid();
+        assertNotNull(accountSid);
+
+        //Fetching specific account
+        Account account = Account.fetcher(organisationSid, accountSid).fetch();
+        assertNotNull(account.getAccountSid());
+
+        //Fetching users of this organisation
+        ResourceSet<com.twilio.rest.previewiam.organizations.User>
+            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
+        assertNotNull(userSet);
+        String userId = userSet.iterator().next().getId().toString();
+        assertNotNull(userId);
     }
 
 }

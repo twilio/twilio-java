@@ -28,23 +28,38 @@ import com.twilio.rest.Domains;
 
 public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
-    private String pathSid;
-    private Object body;
+    private String pathContentSid;
+    private ApprovalCreate.ContentApprovalRequest contentApprovalRequest;
 
-    public ApprovalCreateCreator(final String pathSid) {
-        this.pathSid = pathSid;
+    public ApprovalCreateCreator(
+        final String pathContentSid,
+        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
+    ) {
+        this.pathContentSid = pathContentSid;
+        this.contentApprovalRequest = contentApprovalRequest;
     }
 
-    public ApprovalCreateCreator setBody(final Object body) {
-        this.body = body;
+    public ApprovalCreateCreator setContentApprovalRequest(
+        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
+    ) {
+        this.contentApprovalRequest = contentApprovalRequest;
         return this;
     }
 
     @Override
     public ApprovalCreate create(final TwilioRestClient client) {
-        String path = "/v1/Content/{Sid}/ApprovalRequests/whatsapp";
+        String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ContentSid" + "}",
+                this.pathContentSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ContentApprovalRequest" + "}",
+                this.contentApprovalRequest.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -80,8 +95,10 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (body != null) {
-            request.setBody(ApprovalCreate.toJson(body, objectMapper));
+        if (contentApprovalRequest != null) {
+            request.setBody(
+                ApprovalCreate.toJson(contentApprovalRequest, objectMapper)
+            );
         }
     }
 }

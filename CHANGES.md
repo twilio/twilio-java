@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2024-07-02] Version 10.4.1
+---------------------------
+**Library - Fix**
+- [PR #804](https://github.com/twilio/twilio-java/pull/804): adding cluster tests for orgs api. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Intelligence**
+- Deprecate account flag api.twilio-intelligence.v2
+
+
 [2024-06-27] Version 10.4.0
 ---------------------------
 **Library - Feature**

@@ -16,16 +16,16 @@ import java.util.List;
 public class ClientCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String SECRET = "secretsecretsecretsecretsecret00";
+    private static final String SECRET = "secretsecretsecretsecretsecret0000";
 
     @Test
     public void testEmptyToken() {
         Jwt jwt = new ClientCapability.Builder(ACCOUNT_SID, SECRET).build();
 
         Claims claims =
-            Jwts.parserBuilder()
+            Jwts.parser()
                 .setSigningKey(SECRET.getBytes()).build()
-                .parseClaimsJws(jwt.toJwt())
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
@@ -43,8 +43,8 @@ public class ClientCapabilityTest {
 
         Claims claims =
             Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(jwt.toJwt())
+                .setSigningKey(SECRET).build()
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());

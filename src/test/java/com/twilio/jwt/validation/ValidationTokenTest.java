@@ -88,9 +88,9 @@ public class ValidationTokenTest {
             .build();
 
         Claims claims =
-                Jwts.parserBuilder()
+                Jwts.parser()
                 .setSigningKey(privateKey).build()
-                .parseClaimsJws(jwt.toJwt())
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         this.validateToken(claims);
@@ -113,8 +113,8 @@ public class ValidationTokenTest {
                     .build();
 
             Claims claims =
-                    Jwts.parserBuilder().setSigningKey(publicKey).build()
-                        .parseClaimsJws(jwt.toJwt())
+                    Jwts.parser().setSigningKey(publicKey).build()
+                        .parseSignedClaims(jwt.toJwt())
                         .getBody();
             validateToken(claims);
         }
@@ -135,8 +135,8 @@ public class ValidationTokenTest {
                     .build();
 
 
-            Jwts.parserBuilder().setSigningKey(publicKey).build()
-                .parseClaimsJws(jwt.toJwt())
+            Jwts.parser().setSigningKey(publicKey).build()
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
         }
     }
@@ -151,8 +151,8 @@ public class ValidationTokenTest {
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims =
-                Jwts.parserBuilder().setSigningKey(privateKey).build()
-                .parseClaimsJws(jwt.toJwt())
+                Jwts.parser().setSigningKey(privateKey).build()
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         this.validateToken(claims);
@@ -172,9 +172,9 @@ public class ValidationTokenTest {
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims =
-            Jwts.parserBuilder()
+            Jwts.parser()
                 .setSigningKey(privateKey).build()
-                .parseClaimsJws(jwt.toJwt())
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         this.validateToken(claims);
@@ -193,9 +193,9 @@ public class ValidationTokenTest {
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims =
-                Jwts.parserBuilder()
+                Jwts.parser()
                     .setSigningKey(privateKey).build()
-                    .parseClaimsJws(jwt.toJwt())
+                    .parseSignedClaims(jwt.toJwt())
                     .getBody();
 
 

@@ -2,6 +2,10 @@ package com.twilio;
 
 import com.twilio.base.Page;
 
+import com.twilio.http.CustomHttpClient;
+import com.twilio.http.HttpClient;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.api.v2010.account.Call;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumberReader;
 import com.twilio.rest.api.v2010.account.Message;
@@ -32,6 +36,8 @@ public class ClusterTest {
     String clientSecret;
     String organisationSid;
 
+    TwilioRestClient client;
+
     @Before
     public void setUp() {
         // only run when ClusterTest property is passed (mvn test -Dtest="ClusterTest"), skip test run on mvn test
@@ -48,6 +54,10 @@ public class ClusterTest {
         clientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
         TwilioOrgsTokenAuth.init(grantType, clientId, clientSecret);
+        
+        // CustomHttpClient
+        HttpClient httpClient = new CustomHttpClient();
+        client = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(httpClient).build();
     }
 
     @Test
@@ -139,6 +149,19 @@ public class ClusterTest {
         assertNotNull(userSet);
         String userId = userSet.iterator().next().getId().toString();
         assertNotNull(userId);
+    }
+
+    // Test multipart/form-data
+    @Test
+    public void testMultiPartFormData() {
+        
+        Call call = Call.creator(
+                        new com.twilio.type.PhoneNumber(toNumber),
+                        new com.twilio.type.PhoneNumber(fromNumber),
+                        new com.twilio.type.Twiml(
+                                "<Response><Say>Ahoy there!</Say></Response>"))
+                .create(client);
+        assertNotNull(call.getSid());
     }
 
 }

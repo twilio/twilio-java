@@ -16,7 +16,7 @@ import java.util.List;
 public class ClientCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String SECRET = "secretsecretsecretsecretsecret0000";
+    private static final String SECRET = "secretsecretsecretsecretsecretsecretsecret00";
 
     @Test
     public void testEmptyToken() {

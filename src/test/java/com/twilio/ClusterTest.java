@@ -1,11 +1,9 @@
 package com.twilio;
 
 import com.twilio.base.Page;
-
+import com.twilio.base.bearertoken.ResourceSet;
 import com.twilio.http.CustomHttpClient;
-import com.twilio.http.HttpClient;
 import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.api.v2010.account.Call;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumberReader;
 import com.twilio.rest.api.v2010.account.Message;
@@ -13,6 +11,7 @@ import com.twilio.rest.chat.v2.Service;
 import com.twilio.rest.chat.v2.service.User;
 import com.twilio.rest.events.v1.Sink;
 import com.twilio.rest.events.v1.Subscription;
+import com.twilio.rest.previewiam.organizations.Account;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assume;
 import org.junit.Before;
@@ -23,10 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
-import com.twilio.rest.previewiam.organizations.Account;
-import com.twilio.base.bearertoken.ResourceSet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class ClusterTest {
     String fromNumber;
@@ -36,7 +34,7 @@ public class ClusterTest {
     String clientSecret;
     String organisationSid;
 
-    TwilioRestClient client;
+    TwilioRestClient customRestClient;
 
     @Before
     public void setUp() {
@@ -56,8 +54,7 @@ public class ClusterTest {
         TwilioOrgsTokenAuth.init(grantType, clientId, clientSecret);
         
         // CustomHttpClient
-        HttpClient httpClient = new CustomHttpClient();
-        client = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(httpClient).build();
+        customRestClient = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(new CustomHttpClient()).build();
     }
 
     @Test
@@ -154,14 +151,14 @@ public class ClusterTest {
     // Test multipart/form-data
     @Test
     public void testMultiPartFormData() {
-        
-        Call call = Call.creator(
-                        new com.twilio.type.PhoneNumber(toNumber),
-                        new com.twilio.type.PhoneNumber(fromNumber),
-                        new com.twilio.type.Twiml(
-                                "<Response><Say>Ahoy there!</Say></Response>"))
-                .create(client);
-        assertNotNull(call.getSid());
+        Message message = Message.creator(
+                        new com.twilio.type.PhoneNumber(toNumber), new com.twilio.type.PhoneNumber(fromNumber),
+                        "Where's Wallace?")
+                .create(customRestClient);
+        assertNotNull(message);
+        assertTrue(message.getBody().contains("Where's Wallace?"));
+        assertEquals(fromNumber, message.getFrom().toString());
+        assertEquals(toNumber, message.getTo().toString());
     }
 
 }

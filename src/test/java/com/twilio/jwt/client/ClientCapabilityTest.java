@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ClientCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String SECRET = "secretsecretsecretsecretsecretsecretsecret00";
+    private static final String SECRET = "secretsecretsecretsecretsecret00";
 
     @Test
     public void testEmptyToken() {
@@ -43,7 +44,7 @@ public class ClientCapabilityTest {
 
         Claims claims =
             Jwts.parser()
-                .setSigningKey(SECRET).build()
+                .setSigningKey(SECRET.getBytes()).build()
                 .parseSignedClaims(jwt.toJwt())
                 .getBody();
 

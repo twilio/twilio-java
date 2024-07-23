@@ -34,8 +34,8 @@ public class AccessTokenTest {
 
     private Claims getClaimFromJwtToken(Jwt token) {
         return Jwts.parser()
-                   .setSigningKey(SECRET.getBytes()).build()
-                   .parseSignedClaims(token.toJwt())
+                    .setSigningKey(SECRET.getBytes()).build()
+                    .parseSignedClaims(token.toJwt())
                    .getBody();
     }
 

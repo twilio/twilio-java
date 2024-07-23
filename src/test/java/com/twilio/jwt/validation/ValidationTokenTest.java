@@ -152,8 +152,8 @@ public class ValidationTokenTest {
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims =
                 Jwts.parser().setSigningKey(privateKey).build()
-                .parseSignedClaims(jwt.toJwt())
-                .getBody();
+                    .parseSignedClaims(jwt.toJwt())
+                    .getBody();
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));

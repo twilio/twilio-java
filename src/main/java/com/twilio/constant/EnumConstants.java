@@ -9,7 +9,8 @@ public class EnumConstants {
     @RequiredArgsConstructor
     public enum ContentType {
         JSON("application/json"),
-        FORM_URLENCODED("application/x-www-form-urlencoded");
+        FORM_URLENCODED("application/x-www-form-urlencoded"),
+        MULTIPART_FORM_DATA("multipart/form-data");
 
         private final String value;
     }

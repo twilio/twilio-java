@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.syncmap;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -63,6 +64,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
             Domains.SYNC.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 

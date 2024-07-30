@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.brandregistration;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -48,6 +49,7 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
             Domains.MESSAGING.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(

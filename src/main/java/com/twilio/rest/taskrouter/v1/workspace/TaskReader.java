@@ -17,6 +17,7 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -38,6 +39,7 @@ public class TaskReader extends Reader<Task> {
     private String taskQueueSid;
     private String taskQueueName;
     private String evaluateTaskAttributes;
+    private String routingTarget;
     private String ordering;
     private Boolean hasAddons;
     private Integer pageSize;
@@ -87,6 +89,11 @@ public class TaskReader extends Reader<Task> {
         return this;
     }
 
+    public TaskReader setRoutingTarget(final String routingTarget) {
+        this.routingTarget = routingTarget;
+        return this;
+    }
+
     public TaskReader setOrdering(final String ordering) {
         this.ordering = ordering;
         return this;
@@ -122,6 +129,7 @@ public class TaskReader extends Reader<Task> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -217,6 +225,9 @@ public class TaskReader extends Reader<Task> {
                 "EvaluateTaskAttributes",
                 evaluateTaskAttributes
             );
+        }
+        if (routingTarget != null) {
+            request.addQueryParam("RoutingTarget", routingTarget);
         }
         if (ordering != null) {
             request.addQueryParam("Ordering", ordering);

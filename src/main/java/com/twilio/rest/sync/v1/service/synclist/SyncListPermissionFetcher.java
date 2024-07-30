@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.synclist;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -59,6 +60,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
             Domains.SYNC.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

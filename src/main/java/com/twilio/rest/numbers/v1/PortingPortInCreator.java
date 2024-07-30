@@ -46,7 +46,7 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
             Domains.NUMBERS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.JSON);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {

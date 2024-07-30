@@ -15,6 +15,7 @@
 package com.twilio.rest.pricing.v2.voice;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -65,6 +66,7 @@ public class NumberFetcher extends Fetcher<Number> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

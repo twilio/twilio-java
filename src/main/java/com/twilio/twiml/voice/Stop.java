@@ -71,6 +71,15 @@ public class Stop extends TwiML {
         }
 
         /**
+         * Add a child {@code <Transcription>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Transcription")
+        public Builder transcription(Transcription transcription) {
+            this.children.add(transcription);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Stop>} element
          */
         public Stop build() {

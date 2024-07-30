@@ -17,6 +17,7 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BundleReader extends Reader<Bundle> {
 
@@ -38,6 +40,8 @@ public class BundleReader extends Reader<Bundle> {
     private Bundle.SortBy sortBy;
     private Bundle.SortDirection sortDirection;
     private ZonedDateTime validUntilDate;
+    private ZonedDateTime validUntilDateBefore;
+    private ZonedDateTime validUntilDateAfter;
     private Integer pageSize;
 
     public BundleReader() {}
@@ -89,6 +93,20 @@ public class BundleReader extends Reader<Bundle> {
         return this;
     }
 
+    public BundleReader setValidUntilDateBefore(
+        final ZonedDateTime validUntilDateBefore
+    ) {
+        this.validUntilDateBefore = validUntilDateBefore;
+        return this;
+    }
+
+    public BundleReader setValidUntilDateAfter(
+        final ZonedDateTime validUntilDateAfter
+    ) {
+        this.validUntilDateAfter = validUntilDateAfter;
+        return this;
+    }
+
     public BundleReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
@@ -109,6 +127,7 @@ public class BundleReader extends Reader<Bundle> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -209,10 +228,21 @@ public class BundleReader extends Reader<Bundle> {
         if (validUntilDate != null) {
             request.addQueryParam(
                 "ValidUntilDate",
-                validUntilDate.toInstant().toString()
+                validUntilDate.format(
+                    DateTimeFormatter.ofPattern(
+                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                    )
+                )
+            );
+        } else if (
+            validUntilDateAfter != null || validUntilDateBefore != null
+        ) {
+            request.addQueryDateTimeRange(
+                "ValidUntilDate",
+                validUntilDateAfter,
+                validUntilDateBefore
             );
         }
-
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

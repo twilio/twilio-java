@@ -58,7 +58,7 @@ public class ContentCreator extends Creator<Content> {
             Domains.CONTENT.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.JSON);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {

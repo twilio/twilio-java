@@ -66,6 +66,7 @@ public class ComplianceRegistrationInquiriesCreator
     private Boolean isIsvEmbed;
     private String isvRegisteringForSelfOrTenant;
     private String statusCallbackUrl;
+    private String themeSetId;
 
     public ComplianceRegistrationInquiriesCreator(
         final ComplianceRegistrationInquiries.EndUserType endUserType,
@@ -342,6 +343,13 @@ public class ComplianceRegistrationInquiriesCreator
         return this;
     }
 
+    public ComplianceRegistrationInquiriesCreator setThemeSetId(
+        final String themeSetId
+    ) {
+        this.themeSetId = themeSetId;
+        return this;
+    }
+
     @Override
     public ComplianceRegistrationInquiries create(
         final TwilioRestClient client
@@ -557,6 +565,9 @@ public class ComplianceRegistrationInquiriesCreator
         }
         if (statusCallbackUrl != null) {
             request.addPostParam("StatusCallbackUrl", statusCallbackUrl);
+        }
+        if (themeSetId != null) {
+            request.addPostParam("ThemeSetId", themeSetId);
         }
     }
 }

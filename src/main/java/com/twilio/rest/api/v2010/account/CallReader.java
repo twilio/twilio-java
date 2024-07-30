@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,6 +28,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CallReader extends Reader<Call> {
 
@@ -36,7 +38,11 @@ public class CallReader extends Reader<Call> {
     private String parentCallSid;
     private Call.Status status;
     private ZonedDateTime startTime;
+    private ZonedDateTime startTimeBefore;
+    private ZonedDateTime startTimeAfter;
     private ZonedDateTime endTime;
+    private ZonedDateTime endTimeBefore;
+    private ZonedDateTime endTimeAfter;
     private Integer pageSize;
 
     public CallReader() {}
@@ -78,8 +84,28 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
+    public CallReader setStartTimeBefore(final ZonedDateTime startTimeBefore) {
+        this.startTimeBefore = startTimeBefore;
+        return this;
+    }
+
+    public CallReader setStartTimeAfter(final ZonedDateTime startTimeAfter) {
+        this.startTimeAfter = startTimeAfter;
+        return this;
+    }
+
     public CallReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
+        return this;
+    }
+
+    public CallReader setEndTimeBefore(final ZonedDateTime endTimeBefore) {
+        this.endTimeBefore = endTimeBefore;
+        return this;
+    }
+
+    public CallReader setEndTimeAfter(final ZonedDateTime endTimeAfter) {
+        this.endTimeAfter = endTimeAfter;
         return this;
     }
 
@@ -112,6 +138,7 @@ public class CallReader extends Reader<Call> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -197,14 +224,35 @@ public class CallReader extends Reader<Call> {
         if (startTime != null) {
             request.addQueryParam(
                 "StartTime",
-                startTime.toInstant().toString()
+                startTime.format(
+                    DateTimeFormatter.ofPattern(
+                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                    )
+                )
+            );
+        } else if (startTimeAfter != null || startTimeBefore != null) {
+            request.addQueryDateTimeRange(
+                "StartTime",
+                startTimeAfter,
+                startTimeBefore
             );
         }
-
         if (endTime != null) {
-            request.addQueryParam("EndTime", endTime.toInstant().toString());
+            request.addQueryParam(
+                "EndTime",
+                endTime.format(
+                    DateTimeFormatter.ofPattern(
+                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                    )
+                )
+            );
+        } else if (endTimeAfter != null || endTimeBefore != null) {
+            request.addQueryDateTimeRange(
+                "EndTime",
+                endTimeAfter,
+                endTimeBefore
+            );
         }
-
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

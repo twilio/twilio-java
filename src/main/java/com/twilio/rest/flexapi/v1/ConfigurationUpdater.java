@@ -14,7 +14,9 @@
 
 package com.twilio.rest.flexapi.v1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -44,6 +46,8 @@ public class ConfigurationUpdater extends Updater<Configuration> {
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
@@ -67,5 +71,12 @@ public class ConfigurationUpdater extends Updater<Configuration> {
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (body != null) {
+            request.setBody(Configuration.toJson(body, objectMapper));
+        }
     }
 }

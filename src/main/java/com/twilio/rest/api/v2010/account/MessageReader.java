@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,6 +28,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MessageReader extends Reader<Message> {
 
@@ -34,6 +36,8 @@ public class MessageReader extends Reader<Message> {
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private ZonedDateTime dateSent;
+    private ZonedDateTime dateSentBefore;
+    private ZonedDateTime dateSentAfter;
     private Integer pageSize;
 
     public MessageReader() {}
@@ -62,6 +66,16 @@ public class MessageReader extends Reader<Message> {
 
     public MessageReader setDateSent(final ZonedDateTime dateSent) {
         this.dateSent = dateSent;
+        return this;
+    }
+
+    public MessageReader setDateSentBefore(final ZonedDateTime dateSentBefore) {
+        this.dateSentBefore = dateSentBefore;
+        return this;
+    }
+
+    public MessageReader setDateSentAfter(final ZonedDateTime dateSentAfter) {
+        this.dateSentAfter = dateSentAfter;
         return this;
     }
 
@@ -94,6 +108,7 @@ public class MessageReader extends Reader<Message> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -171,9 +186,21 @@ public class MessageReader extends Reader<Message> {
             request.addQueryParam("From", from.toString());
         }
         if (dateSent != null) {
-            request.addQueryParam("DateSent", dateSent.toInstant().toString());
+            request.addQueryParam(
+                "DateSent",
+                dateSent.format(
+                    DateTimeFormatter.ofPattern(
+                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                    )
+                )
+            );
+        } else if (dateSentAfter != null || dateSentBefore != null) {
+            request.addQueryDateTimeRange(
+                "DateSent",
+                dateSentAfter,
+                dateSentBefore
+            );
         }
-
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

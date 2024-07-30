@@ -1,46 +1,16 @@
 package com.twilio.http;
 
-import com.twilio.constant.EnumConstants;
-
-import com.twilio.exception.ApiException;
-import com.twilio.exception.InvalidRequestException;
-
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Base64;
+import java.util.Objects;
 
-public class Request {
-
+public class Request extends IRequest {
     private static final String DEFAULT_REGION = "us1";
 
     public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
-
-    private final HttpMethod method;
-    private final String url;
-    private final Map<String, List<String>> queryParams;
-    private final Map<String, List<String>> postParams;
-    private final Map<String, List<String>> headerParams;
-
-    private String region;
-    private String edge;
     private String username;
     private String password;
-
-    private List<String> userAgentExtensions;
-
-    private EnumConstants.ContentType contentType;
-
-    private String body;
 
     /**
      * Create a new API request.
@@ -49,11 +19,7 @@ public class Request {
      * @param url    url of request
      */
     public Request(final HttpMethod method, final String url) {
-        this.method = method;
-        this.url = url;
-        this.queryParams = new HashMap<>();
-        this.postParams = new HashMap<>();
-        this.headerParams = new HashMap<>();
+        super(method, url);
     }
 
     /**
@@ -75,63 +41,13 @@ public class Request {
      * @param uri    uri of request
      * @param region region to make request
      */
-    public Request(
-        final HttpMethod method,
-        final String domain,
-        final String uri,
-        final String region
-    ) {
-        this.method = method;
-        this.url = "https://" + domain + ".twilio.com" + uri;
-        this.region = region;
-        this.queryParams = new HashMap<>();
-        this.postParams = new HashMap<>();
-        this.headerParams = new HashMap<>();
-    }
-
-    public HttpMethod getMethod() {
-        return method;
-    }
-
-    public String getUrl() {
-        return url;
+    public Request(final HttpMethod method, final String domain, final String uri, final String region) {
+        super(method, domain, uri, region);
     }
 
     public void setAuth(final String username, final String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public void setRegion(final String region) {
-        this.region = region;
-    }
-
-    public void setEdge(final String edge) {
-        this.edge = edge;
-    }
-
-    public void setUserAgentExtensions(List<String> userAgentExtensions) {
-        this.userAgentExtensions = userAgentExtensions;
-    }
-
-    public List<String> getUserAgentExtensions() {
-        return this.userAgentExtensions;
-    }
-
-    public EnumConstants.ContentType getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(EnumConstants.ContentType contentType) {
-        this.contentType = contentType;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
     }
 
     /**
@@ -157,219 +73,6 @@ public class Request {
         return username != null || password != null;
     }
 
-    /**
-     * Build the URL for the request.
-     *
-     * @return URL for the request
-     */
-    public URL constructURL() {
-        String params = encodeQueryParams();
-        String stringUri = buildURL();
-
-        if (params.length() > 0) {
-            stringUri += "?" + params;
-        }
-
-        try {
-            URI uri = new URI(stringUri);
-            return uri.toURL();
-        } catch (final URISyntaxException e) {
-            throw new ApiException("Bad URI: " + e.getMessage());
-        } catch (final MalformedURLException e) {
-            throw new ApiException("Bad URL: " + e.getMessage());
-        }
-    }
-
-    private String buildURL() {
-        try {
-            final URL parsedUrl = new URL(url);
-            String host = parsedUrl.getHost();
-            final String[] pieces = host.split("\\.");
-
-            if (pieces.length > 1) {
-                final String product = pieces[0];
-                final String domain = joinIgnoreNull(".", pieces[pieces.length - 2], pieces[pieces.length - 1]);
-
-                String targetRegion = region;
-                String targetEdge = edge;
-
-                if (pieces.length == 4) { // product.region.twilio.com
-                    targetRegion = targetRegion != null ? targetRegion : pieces[1];
-                } else if (pieces.length == 5) { // product.edge.region.twilio.com
-                    targetEdge = targetEdge != null ? targetEdge : pieces[1];
-                    targetRegion = targetRegion != null ? targetRegion : pieces[2];
-                }
-
-                if (targetEdge != null && targetRegion == null)
-                    targetRegion = DEFAULT_REGION;
-
-                host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
-            }
-
-            String urlPort = parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : null;
-            String protocol = parsedUrl.getProtocol() + "://";
-            String[] pathPieces = parsedUrl.getPath().split("/");
-            for (int i = 0; i < pathPieces.length; i++) {
-                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
-            }
-            String encodedPath = String.join("/", pathPieces);
-            String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
-            String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;
-            String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
-            return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
-        } catch (final MalformedURLException | UnsupportedEncodingException e) {
-            throw new ApiException("Bad URL: "+ e.getMessage());
-        }
-    }
-
-    /**
-     * Add query parameters for date ranges.
-     *
-     * @param name  name of query parameter
-     * @param lowerBound lower bound of LocalDate range
-     * @param upperBound upper bound of LocalDate range
-     */
-    public void addQueryDateRange(final String name, LocalDate lowerBound, LocalDate upperBound) {
-        if (lowerBound != null) {
-            String value = lowerBound.toString();
-            addQueryParam(name + ">", value);
-        }
-
-        if (upperBound != null) {
-            String value = upperBound.toString();
-            addQueryParam(name + "<", value);
-        }
-    }
-
-    /**
-     * Add query parameters for date ranges.
-     *
-     * @param name  name of query parameter
-     * @param lowerBound lower bound of ZonedDateTime range
-     * @param upperBound upper bound of ZonedDateTime range
-     */
-    public void addQueryDateTimeRange(final String name, ZonedDateTime lowerBound, ZonedDateTime upperBound) {
-        if (lowerBound != null) {
-            String value = lowerBound.withZoneSameInstant(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
-            addQueryParam(name + ">", value);
-        }
-
-        if (upperBound != null) {
-            String value = upperBound.withZoneSameInstant(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
-            addQueryParam(name + "<", value);
-        }
-    }
-
-    /**
-     * Add a query parameter.
-     *
-     * @param name  name of parameter
-     * @param value value of parameter
-     */
-    public void addQueryParam(final String name, final String value) {
-        addParam(queryParams, name, value);
-    }
-
-    /**
-     * Add a form parameter.
-     *
-     * @param name  name of parameter
-     * @param value value of parameter
-     */
-    public void addPostParam(final String name, final String value) {
-        addParam(postParams, name, value);
-    }
-
-    /**
-     * Add a header parameter.
-     *
-     * @param name  name of parameter
-     * @param value value of parameter
-     */
-    public void addHeaderParam(final String name, final String value) {
-        addParam(headerParams, name, value);
-    }
-
-    private void addParam(final Map<String, List<String>> params, final String name, final String value) {
-        if (value == null || value.equals("null"))
-            return;
-
-        if (!params.containsKey(name)) {
-            params.put(name, new ArrayList<String>());
-        }
-
-        params.get(name).add(value);
-    }
-
-    /**
-     * Encode the form body.
-     *
-     * @return url encoded form body
-     */
-    public String encodeFormBody() {
-        return encodeParameters(postParams);
-    }
-
-    /**
-     * Encode the query parameters.
-     *
-     * @return url encoded query parameters
-     */
-    public String encodeQueryParams() {
-        return encodeParameters(queryParams);
-    }
-
-    private static String encodeParameters(final Map<String, List<String>> params) {
-        List<String> parameters = new ArrayList<>();
-
-        for (final Map.Entry<String, List<String>> entry : params.entrySet()) {
-            try {
-                String encodedName = URLEncoder.encode(entry.getKey(), "UTF-8");
-                for (final String value : entry.getValue()) {
-                    if (value == null) {
-                        continue;
-                    }
-
-                    String encodedValue = URLEncoder.encode(value, "UTF-8");
-                    parameters.add(encodedName + "=" + encodedValue);
-                }
-            } catch (final UnsupportedEncodingException e) {
-                throw new InvalidRequestException("Couldn't encode params", entry.getKey(), e);
-            }
-        }
-        return joinIgnoreNull("&", parameters);
-    }
-
-    private static String joinIgnoreNull(final String separator, final String... items) {
-        return joinIgnoreNull(separator, Arrays.asList(items));
-    }
-
-    private static String joinIgnoreNull(final String separator, final List<String> items) {
-        final StringBuilder builder = new StringBuilder();
-
-        for (final String item : items) {
-            if (item != null) {
-                if (builder.length() > 0) {
-                    builder.append(separator);
-                }
-
-                builder.append(item);
-            }
-        }
-
-        return builder.toString();
-    }
-
-    public Map<String, List<String>> getQueryParams() {
-        return queryParams;
-    }
-
-    public Map<String, List<String>> getPostParams() {
-        return postParams;
-    }
-
-    public Map<String, List<String>> getHeaderParams() { return headerParams; }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -382,7 +85,7 @@ public class Request {
 
         Request other = (Request) o;
         return Objects.equals(this.method, other.method) &&
-               Objects.equals(this.buildURL(), other.buildURL()) &&
+                Objects.equals(this.buildURL(), this.buildURL()) &&
                Objects.equals(this.username, other.username) &&
                Objects.equals(this.password, other.password) &&
                Objects.equals(this.queryParams, other.queryParams) &&

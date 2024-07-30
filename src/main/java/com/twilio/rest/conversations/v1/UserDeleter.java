@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -51,6 +52,7 @@ public class UserDeleter extends Deleter<User> {
             Domains.CONVERSATIONS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 

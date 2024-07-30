@@ -17,6 +17,7 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -64,6 +65,7 @@ public class AssessmentsReader extends Reader<Assessments> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         return pageForRequest(client, request);
     }

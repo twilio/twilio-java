@@ -474,26 +474,6 @@ public class Room extends Resource {
         }
     }
 
-    public enum RoomStatus {
-        IN_PROGRESS("in_progress"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private RoomStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomStatus forValue(final String value) {
-            return Promoter.enumFromString(value, RoomStatus.values());
-        }
-    }
-
     public enum RoomType {
         GO("go"),
         PEER_TO_PEER("peer_to_peer"),
@@ -513,6 +493,26 @@ public class Room extends Resource {
         @JsonCreator
         public static RoomType forValue(final String value) {
             return Promoter.enumFromString(value, RoomType.values());
+        }
+    }
+
+    public enum RoomStatus {
+        IN_PROGRESS("in_progress"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private RoomStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RoomStatus forValue(final String value) {
+            return Promoter.enumFromString(value, RoomStatus.values());
         }
     }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.service.configuration;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -48,6 +49,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
             Domains.CONVERSATIONS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

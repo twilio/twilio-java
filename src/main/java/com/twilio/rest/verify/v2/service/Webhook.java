@@ -258,13 +258,13 @@ public class Webhook extends Resource {
         );
     }
 
-    public enum Status {
-        ENABLED("enabled"),
-        DISABLED("disabled");
+    public enum Version {
+        V1("v1"),
+        V2("v2");
 
         private final String value;
 
-        private Status(final String value) {
+        private Version(final String value) {
             this.value = value;
         }
 
@@ -273,8 +273,8 @@ public class Webhook extends Resource {
         }
 
         @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+        public static Version forValue(final String value) {
+            return Promoter.enumFromString(value, Version.values());
         }
     }
 
@@ -298,13 +298,13 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Version {
-        V1("v1"),
-        V2("v2");
+    public enum Status {
+        ENABLED("enabled"),
+        DISABLED("disabled");
 
         private final String value;
 
-        private Version(final String value) {
+        private Status(final String value) {
             this.value = value;
         }
 
@@ -313,8 +313,8 @@ public class Webhook extends Resource {
         }
 
         @JsonCreator
-        public static Version forValue(final String value) {
-            return Promoter.enumFromString(value, Version.values());
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 }

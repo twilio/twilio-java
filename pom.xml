@@ -5,7 +5,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>10.1.1</version>
+  <version>10.4.1</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -19,7 +19,7 @@
     <url>git@github.com:twilio/twilio-java.git</url>
     <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
     <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
-    <tag>10.1.1</tag>
+    <tag>10.4.1</tag>
   </scm>
   <developers>
     <developer>
@@ -106,7 +106,7 @@
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.8</version>
+            <version>1.6.13</version>
             <extensions>true</extensions>
             <configuration>
               <serverId>ossrh</serverId>
@@ -270,6 +270,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+      <version>4.5.13</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit</artifactId>
       <version>0.23.0</version>
@@ -315,6 +321,17 @@
       <version>1.10.19</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>4.4.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -326,6 +343,7 @@
           <source>8</source>
           <target>8</target>
           <showDeprecation>true</showDeprecation>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
         </configuration>
       </plugin>
       <plugin>

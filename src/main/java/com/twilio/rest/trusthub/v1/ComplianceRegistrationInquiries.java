@@ -47,6 +47,12 @@ public class ComplianceRegistrationInquiries extends Resource {
         );
     }
 
+    public static ComplianceRegistrationInquiriesUpdater updater(
+        final String pathRegistrationId
+    ) {
+        return new ComplianceRegistrationInquiriesUpdater(pathRegistrationId);
+    }
+
     /**
      * Converts a JSON String into a ComplianceRegistrationInquiries object using the provided ObjectMapper.
      *
@@ -94,6 +100,71 @@ public class ComplianceRegistrationInquiries extends Resource {
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
+    }
+
+    private final String inquiryId;
+    private final String inquirySessionToken;
+    private final String registrationId;
+    private final URI url;
+
+    @JsonCreator
+    private ComplianceRegistrationInquiries(
+        @JsonProperty("inquiry_id") final String inquiryId,
+        @JsonProperty("inquiry_session_token") final String inquirySessionToken,
+        @JsonProperty("registration_id") final String registrationId,
+        @JsonProperty("url") final URI url
+    ) {
+        this.inquiryId = inquiryId;
+        this.inquirySessionToken = inquirySessionToken;
+        this.registrationId = registrationId;
+        this.url = url;
+    }
+
+    public final String getInquiryId() {
+        return this.inquiryId;
+    }
+
+    public final String getInquirySessionToken() {
+        return this.inquirySessionToken;
+    }
+
+    public final String getRegistrationId() {
+        return this.registrationId;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ComplianceRegistrationInquiries other =
+            (ComplianceRegistrationInquiries) o;
+
+        return (
+            Objects.equals(inquiryId, other.inquiryId) &&
+            Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
+            Objects.equals(registrationId, other.registrationId) &&
+            Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            inquiryId,
+            inquirySessionToken,
+            registrationId,
+            url
+        );
     }
 
     public enum BusinessIdentityType {
@@ -188,70 +259,5 @@ public class ComplianceRegistrationInquiries extends Resource {
         public static PhoneNumberType forValue(final String value) {
             return Promoter.enumFromString(value, PhoneNumberType.values());
         }
-    }
-
-    private final String inquiryId;
-    private final String inquirySessionToken;
-    private final String registrationId;
-    private final URI url;
-
-    @JsonCreator
-    private ComplianceRegistrationInquiries(
-        @JsonProperty("inquiry_id") final String inquiryId,
-        @JsonProperty("inquiry_session_token") final String inquirySessionToken,
-        @JsonProperty("registration_id") final String registrationId,
-        @JsonProperty("url") final URI url
-    ) {
-        this.inquiryId = inquiryId;
-        this.inquirySessionToken = inquirySessionToken;
-        this.registrationId = registrationId;
-        this.url = url;
-    }
-
-    public final String getInquiryId() {
-        return this.inquiryId;
-    }
-
-    public final String getInquirySessionToken() {
-        return this.inquirySessionToken;
-    }
-
-    public final String getRegistrationId() {
-        return this.registrationId;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ComplianceRegistrationInquiries other =
-            (ComplianceRegistrationInquiries) o;
-
-        return (
-            Objects.equals(inquiryId, other.inquiryId) &&
-            Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
-            Objects.equals(registrationId, other.registrationId) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            inquiryId,
-            inquirySessionToken,
-            registrationId,
-            url
-        );
     }
 }

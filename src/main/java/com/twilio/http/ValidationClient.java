@@ -3,6 +3,7 @@ package com.twilio.http;
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -23,11 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
 
 public class ValidationClient extends HttpClient {
@@ -149,7 +146,7 @@ public class ValidationClient extends HttpClient {
 
         final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setDefaultSocketConfig(socketConfig);
-        /* 
+        /*
          *  Example: Lets say client has one server.
          *  There are 4 servers on edge handling client request.
          *  Each request takes on an average 500ms (2 request per second)
@@ -167,7 +164,8 @@ public class ValidationClient extends HttpClient {
     }
 
     @Override
-    public Response makeRequest(Request request) {
+    public Response makeRequest(IRequest iRequest) {
+        Request request = (Request)iRequest;
         RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
             .setUri(request.constructURL().toString())
             .setVersion(HttpVersion.HTTP_1_1)
@@ -178,7 +176,7 @@ public class ValidationClient extends HttpClient {
         }
 
         HttpMethod method = request.getMethod();
-        if (method == HttpMethod.POST) {
+        if (method != HttpMethod.GET) {
             // TODO: It will be removed after one RC Release.
             if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {

@@ -17,6 +17,7 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -31,6 +32,7 @@ public class RegulationReader extends Reader<Regulation> {
     private Regulation.EndUserType endUserType;
     private String isoCountry;
     private String numberType;
+    private Boolean includeConstraints;
     private Integer pageSize;
 
     public RegulationReader() {}
@@ -49,6 +51,13 @@ public class RegulationReader extends Reader<Regulation> {
 
     public RegulationReader setNumberType(final String numberType) {
         this.numberType = numberType;
+        return this;
+    }
+
+    public RegulationReader setIncludeConstraints(
+        final Boolean includeConstraints
+    ) {
+        this.includeConstraints = includeConstraints;
         return this;
     }
 
@@ -72,6 +81,7 @@ public class RegulationReader extends Reader<Regulation> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -150,6 +160,12 @@ public class RegulationReader extends Reader<Regulation> {
         }
         if (numberType != null) {
             request.addQueryParam("NumberType", numberType);
+        }
+        if (includeConstraints != null) {
+            request.addQueryParam(
+                "IncludeConstraints",
+                includeConstraints.toString()
+            );
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

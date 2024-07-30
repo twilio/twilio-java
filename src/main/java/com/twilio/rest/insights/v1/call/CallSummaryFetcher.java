@@ -15,6 +15,7 @@
 package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -52,6 +53,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {

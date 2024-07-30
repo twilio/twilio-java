@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -48,6 +49,7 @@ public class EvaluationCreator extends Creator<Evaluation> {
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(

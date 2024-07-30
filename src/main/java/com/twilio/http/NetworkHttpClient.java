@@ -3,14 +3,7 @@ package com.twilio.http;
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
+import com.twilio.http.bearertoken.BearerTokenRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -25,6 +18,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class NetworkHttpClient extends HttpClient {
 
@@ -57,7 +57,8 @@ public class NetworkHttpClient extends HttpClient {
     public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+           // new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+            //new BasicHeader(HttpHeaders.ACCEPT, "application/scim+json"),
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
@@ -113,16 +114,24 @@ public class NetworkHttpClient extends HttpClient {
      * @param request request to make
      * @return Response of the HTTP request
      */
-    public Response makeRequest(final Request request) {
+    public <T extends IRequest> Response makeRequest(final T request) {
 
         HttpMethod method = request.getMethod();
         RequestBuilder builder = RequestBuilder.create(method.toString())
             .setUri(request.constructURL().toString())
             .setVersion(HttpVersion.HTTP_1_1)
             .setCharset(StandardCharsets.UTF_8);
-
-        if (request.requiresAuthentication()) {
-            builder.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
+        if (request instanceof Request) {
+            Request basicRequest = (Request) request;
+           // builder.setHeader(HttpHeaders.AUTHORIZATION, basicRequest.getAuthString(accessToken));
+            if (basicRequest.requiresAuthentication()) {
+                builder.addHeader(HttpHeaders.AUTHORIZATION, basicRequest.getAuthString());
+            }
+        } else if (request instanceof BearerTokenRequest) {
+            BearerTokenRequest bearerTokenRequest = (BearerTokenRequest) request;
+            if (bearerTokenRequest.requiresAuthentication()) {
+                builder.addHeader(HttpHeaders.AUTHORIZATION, bearerTokenRequest.getAuthString());
+            }
         }
 
         for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
@@ -131,7 +140,7 @@ public class NetworkHttpClient extends HttpClient {
             }
         }
 
-        if (method == HttpMethod.POST) {
+        if (method != HttpMethod.GET) {
             // TODO: It will be removed after one RC Release.
             if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {

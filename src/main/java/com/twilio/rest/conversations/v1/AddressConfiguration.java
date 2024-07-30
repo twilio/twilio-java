@@ -107,70 +107,6 @@ public class AddressConfiguration extends Resource {
         }
     }
 
-    public enum AutoCreationType {
-        WEBHOOK("webhook"),
-        STUDIO("studio"),
-        DEFAULT("default");
-
-        private final String value;
-
-        private AutoCreationType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AutoCreationType forValue(final String value) {
-            return Promoter.enumFromString(value, AutoCreationType.values());
-        }
-    }
-
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
-        }
-    }
-
-    public enum Type {
-        SMS("sms"),
-        WHATSAPP("whatsapp"),
-        MESSENGER("messenger"),
-        GBM("gbm"),
-        EMAIL("email");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String type;
@@ -287,5 +223,69 @@ public class AddressConfiguration extends Resource {
             url,
             addressCountry
         );
+    }
+
+    public enum AutoCreationType {
+        WEBHOOK("webhook"),
+        STUDIO("studio"),
+        DEFAULT("default");
+
+        private final String value;
+
+        private AutoCreationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AutoCreationType forValue(final String value) {
+            return Promoter.enumFromString(value, AutoCreationType.values());
+        }
+    }
+
+    public enum Method {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
+    }
+
+    public enum Type {
+        SMS("sms"),
+        WHATSAPP("whatsapp"),
+        MESSENGER("messenger"),
+        GBM("gbm"),
+        EMAIL("email");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
     }
 }

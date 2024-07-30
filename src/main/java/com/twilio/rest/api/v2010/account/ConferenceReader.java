@@ -17,7 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,12 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ConferenceReader extends Reader<Conference> {
 
     private String pathAccountSid;
     private LocalDate dateCreated;
+    private LocalDate dateCreatedBefore;
+    private LocalDate dateCreatedAfter;
     private LocalDate dateUpdated;
+    private LocalDate dateUpdatedBefore;
+    private LocalDate dateUpdatedAfter;
     private String friendlyName;
     private Conference.Status status;
     private Integer pageSize;
@@ -48,8 +53,36 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
+    public ConferenceReader setDateCreatedBefore(
+        final LocalDate dateCreatedBefore
+    ) {
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    public ConferenceReader setDateCreatedAfter(
+        final LocalDate dateCreatedAfter
+    ) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
     public ConferenceReader setDateUpdated(final LocalDate dateUpdated) {
         this.dateUpdated = dateUpdated;
+        return this;
+    }
+
+    public ConferenceReader setDateUpdatedBefore(
+        final LocalDate dateUpdatedBefore
+    ) {
+        this.dateUpdatedBefore = dateUpdatedBefore;
+        return this;
+    }
+
+    public ConferenceReader setDateUpdatedAfter(
+        final LocalDate dateUpdatedAfter
+    ) {
+        this.dateUpdatedAfter = dateUpdatedAfter;
         return this;
     }
 
@@ -92,6 +125,7 @@ public class ConferenceReader extends Reader<Conference> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -165,17 +199,35 @@ public class ConferenceReader extends Reader<Conference> {
         if (dateCreated != null) {
             request.addQueryParam(
                 "DateCreated",
-                DateConverter.dateStringFromLocalDate(dateCreated)
+                dateCreated.format(
+                    DateTimeFormatter.ofPattern(
+                        Request.QUERY_STRING_DATE_FORMAT
+                    )
+                )
+            );
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateRange(
+                "DateCreated",
+                dateCreatedAfter,
+                dateCreatedBefore
             );
         }
-
         if (dateUpdated != null) {
             request.addQueryParam(
                 "DateUpdated",
-                DateConverter.dateStringFromLocalDate(dateUpdated)
+                dateUpdated.format(
+                    DateTimeFormatter.ofPattern(
+                        Request.QUERY_STRING_DATE_FORMAT
+                    )
+                )
+            );
+        } else if (dateUpdatedAfter != null || dateUpdatedBefore != null) {
+            request.addQueryDateRange(
+                "DateUpdated",
+                dateUpdatedAfter,
+                dateUpdatedBefore
             );
         }
-
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
         }

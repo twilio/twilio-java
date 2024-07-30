@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1.plugin;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -59,6 +60,7 @@ public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 

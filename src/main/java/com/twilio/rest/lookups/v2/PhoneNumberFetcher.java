@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -40,6 +41,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private String nationalId;
     private String dateOfBirth;
     private String lastVerifiedDate;
+    private String verificationSid;
 
     public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
@@ -114,6 +116,11 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         return this;
     }
 
+    public PhoneNumberFetcher setVerificationSid(final String verificationSid) {
+        this.verificationSid = verificationSid;
+        return this;
+    }
+
     @Override
     public PhoneNumber fetch(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
@@ -130,6 +137,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
@@ -195,6 +203,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         }
         if (lastVerifiedDate != null) {
             request.addQueryParam("LastVerifiedDate", lastVerifiedDate);
+        }
+        if (verificationSid != null) {
+            request.addQueryParam("VerificationSid", verificationSid);
         }
     }
 }

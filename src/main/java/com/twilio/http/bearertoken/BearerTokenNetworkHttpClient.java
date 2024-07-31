@@ -61,7 +61,7 @@ public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
     public BearerTokenNetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+                //new BasicHeader(HttpHeaders.ACCEPT, "application/json"), Orgs API has scim or json support.
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
@@ -100,7 +100,7 @@ public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
     public BearerTokenNetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+                //new BasicHeader(HttpHeaders.ACCEPT, "application/json"), Orgs API has scim or json support.
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
         isCustomClient = true;

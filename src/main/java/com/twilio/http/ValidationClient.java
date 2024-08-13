@@ -164,8 +164,7 @@ public class ValidationClient extends HttpClient {
     }
 
     @Override
-    public Response makeRequest(IRequest iRequest) {
-        Request request = (Request)iRequest;
+    public Response makeRequest(Request request) {
         RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
             .setUri(request.constructURL().toString())
             .setVersion(HttpVersion.HTTP_1_1)

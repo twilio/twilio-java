@@ -1,13 +1,9 @@
 package com.twilio.http.bearertoken;
 
 import com.auth0.jwt.JWT;
-import com.twilio.http.bearertoken.TokenManager;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.twilio.exception.AuthenticationException;
-import com.twilio.http.HttpClient;
-import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Response;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +33,7 @@ public class BearerTokenTwilioRestClient {
     @Getter
     private final String edge;
     @Getter
-    private final HttpClient httpClient;
+    private final BearerTokenHttpClient httpClient;
     @Getter
     private final List<String> userAgentExtensions;
     @Setter
@@ -62,7 +58,7 @@ public class BearerTokenTwilioRestClient {
     public static class Builder {
         private String region;
         private String edge;
-        private HttpClient httpClient;
+        private BearerTokenHttpClient httpClient;
         private List<String> userAgentExtensions;
         private TokenManager tokenManager;
 
@@ -87,7 +83,7 @@ public class BearerTokenTwilioRestClient {
             return this;
         }
 
-        public BearerTokenTwilioRestClient.Builder httpClient(final HttpClient httpClient) {
+        public BearerTokenTwilioRestClient.Builder httpClient(final BearerTokenHttpClient httpClient) {
             this.httpClient = httpClient;
             return this;
         }
@@ -101,7 +97,7 @@ public class BearerTokenTwilioRestClient {
 
         public BearerTokenTwilioRestClient build() {
             if (this.httpClient == null) {
-                this.httpClient = new NetworkHttpClient();
+                this.httpClient = new BearerTokenNetworkHttpClient();
             }
             return new BearerTokenTwilioRestClient(this);
         }

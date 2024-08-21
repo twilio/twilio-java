@@ -24,7 +24,7 @@ public class CustomHttpClient extends NetworkHttpClient {
     }
 
     @Override
-    public <T extends IRequest> Response makeRequest(T request) {
+    public Response makeRequest(Request request) {
         HttpMethod method = request.getMethod();
         RequestBuilder builder = RequestBuilder.create(method.toString())
                 .setUri(request.constructURL().toString())

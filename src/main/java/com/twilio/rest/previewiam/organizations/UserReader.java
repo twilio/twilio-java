@@ -138,7 +138,7 @@ public class UserReader extends Reader<User> {
 
     private void addQueryParams(final BearerTokenRequest request) {
         if (filter != null) {
-            request.addQueryParam("Filter", filter);
+            request.addQueryParam("filter", filter);
         }
 
         if (getPageSize() != null) {

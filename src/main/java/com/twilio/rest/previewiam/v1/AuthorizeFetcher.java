@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-package com.twilio.rest.previewiam.organizations;
+package com.twilio.rest.previewiam.v1;
 
 import com.twilio.base.noauth.Fetcher;
 import com.twilio.constant.EnumConstants;
@@ -101,19 +101,19 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
 
     private void addQueryParams(final NoAuthRequest request) {
         if (responseType != null) {
-            request.addQueryParam("Response_type", responseType);
+            request.addQueryParam("response_type", responseType);
         }
         if (clientId != null) {
-            request.addQueryParam("Client_id", clientId);
+            request.addQueryParam("client_id", clientId);
         }
         if (redirectUri != null) {
-            request.addQueryParam("Redirect_uri", redirectUri);
+            request.addQueryParam("redirect_uri", redirectUri);
         }
         if (scope != null) {
-            request.addQueryParam("Scope", scope);
+            request.addQueryParam("scope", scope);
         }
         if (state != null) {
-            request.addQueryParam("State", state);
+            request.addQueryParam("state", state);
         }
     }
 }

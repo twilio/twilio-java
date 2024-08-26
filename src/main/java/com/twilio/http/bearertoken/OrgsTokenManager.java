@@ -3,8 +3,8 @@ package com.twilio.http.bearertoken;
 import lombok.Setter;
 import com.twilio.exception.ApiException;
 import lombok.RequiredArgsConstructor;
-import com.twilio.rest.previewiam.organizations.Token;
-import com.twilio.rest.previewiam.organizations.TokenCreator;
+import com.twilio.rest.previewiam.v1.Token;
+import com.twilio.rest.previewiam.v1.TokenCreator;
 public class OrgsTokenManager implements TokenManager{
 
     private final String grantType;

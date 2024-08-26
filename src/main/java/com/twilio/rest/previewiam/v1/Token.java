@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-package com.twilio.rest.previewiam.organizations;
+package com.twilio.rest.previewiam.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,35 +25,37 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class Authorize extends Resource {
+public class Token extends Resource {
 
-    private static final long serialVersionUID = 245900587626041L;
+    private static final long serialVersionUID = 258139119277894L;
 
-    public static AuthorizeFetcher fetcher() {
-        return new AuthorizeFetcher();
+    public static TokenCreator creator(
+        final String grantType,
+        final String clientId
+    ) {
+        return new TokenCreator(grantType, clientId);
     }
 
     /**
-     * Converts a JSON String into a Authorize object using the provided ObjectMapper.
+     * Converts a JSON String into a Token object using the provided ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Authorize object represented by the provided JSON
+     * @return Token object represented by the provided JSON
      */
-    public static Authorize fromJson(
+    public static Token fromJson(
         final String json,
         final ObjectMapper objectMapper
     ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Authorize.class);
+            return objectMapper.readValue(json, Token.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -62,20 +64,20 @@ public class Authorize extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Authorize object using the provided
+     * Converts a JSON InputStream into a Token object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Authorize object represented by the provided JSON
+     * @return Token object represented by the provided JSON
      */
-    public static Authorize fromJson(
+    public static Token fromJson(
         final InputStream json,
         final ObjectMapper objectMapper
     ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Authorize.class);
+            return objectMapper.readValue(json, Token.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -83,15 +85,45 @@ public class Authorize extends Resource {
         }
     }
 
-    private final URI redirectTo;
+    private final String accessToken;
+    private final String refreshToken;
+    private final String idToken;
+    private final String tokenType;
+    private final Long expiresIn;
 
     @JsonCreator
-    private Authorize(@JsonProperty("redirect_to") final URI redirectTo) {
-        this.redirectTo = redirectTo;
+    private Token(
+        @JsonProperty("access_token") final String accessToken,
+        @JsonProperty("refresh_token") final String refreshToken,
+        @JsonProperty("id_token") final String idToken,
+        @JsonProperty("token_type") final String tokenType,
+        @JsonProperty("expires_in") final Long expiresIn
+    ) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.idToken = idToken;
+        this.tokenType = tokenType;
+        this.expiresIn = expiresIn;
     }
 
-    public final URI getRedirectTo() {
-        return this.redirectTo;
+    public final String getAccessToken() {
+        return this.accessToken;
+    }
+
+    public final String getRefreshToken() {
+        return this.refreshToken;
+    }
+
+    public final String getIdToken() {
+        return this.idToken;
+    }
+
+    public final String getTokenType() {
+        return this.tokenType;
+    }
+
+    public final Long getExpiresIn() {
+        return this.expiresIn;
     }
 
     @Override
@@ -104,13 +136,25 @@ public class Authorize extends Resource {
             return false;
         }
 
-        Authorize other = (Authorize) o;
+        Token other = (Token) o;
 
-        return Objects.equals(redirectTo, other.redirectTo);
+        return (
+            Objects.equals(accessToken, other.accessToken) &&
+            Objects.equals(refreshToken, other.refreshToken) &&
+            Objects.equals(idToken, other.idToken) &&
+            Objects.equals(tokenType, other.tokenType) &&
+            Objects.equals(expiresIn, other.expiresIn)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(redirectTo);
+        return Objects.hash(
+            accessToken,
+            refreshToken,
+            idToken,
+            tokenType,
+            expiresIn
+        );
     }
 }

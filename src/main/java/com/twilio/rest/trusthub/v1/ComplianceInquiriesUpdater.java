@@ -29,6 +29,7 @@ public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
 
     private String pathCustomerId;
     private String primaryProfileSid;
+    private String themeSetId;
 
     public ComplianceInquiriesUpdater(
         final String pathCustomerId,
@@ -42,6 +43,11 @@ public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
         final String primaryProfileSid
     ) {
         this.primaryProfileSid = primaryProfileSid;
+        return this;
+    }
+
+    public ComplianceInquiriesUpdater setThemeSetId(final String themeSetId) {
+        this.themeSetId = themeSetId;
         return this;
     }
 
@@ -96,6 +102,9 @@ public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
     private void addPostParams(final Request request) {
         if (primaryProfileSid != null) {
             request.addPostParam("PrimaryProfileSid", primaryProfileSid);
+        }
+        if (themeSetId != null) {
+            request.addPostParam("ThemeSetId", themeSetId);
         }
     }
 }

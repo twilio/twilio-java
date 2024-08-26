@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortInPhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 245952123111286L;
+    private static final long serialVersionUID = 167748348431012L;
 
     public static PortingPortInPhoneNumberDeleter deleter(
         final String pathPortInRequestSid,
@@ -118,6 +118,7 @@ public class PortingPortInPhoneNumber extends Resource {
     private final Integer portOutPin;
     private final String rejectionReason;
     private final Integer rejectionReasonCode;
+    private final ZonedDateTime portDate;
 
     @JsonCreator
     private PortingPortInPhoneNumber(
@@ -147,7 +148,10 @@ public class PortingPortInPhoneNumber extends Resource {
         ) final String portInPhoneNumberStatus,
         @JsonProperty("port_out_pin") final Integer portOutPin,
         @JsonProperty("rejection_reason") final String rejectionReason,
-        @JsonProperty("rejection_reason_code") final Integer rejectionReasonCode
+        @JsonProperty(
+            "rejection_reason_code"
+        ) final Integer rejectionReasonCode,
+        @JsonProperty("port_date") final String portDate
     ) {
         this.portInRequestSid = portInRequestSid;
         this.phoneNumberSid = phoneNumberSid;
@@ -166,6 +170,7 @@ public class PortingPortInPhoneNumber extends Resource {
         this.portOutPin = portOutPin;
         this.rejectionReason = rejectionReason;
         this.rejectionReasonCode = rejectionReasonCode;
+        this.portDate = DateConverter.iso8601DateTimeFromString(portDate);
     }
 
     public final String getPortInRequestSid() {
@@ -236,6 +241,10 @@ public class PortingPortInPhoneNumber extends Resource {
         return this.rejectionReasonCode;
     }
 
+    public final ZonedDateTime getPortDate() {
+        return this.portDate;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -274,7 +283,8 @@ public class PortingPortInPhoneNumber extends Resource {
             ) &&
             Objects.equals(portOutPin, other.portOutPin) &&
             Objects.equals(rejectionReason, other.rejectionReason) &&
-            Objects.equals(rejectionReasonCode, other.rejectionReasonCode)
+            Objects.equals(rejectionReasonCode, other.rejectionReasonCode) &&
+            Objects.equals(portDate, other.portDate)
         );
     }
 
@@ -297,7 +307,8 @@ public class PortingPortInPhoneNumber extends Resource {
             portInPhoneNumberStatus,
             portOutPin,
             rejectionReason,
-            rejectionReasonCode
+            rejectionReasonCode,
+            portDate
         );
     }
 }

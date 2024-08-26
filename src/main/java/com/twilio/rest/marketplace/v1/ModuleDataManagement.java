@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class ModuleDataManagement extends Resource {
 
-    private static final long serialVersionUID = 180018877375089L;
+    private static final long serialVersionUID = 187208983422591L;
 
     public static ModuleDataManagementFetcher fetcher(final String pathSid) {
         return new ModuleDataManagementFetcher(pathSid);
@@ -96,6 +96,7 @@ public class ModuleDataManagement extends Resource {
     private final Map<String, Object> policies;
     private final Map<String, Object> moduleInfo;
     private final Map<String, Object> documentation;
+    private final Map<String, Object> configuration;
 
     @JsonCreator
     private ModuleDataManagement(
@@ -105,7 +106,8 @@ public class ModuleDataManagement extends Resource {
         @JsonProperty("support") final Map<String, Object> support,
         @JsonProperty("policies") final Map<String, Object> policies,
         @JsonProperty("module_info") final Map<String, Object> moduleInfo,
-        @JsonProperty("documentation") final Map<String, Object> documentation
+        @JsonProperty("documentation") final Map<String, Object> documentation,
+        @JsonProperty("configuration") final Map<String, Object> configuration
     ) {
         this.url = url;
         this.sid = sid;
@@ -114,6 +116,7 @@ public class ModuleDataManagement extends Resource {
         this.policies = policies;
         this.moduleInfo = moduleInfo;
         this.documentation = documentation;
+        this.configuration = configuration;
     }
 
     public final URI getUrl() {
@@ -144,6 +147,10 @@ public class ModuleDataManagement extends Resource {
         return this.documentation;
     }
 
+    public final Map<String, Object> getConfiguration() {
+        return this.configuration;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -163,7 +170,8 @@ public class ModuleDataManagement extends Resource {
             Objects.equals(support, other.support) &&
             Objects.equals(policies, other.policies) &&
             Objects.equals(moduleInfo, other.moduleInfo) &&
-            Objects.equals(documentation, other.documentation)
+            Objects.equals(documentation, other.documentation) &&
+            Objects.equals(configuration, other.configuration)
         );
     }
 
@@ -176,7 +184,8 @@ public class ModuleDataManagement extends Resource {
             support,
             policies,
             moduleInfo,
-            documentation
+            documentation,
+            configuration
         );
     }
 }

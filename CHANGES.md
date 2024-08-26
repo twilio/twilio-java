@@ -1,6 +1,50 @@
 twilio-java changelog
 =====================
 
+[2024-08-26] Version 10.4.2
+---------------------------
+**Library - Fix**
+- [PR #811](https://github.com/twilio/twilio-java/pull/811): making previewiam versionless. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #808](https://github.com/twilio/twilio-java/pull/808): added new httpclient for noauth and bearertoken requests. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Chore**
+- [PR #806](https://github.com/twilio/twilio-java/pull/806): added multipart test in call api. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Update documentation of `error_code` and `error_message` on the Message resource.
+- Remove generic parameters from `transcription` resource
+- Added public documentation for Payload Data retrieval API
+
+**Flex**
+- Adding update Flex User api
+
+**Insights**
+- Added 'branded', 'business_profile' and 'voice_integrity' fields in List Call Summary
+
+**Intelligence**
+- Add `words` array information to the Sentences v2 entity.
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Operator Results.
+- Change the path parameter when fetching an `/OperatorType/{}` from `sid<EY>` to `string` to support searching by SID or by name
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Transcript and Service endpoints.
+
+**Messaging**
+- Adds two new channel senders api to add/remove channel senders to/from a messaging service
+- Extend ERC api to accept an optional attribute in request body to indicate CNP migration for an ERC
+
+**Numbers**
+- Modify visibility to public in bundle clone API
+- Add `port_date` field to Port In Request and Port In Phone Numbers Fetch APIs
+- Change properties docs for port in phone numbers api
+- Add is_test body param to the Bundle Create API
+- Change properties docs for port in api
+
+**Trusthub**
+- Add new field in themeSetId in compliance_inquiry.
+
+**Verify**
+- Update `custom_code_enabled` description on verification docs
+
+
 [2024-07-02] Version 10.4.1
 ---------------------------
 **Library - Fix**

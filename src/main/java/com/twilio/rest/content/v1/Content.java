@@ -459,6 +459,105 @@ public class Content extends Resource {
     }
 
     @ToString
+    public static class CarouselAction {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private Content.CarouselActionType type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        @Setter
+        private String url;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone")
+        @Getter
+        @Setter
+        private String phone;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        public static CarouselAction fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CarouselAction.class);
+        }
+    }
+
+    @ToString
+    public static class CarouselCard {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("media")
+        @Getter
+        @Setter
+        private String media;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("actions")
+        @Getter
+        @Setter
+        private List<CarouselAction> actions;
+
+        public static CarouselCard fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CarouselCard.class);
+        }
+    }
+
+    @ToString
+    public static class TwilioCarousel {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("cards")
+        @Getter
+        @Setter
+        private List<CarouselCard> cards;
+
+        public static TwilioCarousel fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioCarousel.class);
+        }
+    }
+
+    @ToString
     public static class WhatsappCard {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -601,6 +700,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private TwilioCatalog twilioCatalog;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/carousel")
+        @Getter
+        @Setter
+        private TwilioCarousel twilioCarousel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")
@@ -893,6 +998,27 @@ public class Content extends Resource {
                 value,
                 QuickReplyActionType.values()
             );
+        }
+    }
+
+    public enum CarouselActionType {
+        URL("URL"),
+        PHONE_NUMBER("PHONE_NUMBER"),
+        QUICK_REPLY("QUICK_REPLY");
+
+        private final String value;
+
+        private CarouselActionType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CarouselActionType forValue(final String value) {
+            return Promoter.enumFromString(value, CarouselActionType.values());
         }
     }
 

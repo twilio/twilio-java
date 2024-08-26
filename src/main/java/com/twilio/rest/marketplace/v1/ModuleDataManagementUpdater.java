@@ -33,6 +33,7 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
     private String documentation;
     private String policies;
     private String support;
+    private String configuration;
 
     public ModuleDataManagementUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -64,6 +65,13 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
 
     public ModuleDataManagementUpdater setSupport(final String support) {
         this.support = support;
+        return this;
+    }
+
+    public ModuleDataManagementUpdater setConfiguration(
+        final String configuration
+    ) {
+        this.configuration = configuration;
         return this;
     }
 
@@ -120,6 +128,9 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
         }
         if (support != null) {
             request.addPostParam("Support", support);
+        }
+        if (configuration != null) {
+            request.addPostParam("Configuration", configuration);
         }
     }
 }

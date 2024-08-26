@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-package com.twilio.rest.messaging.v1;
+package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
@@ -25,48 +25,34 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
+public class ChannelSenderCreator extends Creator<ChannelSender> {
 
-    private String campaignId;
-    private String messagingServiceSid;
-    private Boolean cnpMigration;
+    private String pathMessagingServiceSid;
+    private String sid;
 
-    public ExternalCampaignCreator(
-        final String campaignId,
-        final String messagingServiceSid
+    public ChannelSenderCreator(
+        final String pathMessagingServiceSid,
+        final String sid
     ) {
-        this.campaignId = campaignId;
-        this.messagingServiceSid = messagingServiceSid;
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.sid = sid;
     }
 
-    public ExternalCampaignCreator setCampaignId(final String campaignId) {
-        this.campaignId = campaignId;
-        return this;
-    }
-
-    public ExternalCampaignCreator setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
-        this.messagingServiceSid = messagingServiceSid;
-        return this;
-    }
-
-    public ExternalCampaignCreator setCnpMigration(final Boolean cnpMigration) {
-        this.cnpMigration = cnpMigration;
+    public ChannelSenderCreator setSid(final String sid) {
+        this.sid = sid;
         return this;
     }
 
     @Override
-    public ExternalCampaign create(final TwilioRestClient client) {
-        String path = "/v1/Services/PreregisteredUsa2p";
+    public ChannelSender create(final TwilioRestClient client) {
+        String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
-        path =
-            path.replace("{" + "CampaignId" + "}", this.campaignId.toString());
         path =
             path.replace(
                 "{" + "MessagingServiceSid" + "}",
-                this.messagingServiceSid.toString()
+                this.pathMessagingServiceSid.toString()
             );
+        path = path.replace("{" + "Sid" + "}", this.sid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -78,7 +64,7 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
-                "ExternalCampaign creation failed: Unable to connect to server"
+                "ChannelSender creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
@@ -94,21 +80,15 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
             throw new ApiException(restException);
         }
 
-        return ExternalCampaign.fromJson(
+        return ChannelSender.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
     }
 
     private void addPostParams(final Request request) {
-        if (campaignId != null) {
-            request.addPostParam("CampaignId", campaignId);
-        }
-        if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
-        }
-        if (cnpMigration != null) {
-            request.addPostParam("CnpMigration", cnpMigration.toString());
+        if (sid != null) {
+            request.addPostParam("Sid", sid);
         }
     }
 }

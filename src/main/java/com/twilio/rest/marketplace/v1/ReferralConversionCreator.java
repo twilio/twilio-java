@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-package com.twilio.rest.marketplace.v1.installedaddon;
+package com.twilio.rest.marketplace.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Creator;
@@ -26,41 +26,31 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
+public class ReferralConversionCreator extends Creator<ReferralConversion> {
 
-    private String pathInstalledAddOnSid;
-    private InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage;
+    private ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest;
 
-    public InstalledAddOnUsageCreator(
-        final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
+    public ReferralConversionCreator(
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
     ) {
-        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
-        this.marketplaceV1InstalledAddOnInstalledAddOnUsage =
-            marketplaceV1InstalledAddOnInstalledAddOnUsage;
+        this.createReferralConversionRequest = createReferralConversionRequest;
     }
 
-    public InstalledAddOnUsageCreator setMarketplaceV1InstalledAddOnInstalledAddOnUsage(
-        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
+    public ReferralConversionCreator setCreateReferralConversionRequest(
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
     ) {
-        this.marketplaceV1InstalledAddOnInstalledAddOnUsage =
-            marketplaceV1InstalledAddOnInstalledAddOnUsage;
+        this.createReferralConversionRequest = createReferralConversionRequest;
         return this;
     }
 
     @Override
-    public InstalledAddOnUsage create(final TwilioRestClient client) {
-        String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage";
+    public ReferralConversion create(final TwilioRestClient client) {
+        String path = "/v1/ReferralConversion";
 
         path =
             path.replace(
-                "{" + "InstalledAddOnSid" + "}",
-                this.pathInstalledAddOnSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MarketplaceV1InstalledAddOnInstalledAddOnUsage" + "}",
-                this.marketplaceV1InstalledAddOnInstalledAddOnUsage.toString()
+                "{" + "CreateReferralConversionRequest" + "}",
+                this.createReferralConversionRequest.toString()
             );
 
         Request request = new Request(
@@ -73,7 +63,7 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
-                "InstalledAddOnUsage creation failed: Unable to connect to server"
+                "ReferralConversion creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
@@ -89,7 +79,7 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
             throw new ApiException(restException);
         }
 
-        return InstalledAddOnUsage.fromJson(
+        return ReferralConversion.fromJson(
             response.getStream(),
             client.getObjectMapper()
         );
@@ -97,10 +87,10 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (marketplaceV1InstalledAddOnInstalledAddOnUsage != null) {
+        if (createReferralConversionRequest != null) {
             request.setBody(
-                InstalledAddOnUsage.toJson(
-                    marketplaceV1InstalledAddOnInstalledAddOnUsage,
+                ReferralConversion.toJson(
+                    createReferralConversionRequest,
                     objectMapper
                 )
             );

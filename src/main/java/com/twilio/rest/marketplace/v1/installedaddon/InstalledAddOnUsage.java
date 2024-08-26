@@ -42,7 +42,7 @@ public class InstalledAddOnUsage extends Resource {
     private static final long serialVersionUID = 244026319744874L;
 
     @ToString
-    public static class CreateBillingUsageRequestBillableItems {
+    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quantity")
@@ -56,35 +56,43 @@ public class InstalledAddOnUsage extends Resource {
         @Setter
         private String sid;
 
-        public static CreateBillingUsageRequestBillableItems fromJson(
+        public static MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                CreateBillingUsageRequestBillableItems.class
+                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems.class
             );
         }
     }
 
     @ToString
-    public static class CreateBillingUsageRequest {
+    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("billable_items")
         @Getter
         @Setter
-        private List<CreateBillingUsageRequestBillableItems> billableItems;
+        private List<
+            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+        > billableItems;
 
-        public CreateBillingUsageRequest() {}
+        public MarketplaceV1InstalledAddOnInstalledAddOnUsage(
+            final List<
+                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+            > billableItems
+        ) {
+            this.billableItems = billableItems;
+        }
 
-        public static CreateBillingUsageRequest fromJson(
+        public static MarketplaceV1InstalledAddOnInstalledAddOnUsage fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                CreateBillingUsageRequest.class
+                MarketplaceV1InstalledAddOnInstalledAddOnUsage.class
             );
         }
     }
@@ -123,11 +131,11 @@ public class InstalledAddOnUsage extends Resource {
 
     public static InstalledAddOnUsageCreator creator(
         final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.CreateBillingUsageRequest createBillingUsageRequest
+        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
     ) {
         return new InstalledAddOnUsageCreator(
             pathInstalledAddOnSid,
-            createBillingUsageRequest
+            marketplaceV1InstalledAddOnInstalledAddOnUsage
         );
     }
 

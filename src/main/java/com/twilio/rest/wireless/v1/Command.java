@@ -98,89 +98,6 @@ public class Command extends Resource {
         }
     }
 
-    public enum CommandMode {
-        TEXT("text"),
-        BINARY("binary");
-
-        private final String value;
-
-        private CommandMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CommandMode forValue(final String value) {
-            return Promoter.enumFromString(value, CommandMode.values());
-        }
-    }
-
-    public enum Direction {
-        FROM_SIM("from_sim"),
-        TO_SIM("to_sim");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
-    }
-
-    public enum Status {
-        QUEUED("queued"),
-        SENT("sent"),
-        DELIVERED("delivered"),
-        RECEIVED("received"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Transport {
-        SMS("sms"),
-        IP("ip");
-
-        private final String value;
-
-        private Transport(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Transport forValue(final String value) {
-            return Promoter.enumFromString(value, Transport.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String simSid;
@@ -320,5 +237,88 @@ public class Command extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum Status {
+        QUEUED("queued"),
+        SENT("sent"),
+        DELIVERED("delivered"),
+        RECEIVED("received"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Direction {
+        FROM_SIM("from_sim"),
+        TO_SIM("to_sim");
+
+        private final String value;
+
+        private Direction(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Direction forValue(final String value) {
+            return Promoter.enumFromString(value, Direction.values());
+        }
+    }
+
+    public enum CommandMode {
+        TEXT("text"),
+        BINARY("binary");
+
+        private final String value;
+
+        private CommandMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CommandMode forValue(final String value) {
+            return Promoter.enumFromString(value, CommandMode.values());
+        }
+    }
+
+    public enum Transport {
+        SMS("sms"),
+        IP("ip");
+
+        private final String value;
+
+        private Transport(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Transport forValue(final String value) {
+            return Promoter.enumFromString(value, Transport.values());
+        }
     }
 }

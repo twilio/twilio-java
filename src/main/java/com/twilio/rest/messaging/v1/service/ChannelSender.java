@@ -38,6 +38,20 @@ public class ChannelSender extends Resource {
 
     private static final long serialVersionUID = 32697428616380L;
 
+    public static ChannelSenderCreator creator(
+        final String pathMessagingServiceSid,
+        final String sid
+    ) {
+        return new ChannelSenderCreator(pathMessagingServiceSid, sid);
+    }
+
+    public static ChannelSenderDeleter deleter(
+        final String pathMessagingServiceSid,
+        final String pathSid
+    ) {
+        return new ChannelSenderDeleter(pathMessagingServiceSid, pathSid);
+    }
+
     public static ChannelSenderFetcher fetcher(
         final String pathMessagingServiceSid,
         final String pathSid

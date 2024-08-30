@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -53,6 +54,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,7 +67,10 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

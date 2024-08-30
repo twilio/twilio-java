@@ -107,75 +107,6 @@ public class InteractionChannel extends Resource {
         }
     }
 
-    public enum ChannelStatus {
-        SETUP("setup"),
-        ACTIVE("active"),
-        FAILED("failed"),
-        CLOSED("closed"),
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
-        }
-    }
-
-    public enum Type {
-        VOICE("voice"),
-        SMS("sms"),
-        EMAIL("email"),
-        WEB("web"),
-        WHATSAPP("whatsapp"),
-        CHAT("chat"),
-        MESSENGER("messenger"),
-        GBM("gbm");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
-    public enum UpdateChannelStatus {
-        CLOSED("closed"),
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private UpdateChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateChannelStatus.values());
-        }
-    }
-
     private final String sid;
     private final String interactionSid;
     private final InteractionChannel.Type type;
@@ -274,5 +205,74 @@ public class InteractionChannel extends Resource {
             url,
             links
         );
+    }
+
+    public enum Type {
+        VOICE("voice"),
+        SMS("sms"),
+        EMAIL("email"),
+        WEB("web"),
+        WHATSAPP("whatsapp"),
+        CHAT("chat"),
+        MESSENGER("messenger"),
+        GBM("gbm");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum ChannelStatus {
+        SETUP("setup"),
+        ACTIVE("active"),
+        FAILED("failed"),
+        CLOSED("closed"),
+        INACTIVE("inactive");
+
+        private final String value;
+
+        private ChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelStatus.values());
+        }
+    }
+
+    public enum UpdateChannelStatus {
+        CLOSED("closed"),
+        INACTIVE("inactive");
+
+        private final String value;
+
+        private UpdateChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateChannelStatus.values());
+        }
     }
 }

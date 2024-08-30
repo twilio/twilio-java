@@ -17,6 +17,7 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -30,12 +31,20 @@ public class TrustProductsEntityAssignmentsReader
     extends Reader<TrustProductsEntityAssignments> {
 
     private String pathTrustProductSid;
+    private String objectType;
     private Integer pageSize;
 
     public TrustProductsEntityAssignmentsReader(
         final String pathTrustProductSid
     ) {
         this.pathTrustProductSid = pathTrustProductSid;
+    }
+
+    public TrustProductsEntityAssignmentsReader setObjectType(
+        final String objectType
+    ) {
+        this.objectType = objectType;
+        return this;
     }
 
     public TrustProductsEntityAssignmentsReader setPageSize(
@@ -69,6 +78,7 @@ public class TrustProductsEntityAssignmentsReader
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -88,7 +98,10 @@ public class TrustProductsEntityAssignmentsReader
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -136,6 +149,9 @@ public class TrustProductsEntityAssignmentsReader
     }
 
     private void addQueryParams(final Request request) {
+        if (objectType != null) {
+            request.addQueryParam("ObjectType", objectType);
+        }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

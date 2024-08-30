@@ -117,26 +117,6 @@ public class CustomerProfilesEvaluations extends Resource {
         }
     }
 
-    public enum Status {
-        COMPLIANT("compliant"),
-        NONCOMPLIANT("noncompliant");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String policySid;
@@ -235,5 +215,25 @@ public class CustomerProfilesEvaluations extends Resource {
             dateCreated,
             url
         );
+    }
+
+    public enum Status {
+        COMPLIANT("compliant"),
+        NONCOMPLIANT("noncompliant");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

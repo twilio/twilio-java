@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -50,6 +51,7 @@ public class RoleFetcher extends Fetcher<Role> {
             Domains.IPMESSAGING.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,7 +64,10 @@ public class RoleFetcher extends Fetcher<Role> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

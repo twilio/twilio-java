@@ -131,7 +131,7 @@ public class NetworkHttpClient extends HttpClient {
             }
         }
 
-        if (method == HttpMethod.POST) {
+        if (method != HttpMethod.GET) {
             // TODO: It will be removed after one RC Release.
             if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {

@@ -89,144 +89,6 @@ public class CallSummaries extends Resource {
         }
     }
 
-    public enum AnsweredBy {
-        UNKNOWN("unknown"),
-        MACHINE_START("machine_start"),
-        MACHINE_END_BEEP("machine_end_beep"),
-        MACHINE_END_SILENCE("machine_end_silence"),
-        MACHINE_END_OTHER("machine_end_other"),
-        HUMAN("human"),
-        FAX("fax");
-
-        private final String value;
-
-        private AnsweredBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AnsweredBy forValue(final String value) {
-            return Promoter.enumFromString(value, AnsweredBy.values());
-        }
-    }
-
-    public enum CallState {
-        RINGING("ringing"),
-        COMPLETED("completed"),
-        BUSY("busy"),
-        FAIL("fail"),
-        NOANSWER("noanswer"),
-        CANCELED("canceled"),
-        ANSWERED("answered"),
-        UNDIALED("undialed");
-
-        private final String value;
-
-        private CallState(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallState forValue(final String value) {
-            return Promoter.enumFromString(value, CallState.values());
-        }
-    }
-
-    public enum CallType {
-        CARRIER("carrier"),
-        SIP("sip"),
-        TRUNKING("trunking"),
-        CLIENT("client");
-
-        private final String value;
-
-        private CallType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallType forValue(final String value) {
-            return Promoter.enumFromString(value, CallType.values());
-        }
-    }
-
-    public enum ProcessingState {
-        COMPLETE("complete"),
-        PARTIAL("partial");
-
-        private final String value;
-
-        private ProcessingState(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ProcessingState forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingState.values());
-        }
-    }
-
-    public enum ProcessingStateRequest {
-        COMPLETED("completed"),
-        STARTED("started"),
-        PARTIAL("partial"),
-        ALL("all");
-
-        private final String value;
-
-        private ProcessingStateRequest(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ProcessingStateRequest forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                ProcessingStateRequest.values()
-            );
-        }
-    }
-
-    public enum SortBy {
-        START_TIME("start_time"),
-        END_TIME("end_time");
-
-        private final String value;
-
-        private SortBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortBy forValue(final String value) {
-            return Promoter.enumFromString(value, SortBy.values());
-        }
-    }
-
     private final String accountSid;
     private final String callSid;
     private final CallSummaries.AnsweredBy answeredBy;
@@ -462,5 +324,143 @@ public class CallSummaries extends Resource {
             trust,
             annotation
         );
+    }
+
+    public enum ProcessingState {
+        COMPLETE("complete"),
+        PARTIAL("partial");
+
+        private final String value;
+
+        private ProcessingState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ProcessingState forValue(final String value) {
+            return Promoter.enumFromString(value, ProcessingState.values());
+        }
+    }
+
+    public enum ProcessingStateRequest {
+        COMPLETED("completed"),
+        STARTED("started"),
+        PARTIAL("partial"),
+        ALL("all");
+
+        private final String value;
+
+        private ProcessingStateRequest(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ProcessingStateRequest forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                ProcessingStateRequest.values()
+            );
+        }
+    }
+
+    public enum CallState {
+        RINGING("ringing"),
+        COMPLETED("completed"),
+        BUSY("busy"),
+        FAIL("fail"),
+        NOANSWER("noanswer"),
+        CANCELED("canceled"),
+        ANSWERED("answered"),
+        UNDIALED("undialed");
+
+        private final String value;
+
+        private CallState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallState forValue(final String value) {
+            return Promoter.enumFromString(value, CallState.values());
+        }
+    }
+
+    public enum AnsweredBy {
+        UNKNOWN("unknown"),
+        MACHINE_START("machine_start"),
+        MACHINE_END_BEEP("machine_end_beep"),
+        MACHINE_END_SILENCE("machine_end_silence"),
+        MACHINE_END_OTHER("machine_end_other"),
+        HUMAN("human"),
+        FAX("fax");
+
+        private final String value;
+
+        private AnsweredBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AnsweredBy forValue(final String value) {
+            return Promoter.enumFromString(value, AnsweredBy.values());
+        }
+    }
+
+    public enum SortBy {
+        START_TIME("start_time"),
+        END_TIME("end_time");
+
+        private final String value;
+
+        private SortBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortBy forValue(final String value) {
+            return Promoter.enumFromString(value, SortBy.values());
+        }
+    }
+
+    public enum CallType {
+        CARRIER("carrier"),
+        SIP("sip"),
+        TRUNKING("trunking"),
+        CLIENT("client");
+
+        private final String value;
+
+        private CallType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallType forValue(final String value) {
+            return Promoter.enumFromString(value, CallType.values());
+        }
     }
 }

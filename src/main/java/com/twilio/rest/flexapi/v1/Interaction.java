@@ -39,10 +39,9 @@ public class Interaction extends Resource {
     private static final long serialVersionUID = 1684368631913L;
 
     public static InteractionCreator creator(
-        final Map<String, Object> channel,
-        final Map<String, Object> routing
+        final Map<String, Object> channel
     ) {
-        return new InteractionCreator(channel, routing);
+        return new InteractionCreator(channel);
     }
 
     public static InteractionFetcher fetcher(final String pathSid) {

@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -46,6 +47,7 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 
@@ -59,7 +61,10 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

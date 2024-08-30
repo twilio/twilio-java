@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,9 +28,17 @@ import com.twilio.rest.Domains;
 public class RegulationFetcher extends Fetcher<Regulation> {
 
     private String pathSid;
+    private Boolean includeConstraints;
 
     public RegulationFetcher(final String pathSid) {
         this.pathSid = pathSid;
+    }
+
+    public RegulationFetcher setIncludeConstraints(
+        final Boolean includeConstraints
+    ) {
+        this.includeConstraints = includeConstraints;
+        return this;
     }
 
     @Override
@@ -43,6 +52,8 @@ public class RegulationFetcher extends Fetcher<Regulation> {
             Domains.NUMBERS.toString(),
             path
         );
+        addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
@@ -55,7 +66,10 @@ public class RegulationFetcher extends Fetcher<Regulation> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -64,5 +78,14 @@ public class RegulationFetcher extends Fetcher<Regulation> {
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    private void addQueryParams(final Request request) {
+        if (includeConstraints != null) {
+            request.addQueryParam(
+                "IncludeConstraints",
+                includeConstraints.toString()
+            );
+        }
     }
 }

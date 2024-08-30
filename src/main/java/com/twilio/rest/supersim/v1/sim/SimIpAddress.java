@@ -83,26 +83,6 @@ public class SimIpAddress extends Resource {
         }
     }
 
-    public enum IpAddressVersion {
-        IPV4("IPv4"),
-        IPV6("IPv6");
-
-        private final String value;
-
-        private IpAddressVersion(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static IpAddressVersion forValue(final String value) {
-            return Promoter.enumFromString(value, IpAddressVersion.values());
-        }
-    }
-
     private final String ipAddress;
     private final SimIpAddress.IpAddressVersion ipAddressVersion;
 
@@ -146,5 +126,25 @@ public class SimIpAddress extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(ipAddress, ipAddressVersion);
+    }
+
+    public enum IpAddressVersion {
+        IPV4("IPv4"),
+        IPV6("IPv6");
+
+        private final String value;
+
+        private IpAddressVersion(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static IpAddressVersion forValue(final String value) {
+            return Promoter.enumFromString(value, IpAddressVersion.values());
+        }
     }
 }

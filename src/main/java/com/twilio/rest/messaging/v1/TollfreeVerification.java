@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class TollfreeVerification extends Resource {
 
-    private static final long serialVersionUID = 58037728146886L;
+    private static final long serialVersionUID = 271545419096190L;
 
     public static TollfreeVerificationCreator creator(
         final String businessName,
@@ -66,6 +66,10 @@ public class TollfreeVerification extends Resource {
             messageVolume,
             tollfreePhoneNumberSid
         );
+    }
+
+    public static TollfreeVerificationDeleter deleter(final String pathSid) {
+        return new TollfreeVerificationDeleter(pathSid);
     }
 
     public static TollfreeVerificationFetcher fetcher(final String pathSid) {
@@ -123,51 +127,6 @@ public class TollfreeVerification extends Resource {
         }
     }
 
-    public enum OptInType {
-        VERBAL("VERBAL"),
-        WEB_FORM("WEB_FORM"),
-        PAPER_FORM("PAPER_FORM"),
-        VIA_TEXT("VIA_TEXT"),
-        MOBILE_QR_CODE("MOBILE_QR_CODE");
-
-        private final String value;
-
-        private OptInType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OptInType forValue(final String value) {
-            return Promoter.enumFromString(value, OptInType.values());
-        }
-    }
-
-    public enum Status {
-        PENDING_REVIEW("PENDING_REVIEW"),
-        IN_REVIEW("IN_REVIEW"),
-        TWILIO_APPROVED("TWILIO_APPROVED"),
-        TWILIO_REJECTED("TWILIO_REJECTED");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String customerProfileSid;
@@ -201,6 +160,8 @@ public class TollfreeVerification extends Resource {
     private final String rejectionReason;
     private final Integer errorCode;
     private final ZonedDateTime editExpiration;
+    private final Boolean editAllowed;
+    private final List<Map<String, Object>> rejectionReasons;
     private final Map<String, Object> resourceLinks;
     private final String externalReferenceId;
 
@@ -263,6 +224,10 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("rejection_reason") final String rejectionReason,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("edit_expiration") final String editExpiration,
+        @JsonProperty("edit_allowed") final Boolean editAllowed,
+        @JsonProperty("rejection_reasons") final List<
+            Map<String, Object>
+        > rejectionReasons,
         @JsonProperty("resource_links") final Map<String, Object> resourceLinks,
         @JsonProperty("external_reference_id") final String externalReferenceId
     ) {
@@ -300,6 +265,8 @@ public class TollfreeVerification extends Resource {
         this.errorCode = errorCode;
         this.editExpiration =
             DateConverter.iso8601DateTimeFromString(editExpiration);
+        this.editAllowed = editAllowed;
+        this.rejectionReasons = rejectionReasons;
         this.resourceLinks = resourceLinks;
         this.externalReferenceId = externalReferenceId;
     }
@@ -436,6 +403,14 @@ public class TollfreeVerification extends Resource {
         return this.editExpiration;
     }
 
+    public final Boolean getEditAllowed() {
+        return this.editAllowed;
+    }
+
+    public final List<Map<String, Object>> getRejectionReasons() {
+        return this.rejectionReasons;
+    }
+
     public final Map<String, Object> getResourceLinks() {
         return this.resourceLinks;
     }
@@ -514,6 +489,8 @@ public class TollfreeVerification extends Resource {
             Objects.equals(rejectionReason, other.rejectionReason) &&
             Objects.equals(errorCode, other.errorCode) &&
             Objects.equals(editExpiration, other.editExpiration) &&
+            Objects.equals(editAllowed, other.editAllowed) &&
+            Objects.equals(rejectionReasons, other.rejectionReasons) &&
             Objects.equals(resourceLinks, other.resourceLinks) &&
             Objects.equals(externalReferenceId, other.externalReferenceId)
         );
@@ -555,8 +532,56 @@ public class TollfreeVerification extends Resource {
             rejectionReason,
             errorCode,
             editExpiration,
+            editAllowed,
+            rejectionReasons,
             resourceLinks,
             externalReferenceId
         );
+    }
+
+    public enum Status {
+        PENDING_REVIEW("PENDING_REVIEW"),
+        IN_REVIEW("IN_REVIEW"),
+        TWILIO_APPROVED("TWILIO_APPROVED"),
+        TWILIO_REJECTED("TWILIO_REJECTED");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum OptInType {
+        VERBAL("VERBAL"),
+        WEB_FORM("WEB_FORM"),
+        PAPER_FORM("PAPER_FORM"),
+        VIA_TEXT("VIA_TEXT"),
+        MOBILE_QR_CODE("MOBILE_QR_CODE"),
+        IMPORT("IMPORT");
+
+        private final String value;
+
+        private OptInType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OptInType forValue(final String value) {
+            return Promoter.enumFromString(value, OptInType.values());
+        }
     }
 }

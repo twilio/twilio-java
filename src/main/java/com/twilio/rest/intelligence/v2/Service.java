@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 160239821590245L;
+    private static final long serialVersionUID = 262371223820934L;
 
     public static ServiceCreator creator(final String uniqueName) {
         return new ServiceCreator(uniqueName);
@@ -103,27 +104,6 @@ public class Service extends Resource {
         }
     }
 
-    public enum HttpMethod {
-        GET("GET"),
-        POST("POST"),
-        NULL("NULL");
-
-        private final String value;
-
-        private HttpMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static HttpMethod forValue(final String value) {
-            return Promoter.enumFromString(value, HttpMethod.values());
-        }
-    }
-
     private final String accountSid;
     private final Boolean autoRedaction;
     private final Boolean mediaRedaction;
@@ -138,6 +118,7 @@ public class Service extends Resource {
     private final URI url;
     private final String webhookUrl;
     private final Service.HttpMethod webhookHttpMethod;
+    private final List<String> readOnlyAttachedOperatorSids;
     private final Integer version;
 
     @JsonCreator
@@ -158,6 +139,9 @@ public class Service extends Resource {
         @JsonProperty(
             "webhook_http_method"
         ) final Service.HttpMethod webhookHttpMethod,
+        @JsonProperty("read_only_attached_operator_sids") final List<
+            String
+        > readOnlyAttachedOperatorSids,
         @JsonProperty("version") final Integer version
     ) {
         this.accountSid = accountSid;
@@ -174,6 +158,7 @@ public class Service extends Resource {
         this.url = url;
         this.webhookUrl = webhookUrl;
         this.webhookHttpMethod = webhookHttpMethod;
+        this.readOnlyAttachedOperatorSids = readOnlyAttachedOperatorSids;
         this.version = version;
     }
 
@@ -233,6 +218,10 @@ public class Service extends Resource {
         return this.webhookHttpMethod;
     }
 
+    public final List<String> getReadOnlyAttachedOperatorSids() {
+        return this.readOnlyAttachedOperatorSids;
+    }
+
     public final Integer getVersion() {
         return this.version;
     }
@@ -264,6 +253,10 @@ public class Service extends Resource {
             Objects.equals(url, other.url) &&
             Objects.equals(webhookUrl, other.webhookUrl) &&
             Objects.equals(webhookHttpMethod, other.webhookHttpMethod) &&
+            Objects.equals(
+                readOnlyAttachedOperatorSids,
+                other.readOnlyAttachedOperatorSids
+            ) &&
             Objects.equals(version, other.version)
         );
     }
@@ -285,7 +278,29 @@ public class Service extends Resource {
             url,
             webhookUrl,
             webhookHttpMethod,
+            readOnlyAttachedOperatorSids,
             version
         );
+    }
+
+    public enum HttpMethod {
+        GET("GET"),
+        POST("POST"),
+        NULL("NULL");
+
+        private final String value;
+
+        private HttpMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static HttpMethod forValue(final String value) {
+            return Promoter.enumFromString(value, HttpMethod.values());
+        }
     }
 }

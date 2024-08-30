@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
@@ -40,6 +41,10 @@ import lombok.ToString;
 public class BulkEligibility extends Resource {
 
     private static final long serialVersionUID = 38354491175250L;
+
+    public static BulkEligibilityCreator creator() {
+        return new BulkEligibilityCreator();
+    }
 
     public static BulkEligibilityFetcher fetcher(final String pathRequestId) {
         return new BulkEligibilityFetcher(pathRequestId);
@@ -82,6 +87,18 @@ public class BulkEligibility extends Resource {
         try {
             return objectMapper.readValue(json, BulkEligibility.class);
         } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);

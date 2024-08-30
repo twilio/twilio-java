@@ -17,6 +17,7 @@ package com.twilio.rest.messaging.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -30,6 +31,8 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
 
     private String tollfreePhoneNumberSid;
     private TollfreeVerification.Status status;
+    private String externalReferenceId;
+    private Boolean includeSubAccounts;
     private Integer pageSize;
 
     public TollfreeVerificationReader() {}
@@ -45,6 +48,20 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         final TollfreeVerification.Status status
     ) {
         this.status = status;
+        return this;
+    }
+
+    public TollfreeVerificationReader setExternalReferenceId(
+        final String externalReferenceId
+    ) {
+        this.externalReferenceId = externalReferenceId;
+        return this;
+    }
+
+    public TollfreeVerificationReader setIncludeSubAccounts(
+        final Boolean includeSubAccounts
+    ) {
+        this.includeSubAccounts = includeSubAccounts;
         return this;
     }
 
@@ -70,6 +87,7 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -89,7 +107,10 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -145,6 +166,15 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         }
         if (status != null) {
             request.addQueryParam("Status", status.toString());
+        }
+        if (externalReferenceId != null) {
+            request.addQueryParam("ExternalReferenceId", externalReferenceId);
+        }
+        if (includeSubAccounts != null) {
+            request.addQueryParam(
+                "IncludeSubAccounts",
+                includeSubAccounts.toString()
+            );
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

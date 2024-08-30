@@ -1,6 +1,369 @@
 twilio-java changelog
 =====================
 
+[2024-08-26] Version 10.4.2
+---------------------------
+**Library - Fix**
+- [PR #811](https://github.com/twilio/twilio-java/pull/811): making previewiam versionless. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #808](https://github.com/twilio/twilio-java/pull/808): added new httpclient for noauth and bearertoken requests. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Chore**
+- [PR #806](https://github.com/twilio/twilio-java/pull/806): added multipart test in call api. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Update documentation of `error_code` and `error_message` on the Message resource.
+- Remove generic parameters from `transcription` resource
+- Added public documentation for Payload Data retrieval API
+
+**Flex**
+- Adding update Flex User api
+
+**Insights**
+- Added 'branded', 'business_profile' and 'voice_integrity' fields in List Call Summary
+
+**Intelligence**
+- Add `words` array information to the Sentences v2 entity.
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Operator Results.
+- Change the path parameter when fetching an `/OperatorType/{}` from `sid<EY>` to `string` to support searching by SID or by name
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Transcript and Service endpoints.
+
+**Messaging**
+- Adds two new channel senders api to add/remove channel senders to/from a messaging service
+- Extend ERC api to accept an optional attribute in request body to indicate CNP migration for an ERC
+
+**Numbers**
+- Modify visibility to public in bundle clone API
+- Add `port_date` field to Port In Request and Port In Phone Numbers Fetch APIs
+- Change properties docs for port in phone numbers api
+- Add is_test body param to the Bundle Create API
+- Change properties docs for port in api
+
+**Trusthub**
+- Add new field in themeSetId in compliance_inquiry.
+
+**Verify**
+- Update `custom_code_enabled` description on verification docs
+
+
+[2024-07-02] Version 10.4.1
+---------------------------
+**Library - Fix**
+- [PR #804](https://github.com/twilio/twilio-java/pull/804): adding cluster tests for orgs api. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Intelligence**
+- Deprecate account flag api.twilio-intelligence.v2
+
+
+[2024-06-27] Version 10.4.0
+---------------------------
+**Library - Feature**
+- [PR #803](https://github.com/twilio/twilio-java/pull/803): Support for bearer token authentication and no authentication and PUT method in REST calls. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Api**
+- Add `transcription` resource
+- Add beta feature request managed cert
+
+**Flex**
+- Changed mount name for flex_team v2 api
+
+**Intelligence**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to Operator resources
+
+**Numbers**
+- Added include_constraints query parameter to the Regulations API
+
+**Twiml**
+- Add support for `<Transcription>` noun
+
+
+[2024-06-18] Version 10.3.0
+---------------------------
+**Library - Chore**
+- [PR #799](https://github.com/twilio/twilio-java/pull/799): process form and body params for all methods except GET. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Add `status` and `documentation_url` to Event Types
+
+**Lookups**
+- Removed unused `fraud` lookups in V1 only to facilitate rest proxy migration
+
+**Numbers**
+- Add date_created field to the Get Port In Request API
+- Rename the `status_last_time_updated_timestamp` field to `last_updated` in the Get Port In Phone Number API **(breaking change)**
+- Add Rejection reason and rejection reason code to the Get Port In Phone Number API
+- Remove the carrier information from the Portability API
+
+**Proxy**
+- Change property `type` from enum to ienum
+
+**Trusthub**
+- Add skipMessagingUseCase field in compliance_tollfree_inquiry.
+
+
+[2024-06-06] Version 10.2.1
+---------------------------
+**Api**
+- Mark MaxPrice as obsolete
+
+**Lookups**
+- Update examples for `phone_number_quality_score`
+
+**Messaging**
+- List tollfree verifications on parent account and all sub-accounts
+
+
+[2024-05-24] Version 10.2.0
+---------------------------
+**Library - Docs**
+- [PR #792](https://github.com/twilio/twilio-java/pull/792): added json examples. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Chore**
+- [PR #796](https://github.com/twilio/twilio-java/pull/796): adding variant class. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #794](https://github.com/twilio/twilio-java/pull/794): Update pom.xml. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Add ie1 as supported region for UserDefinedMessage and UserDefinedMessageSubscription.
+
+**Flex**
+- Adding validated field to `plugin_versions`
+- Corrected the data type for `runtime_domain`, `call_recording_webhook_url`, `crm_callback_url`, `crm_fallback_url`, `flex_url` in Flex Configuration
+- Making `routing` optional in Create Interactions endpoint
+
+**Intelligence**
+- Expose operator authoring apis to public visibility
+- Deleted `language_code` parameter from updating service in v2 **(breaking change)**
+- Add read_only_attached_operator_sids to v2 services
+
+**Numbers**
+- Add API endpoint for GET Porting Webhook Configurations By Account SID
+- Remove bulk portability api under version `/v1`. **(breaking change)**
+- Removed porting_port_in_fetch.json files and move the content into porting_port_in.json files
+- Add API endpoint to deleting Webhook Configurations
+- Add Get Phone Number by Port in request SID and Phone Number SID api
+- Add Create Porting webhook configuration API
+- Added bundle_sid and losing_carrier_information fields to Create PortInRequest api to support Japan porting
+
+**Taskrouter**
+- Add back `routing_target` property to tasks
+- Add back `ignore_capacity` property to tasks
+- Removing `routing_target` property to tasks due to revert
+- Removing `ignore_capacity` property to tasks due to revert
+- Add `routing_target` property to tasks
+- Add `ignore_capacity` property to tasks
+
+**Trusthub**
+- Add new field errors to bundle as part of public API response in customer_profile.json and trust_product.json **(breaking change)**
+- Add themeSetId field in compliance_tollfree_inquiry.
+
+**Verify**
+- Update `friendly_name` description on service docs
+
+
+[2024-04-18] Version 10.1.5
+---------------------------
+**Library - Chore**
+- [PR #791](https://github.com/twilio/twilio-java/pull/791): add variant class to compliance tests. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #789](https://github.com/twilio/twilio-java/pull/789): bumping nexus staging maven plugin version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- Add header `ui_version` to `web_channels` API
+
+**Messaging**
+- Redeploy after failed pipeline
+
+**Numbers**
+- Add Delete Port In request phone number api and Add Delete Port In request api
+
+
+[2024-04-04] Version 10.1.4
+---------------------------
+**Api**
+- Correct conference filtering by date_created and date_updated documentation, clarifying that times are UTC.
+
+**Flex**
+- Remove optional parameter from `plugins` and it to `plugin_versions`
+
+**Lookups**
+- Add new `pre_fill` package to the lookup response
+
+**Messaging**
+- Cleanup api.messaging.next-gen from Messaging Services endpoints
+- Readd Sending-Window after fixing test failure
+
+**Verify**
+- Add `whatsapp.msg_service_sid` and `whatsapp.from` parameters to create, update, get and list of services endpoints
+
+**Voice**
+- Correct conference filtering by date_created and date_updated documentation, clarifying that times are UTC.
+
+**Twiml**
+- Add new `token_type` value `payment-method` for `Pay` verb
+
+
+[2024-04-01] Version 10.1.3
+---------------------------
+**Api**
+- Add property `queue_time` to conference participant resource
+- Update RiskCheck documentation
+- Correct call filtering by start and end time documentation, clarifying that times are UTC.
+
+**Flex**
+- Adding optional parameter to `plugins`
+
+**Media**
+- Remove API: MediaProcessor
+
+**Messaging**
+- Remove Sending-Window due to test failure
+- Add Sending-Window as a response property to Messaging Services, gated by a beta feature flag
+
+**Numbers**
+- Correct valid_until_date field to be visible in Bundles resource
+- Adding port_in_status field to the Port In resource and phone_number_status and sid fields to the Port In Phone Number resource
+
+**Oauth**
+- Modified token endpoint response
+- Added refresh_token and scope as optional parameter to token endpoint
+
+**Trusthub**
+- Add update inquiry endpoint in compliance_registration.
+- Add new field in themeSetId in compliance_registration.
+
+**Voice**
+- Correct call filtering by start and end time documentation, clarifying that times are UTC.
+
+**Twiml**
+- Add support for new Google voices (Q1 2024) for `Say` verb - gu-IN voices
+- Add support for new Amazon Polly and Google voices (Q1 2024) for `Say` verb - Niamh (en-IE) and Sofie (da-DK) voices
+
+
+[2024-03-14] Version 10.1.2
+---------------------------
+**Oauth**
+- Add new APIs for vendor authorize and token endpoints
+
+
+[2024-03-12] Version 10.1.1
+---------------------------
+**Api**
+- Correct precedence documentation for application_sid vs status_callback in message creation
+- Mark MaxPrice as deprecated
+
+**Flex**
+- Making `plugins` visibility to public
+
+**Messaging**
+- Add new `errors` attribute to the Brand Registration resource.
+- Mark `brand_feedback` attribute as deprecated.
+- Mark `failure_reason` attribute as deprecated.
+- The new `errors` attribute is expected to provide additional information about Brand registration failures and feedback (if any has been provided by The Campaign Registry). Consumers should use this attribute instead of `brand_feedback` and `failure_reason`.
+
+**Numbers**
+- Correcting mount_name for porting port in fetch API
+
+**Trusthub**
+- Add new field in statusCallbackUrl in compliance_registration.
+- Add new field in isvRegisteringForSelfOrTenant in compliance_registration.
+
+**Twiml**
+- Expanded description of Action parameter for Message verb
+
+
+[2024-02-27] Version 10.1.0
+---------------------------
+**Library - Chore**
+- [PR #781](https://github.com/twilio/twilio-java/pull/781): cluster tests enabled. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- remove feedback and feedback summary from call resource
+
+**Flex**
+- Adding `routing_properties` to Interactions Channels Participant
+
+**Lookups**
+- Add new `line_status` package to the lookup response
+- Remove `live_activity` package from the lookup response **(breaking change)**
+
+**Messaging**
+- Add tollfree multiple rejection reasons response array
+
+**Trusthub**
+- Add ENUM for businessRegistrationAuthority in compliance_registration. **(breaking change)**
+- Add new field in isIsvEmbed in compliance_registration.
+- Add additional optional fields in compliance_registration for Individual business type.
+
+**Twiml**
+- Add support for new Amazon Polly and Google voices (Q1 2024) for `Say` verb
+
+
+[2024-02-09] Version 10.0.0
+---------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2024-02-08-9xx-to-10xx) for detailed migration notes.
+
+**Library - Chore**
+- [PR #780](https://github.com/twilio/twilio-java/pull/780): changed java version. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Feature**
+- [PR #779](https://github.com/twilio/twilio-java/pull/779): MVR Release Preparation. Thanks to [@sbansla](https://github.com/sbansla)! **(breaking change)**
+
+**Api**
+- Updated service base url for connect apps and authorized connect apps APIs **(breaking change)**
+- Update documentation to reflect RiskCheck GA
+- Added optional parameter `CallToken` for create participant api
+
+**Events**
+- Marked as GA
+
+**Flex**
+- Adding `flex_instance_sid` to Flex Configuration
+- Adding `provisioning_status` for Email Manager
+- Adding `offline_config` to Flex Configuration
+
+**Insights**
+- add flag to restrict access to unapid customers
+- decommission voice-qualitystats-endpoint role
+
+**Intelligence**
+- Add text-generation operator (for example conversation summary) results to existing OperatorResults collection.
+
+**Lookups**
+- Remove `carrier` field from `sms_pumping_risk` and leave `carrier_risk_category` **(breaking change)**
+- Remove carrier information from call forwarding package **(breaking change)**
+
+**Messaging**
+- Add update instance endpoints to us_app_to_person api
+- Add tollfree edit_allowed and edit_reason fields
+- Update Phone Number, Short Code, Alpha Sender, US A2P and Channel Sender documentation
+- Add DELETE support to Tollfree Verification resource
+
+**Numbers**
+- Add Get Port In request api
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+**Serverless**
+- Add node18 as a valid Build runtime
+
+**Taskrouter**
+- Add `jitter_buffer_size` param in update reservation
+- Add container attribute to task_queue_bulk_real_time_statistics endpoint
+- Remove beta_feature check on task_queue_bulk_real_time_statistics endpoint
+
+**Trusthub**
+- Add optional field NotificationEmail to the POST /v1/ComplianceInquiries/Customers/Initialize API
+- Add additional optional fields in compliance_tollfree_inquiry.json
+- Rename did to tollfree_phone_number in compliance_tollfree_inquiry.json
+- Add new optional field notification_email to compliance_tollfree_inquiry.json
+
+**Verify**
+- `Tags` property added again to Public Docs **(breaking change)**
+- Remove `Tags` from Public Docs **(breaking change)**
+- Add `VerifyEventSubscriptionEnabled` parameter to service create and update endpoints.
+- Add `Tags` optional parameter on Verification creation.
+- Update Verify TOTP maturity to GA.
+
+
 [2024-01-25] Version 9.16.0
 ---------------------------
 **Oauth**

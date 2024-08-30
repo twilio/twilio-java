@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Task extends Resource {
 
-    private static final long serialVersionUID = 251819622477624L;
+    private static final long serialVersionUID = 142315153829007L;
 
     public static TaskCreator creator(final String pathWorkspaceSid) {
         return new TaskCreator(pathWorkspaceSid);
@@ -113,30 +113,6 @@ public class Task extends Resource {
         }
     }
 
-    public enum Status {
-        PENDING("pending"),
-        RESERVED("reserved"),
-        ASSIGNED("assigned"),
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        WRAPPING("wrapping");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final Integer age;
     private final Task.Status assignmentStatus;
@@ -159,6 +135,8 @@ public class Task extends Resource {
     private final URI url;
     private final Map<String, String> links;
     private final ZonedDateTime virtualStartTime;
+    private final Boolean ignoreCapacity;
+    private final String routingTarget;
 
     @JsonCreator
     private Task(
@@ -191,7 +169,9 @@ public class Task extends Resource {
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("virtual_start_time") final String virtualStartTime
+        @JsonProperty("virtual_start_time") final String virtualStartTime,
+        @JsonProperty("ignore_capacity") final Boolean ignoreCapacity,
+        @JsonProperty("routing_target") final String routingTarget
     ) {
         this.accountSid = accountSid;
         this.age = age;
@@ -217,6 +197,8 @@ public class Task extends Resource {
         this.links = links;
         this.virtualStartTime =
             DateConverter.iso8601DateTimeFromString(virtualStartTime);
+        this.ignoreCapacity = ignoreCapacity;
+        this.routingTarget = routingTarget;
     }
 
     public final String getAccountSid() {
@@ -307,6 +289,14 @@ public class Task extends Resource {
         return this.virtualStartTime;
     }
 
+    public final Boolean getIgnoreCapacity() {
+        return this.ignoreCapacity;
+    }
+
+    public final String getRoutingTarget() {
+        return this.routingTarget;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -347,7 +337,9 @@ public class Task extends Resource {
             Objects.equals(workspaceSid, other.workspaceSid) &&
             Objects.equals(url, other.url) &&
             Objects.equals(links, other.links) &&
-            Objects.equals(virtualStartTime, other.virtualStartTime)
+            Objects.equals(virtualStartTime, other.virtualStartTime) &&
+            Objects.equals(ignoreCapacity, other.ignoreCapacity) &&
+            Objects.equals(routingTarget, other.routingTarget)
         );
     }
 
@@ -375,7 +367,33 @@ public class Task extends Resource {
             workspaceSid,
             url,
             links,
-            virtualStartTime
+            virtualStartTime,
+            ignoreCapacity,
+            routingTarget
         );
+    }
+
+    public enum Status {
+        PENDING("pending"),
+        RESERVED("reserved"),
+        ASSIGNED("assigned"),
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        WRAPPING("wrapping");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class OperatorResult extends Resource {
 
-    private static final long serialVersionUID = 126254553573605L;
+    private static final long serialVersionUID = 197278046028453L;
 
     public static OperatorResultFetcher fetcher(
         final String pathTranscriptSid,
@@ -95,29 +95,6 @@ public class OperatorResult extends Resource {
         }
     }
 
-    public enum OperatorType {
-        CONVERSATION_CLASSIFY("conversation_classify"),
-        UTTERANCE_CLASSIFY("utterance_classify"),
-        EXTRACT("extract"),
-        EXTRACT_NORMALIZE("extract_normalize"),
-        PII_EXTRACT("pii_extract");
-
-        private final String value;
-
-        private OperatorType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OperatorType forValue(final String value) {
-            return Promoter.enumFromString(value, OperatorType.values());
-        }
-    }
-
     private final OperatorResult.OperatorType operatorType;
     private final String name;
     private final String operatorSid;
@@ -130,6 +107,7 @@ public class OperatorResult extends Resource {
     private final BigDecimal predictedProbability;
     private final Map<String, Object> labelProbabilities;
     private final Map<String, Object> extractResults;
+    private final Map<String, Object> textGenerationResults;
     private final String transcriptSid;
     private final URI url;
 
@@ -159,6 +137,10 @@ public class OperatorResult extends Resource {
             String,
             Object
         > extractResults,
+        @JsonProperty("text_generation_results") final Map<
+            String,
+            Object
+        > textGenerationResults,
         @JsonProperty("transcript_sid") final String transcriptSid,
         @JsonProperty("url") final URI url
     ) {
@@ -174,6 +156,7 @@ public class OperatorResult extends Resource {
         this.predictedProbability = predictedProbability;
         this.labelProbabilities = labelProbabilities;
         this.extractResults = extractResults;
+        this.textGenerationResults = textGenerationResults;
         this.transcriptSid = transcriptSid;
         this.url = url;
     }
@@ -226,6 +209,10 @@ public class OperatorResult extends Resource {
         return this.extractResults;
     }
 
+    public final Map<String, Object> getTextGenerationResults() {
+        return this.textGenerationResults;
+    }
+
     public final String getTranscriptSid() {
         return this.transcriptSid;
     }
@@ -259,6 +246,10 @@ public class OperatorResult extends Resource {
             Objects.equals(predictedProbability, other.predictedProbability) &&
             Objects.equals(labelProbabilities, other.labelProbabilities) &&
             Objects.equals(extractResults, other.extractResults) &&
+            Objects.equals(
+                textGenerationResults,
+                other.textGenerationResults
+            ) &&
             Objects.equals(transcriptSid, other.transcriptSid) &&
             Objects.equals(url, other.url)
         );
@@ -279,8 +270,32 @@ public class OperatorResult extends Resource {
             predictedProbability,
             labelProbabilities,
             extractResults,
+            textGenerationResults,
             transcriptSid,
             url
         );
+    }
+
+    public enum OperatorType {
+        CONVERSATION_CLASSIFY("conversation_classify"),
+        UTTERANCE_CLASSIFY("utterance_classify"),
+        EXTRACT("extract"),
+        EXTRACT_NORMALIZE("extract_normalize"),
+        PII_EXTRACT("pii_extract");
+
+        private final String value;
+
+        private OperatorType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OperatorType forValue(final String value) {
+            return Promoter.enumFromString(value, OperatorType.values());
+        }
     }
 }

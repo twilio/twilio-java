@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.conversation;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -61,6 +62,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
             Domains.CONVERSATIONS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 
@@ -74,7 +76,10 @@ public class ParticipantDeleter extends Deleter<Participant> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

@@ -20,13 +20,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.noauth.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,13 +33,13 @@ import lombok.ToString;
 @ToString
 public class Token extends Resource {
 
-    private static final long serialVersionUID = 233151022011558L;
+    private static final long serialVersionUID = 258139119277894L;
 
     public static TokenCreator creator(
         final String grantType,
-        final String clientSid
+        final String clientId
     ) {
-        return new TokenCreator(grantType, clientSid);
+        return new TokenCreator(grantType, clientId);
     }
 
     /**
@@ -90,28 +88,22 @@ public class Token extends Resource {
     private final String accessToken;
     private final String refreshToken;
     private final String idToken;
-    private final ZonedDateTime refreshTokenExpiresAt;
-    private final ZonedDateTime accessTokenExpiresAt;
+    private final String tokenType;
+    private final Long expiresIn;
 
     @JsonCreator
     private Token(
         @JsonProperty("access_token") final String accessToken,
         @JsonProperty("refresh_token") final String refreshToken,
         @JsonProperty("id_token") final String idToken,
-        @JsonProperty(
-            "refresh_token_expires_at"
-        ) final String refreshTokenExpiresAt,
-        @JsonProperty(
-            "access_token_expires_at"
-        ) final String accessTokenExpiresAt
+        @JsonProperty("token_type") final String tokenType,
+        @JsonProperty("expires_in") final Long expiresIn
     ) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.idToken = idToken;
-        this.refreshTokenExpiresAt =
-            DateConverter.iso8601DateTimeFromString(refreshTokenExpiresAt);
-        this.accessTokenExpiresAt =
-            DateConverter.iso8601DateTimeFromString(accessTokenExpiresAt);
+        this.tokenType = tokenType;
+        this.expiresIn = expiresIn;
     }
 
     public final String getAccessToken() {
@@ -126,12 +118,12 @@ public class Token extends Resource {
         return this.idToken;
     }
 
-    public final ZonedDateTime getRefreshTokenExpiresAt() {
-        return this.refreshTokenExpiresAt;
+    public final String getTokenType() {
+        return this.tokenType;
     }
 
-    public final ZonedDateTime getAccessTokenExpiresAt() {
-        return this.accessTokenExpiresAt;
+    public final Long getExpiresIn() {
+        return this.expiresIn;
     }
 
     @Override
@@ -150,11 +142,8 @@ public class Token extends Resource {
             Objects.equals(accessToken, other.accessToken) &&
             Objects.equals(refreshToken, other.refreshToken) &&
             Objects.equals(idToken, other.idToken) &&
-            Objects.equals(
-                refreshTokenExpiresAt,
-                other.refreshTokenExpiresAt
-            ) &&
-            Objects.equals(accessTokenExpiresAt, other.accessTokenExpiresAt)
+            Objects.equals(tokenType, other.tokenType) &&
+            Objects.equals(expiresIn, other.expiresIn)
         );
     }
 
@@ -164,8 +153,8 @@ public class Token extends Resource {
             accessToken,
             refreshToken,
             idToken,
-            refreshTokenExpiresAt,
-            accessTokenExpiresAt
+            tokenType,
+            expiresIn
         );
     }
 }

@@ -45,6 +45,9 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer totpCodeLength;
     private Integer totpSkew;
     private String defaultTemplateSid;
+    private String whatsappMsgServiceSid;
+    private String whatsappFrom;
+    private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -149,6 +152,25 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWhatsappMsgServiceSid(
+        final String whatsappMsgServiceSid
+    ) {
+        this.whatsappMsgServiceSid = whatsappMsgServiceSid;
+        return this;
+    }
+
+    public ServiceUpdater setWhatsappFrom(final String whatsappFrom) {
+        this.whatsappFrom = whatsappFrom;
+        return this;
+    }
+
+    public ServiceUpdater setVerifyEventSubscriptionEnabled(
+        final Boolean verifyEventSubscriptionEnabled
+    ) {
+        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
+        return this;
+    }
+
     @Override
     public Service update(final TwilioRestClient client) {
         String path = "/v2/Services/{Sid}";
@@ -173,7 +195,10 @@ public class ServiceUpdater extends Updater<Service> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -247,6 +272,21 @@ public class ServiceUpdater extends Updater<Service> {
         }
         if (defaultTemplateSid != null) {
             request.addPostParam("DefaultTemplateSid", defaultTemplateSid);
+        }
+        if (whatsappMsgServiceSid != null) {
+            request.addPostParam(
+                "Whatsapp.MsgServiceSid",
+                whatsappMsgServiceSid
+            );
+        }
+        if (whatsappFrom != null) {
+            request.addPostParam("Whatsapp.From", whatsappFrom);
+        }
+        if (verifyEventSubscriptionEnabled != null) {
+            request.addPostParam(
+                "VerifyEventSubscriptionEnabled",
+                verifyEventSubscriptionEnabled.toString()
+            );
         }
     }
 }

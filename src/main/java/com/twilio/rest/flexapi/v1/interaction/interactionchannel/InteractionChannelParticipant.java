@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class InteractionChannelParticipant extends Resource {
 
-    private static final long serialVersionUID = 108435204885654L;
+    private static final long serialVersionUID = 13330803139630L;
 
     public static InteractionChannelParticipantCreator creator(
         final String pathInteractionSid,
@@ -126,24 +126,89 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
 
-    public enum Status {
-        CLOSED("closed"),
-        WRAPUP("wrapup");
+    private final String sid;
+    private final InteractionChannelParticipant.Type type;
+    private final String interactionSid;
+    private final String channelSid;
+    private final URI url;
+    private final Map<String, Object> routingProperties;
 
-        private final String value;
+    @JsonCreator
+    private InteractionChannelParticipant(
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final InteractionChannelParticipant.Type type,
+        @JsonProperty("interaction_sid") final String interactionSid,
+        @JsonProperty("channel_sid") final String channelSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("routing_properties") final Map<
+            String,
+            Object
+        > routingProperties
+    ) {
+        this.sid = sid;
+        this.type = type;
+        this.interactionSid = interactionSid;
+        this.channelSid = channelSid;
+        this.url = url;
+        this.routingProperties = routingProperties;
+    }
 
-        private Status(final String value) {
-            this.value = value;
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final InteractionChannelParticipant.Type getType() {
+        return this.type;
+    }
+
+    public final String getInteractionSid() {
+        return this.interactionSid;
+    }
+
+    public final String getChannelSid() {
+        return this.channelSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, Object> getRoutingProperties() {
+        return this.routingProperties;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
         }
 
-        public String toString() {
-            return value;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
         }
 
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+        InteractionChannelParticipant other = (InteractionChannelParticipant) o;
+
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(interactionSid, other.interactionSid) &&
+            Objects.equals(channelSid, other.channelSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(routingProperties, other.routingProperties)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            sid,
+            type,
+            interactionSid,
+            channelSid,
+            url,
+            routingProperties
+        );
     }
 
     public enum Type {
@@ -169,70 +234,23 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
 
-    private final String sid;
-    private final InteractionChannelParticipant.Type type;
-    private final String interactionSid;
-    private final String channelSid;
-    private final URI url;
+    public enum Status {
+        CLOSED("closed"),
+        WRAPUP("wrapup");
 
-    @JsonCreator
-    private InteractionChannelParticipant(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("type") final InteractionChannelParticipant.Type type,
-        @JsonProperty("interaction_sid") final String interactionSid,
-        @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("url") final URI url
-    ) {
-        this.sid = sid;
-        this.type = type;
-        this.interactionSid = interactionSid;
-        this.channelSid = channelSid;
-        this.url = url;
-    }
+        private final String value;
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final InteractionChannelParticipant.Type getType() {
-        return this.type;
-    }
-
-    public final String getInteractionSid() {
-        return this.interactionSid;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
+        private Status(final String value) {
+            this.value = value;
         }
 
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+        public String toString() {
+            return value;
         }
 
-        InteractionChannelParticipant other = (InteractionChannelParticipant) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(interactionSid, other.interactionSid) &&
-            Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(url, other.url)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sid, type, interactionSid, channelSid, url);
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -132,32 +132,6 @@ public class AddOnResult extends Resource {
         }
     }
 
-    public enum Status {
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        FAILED("failed"),
-        IN_PROGRESS("in-progress"),
-        INIT("init"),
-        PROCESSING("processing"),
-        QUEUED("queued");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final AddOnResult.Status status;
@@ -283,5 +257,31 @@ public class AddOnResult extends Resource {
             referenceSid,
             subresourceUris
         );
+    }
+
+    public enum Status {
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        FAILED("failed"),
+        IN_PROGRESS("in-progress"),
+        INIT("init"),
+        PROCESSING("processing"),
+        QUEUED("queued");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

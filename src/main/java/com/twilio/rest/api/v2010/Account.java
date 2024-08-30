@@ -107,47 +107,6 @@ public class Account extends Resource {
         }
     }
 
-    public enum Status {
-        ACTIVE("active"),
-        SUSPENDED("suspended"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Type {
-        TRIAL("Trial"),
-        FULL("Full");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     private final String authToken;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -267,5 +226,46 @@ public class Account extends Resource {
             type,
             uri
         );
+    }
+
+    public enum Status {
+        ACTIVE("active"),
+        SUSPENDED("suspended"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Type {
+        TRIAL("Trial"),
+        FULL("Full");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
     }
 }

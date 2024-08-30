@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.user;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -70,6 +71,7 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
             Domains.CHAT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 
@@ -83,7 +85,10 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

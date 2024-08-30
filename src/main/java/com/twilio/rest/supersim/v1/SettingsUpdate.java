@@ -88,28 +88,6 @@ public class SettingsUpdate extends Resource {
         }
     }
 
-    public enum Status {
-        SCHEDULED("scheduled"),
-        IN_PROGRESS("in-progress"),
-        SUCCESSFUL("successful"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String iccid;
     private final String simSid;
@@ -209,5 +187,27 @@ public class SettingsUpdate extends Resource {
             dateCreated,
             dateUpdated
         );
+    }
+
+    public enum Status {
+        SCHEDULED("scheduled"),
+        IN_PROGRESS("in-progress"),
+        SUCCESSFUL("successful"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

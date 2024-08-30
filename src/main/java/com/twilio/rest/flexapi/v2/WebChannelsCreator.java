@@ -28,6 +28,7 @@ import com.twilio.rest.Domains;
 public class WebChannelsCreator extends Creator<WebChannels> {
 
     private String addressSid;
+    private String uiVersion;
     private String chatFriendlyName;
     private String customerFriendlyName;
     private String preEngagementData;
@@ -38,6 +39,11 @@ public class WebChannelsCreator extends Creator<WebChannels> {
 
     public WebChannelsCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
+        return this;
+    }
+
+    public WebChannelsCreator setUiVersion(final String uiVersion) {
+        this.uiVersion = uiVersion;
         return this;
     }
 
@@ -76,6 +82,7 @@ public class WebChannelsCreator extends Creator<WebChannels> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
@@ -87,7 +94,10 @@ public class WebChannelsCreator extends Creator<WebChannels> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -110,6 +120,12 @@ public class WebChannelsCreator extends Creator<WebChannels> {
         }
         if (preEngagementData != null) {
             request.addPostParam("PreEngagementData", preEngagementData);
+        }
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (uiVersion != null) {
+            request.addHeaderParam("Ui-Version", uiVersion);
         }
     }
 }

@@ -17,6 +17,7 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -30,6 +31,7 @@ public class SentenceReader extends Reader<Sentence> {
 
     private String pathTranscriptSid;
     private Boolean redacted;
+    private Boolean wordTimestamps;
     private Integer pageSize;
 
     public SentenceReader(final String pathTranscriptSid) {
@@ -38,6 +40,11 @@ public class SentenceReader extends Reader<Sentence> {
 
     public SentenceReader setRedacted(final Boolean redacted) {
         this.redacted = redacted;
+        return this;
+    }
+
+    public SentenceReader setWordTimestamps(final Boolean wordTimestamps) {
+        this.wordTimestamps = wordTimestamps;
         return this;
     }
 
@@ -66,6 +73,7 @@ public class SentenceReader extends Reader<Sentence> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
@@ -85,7 +93,10 @@ public class SentenceReader extends Reader<Sentence> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -135,6 +146,9 @@ public class SentenceReader extends Reader<Sentence> {
     private void addQueryParams(final Request request) {
         if (redacted != null) {
             request.addQueryParam("Redacted", redacted.toString());
+        }
+        if (wordTimestamps != null) {
+            request.addQueryParam("WordTimestamps", wordTimestamps.toString());
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

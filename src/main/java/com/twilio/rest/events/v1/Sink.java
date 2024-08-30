@@ -111,49 +111,6 @@ public class Sink extends Resource {
         }
     }
 
-    public enum SinkType {
-        KINESIS("kinesis"),
-        WEBHOOK("webhook"),
-        SEGMENT("segment");
-
-        private final String value;
-
-        private SinkType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SinkType forValue(final String value) {
-            return Promoter.enumFromString(value, SinkType.values());
-        }
-    }
-
-    public enum Status {
-        INITIALIZED("initialized"),
-        VALIDATING("validating"),
-        ACTIVE("active"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String description;
@@ -264,5 +221,48 @@ public class Sink extends Resource {
             url,
             links
         );
+    }
+
+    public enum SinkType {
+        KINESIS("kinesis"),
+        WEBHOOK("webhook"),
+        SEGMENT("segment");
+
+        private final String value;
+
+        private SinkType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SinkType forValue(final String value) {
+            return Promoter.enumFromString(value, SinkType.values());
+        }
+    }
+
+    public enum Status {
+        INITIALIZED("initialized"),
+        VALIDATING("validating"),
+        ACTIVE("active"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

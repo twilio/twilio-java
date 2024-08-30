@@ -102,27 +102,6 @@ public class Credential extends Resource {
         }
     }
 
-    public enum PushService {
-        GCM("gcm"),
-        APN("apn"),
-        FCM("fcm");
-
-        private final String value;
-
-        private PushService(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PushService forValue(final String value) {
-            return Promoter.enumFromString(value, PushService.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
@@ -221,5 +200,26 @@ public class Credential extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum PushService {
+        GCM("gcm"),
+        APN("apn"),
+        FCM("fcm");
+
+        private final String value;
+
+        private PushService(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PushService forValue(final String value) {
+            return Promoter.enumFromString(value, PushService.values());
+        }
     }
 }

@@ -105,27 +105,6 @@ public class Service extends Resource {
         }
     }
 
-    public enum ScanMessageContent {
-        INHERIT("inherit"),
-        ENABLE("enable"),
-        DISABLE("disable");
-
-        private final String value;
-
-        private ScanMessageContent(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ScanMessageContent forValue(final String value) {
-            return Promoter.enumFromString(value, ScanMessageContent.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
@@ -376,5 +355,26 @@ public class Service extends Resource {
             usAppToPersonRegistered,
             useInboundWebhookOnNumber
         );
+    }
+
+    public enum ScanMessageContent {
+        INHERIT("inherit"),
+        ENABLE("enable"),
+        DISABLE("disable");
+
+        private final String value;
+
+        private ScanMessageContent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ScanMessageContent forValue(final String value) {
+            return Promoter.enumFromString(value, ScanMessageContent.values());
+        }
     }
 }

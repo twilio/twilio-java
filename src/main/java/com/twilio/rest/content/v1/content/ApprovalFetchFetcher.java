@@ -15,6 +15,7 @@
 package com.twilio.rest.content.v1.content;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,23 +27,28 @@ import com.twilio.rest.Domains;
 
 public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
 
-    private String pathSid;
+    private String pathContentSid;
 
-    public ApprovalFetchFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public ApprovalFetchFetcher(final String pathContentSid) {
+        this.pathContentSid = pathContentSid;
     }
 
     @Override
     public ApprovalFetch fetch(final TwilioRestClient client) {
-        String path = "/v1/Content/{Sid}/ApprovalRequests";
+        String path = "/v1/Content/{ContentSid}/ApprovalRequests";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ContentSid" + "}",
+                this.pathContentSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONTENT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
@@ -55,7 +61,10 @@ public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

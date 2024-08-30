@@ -15,6 +15,7 @@
 package com.twilio.rest.events.v1.sink;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -43,6 +44,7 @@ public class SinkTestCreator extends Creator<SinkTest> {
             Domains.EVENTS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
@@ -54,7 +56,10 @@ public class SinkTestCreator extends Creator<SinkTest> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

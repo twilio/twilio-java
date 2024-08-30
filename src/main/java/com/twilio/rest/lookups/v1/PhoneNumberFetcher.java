@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.PrefixedCollapsibleMap;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -30,15 +31,13 @@ import java.util.Map;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private com.twilio.type.PhoneNumber pathPhoneNumber;
+    private String pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(
-        final com.twilio.type.PhoneNumber pathPhoneNumber
-    ) {
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
@@ -79,7 +78,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.encode("utf-8")
+                this.pathPhoneNumber.toString()
             );
 
         Request request = new Request(
@@ -88,6 +87,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
@@ -100,7 +100,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

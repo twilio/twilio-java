@@ -103,50 +103,6 @@ public class Sim extends Resource {
         }
     }
 
-    public enum Status {
-        NEW("new"),
-        READY("ready"),
-        ACTIVE("active"),
-        INACTIVE("inactive"),
-        SCHEDULED("scheduled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum StatusUpdate {
-        READY("ready"),
-        ACTIVE("active"),
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private StatusUpdate(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static StatusUpdate forValue(final String value) {
-            return Promoter.enumFromString(value, StatusUpdate.values());
-        }
-    }
-
     private final String sid;
     private final String uniqueName;
     private final String accountSid;
@@ -263,5 +219,49 @@ public class Sim extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        NEW("new"),
+        READY("ready"),
+        ACTIVE("active"),
+        INACTIVE("inactive"),
+        SCHEDULED("scheduled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum StatusUpdate {
+        READY("ready"),
+        ACTIVE("active"),
+        INACTIVE("inactive");
+
+        private final String value;
+
+        private StatusUpdate(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static StatusUpdate forValue(final String value) {
+            return Promoter.enumFromString(value, StatusUpdate.values());
+        }
     }
 }

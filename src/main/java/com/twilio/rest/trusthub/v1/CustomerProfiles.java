@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
@@ -39,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class CustomerProfiles extends Resource {
 
-    private static final long serialVersionUID = 110971930651423L;
+    private static final long serialVersionUID = 258820529618531L;
 
     public static CustomerProfilesCreator creator(
         final String friendlyName,
@@ -108,29 +109,6 @@ public class CustomerProfiles extends Resource {
         }
     }
 
-    public enum Status {
-        DRAFT("draft"),
-        PENDING_REVIEW("pending-review"),
-        IN_REVIEW("in-review"),
-        TWILIO_REJECTED("twilio-rejected"),
-        TWILIO_APPROVED("twilio-approved");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String policySid;
@@ -143,6 +121,7 @@ public class CustomerProfiles extends Resource {
     private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
+    private final List<Map<String, Object>> errors;
 
     @JsonCreator
     private CustomerProfiles(
@@ -157,7 +136,8 @@ public class CustomerProfiles extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("errors") final List<Map<String, Object>> errors
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -171,6 +151,7 @@ public class CustomerProfiles extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.links = links;
+        this.errors = errors;
     }
 
     public final String getSid() {
@@ -221,6 +202,10 @@ public class CustomerProfiles extends Resource {
         return this.links;
     }
 
+    public final List<Map<String, Object>> getErrors() {
+        return this.errors;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -245,7 +230,8 @@ public class CustomerProfiles extends Resource {
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(links, other.links) &&
+            Objects.equals(errors, other.errors)
         );
     }
 
@@ -263,7 +249,31 @@ public class CustomerProfiles extends Resource {
             dateCreated,
             dateUpdated,
             url,
-            links
+            links,
+            errors
         );
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PENDING_REVIEW("pending-review"),
+        IN_REVIEW("in-review"),
+        TWILIO_REJECTED("twilio-rejected"),
+        TWILIO_APPROVED("twilio-approved");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

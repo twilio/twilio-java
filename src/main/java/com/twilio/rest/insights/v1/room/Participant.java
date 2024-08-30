@@ -96,102 +96,6 @@ public class Participant extends Resource {
         }
     }
 
-    public enum Codec {
-        VP8("VP8"),
-        H264("H264"),
-        VP9("VP9");
-
-        private final String value;
-
-        private Codec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Codec forValue(final String value) {
-            return Promoter.enumFromString(value, Codec.values());
-        }
-    }
-
-    public enum EdgeLocation {
-        ASHBURN("ashburn"),
-        DUBLIN("dublin"),
-        FRANKFURT("frankfurt"),
-        SINGAPORE("singapore"),
-        SYDNEY("sydney"),
-        SAO_PAULO("sao_paulo"),
-        ROAMING("roaming"),
-        UMATILLA("umatilla"),
-        TOKYO("tokyo");
-
-        private final String value;
-
-        private EdgeLocation(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EdgeLocation forValue(final String value) {
-            return Promoter.enumFromString(value, EdgeLocation.values());
-        }
-    }
-
-    public enum RoomStatus {
-        IN_PROGRESS("in_progress"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private RoomStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomStatus forValue(final String value) {
-            return Promoter.enumFromString(value, RoomStatus.values());
-        }
-    }
-
-    public enum TwilioRealm {
-        US1("us1"),
-        US2("us2"),
-        AU1("au1"),
-        BR1("br1"),
-        IE1("ie1"),
-        JP1("jp1"),
-        SG1("sg1"),
-        IN1("in1"),
-        DE1("de1"),
-        GLL("gll");
-
-        private final String value;
-
-        private TwilioRealm(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TwilioRealm forValue(final String value) {
-            return Promoter.enumFromString(value, TwilioRealm.values());
-        }
-    }
-
     private final String participantSid;
     private final String participantIdentity;
     private final ZonedDateTime joinTime;
@@ -373,5 +277,101 @@ public class Participant extends Resource {
             publisherInfo,
             url
         );
+    }
+
+    public enum RoomStatus {
+        IN_PROGRESS("in_progress"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private RoomStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RoomStatus forValue(final String value) {
+            return Promoter.enumFromString(value, RoomStatus.values());
+        }
+    }
+
+    public enum TwilioRealm {
+        US1("us1"),
+        US2("us2"),
+        AU1("au1"),
+        BR1("br1"),
+        IE1("ie1"),
+        JP1("jp1"),
+        SG1("sg1"),
+        IN1("in1"),
+        DE1("de1"),
+        GLL("gll");
+
+        private final String value;
+
+        private TwilioRealm(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TwilioRealm forValue(final String value) {
+            return Promoter.enumFromString(value, TwilioRealm.values());
+        }
+    }
+
+    public enum Codec {
+        VP8("VP8"),
+        H264("H264"),
+        VP9("VP9");
+
+        private final String value;
+
+        private Codec(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Codec forValue(final String value) {
+            return Promoter.enumFromString(value, Codec.values());
+        }
+    }
+
+    public enum EdgeLocation {
+        ASHBURN("ashburn"),
+        DUBLIN("dublin"),
+        FRANKFURT("frankfurt"),
+        SINGAPORE("singapore"),
+        SYDNEY("sydney"),
+        SAO_PAULO("sao_paulo"),
+        ROAMING("roaming"),
+        UMATILLA("umatilla"),
+        TOKYO("tokyo");
+
+        private final String value;
+
+        private EdgeLocation(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EdgeLocation forValue(final String value) {
+            return Promoter.enumFromString(value, EdgeLocation.values());
+        }
     }
 }

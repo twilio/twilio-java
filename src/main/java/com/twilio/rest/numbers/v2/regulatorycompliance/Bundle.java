@@ -107,90 +107,6 @@ public class Bundle extends Resource {
         }
     }
 
-    public enum EndUserType {
-        INDIVIDUAL("individual"),
-        BUSINESS("business");
-
-        private final String value;
-
-        private EndUserType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EndUserType forValue(final String value) {
-            return Promoter.enumFromString(value, EndUserType.values());
-        }
-    }
-
-    public enum SortBy {
-        VALID_UNTIL("valid-until"),
-        DATE_UPDATED("date-updated");
-
-        private final String value;
-
-        private SortBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortBy forValue(final String value) {
-            return Promoter.enumFromString(value, SortBy.values());
-        }
-    }
-
-    public enum SortDirection {
-        ASC("ASC"),
-        DESC("DESC");
-
-        private final String value;
-
-        private SortDirection(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortDirection forValue(final String value) {
-            return Promoter.enumFromString(value, SortDirection.values());
-        }
-    }
-
-    public enum Status {
-        DRAFT("draft"),
-        PENDING_REVIEW("pending-review"),
-        IN_REVIEW("in-review"),
-        TWILIO_REJECTED("twilio-rejected"),
-        TWILIO_APPROVED("twilio-approved"),
-        PROVISIONALLY_APPROVED("provisionally-approved");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String regulationSid;
@@ -325,5 +241,89 @@ public class Bundle extends Resource {
             url,
             links
         );
+    }
+
+    public enum SortBy {
+        VALID_UNTIL("valid-until"),
+        DATE_UPDATED("date-updated");
+
+        private final String value;
+
+        private SortBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortBy forValue(final String value) {
+            return Promoter.enumFromString(value, SortBy.values());
+        }
+    }
+
+    public enum SortDirection {
+        ASC("ASC"),
+        DESC("DESC");
+
+        private final String value;
+
+        private SortDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortDirection forValue(final String value) {
+            return Promoter.enumFromString(value, SortDirection.values());
+        }
+    }
+
+    public enum EndUserType {
+        INDIVIDUAL("individual"),
+        BUSINESS("business");
+
+        private final String value;
+
+        private EndUserType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EndUserType forValue(final String value) {
+            return Promoter.enumFromString(value, EndUserType.values());
+        }
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PENDING_REVIEW("pending-review"),
+        IN_REVIEW("in-review"),
+        TWILIO_REJECTED("twilio-rejected"),
+        TWILIO_APPROVED("twilio-approved"),
+        PROVISIONALLY_APPROVED("provisionally-approved");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -87,49 +87,6 @@ public class Recording extends Resource {
         }
     }
 
-    public enum RecordingMode {
-        DO_NOT_RECORD("do-not-record"),
-        RECORD_FROM_RINGING("record-from-ringing"),
-        RECORD_FROM_ANSWER("record-from-answer"),
-        RECORD_FROM_RINGING_DUAL("record-from-ringing-dual"),
-        RECORD_FROM_ANSWER_DUAL("record-from-answer-dual");
-
-        private final String value;
-
-        private RecordingMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RecordingMode forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingMode.values());
-        }
-    }
-
-    public enum RecordingTrim {
-        TRIM_SILENCE("trim-silence"),
-        DO_NOT_TRIM("do-not-trim");
-
-        private final String value;
-
-        private RecordingTrim(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RecordingTrim forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingTrim.values());
-        }
-    }
-
     private final Recording.RecordingMode mode;
     private final Recording.RecordingTrim trim;
 
@@ -170,5 +127,48 @@ public class Recording extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(mode, trim);
+    }
+
+    public enum RecordingTrim {
+        TRIM_SILENCE("trim-silence"),
+        DO_NOT_TRIM("do-not-trim");
+
+        private final String value;
+
+        private RecordingTrim(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RecordingTrim forValue(final String value) {
+            return Promoter.enumFromString(value, RecordingTrim.values());
+        }
+    }
+
+    public enum RecordingMode {
+        DO_NOT_RECORD("do-not-record"),
+        RECORD_FROM_RINGING("record-from-ringing"),
+        RECORD_FROM_ANSWER("record-from-answer"),
+        RECORD_FROM_RINGING_DUAL("record-from-ringing-dual"),
+        RECORD_FROM_ANSWER_DUAL("record-from-answer-dual");
+
+        private final String value;
+
+        private RecordingMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RecordingMode forValue(final String value) {
+            return Promoter.enumFromString(value, RecordingMode.values());
+        }
     }
 }

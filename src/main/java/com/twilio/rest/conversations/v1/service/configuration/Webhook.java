@@ -89,26 +89,6 @@ public class Webhook extends Resource {
         }
     }
 
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
-        }
-    }
-
     private final String accountSid;
     private final String chatServiceSid;
     private final URI preWebhookUrl;
@@ -198,5 +178,25 @@ public class Webhook extends Resource {
             method,
             url
         );
+    }
+
+    public enum Method {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
     }
 }

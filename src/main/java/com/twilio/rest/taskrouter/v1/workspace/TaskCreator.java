@@ -35,6 +35,9 @@ public class TaskCreator extends Creator<Task> {
     private String workflowSid;
     private String attributes;
     private ZonedDateTime virtualStartTime;
+    private String routingTarget;
+    private String ignoreCapacity;
+    private String taskQueueSid;
 
     public TaskCreator(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -72,6 +75,21 @@ public class TaskCreator extends Creator<Task> {
         return this;
     }
 
+    public TaskCreator setRoutingTarget(final String routingTarget) {
+        this.routingTarget = routingTarget;
+        return this;
+    }
+
+    public TaskCreator setIgnoreCapacity(final String ignoreCapacity) {
+        this.ignoreCapacity = ignoreCapacity;
+        return this;
+    }
+
+    public TaskCreator setTaskQueueSid(final String taskQueueSid) {
+        this.taskQueueSid = taskQueueSid;
+        return this;
+    }
+
     @Override
     public Task create(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
@@ -100,7 +118,10 @@ public class TaskCreator extends Creator<Task> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -129,6 +150,15 @@ public class TaskCreator extends Creator<Task> {
                 "VirtualStartTime",
                 virtualStartTime.toInstant().toString()
             );
+        }
+        if (routingTarget != null) {
+            request.addPostParam("RoutingTarget", routingTarget);
+        }
+        if (ignoreCapacity != null) {
+            request.addPostParam("IgnoreCapacity", ignoreCapacity);
+        }
+        if (taskQueueSid != null) {
+            request.addPostParam("TaskQueueSid", taskQueueSid);
         }
     }
 }

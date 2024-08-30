@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 193814234797897L;
+    private static final long serialVersionUID = 129217577072488L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -87,30 +87,6 @@ public class PhoneNumber extends Resource {
         }
     }
 
-    public enum ValidationError {
-        TOO_SHORT("TOO_SHORT"),
-        TOO_LONG("TOO_LONG"),
-        INVALID_BUT_POSSIBLE("INVALID_BUT_POSSIBLE"),
-        INVALID_COUNTRY_CODE("INVALID_COUNTRY_CODE"),
-        INVALID_LENGTH("INVALID_LENGTH"),
-        NOT_A_NUMBER("NOT_A_NUMBER");
-
-        private final String value;
-
-        private ValidationError(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ValidationError forValue(final String value) {
-            return Promoter.enumFromString(value, ValidationError.values());
-        }
-    }
-
     private final String callingCountryCode;
     private final String countryCode;
     private final com.twilio.type.PhoneNumber phoneNumber;
@@ -120,12 +96,13 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> callerName;
     private final Map<String, Object> simSwap;
     private final Map<String, Object> callForwarding;
-    private final Map<String, Object> liveActivity;
+    private final Map<String, Object> lineStatus;
     private final Map<String, Object> lineTypeIntelligence;
     private final Map<String, Object> identityMatch;
     private final Map<String, Object> reassignedNumber;
     private final Map<String, Object> smsPumpingRisk;
     private final Map<String, Object> phoneNumberQualityScore;
+    private final Map<String, Object> preFill;
     private final URI url;
 
     @JsonCreator
@@ -146,7 +123,7 @@ public class PhoneNumber extends Resource {
             String,
             Object
         > callForwarding,
-        @JsonProperty("live_activity") final Map<String, Object> liveActivity,
+        @JsonProperty("line_status") final Map<String, Object> lineStatus,
         @JsonProperty("line_type_intelligence") final Map<
             String,
             Object
@@ -164,6 +141,7 @@ public class PhoneNumber extends Resource {
             String,
             Object
         > phoneNumberQualityScore,
+        @JsonProperty("pre_fill") final Map<String, Object> preFill,
         @JsonProperty("url") final URI url
     ) {
         this.callingCountryCode = callingCountryCode;
@@ -175,12 +153,13 @@ public class PhoneNumber extends Resource {
         this.callerName = callerName;
         this.simSwap = simSwap;
         this.callForwarding = callForwarding;
-        this.liveActivity = liveActivity;
+        this.lineStatus = lineStatus;
         this.lineTypeIntelligence = lineTypeIntelligence;
         this.identityMatch = identityMatch;
         this.reassignedNumber = reassignedNumber;
         this.smsPumpingRisk = smsPumpingRisk;
         this.phoneNumberQualityScore = phoneNumberQualityScore;
+        this.preFill = preFill;
         this.url = url;
     }
 
@@ -220,8 +199,8 @@ public class PhoneNumber extends Resource {
         return this.callForwarding;
     }
 
-    public final Map<String, Object> getLiveActivity() {
-        return this.liveActivity;
+    public final Map<String, Object> getLineStatus() {
+        return this.lineStatus;
     }
 
     public final Map<String, Object> getLineTypeIntelligence() {
@@ -242,6 +221,10 @@ public class PhoneNumber extends Resource {
 
     public final Map<String, Object> getPhoneNumberQualityScore() {
         return this.phoneNumberQualityScore;
+    }
+
+    public final Map<String, Object> getPreFill() {
+        return this.preFill;
     }
 
     public final URI getUrl() {
@@ -270,7 +253,7 @@ public class PhoneNumber extends Resource {
             Objects.equals(callerName, other.callerName) &&
             Objects.equals(simSwap, other.simSwap) &&
             Objects.equals(callForwarding, other.callForwarding) &&
-            Objects.equals(liveActivity, other.liveActivity) &&
+            Objects.equals(lineStatus, other.lineStatus) &&
             Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&
             Objects.equals(identityMatch, other.identityMatch) &&
             Objects.equals(reassignedNumber, other.reassignedNumber) &&
@@ -279,6 +262,7 @@ public class PhoneNumber extends Resource {
                 phoneNumberQualityScore,
                 other.phoneNumberQualityScore
             ) &&
+            Objects.equals(preFill, other.preFill) &&
             Objects.equals(url, other.url)
         );
     }
@@ -295,13 +279,38 @@ public class PhoneNumber extends Resource {
             callerName,
             simSwap,
             callForwarding,
-            liveActivity,
+            lineStatus,
             lineTypeIntelligence,
             identityMatch,
             reassignedNumber,
             smsPumpingRisk,
             phoneNumberQualityScore,
+            preFill,
             url
         );
+    }
+
+    public enum ValidationError {
+        TOO_SHORT("TOO_SHORT"),
+        TOO_LONG("TOO_LONG"),
+        INVALID_BUT_POSSIBLE("INVALID_BUT_POSSIBLE"),
+        INVALID_COUNTRY_CODE("INVALID_COUNTRY_CODE"),
+        INVALID_LENGTH("INVALID_LENGTH"),
+        NOT_A_NUMBER("NOT_A_NUMBER");
+
+        private final String value;
+
+        private ValidationError(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ValidationError forValue(final String value) {
+            return Promoter.enumFromString(value, ValidationError.values());
+        }
     }
 }

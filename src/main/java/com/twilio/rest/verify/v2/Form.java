@@ -86,25 +86,6 @@ public class Form extends Resource {
         }
     }
 
-    public enum FormTypes {
-        FORM_PUSH("form-push");
-
-        private final String value;
-
-        private FormTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FormTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FormTypes.values());
-        }
-    }
-
     private final Form.FormTypes formType;
     private final Map<String, Object> forms;
     private final Map<String, Object> formMeta;
@@ -162,5 +143,24 @@ public class Form extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(formType, forms, formMeta, url);
+    }
+
+    public enum FormTypes {
+        FORM_PUSH("form-push");
+
+        private final String value;
+
+        private FormTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FormTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FormTypes.values());
+        }
     }
 }

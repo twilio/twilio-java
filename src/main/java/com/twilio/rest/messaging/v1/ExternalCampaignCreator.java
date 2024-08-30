@@ -29,6 +29,7 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
 
     private String campaignId;
     private String messagingServiceSid;
+    private Boolean cnpMigration;
 
     public ExternalCampaignCreator(
         final String campaignId,
@@ -47,6 +48,11 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
         final String messagingServiceSid
     ) {
         this.messagingServiceSid = messagingServiceSid;
+        return this;
+    }
+
+    public ExternalCampaignCreator setCnpMigration(final Boolean cnpMigration) {
+        this.cnpMigration = cnpMigration;
         return this;
     }
 
@@ -80,7 +86,10 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -97,6 +106,9 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
         }
         if (messagingServiceSid != null) {
             request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
+        if (cnpMigration != null) {
+            request.addPostParam("CnpMigration", cnpMigration.toString());
         }
     }
 }

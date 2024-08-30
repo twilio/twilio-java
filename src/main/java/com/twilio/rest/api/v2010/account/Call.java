@@ -179,52 +179,6 @@ public class Call extends Resource {
         }
     }
 
-    public enum Status {
-        QUEUED("queued"),
-        RINGING("ringing"),
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        BUSY("busy"),
-        FAILED("failed"),
-        NO_ANSWER("no-answer"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum UpdateStatus {
-        CANCELED("canceled"),
-        COMPLETED("completed");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
-        }
-    }
-
     private final String sid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -490,5 +444,51 @@ public class Call extends Resource {
             uri,
             subresourceUris
         );
+    }
+
+    public enum UpdateStatus {
+        CANCELED("canceled"),
+        COMPLETED("completed");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
+        }
+    }
+
+    public enum Status {
+        QUEUED("queued"),
+        RINGING("ringing"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        BUSY("busy"),
+        FAILED("failed"),
+        NO_ANSWER("no-answer"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

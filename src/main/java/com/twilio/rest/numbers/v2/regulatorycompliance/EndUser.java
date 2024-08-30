@@ -107,26 +107,6 @@ public class EndUser extends Resource {
         }
     }
 
-    public enum Type {
-        INDIVIDUAL("individual"),
-        BUSINESS("business");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
@@ -225,5 +205,25 @@ public class EndUser extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum Type {
+        INDIVIDUAL("individual"),
+        BUSINESS("business");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
     }
 }

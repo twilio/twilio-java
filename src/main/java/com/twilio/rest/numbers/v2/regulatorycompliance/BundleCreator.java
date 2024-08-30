@@ -37,6 +37,7 @@ public class BundleCreator extends Creator<Bundle> {
     private String isoCountry;
     private Bundle.EndUserType endUserType;
     private String numberType;
+    private Boolean isTest;
 
     public BundleCreator(final String friendlyName, final String email) {
         this.friendlyName = friendlyName;
@@ -82,6 +83,11 @@ public class BundleCreator extends Creator<Bundle> {
         return this;
     }
 
+    public BundleCreator setIsTest(final Boolean isTest) {
+        this.isTest = isTest;
+        return this;
+    }
+
     @Override
     public Bundle create(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles";
@@ -111,7 +117,10 @@ public class BundleCreator extends Creator<Bundle> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -140,6 +149,9 @@ public class BundleCreator extends Creator<Bundle> {
         }
         if (numberType != null) {
             request.addPostParam("NumberType", numberType);
+        }
+        if (isTest != null) {
+            request.addPostParam("IsTest", isTest.toString());
         }
     }
 }

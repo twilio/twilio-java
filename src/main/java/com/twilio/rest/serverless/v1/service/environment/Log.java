@@ -97,27 +97,6 @@ public class Log extends Resource {
         }
     }
 
-    public enum Level {
-        INFO("info"),
-        WARN("warn"),
-        ERROR("error");
-
-        private final String value;
-
-        private Level(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Level forValue(final String value) {
-            return Promoter.enumFromString(value, Level.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -252,5 +231,26 @@ public class Log extends Resource {
             dateCreated,
             url
         );
+    }
+
+    public enum Level {
+        INFO("info"),
+        WARN("warn"),
+        ERROR("error");
+
+        private final String value;
+
+        private Level(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Level forValue(final String value) {
+            return Promoter.enumFromString(value, Level.values());
+        }
     }
 }

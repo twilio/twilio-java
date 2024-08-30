@@ -108,69 +108,6 @@ public class Verification extends Resource {
         }
     }
 
-    public enum Channel {
-        SMS("sms"),
-        CALL("call"),
-        EMAIL("email"),
-        WHATSAPP("whatsapp"),
-        SNA("sna");
-
-        private final String value;
-
-        private Channel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Channel forValue(final String value) {
-            return Promoter.enumFromString(value, Channel.values());
-        }
-    }
-
-    public enum RiskCheck {
-        ENABLE("enable"),
-        DISABLE("disable");
-
-        private final String value;
-
-        private RiskCheck(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RiskCheck forValue(final String value) {
-            return Promoter.enumFromString(value, RiskCheck.values());
-        }
-    }
-
-    public enum Status {
-        CANCELED("canceled"),
-        APPROVED("approved");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
@@ -334,5 +271,68 @@ public class Verification extends Resource {
             sna,
             url
         );
+    }
+
+    public enum RiskCheck {
+        ENABLE("enable"),
+        DISABLE("disable");
+
+        private final String value;
+
+        private RiskCheck(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RiskCheck forValue(final String value) {
+            return Promoter.enumFromString(value, RiskCheck.values());
+        }
+    }
+
+    public enum Status {
+        CANCELED("canceled"),
+        APPROVED("approved");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Channel {
+        SMS("sms"),
+        CALL("call"),
+        EMAIL("email"),
+        WHATSAPP("whatsapp"),
+        SNA("sna");
+
+        private final String value;
+
+        private Channel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Channel forValue(final String value) {
+            return Promoter.enumFromString(value, Channel.values());
+        }
     }
 }

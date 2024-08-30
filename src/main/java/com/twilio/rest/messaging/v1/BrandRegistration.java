@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class BrandRegistration extends Resource {
 
-    private static final long serialVersionUID = 243231933683239L;
+    private static final long serialVersionUID = 138336370956862L;
 
     public static BrandRegistrationCreator creator(
         final String customerProfileBundleSid,
@@ -107,74 +107,6 @@ public class BrandRegistration extends Resource {
         }
     }
 
-    public enum BrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandFeedback.values());
-        }
-    }
-
-    public enum IdentityStatus {
-        SELF_DECLARED("SELF_DECLARED"),
-        UNVERIFIED("UNVERIFIED"),
-        VERIFIED("VERIFIED"),
-        VETTED_VERIFIED("VETTED_VERIFIED");
-
-        private final String value;
-
-        private IdentityStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static IdentityStatus forValue(final String value) {
-            return Promoter.enumFromString(value, IdentityStatus.values());
-        }
-    }
-
-    public enum Status {
-        PENDING("PENDING"),
-        APPROVED("APPROVED"),
-        FAILED("FAILED"),
-        IN_REVIEW("IN_REVIEW"),
-        DELETED("DELETED");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String customerProfileBundleSid;
@@ -185,6 +117,7 @@ public class BrandRegistration extends Resource {
     private final BrandRegistration.Status status;
     private final String tcrId;
     private final String failureReason;
+    private final List<Map<String, Object>> errors;
     private final URI url;
     private final Integer brandScore;
     private final List<BrandRegistration.BrandFeedback> brandFeedback;
@@ -212,6 +145,7 @@ public class BrandRegistration extends Resource {
         @JsonProperty("status") final BrandRegistration.Status status,
         @JsonProperty("tcr_id") final String tcrId,
         @JsonProperty("failure_reason") final String failureReason,
+        @JsonProperty("errors") final List<Map<String, Object>> errors,
         @JsonProperty("url") final URI url,
         @JsonProperty("brand_score") final Integer brandScore,
         @JsonProperty("brand_feedback") final List<
@@ -239,6 +173,7 @@ public class BrandRegistration extends Resource {
         this.status = status;
         this.tcrId = tcrId;
         this.failureReason = failureReason;
+        this.errors = errors;
         this.url = url;
         this.brandScore = brandScore;
         this.brandFeedback = brandFeedback;
@@ -289,6 +224,10 @@ public class BrandRegistration extends Resource {
 
     public final String getFailureReason() {
         return this.failureReason;
+    }
+
+    public final List<Map<String, Object>> getErrors() {
+        return this.errors;
     }
 
     public final URI getUrl() {
@@ -357,6 +296,7 @@ public class BrandRegistration extends Resource {
             Objects.equals(status, other.status) &&
             Objects.equals(tcrId, other.tcrId) &&
             Objects.equals(failureReason, other.failureReason) &&
+            Objects.equals(errors, other.errors) &&
             Objects.equals(url, other.url) &&
             Objects.equals(brandScore, other.brandScore) &&
             Objects.equals(brandFeedback, other.brandFeedback) &&
@@ -383,6 +323,7 @@ public class BrandRegistration extends Resource {
             status,
             tcrId,
             failureReason,
+            errors,
             url,
             brandScore,
             brandFeedback,
@@ -394,5 +335,73 @@ public class BrandRegistration extends Resource {
             mock,
             links
         );
+    }
+
+    public enum Status {
+        PENDING("PENDING"),
+        APPROVED("APPROVED"),
+        FAILED("FAILED"),
+        IN_REVIEW("IN_REVIEW"),
+        DELETED("DELETED");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum BrandFeedback {
+        TAX_ID("TAX_ID"),
+        STOCK_SYMBOL("STOCK_SYMBOL"),
+        NONPROFIT("NONPROFIT"),
+        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
+        OTHERS("OTHERS");
+
+        private final String value;
+
+        private BrandFeedback(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BrandFeedback forValue(final String value) {
+            return Promoter.enumFromString(value, BrandFeedback.values());
+        }
+    }
+
+    public enum IdentityStatus {
+        SELF_DECLARED("SELF_DECLARED"),
+        UNVERIFIED("UNVERIFIED"),
+        VERIFIED("VERIFIED"),
+        VETTED_VERIFIED("VETTED_VERIFIED");
+
+        private final String value;
+
+        private IdentityStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static IdentityStatus forValue(final String value) {
+            return Promoter.enumFromString(value, IdentityStatus.values());
+        }
     }
 }

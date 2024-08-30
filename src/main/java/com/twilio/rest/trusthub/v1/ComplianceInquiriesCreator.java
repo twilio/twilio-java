@@ -28,6 +28,8 @@ import com.twilio.rest.Domains;
 public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
 
     private String primaryProfileSid;
+    private String notificationEmail;
+    private String themeSetId;
 
     public ComplianceInquiriesCreator(final String primaryProfileSid) {
         this.primaryProfileSid = primaryProfileSid;
@@ -37,6 +39,18 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
         final String primaryProfileSid
     ) {
         this.primaryProfileSid = primaryProfileSid;
+        return this;
+    }
+
+    public ComplianceInquiriesCreator setNotificationEmail(
+        final String notificationEmail
+    ) {
+        this.notificationEmail = notificationEmail;
+        return this;
+    }
+
+    public ComplianceInquiriesCreator setThemeSetId(final String themeSetId) {
+        this.themeSetId = themeSetId;
         return this;
     }
 
@@ -68,7 +82,10 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,6 +99,12 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
     private void addPostParams(final Request request) {
         if (primaryProfileSid != null) {
             request.addPostParam("PrimaryProfileSid", primaryProfileSid);
+        }
+        if (notificationEmail != null) {
+            request.addPostParam("NotificationEmail", notificationEmail);
+        }
+        if (themeSetId != null) {
+            request.addPostParam("ThemeSetId", themeSetId);
         }
     }
 }

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
@@ -40,10 +41,14 @@ import lombok.ToString;
 @ToString
 public class Configuration extends Resource {
 
-    private static final long serialVersionUID = 213218879201409L;
+    private static final long serialVersionUID = 254841674782325L;
 
     public static ConfigurationFetcher fetcher() {
         return new ConfigurationFetcher();
+    }
+
+    public static ConfigurationUpdater updater() {
+        return new ConfigurationUpdater();
     }
 
     /**
@@ -89,24 +94,15 @@ public class Configuration extends Resource {
         }
     }
 
-    public enum Status {
-        OK("ok"),
-        INPROGRESS("inprogress"),
-        NOTSTARTED("notstarted");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
 
@@ -123,21 +119,22 @@ public class Configuration extends Resource {
     private final Map<String, Object> taskrouterWorkerChannels;
     private final Map<String, Object> taskrouterWorkerAttributes;
     private final String taskrouterOfflineActivitySid;
-    private final URI runtimeDomain;
+    private final String runtimeDomain;
     private final String messagingServiceInstanceSid;
     private final String chatServiceInstanceSid;
     private final String flexServiceInstanceSid;
+    private final String flexInstanceSid;
     private final String uiLanguage;
     private final Map<String, Object> uiAttributes;
     private final Map<String, Object> uiDependencies;
     private final String uiVersion;
     private final String serviceVersion;
     private final Boolean callRecordingEnabled;
-    private final URI callRecordingWebhookUrl;
+    private final String callRecordingWebhookUrl;
     private final Boolean crmEnabled;
     private final String crmType;
-    private final URI crmCallbackUrl;
-    private final URI crmFallbackUrl;
+    private final String crmCallbackUrl;
+    private final String crmFallbackUrl;
     private final Map<String, Object> crmAttributes;
     private final Map<String, Object> publicAttributes;
     private final Boolean pluginServiceEnabled;
@@ -151,12 +148,13 @@ public class Configuration extends Resource {
     private final URI url;
     private final Map<String, Object> flexInsightsHr;
     private final Boolean flexInsightsDrilldown;
-    private final URI flexUrl;
+    private final String flexUrl;
     private final List<Map<String, Object>> channelConfigs;
     private final Map<String, Object> debuggerIntegration;
     private final Map<String, Object> flexUiStatusReport;
     private final Map<String, Object> agentConvEndMethods;
     private final Map<String, Object> citrixVoiceVdi;
+    private final Map<String, Object> offlineConfig;
 
     @JsonCreator
     private Configuration(
@@ -191,7 +189,7 @@ public class Configuration extends Resource {
         @JsonProperty(
             "taskrouter_offline_activity_sid"
         ) final String taskrouterOfflineActivitySid,
-        @JsonProperty("runtime_domain") final URI runtimeDomain,
+        @JsonProperty("runtime_domain") final String runtimeDomain,
         @JsonProperty(
             "messaging_service_instance_sid"
         ) final String messagingServiceInstanceSid,
@@ -201,6 +199,7 @@ public class Configuration extends Resource {
         @JsonProperty(
             "flex_service_instance_sid"
         ) final String flexServiceInstanceSid,
+        @JsonProperty("flex_instance_sid") final String flexInstanceSid,
         @JsonProperty("ui_language") final String uiLanguage,
         @JsonProperty("ui_attributes") final Map<String, Object> uiAttributes,
         @JsonProperty("ui_dependencies") final Map<
@@ -214,11 +213,11 @@ public class Configuration extends Resource {
         ) final Boolean callRecordingEnabled,
         @JsonProperty(
             "call_recording_webhook_url"
-        ) final URI callRecordingWebhookUrl,
+        ) final String callRecordingWebhookUrl,
         @JsonProperty("crm_enabled") final Boolean crmEnabled,
         @JsonProperty("crm_type") final String crmType,
-        @JsonProperty("crm_callback_url") final URI crmCallbackUrl,
-        @JsonProperty("crm_fallback_url") final URI crmFallbackUrl,
+        @JsonProperty("crm_callback_url") final String crmCallbackUrl,
+        @JsonProperty("crm_fallback_url") final String crmFallbackUrl,
         @JsonProperty("crm_attributes") final Map<String, Object> crmAttributes,
         @JsonProperty("public_attributes") final Map<
             String,
@@ -255,7 +254,7 @@ public class Configuration extends Resource {
         @JsonProperty(
             "flex_insights_drilldown"
         ) final Boolean flexInsightsDrilldown,
-        @JsonProperty("flex_url") final URI flexUrl,
+        @JsonProperty("flex_url") final String flexUrl,
         @JsonProperty("channel_configs") final List<
             Map<String, Object>
         > channelConfigs,
@@ -274,7 +273,8 @@ public class Configuration extends Resource {
         @JsonProperty("citrix_voice_vdi") final Map<
             String,
             Object
-        > citrixVoiceVdi
+        > citrixVoiceVdi,
+        @JsonProperty("offline_config") final Map<String, Object> offlineConfig
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -293,6 +293,7 @@ public class Configuration extends Resource {
         this.messagingServiceInstanceSid = messagingServiceInstanceSid;
         this.chatServiceInstanceSid = chatServiceInstanceSid;
         this.flexServiceInstanceSid = flexServiceInstanceSid;
+        this.flexInstanceSid = flexInstanceSid;
         this.uiLanguage = uiLanguage;
         this.uiAttributes = uiAttributes;
         this.uiDependencies = uiDependencies;
@@ -323,6 +324,7 @@ public class Configuration extends Resource {
         this.flexUiStatusReport = flexUiStatusReport;
         this.agentConvEndMethods = agentConvEndMethods;
         this.citrixVoiceVdi = citrixVoiceVdi;
+        this.offlineConfig = offlineConfig;
     }
 
     public final String getAccountSid() {
@@ -377,7 +379,7 @@ public class Configuration extends Resource {
         return this.taskrouterOfflineActivitySid;
     }
 
-    public final URI getRuntimeDomain() {
+    public final String getRuntimeDomain() {
         return this.runtimeDomain;
     }
 
@@ -391,6 +393,10 @@ public class Configuration extends Resource {
 
     public final String getFlexServiceInstanceSid() {
         return this.flexServiceInstanceSid;
+    }
+
+    public final String getFlexInstanceSid() {
+        return this.flexInstanceSid;
     }
 
     public final String getUiLanguage() {
@@ -417,7 +423,7 @@ public class Configuration extends Resource {
         return this.callRecordingEnabled;
     }
 
-    public final URI getCallRecordingWebhookUrl() {
+    public final String getCallRecordingWebhookUrl() {
         return this.callRecordingWebhookUrl;
     }
 
@@ -429,11 +435,11 @@ public class Configuration extends Resource {
         return this.crmType;
     }
 
-    public final URI getCrmCallbackUrl() {
+    public final String getCrmCallbackUrl() {
         return this.crmCallbackUrl;
     }
 
-    public final URI getCrmFallbackUrl() {
+    public final String getCrmFallbackUrl() {
         return this.crmFallbackUrl;
     }
 
@@ -489,7 +495,7 @@ public class Configuration extends Resource {
         return this.flexInsightsDrilldown;
     }
 
-    public final URI getFlexUrl() {
+    public final String getFlexUrl() {
         return this.flexUrl;
     }
 
@@ -511,6 +517,10 @@ public class Configuration extends Resource {
 
     public final Map<String, Object> getCitrixVoiceVdi() {
         return this.citrixVoiceVdi;
+    }
+
+    public final Map<String, Object> getOfflineConfig() {
+        return this.offlineConfig;
     }
 
     @Override
@@ -570,6 +580,7 @@ public class Configuration extends Resource {
                 flexServiceInstanceSid,
                 other.flexServiceInstanceSid
             ) &&
+            Objects.equals(flexInstanceSid, other.flexInstanceSid) &&
             Objects.equals(uiLanguage, other.uiLanguage) &&
             Objects.equals(uiAttributes, other.uiAttributes) &&
             Objects.equals(uiDependencies, other.uiDependencies) &&
@@ -614,7 +625,8 @@ public class Configuration extends Resource {
             Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
             Objects.equals(flexUiStatusReport, other.flexUiStatusReport) &&
             Objects.equals(agentConvEndMethods, other.agentConvEndMethods) &&
-            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi)
+            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi) &&
+            Objects.equals(offlineConfig, other.offlineConfig)
         );
     }
 
@@ -638,6 +650,7 @@ public class Configuration extends Resource {
             messagingServiceInstanceSid,
             chatServiceInstanceSid,
             flexServiceInstanceSid,
+            flexInstanceSid,
             uiLanguage,
             uiAttributes,
             uiDependencies,
@@ -667,7 +680,29 @@ public class Configuration extends Resource {
             debuggerIntegration,
             flexUiStatusReport,
             agentConvEndMethods,
-            citrixVoiceVdi
+            citrixVoiceVdi,
+            offlineConfig
         );
+    }
+
+    public enum Status {
+        OK("ok"),
+        INPROGRESS("inprogress"),
+        NOTSTARTED("notstarted");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -35,12 +35,8 @@ public class InteractionCreator extends Creator<Interaction> {
     private Map<String, Object> routing;
     private String interactionContextSid;
 
-    public InteractionCreator(
-        final Map<String, Object> channel,
-        final Map<String, Object> routing
-    ) {
+    public InteractionCreator(final Map<String, Object> channel) {
         this.channel = channel;
-        this.routing = routing;
     }
 
     public InteractionCreator setChannel(final Map<String, Object> channel) {
@@ -65,7 +61,6 @@ public class InteractionCreator extends Creator<Interaction> {
         String path = "/v1/Interactions";
 
         path = path.replace("{" + "Channel" + "}", this.channel.toString());
-        path = path.replace("{" + "Routing" + "}", this.routing.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -85,7 +80,10 @@ public class InteractionCreator extends Creator<Interaction> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

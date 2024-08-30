@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 9486445456747L;
+    private static final long serialVersionUID = 122585755386681L;
 
     public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
@@ -117,6 +117,8 @@ public class Service extends Resource {
     private final Map<String, Object> push;
     private final Map<String, Object> totp;
     private final String defaultTemplateSid;
+    private final Map<String, Object> whatsapp;
+    private final Boolean verifyEventSubscriptionEnabled;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -140,6 +142,10 @@ public class Service extends Resource {
         @JsonProperty("push") final Map<String, Object> push,
         @JsonProperty("totp") final Map<String, Object> totp,
         @JsonProperty("default_template_sid") final String defaultTemplateSid,
+        @JsonProperty("whatsapp") final Map<String, Object> whatsapp,
+        @JsonProperty(
+            "verify_event_subscription_enabled"
+        ) final Boolean verifyEventSubscriptionEnabled,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -159,6 +165,8 @@ public class Service extends Resource {
         this.push = push;
         this.totp = totp;
         this.defaultTemplateSid = defaultTemplateSid;
+        this.whatsapp = whatsapp;
+        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -221,6 +229,14 @@ public class Service extends Resource {
         return this.defaultTemplateSid;
     }
 
+    public final Map<String, Object> getWhatsapp() {
+        return this.whatsapp;
+    }
+
+    public final Boolean getVerifyEventSubscriptionEnabled() {
+        return this.verifyEventSubscriptionEnabled;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
@@ -267,6 +283,11 @@ public class Service extends Resource {
             Objects.equals(push, other.push) &&
             Objects.equals(totp, other.totp) &&
             Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
+            Objects.equals(whatsapp, other.whatsapp) &&
+            Objects.equals(
+                verifyEventSubscriptionEnabled,
+                other.verifyEventSubscriptionEnabled
+            ) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(url, other.url) &&
@@ -291,6 +312,8 @@ public class Service extends Resource {
             push,
             totp,
             defaultTemplateSid,
+            whatsapp,
+            verifyEventSubscriptionEnabled,
             dateCreated,
             dateUpdated,
             url,

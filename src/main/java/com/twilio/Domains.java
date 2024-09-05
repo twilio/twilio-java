@@ -21,6 +21,7 @@ public enum Domains {
     FLEXAPI("flex-api"),
     FRONTLINEAPI("frontline-api"),
     PREVIEWIAM("preview-iam"),
+    IAM("iam"),
     INSIGHTS("insights"),
     INTELLIGENCE("intelligence"),
     IPMESSAGING("ip-messaging"),

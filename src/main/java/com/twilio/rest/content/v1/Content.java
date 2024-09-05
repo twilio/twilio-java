@@ -200,10 +200,10 @@ public class Content extends Resource {
         private String phone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
+        @JsonProperty("code")
         @Getter
         @Setter
-        private String id;
+        private String code;
 
         public static CallToActionAction fromJson(
             String jsonString,
@@ -320,6 +320,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("code")
+        @Getter
+        @Setter
+        private String code;
 
         public static CardAction fromJson(
             String jsonString,
@@ -558,6 +564,155 @@ public class Content extends Resource {
     }
 
     @ToString
+    public static class FlowsPageComponentSelectItem {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        public static FlowsPageComponentSelectItem fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                FlowsPageComponentSelectItem.class
+            );
+        }
+    }
+
+    @ToString
+    public static class FlowsPageComponent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("text")
+        @Getter
+        @Setter
+        private String text;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("options")
+        @Getter
+        @Setter
+        private List<FlowsPageComponentSelectItem> options;
+
+        public static FlowsPageComponent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, FlowsPageComponent.class);
+        }
+    }
+
+    @ToString
+    public static class FlowsPage {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("next_page_id")
+        @Getter
+        @Setter
+        private String nextPageId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("subtitle")
+        @Getter
+        @Setter
+        private String subtitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("layout")
+        @Getter
+        @Setter
+        private List<FlowsPageComponent> layout;
+
+        public static FlowsPage fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, FlowsPage.class);
+        }
+    }
+
+    @ToString
+    public static class TwilioFlows {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("button_text")
+        @Getter
+        @Setter
+        private String buttonText;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("subtitle")
+        @Getter
+        @Setter
+        private String subtitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("media_url")
+        @Getter
+        @Setter
+        private String mediaUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("pages")
+        @Getter
+        @Setter
+        private List<FlowsPage> pages;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        public static TwilioFlows fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioFlows.class);
+        }
+    }
+
+    @ToString
     public static class WhatsappCard {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -706,6 +861,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private TwilioCarousel twilioCarousel;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/flows")
+        @Getter
+        @Setter
+        private TwilioFlows twilioFlows;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")
@@ -956,29 +1117,6 @@ public class Content extends Resource {
         );
     }
 
-    public enum CallToActionActionType {
-        URL("URL"),
-        PHONE_NUMBER("PHONE_NUMBER");
-
-        private final String value;
-
-        private CallToActionActionType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallToActionActionType forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                CallToActionActionType.values()
-            );
-        }
-    }
-
     public enum QuickReplyActionType {
         QUICK_REPLY("QUICK_REPLY");
 
@@ -998,6 +1136,29 @@ public class Content extends Resource {
                 value,
                 QuickReplyActionType.values()
             );
+        }
+    }
+
+    public enum CardActionType {
+        URL("URL"),
+        PHONE_NUMBER("PHONE_NUMBER"),
+        QUICK_REPLY("QUICK_REPLY"),
+        COPY_CODE("COPY_CODE"),
+        VOICE_CALL("VOICE_CALL");
+
+        private final String value;
+
+        private CardActionType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CardActionType forValue(final String value) {
+            return Promoter.enumFromString(value, CardActionType.values());
         }
     }
 
@@ -1022,14 +1183,15 @@ public class Content extends Resource {
         }
     }
 
-    public enum CardActionType {
+    public enum CallToActionActionType {
         URL("URL"),
         PHONE_NUMBER("PHONE_NUMBER"),
-        QUICK_REPLY("QUICK_REPLY");
+        COPY_CODE("COPY_CODE"),
+        VOICE_CALL("VOICE_CALL");
 
         private final String value;
 
-        private CardActionType(final String value) {
+        private CallToActionActionType(final String value) {
             this.value = value;
         }
 
@@ -1038,8 +1200,11 @@ public class Content extends Resource {
         }
 
         @JsonCreator
-        public static CardActionType forValue(final String value) {
-            return Promoter.enumFromString(value, CardActionType.values());
+        public static CallToActionActionType forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                CallToActionActionType.values()
+            );
         }
     }
 

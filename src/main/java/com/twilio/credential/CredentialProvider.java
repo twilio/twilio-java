@@ -13,8 +13,6 @@ public abstract class CredentialProvider {
     public CredentialProvider(EnumConstants.AuthType authType) {
         this.authType = authType;
     }
-
-    public abstract void request(Request request);
     
     public abstract AuthStrategy toAuthStrategy();
 }

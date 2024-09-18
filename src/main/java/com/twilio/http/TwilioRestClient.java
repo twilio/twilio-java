@@ -6,6 +6,7 @@ import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.auth_strategy.BasicAuthStrategy;
 import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.constant.EnumConstants;
+import com.twilio.credential.ClientCredentialProvider;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +72,9 @@ public class TwilioRestClient {
             request.setAuth(username, password);
         } else if (authStrategy != null) { // TODO: Test this code
            request.setAuth(authStrategy);
+           if (EnumConstants.AuthType.TOKEN.equals(authStrategy.getAuthType())) {
+               ((TokenAuthStrategy)authStrategy).fetchToken();
+           }
         }
 
         if (region != null)
@@ -87,7 +91,7 @@ public class TwilioRestClient {
         if(response != null) {
             int statusCode = response.getStatusCode();
             if (statusCode == HTTP_STATUS_CODE_UNAUTHORIZED && EnumConstants.AuthType.TOKEN.equals(authStrategy.getAuthType())) {
-                ((TokenAuthStrategy)authStrategy).refresh();
+                ((TokenAuthStrategy)authStrategy).fetchToken();
                 request.setAuth(authStrategy);
                 // Retry only once
                 response = httpClient.reliableRequest(request);

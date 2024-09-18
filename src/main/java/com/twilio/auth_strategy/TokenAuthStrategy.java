@@ -10,12 +10,11 @@ import java.util.Date;
 
 public class TokenAuthStrategy extends AuthStrategy {
     private String token;
-    
     private TokenManager tokenManager;
 
-    public TokenAuthStrategy(String token) {
+    public TokenAuthStrategy(TokenManager tokenManager) {
         super(EnumConstants.AuthType.TOKEN);
-        this.token = token;
+        this.tokenManager = tokenManager;
     }
 
     @Override
@@ -29,9 +28,9 @@ public class TokenAuthStrategy extends AuthStrategy {
     }
 
     // Token-specific refresh logic
-    public void refresh() {
+    public void fetchToken() {
         if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
-            synchronized (BearerTokenTwilioRestClient.class){
+            synchronized (TokenAuthStrategy.class){
                 if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
                     this.token = tokenManager.fetchAccessToken();
                 }

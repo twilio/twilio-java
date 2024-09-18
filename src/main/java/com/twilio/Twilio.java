@@ -2,6 +2,8 @@ package com.twilio;
 
 import com.twilio.annotations.Preview;
 import com.twilio.auth_strategy.AuthStrategy;
+import com.twilio.constant.EnumConstants;
+import com.twilio.credential.ClientCredentialProvider;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -11,6 +13,8 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.http.bearertoken.ApiTokenManager;
+import com.twilio.http.bearertoken.TokenManager;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -71,6 +75,11 @@ public class Twilio {
 
     public static synchronized void init(final CredentialProvider credentialProvider) {
         Twilio.setCredentialProvider(credentialProvider);
+    }
+
+    public static synchronized void init(final CredentialProvider credentialProvider, String accountSid) {
+        Twilio.setCredentialProvider(credentialProvider);
+        Twilio.setAccountSid(accountSid);
     }
 
     @Preview
@@ -211,7 +220,7 @@ public class Twilio {
         }
         TwilioRestClient.Builder builder;
         if (credentialProvider != null) {
-            AuthStrategy authStrategy = credentialProvider.toAuthStrategy();
+            AuthStrategy authStrategy = credentialProvider.toAuthStrategy(); // Does Code need to be thread safe ?
             builder = new TwilioRestClient.Builder(authStrategy);
         } else {
             builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);

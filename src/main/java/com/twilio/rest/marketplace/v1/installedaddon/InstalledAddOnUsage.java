@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class InstalledAddOnUsage extends Resource {
 
-    private static final long serialVersionUID = 244026319744874L;
+    private static final long serialVersionUID = 201246203121312L;
 
     @ToString
     public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
@@ -56,6 +56,12 @@ public class InstalledAddOnUsage extends Resource {
         @Setter
         private String sid;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("submitted")
+        @Getter
+        @Setter
+        private Boolean submitted;
+
         public static MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems fromJson(
             String jsonString,
             ObjectMapper mapper
@@ -71,7 +77,13 @@ public class InstalledAddOnUsage extends Resource {
     public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("billable_items")
+        @JsonProperty("totalSubmitted")
+        @Getter
+        @Setter
+        private BigDecimal totalSubmitted;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("billableItems")
         @Getter
         @Setter
         private List<
@@ -93,38 +105,6 @@ public class InstalledAddOnUsage extends Resource {
             return mapper.readValue(
                 jsonString,
                 MarketplaceV1InstalledAddOnInstalledAddOnUsage.class
-            );
-        }
-    }
-
-    @ToString
-    public static class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("quantity")
-        @Getter
-        @Setter
-        private BigDecimal quantity;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sid")
-        @Getter
-        @Setter
-        private String sid;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("submitted")
-        @Getter
-        @Setter
-        private Boolean submitted;
-
-        public static MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems.class
             );
         }
     }
@@ -194,30 +174,30 @@ public class InstalledAddOnUsage extends Resource {
         }
     }
 
-    private final List<
-        MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
-    > billableItems;
     private final BigDecimal totalSubmitted;
+    private final List<
+        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+    > billableItems;
 
     @JsonCreator
     private InstalledAddOnUsage(
+        @JsonProperty("total_submitted") final BigDecimal totalSubmitted,
         @JsonProperty("billable_items") final List<
-            MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
-        > billableItems,
-        @JsonProperty("total_submitted") final BigDecimal totalSubmitted
+            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+        > billableItems
     ) {
-        this.billableItems = billableItems;
         this.totalSubmitted = totalSubmitted;
-    }
-
-    public final List<
-        MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
-    > getBillableItems() {
-        return this.billableItems;
+        this.billableItems = billableItems;
     }
 
     public final BigDecimal getTotalSubmitted() {
         return this.totalSubmitted;
+    }
+
+    public final List<
+        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+    > getBillableItems() {
+        return this.billableItems;
     }
 
     @Override
@@ -233,13 +213,13 @@ public class InstalledAddOnUsage extends Resource {
         InstalledAddOnUsage other = (InstalledAddOnUsage) o;
 
         return (
-            Objects.equals(billableItems, other.billableItems) &&
-            Objects.equals(totalSubmitted, other.totalSubmitted)
+            Objects.equals(totalSubmitted, other.totalSubmitted) &&
+            Objects.equals(billableItems, other.billableItems)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(billableItems, totalSubmitted);
+        return Objects.hash(totalSubmitted, billableItems);
     }
 }

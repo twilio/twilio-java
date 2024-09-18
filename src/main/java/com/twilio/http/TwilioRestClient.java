@@ -2,6 +2,10 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.auth_strategy.AuthStrategy;
+import com.twilio.auth_strategy.BasicAuthStrategy;
+import com.twilio.auth_strategy.TokenAuthStrategy;
+import com.twilio.constant.EnumConstants;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +20,12 @@ public class TwilioRestClient {
 
     public static final int HTTP_STATUS_CODE_CREATED = 201;
     public static final int HTTP_STATUS_CODE_NO_CONTENT = 204;
+    public static final int HTTP_STATUS_CODE_UNAUTHORIZED = 401;
     public static final int HTTP_STATUS_CODE_OK = 200;
     public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
+    @Getter
+    private AuthStrategy authStrategy;
     @Getter
     private final ObjectMapper objectMapper;
     private final String username;
@@ -38,6 +45,7 @@ public class TwilioRestClient {
     protected TwilioRestClient(Builder b) {
         this.username = b.username;
         this.password = b.password;
+        this.authStrategy = b.authStrategy;
         this.accountSid = b.accountSid;
         this.region = b.region;
         this.edge = b.edge;
@@ -59,7 +67,11 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        request.setAuth(username, password);
+        if (username != null && password != null) {
+            request.setAuth(username, password);
+        } else if (authStrategy != null) { // TODO: Test this code
+           request.setAuth(authStrategy);
+        }
 
         if (region != null)
             request.setRegion(region);
@@ -72,22 +84,32 @@ public class TwilioRestClient {
 
         logRequest(request);
         Response response = httpClient.reliableRequest(request);
+        if(response != null) {
+            int statusCode = response.getStatusCode();
+            if (statusCode == HTTP_STATUS_CODE_UNAUTHORIZED && EnumConstants.AuthType.TOKEN.equals(authStrategy.getAuthType())) {
+                ((TokenAuthStrategy)authStrategy).refresh();
+                request.setAuth(authStrategy);
+                // Retry only once
+                response = httpClient.reliableRequest(request);
+            }
 
-        if (logger.isDebugEnabled()) {
-            logger.debug("status code: {}", response.getStatusCode());
-            org.apache.http.Header[] responseHeaders = response.getHeaders();
-            logger.debug("response headers:");
-            for (int i = 0; i < responseHeaders.length; i++) {
-                logger.debug("responseHeader: {}", responseHeaders[i]);
+            if (logger.isDebugEnabled()) {
+                logger.debug("status code: {}", statusCode);
+                org.apache.http.Header[] responseHeaders = response.getHeaders();
+                logger.debug("response headers:");
+                for (int i = 0; i < responseHeaders.length; i++) {
+                    logger.debug("responseHeader: {}", responseHeaders[i]);
+                }
             }
         }
 
         return response;
     }
-
+    
     public static class Builder {
         private String username;
         private String password;
+        private AuthStrategy authStrategy;
         private String accountSid;
         private String region;
         private String edge;
@@ -104,6 +126,15 @@ public class TwilioRestClient {
             this.username = username;
             this.password = password;
             this.accountSid = username;
+        }
+
+        /**
+         * Create a new Twilio Rest Client.
+         *
+         * @param authStrategy authStrategy to use
+         */
+        public Builder(final AuthStrategy authStrategy) {
+            this.authStrategy = authStrategy;
         }
 
         public Builder accountSid(final String accountSid) {

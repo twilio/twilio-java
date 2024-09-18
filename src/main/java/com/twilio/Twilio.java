@@ -1,8 +1,11 @@
 package com.twilio;
 
+import com.twilio.annotations.Preview;
+import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
+import com.twilio.credential.CredentialProvider;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
@@ -34,6 +37,8 @@ public class Twilio {
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile TwilioRestClient restClient;
     private static volatile ExecutorService executorService;
+    
+    private static CredentialProvider credentialProvider;
 
     private Twilio() {
     }
@@ -62,6 +67,23 @@ public class Twilio {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
         Twilio.setAccountSid(null);
+    }
+
+    public static synchronized void init(final CredentialProvider credentialProvider) {
+        Twilio.setCredentialProvider(credentialProvider);
+    }
+
+    @Preview
+    private static void setCredentialProvider(final CredentialProvider credentialProvider) {
+        if (credentialProvider == null) {
+            throw new AuthenticationException("Credential Provider can not be null");
+        }
+
+        if (!credentialProvider.equals(Twilio.credentialProvider)) { // TODO: Write equals method in credential provider implementation class.
+            Twilio.invalidate();
+        }
+        // TODO: In case of Basic Auth, How to set account_sid ?
+        Twilio.credentialProvider = credentialProvider;
     }
 
     /**
@@ -181,12 +203,19 @@ public class Twilio {
 
     private static TwilioRestClient buildRestClient() {
         if (Twilio.username == null || Twilio.password == null) {
-            throw new AuthenticationException(
-                "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
-            );
+            if (credentialProvider == null) {
+                throw new AuthenticationException(
+                        "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
+                );
+            }
         }
-
-        TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
+        TwilioRestClient.Builder builder;
+        if (credentialProvider != null) {
+            AuthStrategy authStrategy = credentialProvider.toAuthStrategy();
+            builder = new TwilioRestClient.Builder(authStrategy);
+        } else {
+            builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
+        }
 
         if (Twilio.accountSid != null) {
             builder.accountSid(Twilio.accountSid);

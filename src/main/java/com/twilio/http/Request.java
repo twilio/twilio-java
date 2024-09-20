@@ -74,7 +74,7 @@ public class Request extends IRequest {
         if (authStrategy != null) {
             return authStrategy.getAuthString();
         }
-        return null;
+        return "";
     }
 
     public String getUsername() {

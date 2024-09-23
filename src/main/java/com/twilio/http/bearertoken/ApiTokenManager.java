@@ -1,9 +1,11 @@
 package com.twilio.http.bearertoken;
 
+import com.twilio.annotations.Beta;
 import com.twilio.exception.ApiException;
 import com.twilio.rest.previewiam.v1.Token;
 import com.twilio.rest.previewiam.v1.TokenCreator;
 
+@Beta
 public class ApiTokenManager implements TokenManager {
 
     private final String grantType;

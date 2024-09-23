@@ -1,6 +1,7 @@
 package com.twilio.credential;
 
 
+import com.twilio.annotations.Beta;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.constant.EnumConstants;
@@ -12,6 +13,7 @@ import com.twilio.rest.oauth.v1.Token;
 import lombok.Getter;
 import lombok.Setter;
 
+@Beta
 public class ClientCredentialProvider extends CredentialProvider {
     private String grantType;
     private String clientId;

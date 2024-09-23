@@ -1,6 +1,6 @@
 package com.twilio;
 
-import com.twilio.annotations.Preview;
+import com.twilio.annotations.Beta;
 import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.constant.EnumConstants;
 import com.twilio.credential.ClientCredentialProvider;
@@ -73,16 +73,17 @@ public class Twilio {
         Twilio.setAccountSid(null);
     }
 
+    @Beta
     public static synchronized void init(final CredentialProvider credentialProvider) {
         Twilio.setCredentialProvider(credentialProvider);
     }
 
+    @Beta
     public static synchronized void init(final CredentialProvider credentialProvider, String accountSid) {
         Twilio.setCredentialProvider(credentialProvider);
         Twilio.setAccountSid(accountSid);
     }
 
-    @Preview
     private static void setCredentialProvider(final CredentialProvider credentialProvider) {
         if (credentialProvider == null) {
             throw new AuthenticationException("Credential Provider can not be null");

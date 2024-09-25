@@ -42,7 +42,7 @@ import lombok.ToString;
 @ToString
 public class Knowledge extends Resource {
 
-    private static final long serialVersionUID = 228486068645709L;
+    private static final long serialVersionUID = 102491745229273L;
 
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -282,6 +282,7 @@ public class Knowledge extends Resource {
     private final String name;
     private final String status;
     private final String type;
+    private final String url;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -297,6 +298,7 @@ public class Knowledge extends Resource {
         @JsonProperty("name") final String name,
         @JsonProperty("status") final String status,
         @JsonProperty("type") final String type,
+        @JsonProperty("url") final String url,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -307,6 +309,7 @@ public class Knowledge extends Resource {
         this.name = name;
         this.status = status;
         this.type = type;
+        this.url = url;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
@@ -337,6 +340,10 @@ public class Knowledge extends Resource {
 
     public final String getType() {
         return this.type;
+    }
+
+    public final String getUrl() {
+        return this.url;
     }
 
     public final ZonedDateTime getDateCreated() {
@@ -370,6 +377,7 @@ public class Knowledge extends Resource {
             Objects.equals(name, other.name) &&
             Objects.equals(status, other.status) &&
             Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated)
         );
@@ -385,6 +393,7 @@ public class Knowledge extends Resource {
             name,
             status,
             type,
+            url,
             dateCreated,
             dateUpdated
         );

@@ -1,6 +1,20 @@
 twilio-java changelog
 =====================
 
+[2024-09-25] Version 10.5.2
+---------------------------
+**Library - Chore**
+- [PR #815](https://github.com/twilio/twilio-java/pull/815): updated readme for Beta flag. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Accounts**
+- Update docs and mounts.
+- Change library visibility to public
+- Enable consent and contact bulk upsert APIs in prod.
+
+**Serverless**
+- Add is_plugin parameter in deployments api to check if it is plugins deployment
+
+
 [2024-09-18] Version 10.5.1
 ---------------------------
 **Intelligence**

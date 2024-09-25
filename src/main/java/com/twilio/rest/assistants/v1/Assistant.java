@@ -43,7 +43,7 @@ import lombok.ToString;
 @ToString
 public class Assistant extends Resource {
 
-    private static final long serialVersionUID = 83480490674350L;
+    private static final long serialVersionUID = 5177924616338L;
 
     @ToString
     public static class AssistantsV1ServiceCustomerAi {
@@ -245,6 +245,12 @@ public class Assistant extends Resource {
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        @Setter
+        private String url;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
         @Setter
@@ -329,6 +335,12 @@ public class Assistant extends Resource {
         @Getter
         @Setter
         private String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        @Setter
+        private String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
@@ -441,6 +453,7 @@ public class Assistant extends Resource {
     private final String model;
     private final String name;
     private final String owner;
+    private final String url;
     private final String personalityPrompt;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -455,6 +468,7 @@ public class Assistant extends Resource {
         @JsonProperty("model") final String model,
         @JsonProperty("name") final String name,
         @JsonProperty("owner") final String owner,
+        @JsonProperty("url") final String url,
         @JsonProperty("personality_prompt") final String personalityPrompt,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -469,6 +483,7 @@ public class Assistant extends Resource {
         this.model = model;
         this.name = name;
         this.owner = owner;
+        this.url = url;
         this.personalityPrompt = personalityPrompt;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -498,6 +513,10 @@ public class Assistant extends Resource {
 
     public final String getOwner() {
         return this.owner;
+    }
+
+    public final String getUrl() {
+        return this.url;
     }
 
     public final String getPersonalityPrompt() {
@@ -539,6 +558,7 @@ public class Assistant extends Resource {
             Objects.equals(model, other.model) &&
             Objects.equals(name, other.name) &&
             Objects.equals(owner, other.owner) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(personalityPrompt, other.personalityPrompt) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
@@ -556,6 +576,7 @@ public class Assistant extends Resource {
             model,
             name,
             owner,
+            url,
             personalityPrompt,
             dateCreated,
             dateUpdated,

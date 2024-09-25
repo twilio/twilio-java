@@ -30,6 +30,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
@@ -42,7 +43,7 @@ import lombok.ToString;
 @ToString
 public class Tool extends Resource {
 
-    private static final long serialVersionUID = 250744757874592L;
+    private static final long serialVersionUID = 65943663776562L;
 
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -216,6 +217,86 @@ public class Tool extends Resource {
         }
     }
 
+    @ToString
+    public static class AssistantsV1ServicePolicy {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        @Setter
+        private String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("accountSid")
+        @Getter
+        @Setter
+        private String accountSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("userSid")
+        @Getter
+        @Setter
+        private String userSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("policyDetails")
+        @Getter
+        @Setter
+        private Map<String, Object> policyDetails;
+
+        public String getPolicyDetails() {
+            return Converter.mapToJson(policyDetails);
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("dateCreated")
+        @Getter
+        @Setter
+        private ZonedDateTime dateCreated;
+
+        public String getDateCreated() {
+            return dateCreated.toInstant().toString();
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("dateUpdated")
+        @Getter
+        @Setter
+        private ZonedDateTime dateUpdated;
+
+        public String getDateUpdated() {
+            return dateUpdated.toInstant().toString();
+        }
+
+        public static AssistantsV1ServicePolicy fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServicePolicy.class
+            );
+        }
+    }
+
     public static ToolCreator creator(
         final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
     ) {
@@ -224,6 +305,10 @@ public class Tool extends Resource {
 
     public static ToolDeleter deleter(final String pathId) {
         return new ToolDeleter(pathId);
+    }
+
+    public static ToolFetcher fetcher(final String pathId) {
+        return new ToolFetcher(pathId);
     }
 
     public static ToolReader reader() {
@@ -297,8 +382,10 @@ public class Tool extends Resource {
     private final String name;
     private final Boolean requiresAuth;
     private final String type;
+    private final String url;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final List<AssistantsV1ServicePolicy> policies;
 
     @JsonCreator
     private Tool(
@@ -310,8 +397,10 @@ public class Tool extends Resource {
         @JsonProperty("name") final String name,
         @JsonProperty("requires_auth") final Boolean requiresAuth,
         @JsonProperty("type") final String type,
+        @JsonProperty("url") final String url,
         @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("policies") final List<AssistantsV1ServicePolicy> policies
     ) {
         this.accountSid = accountSid;
         this.description = description;
@@ -321,8 +410,10 @@ public class Tool extends Resource {
         this.name = name;
         this.requiresAuth = requiresAuth;
         this.type = type;
+        this.url = url;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.policies = policies;
     }
 
     public final String getAccountSid() {
@@ -357,12 +448,20 @@ public class Tool extends Resource {
         return this.type;
     }
 
+    public final String getUrl() {
+        return this.url;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
+    }
+
+    public final List<AssistantsV1ServicePolicy> getPolicies() {
+        return this.policies;
     }
 
     @Override
@@ -386,8 +485,10 @@ public class Tool extends Resource {
             Objects.equals(name, other.name) &&
             Objects.equals(requiresAuth, other.requiresAuth) &&
             Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(policies, other.policies)
         );
     }
 
@@ -402,8 +503,10 @@ public class Tool extends Resource {
             name,
             requiresAuth,
             type,
+            url,
             dateCreated,
-            dateUpdated
+            dateUpdated,
+            policies
         );
     }
 }

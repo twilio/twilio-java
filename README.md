@@ -218,21 +218,8 @@ public class Example {
 We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
 This feature is currently in beta and its implementation is subject to change.
 
-```java
-import com.twilio.credential.ClientCredentialProvider;
+Detailed examples [here](https://github.com/twilio/twilio-java/tree/main/examples/FetchMessageUsingOAuth.md)
 
-public class Test {
-  public static void main(String[] args) {
-    String clientId = "YOUR_CLIENT_ID";
-    String clientSecret = "YOUR_CLIENT_SECRET";
-
-    Twilio.init(new ClientCredentialProvider(clientId, clientSecret));
-
-    // Make API requests here using the authenticated client
-  }
-}
-
-```
 ### Iterate through records
 
 The library automatically handles paging for you. With the `read` method, you can specify the number of records you want to receive (`limit`) and the maximum size you want each page fetch to be (`pageSize`). The library will then handle the task for you, fetching new pages under the hood as you iterate over the records.

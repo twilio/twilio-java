@@ -32,7 +32,8 @@ public class TokenAuthStrategy extends AuthStrategy {
         if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
             synchronized (TokenAuthStrategy.class){
                 if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
-                    this.token = tokenManager.fetchAccessToken(); // TODO: Exceptional handling
+
+                    this.token = tokenManager.fetchAccessToken();
                 }
             }
         }

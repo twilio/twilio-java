@@ -2,8 +2,6 @@ package com.twilio;
 
 import com.twilio.annotations.Beta;
 import com.twilio.auth_strategy.AuthStrategy;
-import com.twilio.constant.EnumConstants;
-import com.twilio.credential.ClientCredentialProvider;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -13,8 +11,6 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
-import com.twilio.http.bearertoken.ApiTokenManager;
-import com.twilio.http.bearertoken.TokenManager;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -76,6 +72,7 @@ public class Twilio {
     @Beta
     public static synchronized void init(final CredentialProvider credentialProvider) {
         Twilio.setCredentialProvider(credentialProvider);
+        Twilio.setAccountSid(null);
     }
 
     @Beta
@@ -88,11 +85,12 @@ public class Twilio {
         if (credentialProvider == null) {
             throw new AuthenticationException("Credential Provider can not be null");
         }
-
-        if (!credentialProvider.equals(Twilio.credentialProvider)) { // TODO: Write equals method in credential provider implementation class.
+        
+        if (!credentialProvider.equals(Twilio.credentialProvider)) {
             Twilio.invalidate();
         }
-        // TODO: In case of Basic Auth, How to set account_sid ?
+        // Invalidate Basic Creds as they might be initialized via environment variables.
+        invalidateBasicCreds();
         Twilio.credentialProvider = credentialProvider;
     }
 
@@ -123,6 +121,7 @@ public class Twilio {
         if (!username.equals(Twilio.username)) {
             Twilio.invalidate();
         }
+        Twilio.invalidateOAuthCreds();
 
         Twilio.username = username;
     }
@@ -141,6 +140,7 @@ public class Twilio {
         if (!password.equals(Twilio.password)) {
             Twilio.invalidate();
         }
+        Twilio.invalidateOAuthCreds();
 
         Twilio.password = password;
     }
@@ -215,13 +215,13 @@ public class Twilio {
         if (Twilio.username == null || Twilio.password == null) {
             if (credentialProvider == null) {
                 throw new AuthenticationException(
-                        "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
+                        "Credentials have not been initialized or changed, please call Twilio.init()"
                 );
             }
         }
         TwilioRestClient.Builder builder;
         if (credentialProvider != null) {
-            AuthStrategy authStrategy = credentialProvider.toAuthStrategy(); // Does Code need to be thread safe ?
+            AuthStrategy authStrategy = credentialProvider.toAuthStrategy();
             builder = new TwilioRestClient.Builder(authStrategy);
         } else {
             builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
@@ -310,6 +310,15 @@ public class Twilio {
      */
     private static void invalidate() {
         Twilio.restClient = null;
+    }
+
+    private static void invalidateOAuthCreds() {
+        Twilio.credentialProvider = null;
+    }
+    
+    private static void invalidateBasicCreds() {
+        Twilio.username = null;
+        Twilio.password = null;
     }
 
     /**

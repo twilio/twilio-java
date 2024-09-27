@@ -1,9 +1,10 @@
 package com.twilio.http.bearertoken;
 
 import com.twilio.annotations.Beta;
-import com.twilio.exception.ApiException;
 import com.twilio.rest.previewiam.v1.Token;
 import com.twilio.rest.previewiam.v1.TokenCreator;
+
+import java.util.Objects;
 
 @Beta
 public class ApiTokenManager implements TokenManager {
@@ -19,21 +20,13 @@ public class ApiTokenManager implements TokenManager {
     
     @Override
     public String fetchAccessToken() {
-        TokenCreator tokenCreator = Token.creator(grantType, clientId).setClientSecret(clientSecret); // TODO: Change this
+        TokenCreator tokenCreator = Token.creator(grantType, clientId).setClientSecret(clientSecret);
         if (this.code != null) tokenCreator.setCode(code);
         if (this.redirectUri != null) tokenCreator.setRedirectUri(redirectUri);
         if (this.audience != null) tokenCreator.setAudience(audience);
         if (this.refreshToken != null) tokenCreator.setRefreshToken(refreshToken);
         if (this.scope != null) tokenCreator.setScope(scope);
-        Token token;
-        try {
-            token = tokenCreator.create();
-            if(token == null || token.getAccessToken() == null){
-                throw new ApiException("Token creation failed");
-            }
-        } catch(Exception e){
-            throw new ApiException("Token creation failed");
-        }
+        Token token = tokenCreator.create();
         return token.getAccessToken();
     }
 
@@ -52,5 +45,26 @@ public class ApiTokenManager implements TokenManager {
         this.audience = audience;
         this.refreshToken = refreshToken;
         this.scope = scope;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ApiTokenManager other = (ApiTokenManager) o;
+        return Objects.equals(grantType, other.grantType) &&
+                Objects.equals(clientId, other.clientId) &&
+                Objects.equals(clientSecret, other.clientSecret) &&
+                Objects.equals(code, other.code) &&
+                Objects.equals(redirectUri, other.redirectUri) &&
+                Objects.equals(audience, other.audience) &&
+                Objects.equals(refreshToken, other.refreshToken) &&
+                Objects.equals(scope, other.scope);
     }
 }

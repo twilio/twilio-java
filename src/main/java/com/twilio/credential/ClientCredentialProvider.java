@@ -6,20 +6,17 @@ import com.twilio.auth_strategy.AuthStrategy;
 import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.AuthenticationException;
-import com.twilio.http.Request;
+
 import com.twilio.http.bearertoken.ApiTokenManager;
 import com.twilio.http.bearertoken.TokenManager;
-import com.twilio.rest.oauth.v1.Token;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.util.Objects;
 
 @Beta
 public class ClientCredentialProvider extends CredentialProvider {
     private String grantType;
     private String clientId;
     private String clientSecret;
-    @Setter
-    @Getter
     private TokenManager tokenManager;
     
     public ClientCredentialProvider(String clientId, String clientSecret) {
@@ -53,5 +50,21 @@ public class ClientCredentialProvider extends CredentialProvider {
             tokenManager = new ApiTokenManager(grantType, clientId, clientSecret);
         }
         return new TokenAuthStrategy(tokenManager);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ClientCredentialProvider other = (ClientCredentialProvider) o;
+        return Objects.equals(clientId, other.clientId) &&
+                Objects.equals(clientSecret, other.clientSecret) &&
+                Objects.equals(tokenManager, other.tokenManager);
     }
 }

@@ -3,15 +3,16 @@ package com.twilio.auth_strategy;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.twilio.constant.EnumConstants;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
 import com.twilio.http.bearertoken.TokenManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
 public class TokenAuthStrategy extends AuthStrategy {
     private String token;
     private TokenManager tokenManager;
-
+    private static final Logger logger = LoggerFactory.getLogger(TokenAuthStrategy.class);
     public TokenAuthStrategy(TokenManager tokenManager) {
         super(EnumConstants.AuthType.TOKEN);
         this.tokenManager = tokenManager;
@@ -32,14 +33,14 @@ public class TokenAuthStrategy extends AuthStrategy {
         if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
             synchronized (TokenAuthStrategy.class){
                 if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
-
+                    logger.info("Fetching new token for Apis");
                     this.token = tokenManager.fetchAccessToken();
                 }
             }
         }
     }
 
-    public boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(final String token) {
         DecodedJWT jwt = JWT.decode(token);
         Date expiresAt = jwt.getExpiresAt();
         // Add a buffer of 30 seconds

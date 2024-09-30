@@ -21,6 +21,9 @@ public class ClientCredentialProvider extends CredentialProvider {
     
     public ClientCredentialProvider(String clientId, String clientSecret) {
         super(EnumConstants.AuthType.CLIENT_CREDENTIALS);
+        if (clientId == null) {
+            throw new AuthenticationException("Client can not be null");
+        }
         if (clientId == null || clientSecret == null) {
             throw new AuthenticationException("ClientId or ClientSecret can not be null");
         }

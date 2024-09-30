@@ -22,8 +22,7 @@ public class ClientCredentialProvider extends CredentialProvider {
     public ClientCredentialProvider(String clientId, String clientSecret) {
         super(EnumConstants.AuthType.CLIENT_CREDENTIALS);
         if (clientId == null || clientSecret == null) {
-            // TODO: Test with invalid credentials
-            throw new AuthenticationException("Invalid credentials passed");
+            throw new AuthenticationException("ClientId or ClientSecret can not be null");
         }
         this.grantType = "client_credentials";
         this.clientId = clientId;
@@ -33,10 +32,8 @@ public class ClientCredentialProvider extends CredentialProvider {
 
     public ClientCredentialProvider(String clientId, String clientSecret, TokenManager tokenManager) {
         super(EnumConstants.AuthType.CLIENT_CREDENTIALS);
-        // TODO: Null check
         if (clientId == null || clientSecret == null || tokenManager == null) {
-            // TODO: Test with invalid credentials
-            throw new AuthenticationException("Invalid credentials passed");
+            throw new AuthenticationException("ClientId or ClientSecret or TokenManager can not be null");
         }
         this.grantType = "client_credentials";
         this.clientId = clientId;

@@ -214,6 +214,14 @@ public class Example {
 }
 ```
 
+
+
+### OAuth Feature for Twilio APIs
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
+This feature is currently in `beta` and its implementation is subject to change.
+
+Detailed examples [here](https://github.com/twilio/twilio-java/blob/main/examples/FetchMessageUsingOAuth.md)
+
 ### Iterate through records
 
 The library automatically handles paging for you. With the `read` method, you can specify the number of records you want to receive (`limit`) and the maximum size you want each page fetch to be (`pageSize`). The library will then handle the task for you, fetching new pages under the hood as you iterate over the records.

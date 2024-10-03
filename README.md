@@ -220,8 +220,7 @@ public class Example {
 We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
 This feature is currently in `beta` and its implementation is subject to change.
 
-Detailed examples [here](https://github.com/twilio/twilio-java/tree/main/examples/FetchMessageUsingOAuth.md)
-Detailed example [here](https://github.com/twilio/twilio-java/tree/main/examples/BearerTokenAuthentication.md)
+Detailed examples [here](https://github.com/twilio/twilio-java/blob/main/examples/FetchMessageUsingOAuth.md)
 
 ### Iterate through records
 

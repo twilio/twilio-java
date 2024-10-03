@@ -4,6 +4,7 @@ import com.twilio.constant.EnumConstants;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Objects;
 
 public class BasicAuthStrategy extends AuthStrategy {
     private String username;
@@ -25,5 +26,19 @@ public class BasicAuthStrategy extends AuthStrategy {
     @Override
     public boolean requiresAuthentication() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicAuthStrategy that = (BasicAuthStrategy) o;
+        return Objects.equals(username, that.username) && 
+                Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
     }
 }

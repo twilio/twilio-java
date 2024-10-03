@@ -88,8 +88,6 @@ public class TwilioRestClient {
         if(response != null) {
             int statusCode = response.getStatusCode();
             if (statusCode == HTTP_STATUS_CODE_UNAUTHORIZED && authStrategy != null && EnumConstants.AuthType.TOKEN.equals(authStrategy.getAuthType())) {
-                ((TokenAuthStrategy)authStrategy).fetchToken();
-                request.setAuth(authStrategy);
                 // Retry only once
                 response = httpClient.reliableRequest(request);
             }

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class TokenAuthStrategy extends AuthStrategy {
     private String token;
@@ -35,11 +36,23 @@ public class TokenAuthStrategy extends AuthStrategy {
             synchronized (TokenAuthStrategy.class){
                 if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
                     logger.info("Fetching new token for Apis");
-                    System.out.println("Fetching new token for Apis");
                     this.token = tokenManager.fetchAccessToken();
                 }
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TokenAuthStrategy that = (TokenAuthStrategy) o;
+        return Objects.equals(token, that.token) && 
+                Objects.equals(tokenManager, that.tokenManager);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(token, tokenManager);
     }
 
     public boolean isTokenExpired(final String token) {

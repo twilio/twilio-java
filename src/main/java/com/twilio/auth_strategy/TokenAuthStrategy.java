@@ -20,6 +20,7 @@ public class TokenAuthStrategy extends AuthStrategy {
 
     @Override
     public String getAuthString() {
+        fetchToken();
         return "Bearer " + token;
     }
 
@@ -34,6 +35,7 @@ public class TokenAuthStrategy extends AuthStrategy {
             synchronized (TokenAuthStrategy.class){
                 if (this.token == null || this.token.isEmpty() || isTokenExpired(this.token)) {
                     logger.info("Fetching new token for Apis");
+                    System.out.println("Fetching new token for Apis");
                     this.token = tokenManager.fetchAccessToken();
                 }
             }

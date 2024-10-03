@@ -214,9 +214,15 @@ public class Example {
 }
 ```
 
+### OAuth Feature For Organisation APIss
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication.
+This feature is currently in `beta` and its implementation is subject to change.
+
+Detailed example [here](https://github.com/twilio/twilio-java/tree/main/examples/BearerTokenAuthentication.md)
+
 ### OAuth Feature
 We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
-This feature is currently in beta and its implementation is subject to change.
+This feature is currently in `beta` and its implementation is subject to change.
 
 Detailed examples [here](https://github.com/twilio/twilio-java/tree/main/examples/FetchMessageUsingOAuth.md)
 

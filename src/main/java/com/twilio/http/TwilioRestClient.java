@@ -70,11 +70,8 @@ public class TwilioRestClient {
     public Response request(final Request request) {
         if (username != null && password != null) {
             request.setAuth(username, password);
-        } else if (authStrategy != null) { // TODO: Test this code
+        } else if (authStrategy != null) {
            request.setAuth(authStrategy);
-           if (EnumConstants.AuthType.TOKEN.equals(authStrategy.getAuthType())) {
-               ((TokenAuthStrategy)authStrategy).fetchToken();
-           }
         }
 
         if (region != null)

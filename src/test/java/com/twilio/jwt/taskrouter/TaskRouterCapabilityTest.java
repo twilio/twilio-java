@@ -35,9 +35,9 @@ public class TaskRouterCapabilityTest {
                 .policies(policies)
                 .build();
         Claims claims =
-            Jwts.parserBuilder()
+            Jwts.parser()
                 .setSigningKey(AUTH_TOKEN.getBytes()).build()
-                .parseClaimsJws(jwt.toJwt())
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
@@ -78,9 +78,9 @@ public class TaskRouterCapabilityTest {
                         .policies(policies)
                         .build();
         final Claims claims =
-                Jwts.parserBuilder()
+                Jwts.parser()
                         .setSigningKey(AUTH_TOKEN.getBytes()).build()
-                        .parseClaimsJws(jwt.toJwt())
+                        .parseSignedClaims(jwt.toJwt())
                         .getBody();
 
         Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));

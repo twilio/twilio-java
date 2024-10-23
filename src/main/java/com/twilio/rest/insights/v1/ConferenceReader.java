@@ -14,8 +14,10 @@
 
 package com.twilio.rest.insights.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +26,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class ConferenceReader extends Reader<Conference> {
+
     private String conferenceSid;
     private String friendlyName;
     private String status;
@@ -41,50 +41,59 @@ public class ConferenceReader extends Reader<Conference> {
     private String endReason;
     private Integer pageSize;
 
-    public ConferenceReader(){
-    }
+    public ConferenceReader() {}
 
-    public ConferenceReader setConferenceSid(final String conferenceSid){
+    public ConferenceReader setConferenceSid(final String conferenceSid) {
         this.conferenceSid = conferenceSid;
         return this;
     }
-    public ConferenceReader setFriendlyName(final String friendlyName){
+
+    public ConferenceReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ConferenceReader setStatus(final String status){
+
+    public ConferenceReader setStatus(final String status) {
         this.status = status;
         return this;
     }
-    public ConferenceReader setCreatedAfter(final String createdAfter){
+
+    public ConferenceReader setCreatedAfter(final String createdAfter) {
         this.createdAfter = createdAfter;
         return this;
     }
-    public ConferenceReader setCreatedBefore(final String createdBefore){
+
+    public ConferenceReader setCreatedBefore(final String createdBefore) {
         this.createdBefore = createdBefore;
         return this;
     }
-    public ConferenceReader setMixerRegion(final String mixerRegion){
+
+    public ConferenceReader setMixerRegion(final String mixerRegion) {
         this.mixerRegion = mixerRegion;
         return this;
     }
-    public ConferenceReader setTags(final String tags){
+
+    public ConferenceReader setTags(final String tags) {
         this.tags = tags;
         return this;
     }
-    public ConferenceReader setSubaccount(final String subaccount){
+
+    public ConferenceReader setSubaccount(final String subaccount) {
         this.subaccount = subaccount;
         return this;
     }
-    public ConferenceReader setDetectedIssues(final String detectedIssues){
+
+    public ConferenceReader setDetectedIssues(final String detectedIssues) {
         this.detectedIssues = detectedIssues;
         return this;
     }
-    public ConferenceReader setEndReason(final String endReason){
+
+    public ConferenceReader setEndReason(final String endReason) {
         this.endReason = endReason;
         return this;
     }
-    public ConferenceReader setPageSize(final Integer pageSize){
+
+    public ConferenceReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -104,18 +113,30 @@ public class ConferenceReader extends Reader<Conference> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Conference> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Conference> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Conference read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Conference read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -129,7 +150,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     @Override
-    public Page<Conference> previousPage(final Page<Conference> page, final TwilioRestClient client) {
+    public Page<Conference> previousPage(
+        final Page<Conference> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INSIGHTS.toString())
@@ -137,9 +161,11 @@ public class ConferenceReader extends Reader<Conference> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Conference> nextPage(final Page<Conference> page, final TwilioRestClient client) {
+    public Page<Conference> nextPage(
+        final Page<Conference> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INSIGHTS.toString())
@@ -148,61 +174,51 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     @Override
-    public Page<Conference> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Conference> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (conferenceSid != null) {
-    
             request.addQueryParam("ConferenceSid", conferenceSid);
         }
         if (friendlyName != null) {
-    
             request.addQueryParam("FriendlyName", friendlyName);
         }
         if (status != null) {
-    
             request.addQueryParam("Status", status);
         }
         if (createdAfter != null) {
-    
             request.addQueryParam("CreatedAfter", createdAfter);
         }
         if (createdBefore != null) {
-    
             request.addQueryParam("CreatedBefore", createdBefore);
         }
         if (mixerRegion != null) {
-    
             request.addQueryParam("MixerRegion", mixerRegion);
         }
         if (tags != null) {
-    
             request.addQueryParam("Tags", tags);
         }
         if (subaccount != null) {
-    
             request.addQueryParam("Subaccount", subaccount);
         }
         if (detectedIssues != null) {
-    
             request.addQueryParam("DetectedIssues", detectedIssues);
         }
         if (endReason != null) {
-    
             request.addQueryParam("EndReason", endReason);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

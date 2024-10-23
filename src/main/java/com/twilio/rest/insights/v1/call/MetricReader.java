@@ -14,8 +14,10 @@
 
 package com.twilio.rest.insights.v1.call;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,29 +26,29 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class MetricReader extends Reader<Metric> {
+
     private String pathCallSid;
     private Metric.TwilioEdge edge;
     private Metric.StreamDirection direction;
     private Integer pageSize;
 
-    public MetricReader(final String pathCallSid){
+    public MetricReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
     }
 
-    public MetricReader setEdge(final Metric.TwilioEdge edge){
+    public MetricReader setEdge(final Metric.TwilioEdge edge) {
         this.edge = edge;
         return this;
     }
-    public MetricReader setDirection(final Metric.StreamDirection direction){
+
+    public MetricReader setDirection(final Metric.StreamDirection direction) {
         this.direction = direction;
         return this;
     }
-    public MetricReader setPageSize(final Integer pageSize){
+
+    public MetricReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -58,7 +60,7 @@ public class MetricReader extends Reader<Metric> {
 
     public Page<Metric> firstPage(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Metrics";
-        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -67,18 +69,30 @@ public class MetricReader extends Reader<Metric> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Metric> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Metric> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Metric read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Metric read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -92,7 +106,10 @@ public class MetricReader extends Reader<Metric> {
     }
 
     @Override
-    public Page<Metric> previousPage(final Page<Metric> page, final TwilioRestClient client) {
+    public Page<Metric> previousPage(
+        final Page<Metric> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INSIGHTS.toString())
@@ -100,9 +117,11 @@ public class MetricReader extends Reader<Metric> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Metric> nextPage(final Page<Metric> page, final TwilioRestClient client) {
+    public Page<Metric> nextPage(
+        final Page<Metric> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INSIGHTS.toString())
@@ -111,29 +130,27 @@ public class MetricReader extends Reader<Metric> {
     }
 
     @Override
-    public Page<Metric> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Metric> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (edge != null) {
-    
             request.addQueryParam("Edge", edge.toString());
         }
         if (direction != null) {
-    
             request.addQueryParam("Direction", direction.toString());
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

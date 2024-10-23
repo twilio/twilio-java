@@ -22,40 +22,43 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExportConfiguration extends Resource {
+
     private static final long serialVersionUID = 268277535772365L;
 
-    public static ExportConfigurationFetcher fetcher(final String pathResourceType){
+    public static ExportConfigurationFetcher fetcher(
+        final String pathResourceType
+    ) {
         return new ExportConfigurationFetcher(pathResourceType);
     }
 
-    public static ExportConfigurationUpdater updater(final String pathResourceType){
+    public static ExportConfigurationUpdater updater(
+        final String pathResourceType
+    ) {
         return new ExportConfigurationUpdater(pathResourceType);
     }
 
     /**
-    * Converts a JSON String into a ExportConfiguration object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return ExportConfiguration object represented by the provided JSON
-    */
-    public static ExportConfiguration fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a ExportConfiguration object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return ExportConfiguration object represented by the provided JSON
+     */
+    public static ExportConfiguration fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExportConfiguration.class);
@@ -67,14 +70,17 @@ public class ExportConfiguration extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a ExportConfiguration object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return ExportConfiguration object represented by the provided JSON
-    */
-    public static ExportConfiguration fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a ExportConfiguration object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return ExportConfiguration object represented by the provided JSON
+     */
+    public static ExportConfiguration fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExportConfiguration.class);
@@ -93,20 +99,11 @@ public class ExportConfiguration extends Resource {
 
     @JsonCreator
     private ExportConfiguration(
-        @JsonProperty("enabled")
-        final Boolean enabled,
-
-        @JsonProperty("webhook_url")
-        final URI webhookUrl,
-
-        @JsonProperty("webhook_method")
-        final String webhookMethod,
-
-        @JsonProperty("resource_type")
-        final String resourceType,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("webhook_url") final URI webhookUrl,
+        @JsonProperty("webhook_method") final String webhookMethod,
+        @JsonProperty("resource_type") final String resourceType,
+        @JsonProperty("url") final URI url
     ) {
         this.enabled = enabled;
         this.webhookUrl = webhookUrl;
@@ -115,25 +112,29 @@ public class ExportConfiguration extends Resource {
         this.url = url;
     }
 
-        public final Boolean getEnabled() {
-            return this.enabled;
-        }
-        public final URI getWebhookUrl() {
-            return this.webhookUrl;
-        }
-        public final String getWebhookMethod() {
-            return this.webhookMethod;
-        }
-        public final String getResourceType() {
-            return this.resourceType;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    public final URI getWebhookUrl() {
+        return this.webhookUrl;
+    }
+
+    public final String getWebhookMethod() {
+        return this.webhookMethod;
+    }
+
+    public final String getResourceType() {
+        return this.resourceType;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -143,13 +144,23 @@ public class ExportConfiguration extends Resource {
 
         ExportConfiguration other = (ExportConfiguration) o;
 
-        return Objects.equals(enabled, other.enabled) &&  Objects.equals(webhookUrl, other.webhookUrl) &&  Objects.equals(webhookMethod, other.webhookMethod) &&  Objects.equals(resourceType, other.resourceType) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(webhookUrl, other.webhookUrl) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(resourceType, other.resourceType) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(enabled, webhookUrl, webhookMethod, resourceType, url);
+        return Objects.hash(
+            enabled,
+            webhookUrl,
+            webhookMethod,
+            resourceType,
+            url
+        );
     }
-
 }
-

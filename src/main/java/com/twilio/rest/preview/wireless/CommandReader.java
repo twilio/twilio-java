@@ -14,8 +14,10 @@
 
 package com.twilio.rest.preview.wireless;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,37 +26,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class CommandReader extends Reader<Command> {
+
     private String device;
     private String sim;
     private String status;
     private String direction;
     private Integer pageSize;
 
-    public CommandReader(){
-    }
+    public CommandReader() {}
 
-    public CommandReader setDevice(final String device){
+    public CommandReader setDevice(final String device) {
         this.device = device;
         return this;
     }
-    public CommandReader setSim(final String sim){
+
+    public CommandReader setSim(final String sim) {
         this.sim = sim;
         return this;
     }
-    public CommandReader setStatus(final String status){
+
+    public CommandReader setStatus(final String status) {
         this.status = status;
         return this;
     }
-    public CommandReader setDirection(final String direction){
+
+    public CommandReader setDirection(final String direction) {
         this.direction = direction;
         return this;
     }
-    public CommandReader setPageSize(final Integer pageSize){
+
+    public CommandReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -74,18 +77,30 @@ public class CommandReader extends Reader<Command> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Command> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Command> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Command read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Command read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -99,7 +114,10 @@ public class CommandReader extends Reader<Command> {
     }
 
     @Override
-    public Page<Command> previousPage(final Page<Command> page, final TwilioRestClient client) {
+    public Page<Command> previousPage(
+        final Page<Command> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -107,9 +125,11 @@ public class CommandReader extends Reader<Command> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Command> nextPage(final Page<Command> page, final TwilioRestClient client) {
+    public Page<Command> nextPage(
+        final Page<Command> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -118,37 +138,33 @@ public class CommandReader extends Reader<Command> {
     }
 
     @Override
-    public Page<Command> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Command> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (device != null) {
-    
             request.addQueryParam("Device", device);
         }
         if (sim != null) {
-    
             request.addQueryParam("Sim", sim);
         }
         if (status != null) {
-    
             request.addQueryParam("Status", status);
         }
         if (direction != null) {
-    
             request.addQueryParam("Direction", direction);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

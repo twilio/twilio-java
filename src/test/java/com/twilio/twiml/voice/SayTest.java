@@ -35,11 +35,11 @@ public class SayTest {
 
     @Test
     public void testElementWithParams() {
-        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build();
+        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>",
+            "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>",
             elem.toXml()
         );
     }
@@ -182,10 +182,10 @@ public class SayTest {
 
     @Test
     public void testXmlAttributesDeserialization() {
-        final Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build();
+        final Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build();
 
         Assert.assertEquals(
-            Say.Builder.fromXml("<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>").build().toXml(),
+            Say.Builder.fromXml("<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>").build().toXml(),
             elem.toXml()
         );
     }

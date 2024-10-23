@@ -23,55 +23,63 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncStream extends Resource {
+
     private static final long serialVersionUID = 122709874652370L;
 
-    public static SyncStreamCreator creator(final String pathServiceSid){
+    public static SyncStreamCreator creator(final String pathServiceSid) {
         return new SyncStreamCreator(pathServiceSid);
     }
 
-    public static SyncStreamDeleter deleter(final String pathServiceSid, final String pathSid){
+    public static SyncStreamDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new SyncStreamDeleter(pathServiceSid, pathSid);
     }
 
-    public static SyncStreamFetcher fetcher(final String pathServiceSid, final String pathSid){
+    public static SyncStreamFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new SyncStreamFetcher(pathServiceSid, pathSid);
     }
 
-    public static SyncStreamReader reader(final String pathServiceSid){
+    public static SyncStreamReader reader(final String pathServiceSid) {
         return new SyncStreamReader(pathServiceSid);
     }
 
-    public static SyncStreamUpdater updater(final String pathServiceSid, final String pathSid){
+    public static SyncStreamUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new SyncStreamUpdater(pathServiceSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a SyncStream object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return SyncStream object represented by the provided JSON
-    */
-    public static SyncStream fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a SyncStream object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return SyncStream object represented by the provided JSON
+     */
+    public static SyncStream fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncStream.class);
@@ -83,14 +91,17 @@ public class SyncStream extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a SyncStream object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return SyncStream object represented by the provided JSON
-    */
-    public static SyncStream fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a SyncStream object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return SyncStream object represented by the provided JSON
+     */
+    public static SyncStream fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncStream.class);
@@ -114,35 +125,16 @@ public class SyncStream extends Resource {
 
     @JsonCreator
     private SyncStream(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("unique_name")
-        final String uniqueName,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links,
-
-        @JsonProperty("date_expires")
-        final String dateExpires,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("created_by")
-        final String createdBy
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("date_expires") final String dateExpires,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("created_by") final String createdBy
     ) {
         this.sid = sid;
         this.uniqueName = uniqueName;
@@ -156,40 +148,49 @@ public class SyncStream extends Resource {
         this.createdBy = createdBy;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getUniqueName() {
-            return this.uniqueName;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
-        public final ZonedDateTime getDateExpires() {
-            return this.dateExpires;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getCreatedBy() {
-            return this.createdBy;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getUniqueName() {
+        return this.uniqueName;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    public final ZonedDateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getCreatedBy() {
+        return this.createdBy;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -199,13 +200,33 @@ public class SyncStream extends Resource {
 
         SyncStream other = (SyncStream) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links) &&  Objects.equals(dateExpires, other.dateExpires) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(createdBy, other.createdBy)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(createdBy, other.createdBy)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, uniqueName, accountSid, serviceSid, url, links, dateExpires, dateCreated, dateUpdated, createdBy);
+        return Objects.hash(
+            sid,
+            uniqueName,
+            accountSid,
+            serviceSid,
+            url,
+            links,
+            dateExpires,
+            dateCreated,
+            dateUpdated,
+            createdBy
+        );
     }
-
 }
-

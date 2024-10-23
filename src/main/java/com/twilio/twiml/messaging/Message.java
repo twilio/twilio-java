@@ -108,9 +108,11 @@ public class Message extends TwiML {
     }
 
     /**
-     * Action URL
+     * A URL specifying where Twilio should send status callbacks for the created
+     * outbound message.
      *
-     * @return Action URL
+     * @return A URL specifying where Twilio should send status callbacks for the
+     *         created outbound message.
      */
     public URI getAction() {
         return action;
@@ -201,7 +203,8 @@ public class Message extends TwiML {
         }
 
         /**
-         * Action URL
+         * A URL specifying where Twilio should send status callbacks for the created
+         * outbound message.
          */
         @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
@@ -210,7 +213,8 @@ public class Message extends TwiML {
         }
 
         /**
-         * Action URL
+         * A URL specifying where Twilio should send status callbacks for the created
+         * outbound message.
          */
         public Builder action(String action) {
             this.action = Promoter.uriFromString(action);

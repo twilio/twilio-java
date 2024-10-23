@@ -24,41 +24,47 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Log extends Resource {
+
     private static final long serialVersionUID = 129897058125132L;
 
-    public static LogFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+    public static LogFetcher fetcher(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String pathSid
+    ) {
         return new LogFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-    public static LogReader reader(final String pathServiceSid, final String pathEnvironmentSid){
+    public static LogReader reader(
+        final String pathServiceSid,
+        final String pathEnvironmentSid
+    ) {
         return new LogReader(pathServiceSid, pathEnvironmentSid);
     }
 
     /**
-    * Converts a JSON String into a Log object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Log object represented by the provided JSON
-    */
-    public static Log fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Log object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Log object represented by the provided JSON
+     */
+    public static Log fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Log.class);
@@ -70,14 +76,17 @@ public class Log extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Log object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Log object represented by the provided JSON
-    */
-    public static Log fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Log object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Log object represented by the provided JSON
+     */
+    public static Log fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Log.class);
@@ -87,6 +96,143 @@ public class Log extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    private final String sid;
+    private final String accountSid;
+    private final String serviceSid;
+    private final String environmentSid;
+    private final String buildSid;
+    private final String deploymentSid;
+    private final String functionSid;
+    private final String requestSid;
+    private final Log.Level level;
+    private final String message;
+    private final ZonedDateTime dateCreated;
+    private final URI url;
+
+    @JsonCreator
+    private Log(
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("environment_sid") final String environmentSid,
+        @JsonProperty("build_sid") final String buildSid,
+        @JsonProperty("deployment_sid") final String deploymentSid,
+        @JsonProperty("function_sid") final String functionSid,
+        @JsonProperty("request_sid") final String requestSid,
+        @JsonProperty("level") final Log.Level level,
+        @JsonProperty("message") final String message,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("url") final URI url
+    ) {
+        this.sid = sid;
+        this.accountSid = accountSid;
+        this.serviceSid = serviceSid;
+        this.environmentSid = environmentSid;
+        this.buildSid = buildSid;
+        this.deploymentSid = deploymentSid;
+        this.functionSid = functionSid;
+        this.requestSid = requestSid;
+        this.level = level;
+        this.message = message;
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.url = url;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getEnvironmentSid() {
+        return this.environmentSid;
+    }
+
+    public final String getBuildSid() {
+        return this.buildSid;
+    }
+
+    public final String getDeploymentSid() {
+        return this.deploymentSid;
+    }
+
+    public final String getFunctionSid() {
+        return this.functionSid;
+    }
+
+    public final String getRequestSid() {
+        return this.requestSid;
+    }
+
+    public final Log.Level getLevel() {
+        return this.level;
+    }
+
+    public final String getMessage() {
+        return this.message;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Log other = (Log) o;
+
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(environmentSid, other.environmentSid) &&
+            Objects.equals(buildSid, other.buildSid) &&
+            Objects.equals(deploymentSid, other.deploymentSid) &&
+            Objects.equals(functionSid, other.functionSid) &&
+            Objects.equals(requestSid, other.requestSid) &&
+            Objects.equals(level, other.level) &&
+            Objects.equals(message, other.message) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            sid,
+            accountSid,
+            serviceSid,
+            environmentSid,
+            buildSid,
+            deploymentSid,
+            functionSid,
+            requestSid,
+            level,
+            message,
+            dateCreated,
+            url
+        );
+    }
+
     public enum Level {
         INFO("info"),
         WARN("warn"),
@@ -107,128 +253,4 @@ public class Log extends Resource {
             return Promoter.enumFromString(value, Level.values());
         }
     }
-
-    private final String sid;
-    private final String accountSid;
-    private final String serviceSid;
-    private final String environmentSid;
-    private final String buildSid;
-    private final String deploymentSid;
-    private final String functionSid;
-    private final String requestSid;
-    private final Log.Level level;
-    private final String message;
-    private final ZonedDateTime dateCreated;
-    private final URI url;
-
-    @JsonCreator
-    private Log(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("environment_sid")
-        final String environmentSid,
-
-        @JsonProperty("build_sid")
-        final String buildSid,
-
-        @JsonProperty("deployment_sid")
-        final String deploymentSid,
-
-        @JsonProperty("function_sid")
-        final String functionSid,
-
-        @JsonProperty("request_sid")
-        final String requestSid,
-
-        @JsonProperty("level")
-        final Log.Level level,
-
-        @JsonProperty("message")
-        final String message,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("url")
-        final URI url
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.environmentSid = environmentSid;
-        this.buildSid = buildSid;
-        this.deploymentSid = deploymentSid;
-        this.functionSid = functionSid;
-        this.requestSid = requestSid;
-        this.level = level;
-        this.message = message;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.url = url;
-    }
-
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getEnvironmentSid() {
-            return this.environmentSid;
-        }
-        public final String getBuildSid() {
-            return this.buildSid;
-        }
-        public final String getDeploymentSid() {
-            return this.deploymentSid;
-        }
-        public final String getFunctionSid() {
-            return this.functionSid;
-        }
-        public final String getRequestSid() {
-            return this.requestSid;
-        }
-        public final Log.Level getLevel() {
-            return this.level;
-        }
-        public final String getMessage() {
-            return this.message;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this==o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Log other = (Log) o;
-
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(environmentSid, other.environmentSid) &&  Objects.equals(buildSid, other.buildSid) &&  Objects.equals(deploymentSid, other.deploymentSid) &&  Objects.equals(functionSid, other.functionSid) &&  Objects.equals(requestSid, other.requestSid) &&  Objects.equals(level, other.level) &&  Objects.equals(message, other.message) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(url, other.url)  ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, environmentSid, buildSid, deploymentSid, functionSid, requestSid, level, message, dateCreated, url);
-    }
-
 }
-

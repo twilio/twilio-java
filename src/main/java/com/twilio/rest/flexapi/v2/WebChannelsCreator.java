@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class WebChannelsCreator extends Creator<WebChannels> {
 
-
-
-public class WebChannelsCreator extends Creator<WebChannels>{
     private String addressSid;
+    private String uiVersion;
     private String chatFriendlyName;
     private String customerFriendlyName;
     private String preEngagementData;
@@ -37,64 +37,95 @@ public class WebChannelsCreator extends Creator<WebChannels>{
         this.addressSid = addressSid;
     }
 
-    public WebChannelsCreator setAddressSid(final String addressSid){
+    public WebChannelsCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
-    public WebChannelsCreator setChatFriendlyName(final String chatFriendlyName){
+
+    public WebChannelsCreator setUiVersion(final String uiVersion) {
+        this.uiVersion = uiVersion;
+        return this;
+    }
+
+    public WebChannelsCreator setChatFriendlyName(
+        final String chatFriendlyName
+    ) {
         this.chatFriendlyName = chatFriendlyName;
         return this;
     }
-    public WebChannelsCreator setCustomerFriendlyName(final String customerFriendlyName){
+
+    public WebChannelsCreator setCustomerFriendlyName(
+        final String customerFriendlyName
+    ) {
         this.customerFriendlyName = customerFriendlyName;
         return this;
     }
-    public WebChannelsCreator setPreEngagementData(final String preEngagementData){
+
+    public WebChannelsCreator setPreEngagementData(
+        final String preEngagementData
+    ) {
         this.preEngagementData = preEngagementData;
         return this;
     }
 
     @Override
-    public WebChannels create(final TwilioRestClient client){
+    public WebChannels create(final TwilioRestClient client) {
         String path = "/v2/WebChats";
 
-        path = path.replace("{"+"AddressSid"+"}", this.addressSid.toString());
+        path =
+            path.replace("{" + "AddressSid" + "}", this.addressSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("WebChannels creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WebChannels creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return WebChannels.fromJson(response.getStream(), client.getObjectMapper());
+        return WebChannels.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
-    
         }
         if (chatFriendlyName != null) {
             request.addPostParam("ChatFriendlyName", chatFriendlyName);
-    
         }
         if (customerFriendlyName != null) {
             request.addPostParam("CustomerFriendlyName", customerFriendlyName);
-    
         }
         if (preEngagementData != null) {
             request.addPostParam("PreEngagementData", preEngagementData);
-    
+        }
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (uiVersion != null) {
+            request.addHeaderParam("Ui-Version", uiVersion);
         }
     }
 }

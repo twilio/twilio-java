@@ -14,8 +14,10 @@
 
 package com.twilio.rest.verify.v2.service;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,31 +26,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 
+public class MessagingConfigurationReader
+    extends Reader<MessagingConfiguration> {
 
-
-public class MessagingConfigurationReader extends Reader<MessagingConfiguration> {
     private String pathServiceSid;
     private Integer pageSize;
 
-    public MessagingConfigurationReader(final String pathServiceSid){
+    public MessagingConfigurationReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public MessagingConfigurationReader setPageSize(final Integer pageSize){
+    public MessagingConfigurationReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<MessagingConfiguration> read(final TwilioRestClient client) {
+    public ResourceSet<MessagingConfiguration> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<MessagingConfiguration> firstPage(final TwilioRestClient client) {
+    public Page<MessagingConfiguration> firstPage(
+        final TwilioRestClient client
+    ) {
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -57,18 +66,30 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<MessagingConfiguration> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<MessagingConfiguration> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("MessagingConfiguration read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "MessagingConfiguration read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,7 +103,10 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
     }
 
     @Override
-    public Page<MessagingConfiguration> previousPage(final Page<MessagingConfiguration> page, final TwilioRestClient client) {
+    public Page<MessagingConfiguration> previousPage(
+        final Page<MessagingConfiguration> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VERIFY.toString())
@@ -90,9 +114,11 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<MessagingConfiguration> nextPage(final Page<MessagingConfiguration> page, final TwilioRestClient client) {
+    public Page<MessagingConfiguration> nextPage(
+        final Page<MessagingConfiguration> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VERIFY.toString())
@@ -101,21 +127,21 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
     }
 
     @Override
-    public Page<MessagingConfiguration> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<MessagingConfiguration> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

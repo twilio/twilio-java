@@ -23,37 +23,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowValidate extends Resource {
+
     private static final long serialVersionUID = 128242236604078L;
 
-    public static FlowValidateUpdater updater(final String friendlyName, final FlowValidate.Status status, final Map<String, Object> definition){
+    public static FlowValidateUpdater updater(
+        final String friendlyName,
+        final FlowValidate.Status status,
+        final Map<String, Object> definition
+    ) {
         return new FlowValidateUpdater(friendlyName, status, definition);
     }
 
     /**
-    * Converts a JSON String into a FlowValidate object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return FlowValidate object represented by the provided JSON
-    */
-    public static FlowValidate fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a FlowValidate object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return FlowValidate object represented by the provided JSON
+     */
+    public static FlowValidate fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlowValidate.class);
@@ -65,14 +68,17 @@ public class FlowValidate extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a FlowValidate object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return FlowValidate object represented by the provided JSON
-    */
-    public static FlowValidate fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a FlowValidate object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return FlowValidate object represented by the provided JSON
+     */
+    public static FlowValidate fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlowValidate.class);
@@ -82,6 +88,38 @@ public class FlowValidate extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    private final Boolean valid;
+
+    @JsonCreator
+    private FlowValidate(@JsonProperty("valid") final Boolean valid) {
+        this.valid = valid;
+    }
+
+    public final Boolean getValid() {
+        return this.valid;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        FlowValidate other = (FlowValidate) o;
+
+        return Objects.equals(valid, other.valid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(valid);
+    }
+
     public enum Status {
         DRAFT("draft"),
         PUBLISHED("published");
@@ -101,40 +139,4 @@ public class FlowValidate extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
-
-    private final Boolean valid;
-
-    @JsonCreator
-    private FlowValidate(
-        @JsonProperty("valid")
-        final Boolean valid
-    ) {
-        this.valid = valid;
-    }
-
-        public final Boolean getValid() {
-            return this.valid;
-        }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this==o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        FlowValidate other = (FlowValidate) o;
-
-        return Objects.equals(valid, other.valid)  ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(valid);
-    }
-
 }
-

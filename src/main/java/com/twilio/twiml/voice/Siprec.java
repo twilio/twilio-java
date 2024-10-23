@@ -38,9 +38,26 @@ public class Siprec extends TwiML {
         }
     }
 
+    public enum StatusCallbackMethod {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private StatusCallbackMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final String name;
     private final String connectorName;
     private final Siprec.Track track;
+    private final String statusCallback;
+    private final Siprec.StatusCallbackMethod statusCallbackMethod;
 
     /**
      * For XML Serialization/Deserialization
@@ -57,6 +74,8 @@ public class Siprec extends TwiML {
         this.name = b.name;
         this.connectorName = b.connectorName;
         this.track = b.track;
+        this.statusCallback = b.statusCallback;
+        this.statusCallbackMethod = b.statusCallbackMethod;
     }
 
     /**
@@ -76,6 +95,12 @@ public class Siprec extends TwiML {
         }
         if (this.getTrack() != null) {
             attrs.put("track", this.getTrack().toString());
+        }
+        if (this.getStatusCallback() != null) {
+            attrs.put("statusCallback", this.getStatusCallback());
+        }
+        if (this.getStatusCallbackMethod() != null) {
+            attrs.put("statusCallbackMethod", this.getStatusCallbackMethod().toString());
         }
 
         return attrs;
@@ -109,6 +134,24 @@ public class Siprec extends TwiML {
     }
 
     /**
+     * Status Callback URL
+     *
+     * @return Status Callback URL
+     */
+    public String getStatusCallback() {
+        return statusCallback;
+    }
+
+    /**
+     * Status Callback URL method
+     *
+     * @return Status Callback URL method
+     */
+    public Siprec.StatusCallbackMethod getStatusCallbackMethod() {
+        return statusCallbackMethod;
+    }
+
+    /**
      * Create a new {@code <Siprec>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -130,6 +173,8 @@ public class Siprec extends TwiML {
         private String name;
         private String connectorName;
         private Siprec.Track track;
+        private String statusCallback;
+        private Siprec.StatusCallbackMethod statusCallbackMethod;
 
         /**
          * Friendly name given to SIPREC
@@ -155,6 +200,24 @@ public class Siprec extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "track")
         public Builder track(Siprec.Track track) {
             this.track = track;
+            return this;
+        }
+
+        /**
+         * Status Callback URL
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
+        public Builder statusCallback(String statusCallback) {
+            this.statusCallback = statusCallback;
+            return this;
+        }
+
+        /**
+         * Status Callback URL method
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
+        public Builder statusCallbackMethod(Siprec.StatusCallbackMethod statusCallbackMethod) {
+            this.statusCallbackMethod = statusCallbackMethod;
             return this;
         }
 

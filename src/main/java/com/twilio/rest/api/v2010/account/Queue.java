@@ -23,67 +23,83 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Queue extends Resource {
+
     private static final long serialVersionUID = 17909156629067L;
 
-    public static QueueCreator creator(final String friendlyName){
+    public static QueueCreator creator(final String friendlyName) {
         return new QueueCreator(friendlyName);
     }
-    public static QueueCreator creator(final String pathAccountSid, final String friendlyName){
+
+    public static QueueCreator creator(
+        final String pathAccountSid,
+        final String friendlyName
+    ) {
         return new QueueCreator(pathAccountSid, friendlyName);
     }
 
-    public static QueueDeleter deleter(final String pathSid){
+    public static QueueDeleter deleter(final String pathSid) {
         return new QueueDeleter(pathSid);
     }
-    public static QueueDeleter deleter(final String pathAccountSid, final String pathSid){
+
+    public static QueueDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new QueueDeleter(pathAccountSid, pathSid);
     }
 
-    public static QueueFetcher fetcher(final String pathSid){
+    public static QueueFetcher fetcher(final String pathSid) {
         return new QueueFetcher(pathSid);
     }
-    public static QueueFetcher fetcher(final String pathAccountSid, final String pathSid){
+
+    public static QueueFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new QueueFetcher(pathAccountSid, pathSid);
     }
 
-    public static QueueReader reader(){
+    public static QueueReader reader() {
         return new QueueReader();
     }
-    public static QueueReader reader(final String pathAccountSid){
+
+    public static QueueReader reader(final String pathAccountSid) {
         return new QueueReader(pathAccountSid);
     }
 
-    public static QueueUpdater updater(final String pathSid){
+    public static QueueUpdater updater(final String pathSid) {
         return new QueueUpdater(pathSid);
     }
-    public static QueueUpdater updater(final String pathAccountSid, final String pathSid){
+
+    public static QueueUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new QueueUpdater(pathAccountSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Queue object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Queue object represented by the provided JSON
-    */
-    public static Queue fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Queue object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Queue object represented by the provided JSON
+     */
+    public static Queue fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Queue.class);
@@ -95,14 +111,17 @@ public class Queue extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Queue object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Queue object represented by the provided JSON
-    */
-    public static Queue fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Queue object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Queue object represented by the provided JSON
+     */
+    public static Queue fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Queue.class);
@@ -125,32 +144,15 @@ public class Queue extends Resource {
 
     @JsonCreator
     private Queue(
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("current_size")
-        final Integer currentSize,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("uri")
-        final String uri,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("average_wait_time")
-        final Integer averageWaitTime,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("max_size")
-        final Integer maxSize
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("current_size") final Integer currentSize,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("average_wait_time") final Integer averageWaitTime,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("max_size") final Integer maxSize
     ) {
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.currentSize = currentSize;
@@ -163,37 +165,45 @@ public class Queue extends Resource {
         this.maxSize = maxSize;
     }
 
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final Integer getCurrentSize() {
-            return this.currentSize;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Integer getAverageWaitTime() {
-            return this.averageWaitTime;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final Integer getMaxSize() {
-            return this.maxSize;
-        }
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final Integer getCurrentSize() {
+        return this.currentSize;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Integer getAverageWaitTime() {
+        return this.averageWaitTime;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final Integer getMaxSize() {
+        return this.maxSize;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -203,13 +213,31 @@ public class Queue extends Resource {
 
         Queue other = (Queue) o;
 
-        return Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(currentSize, other.currentSize) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(uri, other.uri) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(averageWaitTime, other.averageWaitTime) &&  Objects.equals(sid, other.sid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(maxSize, other.maxSize)  ;
+        return (
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(currentSize, other.currentSize) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(averageWaitTime, other.averageWaitTime) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(maxSize, other.maxSize)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateUpdated, currentSize, friendlyName, uri, accountSid, averageWaitTime, sid, dateCreated, maxSize);
+        return Objects.hash(
+            dateUpdated,
+            currentSize,
+            friendlyName,
+            uri,
+            accountSid,
+            averageWaitTime,
+            sid,
+            dateCreated,
+            maxSize
+        );
     }
-
 }
-

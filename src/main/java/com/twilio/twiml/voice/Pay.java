@@ -57,7 +57,8 @@ public class Pay extends TwiML {
 
     public enum TokenType {
         ONE_TIME("one-time"),
-        REUSABLE("reusable");
+        REUSABLE("reusable"),
+        PAYMENT_METHOD("payment-method");
 
         private final String value;
 

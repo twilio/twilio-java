@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class WorkerUpdater extends Updater<Worker> {
 
-
-
-public class WorkerUpdater extends Updater<Worker>{
     private String pathWorkspaceSid;
     private String pathSid;
     private String ifMatch;
@@ -36,81 +35,100 @@ public class WorkerUpdater extends Updater<Worker>{
     private String friendlyName;
     private Boolean rejectPendingReservations;
 
-    public WorkerUpdater(final String pathWorkspaceSid, final String pathSid){
+    public WorkerUpdater(final String pathWorkspaceSid, final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    public WorkerUpdater setIfMatch(final String ifMatch){
+    public WorkerUpdater setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
-    public WorkerUpdater setActivitySid(final String activitySid){
+
+    public WorkerUpdater setActivitySid(final String activitySid) {
         this.activitySid = activitySid;
         return this;
     }
-    public WorkerUpdater setAttributes(final String attributes){
+
+    public WorkerUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
-    public WorkerUpdater setFriendlyName(final String friendlyName){
+
+    public WorkerUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public WorkerUpdater setRejectPendingReservations(final Boolean rejectPendingReservations){
+
+    public WorkerUpdater setRejectPendingReservations(
+        final Boolean rejectPendingReservations
+    ) {
         this.rejectPendingReservations = rejectPendingReservations;
         return this;
     }
 
     @Override
-    public Worker update(final TwilioRestClient client){
+    public Worker update(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Worker update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Worker update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Worker.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (activitySid != null) {
             request.addPostParam("ActivitySid", activitySid);
-    
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (rejectPendingReservations != null) {
-            request.addPostParam("RejectPendingReservations", rejectPendingReservations.toString());
-    
+            request.addPostParam(
+                "RejectPendingReservations",
+                rejectPendingReservations.toString()
+            );
         }
     }
+
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
             request.addHeaderParam("If-Match", ifMatch);
-
         }
     }
 }

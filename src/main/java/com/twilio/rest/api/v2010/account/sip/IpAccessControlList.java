@@ -23,69 +23,97 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAccessControlList extends Resource {
+
     private static final long serialVersionUID = 178395545365846L;
 
-    public static IpAccessControlListCreator creator(final String friendlyName){
+    public static IpAccessControlListCreator creator(
+        final String friendlyName
+    ) {
         return new IpAccessControlListCreator(friendlyName);
     }
-    public static IpAccessControlListCreator creator(final String pathAccountSid, final String friendlyName){
+
+    public static IpAccessControlListCreator creator(
+        final String pathAccountSid,
+        final String friendlyName
+    ) {
         return new IpAccessControlListCreator(pathAccountSid, friendlyName);
     }
 
-    public static IpAccessControlListDeleter deleter(final String pathSid){
+    public static IpAccessControlListDeleter deleter(final String pathSid) {
         return new IpAccessControlListDeleter(pathSid);
     }
-    public static IpAccessControlListDeleter deleter(final String pathAccountSid, final String pathSid){
+
+    public static IpAccessControlListDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new IpAccessControlListDeleter(pathAccountSid, pathSid);
     }
 
-    public static IpAccessControlListFetcher fetcher(final String pathSid){
+    public static IpAccessControlListFetcher fetcher(final String pathSid) {
         return new IpAccessControlListFetcher(pathSid);
     }
-    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, final String pathSid){
+
+    public static IpAccessControlListFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new IpAccessControlListFetcher(pathAccountSid, pathSid);
     }
 
-    public static IpAccessControlListReader reader(){
+    public static IpAccessControlListReader reader() {
         return new IpAccessControlListReader();
     }
-    public static IpAccessControlListReader reader(final String pathAccountSid){
+
+    public static IpAccessControlListReader reader(
+        final String pathAccountSid
+    ) {
         return new IpAccessControlListReader(pathAccountSid);
     }
 
-    public static IpAccessControlListUpdater updater(final String pathSid, final String friendlyName){
+    public static IpAccessControlListUpdater updater(
+        final String pathSid,
+        final String friendlyName
+    ) {
         return new IpAccessControlListUpdater(pathSid, friendlyName);
     }
-    public static IpAccessControlListUpdater updater(final String pathAccountSid, final String pathSid, final String friendlyName){
-        return new IpAccessControlListUpdater(pathAccountSid, pathSid, friendlyName);
+
+    public static IpAccessControlListUpdater updater(
+        final String pathAccountSid,
+        final String pathSid,
+        final String friendlyName
+    ) {
+        return new IpAccessControlListUpdater(
+            pathAccountSid,
+            pathSid,
+            friendlyName
+        );
     }
 
     /**
-    * Converts a JSON String into a IpAccessControlList object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return IpAccessControlList object represented by the provided JSON
-    */
-    public static IpAccessControlList fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a IpAccessControlList object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return IpAccessControlList object represented by the provided JSON
+     */
+    public static IpAccessControlList fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpAccessControlList.class);
@@ -97,14 +125,17 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a IpAccessControlList object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return IpAccessControlList object represented by the provided JSON
-    */
-    public static IpAccessControlList fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a IpAccessControlList object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return IpAccessControlList object represented by the provided JSON
+     */
+    public static IpAccessControlList fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpAccessControlList.class);
@@ -125,26 +156,16 @@ public class IpAccessControlList extends Resource {
 
     @JsonCreator
     private IpAccessControlList(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("subresource_uris")
-        final Map<String, String> subresourceUris,
-
-        @JsonProperty("uri")
-        final String uri
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
+        @JsonProperty("uri") final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -155,31 +176,37 @@ public class IpAccessControlList extends Resource {
         this.uri = uri;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final Map<String, String> getSubresourceUris() {
-            return this.subresourceUris;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -189,13 +216,27 @@ public class IpAccessControlList extends Resource {
 
         IpAccessControlList other = (IpAccessControlList) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(subresourceUris, other.subresourceUris) &&  Objects.equals(uri, other.uri)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(subresourceUris, other.subresourceUris) &&
+            Objects.equals(uri, other.uri)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, friendlyName, dateCreated, dateUpdated, subresourceUris, uri);
+        return Objects.hash(
+            sid,
+            accountSid,
+            friendlyName,
+            dateCreated,
+            dateUpdated,
+            subresourceUris,
+            uri
+        );
     }
-
 }
-

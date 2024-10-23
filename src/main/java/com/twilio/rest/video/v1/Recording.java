@@ -24,48 +24,47 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
+
     private static final long serialVersionUID = 34004868870464L;
 
-    public static RecordingDeleter deleter(final String pathSid){
+    public static RecordingDeleter deleter(final String pathSid) {
         return new RecordingDeleter(pathSid);
     }
 
-    public static RecordingFetcher fetcher(final String pathSid){
+    public static RecordingFetcher fetcher(final String pathSid) {
         return new RecordingFetcher(pathSid);
     }
 
-    public static RecordingReader reader(){
+    public static RecordingReader reader() {
         return new RecordingReader();
     }
 
     /**
-    * Converts a JSON String into a Recording object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Recording object represented by the provided JSON
-    */
-    public static Recording fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Recording object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Recording object represented by the provided JSON
+     */
+    public static Recording fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Recording.class);
@@ -77,14 +76,17 @@ public class Recording extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Recording object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Recording object represented by the provided JSON
-    */
-    public static Recording fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Recording object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Recording object represented by the provided JSON
+     */
+    public static Recording fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Recording.class);
@@ -92,87 +94,6 @@ public class Recording extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-    public enum Codec {
-        VP8("VP8"),
-        H264("H264"),
-        OPUS("OPUS"),
-        PCMU("PCMU");
-
-        private final String value;
-
-        private Codec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Codec forValue(final String value) {
-            return Promoter.enumFromString(value, Codec.values());
-        }
-    }
-    public enum Format {
-        MKA("mka"),
-        MKV("mkv");
-
-        private final String value;
-
-        private Format(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Format forValue(final String value) {
-            return Promoter.enumFromString(value, Format.values());
-        }
-    }
-    public enum Status {
-        PROCESSING("processing"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-    public enum Type {
-        AUDIO("audio"),
-        VIDEO("video"),
-        DATA("data");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
         }
     }
 
@@ -197,59 +118,30 @@ public class Recording extends Resource {
 
     @JsonCreator
     private Recording(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("status")
-        final Recording.Status status,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("source_sid")
-        final String sourceSid,
-
-        @JsonProperty("size")
-        final Long size,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("type")
-        final Recording.Type type,
-
-        @JsonProperty("duration")
-        final Integer duration,
-
-        @JsonProperty("container_format")
-        final Recording.Format containerFormat,
-
-        @JsonProperty("codec")
-        final Recording.Codec codec,
-
-        @JsonProperty("grouping_sids")
-        final Map<String, Object> groupingSids,
-
-        @JsonProperty("track_name")
-        final String trackName,
-
-        @JsonProperty("offset")
-        final Long offset,
-
-        @JsonProperty("media_external_location")
-        final URI mediaExternalLocation,
-
-        @JsonProperty("status_callback")
-        final URI statusCallback,
-
-        @JsonProperty("status_callback_method")
-        final HttpMethod statusCallbackMethod,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("status") final Recording.Status status,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("source_sid") final String sourceSid,
+        @JsonProperty("size") final Long size,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("type") final Recording.Type type,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty(
+            "container_format"
+        ) final Recording.Format containerFormat,
+        @JsonProperty("codec") final Recording.Codec codec,
+        @JsonProperty("grouping_sids") final Map<String, Object> groupingSids,
+        @JsonProperty("track_name") final String trackName,
+        @JsonProperty("offset") final Long offset,
+        @JsonProperty(
+            "media_external_location"
+        ) final URI mediaExternalLocation,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.status = status;
@@ -271,64 +163,81 @@ public class Recording extends Resource {
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Recording.Status getStatus() {
-            return this.status;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getSourceSid() {
-            return this.sourceSid;
-        }
-        public final Long getSize() {
-            return this.size;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Recording.Type getType() {
-            return this.type;
-        }
-        public final Integer getDuration() {
-            return this.duration;
-        }
-        public final Recording.Format getContainerFormat() {
-            return this.containerFormat;
-        }
-        public final Recording.Codec getCodec() {
-            return this.codec;
-        }
-        public final Map<String, Object> getGroupingSids() {
-            return this.groupingSids;
-        }
-        public final String getTrackName() {
-            return this.trackName;
-        }
-        public final Long getOffset() {
-            return this.offset;
-        }
-        public final URI getMediaExternalLocation() {
-            return this.mediaExternalLocation;
-        }
-        public final URI getStatusCallback() {
-            return this.statusCallback;
-        }
-        public final HttpMethod getStatusCallbackMethod() {
-            return this.statusCallbackMethod;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Recording.Status getStatus() {
+        return this.status;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getSourceSid() {
+        return this.sourceSid;
+    }
+
+    public final Long getSize() {
+        return this.size;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Recording.Type getType() {
+        return this.type;
+    }
+
+    public final Integer getDuration() {
+        return this.duration;
+    }
+
+    public final Recording.Format getContainerFormat() {
+        return this.containerFormat;
+    }
+
+    public final Recording.Codec getCodec() {
+        return this.codec;
+    }
+
+    public final Map<String, Object> getGroupingSids() {
+        return this.groupingSids;
+    }
+
+    public final String getTrackName() {
+        return this.trackName;
+    }
+
+    public final Long getOffset() {
+        return this.offset;
+    }
+
+    public final URI getMediaExternalLocation() {
+        return this.mediaExternalLocation;
+    }
+
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -338,13 +247,137 @@ public class Recording extends Resource {
 
         Recording other = (Recording) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(status, other.status) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(sid, other.sid) &&  Objects.equals(sourceSid, other.sourceSid) &&  Objects.equals(size, other.size) &&  Objects.equals(url, other.url) &&  Objects.equals(type, other.type) &&  Objects.equals(duration, other.duration) &&  Objects.equals(containerFormat, other.containerFormat) &&  Objects.equals(codec, other.codec) &&  Objects.equals(groupingSids, other.groupingSids) &&  Objects.equals(trackName, other.trackName) &&  Objects.equals(offset, other.offset) &&  Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sourceSid, other.sourceSid) &&
+            Objects.equals(size, other.size) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(containerFormat, other.containerFormat) &&
+            Objects.equals(codec, other.codec) &&
+            Objects.equals(groupingSids, other.groupingSids) &&
+            Objects.equals(trackName, other.trackName) &&
+            Objects.equals(offset, other.offset) &&
+            Objects.equals(
+                mediaExternalLocation,
+                other.mediaExternalLocation
+            ) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, status, dateCreated, sid, sourceSid, size, url, type, duration, containerFormat, codec, groupingSids, trackName, offset, mediaExternalLocation, statusCallback, statusCallbackMethod, links);
+        return Objects.hash(
+            accountSid,
+            status,
+            dateCreated,
+            sid,
+            sourceSid,
+            size,
+            url,
+            type,
+            duration,
+            containerFormat,
+            codec,
+            groupingSids,
+            trackName,
+            offset,
+            mediaExternalLocation,
+            statusCallback,
+            statusCallbackMethod,
+            links
+        );
     }
 
-}
+    public enum Format {
+        MKA("mka"),
+        MKV("mkv");
 
+        private final String value;
+
+        private Format(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Format forValue(final String value) {
+            return Promoter.enumFromString(value, Format.values());
+        }
+    }
+
+    public enum Type {
+        AUDIO("audio"),
+        VIDEO("video"),
+        DATA("data");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum Status {
+        PROCESSING("processing"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Codec {
+        VP8("VP8"),
+        H264("H264"),
+        OPUS("OPUS"),
+        PCMU("PCMU");
+
+        private final String value;
+
+        private Codec(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Codec forValue(final String value) {
+            return Promoter.enumFromString(value, Codec.values());
+        }
+    }
+}

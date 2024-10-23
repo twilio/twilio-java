@@ -22,46 +22,62 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
-import java.math.BigDecimal;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsAssessmentsComment extends Resource {
-    private static final long serialVersionUID = 216895608887048L;
 
-    public static InsightsAssessmentsCommentCreator creator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset){
-        return new InsightsAssessmentsCommentCreator(categoryId, categoryName, comment, segmentId, userName, userEmail, agentId, offset);
+    private static final long serialVersionUID = 175598645429423L;
+
+    public static InsightsAssessmentsCommentCreator creator(
+        final String categoryId,
+        final String categoryName,
+        final String comment,
+        final String segmentId,
+        final String agentId,
+        final BigDecimal offset
+    ) {
+        return new InsightsAssessmentsCommentCreator(
+            categoryId,
+            categoryName,
+            comment,
+            segmentId,
+            agentId,
+            offset
+        );
     }
 
-    public static InsightsAssessmentsCommentReader reader(){
+    public static InsightsAssessmentsCommentReader reader() {
         return new InsightsAssessmentsCommentReader();
     }
 
     /**
-    * Converts a JSON String into a InsightsAssessmentsComment object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return InsightsAssessmentsComment object represented by the provided JSON
-    */
-    public static InsightsAssessmentsComment fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a InsightsAssessmentsComment object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return InsightsAssessmentsComment object represented by the provided JSON
+     */
+    public static InsightsAssessmentsComment fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsAssessmentsComment.class);
+            return objectMapper.readValue(
+                json,
+                InsightsAssessmentsComment.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -70,17 +86,23 @@ public class InsightsAssessmentsComment extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a InsightsAssessmentsComment object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return InsightsAssessmentsComment object represented by the provided JSON
-    */
-    public static InsightsAssessmentsComment fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a InsightsAssessmentsComment object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return InsightsAssessmentsComment object represented by the provided JSON
+     */
+    public static InsightsAssessmentsComment fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsAssessmentsComment.class);
+            return objectMapper.readValue(
+                json,
+                InsightsAssessmentsComment.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -89,7 +111,7 @@ public class InsightsAssessmentsComment extends Resource {
     }
 
     private final String accountSid;
-    private final String assessmentId;
+    private final String assessmentSid;
     private final Map<String, Object> comment;
     private final BigDecimal offset;
     private final Boolean report;
@@ -103,44 +125,21 @@ public class InsightsAssessmentsComment extends Resource {
 
     @JsonCreator
     private InsightsAssessmentsComment(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("assessment_id")
-        final String assessmentId,
-
-        @JsonProperty("comment")
-        final Map<String, Object> comment,
-
-        @JsonProperty("offset")
-        final BigDecimal offset,
-
-        @JsonProperty("report")
-        final Boolean report,
-
-        @JsonProperty("weight")
-        final BigDecimal weight,
-
-        @JsonProperty("agent_id")
-        final String agentId,
-
-        @JsonProperty("segment_id")
-        final String segmentId,
-
-        @JsonProperty("user_name")
-        final String userName,
-
-        @JsonProperty("user_email")
-        final String userEmail,
-
-        @JsonProperty("timestamp")
-        final BigDecimal timestamp,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("assessment_sid") final String assessmentSid,
+        @JsonProperty("comment") final Map<String, Object> comment,
+        @JsonProperty("offset") final BigDecimal offset,
+        @JsonProperty("report") final Boolean report,
+        @JsonProperty("weight") final BigDecimal weight,
+        @JsonProperty("agent_id") final String agentId,
+        @JsonProperty("segment_id") final String segmentId,
+        @JsonProperty("user_name") final String userName,
+        @JsonProperty("user_email") final String userEmail,
+        @JsonProperty("timestamp") final BigDecimal timestamp,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.assessmentId = assessmentId;
+        this.assessmentSid = assessmentSid;
         this.comment = comment;
         this.offset = offset;
         this.report = report;
@@ -153,46 +152,57 @@ public class InsightsAssessmentsComment extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getAssessmentId() {
-            return this.assessmentId;
-        }
-        public final Map<String, Object> getComment() {
-            return this.comment;
-        }
-        public final BigDecimal getOffset() {
-            return this.offset;
-        }
-        public final Boolean getReport() {
-            return this.report;
-        }
-        public final BigDecimal getWeight() {
-            return this.weight;
-        }
-        public final String getAgentId() {
-            return this.agentId;
-        }
-        public final String getSegmentId() {
-            return this.segmentId;
-        }
-        public final String getUserName() {
-            return this.userName;
-        }
-        public final String getUserEmail() {
-            return this.userEmail;
-        }
-        public final BigDecimal getTimestamp() {
-            return this.timestamp;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getAssessmentSid() {
+        return this.assessmentSid;
+    }
+
+    public final Map<String, Object> getComment() {
+        return this.comment;
+    }
+
+    public final BigDecimal getOffset() {
+        return this.offset;
+    }
+
+    public final Boolean getReport() {
+        return this.report;
+    }
+
+    public final BigDecimal getWeight() {
+        return this.weight;
+    }
+
+    public final String getAgentId() {
+        return this.agentId;
+    }
+
+    public final String getSegmentId() {
+        return this.segmentId;
+    }
+
+    public final String getUserName() {
+        return this.userName;
+    }
+
+    public final String getUserEmail() {
+        return this.userEmail;
+    }
+
+    public final BigDecimal getTimestamp() {
+        return this.timestamp;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -202,13 +212,37 @@ public class InsightsAssessmentsComment extends Resource {
 
         InsightsAssessmentsComment other = (InsightsAssessmentsComment) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assessmentId, other.assessmentId) &&  Objects.equals(comment, other.comment) &&  Objects.equals(offset, other.offset) &&  Objects.equals(report, other.report) &&  Objects.equals(weight, other.weight) &&  Objects.equals(agentId, other.agentId) &&  Objects.equals(segmentId, other.segmentId) &&  Objects.equals(userName, other.userName) &&  Objects.equals(userEmail, other.userEmail) &&  Objects.equals(timestamp, other.timestamp) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assessmentSid, other.assessmentSid) &&
+            Objects.equals(comment, other.comment) &&
+            Objects.equals(offset, other.offset) &&
+            Objects.equals(report, other.report) &&
+            Objects.equals(weight, other.weight) &&
+            Objects.equals(agentId, other.agentId) &&
+            Objects.equals(segmentId, other.segmentId) &&
+            Objects.equals(userName, other.userName) &&
+            Objects.equals(userEmail, other.userEmail) &&
+            Objects.equals(timestamp, other.timestamp) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, assessmentId, comment, offset, report, weight, agentId, segmentId, userName, userEmail, timestamp, url);
+        return Objects.hash(
+            accountSid,
+            assessmentSid,
+            comment,
+            offset,
+            report,
+            weight,
+            agentId,
+            segmentId,
+            userName,
+            userEmail,
+            timestamp,
+            url
+        );
     }
-
 }
-

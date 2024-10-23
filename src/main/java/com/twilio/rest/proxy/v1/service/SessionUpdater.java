@@ -15,6 +15,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,74 +24,88 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.time.ZonedDateTime;
 
+public class SessionUpdater extends Updater<Session> {
 
-
-public class SessionUpdater extends Updater<Session>{
     private String pathServiceSid;
     private String pathSid;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
 
-    public SessionUpdater(final String pathServiceSid, final String pathSid){
+    public SessionUpdater(final String pathServiceSid, final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry){
+    public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }
-    public SessionUpdater setTtl(final Integer ttl){
+
+    public SessionUpdater setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
-    public SessionUpdater setStatus(final Session.Status status){
+
+    public SessionUpdater setStatus(final Session.Status status) {
         this.status = status;
         return this;
     }
 
     @Override
-    public Session update(final TwilioRestClient client){
+    public Session update(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Session update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Session update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Session.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (dateExpiry != null) {
-            request.addPostParam("DateExpiry", dateExpiry.toInstant().toString());
-
+            request.addPostParam(
+                "DateExpiry",
+                dateExpiry.toInstant().toString()
+            );
         }
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
     }
 }

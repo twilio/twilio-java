@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,183 +27,199 @@ import com.twilio.rest.Domains;
 import java.math.BigDecimal;
 import java.math.BigDecimal;
 
+public class AssessmentsCreator extends Creator<Assessments> {
 
-
-
-public class AssessmentsCreator extends Creator<Assessments>{
-    private String categoryId;
+    private String categorySid;
     private String categoryName;
     private String segmentId;
-    private String userName;
-    private String userEmail;
     private String agentId;
     private BigDecimal offset;
     private String metricId;
     private String metricName;
     private String answerText;
     private String answerId;
-    private String questionnaireId;
-    private String token;
+    private String questionnaireSid;
+    private String authorization;
 
-    public AssessmentsCreator(final String categoryId, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireId) {
-        this.categoryId = categoryId;
+    public AssessmentsCreator(
+        final String categorySid,
+        final String categoryName,
+        final String segmentId,
+        final String agentId,
+        final BigDecimal offset,
+        final String metricId,
+        final String metricName,
+        final String answerText,
+        final String answerId,
+        final String questionnaireSid
+    ) {
+        this.categorySid = categorySid;
         this.categoryName = categoryName;
         this.segmentId = segmentId;
-        this.userName = userName;
-        this.userEmail = userEmail;
         this.agentId = agentId;
         this.offset = offset;
         this.metricId = metricId;
         this.metricName = metricName;
         this.answerText = answerText;
         this.answerId = answerId;
-        this.questionnaireId = questionnaireId;
+        this.questionnaireSid = questionnaireSid;
     }
 
-    public AssessmentsCreator setCategoryId(final String categoryId){
-        this.categoryId = categoryId;
+    public AssessmentsCreator setCategorySid(final String categorySid) {
+        this.categorySid = categorySid;
         return this;
     }
-    public AssessmentsCreator setCategoryName(final String categoryName){
+
+    public AssessmentsCreator setCategoryName(final String categoryName) {
         this.categoryName = categoryName;
         return this;
     }
-    public AssessmentsCreator setSegmentId(final String segmentId){
+
+    public AssessmentsCreator setSegmentId(final String segmentId) {
         this.segmentId = segmentId;
         return this;
     }
-    public AssessmentsCreator setUserName(final String userName){
-        this.userName = userName;
-        return this;
-    }
-    public AssessmentsCreator setUserEmail(final String userEmail){
-        this.userEmail = userEmail;
-        return this;
-    }
-    public AssessmentsCreator setAgentId(final String agentId){
+
+    public AssessmentsCreator setAgentId(final String agentId) {
         this.agentId = agentId;
         return this;
     }
-    public AssessmentsCreator setOffset(final BigDecimal offset){
+
+    public AssessmentsCreator setOffset(final BigDecimal offset) {
         this.offset = offset;
         return this;
     }
-    public AssessmentsCreator setMetricId(final String metricId){
+
+    public AssessmentsCreator setMetricId(final String metricId) {
         this.metricId = metricId;
         return this;
     }
-    public AssessmentsCreator setMetricName(final String metricName){
+
+    public AssessmentsCreator setMetricName(final String metricName) {
         this.metricName = metricName;
         return this;
     }
-    public AssessmentsCreator setAnswerText(final String answerText){
+
+    public AssessmentsCreator setAnswerText(final String answerText) {
         this.answerText = answerText;
         return this;
     }
-    public AssessmentsCreator setAnswerId(final String answerId){
+
+    public AssessmentsCreator setAnswerId(final String answerId) {
         this.answerId = answerId;
         return this;
     }
-    public AssessmentsCreator setQuestionnaireId(final String questionnaireId){
-        this.questionnaireId = questionnaireId;
+
+    public AssessmentsCreator setQuestionnaireSid(
+        final String questionnaireSid
+    ) {
+        this.questionnaireSid = questionnaireSid;
         return this;
     }
-    public AssessmentsCreator setToken(final String token){
-        this.token = token;
+
+    public AssessmentsCreator setAuthorization(final String authorization) {
+        this.authorization = authorization;
         return this;
     }
 
     @Override
-    public Assessments create(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Assessments";
+    public Assessments create(final TwilioRestClient client) {
+        String path = "/v1/Insights/QualityManagement/Assessments";
 
-        path = path.replace("{"+"CategoryId"+"}", this.categoryId.toString());
-        path = path.replace("{"+"CategoryName"+"}", this.categoryName.toString());
-        path = path.replace("{"+"SegmentId"+"}", this.segmentId.toString());
-        path = path.replace("{"+"UserName"+"}", this.userName.toString());
-        path = path.replace("{"+"UserEmail"+"}", this.userEmail.toString());
-        path = path.replace("{"+"AgentId"+"}", this.agentId.toString());
-        path = path.replace("{"+"Offset"+"}", this.offset.toString());
-        path = path.replace("{"+"MetricId"+"}", this.metricId.toString());
-        path = path.replace("{"+"MetricName"+"}", this.metricName.toString());
-        path = path.replace("{"+"AnswerText"+"}", this.answerText.toString());
-        path = path.replace("{"+"AnswerId"+"}", this.answerId.toString());
-        path = path.replace("{"+"QuestionnaireId"+"}", this.questionnaireId.toString());
+        path =
+            path.replace(
+                "{" + "CategorySid" + "}",
+                this.categorySid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "CategoryName" + "}",
+                this.categoryName.toString()
+            );
+        path = path.replace("{" + "SegmentId" + "}", this.segmentId.toString());
+        path = path.replace("{" + "AgentId" + "}", this.agentId.toString());
+        path = path.replace("{" + "Offset" + "}", this.offset.toString());
+        path = path.replace("{" + "MetricId" + "}", this.metricId.toString());
+        path =
+            path.replace("{" + "MetricName" + "}", this.metricName.toString());
+        path =
+            path.replace("{" + "AnswerText" + "}", this.answerText.toString());
+        path = path.replace("{" + "AnswerId" + "}", this.answerId.toString());
+        path =
+            path.replace(
+                "{" + "QuestionnaireSid" + "}",
+                this.questionnaireSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Assessments creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Assessments creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Assessments.fromJson(response.getStream(), client.getObjectMapper());
+        return Assessments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
-        if (categoryId != null) {
-            request.addPostParam("CategoryId", categoryId);
-    
+        if (categorySid != null) {
+            request.addPostParam("CategorySid", categorySid);
         }
         if (categoryName != null) {
             request.addPostParam("CategoryName", categoryName);
-    
         }
         if (segmentId != null) {
             request.addPostParam("SegmentId", segmentId);
-    
-        }
-        if (userName != null) {
-            request.addPostParam("UserName", userName);
-    
-        }
-        if (userEmail != null) {
-            request.addPostParam("UserEmail", userEmail);
-    
         }
         if (agentId != null) {
             request.addPostParam("AgentId", agentId);
-    
         }
         if (offset != null) {
             request.addPostParam("Offset", offset.toString());
-    
         }
         if (metricId != null) {
             request.addPostParam("MetricId", metricId);
-    
         }
         if (metricName != null) {
             request.addPostParam("MetricName", metricName);
-    
         }
         if (answerText != null) {
             request.addPostParam("AnswerText", answerText);
-    
         }
         if (answerId != null) {
             request.addPostParam("AnswerId", answerId);
-    
         }
-        if (questionnaireId != null) {
-            request.addPostParam("QuestionnaireId", questionnaireId);
-    
+        if (questionnaireSid != null) {
+            request.addPostParam("QuestionnaireSid", questionnaireSid);
         }
     }
-    private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
 
+    private void addHeaderParams(final Request request) {
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
         }
     }
 }

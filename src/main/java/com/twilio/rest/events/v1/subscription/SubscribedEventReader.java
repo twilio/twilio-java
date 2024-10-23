@@ -14,8 +14,10 @@
 
 package com.twilio.rest.events.v1.subscription;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,19 +26,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class SubscribedEventReader extends Reader<SubscribedEvent> {
+
     private String pathSubscriptionSid;
     private Integer pageSize;
 
-    public SubscribedEventReader(final String pathSubscriptionSid){
+    public SubscribedEventReader(final String pathSubscriptionSid) {
         this.pathSubscriptionSid = pathSubscriptionSid;
     }
 
-    public SubscribedEventReader setPageSize(final Integer pageSize){
+    public SubscribedEventReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -48,7 +48,11 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
     public Page<SubscribedEvent> firstPage(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
-        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
+        path =
+            path.replace(
+                "{" + "SubscriptionSid" + "}",
+                this.pathSubscriptionSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -57,18 +61,30 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<SubscribedEvent> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<SubscribedEvent> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SubscribedEvent read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SubscribedEvent read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,7 +98,10 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
     }
 
     @Override
-    public Page<SubscribedEvent> previousPage(final Page<SubscribedEvent> page, final TwilioRestClient client) {
+    public Page<SubscribedEvent> previousPage(
+        final Page<SubscribedEvent> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.EVENTS.toString())
@@ -90,9 +109,11 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<SubscribedEvent> nextPage(final Page<SubscribedEvent> page, final TwilioRestClient client) {
+    public Page<SubscribedEvent> nextPage(
+        final Page<SubscribedEvent> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.EVENTS.toString())
@@ -101,21 +122,21 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
     }
 
     @Override
-    public Page<SubscribedEvent> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<SubscribedEvent> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

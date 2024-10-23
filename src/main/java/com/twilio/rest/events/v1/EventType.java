@@ -23,43 +23,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EventType extends Resource {
-    private static final long serialVersionUID = 236822326358907L;
 
-    public static EventTypeFetcher fetcher(final String pathType){
+    private static final long serialVersionUID = 10451435371801L;
+
+    public static EventTypeFetcher fetcher(final String pathType) {
         return new EventTypeFetcher(pathType);
     }
 
-    public static EventTypeReader reader(){
+    public static EventTypeReader reader() {
         return new EventTypeReader();
     }
 
     /**
-    * Converts a JSON String into a EventType object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return EventType object represented by the provided JSON
-    */
-    public static EventType fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a EventType object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return EventType object represented by the provided JSON
+     */
+    public static EventType fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EventType.class);
@@ -71,14 +70,17 @@ public class EventType extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a EventType object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return EventType object represented by the provided JSON
-    */
-    public static EventType fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a EventType object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return EventType object represented by the provided JSON
+     */
+    public static EventType fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EventType.class);
@@ -94,66 +96,73 @@ public class EventType extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String description;
+    private final String status;
+    private final String documentationUrl;
     private final URI url;
     private final Map<String, String> links;
 
     @JsonCreator
     private EventType(
-        @JsonProperty("type")
-        final String type,
-
-        @JsonProperty("schema_id")
-        final String schemaId,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("description")
-        final String description,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("type") final String type,
+        @JsonProperty("schema_id") final String schemaId,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("status") final String status,
+        @JsonProperty("documentation_url") final String documentationUrl,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.type = type;
         this.schemaId = schemaId;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.description = description;
+        this.status = status;
+        this.documentationUrl = documentationUrl;
         this.url = url;
         this.links = links;
     }
 
-        public final String getType() {
-            return this.type;
-        }
-        public final String getSchemaId() {
-            return this.schemaId;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getDescription() {
-            return this.description;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getType() {
+        return this.type;
+    }
+
+    public final String getSchemaId() {
+        return this.schemaId;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getDescription() {
+        return this.description;
+    }
+
+    public final String getStatus() {
+        return this.status;
+    }
+
+    public final String getDocumentationUrl() {
+        return this.documentationUrl;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -163,13 +172,31 @@ public class EventType extends Resource {
 
         EventType other = (EventType) o;
 
-        return Objects.equals(type, other.type) &&  Objects.equals(schemaId, other.schemaId) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(description, other.description) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(type, other.type) &&
+            Objects.equals(schemaId, other.schemaId) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(documentationUrl, other.documentationUrl) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, schemaId, dateCreated, dateUpdated, description, url, links);
+        return Objects.hash(
+            type,
+            schemaId,
+            dateCreated,
+            dateUpdated,
+            description,
+            status,
+            documentationUrl,
+            url,
+            links
+        );
     }
-
 }
-

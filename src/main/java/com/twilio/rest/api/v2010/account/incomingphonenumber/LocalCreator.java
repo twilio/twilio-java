@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,12 +26,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
-
-
-
 import java.net.URI;
 
-public class LocalCreator extends Creator<Local>{
+public class LocalCreator extends Creator<Local> {
+
     private com.twilio.type.PhoneNumber phoneNumber;
     private String pathAccountSid;
     private String apiVersion;
@@ -59,247 +58,308 @@ public class LocalCreator extends Creator<Local>{
     public LocalCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public LocalCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+
+    public LocalCreator(
+        final String pathAccountSid,
+        final com.twilio.type.PhoneNumber phoneNumber
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
+    public LocalCreator setPhoneNumber(
+        final com.twilio.type.PhoneNumber phoneNumber
+    ) {
         this.phoneNumber = phoneNumber;
         return this;
     }
 
-    public LocalCreator setPhoneNumber(final String phoneNumber){
+    public LocalCreator setPhoneNumber(final String phoneNumber) {
         return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
-    public LocalCreator setApiVersion(final String apiVersion){
+
+    public LocalCreator setApiVersion(final String apiVersion) {
         this.apiVersion = apiVersion;
         return this;
     }
-    public LocalCreator setFriendlyName(final String friendlyName){
+
+    public LocalCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public LocalCreator setSmsApplicationSid(final String smsApplicationSid){
+
+    public LocalCreator setSmsApplicationSid(final String smsApplicationSid) {
         this.smsApplicationSid = smsApplicationSid;
         return this;
     }
-    public LocalCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+
+    public LocalCreator setSmsFallbackMethod(
+        final HttpMethod smsFallbackMethod
+    ) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
-    public LocalCreator setSmsFallbackUrl(final URI smsFallbackUrl){
+
+    public LocalCreator setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public LocalCreator setSmsFallbackUrl(final String smsFallbackUrl){
+    public LocalCreator setSmsFallbackUrl(final String smsFallbackUrl) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
-    public LocalCreator setSmsMethod(final HttpMethod smsMethod){
+
+    public LocalCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
-    public LocalCreator setSmsUrl(final URI smsUrl){
+
+    public LocalCreator setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
     }
 
-    public LocalCreator setSmsUrl(final String smsUrl){
+    public LocalCreator setSmsUrl(final String smsUrl) {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
-    public LocalCreator setStatusCallback(final URI statusCallback){
+
+    public LocalCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public LocalCreator setStatusCallback(final String statusCallback){
+    public LocalCreator setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public LocalCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+
+    public LocalCreator setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-    public LocalCreator setVoiceApplicationSid(final String voiceApplicationSid){
+
+    public LocalCreator setVoiceApplicationSid(
+        final String voiceApplicationSid
+    ) {
         this.voiceApplicationSid = voiceApplicationSid;
         return this;
     }
-    public LocalCreator setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup){
+
+    public LocalCreator setVoiceCallerIdLookup(
+        final Boolean voiceCallerIdLookup
+    ) {
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         return this;
     }
-    public LocalCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
+
+    public LocalCreator setVoiceFallbackMethod(
+        final HttpMethod voiceFallbackMethod
+    ) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
-    public LocalCreator setVoiceFallbackUrl(final URI voiceFallbackUrl){
+
+    public LocalCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public LocalCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
+    public LocalCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
         return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
-    public LocalCreator setVoiceMethod(final HttpMethod voiceMethod){
+
+    public LocalCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
-    public LocalCreator setVoiceUrl(final URI voiceUrl){
+
+    public LocalCreator setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public LocalCreator setVoiceUrl(final String voiceUrl){
+    public LocalCreator setVoiceUrl(final String voiceUrl) {
         return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
-    public LocalCreator setIdentitySid(final String identitySid){
+
+    public LocalCreator setIdentitySid(final String identitySid) {
         this.identitySid = identitySid;
         return this;
     }
-    public LocalCreator setAddressSid(final String addressSid){
+
+    public LocalCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
-    public LocalCreator setEmergencyStatus(final Local.EmergencyStatus emergencyStatus){
+
+    public LocalCreator setEmergencyStatus(
+        final Local.EmergencyStatus emergencyStatus
+    ) {
         this.emergencyStatus = emergencyStatus;
         return this;
     }
-    public LocalCreator setEmergencyAddressSid(final String emergencyAddressSid){
+
+    public LocalCreator setEmergencyAddressSid(
+        final String emergencyAddressSid
+    ) {
         this.emergencyAddressSid = emergencyAddressSid;
         return this;
     }
-    public LocalCreator setTrunkSid(final String trunkSid){
+
+    public LocalCreator setTrunkSid(final String trunkSid) {
         this.trunkSid = trunkSid;
         return this;
     }
-    public LocalCreator setVoiceReceiveMode(final Local.VoiceReceiveMode voiceReceiveMode){
+
+    public LocalCreator setVoiceReceiveMode(
+        final Local.VoiceReceiveMode voiceReceiveMode
+    ) {
         this.voiceReceiveMode = voiceReceiveMode;
         return this;
     }
-    public LocalCreator setBundleSid(final String bundleSid){
+
+    public LocalCreator setBundleSid(final String bundleSid) {
         this.bundleSid = bundleSid;
         return this;
     }
 
     @Override
-    public Local create(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json";
+    public Local create(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.encode("utf-8"));
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.phoneNumber.encode("utf-8")
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Local creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Local creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Local.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
             request.addPostParam("PhoneNumber", phoneNumber.toString());
-    
         }
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (smsApplicationSid != null) {
             request.addPostParam("SmsApplicationSid", smsApplicationSid);
-    
         }
         if (smsFallbackMethod != null) {
-            request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
-    
+            request.addPostParam(
+                "SmsFallbackMethod",
+                smsFallbackMethod.toString()
+            );
         }
         if (smsFallbackUrl != null) {
             request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
-    
         }
         if (smsMethod != null) {
             request.addPostParam("SmsMethod", smsMethod.toString());
-    
         }
         if (smsUrl != null) {
             request.addPostParam("SmsUrl", smsUrl.toString());
-    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
-    
+            request.addPostParam(
+                "StatusCallbackMethod",
+                statusCallbackMethod.toString()
+            );
         }
         if (voiceApplicationSid != null) {
             request.addPostParam("VoiceApplicationSid", voiceApplicationSid);
-    
         }
         if (voiceCallerIdLookup != null) {
-            request.addPostParam("VoiceCallerIdLookup", voiceCallerIdLookup.toString());
-    
+            request.addPostParam(
+                "VoiceCallerIdLookup",
+                voiceCallerIdLookup.toString()
+            );
         }
         if (voiceFallbackMethod != null) {
-            request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
-    
+            request.addPostParam(
+                "VoiceFallbackMethod",
+                voiceFallbackMethod.toString()
+            );
         }
         if (voiceFallbackUrl != null) {
-            request.addPostParam("VoiceFallbackUrl", voiceFallbackUrl.toString());
-    
+            request.addPostParam(
+                "VoiceFallbackUrl",
+                voiceFallbackUrl.toString()
+            );
         }
         if (voiceMethod != null) {
             request.addPostParam("VoiceMethod", voiceMethod.toString());
-    
         }
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
-    
         }
         if (identitySid != null) {
             request.addPostParam("IdentitySid", identitySid);
-    
         }
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
-    
         }
         if (emergencyStatus != null) {
             request.addPostParam("EmergencyStatus", emergencyStatus.toString());
-    
         }
         if (emergencyAddressSid != null) {
             request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
-    
         }
         if (trunkSid != null) {
             request.addPostParam("TrunkSid", trunkSid);
-    
         }
         if (voiceReceiveMode != null) {
-            request.addPostParam("VoiceReceiveMode", voiceReceiveMode.toString());
-    
+            request.addPostParam(
+                "VoiceReceiveMode",
+                voiceReceiveMode.toString()
+            );
         }
         if (bundleSid != null) {
             request.addPostParam("BundleSid", bundleSid);
-    
         }
     }
 }

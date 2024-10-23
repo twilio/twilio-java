@@ -14,8 +14,10 @@
 
 package com.twilio.rest.trusthub.v1.trustproducts;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,41 +26,59 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 
+public class TrustProductsChannelEndpointAssignmentReader
+    extends Reader<TrustProductsChannelEndpointAssignment> {
 
-
-public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustProductsChannelEndpointAssignment> {
     private String pathTrustProductSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
     private Integer pageSize;
 
-    public TrustProductsChannelEndpointAssignmentReader(final String pathTrustProductSid){
+    public TrustProductsChannelEndpointAssignmentReader(
+        final String pathTrustProductSid
+    ) {
         this.pathTrustProductSid = pathTrustProductSid;
     }
 
-    public TrustProductsChannelEndpointAssignmentReader setChannelEndpointSid(final String channelEndpointSid){
+    public TrustProductsChannelEndpointAssignmentReader setChannelEndpointSid(
+        final String channelEndpointSid
+    ) {
         this.channelEndpointSid = channelEndpointSid;
         return this;
     }
-    public TrustProductsChannelEndpointAssignmentReader setChannelEndpointSids(final String channelEndpointSids){
+
+    public TrustProductsChannelEndpointAssignmentReader setChannelEndpointSids(
+        final String channelEndpointSids
+    ) {
         this.channelEndpointSids = channelEndpointSids;
         return this;
     }
-    public TrustProductsChannelEndpointAssignmentReader setPageSize(final Integer pageSize){
+
+    public TrustProductsChannelEndpointAssignmentReader setPageSize(
+        final Integer pageSize
+    ) {
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<TrustProductsChannelEndpointAssignment> read(final TwilioRestClient client) {
+    public ResourceSet<TrustProductsChannelEndpointAssignment> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<TrustProductsChannelEndpointAssignment> firstPage(final TwilioRestClient client) {
-        String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
-        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
+    public Page<TrustProductsChannelEndpointAssignment> firstPage(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -67,18 +87,30 @@ public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustPr
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProductsChannelEndpointAssignment> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TrustProductsChannelEndpointAssignment> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TrustProductsChannelEndpointAssignment read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProductsChannelEndpointAssignment read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -92,7 +124,10 @@ public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustPr
     }
 
     @Override
-    public Page<TrustProductsChannelEndpointAssignment> previousPage(final Page<TrustProductsChannelEndpointAssignment> page, final TwilioRestClient client) {
+    public Page<TrustProductsChannelEndpointAssignment> previousPage(
+        final Page<TrustProductsChannelEndpointAssignment> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
@@ -100,9 +135,11 @@ public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustPr
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<TrustProductsChannelEndpointAssignment> nextPage(final Page<TrustProductsChannelEndpointAssignment> page, final TwilioRestClient client) {
+    public Page<TrustProductsChannelEndpointAssignment> nextPage(
+        final Page<TrustProductsChannelEndpointAssignment> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TRUSTHUB.toString())
@@ -111,29 +148,27 @@ public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustPr
     }
 
     @Override
-    public Page<TrustProductsChannelEndpointAssignment> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<TrustProductsChannelEndpointAssignment> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (channelEndpointSid != null) {
-    
             request.addQueryParam("ChannelEndpointSid", channelEndpointSid);
         }
         if (channelEndpointSids != null) {
-    
             request.addQueryParam("ChannelEndpointSids", channelEndpointSids);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

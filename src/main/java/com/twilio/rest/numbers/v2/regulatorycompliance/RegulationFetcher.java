@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,40 +25,67 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class RegulationFetcher extends Fetcher<Regulation> {
-    private String pathSid;
 
-    public RegulationFetcher(final String pathSid){
+    private String pathSid;
+    private Boolean includeConstraints;
+
+    public RegulationFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
+    public RegulationFetcher setIncludeConstraints(
+        final Boolean includeConstraints
+    ) {
+        this.includeConstraints = includeConstraints;
+        return this;
+    }
 
     @Override
     public Regulation fetch(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Regulations/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
             path
         );
+        addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("Regulation fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Regulation fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Regulation.fromJson(response.getStream(), client.getObjectMapper());
+        return Regulation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+    }
+
+    private void addQueryParams(final Request request) {
+        if (includeConstraints != null) {
+            request.addQueryParam(
+                "IncludeConstraints",
+                includeConstraints.toString()
+            );
+        }
     }
 }

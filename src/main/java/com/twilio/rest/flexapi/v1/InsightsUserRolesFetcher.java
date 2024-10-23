@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,16 +25,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
+
     private String authorization;
 
-    public InsightsUserRolesFetcher(){
-    }
+    public InsightsUserRolesFetcher() {}
 
-    public InsightsUserRolesFetcher setAuthorization(final String authorization){
+    public InsightsUserRolesFetcher setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
@@ -42,31 +42,42 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
     public InsightsUserRoles fetch(final TwilioRestClient client) {
         String path = "/v1/Insights/UserRoles";
 
-
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("InsightsUserRoles fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsUserRoles fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsUserRoles.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsUserRoles.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
             request.addHeaderParam("Authorization", authorization);
-
         }
     }
 }

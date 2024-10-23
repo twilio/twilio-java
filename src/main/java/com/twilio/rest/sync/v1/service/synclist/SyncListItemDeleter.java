@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service.synclist;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,21 +25,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
 public class SyncListItemDeleter extends Deleter<SyncListItem> {
+
     private String pathServiceSid;
     private String pathListSid;
     private Integer pathIndex;
     private String ifMatch;
 
-    public SyncListItemDeleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+    public SyncListItemDeleter(
+        final String pathServiceSid,
+        final String pathListSid,
+        final Integer pathIndex
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.pathIndex = pathIndex;
     }
 
-    public SyncListItemDeleter setIfMatch(final String ifMatch){
+    public SyncListItemDeleter setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
@@ -47,33 +51,46 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
-        path = path.replace("{"+"Index"+"}", this.pathIndex.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
+        path = path.replace("{" + "Index" + "}", this.pathIndex.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SyncListItem delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncListItem delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
+
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
             request.addHeaderParam("If-Match", ifMatch);
-
         }
     }
 }

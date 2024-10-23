@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,43 +25,61 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class TrustProductsEntityAssignmentsFetcher
+    extends Fetcher<TrustProductsEntityAssignments> {
 
-
-
-public class TrustProductsEntityAssignmentsFetcher extends Fetcher<TrustProductsEntityAssignments> {
     private String pathTrustProductSid;
     private String pathSid;
 
-    public TrustProductsEntityAssignmentsFetcher(final String pathTrustProductSid, final String pathSid){
+    public TrustProductsEntityAssignmentsFetcher(
+        final String pathTrustProductSid,
+        final String pathSid
+    ) {
         this.pathTrustProductSid = pathTrustProductSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public TrustProductsEntityAssignments fetch(final TwilioRestClient client) {
-        String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
+        String path =
+            "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
 
-        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUSTHUB.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("TrustProductsEntityAssignments fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProductsEntityAssignments fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return TrustProductsEntityAssignments.fromJson(response.getStream(), client.getObjectMapper());
+        return TrustProductsEntityAssignments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

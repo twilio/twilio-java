@@ -15,9 +15,10 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
+import com.twilio.converter.PrefixedCollapsibleMap;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-import com.twilio.converter.PrefixedCollapsibleMap;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -25,42 +26,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.List;
 import java.util.Map;
 
-
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
-    private com.twilio.type.PhoneNumber pathPhoneNumber;
+
+    private String pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber){
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
-    public PhoneNumberFetcher setCountryCode(final String countryCode){
+    public PhoneNumberFetcher setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
         return this;
     }
-    public PhoneNumberFetcher setType(final List<String> type){
+
+    public PhoneNumberFetcher setType(final List<String> type) {
         this.type = type;
         return this;
     }
-    public PhoneNumberFetcher setType(final String type){
+
+    public PhoneNumberFetcher setType(final String type) {
         return setType(Promoter.listOfOne(type));
     }
-    public PhoneNumberFetcher setAddOns(final List<String> addOns){
+
+    public PhoneNumberFetcher setAddOns(final List<String> addOns) {
         this.addOns = addOns;
         return this;
     }
-    public PhoneNumberFetcher setAddOns(final String addOns){
+
+    public PhoneNumberFetcher setAddOns(final String addOns) {
         return setAddOns(Promoter.listOfOne(addOns));
     }
-    public PhoneNumberFetcher setAddOnsData(final Map<String, Object> addOnsData){
+
+    public PhoneNumberFetcher setAddOnsData(
+        final Map<String, Object> addOnsData
+    ) {
         this.addOnsData = addOnsData;
         return this;
     }
@@ -69,7 +75,11 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     public PhoneNumber fetch(final TwilioRestClient client) {
         String path = "/v1/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.encode("utf-8"));
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -77,23 +87,35 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("PhoneNumber fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PhoneNumber fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addQueryParams(final Request request) {
         if (countryCode != null) {
-    
             request.addQueryParam("CountryCode", countryCode);
         }
         if (type != null) {
@@ -107,7 +129,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             }
         }
         if (addOnsData != null) {
-            Map<String, String> params = PrefixedCollapsibleMap.serialize(addOnsData, "AddOns");
+            Map<String, String> params = PrefixedCollapsibleMap.serialize(
+                addOnsData,
+                "AddOns"
+            );
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 request.addQueryParam(entry.getKey(), entry.getValue());
             }

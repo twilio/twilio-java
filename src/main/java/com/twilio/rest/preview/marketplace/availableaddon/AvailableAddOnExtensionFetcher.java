@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.marketplace.availableaddon;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,43 +25,61 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class AvailableAddOnExtensionFetcher
+    extends Fetcher<AvailableAddOnExtension> {
 
-
-
-public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtension> {
     private String pathAvailableAddOnSid;
     private String pathSid;
 
-    public AvailableAddOnExtensionFetcher(final String pathAvailableAddOnSid, final String pathSid){
+    public AvailableAddOnExtensionFetcher(
+        final String pathAvailableAddOnSid,
+        final String pathSid
+    ) {
         this.pathAvailableAddOnSid = pathAvailableAddOnSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public AvailableAddOnExtension fetch(final TwilioRestClient client) {
-        String path = "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}";
+        String path =
+            "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}";
 
-        path = path.replace("{"+"AvailableAddOnSid"+"}", this.pathAvailableAddOnSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "AvailableAddOnSid" + "}",
+                this.pathAvailableAddOnSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("AvailableAddOnExtension fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AvailableAddOnExtension fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return AvailableAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());
+        return AvailableAddOnExtension.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

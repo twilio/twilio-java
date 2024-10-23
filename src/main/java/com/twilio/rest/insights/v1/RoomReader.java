@@ -14,8 +14,10 @@
 
 package com.twilio.rest.insights.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,13 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 
-
 public class RoomReader extends Reader<Room> {
+
     private List<Room.RoomType> roomType;
     private List<Room.Codec> codec;
     private String roomName;
@@ -39,36 +39,42 @@ public class RoomReader extends Reader<Room> {
     private ZonedDateTime createdBefore;
     private Integer pageSize;
 
-    public RoomReader(){
-    }
+    public RoomReader() {}
 
-    public RoomReader setRoomType(final List<Room.RoomType> roomType){
+    public RoomReader setRoomType(final List<Room.RoomType> roomType) {
         this.roomType = roomType;
         return this;
     }
-    public RoomReader setRoomType(final Room.RoomType roomType){
+
+    public RoomReader setRoomType(final Room.RoomType roomType) {
         return setRoomType(Promoter.listOfOne(roomType));
     }
-    public RoomReader setCodec(final List<Room.Codec> codec){
+
+    public RoomReader setCodec(final List<Room.Codec> codec) {
         this.codec = codec;
         return this;
     }
-    public RoomReader setCodec(final Room.Codec codec){
+
+    public RoomReader setCodec(final Room.Codec codec) {
         return setCodec(Promoter.listOfOne(codec));
     }
-    public RoomReader setRoomName(final String roomName){
+
+    public RoomReader setRoomName(final String roomName) {
         this.roomName = roomName;
         return this;
     }
-    public RoomReader setCreatedAfter(final ZonedDateTime createdAfter){
+
+    public RoomReader setCreatedAfter(final ZonedDateTime createdAfter) {
         this.createdAfter = createdAfter;
         return this;
     }
-    public RoomReader setCreatedBefore(final ZonedDateTime createdBefore){
+
+    public RoomReader setCreatedBefore(final ZonedDateTime createdBefore) {
         this.createdBefore = createdBefore;
         return this;
     }
-    public RoomReader setPageSize(final Integer pageSize){
+
+    public RoomReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -88,18 +94,30 @@ public class RoomReader extends Reader<Room> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Room> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Room> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Room read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Room read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -113,7 +131,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     @Override
-    public Page<Room> previousPage(final Page<Room> page, final TwilioRestClient client) {
+    public Page<Room> previousPage(
+        final Page<Room> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INSIGHTS.toString())
@@ -121,9 +142,11 @@ public class RoomReader extends Reader<Room> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Room> nextPage(final Page<Room> page, final TwilioRestClient client) {
+    public Page<Room> nextPage(
+        final Page<Room> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INSIGHTS.toString())
@@ -132,14 +155,15 @@ public class RoomReader extends Reader<Room> {
     }
 
     @Override
-    public Page<Room> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Room> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (roomType != null) {
             for (Room.RoomType prop : roomType) {
@@ -152,23 +176,27 @@ public class RoomReader extends Reader<Room> {
             }
         }
         if (roomName != null) {
-    
             request.addQueryParam("RoomName", roomName);
         }
         if (createdAfter != null) {
-            request.addQueryParam("CreatedAfter", createdAfter.toInstant().toString());
+            request.addQueryParam(
+                "CreatedAfter",
+                createdAfter.toInstant().toString()
+            );
         }
 
         if (createdBefore != null) {
-            request.addQueryParam("CreatedBefore", createdBefore.toInstant().toString());
+            request.addQueryParam(
+                "CreatedBefore",
+                createdBefore.toInstant().toString()
+            );
         }
 
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

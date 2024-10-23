@@ -15,6 +15,7 @@
 package com.twilio.rest.voice.v1;
 
 import com.twilio.base.Deleter;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,38 +26,45 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.LocalDate;
 
-
-
 public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
+
     private LocalDate pathDate;
     private String pathSid;
 
-    public ArchivedCallDeleter(final LocalDate pathDate, final String pathSid){
+    public ArchivedCallDeleter(final LocalDate pathDate, final String pathSid) {
         this.pathDate = pathDate;
         this.pathSid = pathSid;
     }
-
 
     @Override
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Archives/{Date}/Calls/{Sid}";
 
-        path = path.replace("{"+"Date"+"}", this.pathDate.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Date" + "}", this.pathDate.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ArchivedCall delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ArchivedCall delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

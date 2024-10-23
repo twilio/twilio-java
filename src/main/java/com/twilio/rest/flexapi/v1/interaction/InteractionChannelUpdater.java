@@ -15,8 +15,9 @@
 package com.twilio.rest.flexapi.v1.interaction;
 
 import com.twilio.base.Updater;
-import com.twilio.exception.ApiConnectionException;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -24,67 +25,89 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class InteractionChannelUpdater extends Updater<InteractionChannel> {
 
-public class InteractionChannelUpdater extends Updater<InteractionChannel>{
     private String pathInteractionSid;
     private String pathSid;
-    private InteractionChannel.Status status;
+    private InteractionChannel.UpdateChannelStatus status;
     private Map<String, Object> routing;
 
-    public InteractionChannelUpdater(final String pathInteractionSid, final String pathSid, final InteractionChannel.Status status){
+    public InteractionChannelUpdater(
+        final String pathInteractionSid,
+        final String pathSid,
+        final InteractionChannel.UpdateChannelStatus status
+    ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public InteractionChannelUpdater setStatus(final InteractionChannel.Status status){
+    public InteractionChannelUpdater setStatus(
+        final InteractionChannel.UpdateChannelStatus status
+    ) {
         this.status = status;
         return this;
     }
-    public InteractionChannelUpdater setRouting(final Map<String, Object> routing){
+
+    public InteractionChannelUpdater setRouting(
+        final Map<String, Object> routing
+    ) {
         this.routing = routing;
         return this;
     }
 
     @Override
-    public InteractionChannel update(final TwilioRestClient client){
+    public InteractionChannel update(final TwilioRestClient client) {
         String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
 
-        path = path.replace("{"+"InteractionSid"+"}", this.pathInteractionSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
-        path = path.replace("{"+"Status"+"}", this.status.toString());
+        path =
+            path.replace(
+                "{" + "InteractionSid" + "}",
+                this.pathInteractionSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("InteractionChannel update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InteractionChannel update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InteractionChannel.fromJson(response.getStream(), client.getObjectMapper());
+        return InteractionChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (routing != null) {
-            request.addPostParam("Routing",  Converter.mapToJson(routing));
-    
+            request.addPostParam("Routing", Converter.mapToJson(routing));
         }
     }
 }

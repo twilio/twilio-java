@@ -24,41 +24,51 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PublishedTrack extends Resource {
+
     private static final long serialVersionUID = 141811235690070L;
 
-    public static PublishedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid){
-        return new PublishedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
+    public static PublishedTrackFetcher fetcher(
+        final String pathRoomSid,
+        final String pathParticipantSid,
+        final String pathSid
+    ) {
+        return new PublishedTrackFetcher(
+            pathRoomSid,
+            pathParticipantSid,
+            pathSid
+        );
     }
 
-    public static PublishedTrackReader reader(final String pathRoomSid, final String pathParticipantSid){
+    public static PublishedTrackReader reader(
+        final String pathRoomSid,
+        final String pathParticipantSid
+    ) {
         return new PublishedTrackReader(pathRoomSid, pathParticipantSid);
     }
 
     /**
-    * Converts a JSON String into a PublishedTrack object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return PublishedTrack object represented by the provided JSON
-    */
-    public static PublishedTrack fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a PublishedTrack object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return PublishedTrack object represented by the provided JSON
+     */
+    public static PublishedTrack fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PublishedTrack.class);
@@ -70,14 +80,17 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a PublishedTrack object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return PublishedTrack object represented by the provided JSON
-    */
-    public static PublishedTrack fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a PublishedTrack object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return PublishedTrack object represented by the provided JSON
+     */
+    public static PublishedTrack fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PublishedTrack.class);
@@ -87,6 +100,116 @@ public class PublishedTrack extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    private final String sid;
+    private final String participantSid;
+    private final String roomSid;
+    private final String name;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final Boolean enabled;
+    private final PublishedTrack.Kind kind;
+    private final URI url;
+
+    @JsonCreator
+    private PublishedTrack(
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("name") final String name,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("kind") final PublishedTrack.Kind kind,
+        @JsonProperty("url") final URI url
+    ) {
+        this.sid = sid;
+        this.participantSid = participantSid;
+        this.roomSid = roomSid;
+        this.name = name;
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.enabled = enabled;
+        this.kind = kind;
+        this.url = url;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getParticipantSid() {
+        return this.participantSid;
+    }
+
+    public final String getRoomSid() {
+        return this.roomSid;
+    }
+
+    public final String getName() {
+        return this.name;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    public final PublishedTrack.Kind getKind() {
+        return this.kind;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        PublishedTrack other = (PublishedTrack) o;
+
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(kind, other.kind) &&
+            Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            sid,
+            participantSid,
+            roomSid,
+            name,
+            dateCreated,
+            dateUpdated,
+            enabled,
+            kind,
+            url
+        );
+    }
+
     public enum Kind {
         AUDIO("audio"),
         VIDEO("video"),
@@ -107,104 +230,4 @@ public class PublishedTrack extends Resource {
             return Promoter.enumFromString(value, Kind.values());
         }
     }
-
-    private final String sid;
-    private final String participantSid;
-    private final String roomSid;
-    private final String name;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final Boolean enabled;
-    private final PublishedTrack.Kind kind;
-    private final URI url;
-
-    @JsonCreator
-    private PublishedTrack(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("participant_sid")
-        final String participantSid,
-
-        @JsonProperty("room_sid")
-        final String roomSid,
-
-        @JsonProperty("name")
-        final String name,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("enabled")
-        final Boolean enabled,
-
-        @JsonProperty("kind")
-        final PublishedTrack.Kind kind,
-
-        @JsonProperty("url")
-        final URI url
-    ) {
-        this.sid = sid;
-        this.participantSid = participantSid;
-        this.roomSid = roomSid;
-        this.name = name;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.enabled = enabled;
-        this.kind = kind;
-        this.url = url;
-    }
-
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getParticipantSid() {
-            return this.participantSid;
-        }
-        public final String getRoomSid() {
-            return this.roomSid;
-        }
-        public final String getName() {
-            return this.name;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final Boolean getEnabled() {
-            return this.enabled;
-        }
-        public final PublishedTrack.Kind getKind() {
-            return this.kind;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this==o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PublishedTrack other = (PublishedTrack) o;
-
-        return Objects.equals(sid, other.sid) &&  Objects.equals(participantSid, other.participantSid) &&  Objects.equals(roomSid, other.roomSid) &&  Objects.equals(name, other.name) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(enabled, other.enabled) &&  Objects.equals(kind, other.kind) &&  Objects.equals(url, other.url)  ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sid, participantSid, roomSid, name, dateCreated, dateUpdated, enabled, kind, url);
-    }
-
 }
-

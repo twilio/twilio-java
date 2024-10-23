@@ -23,39 +23,38 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 224955107223793L;
 
-    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
+    private static final long serialVersionUID = 129217577072488L;
+
+    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
     }
 
     /**
-    * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return PhoneNumber object represented by the provided JSON
-    */
-    public static PhoneNumber fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return PhoneNumber object represented by the provided JSON
+     */
+    public static PhoneNumber fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -67,14 +66,17 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a PhoneNumber object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return PhoneNumber object represented by the provided JSON
-    */
-    public static PhoneNumber fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a PhoneNumber object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return PhoneNumber object represented by the provided JSON
+     */
+    public static PhoneNumber fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -84,6 +86,210 @@ public class PhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    private final String callingCountryCode;
+    private final String countryCode;
+    private final com.twilio.type.PhoneNumber phoneNumber;
+    private final String nationalFormat;
+    private final Boolean valid;
+    private final List<PhoneNumber.ValidationError> validationErrors;
+    private final Map<String, Object> callerName;
+    private final Map<String, Object> simSwap;
+    private final Map<String, Object> callForwarding;
+    private final Map<String, Object> lineStatus;
+    private final Map<String, Object> lineTypeIntelligence;
+    private final Map<String, Object> identityMatch;
+    private final Map<String, Object> reassignedNumber;
+    private final Map<String, Object> smsPumpingRisk;
+    private final Map<String, Object> phoneNumberQualityScore;
+    private final Map<String, Object> preFill;
+    private final URI url;
+
+    @JsonCreator
+    private PhoneNumber(
+        @JsonProperty("calling_country_code") final String callingCountryCode,
+        @JsonProperty("country_code") final String countryCode,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("national_format") final String nationalFormat,
+        @JsonProperty("valid") final Boolean valid,
+        @JsonProperty("validation_errors") final List<
+            PhoneNumber.ValidationError
+        > validationErrors,
+        @JsonProperty("caller_name") final Map<String, Object> callerName,
+        @JsonProperty("sim_swap") final Map<String, Object> simSwap,
+        @JsonProperty("call_forwarding") final Map<
+            String,
+            Object
+        > callForwarding,
+        @JsonProperty("line_status") final Map<String, Object> lineStatus,
+        @JsonProperty("line_type_intelligence") final Map<
+            String,
+            Object
+        > lineTypeIntelligence,
+        @JsonProperty("identity_match") final Map<String, Object> identityMatch,
+        @JsonProperty("reassigned_number") final Map<
+            String,
+            Object
+        > reassignedNumber,
+        @JsonProperty("sms_pumping_risk") final Map<
+            String,
+            Object
+        > smsPumpingRisk,
+        @JsonProperty("phone_number_quality_score") final Map<
+            String,
+            Object
+        > phoneNumberQualityScore,
+        @JsonProperty("pre_fill") final Map<String, Object> preFill,
+        @JsonProperty("url") final URI url
+    ) {
+        this.callingCountryCode = callingCountryCode;
+        this.countryCode = countryCode;
+        this.phoneNumber = phoneNumber;
+        this.nationalFormat = nationalFormat;
+        this.valid = valid;
+        this.validationErrors = validationErrors;
+        this.callerName = callerName;
+        this.simSwap = simSwap;
+        this.callForwarding = callForwarding;
+        this.lineStatus = lineStatus;
+        this.lineTypeIntelligence = lineTypeIntelligence;
+        this.identityMatch = identityMatch;
+        this.reassignedNumber = reassignedNumber;
+        this.smsPumpingRisk = smsPumpingRisk;
+        this.phoneNumberQualityScore = phoneNumberQualityScore;
+        this.preFill = preFill;
+        this.url = url;
+    }
+
+    public final String getCallingCountryCode() {
+        return this.callingCountryCode;
+    }
+
+    public final String getCountryCode() {
+        return this.countryCode;
+    }
+
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public final String getNationalFormat() {
+        return this.nationalFormat;
+    }
+
+    public final Boolean getValid() {
+        return this.valid;
+    }
+
+    public final List<PhoneNumber.ValidationError> getValidationErrors() {
+        return this.validationErrors;
+    }
+
+    public final Map<String, Object> getCallerName() {
+        return this.callerName;
+    }
+
+    public final Map<String, Object> getSimSwap() {
+        return this.simSwap;
+    }
+
+    public final Map<String, Object> getCallForwarding() {
+        return this.callForwarding;
+    }
+
+    public final Map<String, Object> getLineStatus() {
+        return this.lineStatus;
+    }
+
+    public final Map<String, Object> getLineTypeIntelligence() {
+        return this.lineTypeIntelligence;
+    }
+
+    public final Map<String, Object> getIdentityMatch() {
+        return this.identityMatch;
+    }
+
+    public final Map<String, Object> getReassignedNumber() {
+        return this.reassignedNumber;
+    }
+
+    public final Map<String, Object> getSmsPumpingRisk() {
+        return this.smsPumpingRisk;
+    }
+
+    public final Map<String, Object> getPhoneNumberQualityScore() {
+        return this.phoneNumberQualityScore;
+    }
+
+    public final Map<String, Object> getPreFill() {
+        return this.preFill;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        PhoneNumber other = (PhoneNumber) o;
+
+        return (
+            Objects.equals(callingCountryCode, other.callingCountryCode) &&
+            Objects.equals(countryCode, other.countryCode) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(nationalFormat, other.nationalFormat) &&
+            Objects.equals(valid, other.valid) &&
+            Objects.equals(validationErrors, other.validationErrors) &&
+            Objects.equals(callerName, other.callerName) &&
+            Objects.equals(simSwap, other.simSwap) &&
+            Objects.equals(callForwarding, other.callForwarding) &&
+            Objects.equals(lineStatus, other.lineStatus) &&
+            Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&
+            Objects.equals(identityMatch, other.identityMatch) &&
+            Objects.equals(reassignedNumber, other.reassignedNumber) &&
+            Objects.equals(smsPumpingRisk, other.smsPumpingRisk) &&
+            Objects.equals(
+                phoneNumberQualityScore,
+                other.phoneNumberQualityScore
+            ) &&
+            Objects.equals(preFill, other.preFill) &&
+            Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            callingCountryCode,
+            countryCode,
+            phoneNumber,
+            nationalFormat,
+            valid,
+            validationErrors,
+            callerName,
+            simSwap,
+            callForwarding,
+            lineStatus,
+            lineTypeIntelligence,
+            identityMatch,
+            reassignedNumber,
+            smsPumpingRisk,
+            phoneNumberQualityScore,
+            preFill,
+            url
+        );
+    }
+
     public enum ValidationError {
         TOO_SHORT("TOO_SHORT"),
         TOO_LONG("TOO_LONG"),
@@ -107,144 +313,4 @@ public class PhoneNumber extends Resource {
             return Promoter.enumFromString(value, ValidationError.values());
         }
     }
-
-    private final String callingCountryCode;
-    private final String countryCode;
-    private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String nationalFormat;
-    private final Boolean valid;
-    private final List<PhoneNumber.ValidationError> validationErrors;
-    private final Map<String, Object> callerName;
-    private final Map<String, Object> simSwap;
-    private final Map<String, Object> callForwarding;
-    private final Map<String, Object> liveActivity;
-    private final Map<String, Object> lineTypeIntelligence;
-    private final Map<String, Object> identityMatch;
-    private final Map<String, Object> smsPumpingRisk;
-    private final URI url;
-
-    @JsonCreator
-    private PhoneNumber(
-        @JsonProperty("calling_country_code")
-        final String callingCountryCode,
-
-        @JsonProperty("country_code")
-        final String countryCode,
-
-        @JsonProperty("phone_number")
-        final com.twilio.type.PhoneNumber phoneNumber,
-
-        @JsonProperty("national_format")
-        final String nationalFormat,
-
-        @JsonProperty("valid")
-        final Boolean valid,
-
-        @JsonProperty("validation_errors")
-        final List<PhoneNumber.ValidationError> validationErrors,
-
-        @JsonProperty("caller_name")
-        final Map<String, Object> callerName,
-
-        @JsonProperty("sim_swap")
-        final Map<String, Object> simSwap,
-
-        @JsonProperty("call_forwarding")
-        final Map<String, Object> callForwarding,
-
-        @JsonProperty("live_activity")
-        final Map<String, Object> liveActivity,
-
-        @JsonProperty("line_type_intelligence")
-        final Map<String, Object> lineTypeIntelligence,
-
-        @JsonProperty("identity_match")
-        final Map<String, Object> identityMatch,
-
-        @JsonProperty("sms_pumping_risk")
-        final Map<String, Object> smsPumpingRisk,
-
-        @JsonProperty("url")
-        final URI url
-    ) {
-        this.callingCountryCode = callingCountryCode;
-        this.countryCode = countryCode;
-        this.phoneNumber = phoneNumber;
-        this.nationalFormat = nationalFormat;
-        this.valid = valid;
-        this.validationErrors = validationErrors;
-        this.callerName = callerName;
-        this.simSwap = simSwap;
-        this.callForwarding = callForwarding;
-        this.liveActivity = liveActivity;
-        this.lineTypeIntelligence = lineTypeIntelligence;
-        this.identityMatch = identityMatch;
-        this.smsPumpingRisk = smsPumpingRisk;
-        this.url = url;
-    }
-
-        public final String getCallingCountryCode() {
-            return this.callingCountryCode;
-        }
-        public final String getCountryCode() {
-            return this.countryCode;
-        }
-        public final com.twilio.type.PhoneNumber getPhoneNumber() {
-            return this.phoneNumber;
-        }
-        public final String getNationalFormat() {
-            return this.nationalFormat;
-        }
-        public final Boolean getValid() {
-            return this.valid;
-        }
-        public final List<PhoneNumber.ValidationError> getValidationErrors() {
-            return this.validationErrors;
-        }
-        public final Map<String, Object> getCallerName() {
-            return this.callerName;
-        }
-        public final Map<String, Object> getSimSwap() {
-            return this.simSwap;
-        }
-        public final Map<String, Object> getCallForwarding() {
-            return this.callForwarding;
-        }
-        public final Map<String, Object> getLiveActivity() {
-            return this.liveActivity;
-        }
-        public final Map<String, Object> getLineTypeIntelligence() {
-            return this.lineTypeIntelligence;
-        }
-        public final Map<String, Object> getIdentityMatch() {
-            return this.identityMatch;
-        }
-        public final Map<String, Object> getSmsPumpingRisk() {
-            return this.smsPumpingRisk;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this==o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PhoneNumber other = (PhoneNumber) o;
-
-        return Objects.equals(callingCountryCode, other.callingCountryCode) &&  Objects.equals(countryCode, other.countryCode) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(nationalFormat, other.nationalFormat) &&  Objects.equals(valid, other.valid) &&  Objects.equals(validationErrors, other.validationErrors) &&  Objects.equals(callerName, other.callerName) &&  Objects.equals(simSwap, other.simSwap) &&  Objects.equals(callForwarding, other.callForwarding) &&  Objects.equals(liveActivity, other.liveActivity) &&  Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&  Objects.equals(identityMatch, other.identityMatch) &&  Objects.equals(smsPumpingRisk, other.smsPumpingRisk) &&  Objects.equals(url, other.url)  ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(callingCountryCode, countryCode, phoneNumber, nationalFormat, valid, validationErrors, callerName, simSwap, callForwarding, liveActivity, lineTypeIntelligence, identityMatch, smsPumpingRisk, url);
-    }
-
 }
-

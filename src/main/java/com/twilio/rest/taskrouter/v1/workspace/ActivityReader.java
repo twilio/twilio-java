@@ -14,8 +14,10 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,29 +26,29 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class ActivityReader extends Reader<Activity> {
+
     private String pathWorkspaceSid;
     private String friendlyName;
     private String available;
     private Integer pageSize;
 
-    public ActivityReader(final String pathWorkspaceSid){
+    public ActivityReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public ActivityReader setFriendlyName(final String friendlyName){
+    public ActivityReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ActivityReader setAvailable(final String available){
+
+    public ActivityReader setAvailable(final String available) {
         this.available = available;
         return this;
     }
-    public ActivityReader setPageSize(final Integer pageSize){
+
+    public ActivityReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -58,7 +60,11 @@ public class ActivityReader extends Reader<Activity> {
 
     public Page<Activity> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -67,18 +73,30 @@ public class ActivityReader extends Reader<Activity> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Activity> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Activity> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Activity read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Activity read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -92,7 +110,10 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     @Override
-    public Page<Activity> previousPage(final Page<Activity> page, final TwilioRestClient client) {
+    public Page<Activity> previousPage(
+        final Page<Activity> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TASKROUTER.toString())
@@ -100,9 +121,11 @@ public class ActivityReader extends Reader<Activity> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Activity> nextPage(final Page<Activity> page, final TwilioRestClient client) {
+    public Page<Activity> nextPage(
+        final Page<Activity> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TASKROUTER.toString())
@@ -111,29 +134,27 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     @Override
-    public Page<Activity> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Activity> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (friendlyName != null) {
-    
             request.addQueryParam("FriendlyName", friendlyName);
         }
         if (available != null) {
-    
             request.addQueryParam("Available", available);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -14,8 +14,10 @@
 
 package com.twilio.rest.messaging.v1.brandregistration;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,24 +26,25 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class BrandVettingReader extends Reader<BrandVetting> {
+
     private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
     private Integer pageSize;
 
-    public BrandVettingReader(final String pathBrandSid){
+    public BrandVettingReader(final String pathBrandSid) {
         this.pathBrandSid = pathBrandSid;
     }
 
-    public BrandVettingReader setVettingProvider(final BrandVetting.VettingProvider vettingProvider){
+    public BrandVettingReader setVettingProvider(
+        final BrandVetting.VettingProvider vettingProvider
+    ) {
         this.vettingProvider = vettingProvider;
         return this;
     }
-    public BrandVettingReader setPageSize(final Integer pageSize){
+
+    public BrandVettingReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -53,7 +56,8 @@ public class BrandVettingReader extends Reader<BrandVetting> {
 
     public Page<BrandVetting> firstPage(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
-        path = path.replace("{"+"BrandSid"+"}", this.pathBrandSid.toString());
+        path =
+            path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -62,18 +66,30 @@ public class BrandVettingReader extends Reader<BrandVetting> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<BrandVetting> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<BrandVetting> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("BrandVetting read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BrandVetting read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -87,7 +103,10 @@ public class BrandVettingReader extends Reader<BrandVetting> {
     }
 
     @Override
-    public Page<BrandVetting> previousPage(final Page<BrandVetting> page, final TwilioRestClient client) {
+    public Page<BrandVetting> previousPage(
+        final Page<BrandVetting> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.MESSAGING.toString())
@@ -95,9 +114,11 @@ public class BrandVettingReader extends Reader<BrandVetting> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<BrandVetting> nextPage(final Page<BrandVetting> page, final TwilioRestClient client) {
+    public Page<BrandVetting> nextPage(
+        final Page<BrandVetting> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.MESSAGING.toString())
@@ -106,25 +127,27 @@ public class BrandVettingReader extends Reader<BrandVetting> {
     }
 
     @Override
-    public Page<BrandVetting> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<BrandVetting> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (vettingProvider != null) {
-    
-            request.addQueryParam("VettingProvider", vettingProvider.toString());
+            request.addQueryParam(
+                "VettingProvider",
+                vettingProvider.toString()
+            );
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

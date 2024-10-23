@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace.worker;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,12 +24,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.time.ZonedDateTime;
 
-
-
 public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
+
     private String pathWorkspaceSid;
     private String pathWorkerSid;
     private Integer minutes;
@@ -36,34 +35,49 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     private ZonedDateTime endDate;
     private String taskChannel;
 
-    public WorkerStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkerSid){
+    public WorkerStatisticsFetcher(
+        final String pathWorkspaceSid,
+        final String pathWorkerSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
     }
 
-    public WorkerStatisticsFetcher setMinutes(final Integer minutes){
+    public WorkerStatisticsFetcher setMinutes(final Integer minutes) {
         this.minutes = minutes;
         return this;
     }
-    public WorkerStatisticsFetcher setStartDate(final ZonedDateTime startDate){
+
+    public WorkerStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
-    public WorkerStatisticsFetcher setEndDate(final ZonedDateTime endDate){
+
+    public WorkerStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
-    public WorkerStatisticsFetcher setTaskChannel(final String taskChannel){
+
+    public WorkerStatisticsFetcher setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
     @Override
     public WorkerStatistics fetch(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics";
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
-        path = path.replace("{"+"WorkerSid"+"}", this.pathWorkerSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkerSid" + "}",
+                this.pathWorkerSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -71,27 +85,42 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
             path
         );
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("WorkerStatistics fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WorkerStatistics fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return WorkerStatistics.fromJson(response.getStream(), client.getObjectMapper());
+        return WorkerStatistics.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addQueryParams(final Request request) {
         if (minutes != null) {
-    
             request.addQueryParam("Minutes", minutes.toString());
         }
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toInstant().toString());
+            request.addQueryParam(
+                "StartDate",
+                startDate.toInstant().toString()
+            );
         }
 
         if (endDate != null) {
@@ -99,7 +128,6 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
         }
 
         if (taskChannel != null) {
-    
             request.addQueryParam("TaskChannel", taskChannel);
         }
     }

@@ -24,46 +24,56 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserBinding extends Resource {
+
     private static final long serialVersionUID = 252068300768529L;
 
-    public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid){
+    public static UserBindingDeleter deleter(
+        final String pathServiceSid,
+        final String pathUserSid,
+        final String pathSid
+    ) {
         return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
     }
 
-    public static UserBindingFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathSid){
+    public static UserBindingFetcher fetcher(
+        final String pathServiceSid,
+        final String pathUserSid,
+        final String pathSid
+    ) {
         return new UserBindingFetcher(pathServiceSid, pathUserSid, pathSid);
     }
 
-    public static UserBindingReader reader(final String pathServiceSid, final String pathUserSid){
+    public static UserBindingReader reader(
+        final String pathServiceSid,
+        final String pathUserSid
+    ) {
         return new UserBindingReader(pathServiceSid, pathUserSid);
     }
 
     /**
-    * Converts a JSON String into a UserBinding object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return UserBinding object represented by the provided JSON
-    */
-    public static UserBinding fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a UserBinding object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return UserBinding object represented by the provided JSON
+     */
+    public static UserBinding fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserBinding.class);
@@ -75,14 +85,17 @@ public class UserBinding extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a UserBinding object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return UserBinding object represented by the provided JSON
-    */
-    public static UserBinding fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a UserBinding object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return UserBinding object represented by the provided JSON
+     */
+    public static UserBinding fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserBinding.class);
@@ -92,6 +105,143 @@ public class UserBinding extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    private final String sid;
+    private final String accountSid;
+    private final String serviceSid;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final String endpoint;
+    private final String identity;
+    private final String userSid;
+    private final String credentialSid;
+    private final UserBinding.BindingType bindingType;
+    private final List<String> messageTypes;
+    private final URI url;
+
+    @JsonCreator
+    private UserBinding(
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("endpoint") final String endpoint,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("user_sid") final String userSid,
+        @JsonProperty("credential_sid") final String credentialSid,
+        @JsonProperty("binding_type") final UserBinding.BindingType bindingType,
+        @JsonProperty("message_types") final List<String> messageTypes,
+        @JsonProperty("url") final URI url
+    ) {
+        this.sid = sid;
+        this.accountSid = accountSid;
+        this.serviceSid = serviceSid;
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.endpoint = endpoint;
+        this.identity = identity;
+        this.userSid = userSid;
+        this.credentialSid = credentialSid;
+        this.bindingType = bindingType;
+        this.messageTypes = messageTypes;
+        this.url = url;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getEndpoint() {
+        return this.endpoint;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getUserSid() {
+        return this.userSid;
+    }
+
+    public final String getCredentialSid() {
+        return this.credentialSid;
+    }
+
+    public final UserBinding.BindingType getBindingType() {
+        return this.bindingType;
+    }
+
+    public final List<String> getMessageTypes() {
+        return this.messageTypes;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        UserBinding other = (UserBinding) o;
+
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(endpoint, other.endpoint) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(userSid, other.userSid) &&
+            Objects.equals(credentialSid, other.credentialSid) &&
+            Objects.equals(bindingType, other.bindingType) &&
+            Objects.equals(messageTypes, other.messageTypes) &&
+            Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            sid,
+            accountSid,
+            serviceSid,
+            dateCreated,
+            dateUpdated,
+            endpoint,
+            identity,
+            userSid,
+            credentialSid,
+            bindingType,
+            messageTypes,
+            url
+        );
+    }
+
     public enum BindingType {
         GCM("gcm"),
         APN("apn"),
@@ -112,128 +262,4 @@ public class UserBinding extends Resource {
             return Promoter.enumFromString(value, BindingType.values());
         }
     }
-
-    private final String sid;
-    private final String accountSid;
-    private final String serviceSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String endpoint;
-    private final String identity;
-    private final String userSid;
-    private final String credentialSid;
-    private final UserBinding.BindingType bindingType;
-    private final List<String> messageTypes;
-    private final URI url;
-
-    @JsonCreator
-    private UserBinding(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("endpoint")
-        final String endpoint,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("user_sid")
-        final String userSid,
-
-        @JsonProperty("credential_sid")
-        final String credentialSid,
-
-        @JsonProperty("binding_type")
-        final UserBinding.BindingType bindingType,
-
-        @JsonProperty("message_types")
-        final List<String> messageTypes,
-
-        @JsonProperty("url")
-        final URI url
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.endpoint = endpoint;
-        this.identity = identity;
-        this.userSid = userSid;
-        this.credentialSid = credentialSid;
-        this.bindingType = bindingType;
-        this.messageTypes = messageTypes;
-        this.url = url;
-    }
-
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getEndpoint() {
-            return this.endpoint;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getUserSid() {
-            return this.userSid;
-        }
-        public final String getCredentialSid() {
-            return this.credentialSid;
-        }
-        public final UserBinding.BindingType getBindingType() {
-            return this.bindingType;
-        }
-        public final List<String> getMessageTypes() {
-            return this.messageTypes;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this==o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        UserBinding other = (UserBinding) o;
-
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(endpoint, other.endpoint) &&  Objects.equals(identity, other.identity) &&  Objects.equals(userSid, other.userSid) &&  Objects.equals(credentialSid, other.credentialSid) &&  Objects.equals(bindingType, other.bindingType) &&  Objects.equals(messageTypes, other.messageTypes) &&  Objects.equals(url, other.url)  ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, endpoint, identity, userSid, credentialSid, bindingType, messageTypes, url);
-    }
-
 }
-

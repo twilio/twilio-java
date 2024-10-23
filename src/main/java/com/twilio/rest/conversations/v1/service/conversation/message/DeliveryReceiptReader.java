@@ -14,8 +14,10 @@
 
 package com.twilio.rest.conversations.v1.service.conversation.message;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,23 +26,25 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
+
     private String pathChatServiceSid;
     private String pathConversationSid;
     private String pathMessageSid;
     private Integer pageSize;
 
-    public DeliveryReceiptReader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid){
+    public DeliveryReceiptReader(
+        final String pathChatServiceSid,
+        final String pathConversationSid,
+        final String pathMessageSid
+    ) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathConversationSid = pathConversationSid;
         this.pathMessageSid = pathMessageSid;
     }
 
-    public DeliveryReceiptReader setPageSize(final Integer pageSize){
+    public DeliveryReceiptReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -51,10 +55,23 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     }
 
     public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
-        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
+        String path =
+            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "MessageSid" + "}",
+                this.pathMessageSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -63,18 +80,30 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<DeliveryReceipt> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<DeliveryReceipt> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("DeliveryReceipt read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "DeliveryReceipt read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -88,7 +117,10 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     }
 
     @Override
-    public Page<DeliveryReceipt> previousPage(final Page<DeliveryReceipt> page, final TwilioRestClient client) {
+    public Page<DeliveryReceipt> previousPage(
+        final Page<DeliveryReceipt> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
@@ -96,9 +128,11 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<DeliveryReceipt> nextPage(final Page<DeliveryReceipt> page, final TwilioRestClient client) {
+    public Page<DeliveryReceipt> nextPage(
+        final Page<DeliveryReceipt> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.CONVERSATIONS.toString())
@@ -107,21 +141,21 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     }
 
     @Override
-    public Page<DeliveryReceipt> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<DeliveryReceipt> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

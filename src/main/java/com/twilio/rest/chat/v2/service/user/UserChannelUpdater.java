@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.user;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,12 +24,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.time.ZonedDateTime;
 
+public class UserChannelUpdater extends Updater<UserChannel> {
 
-
-public class UserChannelUpdater extends Updater<UserChannel>{
     private String pathServiceSid;
     private String pathUserSid;
     private String pathChannelSid;
@@ -36,64 +35,104 @@ public class UserChannelUpdater extends Updater<UserChannel>{
     private Integer lastConsumedMessageIndex;
     private ZonedDateTime lastConsumptionTimestamp;
 
-    public UserChannelUpdater(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+    public UserChannelUpdater(
+        final String pathServiceSid,
+        final String pathUserSid,
+        final String pathChannelSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
         this.pathChannelSid = pathChannelSid;
     }
 
-    public UserChannelUpdater setNotificationLevel(final UserChannel.NotificationLevel notificationLevel){
+    public UserChannelUpdater setNotificationLevel(
+        final UserChannel.NotificationLevel notificationLevel
+    ) {
         this.notificationLevel = notificationLevel;
         return this;
     }
-    public UserChannelUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex){
+
+    public UserChannelUpdater setLastConsumedMessageIndex(
+        final Integer lastConsumedMessageIndex
+    ) {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         return this;
     }
-    public UserChannelUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp){
+
+    public UserChannelUpdater setLastConsumptionTimestamp(
+        final ZonedDateTime lastConsumptionTimestamp
+    ) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
 
     @Override
-    public UserChannel update(final TwilioRestClient client){
-        String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
+    public UserChannel update(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("UserChannel update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserChannel update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return UserChannel.fromJson(response.getStream(), client.getObjectMapper());
+        return UserChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (notificationLevel != null) {
-            request.addPostParam("NotificationLevel", notificationLevel.toString());
-    
+            request.addPostParam(
+                "NotificationLevel",
+                notificationLevel.toString()
+            );
         }
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
-    
+            request.addPostParam(
+                "LastConsumedMessageIndex",
+                lastConsumedMessageIndex.toString()
+            );
         }
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toInstant().toString());
-
+            request.addPostParam(
+                "LastConsumptionTimestamp",
+                lastConsumptionTimestamp.toInstant().toString()
+            );
         }
     }
 }

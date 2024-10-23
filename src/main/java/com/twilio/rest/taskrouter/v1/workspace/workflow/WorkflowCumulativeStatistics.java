@@ -23,42 +23,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkflowCumulativeStatistics extends Resource {
+
     private static final long serialVersionUID = 209789504024863L;
 
-    public static WorkflowCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
-        return new WorkflowCumulativeStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
+    public static WorkflowCumulativeStatisticsFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathWorkflowSid
+    ) {
+        return new WorkflowCumulativeStatisticsFetcher(
+            pathWorkspaceSid,
+            pathWorkflowSid
+        );
     }
 
     /**
-    * Converts a JSON String into a WorkflowCumulativeStatistics object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return WorkflowCumulativeStatistics object represented by the provided JSON
-    */
-    public static WorkflowCumulativeStatistics fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a WorkflowCumulativeStatistics object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return WorkflowCumulativeStatistics object represented by the provided JSON
+     */
+    public static WorkflowCumulativeStatistics fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, WorkflowCumulativeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                WorkflowCumulativeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -67,17 +75,23 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a WorkflowCumulativeStatistics object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return WorkflowCumulativeStatistics object represented by the provided JSON
-    */
-    public static WorkflowCumulativeStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a WorkflowCumulativeStatistics object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return WorkflowCumulativeStatistics object represented by the provided JSON
+     */
+    public static WorkflowCumulativeStatistics fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, WorkflowCumulativeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                WorkflowCumulativeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -110,71 +124,51 @@ public class WorkflowCumulativeStatistics extends Resource {
 
     @JsonCreator
     private WorkflowCumulativeStatistics(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("avg_task_acceptance_time")
-        final Integer avgTaskAcceptanceTime,
-
-        @JsonProperty("start_time")
-        final String startTime,
-
-        @JsonProperty("end_time")
-        final String endTime,
-
-        @JsonProperty("reservations_created")
-        final Integer reservationsCreated,
-
-        @JsonProperty("reservations_accepted")
-        final Integer reservationsAccepted,
-
-        @JsonProperty("reservations_rejected")
-        final Integer reservationsRejected,
-
-        @JsonProperty("reservations_timed_out")
-        final Integer reservationsTimedOut,
-
-        @JsonProperty("reservations_canceled")
-        final Integer reservationsCanceled,
-
-        @JsonProperty("reservations_rescinded")
-        final Integer reservationsRescinded,
-
-        @JsonProperty("split_by_wait_time")
-        final Map<String, Object> splitByWaitTime,
-
-        @JsonProperty("wait_duration_until_accepted")
-        final Map<String, Object> waitDurationUntilAccepted,
-
-        @JsonProperty("wait_duration_until_canceled")
-        final Map<String, Object> waitDurationUntilCanceled,
-
-        @JsonProperty("tasks_canceled")
-        final Integer tasksCanceled,
-
-        @JsonProperty("tasks_completed")
-        final Integer tasksCompleted,
-
-        @JsonProperty("tasks_entered")
-        final Integer tasksEntered,
-
-        @JsonProperty("tasks_deleted")
-        final Integer tasksDeleted,
-
-        @JsonProperty("tasks_moved")
-        final Integer tasksMoved,
-
-        @JsonProperty("tasks_timed_out_in_workflow")
-        final Integer tasksTimedOutInWorkflow,
-
-        @JsonProperty("workflow_sid")
-        final String workflowSid,
-
-        @JsonProperty("workspace_sid")
-        final String workspaceSid,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "avg_task_acceptance_time"
+        ) final Integer avgTaskAcceptanceTime,
+        @JsonProperty("start_time") final String startTime,
+        @JsonProperty("end_time") final String endTime,
+        @JsonProperty("reservations_created") final Integer reservationsCreated,
+        @JsonProperty(
+            "reservations_accepted"
+        ) final Integer reservationsAccepted,
+        @JsonProperty(
+            "reservations_rejected"
+        ) final Integer reservationsRejected,
+        @JsonProperty(
+            "reservations_timed_out"
+        ) final Integer reservationsTimedOut,
+        @JsonProperty(
+            "reservations_canceled"
+        ) final Integer reservationsCanceled,
+        @JsonProperty(
+            "reservations_rescinded"
+        ) final Integer reservationsRescinded,
+        @JsonProperty("split_by_wait_time") final Map<
+            String,
+            Object
+        > splitByWaitTime,
+        @JsonProperty("wait_duration_until_accepted") final Map<
+            String,
+            Object
+        > waitDurationUntilAccepted,
+        @JsonProperty("wait_duration_until_canceled") final Map<
+            String,
+            Object
+        > waitDurationUntilCanceled,
+        @JsonProperty("tasks_canceled") final Integer tasksCanceled,
+        @JsonProperty("tasks_completed") final Integer tasksCompleted,
+        @JsonProperty("tasks_entered") final Integer tasksEntered,
+        @JsonProperty("tasks_deleted") final Integer tasksDeleted,
+        @JsonProperty("tasks_moved") final Integer tasksMoved,
+        @JsonProperty(
+            "tasks_timed_out_in_workflow"
+        ) final Integer tasksTimedOutInWorkflow,
+        @JsonProperty("workflow_sid") final String workflowSid,
+        @JsonProperty("workspace_sid") final String workspaceSid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.avgTaskAcceptanceTime = avgTaskAcceptanceTime;
@@ -200,76 +194,97 @@ public class WorkflowCumulativeStatistics extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Integer getAvgTaskAcceptanceTime() {
-            return this.avgTaskAcceptanceTime;
-        }
-        public final ZonedDateTime getStartTime() {
-            return this.startTime;
-        }
-        public final ZonedDateTime getEndTime() {
-            return this.endTime;
-        }
-        public final Integer getReservationsCreated() {
-            return this.reservationsCreated;
-        }
-        public final Integer getReservationsAccepted() {
-            return this.reservationsAccepted;
-        }
-        public final Integer getReservationsRejected() {
-            return this.reservationsRejected;
-        }
-        public final Integer getReservationsTimedOut() {
-            return this.reservationsTimedOut;
-        }
-        public final Integer getReservationsCanceled() {
-            return this.reservationsCanceled;
-        }
-        public final Integer getReservationsRescinded() {
-            return this.reservationsRescinded;
-        }
-        public final Map<String, Object> getSplitByWaitTime() {
-            return this.splitByWaitTime;
-        }
-        public final Map<String, Object> getWaitDurationUntilAccepted() {
-            return this.waitDurationUntilAccepted;
-        }
-        public final Map<String, Object> getWaitDurationUntilCanceled() {
-            return this.waitDurationUntilCanceled;
-        }
-        public final Integer getTasksCanceled() {
-            return this.tasksCanceled;
-        }
-        public final Integer getTasksCompleted() {
-            return this.tasksCompleted;
-        }
-        public final Integer getTasksEntered() {
-            return this.tasksEntered;
-        }
-        public final Integer getTasksDeleted() {
-            return this.tasksDeleted;
-        }
-        public final Integer getTasksMoved() {
-            return this.tasksMoved;
-        }
-        public final Integer getTasksTimedOutInWorkflow() {
-            return this.tasksTimedOutInWorkflow;
-        }
-        public final String getWorkflowSid() {
-            return this.workflowSid;
-        }
-        public final String getWorkspaceSid() {
-            return this.workspaceSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Integer getAvgTaskAcceptanceTime() {
+        return this.avgTaskAcceptanceTime;
+    }
+
+    public final ZonedDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public final ZonedDateTime getEndTime() {
+        return this.endTime;
+    }
+
+    public final Integer getReservationsCreated() {
+        return this.reservationsCreated;
+    }
+
+    public final Integer getReservationsAccepted() {
+        return this.reservationsAccepted;
+    }
+
+    public final Integer getReservationsRejected() {
+        return this.reservationsRejected;
+    }
+
+    public final Integer getReservationsTimedOut() {
+        return this.reservationsTimedOut;
+    }
+
+    public final Integer getReservationsCanceled() {
+        return this.reservationsCanceled;
+    }
+
+    public final Integer getReservationsRescinded() {
+        return this.reservationsRescinded;
+    }
+
+    public final Map<String, Object> getSplitByWaitTime() {
+        return this.splitByWaitTime;
+    }
+
+    public final Map<String, Object> getWaitDurationUntilAccepted() {
+        return this.waitDurationUntilAccepted;
+    }
+
+    public final Map<String, Object> getWaitDurationUntilCanceled() {
+        return this.waitDurationUntilCanceled;
+    }
+
+    public final Integer getTasksCanceled() {
+        return this.tasksCanceled;
+    }
+
+    public final Integer getTasksCompleted() {
+        return this.tasksCompleted;
+    }
+
+    public final Integer getTasksEntered() {
+        return this.tasksEntered;
+    }
+
+    public final Integer getTasksDeleted() {
+        return this.tasksDeleted;
+    }
+
+    public final Integer getTasksMoved() {
+        return this.tasksMoved;
+    }
+
+    public final Integer getTasksTimedOutInWorkflow() {
+        return this.tasksTimedOutInWorkflow;
+    }
+
+    public final String getWorkflowSid() {
+        return this.workflowSid;
+    }
+
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -279,13 +294,72 @@ public class WorkflowCumulativeStatistics extends Resource {
 
         WorkflowCumulativeStatistics other = (WorkflowCumulativeStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(avgTaskAcceptanceTime, other.avgTaskAcceptanceTime) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(reservationsCreated, other.reservationsCreated) &&  Objects.equals(reservationsAccepted, other.reservationsAccepted) &&  Objects.equals(reservationsRejected, other.reservationsRejected) &&  Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&  Objects.equals(reservationsCanceled, other.reservationsCanceled) &&  Objects.equals(reservationsRescinded, other.reservationsRescinded) &&  Objects.equals(splitByWaitTime, other.splitByWaitTime) &&  Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) &&  Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) &&  Objects.equals(tasksCanceled, other.tasksCanceled) &&  Objects.equals(tasksCompleted, other.tasksCompleted) &&  Objects.equals(tasksEntered, other.tasksEntered) &&  Objects.equals(tasksDeleted, other.tasksDeleted) &&  Objects.equals(tasksMoved, other.tasksMoved) &&  Objects.equals(tasksTimedOutInWorkflow, other.tasksTimedOutInWorkflow) &&  Objects.equals(workflowSid, other.workflowSid) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                avgTaskAcceptanceTime,
+                other.avgTaskAcceptanceTime
+            ) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(reservationsCreated, other.reservationsCreated) &&
+            Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
+            Objects.equals(reservationsRejected, other.reservationsRejected) &&
+            Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
+            Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
+            Objects.equals(
+                reservationsRescinded,
+                other.reservationsRescinded
+            ) &&
+            Objects.equals(splitByWaitTime, other.splitByWaitTime) &&
+            Objects.equals(
+                waitDurationUntilAccepted,
+                other.waitDurationUntilAccepted
+            ) &&
+            Objects.equals(
+                waitDurationUntilCanceled,
+                other.waitDurationUntilCanceled
+            ) &&
+            Objects.equals(tasksCanceled, other.tasksCanceled) &&
+            Objects.equals(tasksCompleted, other.tasksCompleted) &&
+            Objects.equals(tasksEntered, other.tasksEntered) &&
+            Objects.equals(tasksDeleted, other.tasksDeleted) &&
+            Objects.equals(tasksMoved, other.tasksMoved) &&
+            Objects.equals(
+                tasksTimedOutInWorkflow,
+                other.tasksTimedOutInWorkflow
+            ) &&
+            Objects.equals(workflowSid, other.workflowSid) &&
+            Objects.equals(workspaceSid, other.workspaceSid) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, avgTaskAcceptanceTime, startTime, endTime, reservationsCreated, reservationsAccepted, reservationsRejected, reservationsTimedOut, reservationsCanceled, reservationsRescinded, splitByWaitTime, waitDurationUntilAccepted, waitDurationUntilCanceled, tasksCanceled, tasksCompleted, tasksEntered, tasksDeleted, tasksMoved, tasksTimedOutInWorkflow, workflowSid, workspaceSid, url);
+        return Objects.hash(
+            accountSid,
+            avgTaskAcceptanceTime,
+            startTime,
+            endTime,
+            reservationsCreated,
+            reservationsAccepted,
+            reservationsRejected,
+            reservationsTimedOut,
+            reservationsCanceled,
+            reservationsRescinded,
+            splitByWaitTime,
+            waitDurationUntilAccepted,
+            waitDurationUntilCanceled,
+            tasksCanceled,
+            tasksCompleted,
+            tasksEntered,
+            tasksDeleted,
+            tasksMoved,
+            tasksTimedOutInWorkflow,
+            workflowSid,
+            workspaceSid,
+            url
+        );
     }
-
 }
-

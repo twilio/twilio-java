@@ -14,8 +14,10 @@
 
 package com.twilio.rest.voice.v1.dialingpermissions.country;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,31 +26,34 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
+
     private String pathIsoCode;
     private Integer pageSize;
 
-    public HighriskSpecialPrefixReader(final String pathIsoCode){
+    public HighriskSpecialPrefixReader(final String pathIsoCode) {
         this.pathIsoCode = pathIsoCode;
     }
 
-    public HighriskSpecialPrefixReader setPageSize(final Integer pageSize){
+    public HighriskSpecialPrefixReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<HighriskSpecialPrefix> read(final TwilioRestClient client) {
+    public ResourceSet<HighriskSpecialPrefix> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<HighriskSpecialPrefix> firstPage(final TwilioRestClient client) {
-        String path = "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes";
-        path = path.replace("{"+"IsoCode"+"}", this.pathIsoCode.toString());
+    public Page<HighriskSpecialPrefix> firstPage(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes";
+        path = path.replace("{" + "IsoCode" + "}", this.pathIsoCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -57,18 +62,30 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<HighriskSpecialPrefix> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<HighriskSpecialPrefix> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("HighriskSpecialPrefix read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "HighriskSpecialPrefix read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,7 +99,10 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
     }
 
     @Override
-    public Page<HighriskSpecialPrefix> previousPage(final Page<HighriskSpecialPrefix> page, final TwilioRestClient client) {
+    public Page<HighriskSpecialPrefix> previousPage(
+        final Page<HighriskSpecialPrefix> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VOICE.toString())
@@ -90,9 +110,11 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<HighriskSpecialPrefix> nextPage(final Page<HighriskSpecialPrefix> page, final TwilioRestClient client) {
+    public Page<HighriskSpecialPrefix> nextPage(
+        final Page<HighriskSpecialPrefix> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VOICE.toString())
@@ -101,21 +123,21 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
     }
 
     @Override
-    public Page<HighriskSpecialPrefix> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<HighriskSpecialPrefix> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -14,8 +14,10 @@
 
 package com.twilio.rest.studio.v1.flow;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,19 +26,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class EngagementReader extends Reader<Engagement> {
+
     private String pathFlowSid;
     private Integer pageSize;
 
-    public EngagementReader(final String pathFlowSid){
+    public EngagementReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
-    public EngagementReader setPageSize(final Integer pageSize){
+    public EngagementReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -48,7 +48,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     public Page<Engagement> firstPage(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements";
-        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -57,18 +57,30 @@ public class EngagementReader extends Reader<Engagement> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Engagement> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Engagement> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Engagement read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Engagement read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,7 +94,10 @@ public class EngagementReader extends Reader<Engagement> {
     }
 
     @Override
-    public Page<Engagement> previousPage(final Page<Engagement> page, final TwilioRestClient client) {
+    public Page<Engagement> previousPage(
+        final Page<Engagement> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.STUDIO.toString())
@@ -90,9 +105,11 @@ public class EngagementReader extends Reader<Engagement> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Engagement> nextPage(final Page<Engagement> page, final TwilioRestClient client) {
+    public Page<Engagement> nextPage(
+        final Page<Engagement> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.STUDIO.toString())
@@ -101,21 +118,21 @@ public class EngagementReader extends Reader<Engagement> {
     }
 
     @Override
-    public Page<Engagement> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Engagement> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

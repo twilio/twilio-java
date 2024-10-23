@@ -14,8 +14,10 @@
 
 package com.twilio.rest.chat.v2.service.user;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,30 +27,37 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
 import java.util.List;
 
-
 public class UserBindingReader extends Reader<UserBinding> {
+
     private String pathServiceSid;
     private String pathUserSid;
     private List<UserBinding.BindingType> bindingType;
     private Integer pageSize;
 
-    public UserBindingReader(final String pathServiceSid, final String pathUserSid){
+    public UserBindingReader(
+        final String pathServiceSid,
+        final String pathUserSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
     }
 
-    public UserBindingReader setBindingType(final List<UserBinding.BindingType> bindingType){
+    public UserBindingReader setBindingType(
+        final List<UserBinding.BindingType> bindingType
+    ) {
         this.bindingType = bindingType;
         return this;
     }
-    public UserBindingReader setBindingType(final UserBinding.BindingType bindingType){
+
+    public UserBindingReader setBindingType(
+        final UserBinding.BindingType bindingType
+    ) {
         return setBindingType(Promoter.listOfOne(bindingType));
     }
-    public UserBindingReader setPageSize(final Integer pageSize){
+
+    public UserBindingReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -60,8 +69,12 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     public Page<UserBinding> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -70,18 +83,30 @@ public class UserBindingReader extends Reader<UserBinding> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<UserBinding> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<UserBinding> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UserBinding read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserBinding read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -95,7 +120,10 @@ public class UserBindingReader extends Reader<UserBinding> {
     }
 
     @Override
-    public Page<UserBinding> previousPage(final Page<UserBinding> page, final TwilioRestClient client) {
+    public Page<UserBinding> previousPage(
+        final Page<UserBinding> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.CHAT.toString())
@@ -103,9 +131,11 @@ public class UserBindingReader extends Reader<UserBinding> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<UserBinding> nextPage(final Page<UserBinding> page, final TwilioRestClient client) {
+    public Page<UserBinding> nextPage(
+        final Page<UserBinding> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.CHAT.toString())
@@ -114,14 +144,15 @@ public class UserBindingReader extends Reader<UserBinding> {
     }
 
     @Override
-    public Page<UserBinding> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<UserBinding> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (bindingType != null) {
             for (UserBinding.BindingType prop : bindingType) {
@@ -129,11 +160,10 @@ public class UserBindingReader extends Reader<UserBinding> {
             }
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

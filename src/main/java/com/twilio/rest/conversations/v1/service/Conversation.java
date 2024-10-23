@@ -24,55 +24,63 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conversation extends Resource {
+
     private static final long serialVersionUID = 208929192266810L;
 
-    public static ConversationCreator creator(final String pathChatServiceSid){
+    public static ConversationCreator creator(final String pathChatServiceSid) {
         return new ConversationCreator(pathChatServiceSid);
     }
 
-    public static ConversationDeleter deleter(final String pathChatServiceSid, final String pathSid){
+    public static ConversationDeleter deleter(
+        final String pathChatServiceSid,
+        final String pathSid
+    ) {
         return new ConversationDeleter(pathChatServiceSid, pathSid);
     }
 
-    public static ConversationFetcher fetcher(final String pathChatServiceSid, final String pathSid){
+    public static ConversationFetcher fetcher(
+        final String pathChatServiceSid,
+        final String pathSid
+    ) {
         return new ConversationFetcher(pathChatServiceSid, pathSid);
     }
 
-    public static ConversationReader reader(final String pathChatServiceSid){
+    public static ConversationReader reader(final String pathChatServiceSid) {
         return new ConversationReader(pathChatServiceSid);
     }
 
-    public static ConversationUpdater updater(final String pathChatServiceSid, final String pathSid){
+    public static ConversationUpdater updater(
+        final String pathChatServiceSid,
+        final String pathSid
+    ) {
         return new ConversationUpdater(pathChatServiceSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Conversation object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Conversation object represented by the provided JSON
-    */
-    public static Conversation fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Conversation object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Conversation object represented by the provided JSON
+     */
+    public static Conversation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Conversation.class);
@@ -84,14 +92,17 @@ public class Conversation extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Conversation object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Conversation object represented by the provided JSON
-    */
-    public static Conversation fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Conversation object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Conversation object represented by the provided JSON
+     */
+    public static Conversation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Conversation.class);
@@ -99,45 +110,6 @@ public class Conversation extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-    public enum State {
-        INACTIVE("inactive"),
-        ACTIVE("active"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private State(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static State forValue(final String value) {
-            return Promoter.enumFromString(value, State.values());
-        }
-    }
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
         }
     }
 
@@ -158,47 +130,20 @@ public class Conversation extends Resource {
 
     @JsonCreator
     private Conversation(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("chat_service_sid")
-        final String chatServiceSid,
-
-        @JsonProperty("messaging_service_sid")
-        final String messagingServiceSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("unique_name")
-        final String uniqueName,
-
-        @JsonProperty("attributes")
-        final String attributes,
-
-        @JsonProperty("state")
-        final Conversation.State state,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("timers")
-        final Map<String, Object> timers,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links,
-
-        @JsonProperty("bindings")
-        final Map<String, Object> bindings
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("attributes") final String attributes,
+        @JsonProperty("state") final Conversation.State state,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("timers") final Map<String, Object> timers,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("bindings") final Map<String, Object> bindings
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -216,52 +161,65 @@ public class Conversation extends Resource {
         this.bindings = bindings;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getChatServiceSid() {
-            return this.chatServiceSid;
-        }
-        public final String getMessagingServiceSid() {
-            return this.messagingServiceSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getUniqueName() {
-            return this.uniqueName;
-        }
-        public final String getAttributes() {
-            return this.attributes;
-        }
-        public final Conversation.State getState() {
-            return this.state;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final Map<String, Object> getTimers() {
-            return this.timers;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
-        public final Map<String, Object> getBindings() {
-            return this.bindings;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getChatServiceSid() {
+        return this.chatServiceSid;
+    }
+
+    public final String getMessagingServiceSid() {
+        return this.messagingServiceSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getUniqueName() {
+        return this.uniqueName;
+    }
+
+    public final String getAttributes() {
+        return this.attributes;
+    }
+
+    public final Conversation.State getState() {
+        return this.state;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final Map<String, Object> getTimers() {
+        return this.timers;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    public final Map<String, Object> getBindings() {
+        return this.bindings;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -271,13 +229,82 @@ public class Conversation extends Resource {
 
         Conversation other = (Conversation) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(state, other.state) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(timers, other.timers) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links) &&  Objects.equals(bindings, other.bindings)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(state, other.state) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(timers, other.timers) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(bindings, other.bindings)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, chatServiceSid, messagingServiceSid, sid, friendlyName, uniqueName, attributes, state, dateCreated, dateUpdated, timers, url, links, bindings);
+        return Objects.hash(
+            accountSid,
+            chatServiceSid,
+            messagingServiceSid,
+            sid,
+            friendlyName,
+            uniqueName,
+            attributes,
+            state,
+            dateCreated,
+            dateUpdated,
+            timers,
+            url,
+            links,
+            bindings
+        );
     }
 
-}
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
 
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
+    public enum State {
+        INACTIVE("inactive"),
+        ACTIVE("active"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private State(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static State forValue(final String value) {
+            return Promoter.enumFromString(value, State.values());
+        }
+    }
+}

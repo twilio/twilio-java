@@ -14,8 +14,10 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 
-
-
 public class EventReader extends Reader<Event> {
+
     private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private String eventType;
@@ -44,55 +44,66 @@ public class EventReader extends Reader<Event> {
     private String sid;
     private Integer pageSize;
 
-    public EventReader(final String pathWorkspaceSid){
+    public EventReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public EventReader setEndDate(final ZonedDateTime endDate){
+    public EventReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
-    public EventReader setEventType(final String eventType){
+
+    public EventReader setEventType(final String eventType) {
         this.eventType = eventType;
         return this;
     }
-    public EventReader setMinutes(final Integer minutes){
+
+    public EventReader setMinutes(final Integer minutes) {
         this.minutes = minutes;
         return this;
     }
-    public EventReader setReservationSid(final String reservationSid){
+
+    public EventReader setReservationSid(final String reservationSid) {
         this.reservationSid = reservationSid;
         return this;
     }
-    public EventReader setStartDate(final ZonedDateTime startDate){
+
+    public EventReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
-    public EventReader setTaskQueueSid(final String taskQueueSid){
+
+    public EventReader setTaskQueueSid(final String taskQueueSid) {
         this.taskQueueSid = taskQueueSid;
         return this;
     }
-    public EventReader setTaskSid(final String taskSid){
+
+    public EventReader setTaskSid(final String taskSid) {
         this.taskSid = taskSid;
         return this;
     }
-    public EventReader setWorkerSid(final String workerSid){
+
+    public EventReader setWorkerSid(final String workerSid) {
         this.workerSid = workerSid;
         return this;
     }
-    public EventReader setWorkflowSid(final String workflowSid){
+
+    public EventReader setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
         return this;
     }
-    public EventReader setTaskChannel(final String taskChannel){
+
+    public EventReader setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
-    public EventReader setSid(final String sid){
+
+    public EventReader setSid(final String sid) {
         this.sid = sid;
         return this;
     }
-    public EventReader setPageSize(final Integer pageSize){
+
+    public EventReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -104,7 +115,11 @@ public class EventReader extends Reader<Event> {
 
     public Page<Event> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Events";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -113,18 +128,30 @@ public class EventReader extends Reader<Event> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Event> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Event read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Event read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -138,7 +165,10 @@ public class EventReader extends Reader<Event> {
     }
 
     @Override
-    public Page<Event> previousPage(final Page<Event> page, final TwilioRestClient client) {
+    public Page<Event> previousPage(
+        final Page<Event> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TASKROUTER.toString())
@@ -146,9 +176,11 @@ public class EventReader extends Reader<Event> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Event> nextPage(final Page<Event> page, final TwilioRestClient client) {
+    public Page<Event> nextPage(
+        final Page<Event> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TASKROUTER.toString())
@@ -157,65 +189,59 @@ public class EventReader extends Reader<Event> {
     }
 
     @Override
-    public Page<Event> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Event> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (endDate != null) {
             request.addQueryParam("EndDate", endDate.toInstant().toString());
         }
 
         if (eventType != null) {
-    
             request.addQueryParam("EventType", eventType);
         }
         if (minutes != null) {
-    
             request.addQueryParam("Minutes", minutes.toString());
         }
         if (reservationSid != null) {
-    
             request.addQueryParam("ReservationSid", reservationSid);
         }
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toInstant().toString());
+            request.addQueryParam(
+                "StartDate",
+                startDate.toInstant().toString()
+            );
         }
 
         if (taskQueueSid != null) {
-    
             request.addQueryParam("TaskQueueSid", taskQueueSid);
         }
         if (taskSid != null) {
-    
             request.addQueryParam("TaskSid", taskSid);
         }
         if (workerSid != null) {
-    
             request.addQueryParam("WorkerSid", workerSid);
         }
         if (workflowSid != null) {
-    
             request.addQueryParam("WorkflowSid", workflowSid);
         }
         if (taskChannel != null) {
-    
             request.addQueryParam("TaskChannel", taskChannel);
         }
         if (sid != null) {
-    
             request.addQueryParam("Sid", sid);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -24,47 +24,84 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Payment extends Resource {
+
     private static final long serialVersionUID = 75287507384907L;
 
-    public static PaymentCreator creator(final String pathCallSid, final String idempotencyKey, final URI statusCallback){
+    public static PaymentCreator creator(
+        final String pathCallSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         return new PaymentCreator(pathCallSid, idempotencyKey, statusCallback);
     }
-    public static PaymentCreator creator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentCreator(pathAccountSid, pathCallSid, idempotencyKey, statusCallback);
+
+    public static PaymentCreator creator(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
+        return new PaymentCreator(
+            pathAccountSid,
+            pathCallSid,
+            idempotencyKey,
+            statusCallback
+        );
     }
 
-    public static PaymentUpdater updater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentUpdater(pathCallSid, pathSid, idempotencyKey, statusCallback);
+    public static PaymentUpdater updater(
+        final String pathCallSid,
+        final String pathSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
+        return new PaymentUpdater(
+            pathCallSid,
+            pathSid,
+            idempotencyKey,
+            statusCallback
+        );
     }
-    public static PaymentUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentUpdater(pathAccountSid, pathCallSid, pathSid, idempotencyKey, statusCallback);
+
+    public static PaymentUpdater updater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
+        return new PaymentUpdater(
+            pathAccountSid,
+            pathCallSid,
+            pathSid,
+            idempotencyKey,
+            statusCallback
+        );
     }
 
     /**
-    * Converts a JSON String into a Payment object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Payment object represented by the provided JSON
-    */
-    public static Payment fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Payment object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Payment object represented by the provided JSON
+     */
+    public static Payment fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Payment.class);
@@ -76,14 +113,17 @@ public class Payment extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Payment object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Payment object represented by the provided JSON
-    */
-    public static Payment fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Payment object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Payment object represented by the provided JSON
+     */
+    public static Payment fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Payment.class);
@@ -93,6 +133,150 @@ public class Payment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    private final String accountSid;
+    private final String callSid;
+    private final String sid;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final String uri;
+
+    @JsonCreator
+    private Payment(
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("uri") final String uri
+    ) {
+        this.accountSid = accountSid;
+        this.callSid = callSid;
+        this.sid = sid;
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.uri = uri;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getCallSid() {
+        return this.callSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Payment other = (Payment) o;
+
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(uri, other.uri)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            accountSid,
+            callSid,
+            sid,
+            dateCreated,
+            dateUpdated,
+            uri
+        );
+    }
+
+    public enum PaymentMethod {
+        CREDIT_CARD("credit-card"),
+        ACH_DEBIT("ach-debit");
+
+        private final String value;
+
+        private PaymentMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PaymentMethod forValue(final String value) {
+            return Promoter.enumFromString(value, PaymentMethod.values());
+        }
+    }
+
+    public enum TokenType {
+        ONE_TIME("one-time"),
+        REUSABLE("reusable"),
+        PAYMENT_METHOD("payment-method");
+
+        private final String value;
+
+        private TokenType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TokenType forValue(final String value) {
+            return Promoter.enumFromString(value, TokenType.values());
+        }
+    }
+
+    public enum Status {
+        COMPLETE("complete"),
+        CANCEL("cancel");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
     public enum BankAccountType {
         CONSUMER_CHECKING("consumer-checking"),
         CONSUMER_SAVINGS("consumer-savings"),
@@ -113,6 +297,7 @@ public class Payment extends Resource {
             return Promoter.enumFromString(value, BankAccountType.values());
         }
     }
+
     public enum Capture {
         PAYMENT_CARD_NUMBER("payment-card-number"),
         EXPIRATION_DATE("expiration-date"),
@@ -136,137 +321,4 @@ public class Payment extends Resource {
             return Promoter.enumFromString(value, Capture.values());
         }
     }
-    public enum PaymentMethod {
-        CREDIT_CARD("credit-card"),
-        ACH_DEBIT("ach-debit");
-
-        private final String value;
-
-        private PaymentMethod(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PaymentMethod forValue(final String value) {
-            return Promoter.enumFromString(value, PaymentMethod.values());
-        }
-    }
-    public enum Status {
-        COMPLETE("complete"),
-        CANCEL("cancel");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-    public enum TokenType {
-        ONE_TIME("one-time"),
-        REUSABLE("reusable");
-
-        private final String value;
-
-        private TokenType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TokenType forValue(final String value) {
-            return Promoter.enumFromString(value, TokenType.values());
-        }
-    }
-
-    private final String accountSid;
-    private final String callSid;
-    private final String sid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String uri;
-
-    @JsonCreator
-    private Payment(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("call_sid")
-        final String callSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("uri")
-        final String uri
-    ) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
-        this.sid = sid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.uri = uri;
-    }
-
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getCallSid() {
-            return this.callSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this==o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Payment other = (Payment) o;
-
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(uri, other.uri)  ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountSid, callSid, sid, dateCreated, dateUpdated, uri);
-    }
-
 }
-

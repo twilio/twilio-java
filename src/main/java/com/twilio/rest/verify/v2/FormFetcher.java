@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,36 +25,42 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class FormFetcher extends Fetcher<Form> {
+
     private Form.FormTypes formType;
 
-    public FormFetcher(final Form.FormTypes formType){
+    public FormFetcher(final Form.FormTypes formType) {
         this.formType = formType;
     }
-
 
     @Override
     public Form fetch(final TwilioRestClient client) {
         String path = "/v2/Forms/{FormType}";
 
-        path = path.replace("{"+"FormType"+"}", this.formType.toString());
+        path = path.replace("{" + "FormType" + "}", this.formType.toString());
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("Form fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Form fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

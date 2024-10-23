@@ -14,8 +14,10 @@
 
 package com.twilio.rest.monitor.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 
-
-
 public class EventReader extends Reader<Event> {
+
     private String actorSid;
     private String eventType;
     private String resourceSid;
@@ -38,34 +38,39 @@ public class EventReader extends Reader<Event> {
     private ZonedDateTime endDate;
     private Integer pageSize;
 
-    public EventReader(){
-    }
+    public EventReader() {}
 
-    public EventReader setActorSid(final String actorSid){
+    public EventReader setActorSid(final String actorSid) {
         this.actorSid = actorSid;
         return this;
     }
-    public EventReader setEventType(final String eventType){
+
+    public EventReader setEventType(final String eventType) {
         this.eventType = eventType;
         return this;
     }
-    public EventReader setResourceSid(final String resourceSid){
+
+    public EventReader setResourceSid(final String resourceSid) {
         this.resourceSid = resourceSid;
         return this;
     }
-    public EventReader setSourceIpAddress(final String sourceIpAddress){
+
+    public EventReader setSourceIpAddress(final String sourceIpAddress) {
         this.sourceIpAddress = sourceIpAddress;
         return this;
     }
-    public EventReader setStartDate(final ZonedDateTime startDate){
+
+    public EventReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
-    public EventReader setEndDate(final ZonedDateTime endDate){
+
+    public EventReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
-    public EventReader setPageSize(final Integer pageSize){
+
+    public EventReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -85,18 +90,30 @@ public class EventReader extends Reader<Event> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Event> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Event read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Event read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -110,7 +127,10 @@ public class EventReader extends Reader<Event> {
     }
 
     @Override
-    public Page<Event> previousPage(final Page<Event> page, final TwilioRestClient client) {
+    public Page<Event> previousPage(
+        final Page<Event> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.MONITOR.toString())
@@ -118,9 +138,11 @@ public class EventReader extends Reader<Event> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Event> nextPage(final Page<Event> page, final TwilioRestClient client) {
+    public Page<Event> nextPage(
+        final Page<Event> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.MONITOR.toString())
@@ -129,33 +151,33 @@ public class EventReader extends Reader<Event> {
     }
 
     @Override
-    public Page<Event> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Event> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (actorSid != null) {
-    
             request.addQueryParam("ActorSid", actorSid);
         }
         if (eventType != null) {
-    
             request.addQueryParam("EventType", eventType);
         }
         if (resourceSid != null) {
-    
             request.addQueryParam("ResourceSid", resourceSid);
         }
         if (sourceIpAddress != null) {
-    
             request.addQueryParam("SourceIpAddress", sourceIpAddress);
         }
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toInstant().toString());
+            request.addQueryParam(
+                "StartDate",
+                startDate.toInstant().toString()
+            );
         }
 
         if (endDate != null) {
@@ -163,11 +185,10 @@ public class EventReader extends Reader<Event> {
         }
 
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -15,6 +15,7 @@
 package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,53 +25,75 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class TrustProductsEntityAssignmentsCreator
+    extends Creator<TrustProductsEntityAssignments> {
 
-
-
-public class TrustProductsEntityAssignmentsCreator extends Creator<TrustProductsEntityAssignments>{
     private String pathTrustProductSid;
     private String objectSid;
 
-    public TrustProductsEntityAssignmentsCreator(final String pathTrustProductSid, final String objectSid) {
+    public TrustProductsEntityAssignmentsCreator(
+        final String pathTrustProductSid,
+        final String objectSid
+    ) {
         this.pathTrustProductSid = pathTrustProductSid;
         this.objectSid = objectSid;
     }
 
-    public TrustProductsEntityAssignmentsCreator setObjectSid(final String objectSid){
+    public TrustProductsEntityAssignmentsCreator setObjectSid(
+        final String objectSid
+    ) {
         this.objectSid = objectSid;
         return this;
     }
 
     @Override
-    public TrustProductsEntityAssignments create(final TwilioRestClient client){
+    public TrustProductsEntityAssignments create(
+        final TwilioRestClient client
+    ) {
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
 
-        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
-        path = path.replace("{"+"ObjectSid"+"}", this.objectSid.toString());
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
+        path = path.replace("{" + "ObjectSid" + "}", this.objectSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUSTHUB.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("TrustProductsEntityAssignments creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProductsEntityAssignments creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return TrustProductsEntityAssignments.fromJson(response.getStream(), client.getObjectMapper());
+        return TrustProductsEntityAssignments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (objectSid != null) {
             request.addPostParam("ObjectSid", objectSid);
-    
         }
     }
 }

@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,49 +25,60 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class InsightsSettingsCommentFetcher
+    extends Fetcher<InsightsSettingsComment> {
 
+    private String authorization;
 
+    public InsightsSettingsCommentFetcher() {}
 
-public class InsightsSettingsCommentFetcher extends Fetcher<InsightsSettingsComment> {
-    private String token;
-
-    public InsightsSettingsCommentFetcher(){
-    }
-
-    public InsightsSettingsCommentFetcher setToken(final String token){
-        this.token = token;
+    public InsightsSettingsCommentFetcher setAuthorization(
+        final String authorization
+    ) {
+        this.authorization = authorization;
         return this;
     }
 
     @Override
     public InsightsSettingsComment fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Settings/CommentTags";
-
+        String path = "/v1/Insights/QualityManagement/Settings/CommentTags";
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("InsightsSettingsComment fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsSettingsComment fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsSettingsComment.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsSettingsComment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
-    private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
 
+    private void addHeaderParams(final Request request) {
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
         }
     }
 }

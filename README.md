@@ -31,6 +31,26 @@ This library supports the following Java implementations:
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 
+### Beta Annotation
+
+To indicate that a class or method is in beta and subject to change, we use the `@Beta` annotation. For example:
+
+```java
+
+@Beta
+public class ClassName {
+  // Class implementation
+}
+
+
+public class ClassName {
+  @Beta
+  public void init() {
+    // Implementation
+  }
+}
+```
+
 ## Installation
 
 `twilio-java` uses Maven. At present the jars _are_ available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
@@ -41,7 +61,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio</artifactId>
-  <version>9.X.X</version>
+  <version>10.X.X</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -49,7 +69,7 @@ Use the following dependency in your project to grab via Maven:
 or Gradle:
 
 ```groovy
-implementation "com.twilio.sdk:twilio:9.X.X"
+implementation "com.twilio.sdk:twilio:10.X.X"
 ```
 
 If you want to compile it yourself, here's how:
@@ -125,6 +145,12 @@ public class Example {
   }
 }
 ```
+### Initialize the client when endpoints does not use basic authentication
+The above example shows how to initialize the client in case the endpoints use basic authentication. When the endpoint does not require any authentication, use TwilioNoAuth client instead.
+There are endpoints like Organization domain which uses bearer token authentication. Custom Clients needs to be used in such cases and initialize them with the values required for access token generation.
+
+To bypass the initialization step you can also use a custom token manager implementation. Token manager class should implement the Token interface and call a token generation endpoint of your choice.
+Detailed examples [here](https://github.com/twilio/twilio-java/tree/main/examples)
 
 ### Environment Variables
 
@@ -187,6 +213,15 @@ public class Example {
   }
 }
 ```
+
+
+
+### OAuth Feature for Twilio APIs
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
+This feature is currently in `beta` and its implementation is subject to change.
+
+- API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/FetchMessageUsingOAuth.md)
+- Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/BearerTokenAuthentication.md)
 
 ### Iterate through records
 

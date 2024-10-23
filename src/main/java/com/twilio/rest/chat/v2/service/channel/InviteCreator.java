@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,65 +25,84 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class InviteCreator extends Creator<Invite> {
 
-
-
-public class InviteCreator extends Creator<Invite>{
     private String pathServiceSid;
     private String pathChannelSid;
     private String identity;
     private String roleSid;
 
-    public InviteCreator(final String pathServiceSid, final String pathChannelSid, final String identity) {
+    public InviteCreator(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String identity
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.identity = identity;
     }
 
-    public InviteCreator setIdentity(final String identity){
+    public InviteCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
-    public InviteCreator setRoleSid(final String roleSid){
+
+    public InviteCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
     @Override
-    public Invite create(final TwilioRestClient client){
+    public Invite create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
+        path = path.replace("{" + "Identity" + "}", this.identity.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Invite creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Invite creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Invite.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (identity != null) {
             request.addPostParam("Identity", identity);
-    
         }
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
-    
         }
     }
 }

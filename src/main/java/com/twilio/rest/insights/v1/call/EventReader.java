@@ -14,8 +14,10 @@
 
 package com.twilio.rest.insights.v1.call;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,24 +26,23 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class EventReader extends Reader<Event> {
+
     private String pathCallSid;
     private Event.TwilioEdge edge;
     private Integer pageSize;
 
-    public EventReader(final String pathCallSid){
+    public EventReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
     }
 
-    public EventReader setEdge(final Event.TwilioEdge edge){
+    public EventReader setEdge(final Event.TwilioEdge edge) {
         this.edge = edge;
         return this;
     }
-    public EventReader setPageSize(final Integer pageSize){
+
+    public EventReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -53,7 +54,7 @@ public class EventReader extends Reader<Event> {
 
     public Page<Event> firstPage(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Events";
-        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -62,18 +63,30 @@ public class EventReader extends Reader<Event> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Event> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Event read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Event read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -87,7 +100,10 @@ public class EventReader extends Reader<Event> {
     }
 
     @Override
-    public Page<Event> previousPage(final Page<Event> page, final TwilioRestClient client) {
+    public Page<Event> previousPage(
+        final Page<Event> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INSIGHTS.toString())
@@ -95,9 +111,11 @@ public class EventReader extends Reader<Event> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Event> nextPage(final Page<Event> page, final TwilioRestClient client) {
+    public Page<Event> nextPage(
+        final Page<Event> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INSIGHTS.toString())
@@ -106,25 +124,24 @@ public class EventReader extends Reader<Event> {
     }
 
     @Override
-    public Page<Event> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Event> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (edge != null) {
-    
             request.addQueryParam("Edge", edge.toString());
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -14,8 +14,10 @@
 
 package com.twilio.rest.monitor.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,33 +26,33 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 
-
-
 public class AlertReader extends Reader<Alert> {
+
     private String logLevel;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private Integer pageSize;
 
-    public AlertReader(){
-    }
+    public AlertReader() {}
 
-    public AlertReader setLogLevel(final String logLevel){
+    public AlertReader setLogLevel(final String logLevel) {
         this.logLevel = logLevel;
         return this;
     }
-    public AlertReader setStartDate(final ZonedDateTime startDate){
+
+    public AlertReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
-    public AlertReader setEndDate(final ZonedDateTime endDate){
+
+    public AlertReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
-    public AlertReader setPageSize(final Integer pageSize){
+
+    public AlertReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -70,18 +72,30 @@ public class AlertReader extends Reader<Alert> {
         );
 
         addQueryParams(request);
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         return pageForRequest(client, request);
     }
 
-    private Page<Alert> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Alert> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Alert read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Alert read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -95,7 +109,10 @@ public class AlertReader extends Reader<Alert> {
     }
 
     @Override
-    public Page<Alert> previousPage(final Page<Alert> page, final TwilioRestClient client) {
+    public Page<Alert> previousPage(
+        final Page<Alert> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.MONITOR.toString())
@@ -103,9 +120,11 @@ public class AlertReader extends Reader<Alert> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Alert> nextPage(final Page<Alert> page, final TwilioRestClient client) {
+    public Page<Alert> nextPage(
+        final Page<Alert> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.MONITOR.toString())
@@ -114,21 +133,24 @@ public class AlertReader extends Reader<Alert> {
     }
 
     @Override
-    public Page<Alert> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Alert> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (logLevel != null) {
-    
             request.addQueryParam("LogLevel", logLevel);
         }
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toInstant().toString());
+            request.addQueryParam(
+                "StartDate",
+                startDate.toInstant().toString()
+            );
         }
 
         if (endDate != null) {
@@ -136,11 +158,10 @@ public class AlertReader extends Reader<Alert> {
         }
 
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

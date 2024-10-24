@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2024-10-24] Version 10.6.2
+---------------------------
+**Library - Fix**
+- [PR #741](https://github.com/twilio/twilio-java/pull/741): Security upgrade org.json:json from 20220320 to 20230227. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #819](https://github.com/twilio/twilio-java/pull/819): Security upgrade commons-io:commons-io from 2.7 to 2.14.0. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
 [2024-10-17] Version 10.6.1
 ---------------------------
 **Api**

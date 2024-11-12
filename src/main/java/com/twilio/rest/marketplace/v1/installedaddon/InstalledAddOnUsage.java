@@ -39,58 +39,10 @@ import lombok.ToString;
 @ToString
 public class InstalledAddOnUsage extends Resource {
 
-    private static final long serialVersionUID = 244026319744874L;
+    private static final long serialVersionUID = 201246203121312L;
 
     @ToString
-    public static class CreateBillingUsageRequestBillableItems {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("quantity")
-        @Getter
-        @Setter
-        private BigDecimal quantity;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sid")
-        @Getter
-        @Setter
-        private String sid;
-
-        public static CreateBillingUsageRequestBillableItems fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                CreateBillingUsageRequestBillableItems.class
-            );
-        }
-    }
-
-    @ToString
-    public static class CreateBillingUsageRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("billable_items")
-        @Getter
-        @Setter
-        private List<CreateBillingUsageRequestBillableItems> billableItems;
-
-        public CreateBillingUsageRequest() {}
-
-        public static CreateBillingUsageRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                CreateBillingUsageRequest.class
-            );
-        }
-    }
-
-    @ToString
-    public static class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
+    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quantity")
@@ -110,24 +62,60 @@ public class InstalledAddOnUsage extends Resource {
         @Setter
         private Boolean submitted;
 
-        public static MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems fromJson(
+        public static MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(
                 jsonString,
-                MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems.class
+                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("totalSubmitted")
+        @Getter
+        @Setter
+        private BigDecimal totalSubmitted;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("billableItems")
+        @Getter
+        @Setter
+        private List<
+            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+        > billableItems;
+
+        public MarketplaceV1InstalledAddOnInstalledAddOnUsage(
+            final List<
+                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+            > billableItems
+        ) {
+            this.billableItems = billableItems;
+        }
+
+        public static MarketplaceV1InstalledAddOnInstalledAddOnUsage fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MarketplaceV1InstalledAddOnInstalledAddOnUsage.class
             );
         }
     }
 
     public static InstalledAddOnUsageCreator creator(
         final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.CreateBillingUsageRequest createBillingUsageRequest
+        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
     ) {
         return new InstalledAddOnUsageCreator(
             pathInstalledAddOnSid,
-            createBillingUsageRequest
+            marketplaceV1InstalledAddOnInstalledAddOnUsage
         );
     }
 
@@ -186,30 +174,30 @@ public class InstalledAddOnUsage extends Resource {
         }
     }
 
-    private final List<
-        MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
-    > billableItems;
     private final BigDecimal totalSubmitted;
+    private final List<
+        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+    > billableItems;
 
     @JsonCreator
     private InstalledAddOnUsage(
+        @JsonProperty("total_submitted") final BigDecimal totalSubmitted,
         @JsonProperty("billable_items") final List<
-            MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
-        > billableItems,
-        @JsonProperty("total_submitted") final BigDecimal totalSubmitted
+            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+        > billableItems
     ) {
-        this.billableItems = billableItems;
         this.totalSubmitted = totalSubmitted;
-    }
-
-    public final List<
-        MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems
-    > getBillableItems() {
-        return this.billableItems;
+        this.billableItems = billableItems;
     }
 
     public final BigDecimal getTotalSubmitted() {
         return this.totalSubmitted;
+    }
+
+    public final List<
+        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+    > getBillableItems() {
+        return this.billableItems;
     }
 
     @Override
@@ -225,13 +213,13 @@ public class InstalledAddOnUsage extends Resource {
         InstalledAddOnUsage other = (InstalledAddOnUsage) o;
 
         return (
-            Objects.equals(billableItems, other.billableItems) &&
-            Objects.equals(totalSubmitted, other.totalSubmitted)
+            Objects.equals(totalSubmitted, other.totalSubmitted) &&
+            Objects.equals(billableItems, other.billableItems)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(billableItems, totalSubmitted);
+        return Objects.hash(totalSubmitted, billableItems);
     }
 }

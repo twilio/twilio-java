@@ -13,6 +13,7 @@ package com.twilio.rest;
 public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
+    ASSISTANTS("assistants"),
     BULKEXPORTS("bulkexports"),
     CHAT("chat"),
     CONTENT("content"),
@@ -21,6 +22,7 @@ public enum Domains {
     FLEXAPI("flex-api"),
     FRONTLINEAPI("frontline-api"),
     PREVIEWIAM("preview-iam"),
+    IAM("iam"),
     INSIGHTS("insights"),
     INTELLIGENCE("intelligence"),
     IPMESSAGING("ip-messaging"),

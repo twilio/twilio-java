@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Map;
@@ -40,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortIn extends Resource {
 
-    private static final long serialVersionUID = 103086419202732L;
+    private static final long serialVersionUID = 79710628855525L;
 
     public static PortingPortInCreator creator() {
         return new PortingPortInCreator();
@@ -124,7 +125,7 @@ public class PortingPortIn extends Resource {
     private final Map<String, Object> losingCarrierInformation;
     private final List<Map<String, Object>> phoneNumbers;
     private final List<String> documents;
-    private final LocalDate dateCreated;
+    private final ZonedDateTime dateCreated;
 
     @JsonCreator
     private PortingPortIn(
@@ -166,7 +167,7 @@ public class PortingPortIn extends Resource {
         this.losingCarrierInformation = losingCarrierInformation;
         this.phoneNumbers = phoneNumbers;
         this.documents = documents;
-        this.dateCreated = DateConverter.localDateFromString(dateCreated);
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
     }
 
     public final String getPortInRequestSid() {
@@ -213,7 +214,7 @@ public class PortingPortIn extends Resource {
         return this.documents;
     }
 
-    public final LocalDate getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

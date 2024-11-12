@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,13 +37,20 @@ import lombok.ToString;
 @ToString
 public class FlexUser extends Resource {
 
-    private static final long serialVersionUID = 256615130966532L;
+    private static final long serialVersionUID = 135272975110546L;
 
     public static FlexUserFetcher fetcher(
         final String pathInstanceSid,
         final String pathFlexUserSid
     ) {
         return new FlexUserFetcher(pathInstanceSid, pathFlexUserSid);
+    }
+
+    public static FlexUserUpdater updater(
+        final String pathInstanceSid,
+        final String pathFlexUserSid
+    ) {
+        return new FlexUserUpdater(pathInstanceSid, pathFlexUserSid);
     }
 
     /**
@@ -100,6 +108,8 @@ public class FlexUser extends Resource {
     private final String username;
     private final String email;
     private final String friendlyName;
+    private final String locale;
+    private final List<String> roles;
     private final ZonedDateTime createdDate;
     private final ZonedDateTime updatedDate;
     private final Integer version;
@@ -119,6 +129,8 @@ public class FlexUser extends Resource {
         @JsonProperty("username") final String username,
         @JsonProperty("email") final String email,
         @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("locale") final String locale,
+        @JsonProperty("roles") final List<String> roles,
         @JsonProperty("created_date") final String createdDate,
         @JsonProperty("updated_date") final String updatedDate,
         @JsonProperty("version") final Integer version,
@@ -136,6 +148,8 @@ public class FlexUser extends Resource {
         this.username = username;
         this.email = email;
         this.friendlyName = friendlyName;
+        this.locale = locale;
+        this.roles = roles;
         this.createdDate = DateConverter.iso8601DateTimeFromString(createdDate);
         this.updatedDate = DateConverter.iso8601DateTimeFromString(updatedDate);
         this.version = version;
@@ -190,6 +204,14 @@ public class FlexUser extends Resource {
         return this.friendlyName;
     }
 
+    public final String getLocale() {
+        return this.locale;
+    }
+
+    public final List<String> getRoles() {
+        return this.roles;
+    }
+
     public final ZonedDateTime getCreatedDate() {
         return this.createdDate;
     }
@@ -231,6 +253,8 @@ public class FlexUser extends Resource {
             Objects.equals(username, other.username) &&
             Objects.equals(email, other.email) &&
             Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(locale, other.locale) &&
+            Objects.equals(roles, other.roles) &&
             Objects.equals(createdDate, other.createdDate) &&
             Objects.equals(updatedDate, other.updatedDate) &&
             Objects.equals(version, other.version) &&
@@ -253,6 +277,8 @@ public class FlexUser extends Resource {
             username,
             email,
             friendlyName,
+            locale,
+            roles,
             createdDate,
             updatedDate,
             version,

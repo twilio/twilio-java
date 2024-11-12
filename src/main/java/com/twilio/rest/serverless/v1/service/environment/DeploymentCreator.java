@@ -30,6 +30,7 @@ public class DeploymentCreator extends Creator<Deployment> {
     private String pathServiceSid;
     private String pathEnvironmentSid;
     private String buildSid;
+    private Boolean isPlugin;
 
     public DeploymentCreator(
         final String pathServiceSid,
@@ -41,6 +42,11 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     public DeploymentCreator setBuildSid(final String buildSid) {
         this.buildSid = buildSid;
+        return this;
+    }
+
+    public DeploymentCreator setIsPlugin(final Boolean isPlugin) {
+        this.isPlugin = isPlugin;
         return this;
     }
 
@@ -95,6 +101,9 @@ public class DeploymentCreator extends Creator<Deployment> {
     private void addPostParams(final Request request) {
         if (buildSid != null) {
             request.addPostParam("BuildSid", buildSid);
+        }
+        if (isPlugin != null) {
+            request.addPostParam("IsPlugin", isPlugin.toString());
         }
     }
 }

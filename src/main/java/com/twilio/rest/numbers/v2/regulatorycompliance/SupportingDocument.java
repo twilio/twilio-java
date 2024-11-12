@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
@@ -39,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class SupportingDocument extends Resource {
 
-    private static final long serialVersionUID = 24162340566274L;
+    private static final long serialVersionUID = 89965125257195L;
 
     public static SupportingDocumentCreator creator(
         final String friendlyName,
@@ -113,6 +114,7 @@ public class SupportingDocument extends Resource {
     private final String mimeType;
     private final SupportingDocument.Status status;
     private final String failureReason;
+    private final List<Map<String, Object>> errors;
     private final String type;
     private final Map<String, Object> attributes;
     private final ZonedDateTime dateCreated;
@@ -127,6 +129,7 @@ public class SupportingDocument extends Resource {
         @JsonProperty("mime_type") final String mimeType,
         @JsonProperty("status") final SupportingDocument.Status status,
         @JsonProperty("failure_reason") final String failureReason,
+        @JsonProperty("errors") final List<Map<String, Object>> errors,
         @JsonProperty("type") final String type,
         @JsonProperty("attributes") final Map<String, Object> attributes,
         @JsonProperty("date_created") final String dateCreated,
@@ -139,6 +142,7 @@ public class SupportingDocument extends Resource {
         this.mimeType = mimeType;
         this.status = status;
         this.failureReason = failureReason;
+        this.errors = errors;
         this.type = type;
         this.attributes = attributes;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -168,6 +172,10 @@ public class SupportingDocument extends Resource {
 
     public final String getFailureReason() {
         return this.failureReason;
+    }
+
+    public final List<Map<String, Object>> getErrors() {
+        return this.errors;
     }
 
     public final String getType() {
@@ -209,6 +217,7 @@ public class SupportingDocument extends Resource {
             Objects.equals(mimeType, other.mimeType) &&
             Objects.equals(status, other.status) &&
             Objects.equals(failureReason, other.failureReason) &&
+            Objects.equals(errors, other.errors) &&
             Objects.equals(type, other.type) &&
             Objects.equals(attributes, other.attributes) &&
             Objects.equals(dateCreated, other.dateCreated) &&
@@ -226,6 +235,7 @@ public class SupportingDocument extends Resource {
             mimeType,
             status,
             failureReason,
+            errors,
             type,
             attributes,
             dateCreated,

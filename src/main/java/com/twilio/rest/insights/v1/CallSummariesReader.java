@@ -35,7 +35,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String toCarrier;
     private String fromCountryCode;
     private String toCountryCode;
-    private Boolean branded;
     private Boolean verifiedCaller;
     private Boolean hasTag;
     private String startTime;
@@ -53,6 +52,15 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String qualityIssueAnnotation;
     private Boolean spamAnnotation;
     private String callScoreAnnotation;
+    private Boolean brandedEnabled;
+    private Boolean voiceIntegrityEnabled;
+    private String brandedBundleSid;
+    private String voiceIntegrityBundleSid;
+    private String voiceIntegrityUseCase;
+    private String businessProfileIdentity;
+    private String businessProfileIndustry;
+    private String businessProfileBundleSid;
+    private String businessProfileType;
     private Integer pageSize;
 
     public CallSummariesReader() {}
@@ -86,11 +94,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
 
     public CallSummariesReader setToCountryCode(final String toCountryCode) {
         this.toCountryCode = toCountryCode;
-        return this;
-    }
-
-    public CallSummariesReader setBranded(final Boolean branded) {
-        this.branded = branded;
         return this;
     }
 
@@ -190,6 +193,67 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         final String callScoreAnnotation
     ) {
         this.callScoreAnnotation = callScoreAnnotation;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedEnabled(final Boolean brandedEnabled) {
+        this.brandedEnabled = brandedEnabled;
+        return this;
+    }
+
+    public CallSummariesReader setVoiceIntegrityEnabled(
+        final Boolean voiceIntegrityEnabled
+    ) {
+        this.voiceIntegrityEnabled = voiceIntegrityEnabled;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedBundleSid(
+        final String brandedBundleSid
+    ) {
+        this.brandedBundleSid = brandedBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setVoiceIntegrityBundleSid(
+        final String voiceIntegrityBundleSid
+    ) {
+        this.voiceIntegrityBundleSid = voiceIntegrityBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setVoiceIntegrityUseCase(
+        final String voiceIntegrityUseCase
+    ) {
+        this.voiceIntegrityUseCase = voiceIntegrityUseCase;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileIdentity(
+        final String businessProfileIdentity
+    ) {
+        this.businessProfileIdentity = businessProfileIdentity;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileIndustry(
+        final String businessProfileIndustry
+    ) {
+        this.businessProfileIndustry = businessProfileIndustry;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileBundleSid(
+        final String businessProfileBundleSid
+    ) {
+        this.businessProfileBundleSid = businessProfileBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setBusinessProfileType(
+        final String businessProfileType
+    ) {
+        this.businessProfileType = businessProfileType;
         return this;
     }
 
@@ -302,9 +366,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         if (toCountryCode != null) {
             request.addQueryParam("ToCountryCode", toCountryCode);
         }
-        if (branded != null) {
-            request.addQueryParam("Branded", branded.toString());
-        }
         if (verifiedCaller != null) {
             request.addQueryParam("VerifiedCaller", verifiedCaller.toString());
         }
@@ -367,6 +428,51 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         }
         if (callScoreAnnotation != null) {
             request.addQueryParam("CallScoreAnnotation", callScoreAnnotation);
+        }
+        if (brandedEnabled != null) {
+            request.addQueryParam("BrandedEnabled", brandedEnabled.toString());
+        }
+        if (voiceIntegrityEnabled != null) {
+            request.addQueryParam(
+                "VoiceIntegrityEnabled",
+                voiceIntegrityEnabled.toString()
+            );
+        }
+        if (brandedBundleSid != null) {
+            request.addQueryParam("BrandedBundleSid", brandedBundleSid);
+        }
+        if (voiceIntegrityBundleSid != null) {
+            request.addQueryParam(
+                "VoiceIntegrityBundleSid",
+                voiceIntegrityBundleSid
+            );
+        }
+        if (voiceIntegrityUseCase != null) {
+            request.addQueryParam(
+                "VoiceIntegrityUseCase",
+                voiceIntegrityUseCase
+            );
+        }
+        if (businessProfileIdentity != null) {
+            request.addQueryParam(
+                "BusinessProfileIdentity",
+                businessProfileIdentity
+            );
+        }
+        if (businessProfileIndustry != null) {
+            request.addQueryParam(
+                "BusinessProfileIndustry",
+                businessProfileIndustry
+            );
+        }
+        if (businessProfileBundleSid != null) {
+            request.addQueryParam(
+                "BusinessProfileBundleSid",
+                businessProfileBundleSid
+            );
+        }
+        if (businessProfileType != null) {
+            request.addQueryParam("BusinessProfileType", businessProfileType);
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

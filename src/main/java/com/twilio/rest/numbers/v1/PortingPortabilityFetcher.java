@@ -29,6 +29,7 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
 
     private com.twilio.type.PhoneNumber pathPhoneNumber;
     private String targetAccountSid;
+    private String addressSid;
 
     public PortingPortabilityFetcher(
         final com.twilio.type.PhoneNumber pathPhoneNumber
@@ -40,6 +41,11 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
         final String targetAccountSid
     ) {
         this.targetAccountSid = targetAccountSid;
+        return this;
+    }
+
+    public PortingPortabilityFetcher setAddressSid(final String addressSid) {
+        this.addressSid = addressSid;
         return this;
     }
 
@@ -89,6 +95,9 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
     private void addQueryParams(final Request request) {
         if (targetAccountSid != null) {
             request.addQueryParam("TargetAccountSid", targetAccountSid);
+        }
+        if (addressSid != null) {
+            request.addQueryParam("AddressSid", addressSid);
         }
     }
 }

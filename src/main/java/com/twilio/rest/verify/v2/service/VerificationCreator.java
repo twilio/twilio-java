@@ -47,6 +47,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String templateSid;
     private String templateCustomSubstitutions;
     private String deviceIp;
+    private Boolean enableSnaClientToken;
     private Verification.RiskCheck riskCheck;
     private String tags;
 
@@ -140,6 +141,13 @@ public class VerificationCreator extends Creator<Verification> {
 
     public VerificationCreator setDeviceIp(final String deviceIp) {
         this.deviceIp = deviceIp;
+        return this;
+    }
+
+    public VerificationCreator setEnableSnaClientToken(
+        final Boolean enableSnaClientToken
+    ) {
+        this.enableSnaClientToken = enableSnaClientToken;
         return this;
     }
 
@@ -250,6 +258,12 @@ public class VerificationCreator extends Creator<Verification> {
         }
         if (deviceIp != null) {
             request.addPostParam("DeviceIp", deviceIp);
+        }
+        if (enableSnaClientToken != null) {
+            request.addPostParam(
+                "EnableSnaClientToken",
+                enableSnaClientToken.toString()
+            );
         }
         if (riskCheck != null) {
             request.addPostParam("RiskCheck", riskCheck.toString());

@@ -29,6 +29,7 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
 
     private String primaryProfileSid;
     private String notificationEmail;
+    private String themeSetId;
 
     public ComplianceInquiriesCreator(final String primaryProfileSid) {
         this.primaryProfileSid = primaryProfileSid;
@@ -45,6 +46,11 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
         final String notificationEmail
     ) {
         this.notificationEmail = notificationEmail;
+        return this;
+    }
+
+    public ComplianceInquiriesCreator setThemeSetId(final String themeSetId) {
+        this.themeSetId = themeSetId;
         return this;
     }
 
@@ -96,6 +102,9 @@ public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
         }
         if (notificationEmail != null) {
             request.addPostParam("NotificationEmail", notificationEmail);
+        }
+        if (themeSetId != null) {
+            request.addPostParam("ThemeSetId", themeSetId);
         }
     }
 }

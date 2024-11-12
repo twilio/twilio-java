@@ -70,7 +70,7 @@ public class UserUpdater extends Updater<User> {
             Domains.PREVIEWIAM.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
         addHeaderParams(request);
         Response response = client.request(request);

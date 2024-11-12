@@ -31,6 +31,7 @@ public class SentenceReader extends Reader<Sentence> {
 
     private String pathTranscriptSid;
     private Boolean redacted;
+    private Boolean wordTimestamps;
     private Integer pageSize;
 
     public SentenceReader(final String pathTranscriptSid) {
@@ -39,6 +40,11 @@ public class SentenceReader extends Reader<Sentence> {
 
     public SentenceReader setRedacted(final Boolean redacted) {
         this.redacted = redacted;
+        return this;
+    }
+
+    public SentenceReader setWordTimestamps(final Boolean wordTimestamps) {
+        this.wordTimestamps = wordTimestamps;
         return this;
     }
 
@@ -140,6 +146,9 @@ public class SentenceReader extends Reader<Sentence> {
     private void addQueryParams(final Request request) {
         if (redacted != null) {
             request.addQueryParam("Redacted", redacted.toString());
+        }
+        if (wordTimestamps != null) {
+            request.addQueryParam("WordTimestamps", wordTimestamps.toString());
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

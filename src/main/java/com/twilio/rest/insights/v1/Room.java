@@ -425,27 +425,6 @@ public class Room extends Resource {
         }
     }
 
-    public enum Codec {
-        VP8("VP8"),
-        H264("H264"),
-        VP9("VP9");
-
-        private final String value;
-
-        private Codec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Codec forValue(final String value) {
-            return Promoter.enumFromString(value, Codec.values());
-        }
-    }
-
     public enum TwilioRealm {
         US1("us1"),
         US2("us2"),
@@ -456,7 +435,9 @@ public class Room extends Resource {
         SG1("sg1"),
         IN1("in1"),
         DE1("de1"),
-        GLL("gll");
+        GLL("gll"),
+        STAGE_US1("stage_us1"),
+        DEV_US1("dev_us1");
 
         private final String value;
 
@@ -493,6 +474,28 @@ public class Room extends Resource {
         @JsonCreator
         public static RoomType forValue(final String value) {
             return Promoter.enumFromString(value, RoomType.values());
+        }
+    }
+
+    public enum Codec {
+        VP8("VP8"),
+        H264("H264"),
+        VP9("VP9"),
+        OPUS("opus");
+
+        private final String value;
+
+        private Codec(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Codec forValue(final String value) {
+            return Promoter.enumFromString(value, Codec.values());
         }
     }
 

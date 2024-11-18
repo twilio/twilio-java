@@ -320,6 +320,27 @@ public class Trigger extends Resource {
         );
     }
 
+    public enum TriggerField {
+        COUNT("count"),
+        USAGE("usage"),
+        PRICE("price");
+
+        private final String value;
+
+        private TriggerField(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TriggerField forValue(final String value) {
+            return Promoter.enumFromString(value, TriggerField.values());
+        }
+    }
+
     public enum UsageCategory {
         A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
@@ -372,6 +393,8 @@ public class Trigger extends Resource {
         GROUP_ROOMS_PARTICIPANT_MINUTES("group-rooms-participant-minutes"),
         GROUP_ROOMS_RECORDED_MINUTES("group-rooms-recorded-minutes"),
         IMP_V1_USAGE("imp-v1-usage"),
+        IVR_VIRTUAL_AGENT_CUSTOM_VOICES("ivr-virtual-agent-custom-voices"),
+        IVR_VIRTUAL_AGENT_GENAI("ivr-virtual-agent-genai"),
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION(
@@ -682,27 +705,6 @@ public class Trigger extends Resource {
         @JsonCreator
         public static UsageCategory forValue(final String value) {
             return Promoter.enumFromString(value, UsageCategory.values());
-        }
-    }
-
-    public enum TriggerField {
-        COUNT("count"),
-        USAGE("usage"),
-        PRICE("price");
-
-        private final String value;
-
-        private TriggerField(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TriggerField forValue(final String value) {
-            return Promoter.enumFromString(value, TriggerField.values());
         }
     }
 

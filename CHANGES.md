@@ -1,6 +1,17 @@
 twilio-java changelog
 =====================
 
+[2024-11-15] Version 10.6.3
+---------------------------
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
 [2024-10-24] Version 10.6.2
 ---------------------------
 **Library - Fix**

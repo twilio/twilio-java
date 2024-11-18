@@ -1187,7 +1187,8 @@ public class Content extends Resource {
         URL("URL"),
         PHONE_NUMBER("PHONE_NUMBER"),
         COPY_CODE("COPY_CODE"),
-        VOICE_CALL("VOICE_CALL");
+        VOICE_CALL("VOICE_CALL"),
+        VOICE_CALL_REQUEST("VOICE_CALL_REQUEST");
 
         private final String value;
 

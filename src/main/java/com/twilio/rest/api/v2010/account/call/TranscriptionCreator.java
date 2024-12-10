@@ -45,6 +45,7 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private String speechModel;
     private String hints;
     private Boolean enableAutomaticPunctuation;
+    private String intelligenceService;
 
     public TranscriptionCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -145,6 +146,13 @@ public class TranscriptionCreator extends Creator<Transcription> {
         return this;
     }
 
+    public TranscriptionCreator setIntelligenceService(
+        final String intelligenceService
+    ) {
+        this.intelligenceService = intelligenceService;
+        return this;
+    }
+
     @Override
     public Transcription create(final TwilioRestClient client) {
         String path =
@@ -241,6 +249,9 @@ public class TranscriptionCreator extends Creator<Transcription> {
                 "EnableAutomaticPunctuation",
                 enableAutomaticPunctuation.toString()
             );
+        }
+        if (intelligenceService != null) {
+            request.addPostParam("IntelligenceService", intelligenceService);
         }
     }
 }

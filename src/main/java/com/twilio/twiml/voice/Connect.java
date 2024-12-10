@@ -175,6 +175,24 @@ public class Connect extends TwiML {
         }
 
         /**
+         * Add a child {@code <ConversationRelay>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "ConversationRelay")
+        public Builder conversationRelay(ConversationRelay conversationRelay) {
+            this.children.add(conversationRelay);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Assistant>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Assistant")
+        public Builder assistant(Assistant assistant) {
+            this.children.add(assistant);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Connect>} element
          */
         public Connect build() {

@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2024-12-12] Version 10.6.5
+---------------------------
+**Library - Fix**
+- [PR #822](https://github.com/twilio/twilio-java/pull/822): Update org.json:json library to resolve high severity vulnerability. Thanks to [@allantodd](https://github.com/allantodd)!
+
+
 [2024-12-05] Version 10.6.4
 ---------------------------
 **Api**

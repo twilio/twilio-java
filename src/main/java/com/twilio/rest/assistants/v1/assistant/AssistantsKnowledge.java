@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class AssistantsKnowledge extends Resource {
 
-    private static final long serialVersionUID = 102491745229273L;
+    private static final long serialVersionUID = 142704301669097L;
 
     public static AssistantsKnowledgeCreator creator(
         final String pathAssistantId,
@@ -110,6 +110,7 @@ public class AssistantsKnowledge extends Resource {
     private final String status;
     private final String type;
     private final String url;
+    private final String embeddingModel;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -126,6 +127,7 @@ public class AssistantsKnowledge extends Resource {
         @JsonProperty("status") final String status,
         @JsonProperty("type") final String type,
         @JsonProperty("url") final String url,
+        @JsonProperty("embedding_model") final String embeddingModel,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -137,6 +139,7 @@ public class AssistantsKnowledge extends Resource {
         this.status = status;
         this.type = type;
         this.url = url;
+        this.embeddingModel = embeddingModel;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
@@ -173,6 +176,10 @@ public class AssistantsKnowledge extends Resource {
         return this.url;
     }
 
+    public final String getEmbeddingModel() {
+        return this.embeddingModel;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
@@ -205,6 +212,7 @@ public class AssistantsKnowledge extends Resource {
             Objects.equals(status, other.status) &&
             Objects.equals(type, other.type) &&
             Objects.equals(url, other.url) &&
+            Objects.equals(embeddingModel, other.embeddingModel) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated)
         );
@@ -221,6 +229,7 @@ public class AssistantsKnowledge extends Resource {
             status,
             type,
             url,
+            embeddingModel,
             dateCreated,
             dateUpdated
         );

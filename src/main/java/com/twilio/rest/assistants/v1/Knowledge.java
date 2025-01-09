@@ -42,7 +42,7 @@ import lombok.ToString;
 @ToString
 public class Knowledge extends Resource {
 
-    private static final long serialVersionUID = 102491745229273L;
+    private static final long serialVersionUID = 142704301669097L;
 
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -135,6 +135,12 @@ public class Knowledge extends Resource {
         @Setter
         private String type;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("embedding_model")
+        @Getter
+        @Setter
+        private String embeddingModel;
+
         public AssistantsV1ServiceCreateKnowledgeRequest() {}
 
         public static AssistantsV1ServiceCreateKnowledgeRequest fromJson(
@@ -184,6 +190,12 @@ public class Knowledge extends Resource {
         @Getter
         @Setter
         private String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("embedding_model")
+        @Getter
+        @Setter
+        private String embeddingModel;
 
         public AssistantsV1ServiceUpdateKnowledgeRequest() {}
 
@@ -283,6 +295,7 @@ public class Knowledge extends Resource {
     private final String status;
     private final String type;
     private final String url;
+    private final String embeddingModel;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -299,6 +312,7 @@ public class Knowledge extends Resource {
         @JsonProperty("status") final String status,
         @JsonProperty("type") final String type,
         @JsonProperty("url") final String url,
+        @JsonProperty("embedding_model") final String embeddingModel,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -310,6 +324,7 @@ public class Knowledge extends Resource {
         this.status = status;
         this.type = type;
         this.url = url;
+        this.embeddingModel = embeddingModel;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
@@ -346,6 +361,10 @@ public class Knowledge extends Resource {
         return this.url;
     }
 
+    public final String getEmbeddingModel() {
+        return this.embeddingModel;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
@@ -378,6 +397,7 @@ public class Knowledge extends Resource {
             Objects.equals(status, other.status) &&
             Objects.equals(type, other.type) &&
             Objects.equals(url, other.url) &&
+            Objects.equals(embeddingModel, other.embeddingModel) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated)
         );
@@ -394,6 +414,7 @@ public class Knowledge extends Resource {
             status,
             type,
             url,
+            embeddingModel,
             dateCreated,
             dateUpdated
         );

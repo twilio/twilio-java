@@ -25,12 +25,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WebhookFetcher extends Fetcher<Webhook> {
+public class PortingWebhookConfigurationFetchFetcher
+    extends Fetcher<PortingWebhookConfigurationFetch> {
 
-    public WebhookFetcher() {}
+    public PortingWebhookConfigurationFetchFetcher() {}
 
     @Override
-    public Webhook fetch(final TwilioRestClient client) {
+    public PortingWebhookConfigurationFetch fetch(
+        final TwilioRestClient client
+    ) {
         String path = "/v1/Porting/Configuration/Webhook";
 
         Request request = new Request(
@@ -43,7 +46,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
 
         if (response == null) {
             throw new ApiConnectionException(
-                "Webhook fetch failed: Unable to connect to server"
+                "PortingWebhookConfigurationFetch fetch failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
@@ -59,6 +62,9 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             throw new ApiException(restException);
         }
 
-        return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+        return PortingWebhookConfigurationFetch.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

@@ -251,6 +251,12 @@ public class Assistant extends Resource {
         private String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("embedding_model")
+        @Getter
+        @Setter
+        private String embeddingModel;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
         @Setter

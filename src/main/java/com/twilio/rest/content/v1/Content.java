@@ -564,32 +564,6 @@ public class Content extends Resource {
     }
 
     @ToString
-    public static class FlowsPageComponentSelectItem {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        @Setter
-        private String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("title")
-        @Getter
-        @Setter
-        private String title;
-
-        public static FlowsPageComponentSelectItem fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                FlowsPageComponentSelectItem.class
-            );
-        }
-    }
-
-    @ToString
     public static class FlowsPageComponent {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -603,18 +577,6 @@ public class Content extends Resource {
         @Getter
         @Setter
         private String type;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("text")
-        @Getter
-        @Setter
-        private String text;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("options")
-        @Getter
-        @Setter
-        private List<FlowsPageComponentSelectItem> options;
 
         public static FlowsPageComponent fromJson(
             String jsonString,

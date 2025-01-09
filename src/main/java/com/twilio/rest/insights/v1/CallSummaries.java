@@ -326,6 +326,29 @@ public class CallSummaries extends Resource {
         );
     }
 
+    public enum CallType {
+        CARRIER("carrier"),
+        SIP("sip"),
+        TRUNKING("trunking"),
+        CLIENT("client"),
+        WHATSAPP("whatsapp");
+
+        private final String value;
+
+        private CallType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallType forValue(final String value) {
+            return Promoter.enumFromString(value, CallType.values());
+        }
+    }
+
     public enum ProcessingState {
         COMPLETE("complete"),
         PARTIAL("partial");
@@ -439,28 +462,6 @@ public class CallSummaries extends Resource {
         @JsonCreator
         public static SortBy forValue(final String value) {
             return Promoter.enumFromString(value, SortBy.values());
-        }
-    }
-
-    public enum CallType {
-        CARRIER("carrier"),
-        SIP("sip"),
-        TRUNKING("trunking"),
-        CLIENT("client");
-
-        private final String value;
-
-        private CallType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallType forValue(final String value) {
-            return Promoter.enumFromString(value, CallType.values());
         }
     }
 }

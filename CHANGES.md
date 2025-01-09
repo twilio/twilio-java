@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2025-01-09] Version 10.6.6
+---------------------------
+**Numbers**
+- Change beta feature flag to use v2/BulkHostedNumberOrders
+
+
 [2024-12-12] Version 10.6.5
 ---------------------------
 **Library - Fix**

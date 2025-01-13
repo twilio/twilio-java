@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2025-01-13] Version 10.6.7
+---------------------------
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+
 [2025-01-09] Version 10.6.6
 ---------------------------
 **Numbers**

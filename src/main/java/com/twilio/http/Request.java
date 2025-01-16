@@ -1,5 +1,7 @@
 package com.twilio.http;
 
+import com.twilio.auth_strategy.AuthStrategy;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
@@ -11,6 +13,7 @@ public class Request extends IRequest {
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
     private String username;
     private String password;
+    private AuthStrategy authStrategy;
 
     /**
      * Create a new API request.
@@ -48,6 +51,13 @@ public class Request extends IRequest {
     public void setAuth(final String username, final String password) {
         this.username = username;
         this.password = password;
+        this.authStrategy = null;
+    }
+
+    public void setAuth(final AuthStrategy authStrategy) {
+        this.authStrategy = authStrategy;
+        this.username = null;
+        this.password = null;
     }
 
     /**
@@ -56,9 +66,15 @@ public class Request extends IRequest {
      * @return basic authentication string
      */
     public String getAuthString() {
-        final String credentials = this.username + ":" + this.password;
-        final String encoded = Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.US_ASCII));
-        return "Basic " + encoded;
+        if (username != null && password != null) {
+            final String credentials = this.username + ":" + this.password;
+            final String encoded = Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.US_ASCII));
+            return "Basic " + encoded;
+        }
+        if (authStrategy != null) {
+            return authStrategy.getAuthString();
+        }
+        return "";
     }
 
     public String getUsername() {
@@ -69,8 +85,12 @@ public class Request extends IRequest {
         return password;
     }
 
+    public AuthStrategy getAuthStrategy() {
+        return authStrategy;
+    }
+    
     public boolean requiresAuthentication() {
-        return username != null || password != null;
+        return (username != null && password != null) || (authStrategy != null && authStrategy.requiresAuthentication());
     }
 
     @Override
@@ -87,7 +107,8 @@ public class Request extends IRequest {
         return Objects.equals(this.method, other.method) &&
                 Objects.equals(this.buildURL(), this.buildURL()) &&
                Objects.equals(this.username, other.username) &&
-               Objects.equals(this.password, other.password) &&
+               Objects.equals(this.password, other.password) && 
+               Objects.equals(this.authStrategy, other.authStrategy) &&
                Objects.equals(this.queryParams, other.queryParams) &&
                Objects.equals(this.postParams, other.postParams) &&
                Objects.equals(this.headerParams, other.headerParams);

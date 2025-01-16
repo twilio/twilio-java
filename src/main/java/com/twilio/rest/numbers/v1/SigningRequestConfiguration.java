@@ -41,6 +41,10 @@ public class SigningRequestConfiguration extends Resource {
         return new SigningRequestConfigurationCreator();
     }
 
+    public static SigningRequestConfigurationReader reader() {
+        return new SigningRequestConfigurationReader();
+    }
+
     /**
      * Converts a JSON String into a SigningRequestConfiguration object using the provided ObjectMapper.
      *

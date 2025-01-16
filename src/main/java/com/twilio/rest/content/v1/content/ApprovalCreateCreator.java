@@ -66,7 +66,7 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
             Domains.CONTENT.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {

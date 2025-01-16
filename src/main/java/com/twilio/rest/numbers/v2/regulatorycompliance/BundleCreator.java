@@ -37,6 +37,7 @@ public class BundleCreator extends Creator<Bundle> {
     private String isoCountry;
     private Bundle.EndUserType endUserType;
     private String numberType;
+    private Boolean isTest;
 
     public BundleCreator(final String friendlyName, final String email) {
         this.friendlyName = friendlyName;
@@ -79,6 +80,11 @@ public class BundleCreator extends Creator<Bundle> {
 
     public BundleCreator setNumberType(final String numberType) {
         this.numberType = numberType;
+        return this;
+    }
+
+    public BundleCreator setIsTest(final Boolean isTest) {
+        this.isTest = isTest;
         return this;
     }
 
@@ -143,6 +149,9 @@ public class BundleCreator extends Creator<Bundle> {
         }
         if (numberType != null) {
             request.addPostParam("NumberType", numberType);
+        }
+        if (isTest != null) {
+            request.addPostParam("IsTest", isTest.toString());
         }
     }
 }

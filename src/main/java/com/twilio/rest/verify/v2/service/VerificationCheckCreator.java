@@ -33,6 +33,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private String verificationSid;
     private String amount;
     private String payee;
+    private String snaClientToken;
 
     public VerificationCheckCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -62,6 +63,13 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     public VerificationCheckCreator setPayee(final String payee) {
         this.payee = payee;
+        return this;
+    }
+
+    public VerificationCheckCreator setSnaClientToken(
+        final String snaClientToken
+    ) {
+        this.snaClientToken = snaClientToken;
         return this;
     }
 
@@ -122,6 +130,9 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         }
         if (payee != null) {
             request.addPostParam("Payee", payee);
+        }
+        if (snaClientToken != null) {
+            request.addPostParam("SnaClientToken", snaClientToken);
         }
     }
 }

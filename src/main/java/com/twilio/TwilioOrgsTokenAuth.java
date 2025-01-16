@@ -1,6 +1,6 @@
 package com.twilio;
 
-import com.twilio.annotations.Preview;
+import com.twilio.annotations.Beta;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import com.twilio.http.bearertoken.TokenManager;
 import com.twilio.http.bearertoken.OrgsTokenManager;
 
-@Preview
+@Beta
 public class TwilioOrgsTokenAuth {
     private static String accessToken;
     @Getter

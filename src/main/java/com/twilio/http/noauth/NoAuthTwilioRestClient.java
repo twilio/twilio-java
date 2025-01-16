@@ -27,7 +27,7 @@ public class NoAuthTwilioRestClient {
     @Getter
     private final String edge;
     @Getter
-    private final HttpClient httpClient;
+    private final NoAuthNetworkHttpClient httpClient;
     @Getter
     private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(NoAuthTwilioRestClient.class);
@@ -51,7 +51,7 @@ public class NoAuthTwilioRestClient {
     public static class Builder {
         private String region;
         private String edge;
-        private HttpClient httpClient;
+        private NoAuthNetworkHttpClient httpClient;
         private List<String> userAgentExtensions;
 
         public Builder() {
@@ -70,7 +70,7 @@ public class NoAuthTwilioRestClient {
             return this;
         }
 
-        public NoAuthTwilioRestClient.Builder httpClient(final HttpClient httpClient) {
+        public NoAuthTwilioRestClient.Builder httpClient(final NoAuthNetworkHttpClient httpClient) {
             this.httpClient = httpClient;
             return this;
         }
@@ -84,7 +84,7 @@ public class NoAuthTwilioRestClient {
 
         public NoAuthTwilioRestClient build() {
             if (this.httpClient == null) {
-                this.httpClient = new NetworkHttpClient();
+                this.httpClient = new NoAuthNetworkHttpClient();
             }
             return new NoAuthTwilioRestClient(this);
         }

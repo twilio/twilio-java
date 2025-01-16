@@ -374,6 +374,36 @@ public class Conference extends Resource {
         }
     }
 
+    public enum Tag {
+        INVALID_REQUESTED_REGION("invalid_requested_region"),
+        DUPLICATE_IDENTITY("duplicate_identity"),
+        START_FAILURE("start_failure"),
+        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
+        QUALITY_WARNINGS("quality_warnings"),
+        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
+        HIGH_PACKET_LOSS("high_packet_loss"),
+        HIGH_JITTER("high_jitter"),
+        HIGH_LATENCY("high_latency"),
+        LOW_MOS("low_mos"),
+        DETECTED_SILENCE("detected_silence"),
+        NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
+
+        private final String value;
+
+        private Tag(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Tag forValue(final String value) {
+            return Promoter.enumFromString(value, Tag.values());
+        }
+    }
+
     public enum Region {
         US1("us1"),
         AU1("au1"),
@@ -396,35 +426,6 @@ public class Conference extends Resource {
         @JsonCreator
         public static Region forValue(final String value) {
             return Promoter.enumFromString(value, Region.values());
-        }
-    }
-
-    public enum Tag {
-        INVALID_REQUESTED_REGION("invalid_requested_region"),
-        DUPLICATE_IDENTITY("duplicate_identity"),
-        START_FAILURE("start_failure"),
-        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
-        QUALITY_WARNINGS("quality_warnings"),
-        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
-        HIGH_PACKET_LOSS("high_packet_loss"),
-        HIGH_JITTER("high_jitter"),
-        HIGH_LATENCY("high_latency"),
-        LOW_MOS("low_mos"),
-        DETECTED_SILENCE("detected_silence");
-
-        private final String value;
-
-        private Tag(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Tag forValue(final String value) {
-            return Promoter.enumFromString(value, Tag.values());
         }
     }
 

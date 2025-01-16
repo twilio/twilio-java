@@ -1,6 +1,167 @@
 twilio-java changelog
 =====================
 
+[2025-01-13] Version 10.6.7
+---------------------------
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+
+[2025-01-09] Version 10.6.6
+---------------------------
+**Numbers**
+- Change beta feature flag to use v2/BulkHostedNumberOrders
+
+
+[2024-12-12] Version 10.6.5
+---------------------------
+**Library - Fix**
+- [PR #822](https://github.com/twilio/twilio-java/pull/822): Update org.json:json library to resolve high severity vulnerability. Thanks to [@allantodd](https://github.com/allantodd)!
+
+
+[2024-12-05] Version 10.6.4
+---------------------------
+**Api**
+- Add optional parameter `intelligence_service` to `transcription`
+- Updated `phone_number_sid` to be populated for sip trunking terminating calls.
+
+**Numbers**
+- Add Update Hosted Number Order V2 API endpoint
+- Update Port in docs
+
+**Twiml**
+- Add optional parameter `intelligence_service` to `<Transcription>`
+- Add support for new `<ConversationRelay>` and `<Assistant>` noun
+- Add `events` attribute to `<Dial>` verb
+
+
+[2024-11-15] Version 10.6.3
+---------------------------
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
+[2024-10-24] Version 10.6.2
+---------------------------
+**Library - Fix**
+- [PR #741](https://github.com/twilio/twilio-java/pull/741): Security upgrade org.json:json from 20220320 to 20230227. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #819](https://github.com/twilio/twilio-java/pull/819): Security upgrade commons-io:commons-io from 2.7 to 2.14.0. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
+[2024-10-17] Version 10.6.1
+---------------------------
+**Api**
+- Add response key `country` to fetch AvailablePhoneNumber resource by specific country.
+
+**Messaging**
+- Make library and doc public for requestManagedCert Endpoint
+
+
+[2024-10-03] Version 10.6.0
+---------------------------
+**Library - Chore**
+- [PR #818](https://github.com/twilio/twilio-java/pull/818): updated readme with Orgs example. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Feature**
+- [PR #813](https://github.com/twilio/twilio-java/pull/813): Added OAuth Support for Public APIs with TokenManager Integration. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Messaging**
+- Add A2P external campaign CnpMigration flag
+
+**Numbers**
+- Add address sid to portability API
+
+**Verify**
+- Add `SnaClientToken` optional parameter on Verification check.
+- Add `EnableSnaClientToken` optional parameter for Verification creation.
+
+
+[2024-09-25] Version 10.5.2
+---------------------------
+**Library - Chore**
+- [PR #815](https://github.com/twilio/twilio-java/pull/815): updated readme for Beta flag. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Accounts**
+- Update docs and mounts.
+- Change library visibility to public
+- Enable consent and contact bulk upsert APIs in prod.
+
+**Serverless**
+- Add is_plugin parameter in deployments api to check if it is plugins deployment
+
+
+[2024-09-18] Version 10.5.1
+---------------------------
+**Intelligence**
+- Remove public from operator_type
+- Update operator_type to include general-availablity and deprecated
+
+**Numbers**
+- Remove beta flag for bundle clone API
+
+
+[2024-09-05] Version 10.5.0
+---------------------------
+**Iam**
+- updated library_visibility public for new public apikeys
+
+**Numbers**
+- Add new field in Error Codes for Regulatory Compliance.
+- Change typing of Port In Request date_created field to date_time instead of date **(breaking change)**
+
+
+[2024-08-26] Version 10.4.2
+---------------------------
+**Library - Fix**
+- [PR #811](https://github.com/twilio/twilio-java/pull/811): making previewiam versionless. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #808](https://github.com/twilio/twilio-java/pull/808): added new httpclient for noauth and bearertoken requests. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Chore**
+- [PR #806](https://github.com/twilio/twilio-java/pull/806): added multipart test in call api. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Update documentation of `error_code` and `error_message` on the Message resource.
+- Remove generic parameters from `transcription` resource
+- Added public documentation for Payload Data retrieval API
+
+**Flex**
+- Adding update Flex User api
+
+**Insights**
+- Added 'branded', 'business_profile' and 'voice_integrity' fields in List Call Summary
+
+**Intelligence**
+- Add `words` array information to the Sentences v2 entity.
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Operator Results.
+- Change the path parameter when fetching an `/OperatorType/{}` from `sid<EY>` to `string` to support searching by SID or by name
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Transcript and Service endpoints.
+
+**Messaging**
+- Adds two new channel senders api to add/remove channel senders to/from a messaging service
+- Extend ERC api to accept an optional attribute in request body to indicate CNP migration for an ERC
+
+**Numbers**
+- Modify visibility to public in bundle clone API
+- Add `port_date` field to Port In Request and Port In Phone Numbers Fetch APIs
+- Change properties docs for port in phone numbers api
+- Add is_test body param to the Bundle Create API
+- Change properties docs for port in api
+
+**Trusthub**
+- Add new field in themeSetId in compliance_inquiry.
+
+**Verify**
+- Update `custom_code_enabled` description on verification docs
+
+
 [2024-07-02] Version 10.4.1
 ---------------------------
 **Library - Fix**

@@ -200,10 +200,10 @@ public class Content extends Resource {
         private String phone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
+        @JsonProperty("code")
         @Getter
         @Setter
-        private String id;
+        private String code;
 
         public static CallToActionAction fromJson(
             String jsonString,
@@ -320,6 +320,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("code")
+        @Getter
+        @Setter
+        private String code;
 
         public static CardAction fromJson(
             String jsonString,
@@ -455,6 +461,216 @@ public class Content extends Resource {
             ObjectMapper mapper
         ) throws IOException {
             return mapper.readValue(jsonString, TwilioCatalog.class);
+        }
+    }
+
+    @ToString
+    public static class CarouselAction {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private Content.CarouselActionType type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        @Setter
+        private String url;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone")
+        @Getter
+        @Setter
+        private String phone;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        public static CarouselAction fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CarouselAction.class);
+        }
+    }
+
+    @ToString
+    public static class CarouselCard {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("media")
+        @Getter
+        @Setter
+        private String media;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("actions")
+        @Getter
+        @Setter
+        private List<CarouselAction> actions;
+
+        public static CarouselCard fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CarouselCard.class);
+        }
+    }
+
+    @ToString
+    public static class TwilioCarousel {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("cards")
+        @Getter
+        @Setter
+        private List<CarouselCard> cards;
+
+        public static TwilioCarousel fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioCarousel.class);
+        }
+    }
+
+    @ToString
+    public static class FlowsPageComponent {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        public static FlowsPageComponent fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, FlowsPageComponent.class);
+        }
+    }
+
+    @ToString
+    public static class FlowsPage {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("next_page_id")
+        @Getter
+        @Setter
+        private String nextPageId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("subtitle")
+        @Getter
+        @Setter
+        private String subtitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("layout")
+        @Getter
+        @Setter
+        private List<FlowsPageComponent> layout;
+
+        public static FlowsPage fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, FlowsPage.class);
+        }
+    }
+
+    @ToString
+    public static class TwilioFlows {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("body")
+        @Getter
+        @Setter
+        private String body;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("button_text")
+        @Getter
+        @Setter
+        private String buttonText;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("subtitle")
+        @Getter
+        @Setter
+        private String subtitle;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("media_url")
+        @Getter
+        @Setter
+        private String mediaUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("pages")
+        @Getter
+        @Setter
+        private List<FlowsPage> pages;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        public static TwilioFlows fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioFlows.class);
         }
     }
 
@@ -601,6 +817,18 @@ public class Content extends Resource {
         @Getter
         @Setter
         private TwilioCatalog twilioCatalog;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/carousel")
+        @Getter
+        @Setter
+        private TwilioCarousel twilioCarousel;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/flows")
+        @Getter
+        @Setter
+        private TwilioFlows twilioFlows;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")
@@ -851,29 +1079,6 @@ public class Content extends Resource {
         );
     }
 
-    public enum CallToActionActionType {
-        URL("URL"),
-        PHONE_NUMBER("PHONE_NUMBER");
-
-        private final String value;
-
-        private CallToActionActionType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallToActionActionType forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                CallToActionActionType.values()
-            );
-        }
-    }
-
     public enum QuickReplyActionType {
         QUICK_REPLY("QUICK_REPLY");
 
@@ -899,7 +1104,9 @@ public class Content extends Resource {
     public enum CardActionType {
         URL("URL"),
         PHONE_NUMBER("PHONE_NUMBER"),
-        QUICK_REPLY("QUICK_REPLY");
+        QUICK_REPLY("QUICK_REPLY"),
+        COPY_CODE("COPY_CODE"),
+        VOICE_CALL("VOICE_CALL");
 
         private final String value;
 
@@ -914,6 +1121,53 @@ public class Content extends Resource {
         @JsonCreator
         public static CardActionType forValue(final String value) {
             return Promoter.enumFromString(value, CardActionType.values());
+        }
+    }
+
+    public enum CarouselActionType {
+        URL("URL"),
+        PHONE_NUMBER("PHONE_NUMBER"),
+        QUICK_REPLY("QUICK_REPLY");
+
+        private final String value;
+
+        private CarouselActionType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CarouselActionType forValue(final String value) {
+            return Promoter.enumFromString(value, CarouselActionType.values());
+        }
+    }
+
+    public enum CallToActionActionType {
+        URL("URL"),
+        PHONE_NUMBER("PHONE_NUMBER"),
+        COPY_CODE("COPY_CODE"),
+        VOICE_CALL("VOICE_CALL"),
+        VOICE_CALL_REQUEST("VOICE_CALL_REQUEST");
+
+        private final String value;
+
+        private CallToActionActionType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallToActionActionType forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                CallToActionActionType.values()
+            );
         }
     }
 

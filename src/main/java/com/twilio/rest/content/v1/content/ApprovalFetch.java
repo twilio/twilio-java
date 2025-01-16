@@ -38,8 +38,8 @@ public class ApprovalFetch extends Resource {
 
     private static final long serialVersionUID = 266557741388539L;
 
-    public static ApprovalFetchFetcher fetcher(final String pathContentSid) {
-        return new ApprovalFetchFetcher(pathContentSid);
+    public static ApprovalFetchFetcher fetcher(final String pathSid) {
+        return new ApprovalFetchFetcher(pathSid);
     }
 
     /**

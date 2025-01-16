@@ -31,6 +31,26 @@ This library supports the following Java implementations:
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 
+### Beta Annotation
+
+To indicate that a class or method is in beta and subject to change, we use the `@Beta` annotation. For example:
+
+```java
+
+@Beta
+public class ClassName {
+  // Class implementation
+}
+
+
+public class ClassName {
+  @Beta
+  public void init() {
+    // Implementation
+  }
+}
+```
+
 ## Installation
 
 `twilio-java` uses Maven. At present the jars _are_ available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
@@ -193,6 +213,15 @@ public class Example {
   }
 }
 ```
+
+
+
+### OAuth Feature for Twilio APIs
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
+This feature is currently in `beta` and its implementation is subject to change.
+
+- API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/FetchMessageUsingOAuth.md)
+- Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/BearerTokenAuthentication.md)
 
 ### Iterate through records
 

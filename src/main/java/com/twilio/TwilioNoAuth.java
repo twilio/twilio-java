@@ -1,13 +1,13 @@
 package com.twilio;
 
-import com.twilio.annotations.Preview;
+import com.twilio.annotations.Beta;
 import com.twilio.http.noauth.NoAuthTwilioRestClient;
 import lombok.Getter;
 
 import java.util.List;
 import com.twilio.exception.AuthenticationException;
 
-@Preview
+@Beta
 public class TwilioNoAuth {
     @Getter
     private static List<String> userAgentExtensions;

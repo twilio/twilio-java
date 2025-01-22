@@ -50,6 +50,7 @@ public class ComplianceTest {
         variantClasses.add(com.twilio.rest.voice.v1.ArchivedCall.class);
         variantClasses.add(com.twilio.rest.numbers.v1.PortingPortInPhoneNumber.class);
         variantClasses.add(com.twilio.rest.numbers.v1.PortingWebhookConfigurationDelete.class);
+
     }
 
     @Test

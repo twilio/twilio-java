@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class HostedNumberOrder extends Resource {
 
-    private static final long serialVersionUID = 181489495524580L;
+    private static final long serialVersionUID = 99296181753609L;
 
     public static HostedNumberOrderCreator creator(
         final com.twilio.type.PhoneNumber phoneNumber,
@@ -65,6 +65,13 @@ public class HostedNumberOrder extends Resource {
 
     public static HostedNumberOrderReader reader() {
         return new HostedNumberOrderReader();
+    }
+
+    public static HostedNumberOrderUpdater updater(
+        final String pathSid,
+        final HostedNumberOrder.Status status
+    ) {
+        return new HostedNumberOrderUpdater(pathSid, status);
     }
 
     /**
@@ -129,6 +136,12 @@ public class HostedNumberOrder extends Resource {
     private final com.twilio.type.PhoneNumber contactPhoneNumber;
     private final String bulkHostingRequestSid;
     private final String nextStep;
+    private final Integer verificationAttempts;
+    private final List<String> verificationCallSids;
+    private final Integer verificationCallDelay;
+    private final String verificationCallExtension;
+    private final String verificationCode;
+    private final HostedNumberOrder.VerificationType verificationType;
 
     @JsonCreator
     private HostedNumberOrder(
@@ -160,7 +173,23 @@ public class HostedNumberOrder extends Resource {
         @JsonProperty(
             "bulk_hosting_request_sid"
         ) final String bulkHostingRequestSid,
-        @JsonProperty("next_step") final String nextStep
+        @JsonProperty("next_step") final String nextStep,
+        @JsonProperty(
+            "verification_attempts"
+        ) final Integer verificationAttempts,
+        @JsonProperty("verification_call_sids") final List<
+            String
+        > verificationCallSids,
+        @JsonProperty(
+            "verification_call_delay"
+        ) final Integer verificationCallDelay,
+        @JsonProperty(
+            "verification_call_extension"
+        ) final String verificationCallExtension,
+        @JsonProperty("verification_code") final String verificationCode,
+        @JsonProperty(
+            "verification_type"
+        ) final HostedNumberOrder.VerificationType verificationType
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -181,6 +210,12 @@ public class HostedNumberOrder extends Resource {
         this.contactPhoneNumber = contactPhoneNumber;
         this.bulkHostingRequestSid = bulkHostingRequestSid;
         this.nextStep = nextStep;
+        this.verificationAttempts = verificationAttempts;
+        this.verificationCallSids = verificationCallSids;
+        this.verificationCallDelay = verificationCallDelay;
+        this.verificationCallExtension = verificationCallExtension;
+        this.verificationCode = verificationCode;
+        this.verificationType = verificationType;
     }
 
     public final String getSid() {
@@ -259,6 +294,30 @@ public class HostedNumberOrder extends Resource {
         return this.nextStep;
     }
 
+    public final Integer getVerificationAttempts() {
+        return this.verificationAttempts;
+    }
+
+    public final List<String> getVerificationCallSids() {
+        return this.verificationCallSids;
+    }
+
+    public final Integer getVerificationCallDelay() {
+        return this.verificationCallDelay;
+    }
+
+    public final String getVerificationCallExtension() {
+        return this.verificationCallExtension;
+    }
+
+    public final String getVerificationCode() {
+        return this.verificationCode;
+    }
+
+    public final HostedNumberOrder.VerificationType getVerificationType() {
+        return this.verificationType;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -296,7 +355,19 @@ public class HostedNumberOrder extends Resource {
                 bulkHostingRequestSid,
                 other.bulkHostingRequestSid
             ) &&
-            Objects.equals(nextStep, other.nextStep)
+            Objects.equals(nextStep, other.nextStep) &&
+            Objects.equals(verificationAttempts, other.verificationAttempts) &&
+            Objects.equals(verificationCallSids, other.verificationCallSids) &&
+            Objects.equals(
+                verificationCallDelay,
+                other.verificationCallDelay
+            ) &&
+            Objects.equals(
+                verificationCallExtension,
+                other.verificationCallExtension
+            ) &&
+            Objects.equals(verificationCode, other.verificationCode) &&
+            Objects.equals(verificationType, other.verificationType)
         );
     }
 
@@ -321,12 +392,19 @@ public class HostedNumberOrder extends Resource {
             contactTitle,
             contactPhoneNumber,
             bulkHostingRequestSid,
-            nextStep
+            nextStep,
+            verificationAttempts,
+            verificationCallSids,
+            verificationCallDelay,
+            verificationCallExtension,
+            verificationCode,
+            verificationType
         );
     }
 
     public enum Status {
         RECEIVED("received"),
+        PENDING_VERIFICATION("pending-verification"),
         VERIFIED("verified"),
         PENDING_LOA("pending-loa"),
         CARRIER_PROCESSING("carrier-processing"),
@@ -347,6 +425,25 @@ public class HostedNumberOrder extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum VerificationType {
+        PHONE_CALL("phone-call");
+
+        private final String value;
+
+        private VerificationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VerificationType forValue(final String value) {
+            return Promoter.enumFromString(value, VerificationType.values());
         }
     }
 }

@@ -49,11 +49,12 @@ public class TranscriptionTest {
             .speechModel("speech_model")
             .hints("hints")
             .enableAutomaticPunctuation(true)
+            .intelligenceService("intelligence_service")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>",
+            "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>",
             elem.toXml()
         );
     }
@@ -183,10 +184,11 @@ public class TranscriptionTest {
             .speechModel("speech_model")
             .hints("hints")
             .enableAutomaticPunctuation(true)
+            .intelligenceService("intelligence_service")
             .build();
 
         Assert.assertEquals(
-            Transcription.Builder.fromXml("<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>").build().toXml(),
+            Transcription.Builder.fromXml("<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>").build().toXml(),
             elem.toXml()
         );
     }

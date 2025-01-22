@@ -1,6 +1,40 @@
 twilio-java changelog
 =====================
 
+[2025-01-13] Version 10.6.7
+---------------------------
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+
+[2025-01-09] Version 10.6.6
+---------------------------
+**Numbers**
+- Change beta feature flag to use v2/BulkHostedNumberOrders
+
+
+[2024-12-12] Version 10.6.5
+---------------------------
+**Library - Fix**
+- [PR #822](https://github.com/twilio/twilio-java/pull/822): Update org.json:json library to resolve high severity vulnerability. Thanks to [@allantodd](https://github.com/allantodd)!
+
+
+[2024-12-05] Version 10.6.4
+---------------------------
+**Api**
+- Add optional parameter `intelligence_service` to `transcription`
+- Updated `phone_number_sid` to be populated for sip trunking terminating calls.
+
+**Numbers**
+- Add Update Hosted Number Order V2 API endpoint
+- Update Port in docs
+
+**Twiml**
+- Add optional parameter `intelligence_service` to `<Transcription>`
+- Add support for new `<ConversationRelay>` and `<Assistant>` noun
+- Add `events` attribute to `<Dial>` verb
+
+
 [2024-11-15] Version 10.6.3
 ---------------------------
 **Api**

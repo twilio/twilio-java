@@ -29,39 +29,39 @@ import com.twilio.rest.Domains;
 import java.util.Map;
 import java.util.Map;
 
-public class KeyCreator extends Creator<Key> {
+public class NewApiKeyCreator extends Creator<NewApiKey> {
 
     private String accountSid;
     private String friendlyName;
-    private Key.Keytype keyType;
+    private NewApiKey.Keytype keyType;
     private Map<String, Object> policy;
 
-    public KeyCreator(final String accountSid) {
+    public NewApiKeyCreator(final String accountSid) {
         this.accountSid = accountSid;
     }
 
-    public KeyCreator setAccountSid(final String accountSid) {
+    public NewApiKeyCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-    public KeyCreator setFriendlyName(final String friendlyName) {
+    public NewApiKeyCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-    public KeyCreator setKeyType(final Key.Keytype keyType) {
+    public NewApiKeyCreator setKeyType(final NewApiKey.Keytype keyType) {
         this.keyType = keyType;
         return this;
     }
 
-    public KeyCreator setPolicy(final Map<String, Object> policy) {
+    public NewApiKeyCreator setPolicy(final Map<String, Object> policy) {
         this.policy = policy;
         return this;
     }
 
     @Override
-    public Key create(final TwilioRestClient client) {
+    public NewApiKey create(final TwilioRestClient client) {
         String path = "/v1/Keys";
 
         path =
@@ -77,7 +77,7 @@ public class KeyCreator extends Creator<Key> {
         Response response = client.request(request);
         if (response == null) {
             throw new ApiConnectionException(
-                "Key creation failed: Unable to connect to server"
+                "NewApiKey creation failed: Unable to connect to server"
             );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
@@ -93,7 +93,10 @@ public class KeyCreator extends Creator<Key> {
             throw new ApiException(restException);
         }
 
-        return Key.fromJson(response.getStream(), client.getObjectMapper());
+        return NewApiKey.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {

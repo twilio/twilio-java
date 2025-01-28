@@ -675,6 +675,35 @@ public class Content extends Resource {
     }
 
     @ToString
+    public static class TwilioSchedule {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("timeSlots")
+        @Getter
+        @Setter
+        private String timeSlots;
+
+        public static TwilioSchedule fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioSchedule.class);
+        }
+    }
+
+    @ToString
     public static class WhatsappCard {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -829,6 +858,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private TwilioFlows twilioFlows;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/schedule")
+        @Getter
+        @Setter
+        private TwilioSchedule twilioSchedule;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")

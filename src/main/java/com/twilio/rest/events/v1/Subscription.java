@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Subscription extends Resource {
 
-    private static final long serialVersionUID = 198248500185102L;
+    private static final long serialVersionUID = 97790115204936L;
 
     public static SubscriptionCreator creator(
         final String description,
@@ -116,6 +116,7 @@ public class Subscription extends Resource {
     private final String sinkSid;
     private final URI url;
     private final Map<String, String> links;
+    private final Boolean receiveEventsFromSubaccounts;
 
     @JsonCreator
     private Subscription(
@@ -126,7 +127,10 @@ public class Subscription extends Resource {
         @JsonProperty("description") final String description,
         @JsonProperty("sink_sid") final String sinkSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "receive_events_from_subaccounts"
+        ) final Boolean receiveEventsFromSubaccounts
     ) {
         this.accountSid = accountSid;
         this.sid = sid;
@@ -136,6 +140,7 @@ public class Subscription extends Resource {
         this.sinkSid = sinkSid;
         this.url = url;
         this.links = links;
+        this.receiveEventsFromSubaccounts = receiveEventsFromSubaccounts;
     }
 
     public final String getAccountSid() {
@@ -170,6 +175,10 @@ public class Subscription extends Resource {
         return this.links;
     }
 
+    public final Boolean getReceiveEventsFromSubaccounts() {
+        return this.receiveEventsFromSubaccounts;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -190,7 +199,11 @@ public class Subscription extends Resource {
             Objects.equals(description, other.description) &&
             Objects.equals(sinkSid, other.sinkSid) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                receiveEventsFromSubaccounts,
+                other.receiveEventsFromSubaccounts
+            )
         );
     }
 
@@ -204,7 +217,8 @@ public class Subscription extends Resource {
             description,
             sinkSid,
             url,
-            links
+            links,
+            receiveEventsFromSubaccounts
         );
     }
 }

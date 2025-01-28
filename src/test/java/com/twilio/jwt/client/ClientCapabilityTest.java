@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -23,9 +24,9 @@ public class ClientCapabilityTest {
         Jwt jwt = new ClientCapability.Builder(ACCOUNT_SID, SECRET).build();
 
         Claims claims =
-            Jwts.parserBuilder()
+            Jwts.parser()
                 .setSigningKey(SECRET.getBytes()).build()
-                .parseClaimsJws(jwt.toJwt())
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
@@ -43,8 +44,8 @@ public class ClientCapabilityTest {
 
         Claims claims =
             Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(jwt.toJwt())
+                .setSigningKey(SECRET.getBytes()).build()
+                .parseSignedClaims(jwt.toJwt())
                 .getBody();
 
         Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());

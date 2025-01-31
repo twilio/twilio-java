@@ -404,30 +404,8 @@ public class Conference extends Resource {
         }
     }
 
-    public enum ProcessingState {
-        COMPLETE("complete"),
-        IN_PROGRESS("in_progress"),
-        TIMEOUT("timeout");
-
-        private final String value;
-
-        private ProcessingState(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ProcessingState forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingState.values());
-        }
-    }
-
     public enum Region {
         US1("us1"),
-        US2("us2"),
         AU1("au1"),
         BR1("br1"),
         IE1("ie1"),
@@ -448,6 +426,27 @@ public class Conference extends Resource {
         @JsonCreator
         public static Region forValue(final String value) {
             return Promoter.enumFromString(value, Region.values());
+        }
+    }
+
+    public enum ProcessingState {
+        COMPLETE("complete"),
+        IN_PROGRESS("in_progress"),
+        TIMEOUT("timeout");
+
+        private final String value;
+
+        private ProcessingState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ProcessingState forValue(final String value) {
+            return Promoter.enumFromString(value, ProcessingState.values());
         }
     }
 

@@ -1,6 +1,32 @@
 twilio-java changelog
 =====================
 
+[2025-01-31] Version 10.7.0
+---------------------------
+**Library - Fix**
+- [PR #809](https://github.com/twilio/twilio-java/pull/809): Fix for 1 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #830](https://github.com/twilio/twilio-java/pull/830): Voice v2 fix. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Chore**
+- [PR #831](https://github.com/twilio/twilio-java/pull/831): added bug report issue template. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #829](https://github.com/twilio/twilio-java/pull/829): add variant class. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
 [2025-01-28] Version 10.6.8
 ---------------------------
 **Library - Fix**

@@ -185,25 +185,7 @@ public class Gather extends TwiML {
         }
     }
 
-    public enum SpeechModel {
-        DEFAULT("default"),
-        NUMBERS_AND_COMMANDS("numbers_and_commands"),
-        PHONE_CALL("phone_call"),
-        EXPERIMENTAL_CONVERSATIONS("experimental_conversations"),
-        EXPERIMENTAL_UTTERANCES("experimental_utterances");
-
-        private final String value;
-
-        private SpeechModel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-    }
-
-    private final List<Gather.Input> input;
+    private final List<Input> input;
     private final URI action;
     private final HttpMethod method;
     private final Integer timeout;
@@ -214,12 +196,12 @@ public class Gather extends TwiML {
     private final Integer numDigits;
     private final URI partialResultCallback;
     private final HttpMethod partialResultCallbackMethod;
-    private final Gather.Language language;
+    private final Language language;
     private final String hints;
     private final Boolean bargeIn;
     private final Boolean debug;
     private final Boolean actionOnEmptyResult;
-    private final Gather.SpeechModel speechModel;
+    private final String speechModel;
     private final Boolean enhanced;
 
     /**
@@ -312,7 +294,7 @@ public class Gather extends TwiML {
             attrs.put("actionOnEmptyResult", this.isActionOnEmptyResult().toString());
         }
         if (this.getSpeechModel() != null) {
-            attrs.put("speechModel", this.getSpeechModel().toString());
+            attrs.put("speechModel", this.getSpeechModel());
         }
         if (this.isEnhanced() != null) {
             attrs.put("enhanced", this.isEnhanced().toString());
@@ -326,13 +308,13 @@ public class Gather extends TwiML {
      *
      * @return Input type Twilio should accept
      */
-    public List<Gather.Input> getInputs() {
+    public List<Input> getInputs() {
         return input;
     }
 
     protected String getInputsAsString() {
         StringBuilder sb = new StringBuilder();
-        Iterator<Gather.Input> iter = this.getInputs().iterator();
+        Iterator<Input> iter = this.getInputs().iterator();
         while (iter.hasNext()) {
             sb.append(iter.next().toString());
             if (iter.hasNext()) {
@@ -439,7 +421,7 @@ public class Gather extends TwiML {
      *
      * @return Language to use
      */
-    public Gather.Language getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
@@ -484,7 +466,7 @@ public class Gather extends TwiML {
      *
      * @return Specify the model that is best suited for your use case
      */
-    public Gather.SpeechModel getSpeechModel() {
+    public String getSpeechModel() {
         return speechModel;
     }
 
@@ -516,7 +498,7 @@ public class Gather extends TwiML {
             }
         }
 
-        private List<Gather.Input> input;
+        private List<Input> input;
         private URI action;
         private HttpMethod method;
         private Integer timeout;
@@ -527,19 +509,19 @@ public class Gather extends TwiML {
         private Integer numDigits;
         private URI partialResultCallback;
         private HttpMethod partialResultCallbackMethod;
-        private Gather.Language language;
+        private Language language;
         private String hints;
         private Boolean bargeIn;
         private Boolean debug;
         private Boolean actionOnEmptyResult;
-        private Gather.SpeechModel speechModel;
+        private String speechModel;
         private Boolean enhanced;
 
         /**
          * Input type Twilio should accept
          */
         @JacksonXmlProperty(isAttribute = true, localName = "input")
-        public Builder inputs(List<Gather.Input> input) {
+        public Builder inputs(List<Input> input) {
             this.input = input;
             return this;
         }
@@ -547,7 +529,7 @@ public class Gather extends TwiML {
         /**
          * Input type Twilio should accept
          */
-        public Builder inputs(Gather.Input input) {
+        public Builder inputs(Input input) {
             this.input = Promoter.listOfOne(input);
             return this;
         }
@@ -663,7 +645,7 @@ public class Gather extends TwiML {
          * Language to use
          */
         @JacksonXmlProperty(isAttribute = true, localName = "language")
-        public Builder language(Gather.Language language) {
+        public Builder language(Language language) {
             this.language = language;
             return this;
         }
@@ -708,7 +690,7 @@ public class Gather extends TwiML {
          * Specify the model that is best suited for your use case
          */
         @JacksonXmlProperty(isAttribute = true, localName = "speechModel")
-        public Builder speechModel(Gather.SpeechModel speechModel) {
+        public Builder speechModel(String speechModel) {
             this.speechModel = speechModel;
             return this;
         }

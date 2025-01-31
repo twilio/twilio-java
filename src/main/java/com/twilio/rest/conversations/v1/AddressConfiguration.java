@@ -231,8 +231,7 @@ public class AddressConfiguration extends Resource {
         MESSENGER("messenger"),
         GBM("gbm"),
         EMAIL("email"),
-        RCS("rcs"),
-        APPLE("apple");
+        RCS("rcs");
 
         private final String value;
 

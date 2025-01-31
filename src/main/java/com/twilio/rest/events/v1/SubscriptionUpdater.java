@@ -30,7 +30,6 @@ public class SubscriptionUpdater extends Updater<Subscription> {
     private String pathSid;
     private String description;
     private String sinkSid;
-    private Boolean receiveEventsFromSubaccounts;
 
     public SubscriptionUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -43,13 +42,6 @@ public class SubscriptionUpdater extends Updater<Subscription> {
 
     public SubscriptionUpdater setSinkSid(final String sinkSid) {
         this.sinkSid = sinkSid;
-        return this;
-    }
-
-    public SubscriptionUpdater setReceiveEventsFromSubaccounts(
-        final Boolean receiveEventsFromSubaccounts
-    ) {
-        this.receiveEventsFromSubaccounts = receiveEventsFromSubaccounts;
         return this;
     }
 
@@ -97,12 +89,6 @@ public class SubscriptionUpdater extends Updater<Subscription> {
         }
         if (sinkSid != null) {
             request.addPostParam("SinkSid", sinkSid);
-        }
-        if (receiveEventsFromSubaccounts != null) {
-            request.addPostParam(
-                "ReceiveEventsFromSubaccounts",
-                receiveEventsFromSubaccounts.toString()
-            );
         }
     }
 }

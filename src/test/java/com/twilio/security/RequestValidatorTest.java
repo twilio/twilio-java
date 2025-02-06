@@ -114,4 +114,19 @@ public class RequestValidatorTest {
         Assert.assertTrue("Validator did not add port 80 to http url", isValid);
     }
 
+    @Test
+    public void testValidateRemovesPortHttpsWithSpecialParams() {
+        String url = "https://mycompany.com/myapp.php";
+        String param = "?param1=client%3AAnonymous";
+        url = url + param;
+        boolean isValid = validator.validate(url, params, "iQIea/lNtwezVhrpQ/KiGTEmJDA=");
+
+        Assert.assertTrue("Validator did not strip port from url", isValid);
+
+        url = url.replace(".com", ".com:1234");
+        isValid = validator.validate(url, params, "g7dthJtIvMAeMJ8XhiywDKG63Gg=");
+
+        Assert.assertTrue("Validator did not strip port from url", isValid);
+    }
+
 }

@@ -34,8 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -46,30 +45,23 @@ public class Tool extends Resource {
     private static final long serialVersionUID = 65943663776562L;
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCreatePolicyRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
-        @Getter
-        @Setter
         private String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy_details")
-        @Getter
-        @Setter
         private Map<String, Object> policyDetails;
 
         public String getPolicyDetails() {
@@ -78,8 +70,6 @@ public class Tool extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         public static AssistantsV1ServiceCreatePolicyRequest fromJson(
@@ -94,30 +84,23 @@ public class Tool extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCreateToolRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("assistant_id")
-        @Getter
-        @Setter
         private String assistantId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("enabled")
-        @Getter
-        @Setter
         private Boolean enabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("meta")
-        @Getter
-        @Setter
         private Map<String, Object> meta;
 
         public String getMeta() {
@@ -126,23 +109,15 @@ public class Tool extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy")
-        @Getter
-        @Setter
         private AssistantsV1ServiceCreatePolicyRequest policy;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
-
-        public AssistantsV1ServiceCreateToolRequest() {}
 
         public static AssistantsV1ServiceCreateToolRequest fromJson(
             String jsonString,
@@ -156,30 +131,23 @@ public class Tool extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceUpdateToolRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("assistant_id")
-        @Getter
-        @Setter
         private String assistantId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("enabled")
-        @Getter
-        @Setter
         private Boolean enabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("meta")
-        @Getter
-        @Setter
         private Map<String, Object> meta;
 
         public String getMeta() {
@@ -188,23 +156,15 @@ public class Tool extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy")
-        @Getter
-        @Setter
         private AssistantsV1ServiceCreatePolicyRequest policy;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
-
-        public AssistantsV1ServiceUpdateToolRequest() {}
 
         public static AssistantsV1ServiceUpdateToolRequest fromJson(
             String jsonString,
@@ -218,48 +178,35 @@ public class Tool extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServicePolicy {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
-        @Getter
-        @Setter
         private String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("accountSid")
-        @Getter
-        @Setter
         private String accountSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("userSid")
-        @Getter
-        @Setter
         private String userSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policyDetails")
-        @Getter
-        @Setter
         private Map<String, Object> policyDetails;
 
         public String getPolicyDetails() {
@@ -268,8 +215,6 @@ public class Tool extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("dateCreated")
-        @Getter
-        @Setter
         private ZonedDateTime dateCreated;
 
         public String getDateCreated() {
@@ -278,8 +223,6 @@ public class Tool extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("dateUpdated")
-        @Getter
-        @Setter
         private ZonedDateTime dateUpdated;
 
         public String getDateUpdated() {

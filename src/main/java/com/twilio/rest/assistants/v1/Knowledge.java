@@ -33,8 +33,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -45,30 +44,23 @@ public class Knowledge extends Resource {
     private static final long serialVersionUID = 142704301669097L;
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCreatePolicyRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
-        @Getter
-        @Setter
         private String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy_details")
-        @Getter
-        @Setter
         private Map<String, Object> policyDetails;
 
         public String getPolicyDetails() {
@@ -77,8 +69,6 @@ public class Knowledge extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         public static AssistantsV1ServiceCreatePolicyRequest fromJson(
@@ -93,24 +83,19 @@ public class Knowledge extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCreateKnowledgeRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("assistant_id")
-        @Getter
-        @Setter
         private String assistantId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("knowledge_source_details")
-        @Getter
-        @Setter
         private Map<String, Object> knowledgeSourceDetails;
 
         public String getKnowledgeSourceDetails() {
@@ -119,29 +104,19 @@ public class Knowledge extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy")
-        @Getter
-        @Setter
         private AssistantsV1ServiceCreatePolicyRequest policy;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("embedding_model")
-        @Getter
-        @Setter
         private String embeddingModel;
-
-        public AssistantsV1ServiceCreateKnowledgeRequest() {}
 
         public static AssistantsV1ServiceCreateKnowledgeRequest fromJson(
             String jsonString,
@@ -155,18 +130,15 @@ public class Knowledge extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceUpdateKnowledgeRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("knowledge_source_details")
-        @Getter
-        @Setter
         private Map<String, Object> knowledgeSourceDetails;
 
         public String getKnowledgeSourceDetails() {
@@ -175,29 +147,19 @@ public class Knowledge extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("policy")
-        @Getter
-        @Setter
         private AssistantsV1ServiceCreatePolicyRequest policy;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("embedding_model")
-        @Getter
-        @Setter
         private String embeddingModel;
-
-        public AssistantsV1ServiceUpdateKnowledgeRequest() {}
 
         public static AssistantsV1ServiceUpdateKnowledgeRequest fromJson(
             String jsonString,

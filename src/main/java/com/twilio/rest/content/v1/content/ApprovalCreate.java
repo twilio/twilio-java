@@ -28,8 +28,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -40,27 +39,16 @@ public class ApprovalCreate extends Resource {
     private static final long serialVersionUID = 150858338844938L;
 
     @ToString
+    @Builder
     public static class ContentApprovalRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("category")
-        @Getter
-        @Setter
         private String category;
-
-        public ContentApprovalRequest(
-            final String name,
-            final String category
-        ) {
-            this.name = name;
-            this.category = category;
-        }
 
         public static ContentApprovalRequest fromJson(
             String jsonString,

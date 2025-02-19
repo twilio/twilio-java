@@ -43,7 +43,7 @@ public class ClusterTest {
     @Before
     public void setUp() {
         // only run when ClusterTest property is passed (mvn test -Dtest="ClusterTest"), skip test run on mvn test
-//        Assume.assumeThat(System.getProperty("Test"), CoreMatchers.is("ClusterTest"));
+        Assume.assumeThat(System.getProperty("Test"), CoreMatchers.is("ClusterTest"));
         fromNumber = System.getenv("TWILIO_FROM_NUMBER");
         toNumber = System.getenv("TWILIO_TO_NUMBER");
         String apiKey = System.getenv("TWILIO_API_KEY");

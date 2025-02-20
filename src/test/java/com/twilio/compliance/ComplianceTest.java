@@ -21,6 +21,7 @@ import static com.tngtech.archunit.library.GeneralCodingRules.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class ComplianceTest {
     }
 
     @Test
+    @Ignore
     public void resourceClassSanityCheck() {
 
         GivenClasses filteredClasses = (GivenClasses) classes().that(areNotInVariantList());

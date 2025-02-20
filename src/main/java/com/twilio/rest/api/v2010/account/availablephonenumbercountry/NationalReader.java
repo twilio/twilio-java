@@ -50,7 +50,7 @@ public class NationalReader extends Reader<National> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public NationalReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +166,7 @@ public class NationalReader extends Reader<National> {
         return this;
     }
 
-    public NationalReader setPageSize(final Integer pageSize) {
+    public NationalReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

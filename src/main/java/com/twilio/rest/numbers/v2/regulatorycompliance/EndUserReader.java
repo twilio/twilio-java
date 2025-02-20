@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class EndUserReader extends Reader<EndUser> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public EndUserReader() {}
 
-    public EndUserReader setPageSize(final Integer pageSize) {
+    public EndUserReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

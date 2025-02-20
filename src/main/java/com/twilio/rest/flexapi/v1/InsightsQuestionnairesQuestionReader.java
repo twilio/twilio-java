@@ -34,7 +34,7 @@ public class InsightsQuestionnairesQuestionReader
 
     private String authorization;
     private List<String> categorySid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InsightsQuestionnairesQuestionReader() {}
 
@@ -59,7 +59,7 @@ public class InsightsQuestionnairesQuestionReader
     }
 
     public InsightsQuestionnairesQuestionReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

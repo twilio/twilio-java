@@ -34,7 +34,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     private String evaluateWorkerAttributes;
     private String workerSid;
     private String ordering;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TaskQueueReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -62,7 +62,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
         return this;
     }
 
-    public TaskQueueReader setPageSize(final Integer pageSize) {
+    public TaskQueueReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

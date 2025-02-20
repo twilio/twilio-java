@@ -33,7 +33,7 @@ public class ExecutionReader extends Reader<Execution> {
     private String pathFlowSid;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
@@ -51,7 +51,7 @@ public class ExecutionReader extends Reader<Execution> {
         return this;
     }
 
-    public ExecutionReader setPageSize(final Integer pageSize) {
+    public ExecutionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

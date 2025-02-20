@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class RateLimitReader extends Reader<RateLimit> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RateLimitReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public RateLimitReader setPageSize(final Integer pageSize) {
+    public RateLimitReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

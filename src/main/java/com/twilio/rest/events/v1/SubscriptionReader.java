@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class SubscriptionReader extends Reader<Subscription> {
 
     private String sinkSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SubscriptionReader() {}
 
@@ -39,7 +39,7 @@ public class SubscriptionReader extends Reader<Subscription> {
         return this;
     }
 
-    public SubscriptionReader setPageSize(final Integer pageSize) {
+    public SubscriptionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

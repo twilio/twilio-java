@@ -33,7 +33,7 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
     private String participantSid;
     private String label;
     private String events;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConferenceParticipantReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
@@ -56,7 +56,7 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
         return this;
     }
 
-    public ConferenceParticipantReader setPageSize(final Integer pageSize) {
+    public ConferenceParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

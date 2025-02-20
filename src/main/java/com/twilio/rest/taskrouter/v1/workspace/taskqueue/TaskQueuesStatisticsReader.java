@@ -37,7 +37,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TaskQueuesStatisticsReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -79,7 +79,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         return this;
     }
 
-    public TaskQueuesStatisticsReader setPageSize(final Integer pageSize) {
+    public TaskQueuesStatisticsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

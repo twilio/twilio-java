@@ -31,7 +31,7 @@ public class InsightsQuestionnairesCategoryReader
     extends Reader<InsightsQuestionnairesCategory> {
 
     private String authorization;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InsightsQuestionnairesCategoryReader() {}
 
@@ -43,7 +43,7 @@ public class InsightsQuestionnairesCategoryReader
     }
 
     public InsightsQuestionnairesCategoryReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

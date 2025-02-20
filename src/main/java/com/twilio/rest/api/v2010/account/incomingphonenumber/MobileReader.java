@@ -35,7 +35,7 @@ public class MobileReader extends Reader<Mobile> {
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String origin;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MobileReader() {}
 
@@ -69,7 +69,7 @@ public class MobileReader extends Reader<Mobile> {
         return this;
     }
 
-    public MobileReader setPageSize(final Integer pageSize) {
+    public MobileReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

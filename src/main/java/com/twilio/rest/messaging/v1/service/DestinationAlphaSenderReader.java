@@ -31,13 +31,13 @@ public class DestinationAlphaSenderReader
     extends Reader<DestinationAlphaSender> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DestinationAlphaSenderReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public DestinationAlphaSenderReader setPageSize(final Integer pageSize) {
+    public DestinationAlphaSenderReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class WebhookReader extends Reader<Webhook> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WebhookReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public WebhookReader setPageSize(final Integer pageSize) {
+    public WebhookReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

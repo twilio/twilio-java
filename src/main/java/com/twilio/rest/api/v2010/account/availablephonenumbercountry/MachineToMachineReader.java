@@ -50,7 +50,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MachineToMachineReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +166,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
         return this;
     }
 
-    public MachineToMachineReader setPageSize(final Integer pageSize) {
+    public MachineToMachineReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

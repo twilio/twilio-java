@@ -31,7 +31,7 @@ public class InsightsConversationsReader extends Reader<InsightsConversations> {
 
     private String authorization;
     private String segmentId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InsightsConversationsReader() {}
 
@@ -47,7 +47,7 @@ public class InsightsConversationsReader extends Reader<InsightsConversations> {
         return this;
     }
 
-    public InsightsConversationsReader setPageSize(final Integer pageSize) {
+    public InsightsConversationsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

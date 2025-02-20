@@ -33,7 +33,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     private String pathCustomerProfileSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomerProfilesChannelEndpointAssignmentReader(
         final String pathCustomerProfileSid
@@ -56,7 +56,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     }
 
     public CustomerProfilesChannelEndpointAssignmentReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

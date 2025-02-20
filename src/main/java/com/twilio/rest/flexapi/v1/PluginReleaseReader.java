@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class PluginReleaseReader extends Reader<PluginRelease> {
 
     private String flexMetadata;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PluginReleaseReader() {}
 
@@ -39,7 +39,7 @@ public class PluginReleaseReader extends Reader<PluginRelease> {
         return this;
     }
 
-    public PluginReleaseReader setPageSize(final Integer pageSize) {
+    public PluginReleaseReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

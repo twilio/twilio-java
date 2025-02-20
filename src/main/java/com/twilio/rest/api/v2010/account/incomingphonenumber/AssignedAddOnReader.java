@@ -31,7 +31,7 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
 
     private String pathResourceSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AssignedAddOnReader(final String pathResourceSid) {
         this.pathResourceSid = pathResourceSid;
@@ -45,7 +45,7 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
         this.pathResourceSid = pathResourceSid;
     }
 
-    public AssignedAddOnReader setPageSize(final Integer pageSize) {
+    public AssignedAddOnReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

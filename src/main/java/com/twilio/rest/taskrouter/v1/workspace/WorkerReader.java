@@ -38,7 +38,7 @@ public class WorkerReader extends Reader<Worker> {
     private String taskQueueName;
     private String taskQueueSid;
     private String ordering;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WorkerReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -86,7 +86,7 @@ public class WorkerReader extends Reader<Worker> {
         return this;
     }
 
-    public WorkerReader setPageSize(final Integer pageSize) {
+    public WorkerReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

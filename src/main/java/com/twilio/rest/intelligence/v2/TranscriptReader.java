@@ -37,7 +37,7 @@ public class TranscriptReader extends Reader<Transcript> {
     private String status;
     private String languageCode;
     private String sourceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TranscriptReader() {}
 
@@ -83,7 +83,7 @@ public class TranscriptReader extends Reader<Transcript> {
         return this;
     }
 
-    public TranscriptReader setPageSize(final Integer pageSize) {
+    public TranscriptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

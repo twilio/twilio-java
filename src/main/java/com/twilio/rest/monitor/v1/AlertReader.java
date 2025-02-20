@@ -33,7 +33,7 @@ public class AlertReader extends Reader<Alert> {
     private String logLevel;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AlertReader() {}
 
@@ -52,7 +52,7 @@ public class AlertReader extends Reader<Alert> {
         return this;
     }
 
-    public AlertReader setPageSize(final Integer pageSize) {
+    public AlertReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

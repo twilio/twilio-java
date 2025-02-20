@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2025-02-20] Version 10.6.10
+----------------------------
+**Library - Chore**
+- [PR #836](https://github.com/twilio/twilio-java/pull/836): disable java test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #835](https://github.com/twilio/twilio-java/pull/835): disable java test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
 [2025-02-11] Version 10.6.9
 ---------------------------
 **Api**

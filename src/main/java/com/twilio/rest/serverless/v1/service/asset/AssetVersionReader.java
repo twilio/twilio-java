@@ -31,7 +31,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     private String pathServiceSid;
     private String pathAssetSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AssetVersionReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
         this.pathAssetSid = pathAssetSid;
     }
 
-    public AssetVersionReader setPageSize(final Integer pageSize) {
+    public AssetVersionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -50,7 +50,7 @@ public class SharedCostReader extends Reader<SharedCost> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SharedCostReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +166,7 @@ public class SharedCostReader extends Reader<SharedCost> {
         return this;
     }
 
-    public SharedCostReader setPageSize(final Integer pageSize) {
+    public SharedCostReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

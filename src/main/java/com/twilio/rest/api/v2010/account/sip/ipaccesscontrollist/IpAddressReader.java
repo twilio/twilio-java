@@ -31,7 +31,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     private String pathIpAccessControlListSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpAddressReader(final String pathIpAccessControlListSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -45,7 +45,7 @@ public class IpAddressReader extends Reader<IpAddress> {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
-    public IpAddressReader setPageSize(final Integer pageSize) {
+    public IpAddressReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

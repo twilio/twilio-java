@@ -32,7 +32,7 @@ public class CustomerProfilesEntityAssignmentsReader
 
     private String pathCustomerProfileSid;
     private String objectType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomerProfilesEntityAssignmentsReader(
         final String pathCustomerProfileSid
@@ -48,7 +48,7 @@ public class CustomerProfilesEntityAssignmentsReader
     }
 
     public CustomerProfilesEntityAssignmentsReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

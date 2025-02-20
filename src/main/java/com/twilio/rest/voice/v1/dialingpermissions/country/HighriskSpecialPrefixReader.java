@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     private String pathIsoCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public HighriskSpecialPrefixReader(final String pathIsoCode) {
         this.pathIsoCode = pathIsoCode;
     }
 
-    public HighriskSpecialPrefixReader setPageSize(final Integer pageSize) {
+    public HighriskSpecialPrefixReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

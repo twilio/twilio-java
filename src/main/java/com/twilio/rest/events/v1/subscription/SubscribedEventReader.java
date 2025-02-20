@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
     private String pathSubscriptionSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SubscribedEventReader(final String pathSubscriptionSid) {
         this.pathSubscriptionSid = pathSubscriptionSid;
     }
 
-    public SubscribedEventReader setPageSize(final Integer pageSize) {
+    public SubscribedEventReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

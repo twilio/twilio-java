@@ -50,7 +50,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TollFreeReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +166,7 @@ public class TollFreeReader extends Reader<TollFree> {
         return this;
     }
 
-    public TollFreeReader setPageSize(final Integer pageSize) {
+    public TollFreeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

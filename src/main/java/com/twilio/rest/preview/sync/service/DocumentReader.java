@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class DocumentReader extends Reader<Document> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DocumentReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public DocumentReader setPageSize(final Integer pageSize) {
+    public DocumentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

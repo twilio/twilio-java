@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class BuildReader extends Reader<Build> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BuildReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public BuildReader setPageSize(final Integer pageSize) {
+    public BuildReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

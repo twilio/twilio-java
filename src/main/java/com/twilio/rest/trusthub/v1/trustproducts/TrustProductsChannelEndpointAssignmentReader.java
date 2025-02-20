@@ -33,7 +33,7 @@ public class TrustProductsChannelEndpointAssignmentReader
     private String pathTrustProductSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TrustProductsChannelEndpointAssignmentReader(
         final String pathTrustProductSid
@@ -56,7 +56,7 @@ public class TrustProductsChannelEndpointAssignmentReader
     }
 
     public TrustProductsChannelEndpointAssignmentReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

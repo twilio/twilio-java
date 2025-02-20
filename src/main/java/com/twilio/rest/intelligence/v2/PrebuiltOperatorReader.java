@@ -31,7 +31,7 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
 
     private PrebuiltOperator.Availability availability;
     private String languageCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PrebuiltOperatorReader() {}
 
@@ -47,7 +47,7 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
         return this;
     }
 
-    public PrebuiltOperatorReader setPageSize(final Integer pageSize) {
+    public PrebuiltOperatorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

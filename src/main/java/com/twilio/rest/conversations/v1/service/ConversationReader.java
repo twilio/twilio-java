@@ -33,7 +33,7 @@ public class ConversationReader extends Reader<Conversation> {
     private String startDate;
     private String endDate;
     private Conversation.State state;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConversationReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -54,7 +54,7 @@ public class ConversationReader extends Reader<Conversation> {
         return this;
     }
 
-    public ConversationReader setPageSize(final Integer pageSize) {
+    public ConversationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

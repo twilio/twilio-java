@@ -34,7 +34,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     private SyncListItem.QueryResultOrder order;
     private String from;
     private SyncListItem.QueryFromBoundType bounds;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncListItemReader(
         final String pathServiceSid,
@@ -63,7 +63,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
         return this;
     }
 
-    public SyncListItemReader setPageSize(final Integer pageSize) {
+    public SyncListItemReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

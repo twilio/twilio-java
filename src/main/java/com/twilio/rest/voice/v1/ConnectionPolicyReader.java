@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class ConnectionPolicyReader extends Reader<ConnectionPolicy> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConnectionPolicyReader() {}
 
-    public ConnectionPolicyReader setPageSize(final Integer pageSize) {
+    public ConnectionPolicyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

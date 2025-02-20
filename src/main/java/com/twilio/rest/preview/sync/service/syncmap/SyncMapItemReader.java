@@ -34,7 +34,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     private SyncMapItem.QueryResultOrder order;
     private String from;
     private SyncMapItem.QueryFromBoundType bounds;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncMapItemReader(
         final String pathServiceSid,
@@ -63,7 +63,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
         return this;
     }
 
-    public SyncMapItemReader setPageSize(final Integer pageSize) {
+    public SyncMapItemReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

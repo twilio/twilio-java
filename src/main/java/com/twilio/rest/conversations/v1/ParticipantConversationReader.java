@@ -32,7 +32,7 @@ public class ParticipantConversationReader
 
     private String identity;
     private String address;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantConversationReader() {}
 
@@ -46,7 +46,7 @@ public class ParticipantConversationReader
         return this;
     }
 
-    public ParticipantConversationReader setPageSize(final Integer pageSize) {
+    public ParticipantConversationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class RoleReader extends Reader<Role> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RoleReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public RoleReader setPageSize(final Integer pageSize) {
+    public RoleReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

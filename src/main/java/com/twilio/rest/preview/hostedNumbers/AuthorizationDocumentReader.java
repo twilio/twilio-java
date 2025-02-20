@@ -31,7 +31,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     private String email;
     private AuthorizationDocument.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AuthorizationDocumentReader() {}
 
@@ -47,7 +47,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
         return this;
     }
 
-    public AuthorizationDocumentReader setPageSize(final Integer pageSize) {
+    public AuthorizationDocumentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

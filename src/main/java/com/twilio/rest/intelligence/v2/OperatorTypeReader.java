@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class OperatorTypeReader extends Reader<OperatorType> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public OperatorTypeReader() {}
 
-    public OperatorTypeReader setPageSize(final Integer pageSize) {
+    public OperatorTypeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -32,7 +32,7 @@ public class SentenceReader extends Reader<Sentence> {
     private String pathTranscriptSid;
     private Boolean redacted;
     private Boolean wordTimestamps;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SentenceReader(final String pathTranscriptSid) {
         this.pathTranscriptSid = pathTranscriptSid;
@@ -48,7 +48,7 @@ public class SentenceReader extends Reader<Sentence> {
         return this;
     }
 
-    public SentenceReader setPageSize(final Integer pageSize) {
+    public SentenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class EventTypeReader extends Reader<EventType> {
 
     private String schemaId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EventTypeReader() {}
 
@@ -39,7 +39,7 @@ public class EventTypeReader extends Reader<EventType> {
         return this;
     }
 
-    public EventTypeReader setPageSize(final Integer pageSize) {
+    public EventTypeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

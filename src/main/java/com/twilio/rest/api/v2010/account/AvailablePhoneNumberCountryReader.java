@@ -31,7 +31,7 @@ public class AvailablePhoneNumberCountryReader
     extends Reader<AvailablePhoneNumberCountry> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AvailablePhoneNumberCountryReader() {}
 
@@ -39,9 +39,7 @@ public class AvailablePhoneNumberCountryReader
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AvailablePhoneNumberCountryReader setPageSize(
-        final Integer pageSize
-    ) {
+    public AvailablePhoneNumberCountryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class CountryReader extends Reader<Country> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public CountryReader() {}
 
-    public CountryReader setPageSize(final Integer pageSize) {
+    public CountryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -34,7 +34,7 @@ public class SimReader extends Reader<Sim> {
     private String ratePlan;
     private String eid;
     private String simRegistrationCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SimReader() {}
 
@@ -63,7 +63,7 @@ public class SimReader extends Reader<Sim> {
         return this;
     }
 
-    public SimReader setPageSize(final Integer pageSize) {
+    public SimReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

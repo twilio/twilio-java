@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class ServiceReader extends Reader<Service> {
 
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ServiceReader() {}
 
@@ -39,7 +39,7 @@ public class ServiceReader extends Reader<Service> {
         return this;
     }
 
-    public ServiceReader setPageSize(final Integer pageSize) {
+    public ServiceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

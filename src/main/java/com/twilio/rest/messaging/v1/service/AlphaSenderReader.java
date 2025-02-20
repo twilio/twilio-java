@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class AlphaSenderReader extends Reader<AlphaSender> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AlphaSenderReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public AlphaSenderReader setPageSize(final Integer pageSize) {
+    public AlphaSenderReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

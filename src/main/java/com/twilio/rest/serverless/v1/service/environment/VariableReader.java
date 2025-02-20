@@ -31,7 +31,7 @@ public class VariableReader extends Reader<Variable> {
 
     private String pathServiceSid;
     private String pathEnvironmentSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public VariableReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class VariableReader extends Reader<Variable> {
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
-    public VariableReader setPageSize(final Integer pageSize) {
+    public VariableReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

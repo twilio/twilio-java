@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class BrandRegistrationReader extends Reader<BrandRegistration> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public BrandRegistrationReader() {}
 
-    public BrandRegistrationReader setPageSize(final Integer pageSize) {
+    public BrandRegistrationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

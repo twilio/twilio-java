@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class FleetReader extends Reader<Fleet> {
 
     private String networkAccessProfile;
-    private Integer pageSize;
+    private Long pageSize;
 
     public FleetReader() {}
 
@@ -41,7 +41,7 @@ public class FleetReader extends Reader<Fleet> {
         return this;
     }
 
-    public FleetReader setPageSize(final Integer pageSize) {
+    public FleetReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

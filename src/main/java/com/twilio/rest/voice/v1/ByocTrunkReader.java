@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class ByocTrunkReader extends Reader<ByocTrunk> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public ByocTrunkReader() {}
 
-    public ByocTrunkReader setPageSize(final Integer pageSize) {
+    public ByocTrunkReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

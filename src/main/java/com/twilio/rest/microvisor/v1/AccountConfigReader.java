@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class AccountConfigReader extends Reader<AccountConfig> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public AccountConfigReader() {}
 
-    public AccountConfigReader setPageSize(final Integer pageSize) {
+    public AccountConfigReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

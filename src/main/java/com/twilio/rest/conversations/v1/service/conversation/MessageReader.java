@@ -32,7 +32,7 @@ public class MessageReader extends Reader<Message> {
     private String pathChatServiceSid;
     private String pathConversationSid;
     private Message.OrderType order;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MessageReader(
         final String pathChatServiceSid,
@@ -47,7 +47,7 @@ public class MessageReader extends Reader<Message> {
         return this;
     }
 
-    public MessageReader setPageSize(final Integer pageSize) {
+    public MessageReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

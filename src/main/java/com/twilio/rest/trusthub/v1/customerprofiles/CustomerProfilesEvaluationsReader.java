@@ -31,7 +31,7 @@ public class CustomerProfilesEvaluationsReader
     extends Reader<CustomerProfilesEvaluations> {
 
     private String pathCustomerProfileSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomerProfilesEvaluationsReader(
         final String pathCustomerProfileSid
@@ -39,9 +39,7 @@ public class CustomerProfilesEvaluationsReader
         this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
-    public CustomerProfilesEvaluationsReader setPageSize(
-        final Integer pageSize
-    ) {
+    public CustomerProfilesEvaluationsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

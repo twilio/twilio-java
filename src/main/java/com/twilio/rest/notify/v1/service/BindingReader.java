@@ -38,7 +38,7 @@ public class BindingReader extends Reader<Binding> {
     private LocalDate endDate;
     private List<String> identity;
     private List<String> tag;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -72,7 +72,7 @@ public class BindingReader extends Reader<Binding> {
         return setTag(Promoter.listOfOne(tag));
     }
 
-    public BindingReader setPageSize(final Integer pageSize) {
+    public BindingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

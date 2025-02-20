@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class PublicKeyReader extends Reader<PublicKey> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public PublicKeyReader() {}
 
-    public PublicKeyReader setPageSize(final Integer pageSize) {
+    public PublicKeyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

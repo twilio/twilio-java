@@ -31,7 +31,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     private String pathWorkspaceSid;
     private String pathWorkerSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WorkerChannelReader(
         final String pathWorkspaceSid,
@@ -41,7 +41,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
         this.pathWorkerSid = pathWorkerSid;
     }
 
-    public WorkerChannelReader setPageSize(final Integer pageSize) {
+    public WorkerChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

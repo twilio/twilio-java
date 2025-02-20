@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class BillingPeriodReader extends Reader<BillingPeriod> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BillingPeriodReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public BillingPeriodReader setPageSize(final Integer pageSize) {
+    public BillingPeriodReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

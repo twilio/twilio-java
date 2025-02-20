@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class TranscriptionReader extends Reader<Transcription> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TranscriptionReader() {}
 
@@ -38,7 +38,7 @@ public class TranscriptionReader extends Reader<Transcription> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public TranscriptionReader setPageSize(final Integer pageSize) {
+    public TranscriptionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

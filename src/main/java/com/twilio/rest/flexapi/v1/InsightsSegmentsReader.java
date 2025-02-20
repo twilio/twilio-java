@@ -34,7 +34,7 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
     private String authorization;
     private String segmentId;
     private List<String> reservationId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InsightsSegmentsReader() {}
 
@@ -59,7 +59,7 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
         return setReservationId(Promoter.listOfOne(reservationId));
     }
 
-    public InsightsSegmentsReader setPageSize(final Integer pageSize) {
+    public InsightsSegmentsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

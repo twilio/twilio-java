@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class EngagementReader extends Reader<Engagement> {
 
     private String pathFlowSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EngagementReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
-    public EngagementReader setPageSize(final Integer pageSize) {
+    public EngagementReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

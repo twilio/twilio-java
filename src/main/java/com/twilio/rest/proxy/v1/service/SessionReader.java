@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class SessionReader extends Reader<Session> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SessionReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public SessionReader setPageSize(final Integer pageSize) {
+    public SessionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

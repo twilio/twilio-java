@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     private String pathTrunkSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public OriginationUrlReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
     }
 
-    public OriginationUrlReader setPageSize(final Integer pageSize) {
+    public OriginationUrlReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

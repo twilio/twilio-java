@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class SyncStreamReader extends Reader<SyncStream> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncStreamReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public SyncStreamReader setPageSize(final Integer pageSize) {
+    public SyncStreamReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

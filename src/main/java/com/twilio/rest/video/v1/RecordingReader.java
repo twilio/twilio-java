@@ -38,7 +38,7 @@ public class RecordingReader extends Reader<Recording> {
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private Recording.Type mediaType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RecordingReader() {}
 
@@ -80,7 +80,7 @@ public class RecordingReader extends Reader<Recording> {
         return this;
     }
 
-    public RecordingReader setPageSize(final Integer pageSize) {
+    public RecordingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -31,7 +31,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     private String pathServiceSid;
     private String pathMapSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncMapPermissionReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
         this.pathMapSid = pathMapSid;
     }
 
-    public SyncMapPermissionReader setPageSize(final Integer pageSize) {
+    public SyncMapPermissionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

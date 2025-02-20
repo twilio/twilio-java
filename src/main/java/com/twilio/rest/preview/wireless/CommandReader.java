@@ -33,7 +33,7 @@ public class CommandReader extends Reader<Command> {
     private String sim;
     private String status;
     private String direction;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CommandReader() {}
 
@@ -57,7 +57,7 @@ public class CommandReader extends Reader<Command> {
         return this;
     }
 
-    public CommandReader setPageSize(final Integer pageSize) {
+    public CommandReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

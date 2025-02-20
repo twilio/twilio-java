@@ -38,7 +38,7 @@ public class MessageReader extends Reader<Message> {
     private ZonedDateTime dateSent;
     private ZonedDateTime dateSentBefore;
     private ZonedDateTime dateSentAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MessageReader() {}
 
@@ -79,7 +79,7 @@ public class MessageReader extends Reader<Message> {
         return this;
     }
 
-    public MessageReader setPageSize(final Integer pageSize) {
+    public MessageReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

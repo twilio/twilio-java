@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PhoneNumberReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public PhoneNumberReader setPageSize(final Integer pageSize) {
+    public PhoneNumberReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

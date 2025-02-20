@@ -50,7 +50,7 @@ public class VoipReader extends Reader<Voip> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public VoipReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +166,7 @@ public class VoipReader extends Reader<Voip> {
         return this;
     }
 
-    public VoipReader setPageSize(final Integer pageSize) {
+    public VoipReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

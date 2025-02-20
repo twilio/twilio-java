@@ -32,7 +32,7 @@ public class EsimProfileReader extends Reader<EsimProfile> {
     private String eid;
     private String simSid;
     private EsimProfile.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EsimProfileReader() {}
 
@@ -51,7 +51,7 @@ public class EsimProfileReader extends Reader<EsimProfile> {
         return this;
     }
 
-    public EsimProfileReader setPageSize(final Integer pageSize) {
+    public EsimProfileReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

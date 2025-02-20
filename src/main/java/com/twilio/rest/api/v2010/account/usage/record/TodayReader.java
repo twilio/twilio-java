@@ -36,7 +36,7 @@ public class TodayReader extends Reader<Today> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TodayReader() {}
 
@@ -64,7 +64,7 @@ public class TodayReader extends Reader<Today> {
         return this;
     }
 
-    public TodayReader setPageSize(final Integer pageSize) {
+    public TodayReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -31,7 +31,7 @@ public class BrandVettingReader extends Reader<BrandVetting> {
 
     private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BrandVettingReader(final String pathBrandSid) {
         this.pathBrandSid = pathBrandSid;
@@ -44,7 +44,7 @@ public class BrandVettingReader extends Reader<BrandVetting> {
         return this;
     }
 
-    public BrandVettingReader setPageSize(final Integer pageSize) {
+    public BrandVettingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

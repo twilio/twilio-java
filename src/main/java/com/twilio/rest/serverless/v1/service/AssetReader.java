@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class AssetReader extends Reader<Asset> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AssetReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public AssetReader setPageSize(final Integer pageSize) {
+    public AssetReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

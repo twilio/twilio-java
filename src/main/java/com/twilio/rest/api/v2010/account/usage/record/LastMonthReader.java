@@ -36,7 +36,7 @@ public class LastMonthReader extends Reader<LastMonth> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public LastMonthReader() {}
 
@@ -66,7 +66,7 @@ public class LastMonthReader extends Reader<LastMonth> {
         return this;
     }
 
-    public LastMonthReader setPageSize(final Integer pageSize) {
+    public LastMonthReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

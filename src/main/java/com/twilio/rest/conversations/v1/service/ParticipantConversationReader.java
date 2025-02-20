@@ -33,7 +33,7 @@ public class ParticipantConversationReader
     private String pathChatServiceSid;
     private String identity;
     private String address;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantConversationReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -49,7 +49,7 @@ public class ParticipantConversationReader
         return this;
     }
 
-    public ParticipantConversationReader setPageSize(final Integer pageSize) {
+    public ParticipantConversationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

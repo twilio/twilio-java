@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpAccessControlListReader() {}
 
@@ -38,7 +38,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public IpAccessControlListReader setPageSize(final Integer pageSize) {
+    public IpAccessControlListReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

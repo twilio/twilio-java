@@ -31,7 +31,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     private String pathRoomSid;
     private String pathParticipantSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PublishedTrackReader(
         final String pathRoomSid,
@@ -41,7 +41,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public PublishedTrackReader setPageSize(final Integer pageSize) {
+    public PublishedTrackReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

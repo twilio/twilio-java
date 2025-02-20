@@ -36,7 +36,7 @@ public class RecordReader extends Reader<Record> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RecordReader() {}
 
@@ -66,7 +66,7 @@ public class RecordReader extends Reader<Record> {
         return this;
     }
 
-    public RecordReader setPageSize(final Integer pageSize) {
+    public RecordReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

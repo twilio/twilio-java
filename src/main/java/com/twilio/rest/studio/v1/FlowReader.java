@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class FlowReader extends Reader<Flow> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public FlowReader() {}
 
-    public FlowReader setPageSize(final Integer pageSize) {
+    public FlowReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

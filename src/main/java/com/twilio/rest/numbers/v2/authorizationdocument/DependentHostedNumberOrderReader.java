@@ -36,7 +36,7 @@ public class DependentHostedNumberOrderReader
     private com.twilio.type.PhoneNumber phoneNumber;
     private String incomingPhoneNumberSid;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DependentHostedNumberOrderReader(
         final String pathSigningDocumentSid
@@ -78,9 +78,7 @@ public class DependentHostedNumberOrderReader
         return this;
     }
 
-    public DependentHostedNumberOrderReader setPageSize(
-        final Integer pageSize
-    ) {
+    public DependentHostedNumberOrderReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

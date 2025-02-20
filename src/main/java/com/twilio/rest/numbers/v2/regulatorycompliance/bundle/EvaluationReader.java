@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class EvaluationReader extends Reader<Evaluation> {
 
     private String pathBundleSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EvaluationReader(final String pathBundleSid) {
         this.pathBundleSid = pathBundleSid;
     }
 
-    public EvaluationReader setPageSize(final Integer pageSize) {
+    public EvaluationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

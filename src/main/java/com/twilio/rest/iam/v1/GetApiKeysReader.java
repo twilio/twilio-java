@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class GetApiKeysReader extends Reader<GetApiKeys> {
 
     private String accountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public GetApiKeysReader(final String accountSid) {
         this.accountSid = accountSid;
@@ -41,7 +41,7 @@ public class GetApiKeysReader extends Reader<GetApiKeys> {
         return this;
     }
 
-    public GetApiKeysReader setPageSize(final Integer pageSize) {
+    public GetApiKeysReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

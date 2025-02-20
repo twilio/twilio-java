@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class DomainReader extends Reader<Domain> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DomainReader() {}
 
@@ -38,7 +38,7 @@ public class DomainReader extends Reader<Domain> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public DomainReader setPageSize(final Integer pageSize) {
+    public DomainReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

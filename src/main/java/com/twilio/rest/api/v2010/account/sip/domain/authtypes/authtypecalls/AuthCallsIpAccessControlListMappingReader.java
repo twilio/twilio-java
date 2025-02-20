@@ -32,7 +32,7 @@ public class AuthCallsIpAccessControlListMappingReader
 
     private String pathDomainSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AuthCallsIpAccessControlListMappingReader(
         final String pathDomainSid
@@ -49,7 +49,7 @@ public class AuthCallsIpAccessControlListMappingReader
     }
 
     public AuthCallsIpAccessControlListMappingReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

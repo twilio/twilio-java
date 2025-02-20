@@ -31,7 +31,7 @@ public class AccountReader extends Reader<Account> {
 
     private String friendlyName;
     private Account.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AccountReader() {}
 
@@ -45,7 +45,7 @@ public class AccountReader extends Reader<Account> {
         return this;
     }
 
-    public AccountReader setPageSize(final Integer pageSize) {
+    public AccountReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

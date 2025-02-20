@@ -31,7 +31,7 @@ public class StepReader extends Reader<Step> {
 
     private String pathFlowSid;
     private String pathEngagementSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public StepReader(
         final String pathFlowSid,
@@ -41,7 +41,7 @@ public class StepReader extends Reader<Step> {
         this.pathEngagementSid = pathEngagementSid;
     }
 
-    public StepReader setPageSize(final Integer pageSize) {
+    public StepReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

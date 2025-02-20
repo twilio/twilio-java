@@ -33,7 +33,7 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
     private TollfreeVerification.Status status;
     private String externalReferenceId;
     private Boolean includeSubAccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TollfreeVerificationReader() {}
 
@@ -65,7 +65,7 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
         return this;
     }
 
-    public TollfreeVerificationReader setPageSize(final Integer pageSize) {
+    public TollfreeVerificationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

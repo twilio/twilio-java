@@ -31,7 +31,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     private String pathReferenceSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AddOnResultReader(final String pathReferenceSid) {
         this.pathReferenceSid = pathReferenceSid;
@@ -45,7 +45,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
         this.pathReferenceSid = pathReferenceSid;
     }
 
-    public AddOnResultReader setPageSize(final Integer pageSize) {
+    public AddOnResultReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

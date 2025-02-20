@@ -35,7 +35,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     private String sourceSid;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RoomRecordingReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
@@ -65,7 +65,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         return this;
     }
 
-    public RoomRecordingReader setPageSize(final Integer pageSize) {
+    public RoomRecordingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

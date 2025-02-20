@@ -35,7 +35,7 @@ public class LocalReader extends Reader<Local> {
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String origin;
-    private Integer pageSize;
+    private Long pageSize;
 
     public LocalReader() {}
 
@@ -69,7 +69,7 @@ public class LocalReader extends Reader<Local> {
         return this;
     }
 
-    public LocalReader setPageSize(final Integer pageSize) {
+    public LocalReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

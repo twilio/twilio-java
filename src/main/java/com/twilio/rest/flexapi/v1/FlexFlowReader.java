@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class FlexFlowReader extends Reader<FlexFlow> {
 
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public FlexFlowReader() {}
 
@@ -39,7 +39,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
         return this;
     }
 
-    public FlexFlowReader setPageSize(final Integer pageSize) {
+    public FlexFlowReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -35,7 +35,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String origin;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IncomingPhoneNumberReader() {}
 
@@ -71,7 +71,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
         return this;
     }
 
-    public IncomingPhoneNumberReader setPageSize(final Integer pageSize) {
+    public IncomingPhoneNumberReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

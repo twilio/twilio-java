@@ -36,7 +36,7 @@ public class EventReader extends Reader<Event> {
     private String sourceIpAddress;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EventReader() {}
 
@@ -70,7 +70,7 @@ public class EventReader extends Reader<Event> {
         return this;
     }
 
-    public EventReader setPageSize(final Integer pageSize) {
+    public EventReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

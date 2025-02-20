@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class DataSessionReader extends Reader<DataSession> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DataSessionReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public DataSessionReader setPageSize(final Integer pageSize) {
+    public DataSessionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

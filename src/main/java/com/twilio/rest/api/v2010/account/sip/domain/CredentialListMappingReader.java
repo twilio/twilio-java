@@ -31,7 +31,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     private String pathDomainSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CredentialListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -45,7 +45,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
         this.pathDomainSid = pathDomainSid;
     }
 
-    public CredentialListMappingReader setPageSize(final Integer pageSize) {
+    public CredentialListMappingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

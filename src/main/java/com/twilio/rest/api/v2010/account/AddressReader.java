@@ -33,7 +33,7 @@ public class AddressReader extends Reader<Address> {
     private String customerName;
     private String friendlyName;
     private String isoCountry;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AddressReader() {}
 
@@ -56,7 +56,7 @@ public class AddressReader extends Reader<Address> {
         return this;
     }
 
-    public AddressReader setPageSize(final Integer pageSize) {
+    public AddressReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

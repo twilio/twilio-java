@@ -31,7 +31,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
 
     private String pathConfigurationSid;
     private String flexMetadata;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConfiguredPluginReader(final String pathConfigurationSid) {
         this.pathConfigurationSid = pathConfigurationSid;
@@ -42,7 +42,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
         return this;
     }
 
-    public ConfiguredPluginReader setPageSize(final Integer pageSize) {
+    public ConfiguredPluginReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

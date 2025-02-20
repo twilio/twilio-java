@@ -31,7 +31,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     private String pathRecordingSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TranscriptionReader(final String pathRecordingSid) {
         this.pathRecordingSid = pathRecordingSid;
@@ -45,7 +45,7 @@ public class TranscriptionReader extends Reader<Transcription> {
         this.pathRecordingSid = pathRecordingSid;
     }
 
-    public TranscriptionReader setPageSize(final Integer pageSize) {
+    public TranscriptionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

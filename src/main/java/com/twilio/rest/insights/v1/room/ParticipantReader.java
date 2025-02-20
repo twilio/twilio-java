@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class ParticipantReader extends Reader<Participant> {
 
     private String pathRoomSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
-    public ParticipantReader setPageSize(final Integer pageSize) {
+    public ParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

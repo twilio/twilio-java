@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class AccountSecretReader extends Reader<AccountSecret> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public AccountSecretReader() {}
 
-    public AccountSecretReader setPageSize(final Integer pageSize) {
+    public AccountSecretReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

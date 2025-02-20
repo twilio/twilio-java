@@ -34,7 +34,7 @@ public class RoomReader extends Reader<Room> {
     private String uniqueName;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RoomReader() {}
 
@@ -62,7 +62,7 @@ public class RoomReader extends Reader<Room> {
         return this;
     }
 
-    public RoomReader setPageSize(final Integer pageSize) {
+    public RoomReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

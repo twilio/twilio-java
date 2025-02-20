@@ -32,7 +32,7 @@ public class MetricReader extends Reader<Metric> {
     private String pathCallSid;
     private Metric.TwilioEdge edge;
     private Metric.StreamDirection direction;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MetricReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -48,7 +48,7 @@ public class MetricReader extends Reader<Metric> {
         return this;
     }
 
-    public MetricReader setPageSize(final Integer pageSize) {
+    public MetricReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

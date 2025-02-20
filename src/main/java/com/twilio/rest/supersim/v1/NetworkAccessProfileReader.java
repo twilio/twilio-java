@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public NetworkAccessProfileReader() {}
 
-    public NetworkAccessProfileReader setPageSize(final Integer pageSize) {
+    public NetworkAccessProfileReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -31,7 +31,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     private String pathServiceSid;
     private String pathSessionSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InteractionReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class InteractionReader extends Reader<Interaction> {
         this.pathSessionSid = pathSessionSid;
     }
 
-    public InteractionReader setPageSize(final Integer pageSize) {
+    public InteractionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

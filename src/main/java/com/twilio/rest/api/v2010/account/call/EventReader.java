@@ -31,7 +31,7 @@ public class EventReader extends Reader<Event> {
 
     private String pathCallSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EventReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -42,7 +42,7 @@ public class EventReader extends Reader<Event> {
         this.pathCallSid = pathCallSid;
     }
 
-    public EventReader setPageSize(final Integer pageSize) {
+    public EventReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

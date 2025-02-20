@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class IpRecordReader extends Reader<IpRecord> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpRecordReader() {}
 
-    public IpRecordReader setPageSize(final Integer pageSize) {
+    public IpRecordReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

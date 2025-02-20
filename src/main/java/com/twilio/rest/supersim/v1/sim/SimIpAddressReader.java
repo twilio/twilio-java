@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class SimIpAddressReader extends Reader<SimIpAddress> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SimIpAddressReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public SimIpAddressReader setPageSize(final Integer pageSize) {
+    public SimIpAddressReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class CredentialReader extends Reader<Credential> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public CredentialReader() {}
 
-    public CredentialReader setPageSize(final Integer pageSize) {
+    public CredentialReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -31,13 +31,13 @@ public class TrustProductsEvaluationsReader
     extends Reader<TrustProductsEvaluations> {
 
     private String pathTrustProductSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TrustProductsEvaluationsReader(final String pathTrustProductSid) {
         this.pathTrustProductSid = pathTrustProductSid;
     }
 
-    public TrustProductsEvaluationsReader setPageSize(final Integer pageSize) {
+    public TrustProductsEvaluationsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

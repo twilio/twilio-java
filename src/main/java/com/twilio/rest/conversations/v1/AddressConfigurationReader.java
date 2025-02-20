@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class AddressConfigurationReader extends Reader<AddressConfiguration> {
 
     private String type;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AddressConfigurationReader() {}
 
@@ -39,7 +39,7 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
         return this;
     }
 
-    public AddressConfigurationReader setPageSize(final Integer pageSize) {
+    public AddressConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

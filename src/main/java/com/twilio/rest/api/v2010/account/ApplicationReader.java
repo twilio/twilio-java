@@ -31,7 +31,7 @@ public class ApplicationReader extends Reader<Application> {
 
     private String pathAccountSid;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ApplicationReader() {}
 
@@ -44,7 +44,7 @@ public class ApplicationReader extends Reader<Application> {
         return this;
     }
 
-    public ApplicationReader setPageSize(final Integer pageSize) {
+    public ApplicationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

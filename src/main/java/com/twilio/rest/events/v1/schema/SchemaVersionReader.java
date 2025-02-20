@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class SchemaVersionReader extends Reader<SchemaVersion> {
 
     private String pathId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SchemaVersionReader(final String pathId) {
         this.pathId = pathId;
     }
 
-    public SchemaVersionReader setPageSize(final Integer pageSize) {
+    public SchemaVersionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

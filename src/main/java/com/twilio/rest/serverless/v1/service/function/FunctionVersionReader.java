@@ -31,7 +31,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     private String pathServiceSid;
     private String pathFunctionSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public FunctionVersionReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
         this.pathFunctionSid = pathFunctionSid;
     }
 
-    public FunctionVersionReader setPageSize(final Integer pageSize) {
+    public FunctionVersionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

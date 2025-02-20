@@ -31,7 +31,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     private String pathServiceSid;
     private String pathDocumentSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DocumentPermissionReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         this.pathDocumentSid = pathDocumentSid;
     }
 
-    public DocumentPermissionReader setPageSize(final Integer pageSize) {
+    public DocumentPermissionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

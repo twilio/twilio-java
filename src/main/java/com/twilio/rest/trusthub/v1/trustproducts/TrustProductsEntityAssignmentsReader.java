@@ -32,7 +32,7 @@ public class TrustProductsEntityAssignmentsReader
 
     private String pathTrustProductSid;
     private String objectType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TrustProductsEntityAssignmentsReader(
         final String pathTrustProductSid
@@ -48,7 +48,7 @@ public class TrustProductsEntityAssignmentsReader
     }
 
     public TrustProductsEntityAssignmentsReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

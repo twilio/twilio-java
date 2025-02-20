@@ -32,7 +32,7 @@ public class SimReader extends Reader<Sim> {
     private Sim.Status status;
     private String fleet;
     private String iccid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SimReader() {}
 
@@ -51,7 +51,7 @@ public class SimReader extends Reader<Sim> {
         return this;
     }
 
-    public SimReader setPageSize(final Integer pageSize) {
+    public SimReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

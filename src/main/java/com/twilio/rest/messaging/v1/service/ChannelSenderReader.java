@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class ChannelSenderReader extends Reader<ChannelSender> {
 
     private String pathMessagingServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ChannelSenderReader(final String pathMessagingServiceSid) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-    public ChannelSenderReader setPageSize(final Integer pageSize) {
+    public ChannelSenderReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

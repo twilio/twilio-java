@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class DeviceConfigReader extends Reader<DeviceConfig> {
 
     private String pathDeviceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DeviceConfigReader(final String pathDeviceSid) {
         this.pathDeviceSid = pathDeviceSid;
     }
 
-    public DeviceConfigReader setPageSize(final Integer pageSize) {
+    public DeviceConfigReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

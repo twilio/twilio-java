@@ -31,7 +31,7 @@ public class SinkReader extends Reader<Sink> {
 
     private Boolean inUse;
     private String status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SinkReader() {}
 
@@ -45,7 +45,7 @@ public class SinkReader extends Reader<Sink> {
         return this;
     }
 
-    public SinkReader setPageSize(final Integer pageSize) {
+    public SinkReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

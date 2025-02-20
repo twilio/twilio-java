@@ -34,7 +34,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CompositionHookReader() {}
 
@@ -62,7 +62,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
         return this;
     }
 
-    public CompositionHookReader setPageSize(final Integer pageSize) {
+    public CompositionHookReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

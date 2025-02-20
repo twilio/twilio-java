@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class FunctionReader extends Reader<Function> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public FunctionReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public FunctionReader setPageSize(final Integer pageSize) {
+    public FunctionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

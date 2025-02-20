@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class DeviceReader extends Reader<Device> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public DeviceReader() {}
 
-    public DeviceReader setPageSize(final Integer pageSize) {
+    public DeviceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

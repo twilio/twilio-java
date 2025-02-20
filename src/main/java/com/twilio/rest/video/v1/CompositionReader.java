@@ -34,7 +34,7 @@ public class CompositionReader extends Reader<Composition> {
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private String roomSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CompositionReader() {}
 
@@ -62,7 +62,7 @@ public class CompositionReader extends Reader<Composition> {
         return this;
     }
 
-    public CompositionReader setPageSize(final Integer pageSize) {
+    public CompositionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

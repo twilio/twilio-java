@@ -47,7 +47,7 @@ public class TokenAuthStrategy extends AuthStrategy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TokenAuthStrategy that = (TokenAuthStrategy) o;
-        return Objects.equals(token, that.token) && 
+        return Objects.equals(token, that.token) &&
                 Objects.equals(tokenManager, that.tokenManager);
     }
     @Override
@@ -58,6 +58,12 @@ public class TokenAuthStrategy extends AuthStrategy {
     public boolean isTokenExpired(final String token) {
         DecodedJWT jwt = JWT.decode(token);
         Date expiresAt = jwt.getExpiresAt();
+
+        // If the token does not have an expiration date, consider it expired
+        if (expiresAt == null) {
+            return true;
+        }
+
         // Add a buffer of 30 seconds
         long bufferMilliseconds = 30 * 1000;
         Date bufferExpiresAt = new Date(expiresAt.getTime() - bufferMilliseconds);

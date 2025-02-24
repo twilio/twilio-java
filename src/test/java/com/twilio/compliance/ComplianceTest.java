@@ -55,7 +55,6 @@ public class ComplianceTest {
     }
 
     @Test
-    @Ignore
     public void testEqualsMethods() {
         List <Class> eligibleResourceClasses = resourceClasses.stream().filter( c -> !variantClasses.contains(c)).collect(Collectors.toList());
         for (Class clazz : eligibleResourceClasses) {
@@ -83,7 +82,6 @@ public class ComplianceTest {
     }
 
     @Test
-    @Ignore
     public void resourceClassSanityCheck() {
 
         GivenClasses filteredClasses = (GivenClasses) classes().that(areNotInVariantList());

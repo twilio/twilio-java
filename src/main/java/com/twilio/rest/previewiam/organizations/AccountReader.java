@@ -14,17 +14,17 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.twilio.base.bearertoken.Page;
-import com.twilio.base.bearertoken.Reader;
-import com.twilio.base.bearertoken.ResourceSet;
+import com.twilio.base.Page;
+import com.twilio.base.Reader;
+import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.Request;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AccountReader extends Reader<Account> {
@@ -42,11 +42,11 @@ public class AccountReader extends Reader<Account> {
     }
 
     @Override
-    public ResourceSet<Account> read(final BearerTokenTwilioRestClient client) {
+    public ResourceSet<Account> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<Account> firstPage(final BearerTokenTwilioRestClient client) {
+    public Page<Account> firstPage(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/Accounts";
         path =
             path.replace(
@@ -54,7 +54,7 @@ public class AccountReader extends Reader<Account> {
                 this.pathOrganizationSid.toString()
             );
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEWIAM.toString(),
             path
@@ -66,8 +66,8 @@ public class AccountReader extends Reader<Account> {
     }
 
     private Page<Account> pageForRequest(
-        final BearerTokenTwilioRestClient client,
-        final BearerTokenRequest request
+        final TwilioRestClient client,
+        final Request request
     ) {
         Response response = client.request(request);
 
@@ -76,7 +76,7 @@ public class AccountReader extends Reader<Account> {
                 "Account read failed: Unable to connect to server"
             );
         } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
@@ -102,9 +102,9 @@ public class AccountReader extends Reader<Account> {
     @Override
     public Page<Account> previousPage(
         final Page<Account> page,
-        final BearerTokenTwilioRestClient client
+        final TwilioRestClient client
     ) {
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEWIAM.toString())
         );
@@ -114,9 +114,9 @@ public class AccountReader extends Reader<Account> {
     @Override
     public Page<Account> nextPage(
         final Page<Account> page,
-        final BearerTokenTwilioRestClient client
+        final TwilioRestClient client
     ) {
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEWIAM.toString())
         );
@@ -126,9 +126,9 @@ public class AccountReader extends Reader<Account> {
     @Override
     public Page<Account> getPage(
         final String targetUrl,
-        final BearerTokenTwilioRestClient client
+        final TwilioRestClient client
     ) {
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.GET,
             targetUrl
         );
@@ -136,7 +136,7 @@ public class AccountReader extends Reader<Account> {
         return pageForRequest(client, request);
     }
 
-    private void addQueryParams(final BearerTokenRequest request) {
+    private void addQueryParams(final Request request) {
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

@@ -57,7 +57,7 @@ public class NetworkHttpClient extends HttpClient {
     public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+            new BasicHeader(HttpHeaders.ACCEPT, "*/*"),
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
@@ -96,7 +96,7 @@ public class NetworkHttpClient extends HttpClient {
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+                new BasicHeader(HttpHeaders.ACCEPT, "*/*"),
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
         isCustomClient = true;

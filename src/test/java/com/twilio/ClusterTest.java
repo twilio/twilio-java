@@ -1,8 +1,9 @@
 package com.twilio;
 
 import com.twilio.base.Page;
-import com.twilio.base.bearertoken.ResourceSet;
+import com.twilio.base.ResourceSet;
 import com.twilio.credential.ClientCredentialProvider;
+import com.twilio.credential.orgs.OrgsClientCredentialProvider;
 import com.twilio.http.CustomHttpClient;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
@@ -23,9 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ClusterTest {
     String fromNumber;
@@ -38,7 +37,7 @@ public class ClusterTest {
     String clientSecret;
     String messageSid;
     TwilioRestClient customRestClient;
-    
+
     String accountSid;
 
     @Before
@@ -56,12 +55,11 @@ public class ClusterTest {
         orgsClientId = System.getenv("TWILIO_ORGS_CLIENT_ID");
         orgsClientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
-        TwilioOrgsTokenAuth.init(grantType, orgsClientId, orgsClientSecret);
-        
+
         clientId = System.getenv("TWILIO_CLIENT_ID");
         clientSecret = System.getenv("TWILIO_CLIENT_SECRET");
         messageSid = System.getenv("TWILIO_MESSAGE_SID");
-        
+
         // CustomHttpClient
         customRestClient = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(new CustomHttpClient()).build();
     }
@@ -75,14 +73,14 @@ public class ClusterTest {
         assertNotNull(message);
         assertTrue(message.getBody().contains("Where's Wallace?"));
         assertEquals(fromNumber, message.getFrom().toString());
-        assertEquals(toNumber, message.getTo().toString());
+        assertEquals(toNumber, message.getTo());
     }
 
     @Test
     public void testListingNumbers() {
         Page<IncomingPhoneNumber> phoneNumbers = IncomingPhoneNumber.reader().firstPage();
         assertNotNull(phoneNumbers);
-        assertTrue(phoneNumbers.getRecords().size() > 0);
+        assertFalse(phoneNumbers.getRecords().isEmpty());
     }
 
     @Test
@@ -138,7 +136,8 @@ public class ClusterTest {
     }
 
     @Test
-    public void testOrgsApi(){
+    public void testOrgsApi() {
+        Twilio.init(new OrgsClientCredentialProvider(orgsClientId, orgsClientSecret));
 
         //Fetching the account information
         ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
@@ -153,7 +152,7 @@ public class ClusterTest {
         ResourceSet<com.twilio.rest.previewiam.organizations.User>
             userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
         assertNotNull(userSet);
-        String userId = userSet.iterator().next().getId().toString();
+        String userId = userSet.iterator().next().getId();
         assertNotNull(userId);
     }
 
@@ -167,19 +166,19 @@ public class ClusterTest {
         assertNotNull(message);
         assertTrue(message.getBody().contains("Where's Wallace?"));
         assertEquals(fromNumber, message.getFrom().toString());
-        assertEquals(toNumber, message.getTo().toString());
+        assertEquals(toNumber, message.getTo());
     }
 
     // Note: This test should be last as we are initialising OAuth App creds.
     @Test
     public void testPublicOAuthFetchMessage() {
         Twilio.init(new ClientCredentialProvider(clientId, clientSecret), accountSid);
-        // Fetching an existing message; if this test fails, the SID might be deleted, 
+        // Fetching an existing message; if this test fails, the SID might be deleted,
         // in that case, change TWILIO_MESSAGE_SID in twilio-java repo env variables
         Message message = Message.fetcher(messageSid).fetch();
         assertNotNull(message);
         assertTrue(message.getBody().contains("Where's Wallace?"));
         assertEquals(fromNumber, message.getFrom().toString());
-        assertEquals(toNumber, message.getTo().toString());
+        assertEquals(toNumber, message.getTo());
     }
 }

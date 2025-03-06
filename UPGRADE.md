@@ -2,7 +2,18 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
+[2024-03-07] 10.x.x to 11.x.x
+-----------------------------
+### Overview
+
+##### Twilio Java Helper Library’s major version 11.0.0 is now available. We ensured that you can upgrade to Java helper Library 11.0.0 version without any breaking changes of existing apis
+
+Behind the scenes Java Helper is now auto-generated via OpenAPI with this release. This  enables us to rapidly add new features and enhance consistency across versions and languages.
+With the release of 11.0.0, we are deprecating [TwilioOrgsTokenAuth.java](https://github.com/twilio/twilio-java/blob/main/src/main/java/com/twilio/TwilioOrgsTokenAuth.java), Use cautiously.
+Twiml Attribute speechModel is now of type string.
+
 [2024-02-08] 9.x.x to 10.x.x
+-----------------------------
 ### Overview
 
 ##### Twilio Java Helper Library’s major version 10.0.0 is now available. We ensured that you can upgrade to Java helper Library 10.0.0 version without any breaking changes of existing apis

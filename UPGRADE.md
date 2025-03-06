@@ -10,6 +10,7 @@ _`MAJOR` version bumps will have upgrade notes posted here._
 
 Behind the scenes Java Helper is now auto-generated via OpenAPI with this release. This  enables us to rapidly add new features and enhance consistency across versions and languages.
 With the release of 11.0.0, we are deprecating [TwilioOrgsTokenAuth.java](https://github.com/twilio/twilio-java/blob/main/src/main/java/com/twilio/TwilioOrgsTokenAuth.java), Use cautiously.
+
 Twiml Attribute speechModel is now of type string.
 
 [2024-02-08] 9.x.x to 10.x.x

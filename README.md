@@ -61,7 +61,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio</artifactId>
-  <version>10.X.X</version>
+  <version>11.X.X</version>
   <scope>compile</scope>
 </dependency>
 ```

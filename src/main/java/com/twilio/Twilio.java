@@ -37,7 +37,7 @@ public class Twilio {
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile TwilioRestClient restClient;
     private static volatile ExecutorService executorService;
-    
+
     private static CredentialProvider credentialProvider;
 
     private Twilio() {
@@ -85,7 +85,7 @@ public class Twilio {
         if (credentialProvider == null) {
             throw new AuthenticationException("Credential Provider can not be null");
         }
-        
+
         if (!credentialProvider.equals(Twilio.credentialProvider)) {
             Twilio.invalidate();
         }
@@ -315,7 +315,7 @@ public class Twilio {
     private static void invalidateOAuthCreds() {
         Twilio.credentialProvider = null;
     }
-    
+
     private static void invalidateBasicCreds() {
         Twilio.username = null;
         Twilio.password = null;

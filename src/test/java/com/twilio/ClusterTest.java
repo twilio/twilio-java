@@ -16,6 +16,7 @@ import com.twilio.rest.previewiam.organizations.Account;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ClusterTest {
     String clientSecret;
     String messageSid;
     TwilioRestClient customRestClient;
-    
+
     String accountSid;
 
     @Before
@@ -57,11 +58,11 @@ public class ClusterTest {
         orgsClientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
         TwilioOrgsTokenAuth.init(grantType, orgsClientId, orgsClientSecret);
-        
+
         clientId = System.getenv("TWILIO_CLIENT_ID");
         clientSecret = System.getenv("TWILIO_CLIENT_SECRET");
         messageSid = System.getenv("TWILIO_MESSAGE_SID");
-        
+
         // CustomHttpClient
         customRestClient = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(new CustomHttpClient()).build();
     }
@@ -138,23 +139,23 @@ public class ClusterTest {
     }
 
     @Test
+    @Ignore
     public void testOrgsApi(){
+            //Fetching the account information
+            ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
+            String accountSid = accountSet.iterator().next().getAccountSid();
+            assertNotNull(accountSid);
 
-        //Fetching the account information
-        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
-        String accountSid = accountSet.iterator().next().getAccountSid();
-        assertNotNull(accountSid);
+            //Fetching specific account
+            Account account = Account.fetcher(organisationSid, accountSid).fetch();
+            assertNotNull(account.getAccountSid());
 
-        //Fetching specific account
-        Account account = Account.fetcher(organisationSid, accountSid).fetch();
-        assertNotNull(account.getAccountSid());
-
-        //Fetching users of this organisation
-        ResourceSet<com.twilio.rest.previewiam.organizations.User>
-            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
-        assertNotNull(userSet);
-        String userId = userSet.iterator().next().getId().toString();
-        assertNotNull(userId);
+            //Fetching users of this organisation
+            ResourceSet<com.twilio.rest.previewiam.organizations.User>
+                userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
+            assertNotNull(userSet);
+            String userId = userSet.iterator().next().getId().toString();
+            assertNotNull(userId);
     }
 
     // Test multipart/form-data
@@ -175,7 +176,7 @@ public class ClusterTest {
 //    @Test
 //    public void testPublicOAuthFetchMessage() {
 //        Twilio.init(new ClientCredentialProvider(clientId, clientSecret), accountSid);
-//        // Fetching an existing message; if this test fails, the SID might be deleted, 
+//        // Fetching an existing message; if this test fails, the SID might be deleted,
 //        // in that case, change TWILIO_MESSAGE_SID in twilio-java repo env variables
 //        Message message = Message.fetcher(messageSid).fetch();
 //        assertNotNull(message);

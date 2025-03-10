@@ -28,8 +28,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -40,15 +39,12 @@ public class ReferralConversion extends Resource {
     private static final long serialVersionUID = 67114907443655L;
 
     @ToString
+    @Builder
     public static class CreateReferralConversionRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("referral_account_sid")
-        @Getter
-        @Setter
         private String referralAccountSid;
-
-        public CreateReferralConversionRequest() {}
 
         public static CreateReferralConversionRequest fromJson(
             String jsonString,

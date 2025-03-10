@@ -30,8 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -42,37 +41,24 @@ public class Feedback extends Resource {
     private static final long serialVersionUID = 81835402394387L;
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCreateFeedbackRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("message_id")
-        @Getter
-        @Setter
         private String messageId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("score")
-        @Getter
-        @Setter
         private Float score;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("session_id")
-        @Getter
-        @Setter
         private String sessionId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("text")
-        @Getter
-        @Setter
         private String text;
-
-        public AssistantsV1ServiceCreateFeedbackRequest(
-            final String sessionId
-        ) {
-            this.sessionId = sessionId;
-        }
 
         public static AssistantsV1ServiceCreateFeedbackRequest fromJson(
             String jsonString,

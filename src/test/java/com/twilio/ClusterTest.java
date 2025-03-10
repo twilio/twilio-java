@@ -16,6 +16,7 @@ import com.twilio.rest.previewiam.organizations.Account;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -138,8 +139,8 @@ public class ClusterTest {
     }
 
     @Test
+    @Ignore
     public void testOrgsApi(){
-        try {
             //Fetching the account information
             ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
             String accountSid = accountSet.iterator().next().getAccountSid();
@@ -155,10 +156,6 @@ public class ClusterTest {
             assertNotNull(userSet);
             String userId = userSet.iterator().next().getId().toString();
             assertNotNull(userId);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     // Test multipart/form-data

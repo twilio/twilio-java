@@ -226,7 +226,8 @@ public class Sink extends Resource {
     public enum SinkType {
         KINESIS("kinesis"),
         WEBHOOK("webhook"),
-        SEGMENT("segment");
+        SEGMENT("segment"),
+        EMAIL("email");
 
         private final String value;
 

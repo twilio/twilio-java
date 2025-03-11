@@ -12,10 +12,8 @@ package com.twilio.rest;
 
 public enum Domains {
     ACCOUNTS("accounts"),
-    AI("ai"),
     API("api"),
     ASSISTANTS("assistants"),
-    ASSISTANTSADMINAPIUS1("assistants.admin-api.us1"),
     BULKEXPORTS("bulkexports"),
     CHAT("chat"),
     CONTENT("content"),
@@ -25,23 +23,18 @@ public enum Domains {
     FRONTLINEAPI("frontline-api"),
     PREVIEWIAM("preview-iam"),
     IAM("iam"),
-    IDENTITY("identity"),
     INSIGHTS("insights"),
     INTELLIGENCE("intelligence"),
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
-    LOOKUPSADMINAPIUS1("lookups.admin-api.us1"),
     MARKETPLACE("marketplace"),
     MESSAGING("messaging"),
     MICROVISOR("microvisor"),
     MONITOR("monitor"),
-    MPI("mpi"),
     NOTIFY("notify"),
     NUMBERS("numbers"),
     OAUTH("oauth"),
-    PARTNERS("partners"),
     PREVIEW("preview"),
-    PREVIEWMESSAGING("preview.messaging"),
     PRICING("pricing"),
     PROXY("proxy"),
     ROUTES("routes"),
@@ -58,7 +51,7 @@ public enum Domains {
     WIRELESS("wireless");
 
     private final String value;
-
+  
     private Domains(final String value) {
         this.value = value;
     }

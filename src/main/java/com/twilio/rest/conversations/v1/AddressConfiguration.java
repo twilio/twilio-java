@@ -225,31 +225,6 @@ public class AddressConfiguration extends Resource {
         );
     }
 
-    public enum Type {
-        SMS("sms"),
-        WHATSAPP("whatsapp"),
-        MESSENGER("messenger"),
-        GBM("gbm"),
-        EMAIL("email"),
-        RCS("rcs"),
-        APPLE("apple");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     public enum AutoCreationType {
         WEBHOOK("webhook"),
         STUDIO("studio"),
@@ -288,6 +263,32 @@ public class AddressConfiguration extends Resource {
         @JsonCreator
         public static Method forValue(final String value) {
             return Promoter.enumFromString(value, Method.values());
+        }
+    }
+
+    public enum Type {
+        SMS("sms"),
+        WHATSAPP("whatsapp"),
+        MESSENGER("messenger"),
+        GBM("gbm"),
+        EMAIL("email"),
+        RCS("rcs"),
+        APPLE("apple"),
+        CHAT("chat");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
         }
     }
 }

@@ -185,24 +185,6 @@ public class Gather extends TwiML {
         }
     }
 
-    public enum SpeechModel {
-        DEFAULT("default"),
-        NUMBERS_AND_COMMANDS("numbers_and_commands"),
-        PHONE_CALL("phone_call"),
-        EXPERIMENTAL_CONVERSATIONS("experimental_conversations"),
-        EXPERIMENTAL_UTTERANCES("experimental_utterances");
-
-        private final String value;
-
-        private SpeechModel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-    }
-
     private final List<Gather.Input> input;
     private final URI action;
     private final HttpMethod method;
@@ -219,7 +201,7 @@ public class Gather extends TwiML {
     private final Boolean bargeIn;
     private final Boolean debug;
     private final Boolean actionOnEmptyResult;
-    private final Gather.SpeechModel speechModel;
+    private final String speechModel;
     private final Boolean enhanced;
 
     /**
@@ -312,7 +294,7 @@ public class Gather extends TwiML {
             attrs.put("actionOnEmptyResult", this.isActionOnEmptyResult().toString());
         }
         if (this.getSpeechModel() != null) {
-            attrs.put("speechModel", this.getSpeechModel().toString());
+            attrs.put("speechModel", this.getSpeechModel());
         }
         if (this.isEnhanced() != null) {
             attrs.put("enhanced", this.isEnhanced().toString());
@@ -484,7 +466,7 @@ public class Gather extends TwiML {
      *
      * @return Specify the model that is best suited for your use case
      */
-    public Gather.SpeechModel getSpeechModel() {
+    public String getSpeechModel() {
         return speechModel;
     }
 
@@ -532,7 +514,7 @@ public class Gather extends TwiML {
         private Boolean bargeIn;
         private Boolean debug;
         private Boolean actionOnEmptyResult;
-        private Gather.SpeechModel speechModel;
+        private String speechModel;
         private Boolean enhanced;
 
         /**
@@ -708,7 +690,7 @@ public class Gather extends TwiML {
          * Specify the model that is best suited for your use case
          */
         @JacksonXmlProperty(isAttribute = true, localName = "speechModel")
-        public Builder speechModel(Gather.SpeechModel speechModel) {
+        public Builder speechModel(String speechModel) {
             this.speechModel = speechModel;
             return this;
         }

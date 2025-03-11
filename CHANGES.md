@@ -1,6 +1,28 @@
 twilio-java changelog
 =====================
 
+[2025-03-11] Version 10.7.0
+---------------------------
+**Library - Chore**
+- [PR #839](https://github.com/twilio/twilio-java/pull/839): MVR Release Preparation. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #841](https://github.com/twilio/twilio-java/pull/841): update upgrade doc. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #840](https://github.com/twilio/twilio-java/pull/840): add version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #838](https://github.com/twilio/twilio-java/pull/838): Add domain and noauth base classes. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #837](https://github.com/twilio/twilio-java/pull/837): enable java test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
 [2025-02-20] Version 10.6.10
 ----------------------------
 **Library - Chore**

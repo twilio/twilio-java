@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
@@ -289,5 +290,25 @@ public class RatePlan extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum DataLimitStrategy {
+        BLOCK("block"),
+        THROTTLE("throttle");
+
+        private final String value;
+
+        private DataLimitStrategy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static DataLimitStrategy forValue(final String value) {
+            return Promoter.enumFromString(value, DataLimitStrategy.values());
+        }
     }
 }

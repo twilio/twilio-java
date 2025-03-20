@@ -374,26 +374,6 @@ public class DependentPhoneNumber extends Resource {
         );
     }
 
-    public enum EmergencyStatus {
-        ACTIVE("Active"),
-        INACTIVE("Inactive");
-
-        private final String value;
-
-        private EmergencyStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EmergencyStatus forValue(final String value) {
-            return Promoter.enumFromString(value, EmergencyStatus.values());
-        }
-    }
-
     public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
@@ -413,6 +393,26 @@ public class DependentPhoneNumber extends Resource {
         @JsonCreator
         public static AddressRequirement forValue(final String value) {
             return Promoter.enumFromString(value, AddressRequirement.values());
+        }
+    }
+
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+
+        private final String value;
+
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
         }
     }
 }

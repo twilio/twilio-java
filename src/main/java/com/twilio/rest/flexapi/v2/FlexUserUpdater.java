@@ -29,10 +29,7 @@ public class FlexUserUpdater extends Updater<FlexUser> {
 
     private String pathInstanceSid;
     private String pathFlexUserSid;
-    private String firstName;
-    private String lastName;
     private String email;
-    private String friendlyName;
     private String userSid;
     private String locale;
 
@@ -44,23 +41,8 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         this.pathFlexUserSid = pathFlexUserSid;
     }
 
-    public FlexUserUpdater setFirstName(final String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public FlexUserUpdater setLastName(final String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
     public FlexUserUpdater setEmail(final String email) {
         this.email = email;
-        return this;
-    }
-
-    public FlexUserUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
         return this;
     }
 
@@ -122,17 +104,8 @@ public class FlexUserUpdater extends Updater<FlexUser> {
     }
 
     private void addPostParams(final Request request) {
-        if (firstName != null) {
-            request.addPostParam("FirstName", firstName);
-        }
-        if (lastName != null) {
-            request.addPostParam("LastName", lastName);
-        }
         if (email != null) {
             request.addPostParam("Email", email);
-        }
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
         }
         if (userSid != null) {
             request.addPostParam("UserSid", userSid);

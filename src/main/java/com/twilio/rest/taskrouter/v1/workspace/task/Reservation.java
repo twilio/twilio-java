@@ -236,6 +236,27 @@ public class Reservation extends Resource {
         );
     }
 
+    public enum SupervisorMode {
+        MONITOR("monitor"),
+        WHISPER("whisper"),
+        BARGE("barge");
+
+        private final String value;
+
+        private SupervisorMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SupervisorMode forValue(final String value) {
+            return Promoter.enumFromString(value, SupervisorMode.values());
+        }
+    }
+
     public enum Status {
         PENDING("pending"),
         ACCEPTED("accepted"),
@@ -259,27 +280,6 @@ public class Reservation extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum SupervisorMode {
-        MONITOR("monitor"),
-        WHISPER("whisper"),
-        BARGE("barge");
-
-        private final String value;
-
-        private SupervisorMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SupervisorMode forValue(final String value) {
-            return Promoter.enumFromString(value, SupervisorMode.values());
         }
     }
 

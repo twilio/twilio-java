@@ -320,14 +320,15 @@ public class Trigger extends Resource {
         );
     }
 
-    public enum TriggerField {
-        COUNT("count"),
-        USAGE("usage"),
-        PRICE("price");
+    public enum Recurring {
+        DAILY("daily"),
+        MONTHLY("monthly"),
+        YEARLY("yearly"),
+        ALLTIME("alltime");
 
         private final String value;
 
-        private TriggerField(final String value) {
+        private Recurring(final String value) {
             this.value = value;
         }
 
@@ -336,8 +337,8 @@ public class Trigger extends Resource {
         }
 
         @JsonCreator
-        public static TriggerField forValue(final String value) {
-            return Promoter.enumFromString(value, TriggerField.values());
+        public static Recurring forValue(final String value) {
+            return Promoter.enumFromString(value, Recurring.values());
         }
     }
 
@@ -708,15 +709,14 @@ public class Trigger extends Resource {
         }
     }
 
-    public enum Recurring {
-        DAILY("daily"),
-        MONTHLY("monthly"),
-        YEARLY("yearly"),
-        ALLTIME("alltime");
+    public enum TriggerField {
+        COUNT("count"),
+        USAGE("usage"),
+        PRICE("price");
 
         private final String value;
 
-        private Recurring(final String value) {
+        private TriggerField(final String value) {
             this.value = value;
         }
 
@@ -725,8 +725,8 @@ public class Trigger extends Resource {
         }
 
         @JsonCreator
-        public static Recurring forValue(final String value) {
-            return Promoter.enumFromString(value, Recurring.values());
+        public static TriggerField forValue(final String value) {
+            return Promoter.enumFromString(value, TriggerField.values());
         }
     }
 }

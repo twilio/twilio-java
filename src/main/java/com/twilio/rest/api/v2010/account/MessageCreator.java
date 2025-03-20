@@ -48,6 +48,7 @@ public class MessageCreator extends Creator<Message> {
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
+    private Message.TrafficType trafficType;
     private Boolean shortenUrls;
     private Message.ScheduleType scheduleType;
     private ZonedDateTime sendAt;
@@ -226,6 +227,13 @@ public class MessageCreator extends Creator<Message> {
         return setPersistentAction(Promoter.listOfOne(persistentAction));
     }
 
+    public MessageCreator setTrafficType(
+        final Message.TrafficType trafficType
+    ) {
+        this.trafficType = trafficType;
+        return this;
+    }
+
     public MessageCreator setShortenUrls(final Boolean shortenUrls) {
         this.shortenUrls = shortenUrls;
         return this;
@@ -385,6 +393,9 @@ public class MessageCreator extends Creator<Message> {
             for (String prop : persistentAction) {
                 request.addPostParam("PersistentAction", prop);
             }
+        }
+        if (trafficType != null) {
+            request.addPostParam("TrafficType", trafficType.toString());
         }
         if (shortenUrls != null) {
             request.addPostParam("ShortenUrls", shortenUrls.toString());

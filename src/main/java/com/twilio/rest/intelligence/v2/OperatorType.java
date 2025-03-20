@@ -251,14 +251,16 @@ public class OperatorType extends Resource {
         );
     }
 
-    public enum Provider {
-        TWILIO("twilio"),
-        AMAZON("amazon"),
-        OPENAI("openai");
+    public enum Availability {
+        INTERNAL("internal"),
+        BETA("beta"),
+        GENERAL_AVAILABILITY("general-availability"),
+        RETIRED("retired"),
+        DEPRECATED("deprecated");
 
         private final String value;
 
-        private Provider(final String value) {
+        private Availability(final String value) {
             this.value = value;
         }
 
@@ -267,8 +269,8 @@ public class OperatorType extends Resource {
         }
 
         @JsonCreator
-        public static Provider forValue(final String value) {
-            return Promoter.enumFromString(value, Provider.values());
+        public static Availability forValue(final String value) {
+            return Promoter.enumFromString(value, Availability.values());
         }
     }
 
@@ -294,16 +296,14 @@ public class OperatorType extends Resource {
         }
     }
 
-    public enum Availability {
-        INTERNAL("internal"),
-        BETA("beta"),
-        GENERAL_AVAILABILITY("general-availability"),
-        RETIRED("retired"),
-        DEPRECATED("deprecated");
+    public enum Provider {
+        TWILIO("twilio"),
+        AMAZON("amazon"),
+        OPENAI("openai");
 
         private final String value;
 
-        private Availability(final String value) {
+        private Provider(final String value) {
             this.value = value;
         }
 
@@ -312,8 +312,8 @@ public class OperatorType extends Resource {
         }
 
         @JsonCreator
-        public static Availability forValue(final String value) {
-            return Promoter.enumFromString(value, Availability.values());
+        public static Provider forValue(final String value) {
+            return Promoter.enumFromString(value, Provider.values());
         }
     }
 }

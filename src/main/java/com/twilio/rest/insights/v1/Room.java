@@ -407,7 +407,9 @@ public class Room extends Resource {
 
     public enum ProcessingState {
         COMPLETE("complete"),
-        IN_PROGRESS("in_progress");
+        IN_PROGRESS("in_progress"),
+        TIMEOUT("timeout"),
+        NOT_STARTED("not_started");
 
         private final String value;
 
@@ -437,7 +439,17 @@ public class Room extends Resource {
         DE1("de1"),
         GLL("gll"),
         STAGE_US1("stage_us1"),
-        DEV_US1("dev_us1");
+        STAGE_US2("stage_us2"),
+        DEV_US1("dev_us1"),
+        DEV_US2("dev_us2"),
+        STAGE_DE1("stage_de1"),
+        STAGE_IN1("stage_in1"),
+        STAGE_IE1("stage_ie1"),
+        STAGE_BR1("stage_br1"),
+        STAGE_AU1("stage_au1"),
+        STAGE_SG1("stage_sg1"),
+        STAGE_JP1("stage_jp1"),
+        OUTSIDE("outside");
 
         private final String value;
 

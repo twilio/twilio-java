@@ -311,28 +311,6 @@ public class RoomRecording extends Resource {
         }
     }
 
-    public enum Status {
-        PROCESSING("processing"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum Codec {
         VP8("VP8"),
         H264("H264"),
@@ -372,6 +350,28 @@ public class RoomRecording extends Resource {
         @JsonCreator
         public static Format forValue(final String value) {
             return Promoter.enumFromString(value, Format.values());
+        }
+    }
+
+    public enum Status {
+        PROCESSING("processing"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 }

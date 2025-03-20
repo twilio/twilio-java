@@ -262,6 +262,25 @@ public class Conference extends Resource {
         );
     }
 
+    public enum UpdateStatus {
+        COMPLETED("completed");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
+        }
+    }
+
     public enum ReasonConferenceEnded {
         CONFERENCE_ENDED_VIA_API("conference-ended-via-api"),
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(
@@ -310,25 +329,6 @@ public class Conference extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum UpdateStatus {
-        COMPLETED("completed");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
         }
     }
 }

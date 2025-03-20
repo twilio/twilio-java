@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class FlexUser extends Resource {
 
-    private static final long serialVersionUID = 135272975110546L;
+    private static final long serialVersionUID = 33792747593719L;
 
     public static FlexUserFetcher fetcher(
         final String pathInstanceSid,
@@ -103,11 +103,8 @@ public class FlexUser extends Resource {
     private final String workerSid;
     private final String workspaceSid;
     private final String flexTeamSid;
-    private final String firstName;
-    private final String lastName;
     private final String username;
     private final String email;
-    private final String friendlyName;
     private final String locale;
     private final List<String> roles;
     private final ZonedDateTime createdDate;
@@ -124,11 +121,8 @@ public class FlexUser extends Resource {
         @JsonProperty("worker_sid") final String workerSid,
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("flex_team_sid") final String flexTeamSid,
-        @JsonProperty("first_name") final String firstName,
-        @JsonProperty("last_name") final String lastName,
         @JsonProperty("username") final String username,
         @JsonProperty("email") final String email,
-        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("locale") final String locale,
         @JsonProperty("roles") final List<String> roles,
         @JsonProperty("created_date") final String createdDate,
@@ -143,11 +137,8 @@ public class FlexUser extends Resource {
         this.workerSid = workerSid;
         this.workspaceSid = workspaceSid;
         this.flexTeamSid = flexTeamSid;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.friendlyName = friendlyName;
         this.locale = locale;
         this.roles = roles;
         this.createdDate = DateConverter.iso8601DateTimeFromString(createdDate);
@@ -184,24 +175,12 @@ public class FlexUser extends Resource {
         return this.flexTeamSid;
     }
 
-    public final String getFirstName() {
-        return this.firstName;
-    }
-
-    public final String getLastName() {
-        return this.lastName;
-    }
-
     public final String getUsername() {
         return this.username;
     }
 
     public final String getEmail() {
         return this.email;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
     }
 
     public final String getLocale() {
@@ -248,11 +227,8 @@ public class FlexUser extends Resource {
             Objects.equals(workerSid, other.workerSid) &&
             Objects.equals(workspaceSid, other.workspaceSid) &&
             Objects.equals(flexTeamSid, other.flexTeamSid) &&
-            Objects.equals(firstName, other.firstName) &&
-            Objects.equals(lastName, other.lastName) &&
             Objects.equals(username, other.username) &&
             Objects.equals(email, other.email) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(locale, other.locale) &&
             Objects.equals(roles, other.roles) &&
             Objects.equals(createdDate, other.createdDate) &&
@@ -272,11 +248,8 @@ public class FlexUser extends Resource {
             workerSid,
             workspaceSid,
             flexTeamSid,
-            firstName,
-            lastName,
             username,
             email,
-            friendlyName,
             locale,
             roles,
             createdDate,

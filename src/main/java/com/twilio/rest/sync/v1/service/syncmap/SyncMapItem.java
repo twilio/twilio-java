@@ -251,26 +251,6 @@ public class SyncMapItem extends Resource {
         );
     }
 
-    public enum QueryResultOrder {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private QueryResultOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static QueryResultOrder forValue(final String value) {
-            return Promoter.enumFromString(value, QueryResultOrder.values());
-        }
-    }
-
     public enum QueryFromBoundType {
         INCLUSIVE("inclusive"),
         EXCLUSIVE("exclusive");
@@ -288,6 +268,26 @@ public class SyncMapItem extends Resource {
         @JsonCreator
         public static QueryFromBoundType forValue(final String value) {
             return Promoter.enumFromString(value, QueryFromBoundType.values());
+        }
+    }
+
+    public enum QueryResultOrder {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private QueryResultOrder(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static QueryResultOrder forValue(final String value) {
+            return Promoter.enumFromString(value, QueryResultOrder.values());
         }
     }
 }

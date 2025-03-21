@@ -460,26 +460,6 @@ public class Mobile extends Resource {
         );
     }
 
-    public enum VoiceReceiveMode {
-        VOICE("voice"),
-        FAX("fax");
-
-        private final String value;
-
-        private VoiceReceiveMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VoiceReceiveMode forValue(final String value) {
-            return Promoter.enumFromString(value, VoiceReceiveMode.values());
-        }
-    }
-
     public enum EmergencyAddressStatus {
         REGISTERED("registered"),
         UNREGISTERED("unregistered"),
@@ -507,6 +487,28 @@ public class Mobile extends Resource {
         }
     }
 
+    public enum AddressRequirement {
+        NONE("none"),
+        ANY("any"),
+        LOCAL("local"),
+        FOREIGN("foreign");
+
+        private final String value;
+
+        private AddressRequirement(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AddressRequirement forValue(final String value) {
+            return Promoter.enumFromString(value, AddressRequirement.values());
+        }
+    }
+
     public enum EmergencyStatus {
         ACTIVE("Active"),
         INACTIVE("Inactive");
@@ -527,15 +529,13 @@ public class Mobile extends Resource {
         }
     }
 
-    public enum AddressRequirement {
-        NONE("none"),
-        ANY("any"),
-        LOCAL("local"),
-        FOREIGN("foreign");
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
 
         private final String value;
 
-        private AddressRequirement(final String value) {
+        private VoiceReceiveMode(final String value) {
             this.value = value;
         }
 
@@ -544,8 +544,8 @@ public class Mobile extends Resource {
         }
 
         @JsonCreator
-        public static AddressRequirement forValue(final String value) {
-            return Promoter.enumFromString(value, AddressRequirement.values());
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
         }
     }
 }

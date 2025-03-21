@@ -41,6 +41,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private List<String> internationalRoaming;
     private Integer nationalRoamingDataLimit;
     private Integer internationalRoamingDataLimit;
+    private RatePlan.DataLimitStrategy dataLimitStrategy;
 
     public RatePlanCreator() {}
 
@@ -112,6 +113,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
         final Integer internationalRoamingDataLimit
     ) {
         this.internationalRoamingDataLimit = internationalRoamingDataLimit;
+        return this;
+    }
+
+    public RatePlanCreator setDataLimitStrategy(
+        final RatePlan.DataLimitStrategy dataLimitStrategy
+    ) {
+        this.dataLimitStrategy = dataLimitStrategy;
         return this;
     }
 
@@ -197,6 +205,12 @@ public class RatePlanCreator extends Creator<RatePlan> {
             request.addPostParam(
                 "InternationalRoamingDataLimit",
                 internationalRoamingDataLimit.toString()
+            );
+        }
+        if (dataLimitStrategy != null) {
+            request.addPostParam(
+                "DataLimitStrategy",
+                dataLimitStrategy.toString()
             );
         }
     }

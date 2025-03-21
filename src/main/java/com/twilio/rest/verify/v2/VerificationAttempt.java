@@ -221,26 +221,6 @@ public class VerificationAttempt extends Resource {
         );
     }
 
-    public enum ConversionStatus {
-        CONVERTED("converted"),
-        UNCONVERTED("unconverted");
-
-        private final String value;
-
-        private ConversionStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConversionStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ConversionStatus.values());
-        }
-    }
-
     public enum Channels {
         SMS("sms"),
         CALL("call"),
@@ -260,6 +240,26 @@ public class VerificationAttempt extends Resource {
         @JsonCreator
         public static Channels forValue(final String value) {
             return Promoter.enumFromString(value, Channels.values());
+        }
+    }
+
+    public enum ConversionStatus {
+        CONVERTED("converted"),
+        UNCONVERTED("unconverted");
+
+        private final String value;
+
+        private ConversionStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversionStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ConversionStatus.values());
         }
     }
 }

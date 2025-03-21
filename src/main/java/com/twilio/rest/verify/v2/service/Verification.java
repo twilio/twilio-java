@@ -273,13 +273,16 @@ public class Verification extends Resource {
         );
     }
 
-    public enum RiskCheck {
-        ENABLE("enable"),
-        DISABLE("disable");
+    public enum Channel {
+        SMS("sms"),
+        CALL("call"),
+        EMAIL("email"),
+        WHATSAPP("whatsapp"),
+        SNA("sna");
 
         private final String value;
 
-        private RiskCheck(final String value) {
+        private Channel(final String value) {
             this.value = value;
         }
 
@@ -288,8 +291,8 @@ public class Verification extends Resource {
         }
 
         @JsonCreator
-        public static RiskCheck forValue(final String value) {
-            return Promoter.enumFromString(value, RiskCheck.values());
+        public static Channel forValue(final String value) {
+            return Promoter.enumFromString(value, Channel.values());
         }
     }
 
@@ -313,16 +316,13 @@ public class Verification extends Resource {
         }
     }
 
-    public enum Channel {
-        SMS("sms"),
-        CALL("call"),
-        EMAIL("email"),
-        WHATSAPP("whatsapp"),
-        SNA("sna");
+    public enum RiskCheck {
+        ENABLE("enable"),
+        DISABLE("disable");
 
         private final String value;
 
-        private Channel(final String value) {
+        private RiskCheck(final String value) {
             this.value = value;
         }
 
@@ -331,8 +331,8 @@ public class Verification extends Resource {
         }
 
         @JsonCreator
-        public static Channel forValue(final String value) {
-            return Promoter.enumFromString(value, Channel.values());
+        public static RiskCheck forValue(final String value) {
+            return Promoter.enumFromString(value, RiskCheck.values());
         }
     }
 }

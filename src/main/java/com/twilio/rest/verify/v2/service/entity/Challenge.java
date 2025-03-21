@@ -309,6 +309,27 @@ public class Challenge extends Resource {
         );
     }
 
+    public enum ChallengeReasons {
+        NONE("none"),
+        NOT_NEEDED("not_needed"),
+        NOT_REQUESTED("not_requested");
+
+        private final String value;
+
+        private ChallengeReasons(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChallengeReasons forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeReasons.values());
+        }
+    }
+
     public enum ListOrders {
         ASC("asc"),
         DESC("desc");
@@ -368,27 +389,6 @@ public class Challenge extends Resource {
         @JsonCreator
         public static FactorTypes forValue(final String value) {
             return Promoter.enumFromString(value, FactorTypes.values());
-        }
-    }
-
-    public enum ChallengeReasons {
-        NONE("none"),
-        NOT_NEEDED("not_needed"),
-        NOT_REQUESTED("not_requested");
-
-        private final String value;
-
-        private ChallengeReasons(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChallengeReasons forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeReasons.values());
         }
     }
 }

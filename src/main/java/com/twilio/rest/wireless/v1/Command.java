@@ -239,6 +239,26 @@ public class Command extends Resource {
         );
     }
 
+    public enum Direction {
+        FROM_SIM("from_sim"),
+        TO_SIM("to_sim");
+
+        private final String value;
+
+        private Direction(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Direction forValue(final String value) {
+            return Promoter.enumFromString(value, Direction.values());
+        }
+    }
+
     public enum Status {
         QUEUED("queued"),
         SENT("sent"),
@@ -259,26 +279,6 @@ public class Command extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Direction {
-        FROM_SIM("from_sim"),
-        TO_SIM("to_sim");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
         }
     }
 

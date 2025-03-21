@@ -337,6 +337,29 @@ public class BrandRegistration extends Resource {
         );
     }
 
+    public enum BrandFeedback {
+        TAX_ID("TAX_ID"),
+        STOCK_SYMBOL("STOCK_SYMBOL"),
+        NONPROFIT("NONPROFIT"),
+        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
+        OTHERS("OTHERS");
+
+        private final String value;
+
+        private BrandFeedback(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BrandFeedback forValue(final String value) {
+            return Promoter.enumFromString(value, BrandFeedback.values());
+        }
+    }
+
     public enum Status {
         PENDING("PENDING"),
         APPROVED("APPROVED"),
@@ -359,29 +382,6 @@ public class BrandRegistration extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum BrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandFeedback.values());
         }
     }
 

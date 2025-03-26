@@ -1,18 +1,19 @@
 package com.twilio.http;
-import com.twilio.rest.Domains;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.rest.Domains;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 
 public class TwilioRestClientTest {
     private TwilioRestClient twilioRestClient;
@@ -46,6 +47,20 @@ public class TwilioRestClientTest {
 
         Response resp = twilioRestClient.request(request);
         assertNotNull(resp);
+    }
+
+    @Test
+    public void testRequestWithCustomObjectMapper() {
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                URI
+        );
+        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+                .objectMapper(new ObjectMapper().registerModule(new JavaTimeModule()))
+                .build();
+        twilioRestClientExtension.request(request);
+        assertEquals(userAgentStringExtensions, request.getUserAgentExtensions());
     }
 
     @Test

@@ -38,21 +38,23 @@ public class NoAuthTwilioRestClient {
         this.region = b.region;
         this.edge = b.edge;
         this.httpClient = b.httpClient;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;
+    }
 
+    public static class Builder {
         // This module configures the ObjectMapper to use
         // public API methods for manipulating java.time.*
         // classes. The alternative is to use reflection which
         // generates warnings from the module system on Java 9+
-        objectMapper.registerModule(new JavaTimeModule());
-    }
-    
-    public static class Builder {
+        private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
+
         private String region;
         private String edge;
         private NoAuthNetworkHttpClient httpClient;
         private List<String> userAgentExtensions;
+        private ObjectMapper objectMapper = DEFAULT_OBJECT_MAPPER;
 
         public Builder() {
             this.region = System.getenv("TWILIO_REGION");
@@ -79,6 +81,11 @@ public class NoAuthTwilioRestClient {
             if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
                 this.userAgentExtensions = new ArrayList<>(userAgentExtensions);
             }
+            return this;
+        }
+
+        public NoAuthTwilioRestClient.Builder objectMapper(final ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
             return this;
         }
 

@@ -44,23 +44,25 @@ public class BearerTokenTwilioRestClient {
         this.region = b.region;
         this.edge = b.edge;
         this.httpClient = b.httpClient;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;
         this.tokenManager = b.tokenManager;
+    }
 
+    public static class Builder {
         // This module configures the ObjectMapper to use
         // public API methods for manipulating java.time.*
         // classes. The alternative is to use reflection which
         // generates warnings from the module system on Java 9+
-        objectMapper.registerModule(new JavaTimeModule());
-    }
-    
-    public static class Builder {
+        private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
+
         private String region;
         private String edge;
         private BearerTokenHttpClient httpClient;
         private List<String> userAgentExtensions;
         private TokenManager tokenManager;
+        private ObjectMapper objectMapper = DEFAULT_OBJECT_MAPPER;
 
         public Builder() {
             this.region = System.getenv("TWILIO_REGION");
@@ -95,6 +97,11 @@ public class BearerTokenTwilioRestClient {
             return this;
         }
 
+        public BearerTokenTwilioRestClient.Builder objectMapper(final ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
+            return this;
+        }
+
         public BearerTokenTwilioRestClient build() {
             if (this.httpClient == null) {
                 this.httpClient = new BearerTokenNetworkHttpClient();
@@ -111,7 +118,7 @@ public class BearerTokenTwilioRestClient {
                 }
             }
         }
-        
+
         request.setAuth(accessToken);
         if (region != null)
             request.setRegion(region);

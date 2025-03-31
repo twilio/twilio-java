@@ -1,13 +1,12 @@
 package com.twilio.jwt.client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.security.Keys;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import org.junit.Assert;
@@ -41,9 +40,8 @@ public class ClientCapabilityTest {
         .verifyWith(Keys.hmacShaKeyFor(SECRET))
         .build()
         .parse(token.toJwt());
-    ObjectMapper objectMapper = new ObjectMapper();
-    Map<String,?> map = (Map<String,?>)objectMapper.readValue((byte[])claims.getPayload(), Map.class);
-    return Jwts.claims().add(map).build();
+
+    return (DefaultClaims)claims.getPayload();
   }
 
     @Test

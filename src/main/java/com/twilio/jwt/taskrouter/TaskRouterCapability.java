@@ -23,7 +23,7 @@ public class TaskRouterCapability extends Jwt {
     private TaskRouterCapability(Builder b) {
         super(
             SignatureAlgorithm.HS256,
-            b.authToken,
+            b.authToken.getBytes(),
             b.accountSid,
             new Date(new Date().getTime() + b.ttl * 1000)
         );

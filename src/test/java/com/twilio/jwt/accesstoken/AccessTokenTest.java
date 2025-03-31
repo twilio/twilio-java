@@ -4,6 +4,11 @@ import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,7 +23,19 @@ public class AccessTokenTest {
 
     private static final String ACCOUNT_SID = "AC123";
     private static final String SIGNING_KEY_SID = "SK123";
-    private static final String SECRET = "secretsecretsecretsecretsecret00";
+    private static byte[] SECRET;
+
+    {
+      KeyGenerator keyGen = null;
+      try {
+        keyGen = KeyGenerator.getInstance("HmacSHA256");
+        keyGen.init(2048); // Use 2048 bits for stronger security
+        SecretKey pair = keyGen.generateKey();
+        SECRET = pair.getEncoded();
+      } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+      }
+    }
 
     private void validateToken(Claims claims) {
         Assert.assertEquals(SIGNING_KEY_SID, claims.getIssuer());
@@ -32,8 +49,9 @@ public class AccessTokenTest {
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
-    private Claims getClaimFromJwtToken(Jwt token) {
-        return Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(token.toJwt()).getBody();
+    private byte[] getClaimFromJwtToken(Jwt token) {
+         io.jsonwebtoken.Jwt<?, ?> parsedObject = Jwts.parser().setSigningKey(SECRET).build().parse(token.toJwt());
+         return parsedObject.getPayload();
     }
 
     private void testVoiceToken(Boolean allow) {
@@ -131,7 +149,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testChatGrant() {
+    public void testChatGrant(){
         ChatGrant cg = new ChatGrant()
             .setDeploymentRoleSid("RL123")
             .setEndpointId("foobar")

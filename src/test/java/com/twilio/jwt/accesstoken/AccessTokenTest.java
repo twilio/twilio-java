@@ -1,9 +1,15 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwsHeader;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -49,12 +55,17 @@ public class AccessTokenTest {
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
-    private byte[] getClaimFromJwtToken(Jwt token) {
-         io.jsonwebtoken.Jwt<?, ?> parsedObject = Jwts.parser().setSigningKey(SECRET).build().parse(token.toJwt());
-         return parsedObject.getPayload();
+    private Claims getClaimFromJwtToken(Jwt token) throws IOException {
+        io.jsonwebtoken.Jwt<?, ?> claims = Jwts.parser()
+                                        .verifyWith(Keys.hmacShaKeyFor(SECRET))
+                                        .build()
+                                        .parse(token.toJwt());
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String,?> map = (Map<String,?>)objectMapper.readValue((byte[])claims.getPayload(), Map.class);
+        return Jwts.claims().add(map).build();
     }
 
-    private void testVoiceToken(Boolean allow) {
+    private void testVoiceToken(Boolean allow) throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("foo", "bar");
 
@@ -85,7 +96,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testEmptyToken() {
+    public void testEmptyToken() throws IOException {
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
                 .build();
@@ -96,7 +107,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testOptionalValues() {
+    public void testOptionalValues() throws IOException {
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
                 .identity(ACCOUNT_SID)
@@ -115,22 +126,28 @@ public class AccessTokenTest {
           .region("foo")
           .build();
 
-        JwsHeader header = Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(token.toJwt()).getHeader();
+        io.jsonwebtoken.Jwt<?, ?> jwts = Jwts.parser()
+            .verifyWith(Keys.hmacShaKeyFor(SECRET))
+            .build()
+            .parse(token.toJwt());
 
-        Assert.assertEquals("foo", header.get("twr"));
+        Assert.assertEquals("foo", jwts.getHeader().get("twr"));
     }
 
     @Test
     public void testEmptyRegion() {
         Jwt token = new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET).build();
 
-        JwsHeader header = Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(token.toJwt()).getHeader();
+        io.jsonwebtoken.Jwt<?, ?> jwts = Jwts.parser()
+            .verifyWith(Keys.hmacShaKeyFor(SECRET))
+            .build()
+            .parse(token.toJwt());
 
-        Assert.assertEquals(null, header.get("twr"));
+        Assert.assertEquals(null, jwts.getHeader().get("twr"));
     }
 
     @Test
-    public void testVideoGrant() {
+    public void testVideoGrant() throws IOException {
         VideoGrant cg = new VideoGrant().setRoom("RM123");
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
@@ -149,7 +166,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testChatGrant(){
+    public void testChatGrant() throws IOException {
         ChatGrant cg = new ChatGrant()
             .setDeploymentRoleSid("RL123")
             .setEndpointId("foobar")
@@ -175,7 +192,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testSyncGrant() {
+    public void testSyncGrant() throws IOException {
         SyncGrant sg = new SyncGrant()
                 .setEndpointId("foobar")
                 .setServiceSid("IS123");
@@ -197,7 +214,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testPlaybackGrant() {
+    public void testPlaybackGrant() throws IOException {
         Map<String, Object> grantPayload = new HashMap<>();
         grantPayload.put("requestCredentials", null);
         grantPayload.put("playbackUrl", "https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx");
@@ -223,7 +240,7 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testTaskRouterGrant() {
+    public void testTaskRouterGrant() throws IOException {
         TaskRouterGrant trg = new TaskRouterGrant()
                 .setWorkspaceSid("WS123")
                 .setWorkerSid("WK123")
@@ -248,13 +265,13 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testVoiceTokenWithIncoming() {
+    public void testVoiceTokenWithIncoming() throws IOException {
       testVoiceToken(true);
       testVoiceToken(false);
     }
 
     @Test
-    public void testVoiceTokenWithoutIncoming() {
+    public void testVoiceTokenWithoutIncoming() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("foo", "bar");
 
@@ -283,7 +300,7 @@ public class AccessTokenTest {
     }
 
     @Test()
-    public void testNullValues() {
+    public void testNullValues() throws IOException {
         ChatGrant cg = new ChatGrant().setDeploymentRoleSid("RL123");
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)

@@ -24,25 +24,25 @@ public class ClientCapabilityTest {
     private static final String ACCOUNT_SID = "AC123";
     private static byte[] SECRET;
 
-  {
-    KeyGenerator keyGen = null;
-    try {
-      keyGen = KeyGenerator.getInstance("HmacSHA256");
-      keyGen.init(2048); // Use 2048 bits for stronger security
-      SecretKey pair = keyGen.generateKey();
-      SECRET = pair.getEncoded();
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
+    {
+      KeyGenerator keyGen = null;
+      try {
+        keyGen = KeyGenerator.getInstance("HmacSHA256");
+        keyGen.init(2048); // Use 2048 bits for stronger security
+        SecretKey pair = keyGen.generateKey();
+        SECRET = pair.getEncoded();
+      } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+      }
     }
-  }
-  public Claims getClaims(Jwt token) throws IOException {
-    io.jsonwebtoken.Jwt<?, ?> claims = Jwts.parser()
-        .verifyWith(Keys.hmacShaKeyFor(SECRET))
-        .build()
-        .parse(token.toJwt());
+    public Claims getClaims(Jwt token) throws IOException {
+      io.jsonwebtoken.Jwt<?, ?> claims = Jwts.parser()
+          .verifyWith(Keys.hmacShaKeyFor(SECRET))
+          .build()
+          .parse(token.toJwt());
 
-    return (DefaultClaims)claims.getPayload();
-  }
+      return (DefaultClaims)claims.getPayload();
+    }
 
     @Test
     public void testEmptyToken() throws IOException {

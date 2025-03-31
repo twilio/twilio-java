@@ -33,10 +33,7 @@ public class AccessTokenTest {
     }
 
     private Claims getClaimFromJwtToken(Jwt token) {
-        return Jwts.parserBuilder()
-                   .setSigningKey(SECRET.getBytes()).build()
-                   .parseClaimsJws(token.toJwt())
-                   .getBody();
+        return Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(token.toJwt()).getBody();
     }
 
     private void testVoiceToken(Boolean allow) {
@@ -100,10 +97,7 @@ public class AccessTokenTest {
           .region("foo")
           .build();
 
-        JwsHeader header = Jwts.parserBuilder()
-            .setSigningKey(SECRET.getBytes()).build()
-            .parseClaimsJws(token.toJwt())
-            .getHeader();
+        JwsHeader header = Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(token.toJwt()).getHeader();
 
         Assert.assertEquals("foo", header.get("twr"));
     }
@@ -112,10 +106,7 @@ public class AccessTokenTest {
     public void testEmptyRegion() {
         Jwt token = new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET).build();
 
-        JwsHeader header = Jwts.parserBuilder()
-            .setSigningKey(SECRET.getBytes()).build()
-            .parseClaimsJws(token.toJwt())
-            .getHeader();
+        JwsHeader header = Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(token.toJwt()).getHeader();
 
         Assert.assertEquals(null, header.get("twr"));
     }

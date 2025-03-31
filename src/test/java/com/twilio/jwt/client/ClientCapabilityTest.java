@@ -23,10 +23,7 @@ public class ClientCapabilityTest {
         Jwt jwt = new ClientCapability.Builder(ACCOUNT_SID, SECRET).build();
 
         Claims claims =
-            Jwts.parserBuilder()
-                .setSigningKey(SECRET.getBytes()).build()
-                .parseClaimsJws(jwt.toJwt())
-                .getBody();
+            Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(jwt.toJwt()).getBody();
 
         Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
@@ -42,10 +39,7 @@ public class ClientCapabilityTest {
         Jwt jwt = new ClientCapability.Builder(ACCOUNT_SID, SECRET).scopes(scopes).build();
 
         Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(jwt.toJwt())
-                .getBody();
+            Jwts.parser().setSigningKey(SECRET).build().parseClaimsJws(jwt.toJwt()).getBody();
 
         Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());

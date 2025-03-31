@@ -35,10 +35,7 @@ public class TaskRouterCapabilityTest {
                 .policies(policies)
                 .build();
         Claims claims =
-            Jwts.parserBuilder()
-                .setSigningKey(AUTH_TOKEN.getBytes()).build()
-                .parseClaimsJws(jwt.toJwt())
-                .getBody();
+            Jwts.parser().setSigningKey(AUTH_TOKEN).build().parseClaimsJws(jwt.toJwt()).getBody();
 
         Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
         Assert.assertEquals(WORKER_SID, claims.get("channel"));
@@ -78,10 +75,7 @@ public class TaskRouterCapabilityTest {
                         .policies(policies)
                         .build();
         final Claims claims =
-                Jwts.parserBuilder()
-                        .setSigningKey(AUTH_TOKEN.getBytes()).build()
-                        .parseClaimsJws(jwt.toJwt())
-                        .getBody();
+            Jwts.parser().setSigningKey(AUTH_TOKEN).build().parseClaimsJws(jwt.toJwt()).getBody();
 
         Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
         Assert.assertEquals(WORKER_SID, claims.get("channel"));

@@ -33,9 +33,9 @@ public class AccessTokenTest {
     }
 
     private Claims getClaimFromJwtToken(Jwt token) {
-        return Jwts.parserBuilder()
-                   .setSigningKey(SECRET.getBytes()).build()
-                   .parseClaimsJws(token.toJwt())
+        return Jwts.parser()
+                    .setSigningKey(SECRET.getBytes()).build()
+                    .parseSignedClaims(token.toJwt())
                    .getBody();
     }
 
@@ -100,9 +100,9 @@ public class AccessTokenTest {
           .region("foo")
           .build();
 
-        JwsHeader header = Jwts.parserBuilder()
+        JwsHeader header = Jwts.parser()
             .setSigningKey(SECRET.getBytes()).build()
-            .parseClaimsJws(token.toJwt())
+            .parseSignedClaims(token.toJwt())
             .getHeader();
 
         Assert.assertEquals("foo", header.get("twr"));
@@ -112,9 +112,9 @@ public class AccessTokenTest {
     public void testEmptyRegion() {
         Jwt token = new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET).build();
 
-        JwsHeader header = Jwts.parserBuilder()
+        JwsHeader header = Jwts.parser()
             .setSigningKey(SECRET.getBytes()).build()
-            .parseClaimsJws(token.toJwt())
+            .parseSignedClaims(token.toJwt())
             .getHeader();
 
         Assert.assertEquals(null, header.get("twr"));

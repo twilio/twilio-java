@@ -1,11 +1,13 @@
 package com.twilio.jwt.validation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.http.ValidationInterceptor;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.InvalidKeyException;
+import io.jsonwebtoken.security.Keys;
 import org.apache.http.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicHeader;
@@ -76,8 +78,18 @@ public class ValidationTokenTest {
         publicKey = pair.getPublic();
     }
 
+    private Claims getClaimFromJwtToken(Jwt token) throws IOException {
+        io.jsonwebtoken.Jwt<?, ?> claims = Jwts.parser()
+            .verifyWith(publicKey)
+            .build()
+            .parse(token.toJwt());
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String,?> map = (Map<String,?>)objectMapper.readValue((byte[])claims.getPayload(), Map.class);
+        return Jwts.claims().add(map).build();
+    }
+
     @Test
-    public void testTokenBuilder() {
+    public void testTokenBuilder() throws IOException {
         Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
             .method("GET")
             .uri("/Messages")
@@ -87,7 +99,7 @@ public class ValidationTokenTest {
             .requestBody("foobar")
             .build();
 
-        Claims claims = Jwts.parser().setSigningKey(privateKey).build().parseClaimsJws(jwt.toJwt()).getBody();
+        Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
@@ -95,7 +107,7 @@ public class ValidationTokenTest {
     }
 
     @Test
-    public void testTokenValidAlgorithms() {
+    public void testTokenValidAlgorithms() throws IOException {
         List<SignatureAlgorithm> validAlgorithms = Arrays.asList(RS256, PS256);
         for (SignatureAlgorithm alg : validAlgorithms) {
             Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
@@ -108,14 +120,13 @@ public class ValidationTokenTest {
                     .requestBody("foobar")
                     .build();
 
-            Claims claims =
-                    Jwts.parser().setSigningKey(privateKey).build().parseClaimsJws(jwt.toJwt()).getBody();
+            Claims claims = getClaimFromJwtToken(jwt);
             validateToken(claims);
         }
     }
 
     @Test(expected =  IllegalArgumentException.class)
-    public void testTokenInvalidAlgorithms() {
+    public void testTokenInvalidAlgorithms() throws IOException {
         List<SignatureAlgorithm> validAlgorithms = Arrays.asList(SignatureAlgorithm.HS256, SignatureAlgorithm.ES256, RS384, RS512, PS384, PS512);
         for (SignatureAlgorithm alg : validAlgorithms) {
             Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
@@ -129,7 +140,7 @@ public class ValidationTokenTest {
                     .build();
 
 
-            Jwts.parser().setSigningKey(privateKey).build().parseClaimsJws(jwt.toJwt()).getBody();
+            getClaimFromJwtToken(jwt);
         }
     }
 
@@ -142,8 +153,7 @@ public class ValidationTokenTest {
 
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
-        Claims claims =
-                Jwts.parser().setSigningKey(privateKey).build().parseClaimsJws(jwt.toJwt()).getBody();
+        Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
@@ -161,8 +171,7 @@ public class ValidationTokenTest {
         when(requestLine.getUri()).thenReturn("/Messages");
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
-        Claims claims =
-            Jwts.parser().setSigningKey(privateKey).build().parseClaimsJws(jwt.toJwt()).getBody();
+        Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
@@ -179,8 +188,7 @@ public class ValidationTokenTest {
         when(request.getAllHeaders()).thenReturn(headers);
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
-        Claims claims =
-                Jwts.parser().setSigningKey(privateKey).build().parseClaimsJws(jwt.toJwt()).getBody();
+        Claims claims = getClaimFromJwtToken(jwt);
 
 
         this.validateToken(claims);

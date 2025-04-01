@@ -43,18 +43,6 @@ public class TwilioRestClient {
     private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
-    public ObjectMapper getObjectMapper(){
-        return objectMapper;
-    }
-
-    public String getAccountSid() {
-        return accountSid;
-    }
-
-    public AuthStrategy getAuthStrategy() {
-        return authStrategy;
-    }
-
     protected TwilioRestClient(Builder b) {
         this.username = b.username;
         this.password = b.password;

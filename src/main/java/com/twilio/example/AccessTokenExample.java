@@ -5,7 +5,7 @@ import com.twilio.jwt.accesstoken.VoiceGrant;
 import java.util.HashMap;
 import com.google.gson.Gson;
 
-public class AccessTokenBuilder {
+public class AccessTokenExample {
   public static void main(String args[]){
     String acctSid = System.getenv("TWILIO_ACCOUNT_SID");
     String applicationSid = System.getenv("TWILIO_TWIML_APP_SID");

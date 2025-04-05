@@ -59,8 +59,8 @@ public class ValidationExample {
         }
 
         Message message = Message.creator(
-            new PhoneNumber("+1XXXXXXXXXX"),
-            new PhoneNumber("+1XXXXXXXXXX"),
+            new PhoneNumber("+919831560103"),
+            new PhoneNumber("+19492983370"),
             "Public Key Client Validation Test"
         ).create(validationClient);
         System.out.println(message.getSid());

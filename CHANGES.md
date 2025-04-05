@@ -1,6 +1,39 @@
 twilio-java changelog
 =====================
 
+**AccessToken**
+
+- **Breaking Change**: Updated `AccessTokenBuilder` to use `byte[]` for the `secret` instead of `String`.
+    - Updated method signatures:
+        - `AccessTokenBuilder(String accountSid, String keySid, byte[] secret)`
+    - Example usage:
+      ```java
+      byte[] secret = "your_secret".getBytes(StandardCharsets.UTF_8);
+      AccessTokenBuilder builder = new AccessTokenBuilder(accountSid, keySid, secret);
+      ```
+
+**ClientCapability**
+
+- **Breaking Change**: Updated `ClientCapability.Builder` to use `byte[]` for the `authToken` instead of `String`.
+    - Updated method signatures:
+        - `ClientCapability.Builder(String accountSid, byte[] authToken)`
+    - Example usage:
+      ```java
+      byte[] authToken = "your_auth_token".getBytes(StandardCharsets.UTF_8);
+      ClientCapability.Builder builder = new ClientCapability.Builder(accountSid, authToken);
+      ```
+
+**TaskRouterCapability**
+
+- **Breaking Change**: Updated `TaskRouterCapability.Builder` to use `byte[]` for the `authToken` instead of `String`.
+    - Updated method signatures:
+        - `TaskRouterCapability.Builder(String accountSid, byte[] authToken)`
+    - Example usage:
+      ```java
+      byte[] authToken = "your_auth_token".getBytes(StandardCharsets.UTF_8);
+      TaskRouterCapability.Builder builder = new TaskRouterCapability.Builder(accountSid, authToken);
+      ```
+
 [2025-03-20] Version 10.7.1
 ---------------------------
 **Accounts**

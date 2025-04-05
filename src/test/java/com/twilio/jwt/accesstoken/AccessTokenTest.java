@@ -31,7 +31,7 @@ public class AccessTokenTest {
     private static final String SIGNING_KEY_SID = "SK123";
     private static byte[] SECRET;
 
-    {
+    static {
       KeyGenerator keyGen = null;
       try {
         keyGen = KeyGenerator.getInstance("HmacSHA256");

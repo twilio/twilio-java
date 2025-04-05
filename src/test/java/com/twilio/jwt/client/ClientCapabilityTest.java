@@ -24,7 +24,7 @@ public class ClientCapabilityTest {
     private static final String ACCOUNT_SID = "AC123";
     private static byte[] SECRET;
 
-    {
+    static {
       KeyGenerator keyGen = null;
       try {
         keyGen = KeyGenerator.getInstance("HmacSHA256");

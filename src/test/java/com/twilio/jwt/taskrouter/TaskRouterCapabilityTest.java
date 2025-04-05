@@ -31,7 +31,7 @@ public class TaskRouterCapabilityTest {
     private static final String WORKSPACE_SID = "WS123";
     private static final String WORKER_SID = "WK123";
 
-    {
+    static {
         KeyGenerator keyGen = null;
         try {
             keyGen = KeyGenerator.getInstance("HmacSHA256");

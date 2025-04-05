@@ -8,7 +8,7 @@ twilio-java changelog
         - `AccessTokenBuilder(String accountSid, String keySid, byte[] secret)`
     - Example usage:
       ```java
-      byte[] secret = "your_secret".getBytes(StandardCharsets.UTF_8);
+      byte[] secret = "your_secret".getBytes();
       AccessTokenBuilder builder = new AccessTokenBuilder(accountSid, keySid, secret);
       ```
 
@@ -19,7 +19,7 @@ twilio-java changelog
         - `ClientCapability.Builder(String accountSid, byte[] authToken)`
     - Example usage:
       ```java
-      byte[] authToken = "your_auth_token".getBytes(StandardCharsets.UTF_8);
+      byte[] authToken = "your_auth_token".getBytes();
       ClientCapability.Builder builder = new ClientCapability.Builder(accountSid, authToken);
       ```
 
@@ -30,7 +30,7 @@ twilio-java changelog
         - `TaskRouterCapability.Builder(String accountSid, byte[] authToken)`
     - Example usage:
       ```java
-      byte[] authToken = "your_auth_token".getBytes(StandardCharsets.UTF_8);
+      byte[] authToken = "your_auth_token".getBytes();
       TaskRouterCapability.Builder builder = new TaskRouterCapability.Builder(accountSid, authToken);
       ```
 

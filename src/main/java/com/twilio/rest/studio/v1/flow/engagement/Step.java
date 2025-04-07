@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Step extends Resource {
 
-    private static final long serialVersionUID = 7112234025465L;
+    private static final long serialVersionUID = 84557375462184L;
 
     public static StepFetcher fetcher(
         final String pathFlowSid,
@@ -104,6 +104,7 @@ public class Step extends Resource {
     private final String engagementSid;
     private final String name;
     private final Map<String, Object> context;
+    private final String parentStepSid;
     private final String transitionedFrom;
     private final String transitionedTo;
     private final ZonedDateTime dateCreated;
@@ -119,6 +120,7 @@ public class Step extends Resource {
         @JsonProperty("engagement_sid") final String engagementSid,
         @JsonProperty("name") final String name,
         @JsonProperty("context") final Map<String, Object> context,
+        @JsonProperty("parent_step_sid") final String parentStepSid,
         @JsonProperty("transitioned_from") final String transitionedFrom,
         @JsonProperty("transitioned_to") final String transitionedTo,
         @JsonProperty("date_created") final String dateCreated,
@@ -132,6 +134,7 @@ public class Step extends Resource {
         this.engagementSid = engagementSid;
         this.name = name;
         this.context = context;
+        this.parentStepSid = parentStepSid;
         this.transitionedFrom = transitionedFrom;
         this.transitionedTo = transitionedTo;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -162,6 +165,10 @@ public class Step extends Resource {
 
     public final Map<String, Object> getContext() {
         return this.context;
+    }
+
+    public final String getParentStepSid() {
+        return this.parentStepSid;
     }
 
     public final String getTransitionedFrom() {
@@ -207,6 +214,7 @@ public class Step extends Resource {
             Objects.equals(engagementSid, other.engagementSid) &&
             Objects.equals(name, other.name) &&
             Objects.equals(context, other.context) &&
+            Objects.equals(parentStepSid, other.parentStepSid) &&
             Objects.equals(transitionedFrom, other.transitionedFrom) &&
             Objects.equals(transitionedTo, other.transitionedTo) &&
             Objects.equals(dateCreated, other.dateCreated) &&
@@ -225,6 +233,7 @@ public class Step extends Resource {
             engagementSid,
             name,
             context,
+            parentStepSid,
             transitionedFrom,
             transitionedTo,
             dateCreated,

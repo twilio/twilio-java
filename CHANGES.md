@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2025-04-07] Version 10.7.2
+---------------------------
+**Library - Chore**
+- [PR #842](https://github.com/twilio/twilio-java/pull/842): added patch method. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Studio**
+- Add documentation for parent_step_sid field in Step resource
+
+
 [2025-03-20] Version 10.7.1
 ---------------------------
 **Accounts**

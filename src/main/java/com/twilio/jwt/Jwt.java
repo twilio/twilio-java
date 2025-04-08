@@ -30,13 +30,13 @@ public abstract class Jwt {
      */
     public Jwt(
         SignatureAlgorithm algorithm,
-        String secret,
+        byte[] secret,
         String issuer,
         Date expiration
     ) {
         this(
             algorithm,
-            new SecretKeySpec(secret.getBytes(), algorithm.getJcaName()),
+            new SecretKeySpec(secret, algorithm.getJcaName()),
             issuer,
             expiration
         );

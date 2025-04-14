@@ -28,8 +28,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -40,35 +39,20 @@ public class RoleAssignment extends Resource {
     private static final long serialVersionUID = 175566213667704L;
 
     @ToString
+    @Builder
     public static class PublicApiCreateRoleAssignmentRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("role_sid")
-        @Getter
-        @Setter
         private String roleSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("scope")
-        @Getter
-        @Setter
         private String scope;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
-        @Getter
-        @Setter
         private String identity;
-
-        public PublicApiCreateRoleAssignmentRequest(
-            final String roleSid,
-            final String scope,
-            final String identity
-        ) {
-            this.roleSid = roleSid;
-            this.scope = scope;
-            this.identity = identity;
-        }
 
         public static PublicApiCreateRoleAssignmentRequest fromJson(
             String jsonString,

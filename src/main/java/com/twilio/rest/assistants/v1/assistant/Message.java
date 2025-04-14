@@ -28,8 +28,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -40,45 +39,28 @@ public class Message extends Resource {
     private static final long serialVersionUID = 131790089402244L;
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceAssistantSendMessageRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
-        @Getter
-        @Setter
         private String identity;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("session_id")
-        @Getter
-        @Setter
         private String sessionId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
-        @Getter
-        @Setter
         private String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("webhook")
-        @Getter
-        @Setter
         private String webhook;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mode")
-        @Getter
-        @Setter
         private String mode;
-
-        public AssistantsV1ServiceAssistantSendMessageRequest(
-            final String identity,
-            final String body
-        ) {
-            this.identity = identity;
-            this.body = body;
-        }
 
         public static AssistantsV1ServiceAssistantSendMessageRequest fromJson(
             String jsonString,

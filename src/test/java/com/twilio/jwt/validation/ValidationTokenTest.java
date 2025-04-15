@@ -80,7 +80,7 @@ public class ValidationTokenTest {
 
     private Claims getClaimFromJwtToken(Jwt token) throws IOException {
         io.jsonwebtoken.Jwt<?, ?> claims = Jwts.parser()
-            .verifyWith(publicKey)
+            .verifyWith(publicKey) // Claims are extracted using public key
             .build()
             .parse(token.toJwt());
         ObjectMapper objectMapper = new ObjectMapper();

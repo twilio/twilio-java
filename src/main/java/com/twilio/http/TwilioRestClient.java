@@ -51,14 +51,8 @@ public class TwilioRestClient {
         this.region = b.region;
         this.edge = b.edge;
         this.httpClient = b.httpClient;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;
-
-        // This module configures the ObjectMapper to use
-        // public API methods for manipulating java.time.*
-        // classes. The alternative is to use reflection which
-        // generates warnings from the module system on Java 9+
-        objectMapper.registerModule(new JavaTimeModule());
     }
 
     /**
@@ -71,7 +65,7 @@ public class TwilioRestClient {
         if (username != null && password != null) {
             request.setAuth(username, password);
         } else if (authStrategy != null) {
-           request.setAuth(authStrategy);
+            request.setAuth(authStrategy);
         }
 
         if (region != null)
@@ -106,6 +100,13 @@ public class TwilioRestClient {
     }
 
     public static class Builder {
+        // This module configures the ObjectMapper to use
+        // public API methods for manipulating java.time.*
+        // classes. The alternative is to use reflection which
+        // generates warnings from the module system on Java 9+
+        private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
+
         private String username;
         private String password;
         private AuthStrategy authStrategy;
@@ -114,6 +115,7 @@ public class TwilioRestClient {
         private String edge;
         private HttpClient httpClient;
         private List<String> userAgentExtensions;
+        private ObjectMapper objectMapper = DEFAULT_OBJECT_MAPPER;
 
         /**
          * Create a new Twilio Rest Client.
@@ -160,6 +162,11 @@ public class TwilioRestClient {
             if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
                 this.userAgentExtensions = new ArrayList<>(userAgentExtensions);
             }
+            return this;
+        }
+
+        public Builder objectMapper(final ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
             return this;
         }
 

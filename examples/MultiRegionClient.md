@@ -6,8 +6,8 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
 public class MultiRegionExample {
-  public static final String ACCOUNT_SID = System.getenv("SID");
-  public static final String AUTH_TOKEN = System.getenv("TOKEN");
+  public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+  public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
   public static void main(String[] args) {
 
@@ -15,8 +15,8 @@ public class MultiRegionExample {
 
     Message message = Message
         .creator(
-            new PhoneNumber("+919831560103"),
-            new PhoneNumber("+19492983370"),
+            new PhoneNumber("+1XXXXXXXXXX"),
+            new PhoneNumber("+1XXXXXXXXXX"),
             "This is the ship that made the Kessel Run in fourteen parsecs?"
         )
         .create(client);
@@ -27,8 +27,8 @@ public class MultiRegionExample {
 
     Message message2 = Message
         .creator(
-            new PhoneNumber("+919831560103"),
-            new PhoneNumber("+19492983370"),
+            new PhoneNumber("+1XXXXXXXXXX"),
+            new PhoneNumber("+1XXXXXXXXXX"),
             "This is the ship that made the Kessel Run in fourteen parsecs?"
         )
         .create(client2);

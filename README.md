@@ -266,6 +266,8 @@ Twilio.setEdge("sydney");
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
+To use multiple region within same application, refer [MultiRegionClient.md](https://github.com/twilio/twilio-java/blob/main/examples/MultiRegionClient.md)
+
 ### Enable Debug Logging
 
 This library uses SLF4J for logging. Consult the [SFL4J documentation](http://slf4j.org/docs.html) for information about logging configuration.

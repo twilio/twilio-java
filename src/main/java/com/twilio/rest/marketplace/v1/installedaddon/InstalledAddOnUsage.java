@@ -30,8 +30,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -42,24 +41,19 @@ public class InstalledAddOnUsage extends Resource {
     private static final long serialVersionUID = 201246203121312L;
 
     @ToString
+    @Builder
     public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quantity")
-        @Getter
-        @Setter
         private BigDecimal quantity;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("sid")
-        @Getter
-        @Setter
         private String sid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("submitted")
-        @Getter
-        @Setter
         private Boolean submitted;
 
         public static MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems fromJson(
@@ -74,29 +68,18 @@ public class InstalledAddOnUsage extends Resource {
     }
 
     @ToString
+    @Builder
     public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("totalSubmitted")
-        @Getter
-        @Setter
         private BigDecimal totalSubmitted;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("billableItems")
-        @Getter
-        @Setter
         private List<
             MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
         > billableItems;
-
-        public MarketplaceV1InstalledAddOnInstalledAddOnUsage(
-            final List<
-                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-            > billableItems
-        ) {
-            this.billableItems = billableItems;
-        }
 
         public static MarketplaceV1InstalledAddOnInstalledAddOnUsage fromJson(
             String jsonString,

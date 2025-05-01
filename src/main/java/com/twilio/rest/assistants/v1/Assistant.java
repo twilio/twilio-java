@@ -34,8 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -46,18 +45,15 @@ public class Assistant extends Resource {
     private static final long serialVersionUID = 5177924616338L;
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCustomerAi {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("perception_engine_enabled")
-        @Getter
-        @Setter
         private Boolean perceptionEngineEnabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("personalization_engine_enabled")
-        @Getter
-        @Setter
         private Boolean personalizationEngineEnabled;
 
         public static AssistantsV1ServiceCustomerAi fromJson(
@@ -72,24 +68,19 @@ public class Assistant extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceSegmentCredential {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("profile_api_key")
-        @Getter
-        @Setter
         private String profileApiKey;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("space_id")
-        @Getter
-        @Setter
         private String spaceId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("write_key")
-        @Getter
-        @Setter
         private String writeKey;
 
         public static AssistantsV1ServiceSegmentCredential fromJson(
@@ -104,39 +95,28 @@ public class Assistant extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceCreateAssistantRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("customer_ai")
-        @Getter
-        @Setter
         private AssistantsV1ServiceCustomerAi customerAi;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("owner")
-        @Getter
-        @Setter
         private String owner;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("personality_prompt")
-        @Getter
-        @Setter
         private String personalityPrompt;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("segment_credential")
-        @Getter
-        @Setter
         private AssistantsV1ServiceSegmentCredential segmentCredential;
-
-        public AssistantsV1ServiceCreateAssistantRequest() {}
 
         public static AssistantsV1ServiceCreateAssistantRequest fromJson(
             String jsonString,
@@ -150,39 +130,28 @@ public class Assistant extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceUpdateAssistantRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("customer_ai")
-        @Getter
-        @Setter
         private AssistantsV1ServiceCustomerAi customerAi;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("owner")
-        @Getter
-        @Setter
         private String owner;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("personality_prompt")
-        @Getter
-        @Setter
         private String personalityPrompt;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("segment_credential")
-        @Getter
-        @Setter
         private AssistantsV1ServiceSegmentCredential segmentCredential;
-
-        public AssistantsV1ServiceUpdateAssistantRequest() {}
 
         public static AssistantsV1ServiceUpdateAssistantRequest fromJson(
             String jsonString,
@@ -196,30 +165,23 @@ public class Assistant extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceKnowledge {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
-        @Getter
-        @Setter
         private String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("account_sid")
-        @Getter
-        @Setter
         private String accountSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("knowledge_source_details")
-        @Getter
-        @Setter
         private Map<String, Object> knowledgeSourceDetails;
 
         public String getKnowledgeSourceDetails() {
@@ -228,38 +190,26 @@ public class Assistant extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status")
-        @Getter
-        @Setter
         private String status;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
-        @Getter
-        @Setter
         private String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("embedding_model")
-        @Getter
-        @Setter
         private String embeddingModel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
-        @Getter
-        @Setter
         private ZonedDateTime dateCreated;
 
         public String getDateCreated() {
@@ -268,8 +218,6 @@ public class Assistant extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
-        @Getter
-        @Setter
         private ZonedDateTime dateUpdated;
 
         public String getDateUpdated() {
@@ -288,36 +236,27 @@ public class Assistant extends Resource {
     }
 
     @ToString
+    @Builder
     public static class AssistantsV1ServiceTool {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("account_sid")
-        @Getter
-        @Setter
         private String accountSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
-        @Getter
-        @Setter
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("enabled")
-        @Getter
-        @Setter
         private Boolean enabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
-        @Getter
-        @Setter
         private String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("meta")
-        @Getter
-        @Setter
         private Map<String, Object> meta;
 
         public String getMeta() {
@@ -326,32 +265,22 @@ public class Assistant extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("requires_auth")
-        @Getter
-        @Setter
         private Boolean requiresAuth;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
-        @Getter
-        @Setter
         private String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
-        @Getter
-        @Setter
         private ZonedDateTime dateCreated;
 
         public String getDateCreated() {
@@ -360,8 +289,6 @@ public class Assistant extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
-        @Getter
-        @Setter
         private ZonedDateTime dateUpdated;
 
         public String getDateUpdated() {

@@ -30,8 +30,7 @@ import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 import lombok.ToString;
 import lombok.ToString;
 
@@ -42,18 +41,15 @@ public class User extends Resource {
     private static final long serialVersionUID = 281207691925540L;
 
     @ToString
+    @Builder
     public static class ScimName {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("givenName")
-        @Getter
-        @Setter
         private String givenName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("familyName")
-        @Getter
-        @Setter
         private String familyName;
 
         public static ScimName fromJson(String jsonString, ObjectMapper mapper)
@@ -63,24 +59,19 @@ public class User extends Resource {
     }
 
     @ToString
+    @Builder
     public static class ScimEmailAddress {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("primary")
-        @Getter
-        @Setter
         private Boolean primary;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("value")
-        @Getter
-        @Setter
         private String value;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
-        @Getter
-        @Setter
         private String type;
 
         public static ScimEmailAddress fromJson(
@@ -92,18 +83,15 @@ public class User extends Resource {
     }
 
     @ToString
+    @Builder
     public static class ScimMeta {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("resourceType")
-        @Getter
-        @Setter
         private String resourceType;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("created")
-        @Getter
-        @Setter
         private ZonedDateTime created;
 
         public String getCreated() {
@@ -112,8 +100,6 @@ public class User extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("lastModified")
-        @Getter
-        @Setter
         private ZonedDateTime lastModified;
 
         public String getLastModified() {
@@ -122,8 +108,6 @@ public class User extends Resource {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("version")
-        @Getter
-        @Setter
         private String version;
 
         public static ScimMeta fromJson(String jsonString, ObjectMapper mapper)
@@ -133,77 +117,52 @@ public class User extends Resource {
     }
 
     @ToString
+    @Builder
     public static class ScimUser {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
-        @Getter
-        @Setter
         private String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("externalId")
-        @Getter
-        @Setter
         private String externalId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("userName")
-        @Getter
-        @Setter
         private String userName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("displayName")
-        @Getter
-        @Setter
         private String displayName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
-        @Getter
-        @Setter
         private ScimName name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("emails")
-        @Getter
-        @Setter
         private List<ScimEmailAddress> emails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("active")
-        @Getter
-        @Setter
         private Boolean active;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("locale")
-        @Getter
-        @Setter
         private String locale;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("timezone")
-        @Getter
-        @Setter
         private String timezone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("schemas")
-        @Getter
-        @Setter
         private List<String> schemas;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("meta")
-        @Getter
-        @Setter
         private ScimMeta meta;
-
-        public ScimUser(final String userName) {
-            this.userName = userName;
-        }
 
         public static ScimUser fromJson(String jsonString, ObjectMapper mapper)
             throws IOException {

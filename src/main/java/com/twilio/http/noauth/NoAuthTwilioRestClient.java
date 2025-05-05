@@ -15,13 +15,36 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 
-/*
- * Use this NoAuth Rest Client if no authentication is involved in an API.
+/**
+ * The `NoAuthTwilioRestClient` class is a specialized REST client for interacting with Twilio's API
+ * when no authentication is required. It provides functionality for making API requests, logging,
+ * and customizing request parameters such as region, edge, and user-agent extensions.
+ *
+ * <p>Features:</p>
+ * <ul>
+ *   <li>Support for specifying Twilio's region and edge for global infrastructure.</li>
+ *   <li>Customizable HTTP client and user-agent extensions.</li>
+ *   <li>Detailed request and response logging for debugging purposes.</li>
+ * </ul>
+ *
+ * <p>Usage:</p>
+ * <pre>
+ * NoAuthTwilioRestClient client = new NoAuthTwilioRestClient.Builder()
+ *     .region("us1")
+ *     .edge("ashburn")
+ *     .build();
+ *
+ * NoAuthRequest request = new NoAuthRequest("GET", "/path");
+ * Response response = client.request(request);
+ * </pre>
+ *
+ * <p>Thread Safety:</p>
+ * This class is thread-safe for concurrent use as it does not maintain mutable shared state.
  */
 public class NoAuthTwilioRestClient {
     @Getter
     private final ObjectMapper objectMapper;
-    
+
     @Getter
     private final String region;
     @Getter
@@ -47,7 +70,7 @@ public class NoAuthTwilioRestClient {
         // generates warnings from the module system on Java 9+
         objectMapper.registerModule(new JavaTimeModule());
     }
-    
+
     public static class Builder {
         private String region;
         private String edge;

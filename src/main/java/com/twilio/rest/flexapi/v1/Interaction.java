@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Interaction extends Resource {
 
-    private static final long serialVersionUID = 1684368631913L;
+    private static final long serialVersionUID = 256485735361091L;
 
     public static InteractionCreator creator(
         final Map<String, Object> channel
@@ -46,6 +46,10 @@ public class Interaction extends Resource {
 
     public static InteractionFetcher fetcher(final String pathSid) {
         return new InteractionFetcher(pathSid);
+    }
+
+    public static InteractionUpdater updater(final String pathSid) {
+        return new InteractionUpdater(pathSid);
     }
 
     /**
@@ -97,6 +101,7 @@ public class Interaction extends Resource {
     private final URI url;
     private final Map<String, String> links;
     private final String interactionContextSid;
+    private final String webhookTtid;
 
     @JsonCreator
     private Interaction(
@@ -107,7 +112,8 @@ public class Interaction extends Resource {
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty(
             "interaction_context_sid"
-        ) final String interactionContextSid
+        ) final String interactionContextSid,
+        @JsonProperty("webhook_ttid") final String webhookTtid
     ) {
         this.sid = sid;
         this.channel = channel;
@@ -115,6 +121,7 @@ public class Interaction extends Resource {
         this.url = url;
         this.links = links;
         this.interactionContextSid = interactionContextSid;
+        this.webhookTtid = webhookTtid;
     }
 
     public final String getSid() {
@@ -141,6 +148,10 @@ public class Interaction extends Resource {
         return this.interactionContextSid;
     }
 
+    public final String getWebhookTtid() {
+        return this.webhookTtid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -159,7 +170,11 @@ public class Interaction extends Resource {
             Objects.equals(routing, other.routing) &&
             Objects.equals(url, other.url) &&
             Objects.equals(links, other.links) &&
-            Objects.equals(interactionContextSid, other.interactionContextSid)
+            Objects.equals(
+                interactionContextSid,
+                other.interactionContextSid
+            ) &&
+            Objects.equals(webhookTtid, other.webhookTtid)
         );
     }
 
@@ -171,7 +186,8 @@ public class Interaction extends Resource {
             routing,
             url,
             links,
-            interactionContextSid
+            interactionContextSid,
+            webhookTtid
         );
     }
 }

@@ -34,6 +34,7 @@ public class InteractionCreator extends Creator<Interaction> {
     private Map<String, Object> channel;
     private Map<String, Object> routing;
     private String interactionContextSid;
+    private String webhookTtid;
 
     public InteractionCreator(final Map<String, Object> channel) {
         this.channel = channel;
@@ -53,6 +54,11 @@ public class InteractionCreator extends Creator<Interaction> {
         final String interactionContextSid
     ) {
         this.interactionContextSid = interactionContextSid;
+        return this;
+    }
+
+    public InteractionCreator setWebhookTtid(final String webhookTtid) {
+        this.webhookTtid = webhookTtid;
         return this;
     }
 
@@ -106,6 +112,9 @@ public class InteractionCreator extends Creator<Interaction> {
                 "InteractionContextSid",
                 interactionContextSid
             );
+        }
+        if (webhookTtid != null) {
+            request.addPostParam("WebhookTtid", webhookTtid);
         }
     }
 }

@@ -10,6 +10,33 @@ twilio-java changelog
 
 **Library - Fix**
 - [PR #846](https://github.com/twilio/twilio-java/pull/846): update jjwt version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- **AccessToken**
+    - **Breaking Change**: Updated `AccessTokenBuilder` to use `byte[]` for the `secret` instead of `String`.
+        - Updated method signatures:
+            - `AccessTokenBuilder(String accountSid, String keySid, byte[] secret)`
+        - Example usage:
+          ```java
+          byte[] secret = “your_secret”.getBytes();
+          AccessTokenBuilder builder = new AccessTokenBuilder(accountSid, keySid, secret);
+          ```
+    **ClientCapability**
+    - **Breaking Change**: Updated `ClientCapability.Builder` to use `byte[]` for the `authToken` instead of `String`.
+        - Updated method signatures:
+            - `ClientCapability.Builder(String accountSid, byte[] authToken)`
+        - Example usage:
+          ```java
+          byte[] authToken = “your_auth_token”.getBytes();
+          ClientCapability.Builder builder = new ClientCapability.Builder(accountSid, authToken);
+          ```
+    **TaskRouterCapability**
+    - **Breaking Change**: Updated `TaskRouterCapability.Builder` to use `byte[]` for the `authToken` instead of `String`.
+        - Updated method signatures:
+            - `TaskRouterCapability.Builder(String accountSid, byte[] authToken)`
+        - Example usage:
+          ```java
+          byte[] authToken = “your_auth_token”.getBytes();
+          TaskRouterCapability.Builder builder = new TaskRouterCapability.Builder(accountSid, authToken);
+          ```
 
 **Api**
 - Add `response_key` for `Usage Triggers` fetch endpoint.

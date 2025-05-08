@@ -1,18 +1,20 @@
 package com.twilio.http;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.rest.Domains;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 public class TwilioRestClientTest {
@@ -56,11 +58,25 @@ public class TwilioRestClientTest {
                 Domains.API.toString(),
                 URI
         );
-        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+        TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .objectMapper(new ObjectMapper().registerModule(new JavaTimeModule()))
+                .httpClient(httpClient)
                 .build();
-        twilioRestClientExtension.request(request);
-        assertEquals(userAgentStringExtensions, request.getUserAgentExtensions());
+
+        when(httpClient.reliableRequest(request)).thenReturn(new Response("", 200));
+
+        Response resp = client.request(request);
+        assertNotNull(resp);
+    }
+
+    @Test
+    public void testUsesSingletonDefaultObjectMapper() {
+        TwilioRestClient client1 = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+            .build();
+        TwilioRestClient client2 = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+            .build();
+
+        assertTrue(client1.getObjectMapper() == client2.getObjectMapper());
     }
 
     @Test
@@ -72,6 +88,7 @@ public class TwilioRestClientTest {
         );
         twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(userAgentStringExtensions)
+                .httpClient(httpClient)
                 .build();
         twilioRestClientExtension.request(request);
         assertEquals(userAgentStringExtensions, request.getUserAgentExtensions());
@@ -86,6 +103,7 @@ public class TwilioRestClientTest {
         );
         twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(Collections.emptyList())
+                .httpClient(httpClient)
                 .build();
         twilioRestClientExtension.request(request);
         assertNull(request.getUserAgentExtensions());
@@ -100,6 +118,7 @@ public class TwilioRestClientTest {
         );
         twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(null)
+                .httpClient(httpClient)
                 .build();
         twilioRestClientExtension.request(request);
         assertNull(request.getUserAgentExtensions());

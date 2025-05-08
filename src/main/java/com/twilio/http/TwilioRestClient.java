@@ -3,18 +3,14 @@ package com.twilio.http;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.auth_strategy.AuthStrategy;
-import com.twilio.auth_strategy.BasicAuthStrategy;
-import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.constant.EnumConstants;
-import com.twilio.credential.ClientCredentialProvider;
-import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class TwilioRestClient {

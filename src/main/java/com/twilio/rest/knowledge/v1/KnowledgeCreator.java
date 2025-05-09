@@ -30,12 +30,7 @@ public class KnowledgeCreator extends Creator<Knowledge> {
 
     private Knowledge.KnowledgeV1ServiceCreateKnowledgeRequest knowledgeV1ServiceCreateKnowledgeRequest;
 
-    public KnowledgeCreator(
-        final Knowledge.KnowledgeV1ServiceCreateKnowledgeRequest knowledgeV1ServiceCreateKnowledgeRequest
-    ) {
-        this.knowledgeV1ServiceCreateKnowledgeRequest =
-            knowledgeV1ServiceCreateKnowledgeRequest;
-    }
+    public KnowledgeCreator() {}
 
     public KnowledgeCreator setKnowledgeV1ServiceCreateKnowledgeRequest(
         final Knowledge.KnowledgeV1ServiceCreateKnowledgeRequest knowledgeV1ServiceCreateKnowledgeRequest
@@ -48,12 +43,6 @@ public class KnowledgeCreator extends Creator<Knowledge> {
     @Override
     public Knowledge create(final TwilioRestClient client) {
         String path = "/v1/Knowledge";
-
-        path =
-            path.replace(
-                "{" + "KnowledgeV1ServiceCreateKnowledgeRequest" + "}",
-                this.knowledgeV1ServiceCreateKnowledgeRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

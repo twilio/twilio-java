@@ -211,11 +211,8 @@ public class User extends Resource {
         }
     }
 
-    public static UserCreator creator(
-        final String pathOrganizationSid,
-        final User.ScimUser scimUser
-    ) {
-        return new UserCreator(pathOrganizationSid, scimUser);
+    public static UserCreator creator(final String pathOrganizationSid) {
+        return new UserCreator(pathOrganizationSid);
     }
 
     public static UserDeleter deleter(
@@ -238,10 +235,9 @@ public class User extends Resource {
 
     public static UserUpdater updater(
         final String pathOrganizationSid,
-        final String pathUserSid,
-        final User.ScimUser scimUser
+        final String pathUserSid
     ) {
-        return new UserUpdater(pathOrganizationSid, pathUserSid, scimUser);
+        return new UserUpdater(pathOrganizationSid, pathUserSid);
     }
 
     /**

@@ -30,12 +30,7 @@ public class ToolCreator extends Creator<Tool> {
 
     private Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest;
 
-    public ToolCreator(
-        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
-    ) {
-        this.assistantsV1ServiceCreateToolRequest =
-            assistantsV1ServiceCreateToolRequest;
-    }
+    public ToolCreator() {}
 
     public ToolCreator setAssistantsV1ServiceCreateToolRequest(
         final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
@@ -48,12 +43,6 @@ public class ToolCreator extends Creator<Tool> {
     @Override
     public Tool create(final TwilioRestClient client) {
         String path = "/v1/Tools";
-
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceCreateToolRequest" + "}",
-                this.assistantsV1ServiceCreateToolRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

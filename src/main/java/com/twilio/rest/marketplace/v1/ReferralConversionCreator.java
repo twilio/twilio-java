@@ -30,11 +30,7 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
 
     private ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest;
 
-    public ReferralConversionCreator(
-        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
-    ) {
-        this.createReferralConversionRequest = createReferralConversionRequest;
-    }
+    public ReferralConversionCreator() {}
 
     public ReferralConversionCreator setCreateReferralConversionRequest(
         final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
@@ -46,12 +42,6 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
     @Override
     public ReferralConversion create(final TwilioRestClient client) {
         String path = "/v1/ReferralConversion";
-
-        path =
-            path.replace(
-                "{" + "CreateReferralConversionRequest" + "}",
-                this.createReferralConversionRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

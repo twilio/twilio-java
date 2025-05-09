@@ -91,14 +91,8 @@ public class Message extends Resource {
         }
     }
 
-    public static MessageCreator creator(
-        final String pathId,
-        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
-    ) {
-        return new MessageCreator(
-            pathId,
-            assistantsV1ServiceAssistantSendMessageRequest
-        );
+    public static MessageCreator creator(final String pathId) {
+        return new MessageCreator(pathId);
     }
 
     /**

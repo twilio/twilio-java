@@ -82,13 +82,9 @@ public class RoleAssignment extends Resource {
     }
 
     public static RoleAssignmentCreator creator(
-        final String pathOrganizationSid,
-        final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest
+        final String pathOrganizationSid
     ) {
-        return new RoleAssignmentCreator(
-            pathOrganizationSid,
-            publicApiCreateRoleAssignmentRequest
-        );
+        return new RoleAssignmentCreator(pathOrganizationSid);
     }
 
     public static RoleAssignmentDeleter deleter(

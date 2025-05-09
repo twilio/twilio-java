@@ -30,12 +30,7 @@ public class ChannelsSenderCreator extends Creator<ChannelsSender> {
 
     private ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate;
 
-    public ChannelsSenderCreator(
-        final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
-    ) {
-        this.messagingV2ChannelsSenderRequestsCreate =
-            messagingV2ChannelsSenderRequestsCreate;
-    }
+    public ChannelsSenderCreator() {}
 
     public ChannelsSenderCreator setMessagingV2ChannelsSenderRequestsCreate(
         final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
@@ -48,12 +43,6 @@ public class ChannelsSenderCreator extends Creator<ChannelsSender> {
     @Override
     public ChannelsSender create(final TwilioRestClient client) {
         String path = "/v2/Channels/Senders";
-
-        path =
-            path.replace(
-                "{" + "MessagingV2ChannelsSenderRequestsCreate" + "}",
-                this.messagingV2ChannelsSenderRequestsCreate.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

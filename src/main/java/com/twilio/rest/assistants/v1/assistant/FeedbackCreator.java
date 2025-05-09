@@ -31,13 +31,8 @@ public class FeedbackCreator extends Creator<Feedback> {
     private String pathId;
     private Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest;
 
-    public FeedbackCreator(
-        final String pathId,
-        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
-    ) {
+    public FeedbackCreator(final String pathId) {
         this.pathId = pathId;
-        this.assistantsV1ServiceCreateFeedbackRequest =
-            assistantsV1ServiceCreateFeedbackRequest;
     }
 
     public FeedbackCreator setAssistantsV1ServiceCreateFeedbackRequest(
@@ -53,11 +48,6 @@ public class FeedbackCreator extends Creator<Feedback> {
         String path = "/v1/Assistants/{id}/Feedbacks";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceCreateFeedbackRequest" + "}",
-                this.assistantsV1ServiceCreateFeedbackRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

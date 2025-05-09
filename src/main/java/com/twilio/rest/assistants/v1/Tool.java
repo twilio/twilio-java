@@ -297,10 +297,8 @@ public class Tool extends Resource {
         }
     }
 
-    public static ToolCreator creator(
-        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
-    ) {
-        return new ToolCreator(assistantsV1ServiceCreateToolRequest);
+    public static ToolCreator creator() {
+        return new ToolCreator();
     }
 
     public static ToolDeleter deleter(final String pathId) {

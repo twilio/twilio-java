@@ -376,12 +376,8 @@ public class ChannelsSender extends Resource {
         }
     }
 
-    public static ChannelsSenderCreator creator(
-        final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
-    ) {
-        return new ChannelsSenderCreator(
-            messagingV2ChannelsSenderRequestsCreate
-        );
+    public static ChannelsSenderCreator creator() {
+        return new ChannelsSenderCreator();
     }
 
     public static ChannelsSenderDeleter deleter(final String pathSid) {

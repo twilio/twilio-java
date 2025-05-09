@@ -108,6 +108,18 @@ public class Content extends Resource {
         @Setter
         private String label;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address")
+        @Getter
+        @Setter
+        private String address;
+
         public static TwilioLocation fromJson(
             String jsonString,
             ObjectMapper mapper
@@ -204,6 +216,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private String code;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
 
         public static CallToActionAction fromJson(
             String jsonString,

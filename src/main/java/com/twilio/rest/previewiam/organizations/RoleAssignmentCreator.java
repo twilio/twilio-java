@@ -31,13 +31,8 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
     private String pathOrganizationSid;
     private RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest;
 
-    public RoleAssignmentCreator(
-        final String pathOrganizationSid,
-        final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest
-    ) {
+    public RoleAssignmentCreator(final String pathOrganizationSid) {
         this.pathOrganizationSid = pathOrganizationSid;
-        this.publicApiCreateRoleAssignmentRequest =
-            publicApiCreateRoleAssignmentRequest;
     }
 
     public RoleAssignmentCreator setPublicApiCreateRoleAssignmentRequest(
@@ -56,11 +51,6 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
             path.replace(
                 "{" + "OrganizationSid" + "}",
                 this.pathOrganizationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PublicApiCreateRoleAssignmentRequest" + "}",
-                this.publicApiCreateRoleAssignmentRequest.toString()
             );
 
         BearerTokenRequest request = new BearerTokenRequest(

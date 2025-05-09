@@ -30,26 +30,24 @@ public class UserUpdater extends Updater<User> {
 
     private String pathOrganizationSid;
     private String pathUserSid;
-    private User.ScimUser scimUser;
     private String ifMatch;
+    private User.ScimUser scimUser;
 
     public UserUpdater(
         final String pathOrganizationSid,
-        final String pathUserSid,
-        final User.ScimUser scimUser
+        final String pathUserSid
     ) {
         this.pathOrganizationSid = pathOrganizationSid;
         this.pathUserSid = pathUserSid;
-        this.scimUser = scimUser;
-    }
-
-    public UserUpdater setScimUser(final User.ScimUser scimUser) {
-        this.scimUser = scimUser;
-        return this;
     }
 
     public UserUpdater setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
+        return this;
+    }
+
+    public UserUpdater setScimUser(final User.ScimUser scimUser) {
+        this.scimUser = scimUser;
         return this;
     }
 
@@ -63,7 +61,6 @@ public class UserUpdater extends Updater<User> {
                 this.pathOrganizationSid.toString()
             );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace("{" + "ScimUser" + "}", this.scimUser.toString());
 
         BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.PUT,

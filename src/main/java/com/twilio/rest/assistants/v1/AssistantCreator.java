@@ -30,12 +30,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     private Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest;
 
-    public AssistantCreator(
-        final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
-    ) {
-        this.assistantsV1ServiceCreateAssistantRequest =
-            assistantsV1ServiceCreateAssistantRequest;
-    }
+    public AssistantCreator() {}
 
     public AssistantCreator setAssistantsV1ServiceCreateAssistantRequest(
         final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
@@ -48,12 +43,6 @@ public class AssistantCreator extends Creator<Assistant> {
     @Override
     public Assistant create(final TwilioRestClient client) {
         String path = "/v1/Assistants";
-
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceCreateAssistantRequest" + "}",
-                this.assistantsV1ServiceCreateAssistantRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

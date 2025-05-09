@@ -376,10 +376,8 @@ public class Assistant extends Resource {
         }
     }
 
-    public static AssistantCreator creator(
-        final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
-    ) {
-        return new AssistantCreator(assistantsV1ServiceCreateAssistantRequest);
+    public static AssistantCreator creator() {
+        return new AssistantCreator();
     }
 
     public static AssistantDeleter deleter(final String pathId) {

@@ -31,13 +31,8 @@ public class MessageCreator extends Creator<Message> {
     private String pathId;
     private Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest;
 
-    public MessageCreator(
-        final String pathId,
-        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
-    ) {
+    public MessageCreator(final String pathId) {
         this.pathId = pathId;
-        this.assistantsV1ServiceAssistantSendMessageRequest =
-            assistantsV1ServiceAssistantSendMessageRequest;
     }
 
     public MessageCreator setAssistantsV1ServiceAssistantSendMessageRequest(
@@ -53,11 +48,6 @@ public class MessageCreator extends Creator<Message> {
         String path = "/v1/Assistants/{id}/Messages";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceAssistantSendMessageRequest" + "}",
-                this.assistantsV1ServiceAssistantSendMessageRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,

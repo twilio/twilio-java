@@ -31,12 +31,8 @@ public class UserCreator extends Creator<User> {
     private String pathOrganizationSid;
     private User.ScimUser scimUser;
 
-    public UserCreator(
-        final String pathOrganizationSid,
-        final User.ScimUser scimUser
-    ) {
+    public UserCreator(final String pathOrganizationSid) {
         this.pathOrganizationSid = pathOrganizationSid;
-        this.scimUser = scimUser;
     }
 
     public UserCreator setScimUser(final User.ScimUser scimUser) {
@@ -53,7 +49,6 @@ public class UserCreator extends Creator<User> {
                 "{" + "OrganizationSid" + "}",
                 this.pathOrganizationSid.toString()
             );
-        path = path.replace("{" + "ScimUser" + "}", this.scimUser.toString());
 
         BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.POST,

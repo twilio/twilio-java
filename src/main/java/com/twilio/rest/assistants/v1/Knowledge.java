@@ -210,10 +210,8 @@ public class Knowledge extends Resource {
         }
     }
 
-    public static KnowledgeCreator creator(
-        final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest
-    ) {
-        return new KnowledgeCreator(assistantsV1ServiceCreateKnowledgeRequest);
+    public static KnowledgeCreator creator() {
+        return new KnowledgeCreator();
     }
 
     public static KnowledgeDeleter deleter(final String pathId) {

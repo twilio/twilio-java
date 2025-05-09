@@ -17,8 +17,32 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 
-/*
- * Use this BearerToken Rest Client if no authentication is involved in an API.
+/**
+ * The `BearerTokenTwilioRestClient` class is a specialized REST client for interacting with Twilio's API
+ * using JWT token-based authentication. It handles token management, request retries, and logging.
+ *
+ * <p>Features:</p>
+ * <ul>
+ *   <li>Automatic token fetching and renewal when expired.</li>
+ *   <li>Support for specifying Twilio's region and edge for global infrastructure.</li>
+ *   <li>Customizable HTTP client and user-agent extensions.</li>
+ *   <li>Detailed request and response logging for debugging purposes.</li>
+ * </ul>
+ *
+ * <p>Usage:</p>
+ * <pre>
+ * BearerTokenTwilioRestClient client = new BearerTokenTwilioRestClient.Builder()
+ *     .region("us1")
+ *     .edge("ashburn")
+ *     .tokenManager(new CustomTokenManager())
+ *     .build();
+ *
+ * BearerTokenRequest request = new BearerTokenRequest("GET", "/path");
+ * Response response = client.request(request);
+ * </pre>
+ *
+ * <p>Thread Safety:</p>
+ * This class is thread-safe for concurrent use.
  */
 public class BearerTokenTwilioRestClient {
     public static final int HTTP_STATUS_CODE_CREATED = 201;
@@ -54,7 +78,7 @@ public class BearerTokenTwilioRestClient {
         // generates warnings from the module system on Java 9+
         objectMapper.registerModule(new JavaTimeModule());
     }
-    
+
     public static class Builder {
         private String region;
         private String edge;
@@ -111,7 +135,7 @@ public class BearerTokenTwilioRestClient {
                 }
             }
         }
-        
+
         request.setAuth(accessToken);
         if (region != null)
             request.setRegion(region);

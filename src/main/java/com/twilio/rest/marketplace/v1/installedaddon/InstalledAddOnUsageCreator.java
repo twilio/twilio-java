@@ -31,13 +31,8 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
     private String pathInstalledAddOnSid;
     private InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage;
 
-    public InstalledAddOnUsageCreator(
-        final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
-    ) {
+    public InstalledAddOnUsageCreator(final String pathInstalledAddOnSid) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
-        this.marketplaceV1InstalledAddOnInstalledAddOnUsage =
-            marketplaceV1InstalledAddOnInstalledAddOnUsage;
     }
 
     public InstalledAddOnUsageCreator setMarketplaceV1InstalledAddOnInstalledAddOnUsage(
@@ -56,11 +51,6 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
             path.replace(
                 "{" + "InstalledAddOnSid" + "}",
                 this.pathInstalledAddOnSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MarketplaceV1InstalledAddOnInstalledAddOnUsage" + "}",
-                this.marketplaceV1InstalledAddOnInstalledAddOnUsage.toString()
             );
 
         Request request = new Request(

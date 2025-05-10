@@ -3,20 +3,46 @@ package com.twilio.http;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twilio.auth_strategy.AuthStrategy;
-import com.twilio.auth_strategy.BasicAuthStrategy;
-import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.constant.EnumConstants;
-import com.twilio.credential.ClientCredentialProvider;
-import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-
+/**
+ * The `TwilioRestClient` class is responsible for making HTTP requests to the Twilio API.
+ * It provides methods to configure authentication, region, edge, and other settings
+ * required to interact with Twilio's services.
+ *
+ * <p>Features:</p>
+ * <ul>
+ *   <li>Supports basic authentication and token-based authentication strategies.</li>
+ *   <li>Allows configuration of custom HTTP clients and ObjectMapper for JSON processing.</li>
+ *   <li>Handles request retries for specific HTTP status codes (e.g., 401 Unauthorized).</li>
+ *   <li>Logs detailed request and response information for debugging purposes.</li>
+ * </ul>
+ *
+ * <p>Usage Example:</p>
+ * <pre>
+ * {@code
+ * TwilioRestClient client = new TwilioRestClient.Builder(ACCOUNT_SID, AUTH_TOKEN)
+ *           .objectMapper(customMapper)
+ *           .build();
+ *
+ * Message message = Message
+ *           .creator(
+ *               new PhoneNumber("+1xxxxxxxxxx"),
+ *               new PhoneNumber("+1xxxxxxxxxx"),
+ *               "This is the ship that made the Kessel Run in fourteen parsecs?"
+ *           ).create(client);
+ * }
+ * </pre>
+ *
+ * <p>Note: This class is designed to be thread-safe and reusable.</p>
+ */
 public class TwilioRestClient {
 
     public static final int HTTP_STATUS_CODE_CREATED = 201;
@@ -51,14 +77,8 @@ public class TwilioRestClient {
         this.region = b.region;
         this.edge = b.edge;
         this.httpClient = b.httpClient;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = b.objectMapper;
         this.userAgentExtensions = b.userAgentExtensions;
-
-        // This module configures the ObjectMapper to use
-        // public API methods for manipulating java.time.*
-        // classes. The alternative is to use reflection which
-        // generates warnings from the module system on Java 9+
-        objectMapper.registerModule(new JavaTimeModule());
     }
 
     /**
@@ -71,7 +91,7 @@ public class TwilioRestClient {
         if (username != null && password != null) {
             request.setAuth(username, password);
         } else if (authStrategy != null) {
-           request.setAuth(authStrategy);
+            request.setAuth(authStrategy);
         }
 
         if (region != null)
@@ -106,6 +126,13 @@ public class TwilioRestClient {
     }
 
     public static class Builder {
+        // This module configures the ObjectMapper to use
+        // public API methods for manipulating java.time.*
+        // classes. The alternative is to use reflection which
+        // generates warnings from the module system on Java 9+
+        private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
+
         private String username;
         private String password;
         private AuthStrategy authStrategy;
@@ -114,6 +141,7 @@ public class TwilioRestClient {
         private String edge;
         private HttpClient httpClient;
         private List<String> userAgentExtensions;
+        private ObjectMapper objectMapper = DEFAULT_OBJECT_MAPPER;
 
         /**
          * Create a new Twilio Rest Client.
@@ -160,6 +188,11 @@ public class TwilioRestClient {
             if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
                 this.userAgentExtensions = new ArrayList<>(userAgentExtensions);
             }
+            return this;
+        }
+
+        public Builder objectMapper(final ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
             return this;
         }
 

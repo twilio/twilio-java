@@ -37,7 +37,6 @@ public class SubscriptionCreator extends Creator<Subscription> {
     private String description;
     private String sinkSid;
     private List<Map<String, Object>> types;
-    private Boolean receiveEventsFromSubaccounts;
 
     public SubscriptionCreator(
         final String description,
@@ -66,13 +65,6 @@ public class SubscriptionCreator extends Creator<Subscription> {
 
     public SubscriptionCreator setTypes(final Map<String, Object> types) {
         return setTypes(Promoter.listOfOne(types));
-    }
-
-    public SubscriptionCreator setReceiveEventsFromSubaccounts(
-        final Boolean receiveEventsFromSubaccounts
-    ) {
-        this.receiveEventsFromSubaccounts = receiveEventsFromSubaccounts;
-        return this;
     }
 
     @Override
@@ -130,12 +122,6 @@ public class SubscriptionCreator extends Creator<Subscription> {
             for (Map<String, Object> prop : types) {
                 request.addPostParam("Types", Converter.mapToJson(prop));
             }
-        }
-        if (receiveEventsFromSubaccounts != null) {
-            request.addPostParam(
-                "ReceiveEventsFromSubaccounts",
-                receiveEventsFromSubaccounts.toString()
-            );
         }
     }
 }

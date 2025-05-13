@@ -131,18 +131,15 @@ public class ValidationTokenTest {
     public void testTokenInvalidAlgorithms() throws IOException {
         List<SignatureAlgorithm> validAlgorithms = Arrays.asList(SignatureAlgorithm.HS256, SignatureAlgorithm.ES256, RS384, RS512, PS384, PS512);
         for (SignatureAlgorithm alg : validAlgorithms) {
-            Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
-                    .algorithm(alg)
-                    .method("GET")
-                    .uri("/Messages")
-                    .queryString("PageSize=5&Limit=10")
-                    .headers(headers)
-                    .signedHeaders(SIGNED_HEADERS)
-                    .requestBody("foobar")
-                    .build();
-
-
-            assertThrows(IllegalArgumentException.class, () -> getClaimFromJwtToken(jwt));
+            assertThrows(IllegalArgumentException.class,() -> new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
+                .algorithm(alg)
+                .method("GET")
+                .uri("/Messages")
+                .queryString("PageSize=5&Limit=10")
+                .headers(headers)
+                .signedHeaders(SIGNED_HEADERS)
+                .requestBody("foobar")
+                .build());
         }
     }
 

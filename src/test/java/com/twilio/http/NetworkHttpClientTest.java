@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class NetworkHttpClientTest {
@@ -101,7 +101,6 @@ public class NetworkHttpClientTest {
         when(mockRequest.getAuthString()).thenReturn("foo:bar");
         when(mockClient.execute(any())).thenThrow(new ApiConnectionException("foo"));
         client = new NetworkHttpClient(mockBuilder);
-        client.makeRequest(mockRequest);
         assertThrows(ApiConnectionException.class, () -> client.makeRequest(mockRequest));
     }
 

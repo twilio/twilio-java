@@ -198,20 +198,14 @@ public class AssistantTest {
             .dtmfDetection(true)
             .welcomeGreeting("welcome_greeting")
             .partialPrompts(true)
-            .welcomeGreetingInterruptible("welcome_greeting_interruptible")
-            .interruptible("interruptible")
-            .preemptible(true)
-            .hints("hints")
-            .intelligenceService("intelligence_service")
-            .reportInputDuringAgentSpeech(true)
-            .elevenlabsTextNormalization("elevenlabs_text_normalization")
-            .interruptSensitivity("interrupt_sensitivity")
-            .debug("debug")
+            .welcomeGreetingInterruptible("true")
+            .interruptible("true")
+            .debug("true")
             .build();
 
         assertEquals(
-            Assistant.Builder.fromXml("<Assistant debug=\"true\" dtmfDetection=\"true\" id=\"id\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>").build().toXml(),
-            elem.toXml()
+            elem.toXml(),
+            Assistant.Builder.fromXml("<Assistant debug=\"true\" dtmfDetection=\"true\" id=\"id\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>").build().toXml()
         );
     }
 

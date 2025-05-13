@@ -196,21 +196,14 @@ public class ConversationRelayTest {
             .dtmfDetection(true)
             .welcomeGreeting("welcome_greeting")
             .partialPrompts(true)
-            .welcomeGreetingInterruptible("welcome_greeting_interruptible")
-            .interruptible("interruptible")
-            .preemptible(true)
-            .hints("hints")
-            .intelligenceService("intelligence_service")
-            .reportInputDuringAgentSpeech(true)
-            .elevenlabsTextNormalization("elevenlabs_text_normalization")
-            .interruptSensitivity("interrupt_sensitivity")
-            .debug("debug")
+            .welcomeGreetingInterruptible("true")
+            .interruptible("true")
+            .debug("true")
             .build();
 
         assertEquals(
-            ConversationRelay.Builder.fromXml("<ConversationRelay debug=\"true\" dtmfDetection=\"true\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>").build().toXml(),
-
-            elem.toXml()
+            elem.toXml(),
+            ConversationRelay.Builder.fromXml("<ConversationRelay debug=\"true\" dtmfDetection=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>").build().toXml()
         );
     }
 

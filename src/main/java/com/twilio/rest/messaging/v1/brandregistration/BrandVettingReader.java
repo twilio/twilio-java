@@ -31,7 +31,6 @@ public class BrandVettingReader extends Reader<BrandVetting> {
 
     private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
-    private Long pageSize;
 
     public BrandVettingReader(final String pathBrandSid) {
         this.pathBrandSid = pathBrandSid;
@@ -41,11 +40,6 @@ public class BrandVettingReader extends Reader<BrandVetting> {
         final BrandVetting.VettingProvider vettingProvider
     ) {
         this.vettingProvider = vettingProvider;
-        return this;
-    }
-
-    public BrandVettingReader setPageSize(final Long pageSize) {
-        this.pageSize = pageSize;
         return this;
     }
 
@@ -142,9 +136,6 @@ public class BrandVettingReader extends Reader<BrandVetting> {
                 "VettingProvider",
                 vettingProvider.toString()
             );
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
         }
 
         if (getPageSize() != null) {

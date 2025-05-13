@@ -50,15 +50,20 @@ public class AssistantTest {
             .dtmfDetection(true)
             .welcomeGreeting("welcome_greeting")
             .partialPrompts(true)
-            .interruptible(true)
-            .interruptByDtmf(true)
-            .welcomeGreetingInterruptible(true)
-            .debug(true)
+            .welcomeGreetingInterruptible("welcome_greeting_interruptible")
+            .interruptible("interruptible")
+            .preemptible(true)
+            .hints("hints")
+            .intelligenceService("intelligence_service")
+            .reportInputDuringAgentSpeech(true)
+            .elevenlabsTextNormalization("elevenlabs_text_normalization")
+            .interruptSensitivity("interrupt_sensitivity")
+            .debug("debug")
             .build();
 
         assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Assistant debug=\"true\" dtmfDetection=\"true\" id=\"id\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>",
+            "<Assistant debug=\"debug\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" hints=\"hints\" id=\"id\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>",
             elem.toXml()
         );
     }
@@ -193,10 +198,15 @@ public class AssistantTest {
             .dtmfDetection(true)
             .welcomeGreeting("welcome_greeting")
             .partialPrompts(true)
-            .interruptible(true)
-            .interruptByDtmf(true)
-            .welcomeGreetingInterruptible(true)
-            .debug(true)
+            .welcomeGreetingInterruptible("welcome_greeting_interruptible")
+            .interruptible("interruptible")
+            .preemptible(true)
+            .hints("hints")
+            .intelligenceService("intelligence_service")
+            .reportInputDuringAgentSpeech(true)
+            .elevenlabsTextNormalization("elevenlabs_text_normalization")
+            .interruptSensitivity("interrupt_sensitivity")
+            .debug("debug")
             .build();
 
         assertEquals(

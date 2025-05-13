@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2025-05-13] Version 10.9.0
+---------------------------
+**Library - Feature**
+- [PR #844](https://github.com/twilio/twilio-java/pull/844): Support custom ObjectMappers, with singleton defaults. Thanks to [@egoodhall](https://github.com/egoodhall)!
+
+**Library - Chore**
+- [PR #853](https://github.com/twilio/twilio-java/pull/853): add changelog for jwt. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
 [2025-05-05] Version 10.8.0
 ---------------------------
 **Library - Chore**

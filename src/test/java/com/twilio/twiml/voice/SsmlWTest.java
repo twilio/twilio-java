@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlW}
@@ -19,7 +19,7 @@ public class SsmlWTest {
     public void testEmptyElement() {
         SsmlW elem = new SsmlW.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlWTest {
     public void testEmptyElementUrl() {
         SsmlW elem = new SsmlW.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cw%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cw%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlW elem = new SsmlW.Builder("words").role("role").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w role=\"role\">words</w>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlWTest {
     public void testElementWithExtraAttributes() {
         SsmlW elem = new SsmlW.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -76,7 +76,7 @@ public class SsmlWTest {
 
         SsmlW elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -98,7 +98,7 @@ public class SsmlWTest {
 
         SsmlW elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w>" +
             "Hey no tags!" +
@@ -118,7 +118,7 @@ public class SsmlWTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w>" +
             "before" +
@@ -138,7 +138,7 @@ public class SsmlWTest {
         SsmlW.Builder builder = new SsmlW.Builder();
         SsmlW elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w>" +
             "<genericTag>" +
@@ -157,7 +157,7 @@ public class SsmlWTest {
         SsmlW.Builder builder = new SsmlW.Builder();
         SsmlW elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<w>" +
             "<genericTag key=\"value\">" +
@@ -172,7 +172,7 @@ public class SsmlWTest {
     public void testXmlAttributesDeserialization() {
         final SsmlW elem = new SsmlW.Builder("words").role("role").build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlW.Builder.fromXml("<w role=\"role\">words</w>").build().toXml(),
             elem.toXml()
         );
@@ -199,7 +199,7 @@ public class SsmlWTest {
 
         final SsmlW elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlW.Builder.fromXml("<w>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -224,7 +224,7 @@ public class SsmlWTest {
 
         final SsmlW elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlW.Builder.fromXml("<w>" +
                 "<break/>" +
                 "<emphasis/>" +

@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Identity}
@@ -18,7 +18,7 @@ public class IdentityTest {
     public void testElementWithParams() {
         Identity elem = new Identity.Builder("client_identity").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Identity>client_identity</Identity>",
             elem.toXml()
@@ -29,7 +29,7 @@ public class IdentityTest {
     public void testXmlAttributesDeserialization() {
         final Identity elem = new Identity.Builder("client_identity").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Identity.Builder.fromXml("<Identity>client_identity</Identity>").build().toXml(),
             elem.toXml()
         );

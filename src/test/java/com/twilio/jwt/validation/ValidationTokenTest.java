@@ -6,15 +6,12 @@ import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.InvalidKeyException;
-import io.jsonwebtoken.security.Keys;
 import org.apache.http.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicHttpRequest;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -31,6 +28,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.AssertionsKt.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import static io.jsonwebtoken.SignatureAlgorithm.PS256;
@@ -64,7 +66,7 @@ public class ValidationTokenTest {
     @Mock
     private HttpEntity entity;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
         headers = new Header[2];
@@ -102,8 +104,8 @@ public class ValidationTokenTest {
         Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
-        Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("4dc9b67bed579647914587b0e22a1c65c1641d8674797cd82de65e766cce5f80", claims.get("rqh"));
+        assertEquals("authorization;host", claims.get("hrh"));
+        assertEquals("4dc9b67bed579647914587b0e22a1c65c1641d8674797cd82de65e766cce5f80", claims.get("rqh"));
     }
 
     @Test
@@ -125,7 +127,7 @@ public class ValidationTokenTest {
         }
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void testTokenInvalidAlgorithms() throws IOException {
         List<SignatureAlgorithm> validAlgorithms = Arrays.asList(SignatureAlgorithm.HS256, SignatureAlgorithm.ES256, RS384, RS512, PS384, PS512);
         for (SignatureAlgorithm alg : validAlgorithms) {
@@ -140,7 +142,7 @@ public class ValidationTokenTest {
                     .build();
 
 
-            getClaimFromJwtToken(jwt);
+            assertThrows(IllegalArgumentException.class, () -> getClaimFromJwtToken(jwt));
         }
     }
 
@@ -156,8 +158,8 @@ public class ValidationTokenTest {
         Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
-        Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("712fbbec9dcb4fe58ed8caecf925d2fe10889f5d3f4b48e748157a4a1113697d", claims.get("rqh"));
+        assertEquals("authorization;host", claims.get("hrh"));
+        assertEquals("712fbbec9dcb4fe58ed8caecf925d2fe10889f5d3f4b48e748157a4a1113697d", claims.get("rqh"));
     }
 
     @Test
@@ -174,8 +176,8 @@ public class ValidationTokenTest {
         Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
-        Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
+        assertEquals("authorization;host", claims.get("hrh"));
+        assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
     }
 
     @Test
@@ -192,8 +194,8 @@ public class ValidationTokenTest {
 
 
         this.validateToken(claims);
-        Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
+        assertEquals("authorization;host", claims.get("hrh"));
+        assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
     }
 
     @Test
@@ -211,7 +213,7 @@ public class ValidationTokenTest {
                         i.process(getBasicRequest(), new HttpClientContext());
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Assert.fail(e.getMessage());
+                        fail(e.getMessage());
                     }
                 }
             }));
@@ -231,14 +233,14 @@ public class ValidationTokenTest {
     }
 
     private void validateToken(Claims claims) {
-        Assert.assertEquals(SIGNING_KEY_SID, claims.getIssuer());
-        Assert.assertEquals(ACCOUNT_SID, claims.getSubject());
+        assertEquals(SIGNING_KEY_SID, claims.getIssuer());
+        assertEquals(ACCOUNT_SID, claims.getSubject());
 
-        Assert.assertNotNull(claims.getExpiration());
-        Assert.assertNotNull(claims.get("hrh"));
-        Assert.assertNotNull(claims.get("rqh"));
+        assertNotNull(claims.getExpiration());
+        assertNotNull(claims.get("hrh"));
+        assertNotNull(claims.get("rqh"));
 
-        Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
+        assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
 }

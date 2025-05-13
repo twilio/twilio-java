@@ -7,11 +7,13 @@
 
 package com.twilio.twiml.messaging;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.twilio.http.HttpMethod;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import java.net.URI;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link Redirect}
@@ -21,7 +23,7 @@ public class RedirectTest {
     public void testElementWithParams() {
         Redirect elem = new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Redirect method=\"GET\">https://example.com</Redirect>",
             elem.toXml()
@@ -32,7 +34,7 @@ public class RedirectTest {
     public void testXmlAttributesDeserialization() {
         final Redirect elem = new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Redirect.Builder.fromXml("<Redirect method=\"GET\">https://example.com</Redirect>").build().toXml(),
             elem.toXml()
         );

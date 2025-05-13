@@ -9,8 +9,8 @@ package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link VirtualAgent}
@@ -20,7 +20,7 @@ public class VirtualAgentTest {
     public void testEmptyElement() {
         VirtualAgent elem = new VirtualAgent.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent/>",
             elem.toXml()
@@ -31,7 +31,7 @@ public class VirtualAgentTest {
     public void testEmptyElementUrl() {
         VirtualAgent elem = new VirtualAgent.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CVirtualAgent%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CVirtualAgent%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class VirtualAgentTest {
             .statusCallbackMethod(HttpMethod.GET)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>",
             elem.toXml()
@@ -55,7 +55,7 @@ public class VirtualAgentTest {
     public void testElementWithExtraAttributes() {
         VirtualAgent elem = new VirtualAgent.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -72,7 +72,7 @@ public class VirtualAgentTest {
 
         VirtualAgent elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent>" +
                 "<Config name=\"name\" value=\"value\"/>" +
@@ -90,7 +90,7 @@ public class VirtualAgentTest {
 
         VirtualAgent elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent>" +
             "Hey no tags!" +
@@ -110,7 +110,7 @@ public class VirtualAgentTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent>" +
             "before" +
@@ -130,7 +130,7 @@ public class VirtualAgentTest {
         VirtualAgent.Builder builder = new VirtualAgent.Builder();
         VirtualAgent elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent>" +
             "<genericTag>" +
@@ -149,7 +149,7 @@ public class VirtualAgentTest {
         VirtualAgent.Builder builder = new VirtualAgent.Builder();
         VirtualAgent elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent>" +
             "<genericTag key=\"value\">" +
@@ -170,7 +170,7 @@ public class VirtualAgentTest {
             .statusCallbackMethod(HttpMethod.GET)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             VirtualAgent.Builder.fromXml("<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>").build().toXml(),
             elem.toXml()
         );
@@ -186,7 +186,7 @@ public class VirtualAgentTest {
 
         final VirtualAgent elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             VirtualAgent.Builder.fromXml("<VirtualAgent>" +
                 "<Config name=\"name\" value=\"value\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -205,7 +205,7 @@ public class VirtualAgentTest {
 
         final VirtualAgent elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             VirtualAgent.Builder.fromXml("<VirtualAgent>" +
                 "<Config/>" +
                 "<Parameter/>" +

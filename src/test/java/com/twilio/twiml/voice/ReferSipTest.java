@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -20,7 +20,7 @@ public class ReferSipTest {
     public void testElementWithParams() {
         ReferSip elem = new ReferSip.Builder(URI.create("https://example.com")).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Sip>https://example.com</Sip>",
             elem.toXml()
@@ -31,7 +31,7 @@ public class ReferSipTest {
     public void testXmlAttributesDeserialization() {
         final ReferSip elem = new ReferSip.Builder(URI.create("https://example.com")).build();
 
-        Assert.assertEquals(
+        assertEquals(
             ReferSip.Builder.fromXml("<Sip>https://example.com</Sip>").build().toXml(),
             elem.toXml()
         );

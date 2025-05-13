@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link ConversationRelay}
@@ -19,7 +19,7 @@ public class ConversationRelayTest {
     public void testEmptyElement() {
         ConversationRelay elem = new ConversationRelay.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay/>",
             elem.toXml()
@@ -30,7 +30,7 @@ public class ConversationRelayTest {
     public void testEmptyElementUrl() {
         ConversationRelay elem = new ConversationRelay.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConversationRelay%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConversationRelay%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ConversationRelayTest {
             .debug(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay debug=\"true\" dtmfDetection=\"true\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>",
             elem.toXml()
@@ -65,7 +65,7 @@ public class ConversationRelayTest {
     public void testElementWithExtraAttributes() {
         ConversationRelay elem = new ConversationRelay.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -88,7 +88,7 @@ public class ConversationRelayTest {
 
         ConversationRelay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay>" +
                 "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>" +
@@ -106,7 +106,7 @@ public class ConversationRelayTest {
 
         ConversationRelay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay>" +
             "Hey no tags!" +
@@ -126,7 +126,7 @@ public class ConversationRelayTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay>" +
             "before" +
@@ -146,7 +146,7 @@ public class ConversationRelayTest {
         ConversationRelay.Builder builder = new ConversationRelay.Builder();
         ConversationRelay elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay>" +
             "<genericTag>" +
@@ -165,7 +165,7 @@ public class ConversationRelayTest {
         ConversationRelay.Builder builder = new ConversationRelay.Builder();
         ConversationRelay elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ConversationRelay>" +
             "<genericTag key=\"value\">" +
@@ -197,7 +197,7 @@ public class ConversationRelayTest {
             .debug(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             ConversationRelay.Builder.fromXml("<ConversationRelay debug=\"true\" dtmfDetection=\"true\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>").build().toXml(),
             elem.toXml()
         );
@@ -219,7 +219,7 @@ public class ConversationRelayTest {
 
         final ConversationRelay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             ConversationRelay.Builder.fromXml("<ConversationRelay>" +
                 "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -238,7 +238,7 @@ public class ConversationRelayTest {
 
         final ConversationRelay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             ConversationRelay.Builder.fromXml("<ConversationRelay>" +
                 "<Language/>" +
                 "<Parameter/>" +

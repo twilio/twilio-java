@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Config}
@@ -19,7 +19,7 @@ public class ConfigTest {
     public void testEmptyElement() {
         Config elem = new Config.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Config/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class ConfigTest {
     public void testEmptyElementUrl() {
         Config elem = new Config.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConfig%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConfig%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Config elem = new Config.Builder().name("name").value("value").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Config name=\"name\" value=\"value\"/>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class ConfigTest {
     public void testElementWithExtraAttributes() {
         Config elem = new Config.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Config a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -63,7 +63,7 @@ public class ConfigTest {
 
         Config elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Config>" +
             "Hey no tags!" +
@@ -83,7 +83,7 @@ public class ConfigTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Config>" +
             "before" +
@@ -103,7 +103,7 @@ public class ConfigTest {
         Config.Builder builder = new Config.Builder();
         Config elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Config>" +
             "<genericTag>" +
@@ -118,7 +118,7 @@ public class ConfigTest {
     public void testXmlAttributesDeserialization() {
         final Config elem = new Config.Builder().name("name").value("value").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Config.Builder.fromXml("<Config name=\"name\" value=\"value\"/>").build().toXml(),
             elem.toXml()
         );

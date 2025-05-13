@@ -9,8 +9,8 @@ package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -22,7 +22,7 @@ public class EnqueueTest {
     public void testEmptyElement() {
         Enqueue elem = new Enqueue.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue/>",
             elem.toXml()
@@ -33,7 +33,7 @@ public class EnqueueTest {
     public void testEmptyElementUrl() {
         Enqueue elem = new Enqueue.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CEnqueue%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CEnqueue%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class EnqueueTest {
             .workflowSid("workflow_sid")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>",
             elem.toXml()
@@ -58,7 +58,7 @@ public class EnqueueTest {
     public void testElementWithExtraAttributes() {
         Enqueue elem = new Enqueue.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -73,7 +73,7 @@ public class EnqueueTest {
 
         Enqueue elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue>" +
                 "<Task priority=\"1\" timeout=\"1\">body</Task>" +
@@ -90,7 +90,7 @@ public class EnqueueTest {
 
         Enqueue elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue>" +
             "Hey no tags!" +
@@ -110,7 +110,7 @@ public class EnqueueTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue>" +
             "before" +
@@ -130,7 +130,7 @@ public class EnqueueTest {
         Enqueue.Builder builder = new Enqueue.Builder();
         Enqueue elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue>" +
             "<genericTag>" +
@@ -149,7 +149,7 @@ public class EnqueueTest {
         Enqueue.Builder builder = new Enqueue.Builder();
         Enqueue elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Enqueue>" +
             "<genericTag key=\"value\">" +
@@ -171,7 +171,7 @@ public class EnqueueTest {
             .workflowSid("workflow_sid")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Enqueue.Builder.fromXml("<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>").build().toXml(),
             elem.toXml()
         );
@@ -185,7 +185,7 @@ public class EnqueueTest {
 
         final Enqueue elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Enqueue.Builder.fromXml("<Enqueue>" +
                 "<Task priority=\"1\" timeout=\"1\">body</Task>" +
             "</Enqueue>").build().toXml(),

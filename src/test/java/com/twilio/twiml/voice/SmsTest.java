@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -27,7 +27,7 @@ public class SmsTest {
             .statusCallback(URI.create("https://example.com"))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>",
             elem.toXml()
@@ -44,7 +44,7 @@ public class SmsTest {
             .statusCallback(URI.create("https://example.com"))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Sms.Builder.fromXml("<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>").build().toXml(),
             elem.toXml()
         );

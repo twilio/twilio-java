@@ -1,8 +1,8 @@
 package com.twilio.converter;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class PrefixedCollapsibleMapTest {
     @Test
     public void testNull() {
         Map<String, String> actual = PrefixedCollapsibleMap.serialize(null, "Prefix");
-        Assert.assertEquals(Collections.emptyMap(), actual);
+        assertEquals(Collections.emptyMap(), actual);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class PrefixedCollapsibleMapTest {
         Map<String, String> expected = new HashMap<>();
         expected.put("Prefix.foo", "bar");
 
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class PrefixedCollapsibleMapTest {
         Map<String, String> expected = new HashMap<>();
         expected.put("Prefix.foo.bar", "baz");
 
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class PrefixedCollapsibleMapTest {
         expected.put("Prefix.watson.language", "en");
         expected.put("Prefix.watson.alice", "bob");
 
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
 }

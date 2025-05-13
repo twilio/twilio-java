@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Leave}
@@ -19,7 +19,7 @@ public class LeaveTest {
     public void testEmptyElement() {
         Leave elem = new Leave.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Leave/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class LeaveTest {
     public void testEmptyElementUrl() {
         Leave elem = new Leave.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CLeave%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CLeave%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithExtraAttributes() {
         Leave elem = new Leave.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Leave a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -52,7 +52,7 @@ public class LeaveTest {
 
         Leave elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Leave>" +
             "Hey no tags!" +
@@ -72,7 +72,7 @@ public class LeaveTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Leave>" +
             "before" +
@@ -92,7 +92,7 @@ public class LeaveTest {
         Leave.Builder builder = new Leave.Builder();
         Leave elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Leave>" +
             "<genericTag>" +
@@ -107,7 +107,7 @@ public class LeaveTest {
     public void testXmlAttributesDeserialization() {
         final Leave elem = new Leave.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             Leave.Builder.fromXml("<Leave/>").build().toXml(),
             elem.toXml()
         );

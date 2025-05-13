@@ -7,9 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * Test class for {@link Assistant}
@@ -19,7 +21,7 @@ public class AssistantTest {
     public void testEmptyElement() {
         Assistant elem = new Assistant.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant/>",
             elem.toXml()
@@ -30,7 +32,7 @@ public class AssistantTest {
     public void testEmptyElementUrl() {
         Assistant elem = new Assistant.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CAssistant%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CAssistant%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -54,7 +56,7 @@ public class AssistantTest {
             .debug(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant debug=\"true\" dtmfDetection=\"true\" id=\"id\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>",
             elem.toXml()
@@ -65,7 +67,7 @@ public class AssistantTest {
     public void testElementWithExtraAttributes() {
         Assistant elem = new Assistant.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -88,7 +90,7 @@ public class AssistantTest {
 
         Assistant elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant>" +
                 "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>" +
@@ -106,7 +108,7 @@ public class AssistantTest {
 
         Assistant elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant>" +
             "Hey no tags!" +
@@ -126,7 +128,7 @@ public class AssistantTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant>" +
             "before" +
@@ -146,7 +148,7 @@ public class AssistantTest {
         Assistant.Builder builder = new Assistant.Builder();
         Assistant elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant>" +
             "<genericTag>" +
@@ -165,7 +167,7 @@ public class AssistantTest {
         Assistant.Builder builder = new Assistant.Builder();
         Assistant elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Assistant>" +
             "<genericTag key=\"value\">" +
@@ -197,7 +199,7 @@ public class AssistantTest {
             .debug(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Assistant.Builder.fromXml("<Assistant debug=\"true\" dtmfDetection=\"true\" id=\"id\" interruptByDtmf=\"true\" interruptible=\"true\" language=\"language\" partialPrompts=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"true\"/>").build().toXml(),
             elem.toXml()
         );
@@ -219,7 +221,7 @@ public class AssistantTest {
 
         final Assistant elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Assistant.Builder.fromXml("<Assistant>" +
                 "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -238,7 +240,7 @@ public class AssistantTest {
 
         final Assistant elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Assistant.Builder.fromXml("<Assistant>" +
                 "<Language/>" +
                 "<Parameter/>" +

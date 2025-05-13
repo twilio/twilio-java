@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Siprec}
@@ -19,7 +19,7 @@ public class SiprecTest {
     public void testEmptyElement() {
         Siprec elem = new Siprec.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec/>",
             elem.toXml()
@@ -30,7 +30,7 @@ public class SiprecTest {
     public void testEmptyElementUrl() {
         Siprec elem = new Siprec.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CSiprec%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CSiprec%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class SiprecTest {
             .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>",
             elem.toXml()
@@ -54,7 +54,7 @@ public class SiprecTest {
     public void testElementWithExtraAttributes() {
         Siprec elem = new Siprec.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -69,7 +69,7 @@ public class SiprecTest {
 
         Siprec elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -86,7 +86,7 @@ public class SiprecTest {
 
         Siprec elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec>" +
             "Hey no tags!" +
@@ -106,7 +106,7 @@ public class SiprecTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec>" +
             "before" +
@@ -126,7 +126,7 @@ public class SiprecTest {
         Siprec.Builder builder = new Siprec.Builder();
         Siprec elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec>" +
             "<genericTag>" +
@@ -145,7 +145,7 @@ public class SiprecTest {
         Siprec.Builder builder = new Siprec.Builder();
         Siprec elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Siprec>" +
             "<genericTag key=\"value\">" +
@@ -166,7 +166,7 @@ public class SiprecTest {
             .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Siprec.Builder.fromXml("<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>").build().toXml(),
             elem.toXml()
         );
@@ -180,7 +180,7 @@ public class SiprecTest {
 
         final Siprec elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Siprec.Builder.fromXml("<Siprec>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</Siprec>").build().toXml(),
@@ -196,7 +196,7 @@ public class SiprecTest {
 
         final Siprec elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Siprec.Builder.fromXml("<Siprec>" +
                 "<Parameter/>" +
             "</Siprec>").build().toXml(),

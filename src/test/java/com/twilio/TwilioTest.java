@@ -11,8 +11,8 @@ import com.twilio.http.TwilioRestClient;
 
 import java.util.Arrays;
 import java.util.Collections;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -20,11 +20,12 @@ import java.util.concurrent.Executors;
 
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 public class TwilioTest {
@@ -45,7 +46,7 @@ public class TwilioTest {
     @Mock
     private NetworkHttpClient networkHttpClient;
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
@@ -55,23 +56,23 @@ public class TwilioTest {
         assertNotNull(Twilio.getExecutorService());
     }
 
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testGetRestClientNullAccountSid() {
         Twilio.setRestClient(null);
         Twilio.setUsername(null);
         Twilio.setPassword(null);
 
-        Twilio.getRestClient();
+        assertThrows(AuthenticationException.class, () -> Twilio.getRestClient());
         fail("AuthenticationException was expected");
     }
 
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testSetAccountSidNull() {
         Twilio.setUsername(null);
         fail("AuthenticationException was expected");
     }
 
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testSetAuthTokenNull() {
         Twilio.setPassword(null);
         fail("AuthenticationException was expected");

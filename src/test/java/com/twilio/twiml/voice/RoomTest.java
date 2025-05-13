@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Room}
@@ -18,7 +18,7 @@ public class RoomTest {
     public void testElementWithParams() {
         Room elem = new Room.Builder("name").participantIdentity("participant_identity").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Room participantIdentity=\"participant_identity\">name</Room>",
             elem.toXml()
@@ -29,7 +29,7 @@ public class RoomTest {
     public void testXmlAttributesDeserialization() {
         final Room elem = new Room.Builder("name").participantIdentity("participant_identity").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Room.Builder.fromXml("<Room participantIdentity=\"participant_identity\">name</Room>").build().toXml(),
             elem.toXml()
         );

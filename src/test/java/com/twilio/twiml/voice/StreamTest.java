@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Stream}
@@ -19,7 +19,7 @@ public class StreamTest {
     public void testEmptyElement() {
         Stream elem = new Stream.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream/>",
             elem.toXml()
@@ -30,7 +30,7 @@ public class StreamTest {
     public void testEmptyElementUrl() {
         Stream elem = new Stream.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStream%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStream%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class StreamTest {
             .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>",
             elem.toXml()
@@ -55,7 +55,7 @@ public class StreamTest {
     public void testElementWithExtraAttributes() {
         Stream elem = new Stream.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -70,7 +70,7 @@ public class StreamTest {
 
         Stream elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -87,7 +87,7 @@ public class StreamTest {
 
         Stream elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream>" +
             "Hey no tags!" +
@@ -107,7 +107,7 @@ public class StreamTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream>" +
             "before" +
@@ -127,7 +127,7 @@ public class StreamTest {
         Stream.Builder builder = new Stream.Builder();
         Stream elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream>" +
             "<genericTag>" +
@@ -146,7 +146,7 @@ public class StreamTest {
         Stream.Builder builder = new Stream.Builder();
         Stream elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stream>" +
             "<genericTag key=\"value\">" +
@@ -168,7 +168,7 @@ public class StreamTest {
             .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Stream.Builder.fromXml("<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>").build().toXml(),
             elem.toXml()
         );
@@ -182,7 +182,7 @@ public class StreamTest {
 
         final Stream elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Stream.Builder.fromXml("<Stream>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</Stream>").build().toXml(),
@@ -198,7 +198,7 @@ public class StreamTest {
 
         final Stream elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Stream.Builder.fromXml("<Stream>" +
                 "<Parameter/>" +
             "</Stream>").build().toXml(),

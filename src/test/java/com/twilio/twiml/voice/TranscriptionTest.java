@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Transcription}
@@ -19,7 +19,7 @@ public class TranscriptionTest {
     public void testEmptyElement() {
         Transcription elem = new Transcription.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription/>",
             elem.toXml()
@@ -30,7 +30,7 @@ public class TranscriptionTest {
     public void testEmptyElementUrl() {
         Transcription elem = new Transcription.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CTranscription%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CTranscription%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TranscriptionTest {
             .intelligenceService("intelligence_service")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>",
             elem.toXml()
@@ -63,7 +63,7 @@ public class TranscriptionTest {
     public void testElementWithExtraAttributes() {
         Transcription elem = new Transcription.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -80,7 +80,7 @@ public class TranscriptionTest {
 
         Transcription elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription>" +
                 "<Config name=\"name\" value=\"value\"/>" +
@@ -98,7 +98,7 @@ public class TranscriptionTest {
 
         Transcription elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription>" +
             "Hey no tags!" +
@@ -118,7 +118,7 @@ public class TranscriptionTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription>" +
             "before" +
@@ -138,7 +138,7 @@ public class TranscriptionTest {
         Transcription.Builder builder = new Transcription.Builder();
         Transcription elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription>" +
             "<genericTag>" +
@@ -157,7 +157,7 @@ public class TranscriptionTest {
         Transcription.Builder builder = new Transcription.Builder();
         Transcription elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Transcription>" +
             "<genericTag key=\"value\">" +
@@ -187,7 +187,7 @@ public class TranscriptionTest {
             .intelligenceService("intelligence_service")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Transcription.Builder.fromXml("<Transcription enableAutomaticPunctuation=\"true\" hints=\"hints\" inboundTrackLabel=\"inbound_track_label\" intelligenceService=\"intelligence_service\" languageCode=\"language_code\" name=\"name\" outboundTrackLabel=\"outbound_track_label\" partialResults=\"true\" profanityFilter=\"true\" speechModel=\"speech_model\" statusCallbackMethod=\"GET\" statusCallbackUrl=\"status_callback_url\" track=\"inbound_track\" transcriptionEngine=\"transcription_engine\"/>").build().toXml(),
             elem.toXml()
         );
@@ -203,7 +203,7 @@ public class TranscriptionTest {
 
         final Transcription elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Transcription.Builder.fromXml("<Transcription>" +
                 "<Config name=\"name\" value=\"value\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -222,7 +222,7 @@ public class TranscriptionTest {
 
         final Transcription elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Transcription.Builder.fromXml("<Transcription>" +
                 "<Config/>" +
                 "<Parameter/>" +

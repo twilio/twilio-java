@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Stop}
@@ -19,7 +19,7 @@ public class StopTest {
     public void testEmptyElement() {
         Stop elem = new Stop.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class StopTest {
     public void testEmptyElementUrl() {
         Stop elem = new Stop.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStop%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStop%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithExtraAttributes() {
         Stop elem = new Stop.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -84,7 +84,7 @@ public class StopTest {
 
         Stop elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
@@ -103,7 +103,7 @@ public class StopTest {
 
         Stop elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop>" +
             "Hey no tags!" +
@@ -123,7 +123,7 @@ public class StopTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop>" +
             "before" +
@@ -143,7 +143,7 @@ public class StopTest {
         Stop.Builder builder = new Stop.Builder();
         Stop elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop>" +
             "<genericTag>" +
@@ -162,7 +162,7 @@ public class StopTest {
         Stop.Builder builder = new Stop.Builder();
         Stop elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop>" +
             "<genericTag key=\"value\">" +
@@ -177,7 +177,7 @@ public class StopTest {
     public void testXmlAttributesDeserialization() {
         final Stop elem = new Stop.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             Stop.Builder.fromXml("<Stop/>").build().toXml(),
             elem.toXml()
         );
@@ -223,7 +223,7 @@ public class StopTest {
 
         final Stop elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Stop.Builder.fromXml("<Stop>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
@@ -245,7 +245,7 @@ public class StopTest {
 
         final Stop elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Stop.Builder.fromXml("<Stop>" +
                 "<Stream/>" +
                 "<Siprec/>" +

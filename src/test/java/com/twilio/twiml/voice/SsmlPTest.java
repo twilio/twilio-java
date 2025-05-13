@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlP}
@@ -19,7 +19,7 @@ public class SsmlPTest {
     public void testEmptyElement() {
         SsmlP elem = new SsmlP.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlPTest {
     public void testEmptyElementUrl() {
         SsmlP elem = new SsmlP.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cp%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cp%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlP elem = new SsmlP.Builder("words").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p>words</p>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlPTest {
     public void testElementWithExtraAttributes() {
         SsmlP elem = new SsmlP.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -82,7 +82,7 @@ public class SsmlPTest {
 
         SsmlP elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -107,7 +107,7 @@ public class SsmlPTest {
 
         SsmlP elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p>" +
             "Hey no tags!" +
@@ -127,7 +127,7 @@ public class SsmlPTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p>" +
             "before" +
@@ -147,7 +147,7 @@ public class SsmlPTest {
         SsmlP.Builder builder = new SsmlP.Builder();
         SsmlP elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p>" +
             "<genericTag>" +
@@ -166,7 +166,7 @@ public class SsmlPTest {
         SsmlP.Builder builder = new SsmlP.Builder();
         SsmlP elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<p>" +
             "<genericTag key=\"value\">" +
@@ -181,7 +181,7 @@ public class SsmlPTest {
     public void testXmlAttributesDeserialization() {
         final SsmlP elem = new SsmlP.Builder("words").build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlP.Builder.fromXml("<p>words</p>").build().toXml(),
             elem.toXml()
         );
@@ -214,7 +214,7 @@ public class SsmlPTest {
 
         final SsmlP elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlP.Builder.fromXml("<p>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -248,7 +248,7 @@ public class SsmlPTest {
 
         final SsmlP elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlP.Builder.fromXml("<p>" +
                 "<break/>" +
                 "<emphasis/>" +

@@ -1,11 +1,13 @@
 package com.twilio.jwt.client;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link OutgoingClientScope}.
@@ -22,7 +24,7 @@ public class OutgoingClientScopeTest {
             .params(params)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "scope:client:outgoing?appSid=AP123&clientName=CL123&appParams=foo%3Dbar",
             scope.getPayload()
         );

@@ -1,15 +1,16 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class ClientTest {
 
     @Test
     public void testGetEndpoint() {
-        Assert.assertEquals("client:me", new Client("me").getEndpoint());
-        Assert.assertEquals("client:YOU", new Client("YOU").getEndpoint());
-        Assert.assertEquals("CLIENT:HIM", new Client("CLIENT:HIM").getEndpoint());
-        Assert.assertEquals("cLiEnT:her", new Client("cLiEnT:her").getEndpoint());
+        assertEquals("client:me", new Client("me").getEndpoint());
+        assertEquals("client:YOU", new Client("YOU").getEndpoint());
+        assertEquals("CLIENT:HIM", new Client("CLIENT:HIM").getEndpoint());
+        assertEquals("cLiEnT:her", new Client("cLiEnT:her").getEndpoint());
     }
 }

@@ -1,7 +1,7 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -25,10 +25,10 @@ public class OutboundSmsPriceTest extends TypeTest {
             "}";
 
         OutboundSmsPrice osp = fromJson(json, OutboundSmsPrice.class);
-        Assert.assertEquals("mcc", osp.getMcc());
-        Assert.assertEquals("mnc", osp.getMnc());
-        Assert.assertEquals("att", osp.getCarrier());
-        Assert.assertEquals(Collections.singletonList(
+        assertEquals("mcc", osp.getMcc());
+        assertEquals("mnc", osp.getMnc());
+        assertEquals("att", osp.getCarrier());
+        assertEquals(Collections.singletonList(
             new InboundSmsPrice(1.00, 2.00, InboundSmsPrice.Type.LOCAL)
         ), osp.getPrices());
     }

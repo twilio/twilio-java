@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Reject}
@@ -19,7 +19,7 @@ public class RejectTest {
     public void testEmptyElement() {
         Reject elem = new Reject.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class RejectTest {
     public void testEmptyElementUrl() {
         Reject elem = new Reject.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CReject%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CReject%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Reject elem = new Reject.Builder().reason(Reject.Reason.REJECTED).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject reason=\"rejected\"/>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class RejectTest {
     public void testElementWithExtraAttributes() {
         Reject elem = new Reject.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -63,7 +63,7 @@ public class RejectTest {
 
         Reject elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -80,7 +80,7 @@ public class RejectTest {
 
         Reject elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject>" +
             "Hey no tags!" +
@@ -100,7 +100,7 @@ public class RejectTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject>" +
             "before" +
@@ -120,7 +120,7 @@ public class RejectTest {
         Reject.Builder builder = new Reject.Builder();
         Reject elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject>" +
             "<genericTag>" +
@@ -139,7 +139,7 @@ public class RejectTest {
         Reject.Builder builder = new Reject.Builder();
         Reject elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Reject>" +
             "<genericTag key=\"value\">" +
@@ -154,7 +154,7 @@ public class RejectTest {
     public void testXmlAttributesDeserialization() {
         final Reject elem = new Reject.Builder().reason(Reject.Reason.REJECTED).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Reject.Builder.fromXml("<Reject reason=\"rejected\"/>").build().toXml(),
             elem.toXml()
         );
@@ -168,7 +168,7 @@ public class RejectTest {
 
         final Reject elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Reject.Builder.fromXml("<Reject>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</Reject>").build().toXml(),
@@ -184,7 +184,7 @@ public class RejectTest {
 
         final Reject elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Reject.Builder.fromXml("<Reject>" +
                 "<Parameter/>" +
             "</Reject>").build().toXml(),

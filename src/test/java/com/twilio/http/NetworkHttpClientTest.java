@@ -7,8 +7,8 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
@@ -18,7 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -47,7 +50,7 @@ public class NetworkHttpClientTest {
     @Mock
     private HttpEntity mockEntity;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         MockitoAnnotations.initMocks(this);
@@ -88,7 +91,7 @@ public class NetworkHttpClientTest {
         assertEquals(resp.getContent(), "frobozz");
     }
 
-    @Test(expected = ApiConnectionException.class)
+    @Test
     public void testMakeRequestIOException() throws IOException {
 
         when(mockBuilder.build()).thenReturn(mockClient);
@@ -99,7 +102,7 @@ public class NetworkHttpClientTest {
         when(mockClient.execute(any())).thenThrow(new ApiConnectionException("foo"));
         client = new NetworkHttpClient(mockBuilder);
         client.makeRequest(mockRequest);
-        fail("ApiConnectionException was expected");
+        assertThrows(ApiConnectionException.class, () -> client.makeRequest(mockRequest));
     }
 
     @Test

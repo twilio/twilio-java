@@ -1,14 +1,16 @@
 package com.twilio.jwt.validation;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import com.twilio.exception.InvalidRequestException;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class RequestCanonicalizerTest {
 
@@ -19,7 +21,7 @@ public class RequestCanonicalizerTest {
 
     private Header[] headers;
 
-    @Before
+    @BeforeEach
     public void setup() {
         headers = new Header[4];
         headers[0] = new BasicHeader("host", "api.twilio.com");
@@ -34,7 +36,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("GET\n" + // action
+        assertEquals("GET\n" + // action
                             "/Messages\n" + // path
                             "Limit=10&PageSize=5\n" + //queryParams
                             "authorization:foobar\n" + // included header #1
@@ -53,7 +55,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("GET\n" + // action
+        assertEquals("GET\n" + // action
                             "/Messages\n" + // path
                             "Limit=10&PageSize=5\n" + //queryParams
                             "authorization:foobar\n" + // included header #1
@@ -71,7 +73,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("key%20with%20whitespace=value%20with%20whitespace",
+        assertEquals("key%20with%20whitespace=value%20with%20whitespace",
                             getLine(QUERY_LINE, canonicalRequest));
     }
 
@@ -81,7 +83,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("a~a=b~b", getLine(QUERY_LINE, canonicalRequest));
+        assertEquals("a~a=b~b", getLine(QUERY_LINE, canonicalRequest));
     }
 
     @Test
@@ -90,7 +92,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("a%2Aa=b%2Ab", getLine(QUERY_LINE, canonicalRequest));
+        assertEquals("a%2Aa=b%2Ab", getLine(QUERY_LINE, canonicalRequest));
     }
 
     @Test
@@ -99,7 +101,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("a%20a=b%20b", getLine(QUERY_LINE, canonicalRequest));
+        assertEquals("a%20a=b%20b", getLine(QUERY_LINE, canonicalRequest));
     }
 
     @Test
@@ -108,7 +110,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("a%2Aa=b%2Ab", getLine(QUERY_LINE, canonicalRequest));
+        assertEquals("a%2Aa=b%2Ab", getLine(QUERY_LINE, canonicalRequest));
     }
 
     @Test
@@ -117,7 +119,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("", getLine(QUERY_LINE, canonicalRequest));
+        assertEquals("", getLine(QUERY_LINE, canonicalRequest));
     }
 
     @Test
@@ -129,7 +131,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("a=%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww" +
+        assertEquals("a=%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww" +
                             ".w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cpath%20d%3D%22M10%2C10" +
                             "%20H90%20L50%2C70%22%2F%3E%3Ctext%20y%3D%2290%22%3E%22%20%27%20%23%20%25%20%26amp%3B%20" +
                             "%C2%BF%20%F0%9F%94%A3%3C%2Ftext%3E%3C%2Fsvg%3E%0A",
@@ -143,7 +145,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("a=-_.~%21%2A%27%28%29%3B%3A%40%26%3D%2B%24%2C%2F%3F%25%23%5B%5D%3F%40" +
+        assertEquals("a=-_.~%21%2A%27%28%29%3B%3A%40%26%3D%2B%24%2C%2F%3F%25%23%5B%5D%3F%40" +
                             "%20ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
                             getLine(QUERY_LINE, canonicalRequest));
     }
@@ -154,7 +156,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("query%20Param1=a%2A~%2F%3Db&queryParam2=Hello%20World&queryParam3=1%3D1",
+        assertEquals("query%20Param1=a%2A~%2F%3Db&queryParam2=Hello%20World&queryParam3=1%3D1",
                             getLine(QUERY_LINE, canonicalRequest));
     }
 
@@ -164,15 +166,15 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
 
-        Assert.assertEquals("param=value1&param=value2",
+        assertEquals("param=value1&param=value2",
                             getLine(QUERY_LINE, canonicalRequest));
     }
 
-    @Test(expected = InvalidRequestException.class)
+    @Test
     public void testInvalidUriPathPassedToRequestCanonicalizer() {
         String path = "/this is a bad path";
 
-        canonicalizeWithPath(path);
+        assertThrows(InvalidRequestException.class, () -> canonicalizeWithPath(path));
     }
 
     @Test
@@ -181,7 +183,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/v1/test", getLine(PATH_LINE, canonicalRequest));
+        assertEquals("/v1/test", getLine(PATH_LINE, canonicalRequest));
     }
 
     @Test
@@ -190,7 +192,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/v1/Workspaces/test", getLine(PATH_LINE, canonicalRequest));
+        assertEquals("/v1/Workspaces/test", getLine(PATH_LINE, canonicalRequest));
     }
 
     @Test
@@ -199,7 +201,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/", getLine(PATH_LINE, canonicalRequest));
+        assertEquals("/", getLine(PATH_LINE, canonicalRequest));
     }
 
     @Test
@@ -208,7 +210,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/start%20%2A~%2Bend",
+        assertEquals("/start%20%2A~%2Bend",
                             getLine(PATH_LINE, canonicalRequest));
     }
 
@@ -218,7 +220,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/v1/Workspaces/test%28%29%2B%C3%A4/Workers",
+        assertEquals("/v1/Workspaces/test%28%29%2B%C3%A4/Workers",
                             getLine(PATH_LINE, canonicalRequest));
     }
 
@@ -228,7 +230,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/v1/Services/IS7f2d1594c3dd4d368d6669981a649659/Channels/%C3%A9%28%29%2B",
+        assertEquals("/v1/Services/IS7f2d1594c3dd4d368d6669981a649659/Channels/%C3%A9%28%29%2B",
                             getLine(PATH_LINE, canonicalRequest));
     }
 
@@ -238,7 +240,7 @@ public class RequestCanonicalizerTest {
 
         String canonicalRequest = canonicalizeWithPath(path);
 
-        Assert.assertEquals("/v1/Services/IS7f2d1594c3dd4d368d6669981a649659/Channels/%C3%A9%28%29%2B",
+        assertEquals("/v1/Services/IS7f2d1594c3dd4d368d6669981a649659/Channels/%C3%A9%28%29%2B",
                             getLine(PATH_LINE, canonicalRequest));
     }
 

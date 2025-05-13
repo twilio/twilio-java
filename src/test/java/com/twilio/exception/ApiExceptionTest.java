@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @SuppressWarnings("ThrowableInstanceNeverThrown")
@@ -29,18 +30,18 @@ public class ApiExceptionTest {
     @Test
     public void twoArgConstructorShouldPreserveMessageAndCause() {
         ApiException error = new ApiException(anyMessage, anyCause);
-        assertEquals("Message", anyMessage, error.getMessage());
-        assertSame("Cause", anyCause, error.getCause());
+        assertEquals(anyMessage, error.getMessage());
+        assertSame(anyCause, error.getCause());
     }
 
     @Test
     public void fullConstructorShouldPreserveAllValues() {
         ApiException error = new ApiException(anyMessage, anyErrorCode, anyMoreInfo, anyHttpStatus, anyCause);
-        assertEquals("Message", anyMessage, error.getMessage());
-        assertSame("Cause", anyCause, error.getCause());
+        assertEquals(anyMessage, error.getMessage());
+        assertSame(anyCause, error.getCause());
         assertEquals("More info", anyMoreInfo, error.getMoreInfo());
-        assertEquals("Error code", anyErrorCode, error.getCode().intValue());
-        assertEquals("Status code", anyHttpStatus, error.getStatusCode().intValue());
+        assertEquals(anyErrorCode, error.getCode().intValue());
+        assertEquals(anyHttpStatus, error.getStatusCode().intValue());
     }
 
     @Test
@@ -62,19 +63,19 @@ public class ApiExceptionTest {
         assertEquals(400, (int) error.getStatusCode());
         assertEquals("https://www.twilio.com/docs/errors/20001", error.getMoreInfo());
         assertEquals("Bad request", error.getMessage());
-        assertEquals("details", Collections.singletonMap("foo", "bar"), error.getDetails());
+        assertEquals(Collections.singletonMap("foo", "bar"), error.getDetails());
     }
 
     @Test
     public void getCodeShouldNotThrowExceptionWhenCodeIsNull() {
         ApiException error = new ApiException(anyMessage);
-        assertEquals(null, error.getCode());
+      assertNull(error.getCode());
     }
 
     @Test
     public void getStatusCodeShouldNotThrowExceptionWhenCodeIsNull() {
         ApiException error = new ApiException(anyMessage);
-        assertEquals(null, error.getStatusCode());
+      assertNull(error.getStatusCode());
     }
 
 }

@@ -58,24 +58,17 @@ public class TwilioTest {
 
     @Test
     public void testGetRestClientNullAccountSid() {
-        Twilio.setRestClient(null);
-        Twilio.setUsername(null);
-        Twilio.setPassword(null);
-
-        assertThrows(AuthenticationException.class, () -> Twilio.getRestClient());
-        fail("AuthenticationException was expected");
+        assertThrows(AuthenticationException.class, Twilio::getRestClient);
     }
 
     @Test
     public void testSetAccountSidNull() {
-        Twilio.setUsername(null);
-        fail("AuthenticationException was expected");
+        assertThrows(AuthenticationException.class, () -> Twilio.setUsername(null));
     }
 
     @Test
-    public void testSetAuthTokenNull() {
-        Twilio.setPassword(null);
-        fail("AuthenticationException was expected");
+    public void testSetPasswordNull() {
+        assertThrows(AuthenticationException.class, () -> Twilio.setPassword(null));
     }
 
     @Test

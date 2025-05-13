@@ -87,8 +87,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 200);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(200, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -111,8 +111,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 201);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(201, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -123,8 +123,8 @@ public class NetworkHttpClientTest {
         when(mockRequest.getBody()).thenReturn(body);
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 201);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(201, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -162,8 +162,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 204);
-        assertEquals(resp.getContent(), "");
+        assertEquals(204, resp.getStatusCode());
+        assertEquals("", resp.getContent());
     }
 
     @Test
@@ -172,8 +172,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 200);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(200, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -182,7 +182,7 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 404);
-        assertEquals(resp.getContent(), "womp");
+        assertEquals(404, resp.getStatusCode());
+        assertEquals("womp", resp.getContent());
     }
 }

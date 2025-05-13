@@ -39,7 +39,7 @@ public class ApiExceptionTest {
         ApiException error = new ApiException(anyMessage, anyErrorCode, anyMoreInfo, anyHttpStatus, anyCause);
         assertEquals(anyMessage, error.getMessage());
         assertSame(anyCause, error.getCause());
-        assertEquals("More info", anyMoreInfo, error.getMoreInfo());
+        assertEquals(anyMoreInfo, error.getMoreInfo());
         assertEquals(anyErrorCode, error.getCode().intValue());
         assertEquals(anyHttpStatus, error.getStatusCode().intValue());
     }

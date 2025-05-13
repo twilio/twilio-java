@@ -45,7 +45,6 @@ public class RequestTest {
     public void testConstructURLURISyntaxException() {
         Request request = new Request(HttpMethod.DELETE, "http://{");
         assertThrows(ApiException.class, () -> request.constructURL());
-        fail("ApiException was expected");
     }
 
     @Test

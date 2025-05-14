@@ -3,7 +3,7 @@
       public static void main {
     
         private static final String GRANT_TYPE = "grant_type_to_be_used";
-        private static final String CLIENT_SID =
+        private static final String CLIENT_ID =
             "client_id_of_the_organization";
         private static final String CLIENT_SECRET = "client_secret_of_organization";
         private static final String ORGANISATION_ID = "id_of_the_organization";

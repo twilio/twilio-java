@@ -9,11 +9,10 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * Test class for {@link Pay}
@@ -23,7 +22,7 @@ public class PayTest {
     public void testEmptyElement() {
         Pay elem = new Pay.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay/>",
             elem.toXml()
@@ -34,7 +33,7 @@ public class PayTest {
     public void testEmptyElementUrl() {
         Pay elem = new Pay.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CPay%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CPay%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -60,7 +59,7 @@ public class PayTest {
             .language(Pay.Language.DE_DE)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>",
             elem.toXml()
@@ -71,7 +70,7 @@ public class PayTest {
     public void testElementWithExtraAttributes() {
         Pay elem = new Pay.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -94,7 +93,7 @@ public class PayTest {
 
         Pay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
@@ -112,7 +111,7 @@ public class PayTest {
 
         Pay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
             "Hey no tags!" +
@@ -132,7 +131,7 @@ public class PayTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
             "before" +
@@ -152,7 +151,7 @@ public class PayTest {
         Pay.Builder builder = new Pay.Builder();
         Pay elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
             "<genericTag>" +
@@ -171,7 +170,7 @@ public class PayTest {
         Pay.Builder builder = new Pay.Builder();
         Pay elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
             "<genericTag key=\"value\">" +
@@ -205,7 +204,7 @@ public class PayTest {
             .language(Pay.Language.DE_DE)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Pay.Builder.fromXml("<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>").build().toXml(),
             elem.toXml()
         );
@@ -227,7 +226,7 @@ public class PayTest {
 
         final Pay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Pay.Builder.fromXml("<Pay>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -246,7 +245,7 @@ public class PayTest {
 
         final Pay elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Pay.Builder.fromXml("<Pay>" +
                 "<Prompt/>" +
                 "<Parameter/>" +

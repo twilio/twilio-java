@@ -1,11 +1,13 @@
 package com.twilio.jwt.client;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link EventStreamScope}.
@@ -21,7 +23,7 @@ public class EventStreamScopeTest {
             .filters(filters)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "scope:stream:subscribe?path=/2010-04-01/Events&appParams=foo%3Dbar",
             scope.getPayload()
         );

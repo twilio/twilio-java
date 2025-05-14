@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -26,7 +26,7 @@ public class QueueTest {
             .postWorkActivitySid("post_work_activity_sid")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>",
             elem.toXml()
@@ -42,7 +42,7 @@ public class QueueTest {
             .postWorkActivitySid("post_work_activity_sid")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Queue.Builder.fromXml("<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>").build().toXml(),
             elem.toXml()
         );

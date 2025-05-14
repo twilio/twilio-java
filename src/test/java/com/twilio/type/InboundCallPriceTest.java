@@ -1,9 +1,9 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link InboundCallPrice}.
@@ -19,9 +19,9 @@ public class InboundCallPriceTest extends TypeTest {
             "}";
 
         InboundCallPrice icp = fromJson(json, InboundCallPrice.class);
-        Assert.assertEquals(1.00, icp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(InboundCallPrice.Type.MOBILE, icp.getType());
+        assertEquals(1.00, icp.getBasePrice(), 0.00);
+        assertEquals(2.00, icp.getCurrentPrice(), 0.00);
+        assertEquals(InboundCallPrice.Type.MOBILE, icp.getType());
     }
 
     @Test
@@ -33,9 +33,9 @@ public class InboundCallPriceTest extends TypeTest {
                 "}";
 
         InboundCallPrice icp = fromJson(json, InboundCallPrice.class);
-        Assert.assertEquals(1.00, icp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(InboundCallPrice.Type.TOLLFREE, icp.getType());
+        assertEquals(1.00, icp.getBasePrice(), 0.00);
+        assertEquals(2.00, icp.getCurrentPrice(), 0.00);
+        assertEquals(InboundCallPrice.Type.TOLLFREE, icp.getType());
     }
 
     @Test
@@ -48,8 +48,8 @@ public class InboundCallPriceTest extends TypeTest {
             "}";
 
         InboundCallPrice icp = fromJson(json, InboundCallPrice.class);
-        Assert.assertEquals(1.00, icp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(InboundCallPrice.Type.TOLLFREE, icp.getType());
+        assertEquals(1.00, icp.getBasePrice(), 0.00);
+        assertEquals(2.00, icp.getCurrentPrice(), 0.00);
+        assertEquals(InboundCallPrice.Type.TOLLFREE, icp.getType());
     }
 }

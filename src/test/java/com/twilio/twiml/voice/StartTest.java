@@ -9,8 +9,8 @@ package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -22,7 +22,7 @@ public class StartTest {
     public void testEmptyElement() {
         Start elem = new Start.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start/>",
             elem.toXml()
@@ -33,14 +33,14 @@ public class StartTest {
     public void testEmptyElementUrl() {
         Start elem = new Start.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStart%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStart%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Start elem = new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start action=\"https://example.com\" method=\"GET\"/>",
             elem.toXml()
@@ -51,7 +51,7 @@ public class StartTest {
     public void testElementWithExtraAttributes() {
         Start elem = new Start.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -98,7 +98,7 @@ public class StartTest {
 
         Start elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
@@ -117,7 +117,7 @@ public class StartTest {
 
         Start elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
             "Hey no tags!" +
@@ -137,7 +137,7 @@ public class StartTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
             "before" +
@@ -157,7 +157,7 @@ public class StartTest {
         Start.Builder builder = new Start.Builder();
         Start elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
             "<genericTag>" +
@@ -176,7 +176,7 @@ public class StartTest {
         Start.Builder builder = new Start.Builder();
         Start elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
             "<genericTag key=\"value\">" +
@@ -191,7 +191,7 @@ public class StartTest {
     public void testXmlAttributesDeserialization() {
         final Start elem = new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Start.Builder.fromXml("<Start action=\"https://example.com\" method=\"GET\"/>").build().toXml(),
             elem.toXml()
         );
@@ -237,7 +237,7 @@ public class StartTest {
 
         final Start elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
@@ -259,7 +259,7 @@ public class StartTest {
 
         final Start elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream/>" +
                 "<Siprec/>" +

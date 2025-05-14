@@ -10,11 +10,10 @@ package com.twilio.twiml.voice;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * Test class for {@link Conversation}
@@ -24,7 +23,7 @@ public class ConversationTest {
     public void testEmptyElement() {
         Conversation elem = new Conversation.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Conversation/>",
             elem.toXml()
@@ -35,7 +34,7 @@ public class ConversationTest {
     public void testEmptyElementUrl() {
         Conversation elem = new Conversation.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConversation%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConversation%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -57,7 +56,7 @@ public class ConversationTest {
             .statusCallbackEvents(Promoter.listOfOne(Conversation.Event.CALL_INITIATED))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>",
             elem.toXml()
@@ -68,7 +67,7 @@ public class ConversationTest {
     public void testElementWithExtraAttributes() {
         Conversation elem = new Conversation.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Conversation a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -83,7 +82,7 @@ public class ConversationTest {
 
         Conversation elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Conversation>" +
             "Hey no tags!" +
@@ -103,7 +102,7 @@ public class ConversationTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Conversation>" +
             "before" +
@@ -123,7 +122,7 @@ public class ConversationTest {
         Conversation.Builder builder = new Conversation.Builder();
         Conversation elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Conversation>" +
             "<genericTag>" +
@@ -153,7 +152,7 @@ public class ConversationTest {
             .statusCallbackEvents(Promoter.listOfOne(Conversation.Event.CALL_INITIATED))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Conversation.Builder.fromXml("<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>").build().toXml(),
             elem.toXml()
         );

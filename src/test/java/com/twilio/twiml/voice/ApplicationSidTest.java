@@ -7,8 +7,10 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link ApplicationSid}
@@ -18,7 +20,7 @@ public class ApplicationSidTest {
     public void testElementWithParams() {
         ApplicationSid elem = new ApplicationSid.Builder("sid").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<ApplicationSid>sid</ApplicationSid>",
             elem.toXml()
@@ -29,7 +31,7 @@ public class ApplicationSidTest {
     public void testXmlAttributesDeserialization() {
         final ApplicationSid elem = new ApplicationSid.Builder("sid").build();
 
-        Assert.assertEquals(
+        assertEquals(
             ApplicationSid.Builder.fromXml("<ApplicationSid>sid</ApplicationSid>").build().toXml(),
             elem.toXml()
         );

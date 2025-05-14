@@ -9,8 +9,8 @@ package com.twilio.twiml.voice;
 
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -22,7 +22,7 @@ public class ReferTest {
     public void testEmptyElement() {
         Refer elem = new Refer.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer/>",
             elem.toXml()
@@ -33,14 +33,14 @@ public class ReferTest {
     public void testEmptyElementUrl() {
         Refer elem = new Refer.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CRefer%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CRefer%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Refer elem = new Refer.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer action=\"https://example.com\" method=\"GET\"/>",
             elem.toXml()
@@ -51,7 +51,7 @@ public class ReferTest {
     public void testElementWithExtraAttributes() {
         Refer elem = new Refer.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -66,7 +66,7 @@ public class ReferTest {
 
         Refer elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer>" +
                 "<Sip>https://example.com</Sip>" +
@@ -83,7 +83,7 @@ public class ReferTest {
 
         Refer elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer>" +
             "Hey no tags!" +
@@ -103,7 +103,7 @@ public class ReferTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer>" +
             "before" +
@@ -123,7 +123,7 @@ public class ReferTest {
         Refer.Builder builder = new Refer.Builder();
         Refer elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer>" +
             "<genericTag>" +
@@ -142,7 +142,7 @@ public class ReferTest {
         Refer.Builder builder = new Refer.Builder();
         Refer elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Refer>" +
             "<genericTag key=\"value\">" +
@@ -157,7 +157,7 @@ public class ReferTest {
     public void testXmlAttributesDeserialization() {
         final Refer elem = new Refer.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Refer.Builder.fromXml("<Refer action=\"https://example.com\" method=\"GET\"/>").build().toXml(),
             elem.toXml()
         );
@@ -171,7 +171,7 @@ public class ReferTest {
 
         final Refer elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Refer.Builder.fromXml("<Refer>" +
                 "<Sip>https://example.com</Sip>" +
             "</Refer>").build().toXml(),

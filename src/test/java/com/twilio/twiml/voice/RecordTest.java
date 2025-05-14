@@ -10,8 +10,8 @@ package com.twilio.twiml.voice;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.util.List;
@@ -24,7 +24,7 @@ public class RecordTest {
     public void testEmptyElement() {
         Record elem = new Record.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record/>",
             elem.toXml()
@@ -35,7 +35,7 @@ public class RecordTest {
     public void testEmptyElementUrl() {
         Record elem = new Record.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CRecord%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CRecord%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class RecordTest {
             .transcribeCallback(URI.create("https://example.com"))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>",
             elem.toXml()
@@ -66,7 +66,7 @@ public class RecordTest {
     public void testElementWithExtraAttributes() {
         Record elem = new Record.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -81,7 +81,7 @@ public class RecordTest {
 
         Record elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record>" +
             "Hey no tags!" +
@@ -101,7 +101,7 @@ public class RecordTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record>" +
             "before" +
@@ -121,7 +121,7 @@ public class RecordTest {
         Record.Builder builder = new Record.Builder();
         Record elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Record>" +
             "<genericTag>" +
@@ -149,7 +149,7 @@ public class RecordTest {
             .transcribeCallback(URI.create("https://example.com"))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Record.Builder.fromXml("<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>").build().toXml(),
             elem.toXml()
         );

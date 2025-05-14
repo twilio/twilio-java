@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlEmphasis}
@@ -19,7 +19,7 @@ public class SsmlEmphasisTest {
     public void testEmptyElement() {
         SsmlEmphasis elem = new SsmlEmphasis.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlEmphasisTest {
     public void testEmptyElementUrl() {
         SsmlEmphasis elem = new SsmlEmphasis.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cemphasis%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cemphasis%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlEmphasis elem = new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis level=\"strong\">words</emphasis>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlEmphasisTest {
     public void testElementWithExtraAttributes() {
         SsmlEmphasis elem = new SsmlEmphasis.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -80,7 +80,7 @@ public class SsmlEmphasisTest {
 
         SsmlEmphasis elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -104,7 +104,7 @@ public class SsmlEmphasisTest {
 
         SsmlEmphasis elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis>" +
             "Hey no tags!" +
@@ -124,7 +124,7 @@ public class SsmlEmphasisTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis>" +
             "before" +
@@ -144,7 +144,7 @@ public class SsmlEmphasisTest {
         SsmlEmphasis.Builder builder = new SsmlEmphasis.Builder();
         SsmlEmphasis elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis>" +
             "<genericTag>" +
@@ -163,7 +163,7 @@ public class SsmlEmphasisTest {
         SsmlEmphasis.Builder builder = new SsmlEmphasis.Builder();
         SsmlEmphasis elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<emphasis>" +
             "<genericTag key=\"value\">" +
@@ -178,7 +178,7 @@ public class SsmlEmphasisTest {
     public void testXmlAttributesDeserialization() {
         final SsmlEmphasis elem = new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlEmphasis.Builder.fromXml("<emphasis level=\"strong\">words</emphasis>").build().toXml(),
             elem.toXml()
         );
@@ -209,7 +209,7 @@ public class SsmlEmphasisTest {
 
         final SsmlEmphasis elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlEmphasis.Builder.fromXml("<emphasis>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -240,7 +240,7 @@ public class SsmlEmphasisTest {
 
         final SsmlEmphasis elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlEmphasis.Builder.fromXml("<emphasis>" +
                 "<break/>" +
                 "<emphasis/>" +

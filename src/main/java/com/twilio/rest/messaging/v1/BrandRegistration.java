@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class BrandRegistration extends Resource {
 
-    private static final long serialVersionUID = 138336370956862L;
+    private static final long serialVersionUID = 213883451670680L;
 
     public static BrandRegistrationCreator creator(
         final String customerProfileBundleSid,
@@ -117,7 +117,7 @@ public class BrandRegistration extends Resource {
     private final BrandRegistration.Status status;
     private final String tcrId;
     private final String failureReason;
-    private final List<Map<String, Object>> errors;
+    private final List<Object> errors;
     private final URI url;
     private final Integer brandScore;
     private final List<BrandRegistration.BrandFeedback> brandFeedback;
@@ -145,7 +145,7 @@ public class BrandRegistration extends Resource {
         @JsonProperty("status") final BrandRegistration.Status status,
         @JsonProperty("tcr_id") final String tcrId,
         @JsonProperty("failure_reason") final String failureReason,
-        @JsonProperty("errors") final List<Map<String, Object>> errors,
+        @JsonProperty("errors") final List<Object> errors,
         @JsonProperty("url") final URI url,
         @JsonProperty("brand_score") final Integer brandScore,
         @JsonProperty("brand_feedback") final List<
@@ -226,7 +226,7 @@ public class BrandRegistration extends Resource {
         return this.failureReason;
     }
 
-    public final List<Map<String, Object>> getErrors() {
+    public final List<Object> getErrors() {
         return this.errors;
     }
 

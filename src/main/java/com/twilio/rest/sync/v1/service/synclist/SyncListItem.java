@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,12 +37,12 @@ import lombok.ToString;
 @ToString
 public class SyncListItem extends Resource {
 
-    private static final long serialVersionUID = 92711713432732L;
+    private static final long serialVersionUID = 221331171920805L;
 
     public static SyncListItemCreator creator(
         final String pathServiceSid,
         final String pathListSid,
-        final Map<String, Object> data
+        final Object data
     ) {
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
@@ -129,7 +127,7 @@ public class SyncListItem extends Resource {
     private final String listSid;
     private final URI url;
     private final String revision;
-    private final Map<String, Object> data;
+    private final Object data;
     private final ZonedDateTime dateExpires;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -143,7 +141,7 @@ public class SyncListItem extends Resource {
         @JsonProperty("list_sid") final String listSid,
         @JsonProperty("url") final URI url,
         @JsonProperty("revision") final String revision,
-        @JsonProperty("data") final Map<String, Object> data,
+        @JsonProperty("data") final Object data,
         @JsonProperty("date_expires") final String dateExpires,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -186,7 +184,7 @@ public class SyncListItem extends Resource {
         return this.revision;
     }
 
-    public final Map<String, Object> getData() {
+    public final Object getData() {
         return this.data;
     }
 

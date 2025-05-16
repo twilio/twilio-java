@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class InsightsConversations extends Resource {
 
-    private static final long serialVersionUID = 172863414006149L;
+    private static final long serialVersionUID = 8014606653044L;
 
     public static InsightsConversationsReader reader() {
         return new InsightsConversationsReader();
@@ -88,14 +86,14 @@ public class InsightsConversations extends Resource {
     private final String accountId;
     private final String conversationId;
     private final Integer segmentCount;
-    private final List<Map<String, Object>> segments;
+    private final List<Object> segments;
 
     @JsonCreator
     private InsightsConversations(
         @JsonProperty("account_id") final String accountId,
         @JsonProperty("conversation_id") final String conversationId,
         @JsonProperty("segment_count") final Integer segmentCount,
-        @JsonProperty("segments") final List<Map<String, Object>> segments
+        @JsonProperty("segments") final List<Object> segments
     ) {
         this.accountId = accountId;
         this.conversationId = conversationId;
@@ -115,7 +113,7 @@ public class InsightsConversations extends Resource {
         return this.segmentCount;
     }
 
-    public final List<Map<String, Object>> getSegments() {
+    public final List<Object> getSegments() {
         return this.segments;
     }
 

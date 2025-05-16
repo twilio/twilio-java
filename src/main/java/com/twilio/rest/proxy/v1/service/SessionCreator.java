@@ -41,7 +41,7 @@ public class SessionCreator extends Creator<Session> {
     private Integer ttl;
     private Session.Mode mode;
     private Session.Status status;
-    private List<Map<String, Object>> participants;
+    private List<Object> participants;
 
     public SessionCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -72,16 +72,12 @@ public class SessionCreator extends Creator<Session> {
         return this;
     }
 
-    public SessionCreator setParticipants(
-        final List<Map<String, Object>> participants
-    ) {
+    public SessionCreator setParticipants(final List<Object> participants) {
         this.participants = participants;
         return this;
     }
 
-    public SessionCreator setParticipants(
-        final Map<String, Object> participants
-    ) {
+    public SessionCreator setParticipants(final Object participants) {
         return setParticipants(Promoter.listOfOne(participants));
     }
 

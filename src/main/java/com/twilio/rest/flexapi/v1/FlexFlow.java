@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class FlexFlow extends Resource {
 
-    private static final long serialVersionUID = 232454907869065L;
+    private static final long serialVersionUID = 115946081968163L;
 
     public static FlexFlowCreator creator(
         final String friendlyName,
@@ -118,7 +116,7 @@ public class FlexFlow extends Resource {
     private final String contactIdentity;
     private final Boolean enabled;
     private final FlexFlow.IntegrationType integrationType;
-    private final Map<String, Object> integration;
+    private final Object integration;
     private final Boolean longLived;
     private final Boolean janitorEnabled;
     private final URI url;
@@ -137,7 +135,7 @@ public class FlexFlow extends Resource {
         @JsonProperty(
             "integration_type"
         ) final FlexFlow.IntegrationType integrationType,
-        @JsonProperty("integration") final Map<String, Object> integration,
+        @JsonProperty("integration") final Object integration,
         @JsonProperty("long_lived") final Boolean longLived,
         @JsonProperty("janitor_enabled") final Boolean janitorEnabled,
         @JsonProperty("url") final URI url
@@ -198,7 +196,7 @@ public class FlexFlow extends Resource {
         return this.integrationType;
     }
 
-    public final Map<String, Object> getIntegration() {
+    public final Object getIntegration() {
         return this.integration;
     }
 

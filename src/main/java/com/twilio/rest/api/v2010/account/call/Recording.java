@@ -32,8 +32,6 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Currency;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -42,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Recording extends Resource {
 
-    private static final long serialVersionUID = 269042081197241L;
+    private static final long serialVersionUID = 272551936409129L;
 
     public static RecordingCreator creator(final String pathCallSid) {
         return new RecordingCreator(pathCallSid);
@@ -172,7 +170,7 @@ public class Recording extends Resource {
     private final String sid;
     private final BigDecimal price;
     private final String uri;
-    private final Map<String, Object> encryptionDetails;
+    private final Object encryptionDetails;
     private final Currency priceUnit;
     private final Recording.Status status;
     private final Integer channels;
@@ -193,10 +191,7 @@ public class Recording extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("price") final BigDecimal price,
         @JsonProperty("uri") final String uri,
-        @JsonProperty("encryption_details") final Map<
-            String,
-            Object
-        > encryptionDetails,
+        @JsonProperty("encryption_details") final Object encryptionDetails,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
@@ -270,7 +265,7 @@ public class Recording extends Resource {
         return this.uri;
     }
 
-    public final Map<String, Object> getEncryptionDetails() {
+    public final Object getEncryptionDetails() {
         return this.encryptionDetails;
     }
 

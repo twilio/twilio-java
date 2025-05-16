@@ -25,13 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
 
     private String pathSid;
     private String friendlyName;
-    private Map<String, Object> attributes;
+    private Object attributes;
 
     public SupportingDocumentUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -44,9 +43,7 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
         return this;
     }
 
-    public SupportingDocumentUpdater setAttributes(
-        final Map<String, Object> attributes
-    ) {
+    public SupportingDocumentUpdater setAttributes(final Object attributes) {
         this.attributes = attributes;
         return this;
     }

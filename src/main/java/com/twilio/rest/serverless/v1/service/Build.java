@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Build extends Resource {
 
-    private static final long serialVersionUID = 76818411121781L;
+    private static final long serialVersionUID = 271902821597826L;
 
     public static BuildCreator creator(final String pathServiceSid) {
         return new BuildCreator(pathServiceSid);
@@ -111,9 +111,9 @@ public class Build extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final Build.Status status;
-    private final List<Map<String, Object>> assetVersions;
-    private final List<Map<String, Object>> functionVersions;
-    private final List<Map<String, Object>> dependencies;
+    private final List<Object> assetVersions;
+    private final List<Object> functionVersions;
+    private final List<Object> dependencies;
     private final Build.Runtime runtime;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -126,15 +126,9 @@ public class Build extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("status") final Build.Status status,
-        @JsonProperty("asset_versions") final List<
-            Map<String, Object>
-        > assetVersions,
-        @JsonProperty("function_versions") final List<
-            Map<String, Object>
-        > functionVersions,
-        @JsonProperty("dependencies") final List<
-            Map<String, Object>
-        > dependencies,
+        @JsonProperty("asset_versions") final List<Object> assetVersions,
+        @JsonProperty("function_versions") final List<Object> functionVersions,
+        @JsonProperty("dependencies") final List<Object> dependencies,
         @JsonProperty("runtime") final Build.Runtime runtime,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -171,15 +165,15 @@ public class Build extends Resource {
         return this.status;
     }
 
-    public final List<Map<String, Object>> getAssetVersions() {
+    public final List<Object> getAssetVersions() {
         return this.assetVersions;
     }
 
-    public final List<Map<String, Object>> getFunctionVersions() {
+    public final List<Object> getFunctionVersions() {
         return this.functionVersions;
     }
 
-    public final List<Map<String, Object>> getDependencies() {
+    public final List<Object> getDependencies() {
         return this.dependencies;
     }
 

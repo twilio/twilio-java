@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class SupportingDocument extends Resource {
 
-    private static final long serialVersionUID = 13014832865593L;
+    private static final long serialVersionUID = 37232765895936L;
 
     public static SupportingDocumentCreator creator(
         final String friendlyName,
@@ -113,7 +111,7 @@ public class SupportingDocument extends Resource {
     private final String mimeType;
     private final SupportingDocument.Status status;
     private final String type;
-    private final Map<String, Object> attributes;
+    private final Object attributes;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -126,7 +124,7 @@ public class SupportingDocument extends Resource {
         @JsonProperty("mime_type") final String mimeType,
         @JsonProperty("status") final SupportingDocument.Status status,
         @JsonProperty("type") final String type,
-        @JsonProperty("attributes") final Map<String, Object> attributes,
+        @JsonProperty("attributes") final Object attributes,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -167,7 +165,7 @@ public class SupportingDocument extends Resource {
         return this.type;
     }
 
-    public final Map<String, Object> getAttributes() {
+    public final Object getAttributes() {
         return this.attributes;
     }
 

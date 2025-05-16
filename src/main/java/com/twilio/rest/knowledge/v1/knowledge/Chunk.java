@@ -27,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class Chunk extends Resource {
 
-    private static final long serialVersionUID = 152804488582909L;
+    private static final long serialVersionUID = 91918293384490L;
 
     public static ChunkReader reader(final String pathId) {
         return new ChunkReader(pathId);
@@ -88,7 +86,7 @@ public class Chunk extends Resource {
 
     private final String accountSid;
     private final String content;
-    private final Map<String, Object> metadata;
+    private final Object metadata;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -96,7 +94,7 @@ public class Chunk extends Resource {
     private Chunk(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("content") final String content,
-        @JsonProperty("metadata") final Map<String, Object> metadata,
+        @JsonProperty("metadata") final Object metadata,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -115,7 +113,7 @@ public class Chunk extends Resource {
         return this.content;
     }
 
-    public final Map<String, Object> getMetadata() {
+    public final Object getMetadata() {
         return this.metadata;
     }
 

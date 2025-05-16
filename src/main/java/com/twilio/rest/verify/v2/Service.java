@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 122585755386681L;
+    private static final long serialVersionUID = 241555738349921L;
 
     public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
@@ -114,10 +114,10 @@ public class Service extends Resource {
     private final String ttsName;
     private final Boolean doNotShareWarningEnabled;
     private final Boolean customCodeEnabled;
-    private final Map<String, Object> push;
-    private final Map<String, Object> totp;
+    private final Object push;
+    private final Object totp;
     private final String defaultTemplateSid;
-    private final Map<String, Object> whatsapp;
+    private final Object whatsapp;
     private final Boolean verifyEventSubscriptionEnabled;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -139,10 +139,10 @@ public class Service extends Resource {
             "do_not_share_warning_enabled"
         ) final Boolean doNotShareWarningEnabled,
         @JsonProperty("custom_code_enabled") final Boolean customCodeEnabled,
-        @JsonProperty("push") final Map<String, Object> push,
-        @JsonProperty("totp") final Map<String, Object> totp,
+        @JsonProperty("push") final Object push,
+        @JsonProperty("totp") final Object totp,
         @JsonProperty("default_template_sid") final String defaultTemplateSid,
-        @JsonProperty("whatsapp") final Map<String, Object> whatsapp,
+        @JsonProperty("whatsapp") final Object whatsapp,
         @JsonProperty(
             "verify_event_subscription_enabled"
         ) final Boolean verifyEventSubscriptionEnabled,
@@ -217,11 +217,11 @@ public class Service extends Resource {
         return this.customCodeEnabled;
     }
 
-    public final Map<String, Object> getPush() {
+    public final Object getPush() {
         return this.push;
     }
 
-    public final Map<String, Object> getTotp() {
+    public final Object getTotp() {
         return this.totp;
     }
 
@@ -229,7 +229,7 @@ public class Service extends Resource {
         return this.defaultTemplateSid;
     }
 
-    public final Map<String, Object> getWhatsapp() {
+    public final Object getWhatsapp() {
         return this.whatsapp;
     }
 

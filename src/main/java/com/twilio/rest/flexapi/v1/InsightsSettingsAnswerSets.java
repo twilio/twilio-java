@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class InsightsSettingsAnswerSets extends Resource {
 
-    private static final long serialVersionUID = 252326702169213L;
+    private static final long serialVersionUID = 247107034196937L;
 
     public static InsightsSettingsAnswerSetsFetcher fetcher() {
         return new InsightsSettingsAnswerSetsFetcher();
@@ -92,20 +90,17 @@ public class InsightsSettingsAnswerSets extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, Object> answerSets;
-    private final Map<String, Object> answerSetCategories;
-    private final Map<String, Object> notApplicable;
+    private final Object answerSets;
+    private final Object answerSetCategories;
+    private final Object notApplicable;
     private final URI url;
 
     @JsonCreator
     private InsightsSettingsAnswerSets(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("answer_sets") final Map<String, Object> answerSets,
-        @JsonProperty("answer_set_categories") final Map<
-            String,
-            Object
-        > answerSetCategories,
-        @JsonProperty("not_applicable") final Map<String, Object> notApplicable,
+        @JsonProperty("answer_sets") final Object answerSets,
+        @JsonProperty("answer_set_categories") final Object answerSetCategories,
+        @JsonProperty("not_applicable") final Object notApplicable,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -119,15 +114,15 @@ public class InsightsSettingsAnswerSets extends Resource {
         return this.accountSid;
     }
 
-    public final Map<String, Object> getAnswerSets() {
+    public final Object getAnswerSets() {
         return this.answerSets;
     }
 
-    public final Map<String, Object> getAnswerSetCategories() {
+    public final Object getAnswerSetCategories() {
         return this.answerSetCategories;
     }
 
-    public final Map<String, Object> getNotApplicable() {
+    public final Object getNotApplicable() {
         return this.notApplicable;
     }
 

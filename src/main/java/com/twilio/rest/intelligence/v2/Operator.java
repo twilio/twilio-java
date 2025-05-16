@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Operator extends Resource {
 
-    private static final long serialVersionUID = 163994409447138L;
+    private static final long serialVersionUID = 229135326453529L;
 
     public static OperatorFetcher fetcher(final String pathSid) {
         return new OperatorFetcher(pathSid);
@@ -100,7 +98,7 @@ public class Operator extends Resource {
     private final String operatorType;
     private final Integer version;
     private final Operator.Availability availability;
-    private final Map<String, Object> config;
+    private final Object config;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -115,7 +113,7 @@ public class Operator extends Resource {
         @JsonProperty("operator_type") final String operatorType,
         @JsonProperty("version") final Integer version,
         @JsonProperty("availability") final Operator.Availability availability,
-        @JsonProperty("config") final Map<String, Object> config,
+        @JsonProperty("config") final Object config,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -166,7 +164,7 @@ public class Operator extends Resource {
         return this.availability;
     }
 
-    public final Map<String, Object> getConfig() {
+    public final Object getConfig() {
         return this.config;
     }
 

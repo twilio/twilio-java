@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 187047184630676L;
+    private static final long serialVersionUID = 25902509219468L;
 
     public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
@@ -116,15 +116,15 @@ public class Service extends Resource {
     private final Boolean reachabilityEnabled;
     private final Integer typingIndicatorTimeout;
     private final Integer consumptionReportInterval;
-    private final Map<String, Object> limits;
+    private final Object limits;
     private final String preWebhookUrl;
     private final String postWebhookUrl;
     private final String webhookMethod;
     private final List<String> webhookFilters;
     private final Integer preWebhookRetryCount;
     private final Integer postWebhookRetryCount;
-    private final Map<String, Object> notifications;
-    private final Map<String, Object> media;
+    private final Object notifications;
+    private final Object media;
     private final URI url;
     private final Map<String, String> links;
 
@@ -152,7 +152,7 @@ public class Service extends Resource {
         @JsonProperty(
             "consumption_report_interval"
         ) final Integer consumptionReportInterval,
-        @JsonProperty("limits") final Map<String, Object> limits,
+        @JsonProperty("limits") final Object limits,
         @JsonProperty("pre_webhook_url") final String preWebhookUrl,
         @JsonProperty("post_webhook_url") final String postWebhookUrl,
         @JsonProperty("webhook_method") final String webhookMethod,
@@ -163,8 +163,8 @@ public class Service extends Resource {
         @JsonProperty(
             "post_webhook_retry_count"
         ) final Integer postWebhookRetryCount,
-        @JsonProperty("notifications") final Map<String, Object> notifications,
-        @JsonProperty("media") final Map<String, Object> media,
+        @JsonProperty("notifications") final Object notifications,
+        @JsonProperty("media") final Object media,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -241,7 +241,7 @@ public class Service extends Resource {
         return this.consumptionReportInterval;
     }
 
-    public final Map<String, Object> getLimits() {
+    public final Object getLimits() {
         return this.limits;
     }
 
@@ -269,11 +269,11 @@ public class Service extends Resource {
         return this.postWebhookRetryCount;
     }
 
-    public final Map<String, Object> getNotifications() {
+    public final Object getNotifications() {
         return this.notifications;
     }
 
-    public final Map<String, Object> getMedia() {
+    public final Object getMedia() {
         return this.media;
     }
 

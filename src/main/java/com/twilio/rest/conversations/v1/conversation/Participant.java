@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Participant extends Resource {
 
-    private static final long serialVersionUID = 164096252184722L;
+    private static final long serialVersionUID = 98088132685398L;
 
     public static ParticipantCreator creator(final String pathConversationSid) {
         return new ParticipantCreator(pathConversationSid);
@@ -118,7 +116,7 @@ public class Participant extends Resource {
     private final String sid;
     private final String identity;
     private final String attributes;
-    private final Map<String, Object> messagingBinding;
+    private final Object messagingBinding;
     private final String roleSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -133,10 +131,7 @@ public class Participant extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("identity") final String identity,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty("messaging_binding") final Map<
-            String,
-            Object
-        > messagingBinding,
+        @JsonProperty("messaging_binding") final Object messagingBinding,
         @JsonProperty("role_sid") final String roleSid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -180,7 +175,7 @@ public class Participant extends Resource {
         return this.attributes;
     }
 
-    public final Map<String, Object> getMessagingBinding() {
+    public final Object getMessagingBinding() {
         return this.messagingBinding;
     }
 

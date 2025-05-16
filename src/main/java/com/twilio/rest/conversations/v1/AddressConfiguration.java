@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class AddressConfiguration extends Resource {
 
-    private static final long serialVersionUID = 162346024858734L;
+    private static final long serialVersionUID = 129969046652073L;
 
     public static AddressConfigurationCreator creator(
         final AddressConfiguration.Type type,
@@ -112,7 +110,7 @@ public class AddressConfiguration extends Resource {
     private final String type;
     private final String address;
     private final String friendlyName;
-    private final Map<String, Object> autoCreation;
+    private final Object autoCreation;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -125,7 +123,7 @@ public class AddressConfiguration extends Resource {
         @JsonProperty("type") final String type,
         @JsonProperty("address") final String address,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("auto_creation") final Map<String, Object> autoCreation,
+        @JsonProperty("auto_creation") final Object autoCreation,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -163,7 +161,7 @@ public class AddressConfiguration extends Resource {
         return this.friendlyName;
     }
 
-    public final Map<String, Object> getAutoCreation() {
+    public final Object getAutoCreation() {
         return this.autoCreation;
     }
 

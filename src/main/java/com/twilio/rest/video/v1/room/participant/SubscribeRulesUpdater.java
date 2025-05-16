@@ -25,13 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
     private String pathRoomSid;
     private String pathParticipantSid;
-    private Map<String, Object> rules;
+    private Object rules;
 
     public SubscribeRulesUpdater(
         final String pathRoomSid,
@@ -41,7 +40,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public SubscribeRulesUpdater setRules(final Map<String, Object> rules) {
+    public SubscribeRulesUpdater setRules(final Object rules) {
         this.rules = rules;
         return this;
     }

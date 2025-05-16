@@ -31,8 +31,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -41,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class BulkHostedNumberOrder extends Resource {
 
-    private static final long serialVersionUID = 251635704058877L;
+    private static final long serialVersionUID = 53892529107992L;
 
     public static BulkHostedNumberOrderCreator creator() {
         return new BulkHostedNumberOrderCreator();
@@ -116,7 +114,7 @@ public class BulkHostedNumberOrder extends Resource {
     private final ZonedDateTime dateCompleted;
     private final URI url;
     private final Integer totalCount;
-    private final List<Map<String, Object>> results;
+    private final List<Object> results;
 
     @JsonCreator
     private BulkHostedNumberOrder(
@@ -130,7 +128,7 @@ public class BulkHostedNumberOrder extends Resource {
         @JsonProperty("date_completed") final String dateCompleted,
         @JsonProperty("url") final URI url,
         @JsonProperty("total_count") final Integer totalCount,
-        @JsonProperty("results") final List<Map<String, Object>> results
+        @JsonProperty("results") final List<Object> results
     ) {
         this.bulkHostingSid = bulkHostingSid;
         this.requestStatus = requestStatus;
@@ -176,7 +174,7 @@ public class BulkHostedNumberOrder extends Resource {
         return this.totalCount;
     }
 
-    public final List<Map<String, Object>> getResults() {
+    public final List<Object> getResults() {
         return this.results;
     }
 

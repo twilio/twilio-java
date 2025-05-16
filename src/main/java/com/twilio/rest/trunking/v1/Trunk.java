@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class Trunk extends Resource {
 
-    private static final long serialVersionUID = 225938897286327L;
+    private static final long serialVersionUID = 9305278079270L;
 
     public static TrunkCreator creator() {
         return new TrunkCreator();
@@ -112,7 +112,7 @@ public class Trunk extends Resource {
     private final URI disasterRecoveryUrl;
     private final String friendlyName;
     private final Boolean secure;
-    private final Map<String, Object> recording;
+    private final Object recording;
     private final Trunk.TransferSetting transferMode;
     private final Trunk.TransferCallerId transferCallerId;
     private final Boolean cnamLookupEnabled;
@@ -134,7 +134,7 @@ public class Trunk extends Resource {
         @JsonProperty("disaster_recovery_url") final URI disasterRecoveryUrl,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("secure") final Boolean secure,
-        @JsonProperty("recording") final Map<String, Object> recording,
+        @JsonProperty("recording") final Object recording,
         @JsonProperty("transfer_mode") final Trunk.TransferSetting transferMode,
         @JsonProperty(
             "transfer_caller_id"
@@ -191,7 +191,7 @@ public class Trunk extends Resource {
         return this.secure;
     }
 
-    public final Map<String, Object> getRecording() {
+    public final Object getRecording() {
         return this.recording;
     }
 

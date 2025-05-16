@@ -27,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class ContentAndApprovals extends Resource {
 
-    private static final long serialVersionUID = 67575038421166L;
+    private static final long serialVersionUID = 182518493271591L;
 
     public static ContentAndApprovalsReader reader() {
         return new ContentAndApprovalsReader();
@@ -92,9 +90,9 @@ public class ContentAndApprovals extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String language;
-    private final Map<String, Object> variables;
-    private final Map<String, Object> types;
-    private final Map<String, Object> approvalRequests;
+    private final Object variables;
+    private final Object types;
+    private final Object approvalRequests;
 
     @JsonCreator
     private ContentAndApprovals(
@@ -104,12 +102,9 @@ public class ContentAndApprovals extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language") final String language,
-        @JsonProperty("variables") final Map<String, Object> variables,
-        @JsonProperty("types") final Map<String, Object> types,
-        @JsonProperty("approval_requests") final Map<
-            String,
-            Object
-        > approvalRequests
+        @JsonProperty("variables") final Object variables,
+        @JsonProperty("types") final Object types,
+        @JsonProperty("approval_requests") final Object approvalRequests
     ) {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -146,15 +141,15 @@ public class ContentAndApprovals extends Resource {
         return this.language;
     }
 
-    public final Map<String, Object> getVariables() {
+    public final Object getVariables() {
         return this.variables;
     }
 
-    public final Map<String, Object> getTypes() {
+    public final Object getTypes() {
         return this.types;
     }
 
-    public final Map<String, Object> getApprovalRequests() {
+    public final Object getApprovalRequests() {
         return this.approvalRequests;
     }
 

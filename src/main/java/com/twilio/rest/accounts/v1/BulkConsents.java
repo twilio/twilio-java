@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,11 +34,9 @@ import lombok.ToString;
 @ToString
 public class BulkConsents extends Resource {
 
-    private static final long serialVersionUID = 126137950684284L;
+    private static final long serialVersionUID = 26691938480706L;
 
-    public static BulkConsentsCreator creator(
-        final List<Map<String, Object>> items
-    ) {
+    public static BulkConsentsCreator creator(final List<Object> items) {
         return new BulkConsentsCreator(items);
     }
 
@@ -87,16 +83,14 @@ public class BulkConsents extends Resource {
         }
     }
 
-    private final Map<String, Object> items;
+    private final Object items;
 
     @JsonCreator
-    private BulkConsents(
-        @JsonProperty("items") final Map<String, Object> items
-    ) {
+    private BulkConsents(@JsonProperty("items") final Object items) {
         this.items = items;
     }
 
-    public final Map<String, Object> getItems() {
+    public final Object getItems() {
         return this.items;
     }
 

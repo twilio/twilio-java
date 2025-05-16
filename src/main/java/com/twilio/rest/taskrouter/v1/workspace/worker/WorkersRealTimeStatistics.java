@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class WorkersRealTimeStatistics extends Resource {
 
-    private static final long serialVersionUID = 209947407394347L;
+    private static final long serialVersionUID = 82786699390383L;
 
     public static WorkersRealTimeStatisticsFetcher fetcher(
         final String pathWorkspaceSid
@@ -95,7 +93,7 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final List<Map<String, Object>> activityStatistics;
+    private final List<Object> activityStatistics;
     private final Integer totalWorkers;
     private final String workspaceSid;
     private final URI url;
@@ -104,7 +102,7 @@ public class WorkersRealTimeStatistics extends Resource {
     private WorkersRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("activity_statistics") final List<
-            Map<String, Object>
+            Object
         > activityStatistics,
         @JsonProperty("total_workers") final Integer totalWorkers,
         @JsonProperty("workspace_sid") final String workspaceSid,
@@ -121,7 +119,7 @@ public class WorkersRealTimeStatistics extends Resource {
         return this.accountSid;
     }
 
-    public final List<Map<String, Object>> getActivityStatistics() {
+    public final List<Object> getActivityStatistics() {
         return this.activityStatistics;
     }
 

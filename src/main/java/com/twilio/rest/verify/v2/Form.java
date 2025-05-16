@@ -27,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class Form extends Resource {
 
-    private static final long serialVersionUID = 202517967097226L;
+    private static final long serialVersionUID = 106406872124029L;
 
     public static FormFetcher fetcher(final Form.FormTypes formType) {
         return new FormFetcher(formType);
@@ -87,15 +85,15 @@ public class Form extends Resource {
     }
 
     private final Form.FormTypes formType;
-    private final Map<String, Object> forms;
-    private final Map<String, Object> formMeta;
+    private final Object forms;
+    private final Object formMeta;
     private final URI url;
 
     @JsonCreator
     private Form(
         @JsonProperty("form_type") final Form.FormTypes formType,
-        @JsonProperty("forms") final Map<String, Object> forms,
-        @JsonProperty("form_meta") final Map<String, Object> formMeta,
+        @JsonProperty("forms") final Object forms,
+        @JsonProperty("form_meta") final Object formMeta,
         @JsonProperty("url") final URI url
     ) {
         this.formType = formType;
@@ -108,11 +106,11 @@ public class Form extends Resource {
         return this.formType;
     }
 
-    public final Map<String, Object> getForms() {
+    public final Object getForms() {
         return this.forms;
     }
 
-    public final Map<String, Object> getFormMeta() {
+    public final Object getFormMeta() {
         return this.formMeta;
     }
 

@@ -34,18 +34,18 @@ import java.util.Map;
 
 public class BulkContactsCreator extends Creator<BulkContacts> {
 
-    private List<Map<String, Object>> items;
+    private List<Object> items;
 
-    public BulkContactsCreator(final List<Map<String, Object>> items) {
+    public BulkContactsCreator(final List<Object> items) {
         this.items = items;
     }
 
-    public BulkContactsCreator setItems(final List<Map<String, Object>> items) {
+    public BulkContactsCreator setItems(final List<Object> items) {
         this.items = items;
         return this;
     }
 
-    public BulkContactsCreator setItems(final Map<String, Object> items) {
+    public BulkContactsCreator setItems(final Object items) {
         return setItems(Promoter.listOfOne(items));
     }
 

@@ -25,7 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class ChallengeUpdater extends Updater<Challenge> {
 
@@ -33,7 +32,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
     private String pathIdentity;
     private String pathSid;
     private String authPayload;
-    private Map<String, Object> metadata;
+    private Object metadata;
 
     public ChallengeUpdater(
         final String pathServiceSid,
@@ -50,7 +49,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
         return this;
     }
 
-    public ChallengeUpdater setMetadata(final Map<String, Object> metadata) {
+    public ChallengeUpdater setMetadata(final Object metadata) {
         this.metadata = metadata;
         return this;
     }

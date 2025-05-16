@@ -27,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class DataSession extends Resource {
 
-    private static final long serialVersionUID = 124844690346008L;
+    private static final long serialVersionUID = 76673659231965L;
 
     public static DataSessionReader reader(final String pathSimSid) {
         return new DataSessionReader(pathSimSid);
@@ -95,7 +93,7 @@ public class DataSession extends Resource {
     private final String operatorCountry;
     private final String operatorName;
     private final String cellId;
-    private final Map<String, Object> cellLocationEstimate;
+    private final Object cellLocationEstimate;
     private final Integer packetsUploaded;
     private final Integer packetsDownloaded;
     private final ZonedDateTime lastUpdated;
@@ -114,10 +112,9 @@ public class DataSession extends Resource {
         @JsonProperty("operator_country") final String operatorCountry,
         @JsonProperty("operator_name") final String operatorName,
         @JsonProperty("cell_id") final String cellId,
-        @JsonProperty("cell_location_estimate") final Map<
-            String,
-            Object
-        > cellLocationEstimate,
+        @JsonProperty(
+            "cell_location_estimate"
+        ) final Object cellLocationEstimate,
         @JsonProperty("packets_uploaded") final Integer packetsUploaded,
         @JsonProperty("packets_downloaded") final Integer packetsDownloaded,
         @JsonProperty("last_updated") final String lastUpdated,
@@ -179,7 +176,7 @@ public class DataSession extends Resource {
         return this.cellId;
     }
 
-    public final Map<String, Object> getCellLocationEstimate() {
+    public final Object getCellLocationEstimate() {
         return this.cellLocationEstimate;
     }
 

@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,11 +34,9 @@ import lombok.ToString;
 @ToString
 public class BulkContacts extends Resource {
 
-    private static final long serialVersionUID = 126137950684284L;
+    private static final long serialVersionUID = 26691938480706L;
 
-    public static BulkContactsCreator creator(
-        final List<Map<String, Object>> items
-    ) {
+    public static BulkContactsCreator creator(final List<Object> items) {
         return new BulkContactsCreator(items);
     }
 
@@ -87,16 +83,14 @@ public class BulkContacts extends Resource {
         }
     }
 
-    private final Map<String, Object> items;
+    private final Object items;
 
     @JsonCreator
-    private BulkContacts(
-        @JsonProperty("items") final Map<String, Object> items
-    ) {
+    private BulkContacts(@JsonProperty("items") final Object items) {
         this.items = items;
     }
 
-    public final Map<String, Object> getItems() {
+    public final Object getItems() {
         return this.items;
     }
 

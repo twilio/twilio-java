@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Factor extends Resource {
 
-    private static final long serialVersionUID = 254306005270593L;
+    private static final long serialVersionUID = 136293191765711L;
 
     public static FactorDeleter deleter(
         final String pathServiceSid,
@@ -125,8 +123,8 @@ public class Factor extends Resource {
     private final String friendlyName;
     private final Factor.FactorStatuses status;
     private final Factor.FactorTypes factorType;
-    private final Map<String, Object> config;
-    private final Map<String, Object> metadata;
+    private final Object config;
+    private final Object metadata;
     private final URI url;
 
     @JsonCreator
@@ -141,8 +139,8 @@ public class Factor extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("status") final Factor.FactorStatuses status,
         @JsonProperty("factor_type") final Factor.FactorTypes factorType,
-        @JsonProperty("config") final Map<String, Object> config,
-        @JsonProperty("metadata") final Map<String, Object> metadata,
+        @JsonProperty("config") final Object config,
+        @JsonProperty("metadata") final Object metadata,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -200,11 +198,11 @@ public class Factor extends Resource {
         return this.factorType;
     }
 
-    public final Map<String, Object> getConfig() {
+    public final Object getConfig() {
         return this.config;
     }
 
-    public final Map<String, Object> getMetadata() {
+    public final Object getMetadata() {
         return this.metadata;
     }
 

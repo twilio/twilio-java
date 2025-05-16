@@ -40,8 +40,8 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String factorSid;
     private ZonedDateTime expirationDate;
     private String detailsMessage;
-    private List<Map<String, Object>> detailsFields;
-    private Map<String, Object> hiddenDetails;
+    private List<Object> detailsFields;
+    private Object hiddenDetails;
     private String authPayload;
 
     public ChallengeCreator(
@@ -71,22 +71,16 @@ public class ChallengeCreator extends Creator<Challenge> {
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(
-        final List<Map<String, Object>> detailsFields
-    ) {
+    public ChallengeCreator setDetailsFields(final List<Object> detailsFields) {
         this.detailsFields = detailsFields;
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(
-        final Map<String, Object> detailsFields
-    ) {
+    public ChallengeCreator setDetailsFields(final Object detailsFields) {
         return setDetailsFields(Promoter.listOfOne(detailsFields));
     }
 
-    public ChallengeCreator setHiddenDetails(
-        final Map<String, Object> hiddenDetails
-    ) {
+    public ChallengeCreator setHiddenDetails(final Object hiddenDetails) {
         this.hiddenDetails = hiddenDetails;
         return this;
     }

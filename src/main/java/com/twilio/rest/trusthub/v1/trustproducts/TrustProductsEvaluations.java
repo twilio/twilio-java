@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class TrustProductsEvaluations extends Resource {
 
-    private static final long serialVersionUID = 86634042597263L;
+    private static final long serialVersionUID = 78835043471912L;
 
     public static TrustProductsEvaluationsCreator creator(
         final String pathTrustProductSid,
@@ -116,7 +114,7 @@ public class TrustProductsEvaluations extends Resource {
     private final String policySid;
     private final String trustProductSid;
     private final TrustProductsEvaluations.Status status;
-    private final List<Map<String, Object>> results;
+    private final List<Object> results;
     private final ZonedDateTime dateCreated;
     private final URI url;
 
@@ -127,7 +125,7 @@ public class TrustProductsEvaluations extends Resource {
         @JsonProperty("policy_sid") final String policySid,
         @JsonProperty("trust_product_sid") final String trustProductSid,
         @JsonProperty("status") final TrustProductsEvaluations.Status status,
-        @JsonProperty("results") final List<Map<String, Object>> results,
+        @JsonProperty("results") final List<Object> results,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
     ) {
@@ -161,7 +159,7 @@ public class TrustProductsEvaluations extends Resource {
         return this.status;
     }
 
-    public final List<Map<String, Object>> getResults() {
+    public final List<Object> getResults() {
         return this.results;
     }
 

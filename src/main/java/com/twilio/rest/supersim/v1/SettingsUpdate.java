@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class SettingsUpdate extends Resource {
 
-    private static final long serialVersionUID = 126256874693410L;
+    private static final long serialVersionUID = 255262648579642L;
 
     public static SettingsUpdateReader reader() {
         return new SettingsUpdateReader();
@@ -92,7 +90,7 @@ public class SettingsUpdate extends Resource {
     private final String iccid;
     private final String simSid;
     private final SettingsUpdate.Status status;
-    private final List<Map<String, Object>> packages;
+    private final List<Object> packages;
     private final ZonedDateTime dateCompleted;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -103,7 +101,7 @@ public class SettingsUpdate extends Resource {
         @JsonProperty("iccid") final String iccid,
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("status") final SettingsUpdate.Status status,
-        @JsonProperty("packages") final List<Map<String, Object>> packages,
+        @JsonProperty("packages") final List<Object> packages,
         @JsonProperty("date_completed") final String dateCompleted,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
@@ -135,7 +133,7 @@ public class SettingsUpdate extends Resource {
         return this.status;
     }
 
-    public final List<Map<String, Object>> getPackages() {
+    public final List<Object> getPackages() {
         return this.packages;
     }
 

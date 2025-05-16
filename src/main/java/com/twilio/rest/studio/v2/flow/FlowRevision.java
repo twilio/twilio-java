@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class FlowRevision extends Resource {
 
-    private static final long serialVersionUID = 84648223923809L;
+    private static final long serialVersionUID = 208403532040439L;
 
     public static FlowRevisionFetcher fetcher(
         final String pathSid,
@@ -99,12 +97,12 @@ public class FlowRevision extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
-    private final Map<String, Object> definition;
+    private final Object definition;
     private final FlowRevision.Status status;
     private final Integer revision;
     private final String commitMessage;
     private final Boolean valid;
-    private final List<Map<String, Object>> errors;
+    private final List<Object> errors;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -114,12 +112,12 @@ public class FlowRevision extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("definition") final Map<String, Object> definition,
+        @JsonProperty("definition") final Object definition,
         @JsonProperty("status") final FlowRevision.Status status,
         @JsonProperty("revision") final Integer revision,
         @JsonProperty("commit_message") final String commitMessage,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty("errors") final List<Map<String, Object>> errors,
+        @JsonProperty("errors") final List<Object> errors,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -150,7 +148,7 @@ public class FlowRevision extends Resource {
         return this.friendlyName;
     }
 
-    public final Map<String, Object> getDefinition() {
+    public final Object getDefinition() {
         return this.definition;
     }
 
@@ -170,7 +168,7 @@ public class FlowRevision extends Resource {
         return this.valid;
     }
 
-    public final List<Map<String, Object>> getErrors() {
+    public final List<Object> getErrors() {
         return this.errors;
     }
 

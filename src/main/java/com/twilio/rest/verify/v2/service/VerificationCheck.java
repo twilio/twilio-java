@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class VerificationCheck extends Resource {
 
-    private static final long serialVersionUID = 194586011367791L;
+    private static final long serialVersionUID = 50212192741047L;
 
     public static VerificationCheckCreator creator(
         final String pathServiceSid
@@ -101,7 +99,7 @@ public class VerificationCheck extends Resource {
     private final String payee;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final List<Map<String, Object>> snaAttemptsErrorCodes;
+    private final List<Object> snaAttemptsErrorCodes;
 
     @JsonCreator
     private VerificationCheck(
@@ -117,7 +115,7 @@ public class VerificationCheck extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("sna_attempts_error_codes") final List<
-            Map<String, Object>
+            Object
         > snaAttemptsErrorCodes
     ) {
         this.sid = sid;
@@ -178,7 +176,7 @@ public class VerificationCheck extends Resource {
         return this.dateUpdated;
     }
 
-    public final List<Map<String, Object>> getSnaAttemptsErrorCodes() {
+    public final List<Object> getSnaAttemptsErrorCodes() {
         return this.snaAttemptsErrorCodes;
     }
 

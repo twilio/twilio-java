@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Conversation extends Resource {
 
-    private static final long serialVersionUID = 208929192266810L;
+    private static final long serialVersionUID = 3815896675020L;
 
     public static ConversationCreator creator(final String pathChatServiceSid) {
         return new ConversationCreator(pathChatServiceSid);
@@ -123,10 +123,10 @@ public class Conversation extends Resource {
     private final Conversation.State state;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Map<String, Object> timers;
+    private final Object timers;
     private final URI url;
     private final Map<String, String> links;
-    private final Map<String, Object> bindings;
+    private final Object bindings;
 
     @JsonCreator
     private Conversation(
@@ -140,10 +140,10 @@ public class Conversation extends Resource {
         @JsonProperty("state") final Conversation.State state,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("timers") final Map<String, Object> timers,
+        @JsonProperty("timers") final Object timers,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("bindings") final Map<String, Object> bindings
+        @JsonProperty("bindings") final Object bindings
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -201,7 +201,7 @@ public class Conversation extends Resource {
         return this.dateUpdated;
     }
 
-    public final Map<String, Object> getTimers() {
+    public final Object getTimers() {
         return this.timers;
     }
 
@@ -213,7 +213,7 @@ public class Conversation extends Resource {
         return this.links;
     }
 
-    public final Map<String, Object> getBindings() {
+    public final Object getBindings() {
         return this.bindings;
     }
 

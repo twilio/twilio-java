@@ -25,8 +25,6 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +33,7 @@ import lombok.ToString;
 @ToString
 public class TaskQueuesStatistics extends Resource {
 
-    private static final long serialVersionUID = 167349245476595L;
+    private static final long serialVersionUID = 50096240929714L;
 
     public static TaskQueuesStatisticsReader reader(
         final String pathWorkspaceSid
@@ -87,16 +85,16 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, Object> cumulative;
-    private final Map<String, Object> realtime;
+    private final Object cumulative;
+    private final Object realtime;
     private final String taskQueueSid;
     private final String workspaceSid;
 
     @JsonCreator
     private TaskQueuesStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Map<String, Object> cumulative,
-        @JsonProperty("realtime") final Map<String, Object> realtime,
+        @JsonProperty("cumulative") final Object cumulative,
+        @JsonProperty("realtime") final Object realtime,
         @JsonProperty("task_queue_sid") final String taskQueueSid,
         @JsonProperty("workspace_sid") final String workspaceSid
     ) {
@@ -111,11 +109,11 @@ public class TaskQueuesStatistics extends Resource {
         return this.accountSid;
     }
 
-    public final Map<String, Object> getCumulative() {
+    public final Object getCumulative() {
         return this.cumulative;
     }
 
-    public final Map<String, Object> getRealtime() {
+    public final Object getRealtime() {
         return this.realtime;
     }
 

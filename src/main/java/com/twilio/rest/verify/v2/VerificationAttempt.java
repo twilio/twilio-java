@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class VerificationAttempt extends Resource {
 
-    private static final long serialVersionUID = 105803800130690L;
+    private static final long serialVersionUID = 146003374113715L;
 
     public static VerificationAttemptFetcher fetcher(final String pathSid) {
         return new VerificationAttemptFetcher(pathSid);
@@ -100,8 +98,8 @@ public class VerificationAttempt extends Resource {
     private final ZonedDateTime dateUpdated;
     private final VerificationAttempt.ConversionStatus conversionStatus;
     private final VerificationAttempt.Channels channel;
-    private final Map<String, Object> price;
-    private final Map<String, Object> channelData;
+    private final Object price;
+    private final Object channelData;
     private final URI url;
 
     @JsonCreator
@@ -116,8 +114,8 @@ public class VerificationAttempt extends Resource {
             "conversion_status"
         ) final VerificationAttempt.ConversionStatus conversionStatus,
         @JsonProperty("channel") final VerificationAttempt.Channels channel,
-        @JsonProperty("price") final Map<String, Object> price,
-        @JsonProperty("channel_data") final Map<String, Object> channelData,
+        @JsonProperty("price") final Object price,
+        @JsonProperty("channel_data") final Object channelData,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -165,11 +163,11 @@ public class VerificationAttempt extends Resource {
         return this.channel;
     }
 
-    public final Map<String, Object> getPrice() {
+    public final Object getPrice() {
         return this.price;
     }
 
-    public final Map<String, Object> getChannelData() {
+    public final Object getChannelData() {
         return this.channelData;
     }
 

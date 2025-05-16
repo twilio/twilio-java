@@ -25,21 +25,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     private String pathSid;
-    private Map<String, Object> configuration;
+    private Object configuration;
     private String uniqueName;
 
     public InstalledAddOnUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public InstalledAddOnUpdater setConfiguration(
-        final Map<String, Object> configuration
-    ) {
+    public InstalledAddOnUpdater setConfiguration(final Object configuration) {
         this.configuration = configuration;
         return this;
     }

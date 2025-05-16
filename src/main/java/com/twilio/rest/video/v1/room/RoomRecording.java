@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class RoomRecording extends Resource {
 
-    private static final long serialVersionUID = 14590901968979L;
+    private static final long serialVersionUID = 213087152973119L;
 
     public static RoomRecordingDeleter deleter(
         final String pathRoomSid,
@@ -113,7 +113,7 @@ public class RoomRecording extends Resource {
     private final Integer duration;
     private final RoomRecording.Format containerFormat;
     private final RoomRecording.Codec codec;
-    private final Map<String, Object> groupingSids;
+    private final Object groupingSids;
     private final String trackName;
     private final Long offset;
     private final URI mediaExternalLocation;
@@ -135,7 +135,7 @@ public class RoomRecording extends Resource {
             "container_format"
         ) final RoomRecording.Format containerFormat,
         @JsonProperty("codec") final RoomRecording.Codec codec,
-        @JsonProperty("grouping_sids") final Map<String, Object> groupingSids,
+        @JsonProperty("grouping_sids") final Object groupingSids,
         @JsonProperty("track_name") final String trackName,
         @JsonProperty("offset") final Long offset,
         @JsonProperty(
@@ -207,7 +207,7 @@ public class RoomRecording extends Resource {
         return this.codec;
     }
 
-    public final Map<String, Object> getGroupingSids() {
+    public final Object getGroupingSids() {
         return this.groupingSids;
     }
 

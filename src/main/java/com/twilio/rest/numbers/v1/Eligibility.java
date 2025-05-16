@@ -27,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class Eligibility extends Resource {
 
-    private static final long serialVersionUID = 222327706675602L;
+    private static final long serialVersionUID = 116211880414586L;
 
     public static EligibilityCreator creator() {
         return new EligibilityCreator();
@@ -98,16 +96,14 @@ public class Eligibility extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> results;
+    private final List<Object> results;
 
     @JsonCreator
-    private Eligibility(
-        @JsonProperty("results") final List<Map<String, Object>> results
-    ) {
+    private Eligibility(@JsonProperty("results") final List<Object> results) {
         this.results = results;
     }
 
-    public final List<Map<String, Object>> getResults() {
+    public final List<Object> getResults() {
         return this.results;
     }
 

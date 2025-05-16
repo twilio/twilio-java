@@ -31,8 +31,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -41,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class CompositionHook extends Resource {
 
-    private static final long serialVersionUID = 233336557322533L;
+    private static final long serialVersionUID = 11959373000050L;
 
     public static CompositionHookCreator creator(final String friendlyName) {
         return new CompositionHookCreator(friendlyName);
@@ -117,7 +115,7 @@ public class CompositionHook extends Resource {
     private final String sid;
     private final List<String> audioSources;
     private final List<String> audioSourcesExcluded;
-    private final Map<String, Object> videoLayout;
+    private final Object videoLayout;
     private final String resolution;
     private final Boolean trim;
     private final CompositionHook.Format format;
@@ -137,7 +135,7 @@ public class CompositionHook extends Resource {
         @JsonProperty("audio_sources_excluded") final List<
             String
         > audioSourcesExcluded,
-        @JsonProperty("video_layout") final Map<String, Object> videoLayout,
+        @JsonProperty("video_layout") final Object videoLayout,
         @JsonProperty("resolution") final String resolution,
         @JsonProperty("trim") final Boolean trim,
         @JsonProperty("format") final CompositionHook.Format format,
@@ -196,7 +194,7 @@ public class CompositionHook extends Resource {
         return this.audioSourcesExcluded;
     }
 
-    public final Map<String, Object> getVideoLayout() {
+    public final Object getVideoLayout() {
         return this.videoLayout;
     }
 

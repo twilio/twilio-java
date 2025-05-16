@@ -36,11 +36,9 @@ import lombok.ToString;
 @ToString
 public class Interaction extends Resource {
 
-    private static final long serialVersionUID = 256485735361091L;
+    private static final long serialVersionUID = 56324428411375L;
 
-    public static InteractionCreator creator(
-        final Map<String, Object> channel
-    ) {
+    public static InteractionCreator creator(final Object channel) {
         return new InteractionCreator(channel);
     }
 
@@ -96,8 +94,8 @@ public class Interaction extends Resource {
     }
 
     private final String sid;
-    private final Map<String, Object> channel;
-    private final Map<String, Object> routing;
+    private final Object channel;
+    private final Object routing;
     private final URI url;
     private final Map<String, String> links;
     private final String interactionContextSid;
@@ -106,8 +104,8 @@ public class Interaction extends Resource {
     @JsonCreator
     private Interaction(
         @JsonProperty("sid") final String sid,
-        @JsonProperty("channel") final Map<String, Object> channel,
-        @JsonProperty("routing") final Map<String, Object> routing,
+        @JsonProperty("channel") final Object channel,
+        @JsonProperty("routing") final Object routing,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty(
@@ -128,11 +126,11 @@ public class Interaction extends Resource {
         return this.sid;
     }
 
-    public final Map<String, Object> getChannel() {
+    public final Object getChannel() {
         return this.channel;
     }
 
-    public final Map<String, Object> getRouting() {
+    public final Object getRouting() {
         return this.routing;
     }
 

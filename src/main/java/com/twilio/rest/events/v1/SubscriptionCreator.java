@@ -36,12 +36,12 @@ public class SubscriptionCreator extends Creator<Subscription> {
 
     private String description;
     private String sinkSid;
-    private List<Map<String, Object>> types;
+    private List<Object> types;
 
     public SubscriptionCreator(
         final String description,
         final String sinkSid,
-        final List<Map<String, Object>> types
+        final List<Object> types
     ) {
         this.description = description;
         this.sinkSid = sinkSid;
@@ -58,12 +58,12 @@ public class SubscriptionCreator extends Creator<Subscription> {
         return this;
     }
 
-    public SubscriptionCreator setTypes(final List<Map<String, Object>> types) {
+    public SubscriptionCreator setTypes(final List<Object> types) {
         this.types = types;
         return this;
     }
 
-    public SubscriptionCreator setTypes(final Map<String, Object> types) {
+    public SubscriptionCreator setTypes(final Object types) {
         return setTypes(Promoter.listOfOne(types));
     }
 

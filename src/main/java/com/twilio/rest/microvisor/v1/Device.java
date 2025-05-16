@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Device extends Resource {
 
-    private static final long serialVersionUID = 266652017538801L;
+    private static final long serialVersionUID = 108355568122591L;
 
     public static DeviceFetcher fetcher(final String pathSid) {
         return new DeviceFetcher(pathSid);
@@ -98,8 +98,8 @@ public class Device extends Resource {
     private final String sid;
     private final String uniqueName;
     private final String accountSid;
-    private final Map<String, Object> app;
-    private final Map<String, Object> logging;
+    private final Object app;
+    private final Object logging;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -110,8 +110,8 @@ public class Device extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("app") final Map<String, Object> app,
-        @JsonProperty("logging") final Map<String, Object> logging,
+        @JsonProperty("app") final Object app,
+        @JsonProperty("logging") final Object logging,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -140,11 +140,11 @@ public class Device extends Resource {
         return this.accountSid;
     }
 
-    public final Map<String, Object> getApp() {
+    public final Object getApp() {
         return this.app;
     }
 
-    public final Map<String, Object> getLogging() {
+    public final Object getLogging() {
         return this.logging;
     }
 

@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class TollfreeVerification extends Resource {
 
-    private static final long serialVersionUID = 271545419096190L;
+    private static final long serialVersionUID = 261847219385954L;
 
     public static TollfreeVerificationCreator creator(
         final String businessName,
@@ -161,8 +159,8 @@ public class TollfreeVerification extends Resource {
     private final Integer errorCode;
     private final ZonedDateTime editExpiration;
     private final Boolean editAllowed;
-    private final List<Map<String, Object>> rejectionReasons;
-    private final Map<String, Object> resourceLinks;
+    private final List<Object> rejectionReasons;
+    private final Object resourceLinks;
     private final String externalReferenceId;
 
     @JsonCreator
@@ -225,10 +223,8 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("edit_expiration") final String editExpiration,
         @JsonProperty("edit_allowed") final Boolean editAllowed,
-        @JsonProperty("rejection_reasons") final List<
-            Map<String, Object>
-        > rejectionReasons,
-        @JsonProperty("resource_links") final Map<String, Object> resourceLinks,
+        @JsonProperty("rejection_reasons") final List<Object> rejectionReasons,
+        @JsonProperty("resource_links") final Object resourceLinks,
         @JsonProperty("external_reference_id") final String externalReferenceId
     ) {
         this.sid = sid;
@@ -407,11 +403,11 @@ public class TollfreeVerification extends Resource {
         return this.editAllowed;
     }
 
-    public final List<Map<String, Object>> getRejectionReasons() {
+    public final List<Object> getRejectionReasons() {
         return this.rejectionReasons;
     }
 
-    public final Map<String, Object> getResourceLinks() {
+    public final Object getResourceLinks() {
         return this.resourceLinks;
     }
 

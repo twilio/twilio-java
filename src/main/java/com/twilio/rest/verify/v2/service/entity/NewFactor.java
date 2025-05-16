@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class NewFactor extends Resource {
 
-    private static final long serialVersionUID = 115808224888150L;
+    private static final long serialVersionUID = 30401125571450L;
 
     public static NewFactorCreator creator(
         final String pathServiceSid,
@@ -103,14 +101,14 @@ public class NewFactor extends Resource {
     private final String serviceSid;
     private final String entitySid;
     private final String identity;
-    private final Map<String, Object> binding;
+    private final Object binding;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final NewFactor.FactorStatuses status;
     private final NewFactor.FactorTypes factorType;
-    private final Map<String, Object> config;
-    private final Map<String, Object> metadata;
+    private final Object config;
+    private final Object metadata;
     private final URI url;
 
     @JsonCreator
@@ -120,14 +118,14 @@ public class NewFactor extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("entity_sid") final String entitySid,
         @JsonProperty("identity") final String identity,
-        @JsonProperty("binding") final Map<String, Object> binding,
+        @JsonProperty("binding") final Object binding,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("status") final NewFactor.FactorStatuses status,
         @JsonProperty("factor_type") final NewFactor.FactorTypes factorType,
-        @JsonProperty("config") final Map<String, Object> config,
-        @JsonProperty("metadata") final Map<String, Object> metadata,
+        @JsonProperty("config") final Object config,
+        @JsonProperty("metadata") final Object metadata,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -166,7 +164,7 @@ public class NewFactor extends Resource {
         return this.identity;
     }
 
-    public final Map<String, Object> getBinding() {
+    public final Object getBinding() {
         return this.binding;
     }
 
@@ -190,11 +188,11 @@ public class NewFactor extends Resource {
         return this.factorType;
     }
 
-    public final Map<String, Object> getConfig() {
+    public final Object getConfig() {
         return this.config;
     }
 
-    public final Map<String, Object> getMetadata() {
+    public final Object getMetadata() {
         return this.metadata;
     }
 

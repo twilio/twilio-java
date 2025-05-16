@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class UserConversation extends Resource {
 
-    private static final long serialVersionUID = 269317644556189L;
+    private static final long serialVersionUID = 141132884117596L;
 
     public static UserConversationDeleter deleter(
         final String pathUserSid,
@@ -118,7 +118,7 @@ public class UserConversation extends Resource {
     private final String userSid;
     private final String friendlyName;
     private final UserConversation.State conversationState;
-    private final Map<String, Object> timers;
+    private final Object timers;
     private final String attributes;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -145,7 +145,7 @@ public class UserConversation extends Resource {
         @JsonProperty(
             "conversation_state"
         ) final UserConversation.State conversationState,
-        @JsonProperty("timers") final Map<String, Object> timers,
+        @JsonProperty("timers") final Object timers,
         @JsonProperty("attributes") final String attributes,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -213,7 +213,7 @@ public class UserConversation extends Resource {
         return this.conversationState;
     }
 
-    public final Map<String, Object> getTimers() {
+    public final Object getTimers() {
         return this.timers;
     }
 

@@ -271,7 +271,9 @@ public class ChannelsSender extends Resource {
         @Setter
         private MessagingV2ChannelsSenderProfile profile;
 
-        public MessagingV2ChannelsSenderRequestsCreate() {}
+        public MessagingV2ChannelsSenderRequestsCreate(final String senderId) {
+            this.senderId = senderId;
+        }
 
         public static MessagingV2ChannelsSenderRequestsCreate fromJson(
             String jsonString,

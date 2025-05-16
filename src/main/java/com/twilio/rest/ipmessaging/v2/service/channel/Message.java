@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 210901647084119L;
+    private static final long serialVersionUID = 68962359101504L;
 
     public static MessageCreator creator(
         final String pathServiceSid,
@@ -136,7 +134,7 @@ public class Message extends Resource {
     private final String body;
     private final Integer index;
     private final String type;
-    private final Map<String, Object> media;
+    private final Object media;
     private final URI url;
 
     @JsonCreator
@@ -155,7 +153,7 @@ public class Message extends Resource {
         @JsonProperty("body") final String body,
         @JsonProperty("index") final Integer index,
         @JsonProperty("type") final String type,
-        @JsonProperty("media") final Map<String, Object> media,
+        @JsonProperty("media") final Object media,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -232,7 +230,7 @@ public class Message extends Resource {
         return this.type;
     }
 
-    public final Map<String, Object> getMedia() {
+    public final Object getMedia() {
         return this.media;
     }
 

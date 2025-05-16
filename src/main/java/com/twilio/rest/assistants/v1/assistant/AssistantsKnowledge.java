@@ -27,8 +27,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class AssistantsKnowledge extends Resource {
 
-    private static final long serialVersionUID = 142704301669097L;
+    private static final long serialVersionUID = 209519777042711L;
 
     public static AssistantsKnowledgeCreator creator(
         final String pathAssistantId,
@@ -105,7 +103,7 @@ public class AssistantsKnowledge extends Resource {
     private final String description;
     private final String id;
     private final String accountSid;
-    private final Map<String, Object> knowledgeSourceDetails;
+    private final Object knowledgeSourceDetails;
     private final String name;
     private final String status;
     private final String type;
@@ -119,10 +117,9 @@ public class AssistantsKnowledge extends Resource {
         @JsonProperty("description") final String description,
         @JsonProperty("id") final String id,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("knowledge_source_details") final Map<
-            String,
-            Object
-        > knowledgeSourceDetails,
+        @JsonProperty(
+            "knowledge_source_details"
+        ) final Object knowledgeSourceDetails,
         @JsonProperty("name") final String name,
         @JsonProperty("status") final String status,
         @JsonProperty("type") final String type,
@@ -156,7 +153,7 @@ public class AssistantsKnowledge extends Resource {
         return this.accountSid;
     }
 
-    public final Map<String, Object> getKnowledgeSourceDetails() {
+    public final Object getKnowledgeSourceDetails() {
         return this.knowledgeSourceDetails;
     }
 

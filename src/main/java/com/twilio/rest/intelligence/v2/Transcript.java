@@ -39,11 +39,11 @@ import lombok.ToString;
 @ToString
 public class Transcript extends Resource {
 
-    private static final long serialVersionUID = 35462753187463L;
+    private static final long serialVersionUID = 213553417182710L;
 
     public static TranscriptCreator creator(
         final String serviceSid,
-        final Map<String, Object> channel
+        final Object channel
     ) {
         return new TranscriptCreator(serviceSid, channel);
     }
@@ -109,7 +109,7 @@ public class Transcript extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Transcript.Status status;
-    private final Map<String, Object> channel;
+    private final Object channel;
     private final Boolean dataLogging;
     private final String languageCode;
     private final String customerKey;
@@ -127,7 +127,7 @@ public class Transcript extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("status") final Transcript.Status status,
-        @JsonProperty("channel") final Map<String, Object> channel,
+        @JsonProperty("channel") final Object channel,
         @JsonProperty("data_logging") final Boolean dataLogging,
         @JsonProperty("language_code") final String languageCode,
         @JsonProperty("customer_key") final String customerKey,
@@ -179,7 +179,7 @@ public class Transcript extends Resource {
         return this.status;
     }
 
-    public final Map<String, Object> getChannel() {
+    public final Object getChannel() {
         return this.channel;
     }
 

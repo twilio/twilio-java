@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class Sentence extends Resource {
 
-    private static final long serialVersionUID = 171585913029090L;
+    private static final long serialVersionUID = 201374296176447L;
 
     public static SentenceReader reader(final String pathTranscriptSid) {
         return new SentenceReader(pathTranscriptSid);
@@ -93,7 +91,7 @@ public class Sentence extends Resource {
     private final String transcript;
     private final String sid;
     private final BigDecimal confidence;
-    private final List<Map<String, Object>> words;
+    private final List<Object> words;
 
     @JsonCreator
     private Sentence(
@@ -104,7 +102,7 @@ public class Sentence extends Resource {
         @JsonProperty("transcript") final String transcript,
         @JsonProperty("sid") final String sid,
         @JsonProperty("confidence") final BigDecimal confidence,
-        @JsonProperty("words") final List<Map<String, Object>> words
+        @JsonProperty("words") final List<Object> words
     ) {
         this.mediaChannel = mediaChannel;
         this.sentenceIndex = sentenceIndex;
@@ -144,7 +142,7 @@ public class Sentence extends Resource {
         return this.confidence;
     }
 
-    public final List<Map<String, Object>> getWords() {
+    public final List<Object> getWords() {
         return this.words;
     }
 

@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -31,8 +30,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Assistant extends Resource {
 
-    private static final long serialVersionUID = 5177924616338L;
+    private static final long serialVersionUID = 50115246350901L;
 
     @ToString
     public static class AssistantsV1ServiceCustomerAi {
@@ -136,7 +133,9 @@ public class Assistant extends Resource {
         @Setter
         private AssistantsV1ServiceSegmentCredential segmentCredential;
 
-        public AssistantsV1ServiceCreateAssistantRequest() {}
+        public AssistantsV1ServiceCreateAssistantRequest(final String name) {
+            this.name = name;
+        }
 
         public static AssistantsV1ServiceCreateAssistantRequest fromJson(
             String jsonString,
@@ -220,11 +219,7 @@ public class Assistant extends Resource {
         @JsonProperty("knowledge_source_details")
         @Getter
         @Setter
-        private Map<String, Object> knowledgeSourceDetails;
-
-        public String getKnowledgeSourceDetails() {
-            return Converter.mapToJson(knowledgeSourceDetails);
-        }
+        private Object knowledgeSourceDetails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -318,11 +313,7 @@ public class Assistant extends Resource {
         @JsonProperty("meta")
         @Getter
         @Setter
-        private Map<String, Object> meta;
-
-        public String getMeta() {
-            return Converter.mapToJson(meta);
-        }
+        private Object meta;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -454,7 +445,7 @@ public class Assistant extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, Object> customerAi;
+    private final Object customerAi;
     private final String id;
     private final String model;
     private final String name;
@@ -469,7 +460,7 @@ public class Assistant extends Resource {
     @JsonCreator
     private Assistant(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("customer_ai") final Map<String, Object> customerAi,
+        @JsonProperty("customer_ai") final Object customerAi,
         @JsonProperty("id") final String id,
         @JsonProperty("model") final String model,
         @JsonProperty("name") final String name,
@@ -501,7 +492,7 @@ public class Assistant extends Resource {
         return this.accountSid;
     }
 
-    public final Map<String, Object> getCustomerAi() {
+    public final Object getCustomerAi() {
         return this.customerAi;
     }
 

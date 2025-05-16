@@ -31,8 +31,6 @@ import java.net.URI;
 import java.net.URI;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class RoomCreator extends Creator<Room> {
 
@@ -46,8 +44,8 @@ public class RoomCreator extends Creator<Room> {
     private Boolean transcribeParticipantsOnConnect;
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
-    private Map<String, Object> recordingRules;
-    private Map<String, Object> transcriptionsConfiguration;
+    private Object recordingRules;
+    private Object transcriptionsConfiguration;
     private Boolean audioOnly;
     private Integer maxParticipantDuration;
     private Integer emptyRoomTimeout;
@@ -120,15 +118,13 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
-    public RoomCreator setRecordingRules(
-        final Map<String, Object> recordingRules
-    ) {
+    public RoomCreator setRecordingRules(final Object recordingRules) {
         this.recordingRules = recordingRules;
         return this;
     }
 
     public RoomCreator setTranscriptionsConfiguration(
-        final Map<String, Object> transcriptionsConfiguration
+        final Object transcriptionsConfiguration
     ) {
         this.transcriptionsConfiguration = transcriptionsConfiguration;
         return this;

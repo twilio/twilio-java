@@ -26,14 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class DocumentCreator extends Creator<Document> {
 
     private String pathServiceSid;
     private String uniqueName;
-    private Map<String, Object> data;
+    private Object data;
     private Integer ttl;
 
     public DocumentCreator(final String pathServiceSid) {
@@ -45,7 +43,7 @@ public class DocumentCreator extends Creator<Document> {
         return this;
     }
 
-    public DocumentCreator setData(final Map<String, Object> data) {
+    public DocumentCreator setData(final Object data) {
         this.data = data;
         return this;
     }

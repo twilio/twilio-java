@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Evaluation extends Resource {
 
-    private static final long serialVersionUID = 28761307513576L;
+    private static final long serialVersionUID = 99440016054172L;
 
     public static EvaluationCreator creator(final String pathBundleSid) {
         return new EvaluationCreator(pathBundleSid);
@@ -105,7 +103,7 @@ public class Evaluation extends Resource {
     private final String regulationSid;
     private final String bundleSid;
     private final Evaluation.Status status;
-    private final List<Map<String, Object>> results;
+    private final List<Object> results;
     private final ZonedDateTime dateCreated;
     private final URI url;
 
@@ -116,7 +114,7 @@ public class Evaluation extends Resource {
         @JsonProperty("regulation_sid") final String regulationSid,
         @JsonProperty("bundle_sid") final String bundleSid,
         @JsonProperty("status") final Evaluation.Status status,
-        @JsonProperty("results") final List<Map<String, Object>> results,
+        @JsonProperty("results") final List<Object> results,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
     ) {
@@ -150,7 +148,7 @@ public class Evaluation extends Resource {
         return this.status;
     }
 
-    public final List<Map<String, Object>> getResults() {
+    public final List<Object> getResults() {
         return this.results;
     }
 

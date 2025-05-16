@@ -26,14 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class SupportingDocumentCreator extends Creator<SupportingDocument> {
 
     private String friendlyName;
     private String type;
-    private Map<String, Object> attributes;
+    private Object attributes;
 
     public SupportingDocumentCreator(
         final String friendlyName,
@@ -55,9 +53,7 @@ public class SupportingDocumentCreator extends Creator<SupportingDocument> {
         return this;
     }
 
-    public SupportingDocumentCreator setAttributes(
-        final Map<String, Object> attributes
-    ) {
+    public SupportingDocumentCreator setAttributes(final Object attributes) {
         this.attributes = attributes;
         return this;
     }

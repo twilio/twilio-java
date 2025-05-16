@@ -26,8 +26,6 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class Metric extends Resource {
 
-    private static final long serialVersionUID = 250651350148240L;
+    private static final long serialVersionUID = 113593839982414L;
 
     public static MetricReader reader(final String pathCallSid) {
         return new MetricReader(pathCallSid);
@@ -90,10 +88,10 @@ public class Metric extends Resource {
     private final String accountSid;
     private final Metric.TwilioEdge edge;
     private final Metric.StreamDirection direction;
-    private final Map<String, Object> carrierEdge;
-    private final Map<String, Object> sipEdge;
-    private final Map<String, Object> sdkEdge;
-    private final Map<String, Object> clientEdge;
+    private final Object carrierEdge;
+    private final Object sipEdge;
+    private final Object sdkEdge;
+    private final Object clientEdge;
 
     @JsonCreator
     private Metric(
@@ -102,10 +100,10 @@ public class Metric extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("edge") final Metric.TwilioEdge edge,
         @JsonProperty("direction") final Metric.StreamDirection direction,
-        @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
-        @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
-        @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
-        @JsonProperty("client_edge") final Map<String, Object> clientEdge
+        @JsonProperty("carrier_edge") final Object carrierEdge,
+        @JsonProperty("sip_edge") final Object sipEdge,
+        @JsonProperty("sdk_edge") final Object sdkEdge,
+        @JsonProperty("client_edge") final Object clientEdge
     ) {
         this.timestamp = timestamp;
         this.callSid = callSid;
@@ -138,19 +136,19 @@ public class Metric extends Resource {
         return this.direction;
     }
 
-    public final Map<String, Object> getCarrierEdge() {
+    public final Object getCarrierEdge() {
         return this.carrierEdge;
     }
 
-    public final Map<String, Object> getSipEdge() {
+    public final Object getSipEdge() {
         return this.sipEdge;
     }
 
-    public final Map<String, Object> getSdkEdge() {
+    public final Object getSdkEdge() {
         return this.sdkEdge;
     }
 
-    public final Map<String, Object> getClientEdge() {
+    public final Object getClientEdge() {
         return this.clientEdge;
     }
 

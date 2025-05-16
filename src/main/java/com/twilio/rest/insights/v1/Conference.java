@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Conference extends Resource {
 
-    private static final long serialVersionUID = 40059120188961L;
+    private static final long serialVersionUID = 54474247702685L;
 
     public static ConferenceFetcher fetcher(final String pathConferenceSid) {
         return new ConferenceFetcher(pathConferenceSid);
@@ -110,9 +110,9 @@ public class Conference extends Resource {
     private final Conference.Region mixerRegion;
     private final Conference.Region mixerRegionRequested;
     private final Boolean recordingEnabled;
-    private final Map<String, Object> detectedIssues;
+    private final Object detectedIssues;
     private final List<Conference.Tag> tags;
-    private final Map<String, Object> tagInfo;
+    private final Object tagInfo;
     private final Conference.ProcessingState processingState;
     private final URI url;
     private final Map<String, String> links;
@@ -144,12 +144,9 @@ public class Conference extends Resource {
             "mixer_region_requested"
         ) final Conference.Region mixerRegionRequested,
         @JsonProperty("recording_enabled") final Boolean recordingEnabled,
-        @JsonProperty("detected_issues") final Map<
-            String,
-            Object
-        > detectedIssues,
+        @JsonProperty("detected_issues") final Object detectedIssues,
         @JsonProperty("tags") final List<Conference.Tag> tags,
-        @JsonProperty("tag_info") final Map<String, Object> tagInfo,
+        @JsonProperty("tag_info") final Object tagInfo,
         @JsonProperty(
             "processing_state"
         ) final Conference.ProcessingState processingState,
@@ -249,7 +246,7 @@ public class Conference extends Resource {
         return this.recordingEnabled;
     }
 
-    public final Map<String, Object> getDetectedIssues() {
+    public final Object getDetectedIssues() {
         return this.detectedIssues;
     }
 
@@ -257,7 +254,7 @@ public class Conference extends Resource {
         return this.tags;
     }
 
-    public final Map<String, Object> getTagInfo() {
+    public final Object getTagInfo() {
         return this.tagInfo;
     }
 

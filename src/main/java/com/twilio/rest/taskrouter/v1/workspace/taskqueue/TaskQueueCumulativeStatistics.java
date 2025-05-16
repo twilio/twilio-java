@@ -28,8 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class TaskQueueCumulativeStatistics extends Resource {
 
-    private static final long serialVersionUID = 113454189238794L;
+    private static final long serialVersionUID = 51800144019635L;
 
     public static TaskQueueCumulativeStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -109,11 +107,11 @@ public class TaskQueueCumulativeStatistics extends Resource {
     private final Integer reservationsTimedOut;
     private final Integer reservationsCanceled;
     private final Integer reservationsRescinded;
-    private final Map<String, Object> splitByWaitTime;
+    private final Object splitByWaitTime;
     private final String taskQueueSid;
-    private final Map<String, Object> waitDurationUntilAccepted;
-    private final Map<String, Object> waitDurationUntilCanceled;
-    private final Map<String, Object> waitDurationInQueueUntilAccepted;
+    private final Object waitDurationUntilAccepted;
+    private final Object waitDurationUntilCanceled;
+    private final Object waitDurationInQueueUntilAccepted;
     private final Integer tasksCanceled;
     private final Integer tasksCompleted;
     private final Integer tasksDeleted;
@@ -146,23 +144,17 @@ public class TaskQueueCumulativeStatistics extends Resource {
         @JsonProperty(
             "reservations_rescinded"
         ) final Integer reservationsRescinded,
-        @JsonProperty("split_by_wait_time") final Map<
-            String,
-            Object
-        > splitByWaitTime,
+        @JsonProperty("split_by_wait_time") final Object splitByWaitTime,
         @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty("wait_duration_until_accepted") final Map<
-            String,
-            Object
-        > waitDurationUntilAccepted,
-        @JsonProperty("wait_duration_until_canceled") final Map<
-            String,
-            Object
-        > waitDurationUntilCanceled,
-        @JsonProperty("wait_duration_in_queue_until_accepted") final Map<
-            String,
-            Object
-        > waitDurationInQueueUntilAccepted,
+        @JsonProperty(
+            "wait_duration_until_accepted"
+        ) final Object waitDurationUntilAccepted,
+        @JsonProperty(
+            "wait_duration_until_canceled"
+        ) final Object waitDurationUntilCanceled,
+        @JsonProperty(
+            "wait_duration_in_queue_until_accepted"
+        ) final Object waitDurationInQueueUntilAccepted,
         @JsonProperty("tasks_canceled") final Integer tasksCanceled,
         @JsonProperty("tasks_completed") final Integer tasksCompleted,
         @JsonProperty("tasks_deleted") final Integer tasksDeleted,
@@ -236,7 +228,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
         return this.reservationsRescinded;
     }
 
-    public final Map<String, Object> getSplitByWaitTime() {
+    public final Object getSplitByWaitTime() {
         return this.splitByWaitTime;
     }
 
@@ -244,15 +236,15 @@ public class TaskQueueCumulativeStatistics extends Resource {
         return this.taskQueueSid;
     }
 
-    public final Map<String, Object> getWaitDurationUntilAccepted() {
+    public final Object getWaitDurationUntilAccepted() {
         return this.waitDurationUntilAccepted;
     }
 
-    public final Map<String, Object> getWaitDurationUntilCanceled() {
+    public final Object getWaitDurationUntilCanceled() {
         return this.waitDurationUntilCanceled;
     }
 
-    public final Map<String, Object> getWaitDurationInQueueUntilAccepted() {
+    public final Object getWaitDurationInQueueUntilAccepted() {
         return this.waitDurationInQueueUntilAccepted;
     }
 

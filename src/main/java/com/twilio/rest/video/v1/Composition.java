@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class Composition extends Resource {
 
-    private static final long serialVersionUID = 27450434271262L;
+    private static final long serialVersionUID = 99786087547322L;
 
     public static CompositionCreator creator(final String roomSid) {
         return new CompositionCreator(roomSid);
@@ -111,7 +111,7 @@ public class Composition extends Resource {
     private final String roomSid;
     private final List<String> audioSources;
     private final List<String> audioSourcesExcluded;
-    private final Map<String, Object> videoLayout;
+    private final Object videoLayout;
     private final String resolution;
     private final Boolean trim;
     private final Composition.Format format;
@@ -137,7 +137,7 @@ public class Composition extends Resource {
         @JsonProperty("audio_sources_excluded") final List<
             String
         > audioSourcesExcluded,
-        @JsonProperty("video_layout") final Map<String, Object> videoLayout,
+        @JsonProperty("video_layout") final Object videoLayout,
         @JsonProperty("resolution") final String resolution,
         @JsonProperty("trim") final Boolean trim,
         @JsonProperty("format") final Composition.Format format,
@@ -214,7 +214,7 @@ public class Composition extends Resource {
         return this.audioSourcesExcluded;
     }
 
-    public final Map<String, Object> getVideoLayout() {
+    public final Object getVideoLayout() {
         return this.videoLayout;
     }
 

@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class Assessments extends Resource {
 
-    private static final long serialVersionUID = 249351913918322L;
+    private static final long serialVersionUID = 226279342317461L;
 
     public static AssessmentsCreator creator(
         final String categorySid,
@@ -137,7 +135,7 @@ public class Assessments extends Resource {
     private final String userEmail;
     private final String answerText;
     private final String answerId;
-    private final Map<String, Object> assessment;
+    private final Object assessment;
     private final BigDecimal timestamp;
     private final URI url;
 
@@ -154,7 +152,7 @@ public class Assessments extends Resource {
         @JsonProperty("user_email") final String userEmail,
         @JsonProperty("answer_text") final String answerText,
         @JsonProperty("answer_id") final String answerId,
-        @JsonProperty("assessment") final Map<String, Object> assessment,
+        @JsonProperty("assessment") final Object assessment,
         @JsonProperty("timestamp") final BigDecimal timestamp,
         @JsonProperty("url") final URI url
     ) {
@@ -218,7 +216,7 @@ public class Assessments extends Resource {
         return this.answerId;
     }
 
-    public final Map<String, Object> getAssessment() {
+    public final Object getAssessment() {
         return this.assessment;
     }
 

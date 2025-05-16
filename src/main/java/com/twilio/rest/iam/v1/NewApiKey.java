@@ -28,8 +28,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class NewApiKey extends Resource {
 
-    private static final long serialVersionUID = 217181042856619L;
+    private static final long serialVersionUID = 58775637028152L;
 
     public static NewApiKeyCreator creator(final String accountSid) {
         return new NewApiKeyCreator(accountSid);
@@ -92,7 +90,7 @@ public class NewApiKey extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String secret;
-    private final Map<String, Object> policy;
+    private final Object policy;
 
     @JsonCreator
     private NewApiKey(
@@ -101,7 +99,7 @@ public class NewApiKey extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("secret") final String secret,
-        @JsonProperty("policy") final Map<String, Object> policy
+        @JsonProperty("policy") final Object policy
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -131,7 +129,7 @@ public class NewApiKey extends Resource {
         return this.secret;
     }
 
-    public final Map<String, Object> getPolicy() {
+    public final Object getPolicy() {
         return this.policy;
     }
 

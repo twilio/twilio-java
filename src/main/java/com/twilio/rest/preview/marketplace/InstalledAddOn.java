@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class InstalledAddOn extends Resource {
 
-    private static final long serialVersionUID = 250400645130930L;
+    private static final long serialVersionUID = 262360222811208L;
 
     public static InstalledAddOnCreator creator(
         final String availableAddOnSid,
@@ -113,7 +113,7 @@ public class InstalledAddOn extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String description;
-    private final Map<String, Object> configuration;
+    private final Object configuration;
     private final String uniqueName;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -126,7 +126,7 @@ public class InstalledAddOn extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("description") final String description,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
+        @JsonProperty("configuration") final Object configuration,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -161,7 +161,7 @@ public class InstalledAddOn extends Resource {
         return this.description;
     }
 
-    public final Map<String, Object> getConfiguration() {
+    public final Object getConfiguration() {
         return this.configuration;
     }
 

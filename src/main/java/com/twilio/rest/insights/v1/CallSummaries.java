@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class CallSummaries extends Resource {
 
-    private static final long serialVersionUID = 2737605187627L;
+    private static final long serialVersionUID = 30757644629602L;
 
     public static CallSummariesReader reader() {
         return new CallSummariesReader();
@@ -100,18 +98,18 @@ public class CallSummaries extends Resource {
     private final ZonedDateTime endTime;
     private final Integer duration;
     private final Integer connectDuration;
-    private final Map<String, Object> from;
-    private final Map<String, Object> to;
-    private final Map<String, Object> carrierEdge;
-    private final Map<String, Object> clientEdge;
-    private final Map<String, Object> sdkEdge;
-    private final Map<String, Object> sipEdge;
+    private final Object from;
+    private final Object to;
+    private final Object carrierEdge;
+    private final Object clientEdge;
+    private final Object sdkEdge;
+    private final Object sipEdge;
     private final List<String> tags;
     private final URI url;
-    private final Map<String, Object> attributes;
-    private final Map<String, Object> properties;
-    private final Map<String, Object> trust;
-    private final Map<String, Object> annotation;
+    private final Object attributes;
+    private final Object properties;
+    private final Object trust;
+    private final Object annotation;
 
     @JsonCreator
     private CallSummaries(
@@ -128,18 +126,18 @@ public class CallSummaries extends Resource {
         @JsonProperty("end_time") final String endTime,
         @JsonProperty("duration") final Integer duration,
         @JsonProperty("connect_duration") final Integer connectDuration,
-        @JsonProperty("from") final Map<String, Object> from,
-        @JsonProperty("to") final Map<String, Object> to,
-        @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
-        @JsonProperty("client_edge") final Map<String, Object> clientEdge,
-        @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
-        @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
+        @JsonProperty("from") final Object from,
+        @JsonProperty("to") final Object to,
+        @JsonProperty("carrier_edge") final Object carrierEdge,
+        @JsonProperty("client_edge") final Object clientEdge,
+        @JsonProperty("sdk_edge") final Object sdkEdge,
+        @JsonProperty("sip_edge") final Object sipEdge,
         @JsonProperty("tags") final List<String> tags,
         @JsonProperty("url") final URI url,
-        @JsonProperty("attributes") final Map<String, Object> attributes,
-        @JsonProperty("properties") final Map<String, Object> properties,
-        @JsonProperty("trust") final Map<String, Object> trust,
-        @JsonProperty("annotation") final Map<String, Object> annotation
+        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty("properties") final Object properties,
+        @JsonProperty("trust") final Object trust,
+        @JsonProperty("annotation") final Object annotation
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -210,27 +208,27 @@ public class CallSummaries extends Resource {
         return this.connectDuration;
     }
 
-    public final Map<String, Object> getFrom() {
+    public final Object getFrom() {
         return this.from;
     }
 
-    public final Map<String, Object> getTo() {
+    public final Object getTo() {
         return this.to;
     }
 
-    public final Map<String, Object> getCarrierEdge() {
+    public final Object getCarrierEdge() {
         return this.carrierEdge;
     }
 
-    public final Map<String, Object> getClientEdge() {
+    public final Object getClientEdge() {
         return this.clientEdge;
     }
 
-    public final Map<String, Object> getSdkEdge() {
+    public final Object getSdkEdge() {
         return this.sdkEdge;
     }
 
-    public final Map<String, Object> getSipEdge() {
+    public final Object getSipEdge() {
         return this.sipEdge;
     }
 
@@ -242,19 +240,19 @@ public class CallSummaries extends Resource {
         return this.url;
     }
 
-    public final Map<String, Object> getAttributes() {
+    public final Object getAttributes() {
         return this.attributes;
     }
 
-    public final Map<String, Object> getProperties() {
+    public final Object getProperties() {
         return this.properties;
     }
 
-    public final Map<String, Object> getTrust() {
+    public final Object getTrust() {
         return this.trust;
     }
 
-    public final Map<String, Object> getAnnotation() {
+    public final Object getAnnotation() {
         return this.annotation;
     }
 

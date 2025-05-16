@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class InsightsQuestionnaires extends Resource {
 
-    private static final long serialVersionUID = 101221063563372L;
+    private static final long serialVersionUID = 114715393114646L;
 
     public static InsightsQuestionnairesCreator creator(final String name) {
         return new InsightsQuestionnairesCreator(name);
@@ -114,7 +112,7 @@ public class InsightsQuestionnaires extends Resource {
     private final String name;
     private final String description;
     private final Boolean active;
-    private final List<Map<String, Object>> questions;
+    private final List<Object> questions;
     private final URI url;
 
     @JsonCreator
@@ -124,7 +122,7 @@ public class InsightsQuestionnaires extends Resource {
         @JsonProperty("name") final String name,
         @JsonProperty("description") final String description,
         @JsonProperty("active") final Boolean active,
-        @JsonProperty("questions") final List<Map<String, Object>> questions,
+        @JsonProperty("questions") final List<Object> questions,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -156,7 +154,7 @@ public class InsightsQuestionnaires extends Resource {
         return this.active;
     }
 
-    public final List<Map<String, Object>> getQuestions() {
+    public final List<Object> getQuestions() {
         return this.questions;
     }
 

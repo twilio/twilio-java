@@ -45,7 +45,7 @@ import lombok.ToString;
 @ToString
 public class Content extends Resource {
 
-    private static final long serialVersionUID = 58899890984300L;
+    private static final long serialVersionUID = 106100129741426L;
 
     @ToString
     public static class TwilioText {
@@ -1020,8 +1020,8 @@ public class Content extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String language;
-    private final Map<String, Object> variables;
-    private final Map<String, Object> types;
+    private final Object variables;
+    private final Object types;
     private final URI url;
     private final Map<String, String> links;
 
@@ -1033,8 +1033,8 @@ public class Content extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language") final String language,
-        @JsonProperty("variables") final Map<String, Object> variables,
-        @JsonProperty("types") final Map<String, Object> types,
+        @JsonProperty("variables") final Object variables,
+        @JsonProperty("types") final Object types,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -1074,11 +1074,11 @@ public class Content extends Resource {
         return this.language;
     }
 
-    public final Map<String, Object> getVariables() {
+    public final Object getVariables() {
         return this.variables;
     }
 
-    public final Map<String, Object> getTypes() {
+    public final Object getTypes() {
         return this.types;
     }
 

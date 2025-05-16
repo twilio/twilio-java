@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Verification extends Resource {
 
-    private static final long serialVersionUID = 3815558292528L;
+    private static final long serialVersionUID = 115911776984392L;
 
     public static VerificationCreator creator(
         final String pathServiceSid,
@@ -115,13 +113,13 @@ public class Verification extends Resource {
     private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
-    private final Map<String, Object> lookup;
+    private final Object lookup;
     private final String amount;
     private final String payee;
-    private final List<Map<String, Object>> sendCodeAttempts;
+    private final List<Object> sendCodeAttempts;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Map<String, Object> sna;
+    private final Object sna;
     private final URI url;
 
     @JsonCreator
@@ -133,15 +131,13 @@ public class Verification extends Resource {
         @JsonProperty("channel") final Verification.Channel channel,
         @JsonProperty("status") final String status,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty("lookup") final Map<String, Object> lookup,
+        @JsonProperty("lookup") final Object lookup,
         @JsonProperty("amount") final String amount,
         @JsonProperty("payee") final String payee,
-        @JsonProperty("send_code_attempts") final List<
-            Map<String, Object>
-        > sendCodeAttempts,
+        @JsonProperty("send_code_attempts") final List<Object> sendCodeAttempts,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sna") final Map<String, Object> sna,
+        @JsonProperty("sna") final Object sna,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -189,7 +185,7 @@ public class Verification extends Resource {
         return this.valid;
     }
 
-    public final Map<String, Object> getLookup() {
+    public final Object getLookup() {
         return this.lookup;
     }
 
@@ -201,7 +197,7 @@ public class Verification extends Resource {
         return this.payee;
     }
 
-    public final List<Map<String, Object>> getSendCodeAttempts() {
+    public final List<Object> getSendCodeAttempts() {
         return this.sendCodeAttempts;
     }
 
@@ -213,7 +209,7 @@ public class Verification extends Resource {
         return this.dateUpdated;
     }
 
-    public final Map<String, Object> getSna() {
+    public final Object getSna() {
         return this.sna;
     }
 

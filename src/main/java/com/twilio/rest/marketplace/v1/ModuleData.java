@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class ModuleData extends Resource {
 
-    private static final long serialVersionUID = 132859226086963L;
+    private static final long serialVersionUID = 184827730190211L;
 
     public static ModuleDataCreator creator() {
         return new ModuleDataCreator();
@@ -92,27 +90,27 @@ public class ModuleData extends Resource {
 
     private final URI url;
     private final String sid;
-    private final Map<String, Object> description;
-    private final Map<String, Object> support;
-    private final Map<String, Object> policies;
-    private final Map<String, Object> moduleInfo;
-    private final Map<String, Object> documentation;
-    private final Map<String, Object> configuration;
-    private final Map<String, Object> pricing;
-    private final List<Map<String, Object>> listings;
+    private final Object description;
+    private final Object support;
+    private final Object policies;
+    private final Object moduleInfo;
+    private final Object documentation;
+    private final Object configuration;
+    private final Object pricing;
+    private final List<Object> listings;
 
     @JsonCreator
     private ModuleData(
         @JsonProperty("url") final URI url,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("description") final Map<String, Object> description,
-        @JsonProperty("support") final Map<String, Object> support,
-        @JsonProperty("policies") final Map<String, Object> policies,
-        @JsonProperty("module_info") final Map<String, Object> moduleInfo,
-        @JsonProperty("documentation") final Map<String, Object> documentation,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
-        @JsonProperty("pricing") final Map<String, Object> pricing,
-        @JsonProperty("listings") final List<Map<String, Object>> listings
+        @JsonProperty("description") final Object description,
+        @JsonProperty("support") final Object support,
+        @JsonProperty("policies") final Object policies,
+        @JsonProperty("module_info") final Object moduleInfo,
+        @JsonProperty("documentation") final Object documentation,
+        @JsonProperty("configuration") final Object configuration,
+        @JsonProperty("pricing") final Object pricing,
+        @JsonProperty("listings") final List<Object> listings
     ) {
         this.url = url;
         this.sid = sid;
@@ -134,35 +132,35 @@ public class ModuleData extends Resource {
         return this.sid;
     }
 
-    public final Map<String, Object> getDescription() {
+    public final Object getDescription() {
         return this.description;
     }
 
-    public final Map<String, Object> getSupport() {
+    public final Object getSupport() {
         return this.support;
     }
 
-    public final Map<String, Object> getPolicies() {
+    public final Object getPolicies() {
         return this.policies;
     }
 
-    public final Map<String, Object> getModuleInfo() {
+    public final Object getModuleInfo() {
         return this.moduleInfo;
     }
 
-    public final Map<String, Object> getDocumentation() {
+    public final Object getDocumentation() {
         return this.documentation;
     }
 
-    public final Map<String, Object> getConfiguration() {
+    public final Object getConfiguration() {
         return this.configuration;
     }
 
-    public final Map<String, Object> getPricing() {
+    public final Object getPricing() {
         return this.pricing;
     }
 
-    public final List<Map<String, Object>> getListings() {
+    public final List<Object> getListings() {
         return this.listings;
     }
 

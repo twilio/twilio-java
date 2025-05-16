@@ -25,8 +25,6 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +33,7 @@ import lombok.ToString;
 @ToString
 public class ExportCustomJob extends Resource {
 
-    private static final long serialVersionUID = 125242558228L;
+    private static final long serialVersionUID = 236600358784165L;
 
     public static ExportCustomJobCreator creator(
         final String pathResourceType,
@@ -106,7 +104,7 @@ public class ExportCustomJob extends Resource {
     private final String webhookMethod;
     private final String email;
     private final String jobSid;
-    private final Map<String, Object> details;
+    private final Object details;
     private final String jobQueuePosition;
     private final String estimatedCompletionTime;
 
@@ -120,7 +118,7 @@ public class ExportCustomJob extends Resource {
         @JsonProperty("webhook_method") final String webhookMethod,
         @JsonProperty("email") final String email,
         @JsonProperty("job_sid") final String jobSid,
-        @JsonProperty("details") final Map<String, Object> details,
+        @JsonProperty("details") final Object details,
         @JsonProperty("job_queue_position") final String jobQueuePosition,
         @JsonProperty(
             "estimated_completion_time"
@@ -171,7 +169,7 @@ public class ExportCustomJob extends Resource {
         return this.jobSid;
     }
 
-    public final Map<String, Object> getDetails() {
+    public final Object getDetails() {
         return this.details;
     }
 

@@ -28,8 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class DomainCerts extends Resource {
 
-    private static final long serialVersionUID = 200335100401859L;
+    private static final long serialVersionUID = 50072721328178L;
 
     public static DomainCertsDeleter deleter(final String pathDomainSid) {
         return new DomainCertsDeleter(pathDomainSid);
@@ -105,7 +103,7 @@ public class DomainCerts extends Resource {
     private final URI domainName;
     private final String certificateSid;
     private final URI url;
-    private final Map<String, Object> certInValidation;
+    private final Object certInValidation;
 
     @JsonCreator
     private DomainCerts(
@@ -116,10 +114,7 @@ public class DomainCerts extends Resource {
         @JsonProperty("domain_name") final URI domainName,
         @JsonProperty("certificate_sid") final String certificateSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("cert_in_validation") final Map<
-            String,
-            Object
-        > certInValidation
+        @JsonProperty("cert_in_validation") final Object certInValidation
     ) {
         this.domainSid = domainSid;
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -159,7 +154,7 @@ public class DomainCerts extends Resource {
         return this.url;
     }
 
-    public final Map<String, Object> getCertInValidation() {
+    public final Object getCertInValidation() {
         return this.certInValidation;
     }
 

@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class InsightsQuestionnairesQuestion extends Resource {
 
-    private static final long serialVersionUID = 10229949486791L;
+    private static final long serialVersionUID = 44500361344989L;
 
     public static InsightsQuestionnairesQuestionCreator creator(
         final String categorySid,
@@ -125,11 +123,11 @@ public class InsightsQuestionnairesQuestion extends Resource {
     private final String questionSid;
     private final String question;
     private final String description;
-    private final Map<String, Object> category;
+    private final Object category;
     private final String answerSetId;
     private final Boolean allowNa;
     private final Integer usage;
-    private final Map<String, Object> answerSet;
+    private final Object answerSet;
     private final URI url;
 
     @JsonCreator
@@ -138,11 +136,11 @@ public class InsightsQuestionnairesQuestion extends Resource {
         @JsonProperty("question_sid") final String questionSid,
         @JsonProperty("question") final String question,
         @JsonProperty("description") final String description,
-        @JsonProperty("category") final Map<String, Object> category,
+        @JsonProperty("category") final Object category,
         @JsonProperty("answer_set_id") final String answerSetId,
         @JsonProperty("allow_na") final Boolean allowNa,
         @JsonProperty("usage") final Integer usage,
-        @JsonProperty("answer_set") final Map<String, Object> answerSet,
+        @JsonProperty("answer_set") final Object answerSet,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -173,7 +171,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
         return this.description;
     }
 
-    public final Map<String, Object> getCategory() {
+    public final Object getCategory() {
         return this.category;
     }
 
@@ -189,7 +187,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
         return this.usage;
     }
 
-    public final Map<String, Object> getAnswerSet() {
+    public final Object getAnswerSet() {
         return this.answerSet;
     }
 

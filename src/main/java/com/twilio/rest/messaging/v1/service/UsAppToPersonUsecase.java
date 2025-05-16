@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class UsAppToPersonUsecase extends Resource {
 
-    private static final long serialVersionUID = 181251380697241L;
+    private static final long serialVersionUID = 46417395864858L;
 
     public static UsAppToPersonUsecaseFetcher fetcher(
         final String pathMessagingServiceSid
@@ -87,18 +85,18 @@ public class UsAppToPersonUsecase extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> usAppToPersonUsecases;
+    private final List<Object> usAppToPersonUsecases;
 
     @JsonCreator
     private UsAppToPersonUsecase(
         @JsonProperty("us_app_to_person_usecases") final List<
-            Map<String, Object>
+            Object
         > usAppToPersonUsecases
     ) {
         this.usAppToPersonUsecases = usAppToPersonUsecases;
     }
 
-    public final List<Map<String, Object>> getUsAppToPersonUsecases() {
+    public final List<Object> getUsAppToPersonUsecases() {
         return this.usAppToPersonUsecases;
     }
 

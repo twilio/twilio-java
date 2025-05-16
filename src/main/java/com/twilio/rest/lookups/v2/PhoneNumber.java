@@ -28,8 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 129217577072488L;
+    private static final long serialVersionUID = 20462620352926L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -93,16 +91,16 @@ public class PhoneNumber extends Resource {
     private final String nationalFormat;
     private final Boolean valid;
     private final List<PhoneNumber.ValidationError> validationErrors;
-    private final Map<String, Object> callerName;
-    private final Map<String, Object> simSwap;
-    private final Map<String, Object> callForwarding;
-    private final Map<String, Object> lineStatus;
-    private final Map<String, Object> lineTypeIntelligence;
-    private final Map<String, Object> identityMatch;
-    private final Map<String, Object> reassignedNumber;
-    private final Map<String, Object> smsPumpingRisk;
-    private final Map<String, Object> phoneNumberQualityScore;
-    private final Map<String, Object> preFill;
+    private final Object callerName;
+    private final Object simSwap;
+    private final Object callForwarding;
+    private final Object lineStatus;
+    private final Object lineTypeIntelligence;
+    private final Object identityMatch;
+    private final Object reassignedNumber;
+    private final Object smsPumpingRisk;
+    private final Object phoneNumberQualityScore;
+    private final Object preFill;
     private final URI url;
 
     @JsonCreator
@@ -117,31 +115,20 @@ public class PhoneNumber extends Resource {
         @JsonProperty("validation_errors") final List<
             PhoneNumber.ValidationError
         > validationErrors,
-        @JsonProperty("caller_name") final Map<String, Object> callerName,
-        @JsonProperty("sim_swap") final Map<String, Object> simSwap,
-        @JsonProperty("call_forwarding") final Map<
-            String,
-            Object
-        > callForwarding,
-        @JsonProperty("line_status") final Map<String, Object> lineStatus,
-        @JsonProperty("line_type_intelligence") final Map<
-            String,
-            Object
-        > lineTypeIntelligence,
-        @JsonProperty("identity_match") final Map<String, Object> identityMatch,
-        @JsonProperty("reassigned_number") final Map<
-            String,
-            Object
-        > reassignedNumber,
-        @JsonProperty("sms_pumping_risk") final Map<
-            String,
-            Object
-        > smsPumpingRisk,
-        @JsonProperty("phone_number_quality_score") final Map<
-            String,
-            Object
-        > phoneNumberQualityScore,
-        @JsonProperty("pre_fill") final Map<String, Object> preFill,
+        @JsonProperty("caller_name") final Object callerName,
+        @JsonProperty("sim_swap") final Object simSwap,
+        @JsonProperty("call_forwarding") final Object callForwarding,
+        @JsonProperty("line_status") final Object lineStatus,
+        @JsonProperty(
+            "line_type_intelligence"
+        ) final Object lineTypeIntelligence,
+        @JsonProperty("identity_match") final Object identityMatch,
+        @JsonProperty("reassigned_number") final Object reassignedNumber,
+        @JsonProperty("sms_pumping_risk") final Object smsPumpingRisk,
+        @JsonProperty(
+            "phone_number_quality_score"
+        ) final Object phoneNumberQualityScore,
+        @JsonProperty("pre_fill") final Object preFill,
         @JsonProperty("url") final URI url
     ) {
         this.callingCountryCode = callingCountryCode;
@@ -187,43 +174,43 @@ public class PhoneNumber extends Resource {
         return this.validationErrors;
     }
 
-    public final Map<String, Object> getCallerName() {
+    public final Object getCallerName() {
         return this.callerName;
     }
 
-    public final Map<String, Object> getSimSwap() {
+    public final Object getSimSwap() {
         return this.simSwap;
     }
 
-    public final Map<String, Object> getCallForwarding() {
+    public final Object getCallForwarding() {
         return this.callForwarding;
     }
 
-    public final Map<String, Object> getLineStatus() {
+    public final Object getLineStatus() {
         return this.lineStatus;
     }
 
-    public final Map<String, Object> getLineTypeIntelligence() {
+    public final Object getLineTypeIntelligence() {
         return this.lineTypeIntelligence;
     }
 
-    public final Map<String, Object> getIdentityMatch() {
+    public final Object getIdentityMatch() {
         return this.identityMatch;
     }
 
-    public final Map<String, Object> getReassignedNumber() {
+    public final Object getReassignedNumber() {
         return this.reassignedNumber;
     }
 
-    public final Map<String, Object> getSmsPumpingRisk() {
+    public final Object getSmsPumpingRisk() {
         return this.smsPumpingRisk;
     }
 
-    public final Map<String, Object> getPhoneNumberQualityScore() {
+    public final Object getPhoneNumberQualityScore() {
         return this.phoneNumberQualityScore;
     }
 
-    public final Map<String, Object> getPreFill() {
+    public final Object getPreFill() {
         return this.preFill;
     }
 

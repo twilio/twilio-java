@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class ExecutionStepContext extends Resource {
 
-    private static final long serialVersionUID = 28705359719021L;
+    private static final long serialVersionUID = 24468820307220L;
 
     public static ExecutionStepContextFetcher fetcher(
         final String pathFlowSid,
@@ -94,7 +92,7 @@ public class ExecutionStepContext extends Resource {
     }
 
     private final String accountSid;
-    private final Map<String, Object> context;
+    private final Object context;
     private final String executionSid;
     private final String flowSid;
     private final String stepSid;
@@ -103,7 +101,7 @@ public class ExecutionStepContext extends Resource {
     @JsonCreator
     private ExecutionStepContext(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("context") final Map<String, Object> context,
+        @JsonProperty("context") final Object context,
         @JsonProperty("execution_sid") final String executionSid,
         @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty("step_sid") final String stepSid,
@@ -121,7 +119,7 @@ public class ExecutionStepContext extends Resource {
         return this.accountSid;
     }
 
-    public final Map<String, Object> getContext() {
+    public final Object getContext() {
         return this.context;
     }
 

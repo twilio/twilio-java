@@ -26,8 +26,6 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class Policies extends Resource {
 
-    private static final long serialVersionUID = 142613922631852L;
+    private static final long serialVersionUID = 234892224838670L;
 
     public static PoliciesFetcher fetcher(final String pathSid) {
         return new PoliciesFetcher(pathSid);
@@ -91,14 +89,14 @@ public class Policies extends Resource {
 
     private final String sid;
     private final String friendlyName;
-    private final Map<String, Object> requirements;
+    private final Object requirements;
     private final URI url;
 
     @JsonCreator
     private Policies(
         @JsonProperty("sid") final String sid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("requirements") final Map<String, Object> requirements,
+        @JsonProperty("requirements") final Object requirements,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -115,7 +113,7 @@ public class Policies extends Resource {
         return this.friendlyName;
     }
 
-    public final Map<String, Object> getRequirements() {
+    public final Object getRequirements() {
         return this.requirements;
     }
 

@@ -26,8 +26,6 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +34,7 @@ import lombok.ToString;
 @ToString
 public class Event extends Resource {
 
-    private static final long serialVersionUID = 246803433322501L;
+    private static final long serialVersionUID = 242035752065906L;
 
     public static EventReader reader(final String pathCallSid) {
         return new EventReader(pathCallSid);
@@ -92,10 +90,10 @@ public class Event extends Resource {
     private final String group;
     private final Event.Level level;
     private final String name;
-    private final Map<String, Object> carrierEdge;
-    private final Map<String, Object> sipEdge;
-    private final Map<String, Object> sdkEdge;
-    private final Map<String, Object> clientEdge;
+    private final Object carrierEdge;
+    private final Object sipEdge;
+    private final Object sdkEdge;
+    private final Object clientEdge;
 
     @JsonCreator
     private Event(
@@ -106,10 +104,10 @@ public class Event extends Resource {
         @JsonProperty("group") final String group,
         @JsonProperty("level") final Event.Level level,
         @JsonProperty("name") final String name,
-        @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
-        @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
-        @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
-        @JsonProperty("client_edge") final Map<String, Object> clientEdge
+        @JsonProperty("carrier_edge") final Object carrierEdge,
+        @JsonProperty("sip_edge") final Object sipEdge,
+        @JsonProperty("sdk_edge") final Object sdkEdge,
+        @JsonProperty("client_edge") final Object clientEdge
     ) {
         this.timestamp = timestamp;
         this.callSid = callSid;
@@ -152,19 +150,19 @@ public class Event extends Resource {
         return this.name;
     }
 
-    public final Map<String, Object> getCarrierEdge() {
+    public final Object getCarrierEdge() {
         return this.carrierEdge;
     }
 
-    public final Map<String, Object> getSipEdge() {
+    public final Object getSipEdge() {
         return this.sipEdge;
     }
 
-    public final Map<String, Object> getSdkEdge() {
+    public final Object getSdkEdge() {
         return this.sdkEdge;
     }
 
-    public final Map<String, Object> getClientEdge() {
+    public final Object getClientEdge() {
         return this.clientEdge;
     }
 

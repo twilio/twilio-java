@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class InsightsAssessmentsComment extends Resource {
 
-    private static final long serialVersionUID = 175598645429423L;
+    private static final long serialVersionUID = 188494370117336L;
 
     public static InsightsAssessmentsCommentCreator creator(
         final String categoryId,
@@ -112,7 +110,7 @@ public class InsightsAssessmentsComment extends Resource {
 
     private final String accountSid;
     private final String assessmentSid;
-    private final Map<String, Object> comment;
+    private final Object comment;
     private final BigDecimal offset;
     private final Boolean report;
     private final BigDecimal weight;
@@ -127,7 +125,7 @@ public class InsightsAssessmentsComment extends Resource {
     private InsightsAssessmentsComment(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("assessment_sid") final String assessmentSid,
-        @JsonProperty("comment") final Map<String, Object> comment,
+        @JsonProperty("comment") final Object comment,
         @JsonProperty("offset") final BigDecimal offset,
         @JsonProperty("report") final Boolean report,
         @JsonProperty("weight") final BigDecimal weight,
@@ -160,7 +158,7 @@ public class InsightsAssessmentsComment extends Resource {
         return this.assessmentSid;
     }
 
-    public final Map<String, Object> getComment() {
+    public final Object getComment() {
         return this.comment;
     }
 

@@ -27,15 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class ExecutionCreator extends Creator<Execution> {
 
     private String pathFlowSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private Map<String, Object> parameters;
+    private Object parameters;
 
     public ExecutionCreator(
         final String pathFlowSid,
@@ -65,9 +63,7 @@ public class ExecutionCreator extends Creator<Execution> {
         return setFrom(Promoter.phoneNumberFromString(from));
     }
 
-    public ExecutionCreator setParameters(
-        final Map<String, Object> parameters
-    ) {
+    public ExecutionCreator setParameters(final Object parameters) {
         this.parameters = parameters;
         return this;
     }

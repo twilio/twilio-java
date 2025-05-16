@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Participant extends Resource {
 
-    private static final long serialVersionUID = 21473393957377L;
+    private static final long serialVersionUID = 83040392542104L;
 
     public static ParticipantFetcher fetcher(
         final String pathRoomSid,
@@ -109,9 +107,9 @@ public class Participant extends Resource {
     private final Integer errorCode;
     private final String errorCodeUrl;
     private final Participant.TwilioRealm mediaRegion;
-    private final Map<String, Object> properties;
+    private final Object properties;
     private final Participant.EdgeLocation edgeLocation;
-    private final Map<String, Object> publisherInfo;
+    private final Object publisherInfo;
     private final URI url;
 
     @JsonCreator
@@ -129,11 +127,11 @@ public class Participant extends Resource {
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("error_code_url") final String errorCodeUrl,
         @JsonProperty("media_region") final Participant.TwilioRealm mediaRegion,
-        @JsonProperty("properties") final Map<String, Object> properties,
+        @JsonProperty("properties") final Object properties,
         @JsonProperty(
             "edge_location"
         ) final Participant.EdgeLocation edgeLocation,
-        @JsonProperty("publisher_info") final Map<String, Object> publisherInfo,
+        @JsonProperty("publisher_info") final Object publisherInfo,
         @JsonProperty("url") final URI url
     ) {
         this.participantSid = participantSid;
@@ -207,7 +205,7 @@ public class Participant extends Resource {
         return this.mediaRegion;
     }
 
-    public final Map<String, Object> getProperties() {
+    public final Object getProperties() {
         return this.properties;
     }
 
@@ -215,7 +213,7 @@ public class Participant extends Resource {
         return this.edgeLocation;
     }
 
-    public final Map<String, Object> getPublisherInfo() {
+    public final Object getPublisherInfo() {
         return this.publisherInfo;
     }
 

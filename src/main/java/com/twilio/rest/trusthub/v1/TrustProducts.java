@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class TrustProducts extends Resource {
 
-    private static final long serialVersionUID = 79201442410217L;
+    private static final long serialVersionUID = 31600418449670L;
 
     public static TrustProductsCreator creator(
         final String friendlyName,
@@ -121,7 +121,7 @@ public class TrustProducts extends Resource {
     private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
-    private final List<Map<String, Object>> errors;
+    private final List<Object> errors;
 
     @JsonCreator
     private TrustProducts(
@@ -137,7 +137,7 @@ public class TrustProducts extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("errors") final List<Map<String, Object>> errors
+        @JsonProperty("errors") final List<Object> errors
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -202,7 +202,7 @@ public class TrustProducts extends Resource {
         return this.links;
     }
 
-    public final List<Map<String, Object>> getErrors() {
+    public final List<Object> getErrors() {
         return this.errors;
     }
 

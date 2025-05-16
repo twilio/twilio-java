@@ -31,13 +31,11 @@ import java.net.URI;
 import java.net.URI;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class CompositionCreator extends Creator<Composition> {
 
     private String roomSid;
-    private Map<String, Object> videoLayout;
+    private Object videoLayout;
     private List<String> audioSources;
     private List<String> audioSourcesExcluded;
     private String resolution;
@@ -55,9 +53,7 @@ public class CompositionCreator extends Creator<Composition> {
         return this;
     }
 
-    public CompositionCreator setVideoLayout(
-        final Map<String, Object> videoLayout
-    ) {
+    public CompositionCreator setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }

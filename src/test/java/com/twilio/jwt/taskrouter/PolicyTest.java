@@ -1,13 +1,15 @@
 package com.twilio.jwt.taskrouter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.twilio.http.HttpMethod;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link Policy}.
@@ -26,7 +28,7 @@ public class PolicyTest {
             .queryFilter(filter)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
                 "{\"allow\":true,\"method\":\"GET\",\"post_filter\":{},\"query_filter\":{\"foo\":{\"required\":true}},\"url\":\"http://localhost\"}",
                 p.toJson());
     }

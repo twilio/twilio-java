@@ -9,11 +9,10 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * Test class for {@link Prompt}
@@ -23,7 +22,7 @@ public class PromptTest {
     public void testEmptyElement() {
         Prompt elem = new Prompt.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt/>",
             elem.toXml()
@@ -34,7 +33,7 @@ public class PromptTest {
     public void testEmptyElementUrl() {
         Prompt elem = new Prompt.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CPrompt%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CPrompt%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -47,7 +46,7 @@ public class PromptTest {
             .requireMatchingInputs(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>",
             elem.toXml()
@@ -58,7 +57,7 @@ public class PromptTest {
     public void testElementWithExtraAttributes() {
         Prompt elem = new Prompt.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -77,7 +76,7 @@ public class PromptTest {
 
         Prompt elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt>" +
                 "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
@@ -96,7 +95,7 @@ public class PromptTest {
 
         Prompt elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt>" +
             "Hey no tags!" +
@@ -116,7 +115,7 @@ public class PromptTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt>" +
             "before" +
@@ -136,7 +135,7 @@ public class PromptTest {
         Prompt.Builder builder = new Prompt.Builder();
         Prompt elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt>" +
             "<genericTag>" +
@@ -155,7 +154,7 @@ public class PromptTest {
         Prompt.Builder builder = new Prompt.Builder();
         Prompt elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt>" +
             "<genericTag key=\"value\">" +
@@ -176,7 +175,7 @@ public class PromptTest {
             .requireMatchingInputs(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Prompt.Builder.fromXml("<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>").build().toXml(),
             elem.toXml()
         );
@@ -194,7 +193,7 @@ public class PromptTest {
 
         final Prompt elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Prompt.Builder.fromXml("<Prompt>" +
                 "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
@@ -214,7 +213,7 @@ public class PromptTest {
 
         final Prompt elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Prompt.Builder.fromXml("<Prompt>" +
                 "<Say/>" +
                 "<Pause/>" +

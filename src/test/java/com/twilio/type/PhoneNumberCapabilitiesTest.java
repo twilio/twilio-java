@@ -1,7 +1,9 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
@@ -19,9 +21,9 @@ public class PhoneNumberCapabilitiesTest extends TypeTest {
             "}";
 
         PhoneNumberCapabilities pnc = fromJson(json, PhoneNumberCapabilities.class);
-        Assert.assertTrue(pnc.getMms());
-        Assert.assertTrue(pnc.getVoice());
-        Assert.assertFalse(pnc.getSms());
+        assertTrue(pnc.getMms());
+        assertTrue(pnc.getVoice());
+        assertFalse(pnc.getSms());
     }
 
     @Test
@@ -34,8 +36,8 @@ public class PhoneNumberCapabilitiesTest extends TypeTest {
             "}";
 
         PhoneNumberCapabilities pnc = fromJson(json, PhoneNumberCapabilities.class);
-        Assert.assertTrue(pnc.getMms());
-        Assert.assertTrue(pnc.getVoice());
-        Assert.assertFalse(pnc.getSms());
+        assertTrue(pnc.getMms());
+        assertTrue(pnc.getVoice());
+        assertFalse(pnc.getSms());
     }
 }

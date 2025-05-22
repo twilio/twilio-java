@@ -9,8 +9,8 @@ package com.twilio.twiml.voice;
 
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.util.List;
@@ -38,7 +38,7 @@ public class SipTest {
             .machineDetectionSilenceTimeout(1)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>",
             elem.toXml()
@@ -64,7 +64,7 @@ public class SipTest {
             .machineDetectionSilenceTimeout(1)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Sip.Builder.fromXml("<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>").build().toXml(),
             elem.toXml()
         );

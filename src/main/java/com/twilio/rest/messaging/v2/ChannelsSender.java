@@ -55,7 +55,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("verification_method")
         @Getter
         @Setter
-        private ChannelsSender.VerificationMethodEnum verificationMethod;
+        private VerificationMethodEnum verificationMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("verification_code")
@@ -93,7 +93,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("callback_method")
         @Getter
         @Setter
-        private ChannelsSender.CallbackMethodEnum callbackMethod;
+        private CallbackMethodEnum callbackMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("fallback_url")
@@ -105,7 +105,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("fallback_method")
         @Getter
         @Setter
-        private ChannelsSender.FallbackMethodEnum fallbackMethod;
+        private FallbackMethodEnum fallbackMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status_callback_url")

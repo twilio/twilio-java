@@ -191,7 +191,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.CallToActionActionType type;
+        private CallToActionActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -261,7 +261,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.QuickReplyActionType type;
+        private QuickReplyActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -313,7 +313,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.CardActionType type;
+        private CardActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -489,7 +489,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.CarouselActionType type;
+        private CarouselActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -769,7 +769,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.AuthenticationActionType type;
+        private AuthenticationActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("copy_code_text")

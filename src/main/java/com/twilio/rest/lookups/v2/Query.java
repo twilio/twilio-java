@@ -166,7 +166,7 @@ public class Query extends Resource {
         @JsonProperty("fields")
         @Getter
         @Setter
-        private List<List<Query.Strin>> fields;
+        private List<FieldsEnum> fields;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("country_code")

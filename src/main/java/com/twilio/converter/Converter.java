@@ -18,7 +18,7 @@ public class Converter {
      * @param map map to convert
      * @return converted JSON string
      */
-    public static String mapToJson(final Map<String, ? extends Object> map) {
+    public static String mapToJson(final Object map) {
         try {
             return MAPPER.writeValueAsString(map);
         } catch (JsonProcessingException e) {

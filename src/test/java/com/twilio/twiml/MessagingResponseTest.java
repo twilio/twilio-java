@@ -7,13 +7,15 @@
 
 package com.twilio.twiml;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.messaging.Message;
 import com.twilio.twiml.messaging.Redirect;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import java.net.URI;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link MessagingResponse}
@@ -23,7 +25,7 @@ public class MessagingResponseTest {
     public void testEmptyElement() {
         MessagingResponse elem = new MessagingResponse.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response/>",
             elem.toXml()
@@ -34,14 +36,14 @@ public class MessagingResponseTest {
     public void testEmptyElementUrl() {
         MessagingResponse elem = new MessagingResponse.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CResponse%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CResponse%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithExtraAttributes() {
         MessagingResponse elem = new MessagingResponse.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -64,7 +66,7 @@ public class MessagingResponseTest {
 
         MessagingResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
                 "<Message action=\"https://example.com\" from=\"from\" method=\"GET\" statusCallback=\"https://example.com\" to=\"to\">body</Message>" +
@@ -82,7 +84,7 @@ public class MessagingResponseTest {
 
         MessagingResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "Hey no tags!" +
@@ -102,7 +104,7 @@ public class MessagingResponseTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "before" +
@@ -122,7 +124,7 @@ public class MessagingResponseTest {
         MessagingResponse.Builder builder = new MessagingResponse.Builder();
         MessagingResponse elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "<genericTag>" +
@@ -141,7 +143,7 @@ public class MessagingResponseTest {
         MessagingResponse.Builder builder = new MessagingResponse.Builder();
         MessagingResponse elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "<genericTag key=\"value\">" +
@@ -156,7 +158,7 @@ public class MessagingResponseTest {
     public void testXmlAttributesDeserialization() {
         final MessagingResponse elem = new MessagingResponse.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             MessagingResponse.Builder.fromXml("<Response/>").build().toXml(),
             elem.toXml()
         );
@@ -178,7 +180,7 @@ public class MessagingResponseTest {
 
         final MessagingResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             MessagingResponse.Builder.fromXml("<Response>" +
                 "<Message action=\"https://example.com\" from=\"from\" method=\"GET\" statusCallback=\"https://example.com\" to=\"to\">body</Message>" +
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
@@ -195,7 +197,7 @@ public class MessagingResponseTest {
 
         final MessagingResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             MessagingResponse.Builder.fromXml("<Response>" +
                 "<Message/>" +
             "</Response>").build().toXml(),

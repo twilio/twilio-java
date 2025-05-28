@@ -1,9 +1,10 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link InboundSmsPrice}.
@@ -19,9 +20,9 @@ public class InboundSmsPriceTest extends TypeTest {
             "}";
 
         InboundSmsPrice icp = fromJson(json, InboundSmsPrice.class);
-        Assert.assertEquals(1.00, icp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(InboundSmsPrice.Type.MOBILE, icp.getType());
+        assertEquals(1.00, icp.getBasePrice(), 0.00);
+        assertEquals(2.00, icp.getCurrentPrice(), 0.00);
+        assertEquals(InboundSmsPrice.Type.MOBILE, icp.getType());
     }
 
     @Test
@@ -33,8 +34,8 @@ public class InboundSmsPriceTest extends TypeTest {
                 "}";
 
         InboundSmsPrice icp = fromJson(json, InboundSmsPrice.class);
-        Assert.assertEquals(1.00, icp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, icp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(InboundSmsPrice.Type.TOLLFREE, icp.getType());
+        assertEquals(1.00, icp.getBasePrice(), 0.00);
+        assertEquals(2.00, icp.getCurrentPrice(), 0.00);
+        assertEquals(InboundSmsPrice.Type.TOLLFREE, icp.getType());
     }
 }

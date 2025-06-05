@@ -16,6 +16,7 @@ package com.twilio.rest.marketplace.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -85,7 +86,10 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     private void addPostParams(final Request request) {
         if (configuration != null) {
-            request.addPostParam("Configuration", configuration.toString());
+            request.addPostParam(
+                "Configuration",
+                Converter.mapToJson(configuration)
+            );
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);

@@ -16,6 +16,7 @@ package com.twilio.rest.iam.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -85,7 +86,7 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
             request.addPostParam("FriendlyName", friendlyName);
         }
         if (policy != null) {
-            request.addPostParam("Policy", policy.toString());
+            request.addPostParam("Policy", Converter.mapToJson(policy));
         }
     }
 }

@@ -29,8 +29,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class SubscriptionCreator extends Creator<Subscription> {
 
@@ -119,7 +117,7 @@ public class SubscriptionCreator extends Creator<Subscription> {
             request.addPostParam("SinkSid", sinkSid);
         }
         if (types != null) {
-            for (Map<String, Object> prop : types) {
+            for (Object prop : types) {
                 request.addPostParam("Types", Converter.mapToJson(prop));
             }
         }

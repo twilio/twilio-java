@@ -111,6 +111,10 @@ public class Knowledge extends Resource {
         @Setter
         private Object knowledgeSourceDetails;
 
+        public String getKnowledgeSourceDetails() {
+            return Converter.mapToJson(knowledgeSourceDetails);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
@@ -135,13 +139,7 @@ public class Knowledge extends Resource {
         @Setter
         private String embeddingModel;
 
-        public AssistantsV1ServiceCreateKnowledgeRequest(
-            final String name,
-            final String type
-        ) {
-            this.name = name;
-            this.type = type;
-        }
+        public AssistantsV1ServiceCreateKnowledgeRequest() {}
 
         public static AssistantsV1ServiceCreateKnowledgeRequest fromJson(
             String jsonString,
@@ -168,6 +166,10 @@ public class Knowledge extends Resource {
         @Getter
         @Setter
         private Object knowledgeSourceDetails;
+
+        public String getKnowledgeSourceDetails() {
+            return Converter.mapToJson(knowledgeSourceDetails);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")

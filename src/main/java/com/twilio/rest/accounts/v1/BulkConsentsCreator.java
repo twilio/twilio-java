@@ -29,8 +29,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class BulkConsentsCreator extends Creator<BulkConsents> {
 
@@ -89,7 +87,7 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
 
     private void addPostParams(final Request request) {
         if (items != null) {
-            for (Map<String, Object> prop : items) {
+            for (Object prop : items) {
                 request.addPostParam("Items", Converter.mapToJson(prop));
             }
         }

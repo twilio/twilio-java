@@ -118,6 +118,10 @@ public class Tool extends Resource {
         @Setter
         private Object meta;
 
+        public String getMeta() {
+            return Converter.mapToJson(meta);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
@@ -136,15 +140,7 @@ public class Tool extends Resource {
         @Setter
         private String type;
 
-        public AssistantsV1ServiceCreateToolRequest(
-            final Boolean enabled,
-            final String name,
-            final String type
-        ) {
-            this.enabled = enabled;
-            this.name = name;
-            this.type = type;
-        }
+        public AssistantsV1ServiceCreateToolRequest() {}
 
         public static AssistantsV1ServiceCreateToolRequest fromJson(
             String jsonString,
@@ -183,6 +179,10 @@ public class Tool extends Resource {
         @Getter
         @Setter
         private Object meta;
+
+        public String getMeta() {
+            return Converter.mapToJson(meta);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -259,6 +259,10 @@ public class Tool extends Resource {
         @Getter
         @Setter
         private Object policyDetails;
+
+        public String getPolicyDetails() {
+            return Converter.mapToJson(policyDetails);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("dateCreated")

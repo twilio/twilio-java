@@ -30,8 +30,6 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class ChallengeCreator extends Creator<Challenge> {
 
@@ -150,7 +148,7 @@ public class ChallengeCreator extends Creator<Challenge> {
             request.addPostParam("Details.Message", detailsMessage);
         }
         if (detailsFields != null) {
-            for (Map<String, Object> prop : detailsFields) {
+            for (Object prop : detailsFields) {
                 request.addPostParam(
                     "Details.Fields",
                     Converter.mapToJson(prop)

@@ -29,8 +29,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
 
@@ -113,7 +111,7 @@ public class PluginConfigurationCreator extends Creator<PluginConfiguration> {
             request.addPostParam("Name", name);
         }
         if (plugins != null) {
-            for (Map<String, Object> prop : plugins) {
+            for (Object prop : plugins) {
                 request.addPostParam("Plugins", Converter.mapToJson(prop));
             }
         }

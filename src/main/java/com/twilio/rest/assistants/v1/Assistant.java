@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -133,9 +134,7 @@ public class Assistant extends Resource {
         @Setter
         private AssistantsV1ServiceSegmentCredential segmentCredential;
 
-        public AssistantsV1ServiceCreateAssistantRequest(final String name) {
-            this.name = name;
-        }
+        public AssistantsV1ServiceCreateAssistantRequest() {}
 
         public static AssistantsV1ServiceCreateAssistantRequest fromJson(
             String jsonString,
@@ -220,6 +219,10 @@ public class Assistant extends Resource {
         @Getter
         @Setter
         private Object knowledgeSourceDetails;
+
+        public String getKnowledgeSourceDetails() {
+            return Converter.mapToJson(knowledgeSourceDetails);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -314,6 +317,10 @@ public class Assistant extends Resource {
         @Getter
         @Setter
         private Object meta;
+
+        public String getMeta() {
+            return Converter.mapToJson(meta);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")

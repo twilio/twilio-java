@@ -30,8 +30,6 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class SessionCreator extends Creator<Session> {
 
@@ -140,7 +138,7 @@ public class SessionCreator extends Creator<Session> {
             request.addPostParam("Status", status.toString());
         }
         if (participants != null) {
-            for (Map<String, Object> prop : participants) {
+            for (Object prop : participants) {
                 request.addPostParam("Participants", Converter.mapToJson(prop));
             }
         }

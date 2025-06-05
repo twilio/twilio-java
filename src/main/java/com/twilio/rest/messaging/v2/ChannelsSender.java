@@ -31,8 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -164,7 +162,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("emails")
         @Getter
         @Setter
-        private Map<String, Object> emails;
+        private Object emails;
 
         public String getEmails() {
             return Converter.mapToJson(emails);
@@ -186,7 +184,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("websites")
         @Getter
         @Setter
-        private Map<String, Object> websites;
+        private Object websites;
 
         public String getWebsites() {
             return Converter.mapToJson(websites);
@@ -230,9 +228,7 @@ public class ChannelsSender extends Resource {
         @Setter
         private MessagingV2ChannelsSenderProfile profile;
 
-        public MessagingV2ChannelsSenderRequestsCreate(final String senderId) {
-            this.senderId = senderId;
-        }
+        public MessagingV2ChannelsSenderRequestsCreate() {}
 
         public static MessagingV2ChannelsSenderRequestsCreate fromJson(
             String jsonString,

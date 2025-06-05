@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -131,58 +134,6 @@ public class ChannelsSender extends Resource {
     }
 
     @ToString
-    public static class MessagingV2ChannelsSenderProfileEmails {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("email")
-        @Getter
-        @Setter
-        private String email;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("label")
-        @Getter
-        @Setter
-        private String label;
-
-        public static MessagingV2ChannelsSenderProfileEmails fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                MessagingV2ChannelsSenderProfileEmails.class
-            );
-        }
-    }
-
-    @ToString
-    public static class MessagingV2ChannelsSenderProfileWebsites {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("label")
-        @Getter
-        @Setter
-        private String label;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("website")
-        @Getter
-        @Setter
-        private String website;
-
-        public static MessagingV2ChannelsSenderProfileWebsites fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                MessagingV2ChannelsSenderProfileWebsites.class
-            );
-        }
-    }
-
-    @ToString
     public static class MessagingV2ChannelsSenderProfile {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -213,7 +164,11 @@ public class ChannelsSender extends Resource {
         @JsonProperty("emails")
         @Getter
         @Setter
-        private List<MessagingV2ChannelsSenderProfileEmails> emails;
+        private Map<String, Object> emails;
+
+        public String getEmails() {
+            return Converter.mapToJson(emails);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("logo_url")
@@ -231,7 +186,11 @@ public class ChannelsSender extends Resource {
         @JsonProperty("websites")
         @Getter
         @Setter
-        private List<MessagingV2ChannelsSenderProfileWebsites> websites;
+        private Map<String, Object> websites;
+
+        public String getWebsites() {
+            return Converter.mapToJson(websites);
+        }
 
         public static MessagingV2ChannelsSenderProfile fromJson(
             String jsonString,

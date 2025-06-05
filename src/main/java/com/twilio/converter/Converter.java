@@ -18,9 +18,14 @@ public class Converter {
      * @param map map to convert
      * @return converted JSON string
      */
-    public static String mapToJson(final Map<String, ? extends Object> map) {
+    public static String mapToJson(final Object map) {
         try {
-            return MAPPER.writeValueAsString(map);
+            if (map instanceof Map) {
+                // If the map is a Map, convert it directly
+                return MAPPER.writeValueAsString(map);
+            }
+            // If map is Any type object, convert to string directly
+            return map.toString();
         } catch (JsonProcessingException e) {
             return null;
         }

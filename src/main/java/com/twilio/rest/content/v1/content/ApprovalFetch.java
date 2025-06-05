@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class ApprovalFetch extends Resource {
 
-    private static final long serialVersionUID = 24314043315517L;
+    private static final long serialVersionUID = 266557741388539L;
 
     public static ApprovalFetchFetcher fetcher(final String pathSid) {
         return new ApprovalFetchFetcher(pathSid);
@@ -85,14 +87,14 @@ public class ApprovalFetch extends Resource {
 
     private final String sid;
     private final String accountSid;
-    private final Object whatsapp;
+    private final Map<String, Object> whatsapp;
     private final URI url;
 
     @JsonCreator
     private ApprovalFetch(
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("whatsapp") final Object whatsapp,
+        @JsonProperty("whatsapp") final Map<String, Object> whatsapp,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -109,7 +111,7 @@ public class ApprovalFetch extends Resource {
         return this.accountSid;
     }
 
-    public final Object getWhatsapp() {
+    public final Map<String, Object> getWhatsapp() {
         return this.whatsapp;
     }
 

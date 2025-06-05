@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Challenge extends Resource {
 
-    private static final long serialVersionUID = 272875193543979L;
+    private static final long serialVersionUID = 265978723470772L;
 
     public static ChallengeCreator creator(
         final String pathServiceSid,
@@ -127,9 +127,9 @@ public class Challenge extends Resource {
     private final ZonedDateTime expirationDate;
     private final Challenge.ChallengeStatuses status;
     private final Challenge.ChallengeReasons respondedReason;
-    private final Object details;
-    private final Object hiddenDetails;
-    private final Object metadata;
+    private final Map<String, Object> details;
+    private final Map<String, Object> hiddenDetails;
+    private final Map<String, Object> metadata;
     private final Challenge.FactorTypes factorType;
     private final URI url;
     private final Map<String, String> links;
@@ -150,9 +150,9 @@ public class Challenge extends Resource {
         @JsonProperty(
             "responded_reason"
         ) final Challenge.ChallengeReasons respondedReason,
-        @JsonProperty("details") final Object details,
-        @JsonProperty("hidden_details") final Object hiddenDetails,
-        @JsonProperty("metadata") final Object metadata,
+        @JsonProperty("details") final Map<String, Object> details,
+        @JsonProperty("hidden_details") final Map<String, Object> hiddenDetails,
+        @JsonProperty("metadata") final Map<String, Object> metadata,
         @JsonProperty("factor_type") final Challenge.FactorTypes factorType,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
@@ -227,15 +227,15 @@ public class Challenge extends Resource {
         return this.respondedReason;
     }
 
-    public final Object getDetails() {
+    public final Map<String, Object> getDetails() {
         return this.details;
     }
 
-    public final Object getHiddenDetails() {
+    public final Map<String, Object> getHiddenDetails() {
         return this.hiddenDetails;
     }
 
-    public final Object getMetadata() {
+    public final Map<String, Object> getMetadata() {
         return this.metadata;
     }
 

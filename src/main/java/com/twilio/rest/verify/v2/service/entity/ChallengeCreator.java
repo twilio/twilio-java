@@ -30,6 +30,8 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 
 public class ChallengeCreator extends Creator<Challenge> {
 
@@ -38,8 +40,8 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String factorSid;
     private ZonedDateTime expirationDate;
     private String detailsMessage;
-    private List<Object> detailsFields;
-    private Object hiddenDetails;
+    private List<Map<String, Object>> detailsFields;
+    private Map<String, Object> hiddenDetails;
     private String authPayload;
 
     public ChallengeCreator(
@@ -69,16 +71,22 @@ public class ChallengeCreator extends Creator<Challenge> {
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(final List<Object> detailsFields) {
+    public ChallengeCreator setDetailsFields(
+        final List<Map<String, Object>> detailsFields
+    ) {
         this.detailsFields = detailsFields;
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(final Object detailsFields) {
+    public ChallengeCreator setDetailsFields(
+        final Map<String, Object> detailsFields
+    ) {
         return setDetailsFields(Promoter.listOfOne(detailsFields));
     }
 
-    public ChallengeCreator setHiddenDetails(final Object hiddenDetails) {
+    public ChallengeCreator setHiddenDetails(
+        final Map<String, Object> hiddenDetails
+    ) {
         this.hiddenDetails = hiddenDetails;
         return this;
     }
@@ -148,7 +156,7 @@ public class ChallengeCreator extends Creator<Challenge> {
             request.addPostParam("Details.Message", detailsMessage);
         }
         if (detailsFields != null) {
-            for (Object prop : detailsFields) {
+            for (Map<String, Object> prop : detailsFields) {
                 request.addPostParam(
                     "Details.Fields",
                     Converter.mapToJson(prop)

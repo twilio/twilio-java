@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Webhook extends Resource {
 
-    private static final long serialVersionUID = 95610505907814L;
+    private static final long serialVersionUID = 228548505277204L;
 
     public static WebhookCreator creator(
         final String pathChatServiceSid,
@@ -143,7 +145,7 @@ public class Webhook extends Resource {
     private final String conversationSid;
     private final String target;
     private final URI url;
-    private final Object configuration;
+    private final Map<String, Object> configuration;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -155,7 +157,7 @@ public class Webhook extends Resource {
         @JsonProperty("conversation_sid") final String conversationSid,
         @JsonProperty("target") final String target,
         @JsonProperty("url") final URI url,
-        @JsonProperty("configuration") final Object configuration,
+        @JsonProperty("configuration") final Map<String, Object> configuration,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -194,7 +196,7 @@ public class Webhook extends Resource {
         return this.url;
     }
 
-    public final Object getConfiguration() {
+    public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 

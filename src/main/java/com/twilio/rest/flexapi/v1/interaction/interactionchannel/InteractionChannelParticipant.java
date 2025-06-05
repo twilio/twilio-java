@@ -27,6 +27,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,13 +37,13 @@ import lombok.ToString;
 @ToString
 public class InteractionChannelParticipant extends Resource {
 
-    private static final long serialVersionUID = 263494603761237L;
+    private static final long serialVersionUID = 13330803139630L;
 
     public static InteractionChannelParticipantCreator creator(
         final String pathInteractionSid,
         final String pathChannelSid,
         final InteractionChannelParticipant.Type type,
-        final Object mediaProperties
+        final Map<String, Object> mediaProperties
     ) {
         return new InteractionChannelParticipantCreator(
             pathInteractionSid,
@@ -129,7 +131,7 @@ public class InteractionChannelParticipant extends Resource {
     private final String interactionSid;
     private final String channelSid;
     private final URI url;
-    private final Object routingProperties;
+    private final Map<String, Object> routingProperties;
 
     @JsonCreator
     private InteractionChannelParticipant(
@@ -138,7 +140,10 @@ public class InteractionChannelParticipant extends Resource {
         @JsonProperty("interaction_sid") final String interactionSid,
         @JsonProperty("channel_sid") final String channelSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("routing_properties") final Object routingProperties
+        @JsonProperty("routing_properties") final Map<
+            String,
+            Object
+        > routingProperties
     ) {
         this.sid = sid;
         this.type = type;
@@ -168,7 +173,7 @@ public class InteractionChannelParticipant extends Resource {
         return this.url;
     }
 
-    public final Object getRoutingProperties() {
+    public final Map<String, Object> getRoutingProperties() {
         return this.routingProperties;
     }
 

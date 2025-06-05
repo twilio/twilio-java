@@ -26,6 +26,8 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +41,7 @@ public class FlowValidate extends Resource {
     public static FlowValidateUpdater updater(
         final String friendlyName,
         final FlowValidate.Status status,
-        final Object definition
+        final Map<String, Object> definition
     ) {
         return new FlowValidateUpdater(friendlyName, status, definition);
     }

@@ -25,6 +25,8 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -33,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class Event extends Resource {
 
-    private static final long serialVersionUID = 85868637030157L;
+    private static final long serialVersionUID = 87960678380335L;
 
     public static EventReader reader(final String pathCallSid) {
         return new EventReader(pathCallSid);
@@ -89,23 +91,23 @@ public class Event extends Resource {
         }
     }
 
-    private final Object request;
-    private final Object response;
+    private final Map<String, Object> request;
+    private final Map<String, Object> response;
 
     @JsonCreator
     private Event(
-        @JsonProperty("request") final Object request,
-        @JsonProperty("response") final Object response
+        @JsonProperty("request") final Map<String, Object> request,
+        @JsonProperty("response") final Map<String, Object> response
     ) {
         this.request = request;
         this.response = response;
     }
 
-    public final Object getRequest() {
+    public final Map<String, Object> getRequest() {
         return this.request;
     }
 
-    public final Object getResponse() {
+    public final Map<String, Object> getResponse() {
         return this.response;
     }
 

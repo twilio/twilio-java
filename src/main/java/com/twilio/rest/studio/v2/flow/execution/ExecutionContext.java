@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class ExecutionContext extends Resource {
 
-    private static final long serialVersionUID = 55535160524796L;
+    private static final long serialVersionUID = 48761390116247L;
 
     public static ExecutionContextFetcher fetcher(
         final String pathFlowSid,
@@ -87,7 +89,7 @@ public class ExecutionContext extends Resource {
     }
 
     private final String accountSid;
-    private final Object context;
+    private final Map<String, Object> context;
     private final String flowSid;
     private final String executionSid;
     private final URI url;
@@ -95,7 +97,7 @@ public class ExecutionContext extends Resource {
     @JsonCreator
     private ExecutionContext(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("context") final Object context,
+        @JsonProperty("context") final Map<String, Object> context,
         @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty("execution_sid") final String executionSid,
         @JsonProperty("url") final URI url
@@ -111,7 +113,7 @@ public class ExecutionContext extends Resource {
         return this.accountSid;
     }
 
-    public final Object getContext() {
+    public final Map<String, Object> getContext() {
         return this.context;
     }
 

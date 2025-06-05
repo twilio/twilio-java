@@ -44,7 +44,7 @@ public class Subscription extends Resource {
     public static SubscriptionCreator creator(
         final String description,
         final String sinkSid,
-        final List<Object> types
+        final List<Map<String, Object>> types
     ) {
         return new SubscriptionCreator(description, sinkSid, types);
     }

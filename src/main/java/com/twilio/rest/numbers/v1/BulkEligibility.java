@@ -30,6 +30,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class BulkEligibility extends Resource {
 
-    private static final long serialVersionUID = 40339250162989L;
+    private static final long serialVersionUID = 38354491175250L;
 
     public static BulkEligibilityCreator creator() {
         return new BulkEligibilityCreator();
@@ -105,7 +107,7 @@ public class BulkEligibility extends Resource {
 
     private final String requestId;
     private final URI url;
-    private final List<Object> results;
+    private final List<Map<String, Object>> results;
     private final String friendlyName;
     private final String status;
     private final ZonedDateTime dateCreated;
@@ -115,7 +117,7 @@ public class BulkEligibility extends Resource {
     private BulkEligibility(
         @JsonProperty("request_id") final String requestId,
         @JsonProperty("url") final URI url,
-        @JsonProperty("results") final List<Object> results,
+        @JsonProperty("results") final List<Map<String, Object>> results,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("status") final String status,
         @JsonProperty("date_created") final String dateCreated,
@@ -139,7 +141,7 @@ public class BulkEligibility extends Resource {
         return this.url;
     }
 
-    public final List<Object> getResults() {
+    public final List<Map<String, Object>> getResults() {
         return this.results;
     }
 

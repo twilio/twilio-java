@@ -27,6 +27,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class ApiKey extends Resource {
 
-    private static final long serialVersionUID = 33828408490571L;
+    private static final long serialVersionUID = 99197666922652L;
 
     public static ApiKeyDeleter deleter(final String pathSid) {
         return new ApiKeyDeleter(pathSid);
@@ -96,7 +98,7 @@ public class ApiKey extends Resource {
     private final String friendlyName;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Object policy;
+    private final Map<String, Object> policy;
 
     @JsonCreator
     private ApiKey(
@@ -104,7 +106,7 @@ public class ApiKey extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("policy") final Object policy
+        @JsonProperty("policy") final Map<String, Object> policy
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -129,7 +131,7 @@ public class ApiKey extends Resource {
         return this.dateUpdated;
     }
 
-    public final Object getPolicy() {
+    public final Map<String, Object> getPolicy() {
         return this.policy;
     }
 

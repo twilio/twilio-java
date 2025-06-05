@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class WorkflowRealTimeStatistics extends Resource {
 
-    private static final long serialVersionUID = 88943093438670L;
+    private static final long serialVersionUID = 5030697729646L;
 
     public static WorkflowRealTimeStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -98,8 +100,8 @@ public class WorkflowRealTimeStatistics extends Resource {
     private final String accountSid;
     private final Integer longestTaskWaitingAge;
     private final String longestTaskWaitingSid;
-    private final Object tasksByPriority;
-    private final Object tasksByStatus;
+    private final Map<String, Object> tasksByPriority;
+    private final Map<String, Object> tasksByStatus;
     private final Integer totalTasks;
     private final String workflowSid;
     private final String workspaceSid;
@@ -114,8 +116,14 @@ public class WorkflowRealTimeStatistics extends Resource {
         @JsonProperty(
             "longest_task_waiting_sid"
         ) final String longestTaskWaitingSid,
-        @JsonProperty("tasks_by_priority") final Object tasksByPriority,
-        @JsonProperty("tasks_by_status") final Object tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Map<
+            String,
+            Object
+        > tasksByPriority,
+        @JsonProperty("tasks_by_status") final Map<
+            String,
+            Object
+        > tasksByStatus,
         @JsonProperty("total_tasks") final Integer totalTasks,
         @JsonProperty("workflow_sid") final String workflowSid,
         @JsonProperty("workspace_sid") final String workspaceSid,
@@ -144,11 +152,11 @@ public class WorkflowRealTimeStatistics extends Resource {
         return this.longestTaskWaitingSid;
     }
 
-    public final Object getTasksByPriority() {
+    public final Map<String, Object> getTasksByPriority() {
         return this.tasksByPriority;
     }
 
-    public final Object getTasksByStatus() {
+    public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 

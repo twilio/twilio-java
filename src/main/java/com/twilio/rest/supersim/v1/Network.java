@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Network extends Resource {
 
-    private static final long serialVersionUID = 190489279811069L;
+    private static final long serialVersionUID = 225839080791216L;
 
     public static NetworkFetcher fetcher(final String pathSid) {
         return new NetworkFetcher(pathSid);
@@ -92,7 +94,7 @@ public class Network extends Resource {
     private final String friendlyName;
     private final URI url;
     private final String isoCountry;
-    private final List<Object> identifiers;
+    private final List<Map<String, Object>> identifiers;
 
     @JsonCreator
     private Network(
@@ -100,7 +102,7 @@ public class Network extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("url") final URI url,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("identifiers") final List<Object> identifiers
+        @JsonProperty("identifiers") final List<Map<String, Object>> identifiers
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -125,7 +127,7 @@ public class Network extends Resource {
         return this.isoCountry;
     }
 
-    public final List<Object> getIdentifiers() {
+    public final List<Map<String, Object>> getIdentifiers() {
         return this.identifiers;
     }
 

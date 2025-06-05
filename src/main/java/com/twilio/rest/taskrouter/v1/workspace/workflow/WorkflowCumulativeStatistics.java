@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class WorkflowCumulativeStatistics extends Resource {
 
-    private static final long serialVersionUID = 152978389491960L;
+    private static final long serialVersionUID = 209789504024863L;
 
     public static WorkflowCumulativeStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -107,9 +109,9 @@ public class WorkflowCumulativeStatistics extends Resource {
     private final Integer reservationsTimedOut;
     private final Integer reservationsCanceled;
     private final Integer reservationsRescinded;
-    private final Object splitByWaitTime;
-    private final Object waitDurationUntilAccepted;
-    private final Object waitDurationUntilCanceled;
+    private final Map<String, Object> splitByWaitTime;
+    private final Map<String, Object> waitDurationUntilAccepted;
+    private final Map<String, Object> waitDurationUntilCanceled;
     private final Integer tasksCanceled;
     private final Integer tasksCompleted;
     private final Integer tasksEntered;
@@ -144,13 +146,18 @@ public class WorkflowCumulativeStatistics extends Resource {
         @JsonProperty(
             "reservations_rescinded"
         ) final Integer reservationsRescinded,
-        @JsonProperty("split_by_wait_time") final Object splitByWaitTime,
-        @JsonProperty(
-            "wait_duration_until_accepted"
-        ) final Object waitDurationUntilAccepted,
-        @JsonProperty(
-            "wait_duration_until_canceled"
-        ) final Object waitDurationUntilCanceled,
+        @JsonProperty("split_by_wait_time") final Map<
+            String,
+            Object
+        > splitByWaitTime,
+        @JsonProperty("wait_duration_until_accepted") final Map<
+            String,
+            Object
+        > waitDurationUntilAccepted,
+        @JsonProperty("wait_duration_until_canceled") final Map<
+            String,
+            Object
+        > waitDurationUntilCanceled,
         @JsonProperty("tasks_canceled") final Integer tasksCanceled,
         @JsonProperty("tasks_completed") final Integer tasksCompleted,
         @JsonProperty("tasks_entered") final Integer tasksEntered,
@@ -227,15 +234,15 @@ public class WorkflowCumulativeStatistics extends Resource {
         return this.reservationsRescinded;
     }
 
-    public final Object getSplitByWaitTime() {
+    public final Map<String, Object> getSplitByWaitTime() {
         return this.splitByWaitTime;
     }
 
-    public final Object getWaitDurationUntilAccepted() {
+    public final Map<String, Object> getWaitDurationUntilAccepted() {
         return this.waitDurationUntilAccepted;
     }
 
-    public final Object getWaitDurationUntilCanceled() {
+    public final Map<String, Object> getWaitDurationUntilCanceled() {
         return this.waitDurationUntilCanceled;
     }
 

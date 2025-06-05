@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class WorkspaceRealTimeStatistics extends Resource {
 
-    private static final long serialVersionUID = 191327423488262L;
+    private static final long serialVersionUID = 188768803928766L;
 
     public static WorkspaceRealTimeStatisticsFetcher fetcher(
         final String pathWorkspaceSid
@@ -93,11 +95,11 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final List<Object> activityStatistics;
+    private final List<Map<String, Object>> activityStatistics;
     private final Integer longestTaskWaitingAge;
     private final String longestTaskWaitingSid;
-    private final Object tasksByPriority;
-    private final Object tasksByStatus;
+    private final Map<String, Object> tasksByPriority;
+    private final Map<String, Object> tasksByStatus;
     private final Integer totalTasks;
     private final Integer totalWorkers;
     private final String workspaceSid;
@@ -107,7 +109,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     private WorkspaceRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("activity_statistics") final List<
-            Object
+            Map<String, Object>
         > activityStatistics,
         @JsonProperty(
             "longest_task_waiting_age"
@@ -115,8 +117,14 @@ public class WorkspaceRealTimeStatistics extends Resource {
         @JsonProperty(
             "longest_task_waiting_sid"
         ) final String longestTaskWaitingSid,
-        @JsonProperty("tasks_by_priority") final Object tasksByPriority,
-        @JsonProperty("tasks_by_status") final Object tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Map<
+            String,
+            Object
+        > tasksByPriority,
+        @JsonProperty("tasks_by_status") final Map<
+            String,
+            Object
+        > tasksByStatus,
         @JsonProperty("total_tasks") final Integer totalTasks,
         @JsonProperty("total_workers") final Integer totalWorkers,
         @JsonProperty("workspace_sid") final String workspaceSid,
@@ -138,7 +146,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
         return this.accountSid;
     }
 
-    public final List<Object> getActivityStatistics() {
+    public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
@@ -150,11 +158,11 @@ public class WorkspaceRealTimeStatistics extends Resource {
         return this.longestTaskWaitingSid;
     }
 
-    public final Object getTasksByPriority() {
+    public final Map<String, Object> getTasksByPriority() {
         return this.tasksByPriority;
     }
 
-    public final Object getTasksByStatus() {
+    public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 

@@ -26,16 +26,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class SinkCreator extends Creator<Sink> {
 
     private String description;
-    private Object sinkConfiguration;
+    private Map<String, Object> sinkConfiguration;
     private Sink.SinkType sinkType;
 
     public SinkCreator(
         final String description,
-        final Object sinkConfiguration,
+        final Map<String, Object> sinkConfiguration,
         final Sink.SinkType sinkType
     ) {
         this.description = description;
@@ -48,7 +50,9 @@ public class SinkCreator extends Creator<Sink> {
         return this;
     }
 
-    public SinkCreator setSinkConfiguration(final Object sinkConfiguration) {
+    public SinkCreator setSinkConfiguration(
+        final Map<String, Object> sinkConfiguration
+    ) {
         this.sinkConfiguration = sinkConfiguration;
         return this;
     }

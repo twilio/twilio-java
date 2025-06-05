@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,12 +39,12 @@ import lombok.ToString;
 @ToString
 public class CustomOperator extends Resource {
 
-    private static final long serialVersionUID = 256422024283475L;
+    private static final long serialVersionUID = 100488785268469L;
 
     public static CustomOperatorCreator creator(
         final String friendlyName,
         final String operatorType,
-        final Object config
+        final Map<String, Object> config
     ) {
         return new CustomOperatorCreator(friendlyName, operatorType, config);
     }
@@ -62,7 +64,7 @@ public class CustomOperator extends Resource {
     public static CustomOperatorUpdater updater(
         final String pathSid,
         final String friendlyName,
-        final Object config
+        final Map<String, Object> config
     ) {
         return new CustomOperatorUpdater(pathSid, friendlyName, config);
     }
@@ -118,7 +120,7 @@ public class CustomOperator extends Resource {
     private final String operatorType;
     private final Integer version;
     private final CustomOperator.Availability availability;
-    private final Object config;
+    private final Map<String, Object> config;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -135,7 +137,7 @@ public class CustomOperator extends Resource {
         @JsonProperty(
             "availability"
         ) final CustomOperator.Availability availability,
-        @JsonProperty("config") final Object config,
+        @JsonProperty("config") final Map<String, Object> config,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -186,7 +188,7 @@ public class CustomOperator extends Resource {
         return this.availability;
     }
 
-    public final Object getConfig() {
+    public final Map<String, Object> getConfig() {
         return this.config;
     }
 

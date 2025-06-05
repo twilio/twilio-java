@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 207948584687696L;
+    private static final long serialVersionUID = 273348594526439L;
 
     public static MessageCreator creator(
         final String pathChatServiceSid,
@@ -142,12 +142,12 @@ public class Message extends Resource {
     private final Integer index;
     private final String author;
     private final String body;
-    private final List<Object> media;
+    private final List<Map<String, Object>> media;
     private final String attributes;
     private final String participantSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Object delivery;
+    private final Map<String, Object> delivery;
     private final URI url;
     private final Map<String, String> links;
     private final String contentSid;
@@ -161,12 +161,12 @@ public class Message extends Resource {
         @JsonProperty("index") final Integer index,
         @JsonProperty("author") final String author,
         @JsonProperty("body") final String body,
-        @JsonProperty("media") final List<Object> media,
+        @JsonProperty("media") final List<Map<String, Object>> media,
         @JsonProperty("attributes") final String attributes,
         @JsonProperty("participant_sid") final String participantSid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("delivery") final Object delivery,
+        @JsonProperty("delivery") final Map<String, Object> delivery,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("content_sid") final String contentSid
@@ -217,7 +217,7 @@ public class Message extends Resource {
         return this.body;
     }
 
-    public final List<Object> getMedia() {
+    public final List<Map<String, Object>> getMedia() {
         return this.media;
     }
 
@@ -237,7 +237,7 @@ public class Message extends Resource {
         return this.dateUpdated;
     }
 
-    public final Object getDelivery() {
+    public final Map<String, Object> getDelivery() {
         return this.delivery;
     }
 

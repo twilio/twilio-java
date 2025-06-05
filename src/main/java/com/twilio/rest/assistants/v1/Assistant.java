@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +43,7 @@ import lombok.ToString;
 @ToString
 public class Assistant extends Resource {
 
-    private static final long serialVersionUID = 50115246350901L;
+    private static final long serialVersionUID = 5177924616338L;
 
     @ToString
     public static class AssistantsV1ServiceCustomerAi {
@@ -218,7 +220,7 @@ public class Assistant extends Resource {
         @JsonProperty("knowledge_source_details")
         @Getter
         @Setter
-        private Object knowledgeSourceDetails;
+        private Map<String, Object> knowledgeSourceDetails;
 
         public String getKnowledgeSourceDetails() {
             return Converter.mapToJson(knowledgeSourceDetails);
@@ -316,7 +318,7 @@ public class Assistant extends Resource {
         @JsonProperty("meta")
         @Getter
         @Setter
-        private Object meta;
+        private Map<String, Object> meta;
 
         public String getMeta() {
             return Converter.mapToJson(meta);
@@ -452,7 +454,7 @@ public class Assistant extends Resource {
     }
 
     private final String accountSid;
-    private final Object customerAi;
+    private final Map<String, Object> customerAi;
     private final String id;
     private final String model;
     private final String name;
@@ -467,7 +469,7 @@ public class Assistant extends Resource {
     @JsonCreator
     private Assistant(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("customer_ai") final Object customerAi,
+        @JsonProperty("customer_ai") final Map<String, Object> customerAi,
         @JsonProperty("id") final String id,
         @JsonProperty("model") final String model,
         @JsonProperty("name") final String name,
@@ -499,7 +501,7 @@ public class Assistant extends Resource {
         return this.accountSid;
     }
 
-    public final Object getCustomerAi() {
+    public final Map<String, Object> getCustomerAi() {
         return this.customerAi;
     }
 

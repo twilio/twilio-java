@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,12 +36,12 @@ import lombok.ToString;
 @ToString
 public class InteractionChannelInvite extends Resource {
 
-    private static final long serialVersionUID = 259424616221420L;
+    private static final long serialVersionUID = 96456011706810L;
 
     public static InteractionChannelInviteCreator creator(
         final String pathInteractionSid,
         final String pathChannelSid,
-        final Object routing
+        final Map<String, Object> routing
     ) {
         return new InteractionChannelInviteCreator(
             pathInteractionSid,
@@ -104,7 +106,7 @@ public class InteractionChannelInvite extends Resource {
     private final String sid;
     private final String interactionSid;
     private final String channelSid;
-    private final Object routing;
+    private final Map<String, Object> routing;
     private final URI url;
 
     @JsonCreator
@@ -112,7 +114,7 @@ public class InteractionChannelInvite extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("interaction_sid") final String interactionSid,
         @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("routing") final Object routing,
+        @JsonProperty("routing") final Map<String, Object> routing,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -134,7 +136,7 @@ public class InteractionChannelInvite extends Resource {
         return this.channelSid;
     }
 
-    public final Object getRouting() {
+    public final Map<String, Object> getRouting() {
         return this.routing;
     }
 

@@ -26,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class NewFactorCreator extends Creator<NewFactor> {
 
@@ -44,7 +46,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
     private Integer configSkew;
     private Integer configCodeLength;
     private NewFactor.TotpAlgorithms configAlg;
-    private Object metadata;
+    private Map<String, Object> metadata;
 
     public NewFactorCreator(
         final String pathServiceSid,
@@ -133,7 +135,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
         return this;
     }
 
-    public NewFactorCreator setMetadata(final Object metadata) {
+    public NewFactorCreator setMetadata(final Map<String, Object> metadata) {
         this.metadata = metadata;
         return this;
     }

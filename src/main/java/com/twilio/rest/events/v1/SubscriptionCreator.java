@@ -29,17 +29,19 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 
 public class SubscriptionCreator extends Creator<Subscription> {
 
     private String description;
     private String sinkSid;
-    private List<Object> types;
+    private List<Map<String, Object>> types;
 
     public SubscriptionCreator(
         final String description,
         final String sinkSid,
-        final List<Object> types
+        final List<Map<String, Object>> types
     ) {
         this.description = description;
         this.sinkSid = sinkSid;
@@ -56,12 +58,12 @@ public class SubscriptionCreator extends Creator<Subscription> {
         return this;
     }
 
-    public SubscriptionCreator setTypes(final List<Object> types) {
+    public SubscriptionCreator setTypes(final List<Map<String, Object>> types) {
         this.types = types;
         return this;
     }
 
-    public SubscriptionCreator setTypes(final Object types) {
+    public SubscriptionCreator setTypes(final Map<String, Object> types) {
         return setTypes(Promoter.listOfOne(types));
     }
 
@@ -117,7 +119,7 @@ public class SubscriptionCreator extends Creator<Subscription> {
             request.addPostParam("SinkSid", sinkSid);
         }
         if (types != null) {
-            for (Object prop : types) {
+            for (Map<String, Object> prop : types) {
                 request.addPostParam("Types", Converter.mapToJson(prop));
             }
         }

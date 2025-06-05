@@ -27,6 +27,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Policy extends Resource {
 
-    private static final long serialVersionUID = 180429146702802L;
+    private static final long serialVersionUID = 15658572271109L;
 
     public static PolicyReader reader() {
         return new PolicyReader();
@@ -90,7 +92,7 @@ public class Policy extends Resource {
     private final String accountSid;
     private final String userSid;
     private final String type;
-    private final Object policyDetails;
+    private final Map<String, Object> policyDetails;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -102,7 +104,7 @@ public class Policy extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("user_sid") final String userSid,
         @JsonProperty("type") final String type,
-        @JsonProperty("policy_details") final Object policyDetails,
+        @JsonProperty("policy_details") final Map<String, Object> policyDetails,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -141,7 +143,7 @@ public class Policy extends Resource {
         return this.type;
     }
 
-    public final Object getPolicyDetails() {
+    public final Map<String, Object> getPolicyDetails() {
         return this.policyDetails;
     }
 

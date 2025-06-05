@@ -30,6 +30,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class CustomerProfilesEvaluations extends Resource {
 
-    private static final long serialVersionUID = 2752091075011L;
+    private static final long serialVersionUID = 45516903020077L;
 
     public static CustomerProfilesEvaluationsCreator creator(
         final String pathCustomerProfileSid,
@@ -120,7 +122,7 @@ public class CustomerProfilesEvaluations extends Resource {
     private final String policySid;
     private final String customerProfileSid;
     private final CustomerProfilesEvaluations.Status status;
-    private final List<Object> results;
+    private final List<Map<String, Object>> results;
     private final ZonedDateTime dateCreated;
     private final URI url;
 
@@ -131,7 +133,7 @@ public class CustomerProfilesEvaluations extends Resource {
         @JsonProperty("policy_sid") final String policySid,
         @JsonProperty("customer_profile_sid") final String customerProfileSid,
         @JsonProperty("status") final CustomerProfilesEvaluations.Status status,
-        @JsonProperty("results") final List<Object> results,
+        @JsonProperty("results") final List<Map<String, Object>> results,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
     ) {
@@ -165,7 +167,7 @@ public class CustomerProfilesEvaluations extends Resource {
         return this.status;
     }
 
-    public final List<Object> getResults() {
+    public final List<Map<String, Object>> getResults() {
         return this.results;
     }
 

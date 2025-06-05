@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class EndUser extends Resource {
 
-    private static final long serialVersionUID = 226261438580363L;
+    private static final long serialVersionUID = 94888387451102L;
 
     public static EndUserCreator creator(
         final String friendlyName,
@@ -109,7 +111,7 @@ public class EndUser extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final EndUser.Type type;
-    private final Object attributes;
+    private final Map<String, Object> attributes;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -120,7 +122,7 @@ public class EndUser extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("type") final EndUser.Type type,
-        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty("attributes") final Map<String, Object> attributes,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -151,7 +153,7 @@ public class EndUser extends Resource {
         return this.type;
     }
 
-    public final Object getAttributes() {
+    public final Map<String, Object> getAttributes() {
         return this.attributes;
     }
 

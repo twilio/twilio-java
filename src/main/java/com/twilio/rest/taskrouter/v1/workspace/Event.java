@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Event extends Resource {
 
-    private static final long serialVersionUID = 40225736342547L;
+    private static final long serialVersionUID = 215026832174382L;
 
     public static EventFetcher fetcher(
         final String pathWorkspaceSid,
@@ -97,7 +99,7 @@ public class Event extends Resource {
     private final String actorType;
     private final URI actorUrl;
     private final String description;
-    private final Object eventData;
+    private final Map<String, Object> eventData;
     private final ZonedDateTime eventDate;
     private final Long eventDateMs;
     private final String eventType;
@@ -117,7 +119,7 @@ public class Event extends Resource {
         @JsonProperty("actor_type") final String actorType,
         @JsonProperty("actor_url") final URI actorUrl,
         @JsonProperty("description") final String description,
-        @JsonProperty("event_data") final Object eventData,
+        @JsonProperty("event_data") final Map<String, Object> eventData,
         @JsonProperty("event_date") final String eventDate,
         @JsonProperty("event_date_ms") final Long eventDateMs,
         @JsonProperty("event_type") final String eventType,
@@ -169,7 +171,7 @@ public class Event extends Resource {
         return this.description;
     }
 
-    public final Object getEventData() {
+    public final Map<String, Object> getEventData() {
         return this.eventData;
     }
 

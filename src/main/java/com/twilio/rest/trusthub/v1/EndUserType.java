@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class EndUserType extends Resource {
 
-    private static final long serialVersionUID = 12687033452936L;
+    private static final long serialVersionUID = 67038001521206L;
 
     public static EndUserTypeFetcher fetcher(final String pathSid) {
         return new EndUserTypeFetcher(pathSid);
@@ -91,7 +93,7 @@ public class EndUserType extends Resource {
     private final String sid;
     private final String friendlyName;
     private final String machineName;
-    private final List<Object> fields;
+    private final List<Map<String, Object>> fields;
     private final URI url;
 
     @JsonCreator
@@ -99,7 +101,7 @@ public class EndUserType extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("machine_name") final String machineName,
-        @JsonProperty("fields") final List<Object> fields,
+        @JsonProperty("fields") final List<Map<String, Object>> fields,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -121,7 +123,7 @@ public class EndUserType extends Resource {
         return this.machineName;
     }
 
-    public final List<Object> getFields() {
+    public final List<Map<String, Object>> getFields() {
         return this.fields;
     }
 

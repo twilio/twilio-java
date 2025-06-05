@@ -29,6 +29,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 
 public class NotificationCreator extends Creator<Notification> {
 
@@ -39,14 +41,14 @@ public class NotificationCreator extends Creator<Notification> {
     private String title;
     private String sound;
     private String action;
-    private Object data;
-    private Object apn;
-    private Object gcm;
-    private Object sms;
-    private Object facebookMessenger;
-    private Object fcm;
+    private Map<String, Object> data;
+    private Map<String, Object> apn;
+    private Map<String, Object> gcm;
+    private Map<String, Object> sms;
+    private Map<String, Object> facebookMessenger;
+    private Map<String, Object> fcm;
     private List<String> segment;
-    private Object alexa;
+    private Map<String, Object> alexa;
     private List<String> toBinding;
     private String deliveryCallbackUrl;
     private List<String> identity;
@@ -88,34 +90,34 @@ public class NotificationCreator extends Creator<Notification> {
         return this;
     }
 
-    public NotificationCreator setData(final Object data) {
+    public NotificationCreator setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
 
-    public NotificationCreator setApn(final Object apn) {
+    public NotificationCreator setApn(final Map<String, Object> apn) {
         this.apn = apn;
         return this;
     }
 
-    public NotificationCreator setGcm(final Object gcm) {
+    public NotificationCreator setGcm(final Map<String, Object> gcm) {
         this.gcm = gcm;
         return this;
     }
 
-    public NotificationCreator setSms(final Object sms) {
+    public NotificationCreator setSms(final Map<String, Object> sms) {
         this.sms = sms;
         return this;
     }
 
     public NotificationCreator setFacebookMessenger(
-        final Object facebookMessenger
+        final Map<String, Object> facebookMessenger
     ) {
         this.facebookMessenger = facebookMessenger;
         return this;
     }
 
-    public NotificationCreator setFcm(final Object fcm) {
+    public NotificationCreator setFcm(final Map<String, Object> fcm) {
         this.fcm = fcm;
         return this;
     }
@@ -129,7 +131,7 @@ public class NotificationCreator extends Creator<Notification> {
         return setSegment(Promoter.listOfOne(segment));
     }
 
-    public NotificationCreator setAlexa(final Object alexa) {
+    public NotificationCreator setAlexa(final Map<String, Object> alexa) {
         this.alexa = alexa;
         return this;
     }

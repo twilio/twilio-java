@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class ParticipantConversation extends Resource {
 
-    private static final long serialVersionUID = 255169491272958L;
+    private static final long serialVersionUID = 210706261724884L;
 
     public static ParticipantConversationReader reader() {
         return new ParticipantConversationReader();
@@ -92,7 +92,7 @@ public class ParticipantConversation extends Resource {
     private final String participantSid;
     private final String participantUserSid;
     private final String participantIdentity;
-    private final Object participantMessagingBinding;
+    private final Map<String, Object> participantMessagingBinding;
     private final String conversationSid;
     private final String conversationUniqueName;
     private final String conversationFriendlyName;
@@ -101,7 +101,7 @@ public class ParticipantConversation extends Resource {
     private final ZonedDateTime conversationDateUpdated;
     private final String conversationCreatedBy;
     private final ParticipantConversation.State conversationState;
-    private final Object conversationTimers;
+    private final Map<String, Object> conversationTimers;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -111,9 +111,10 @@ public class ParticipantConversation extends Resource {
         @JsonProperty("participant_sid") final String participantSid,
         @JsonProperty("participant_user_sid") final String participantUserSid,
         @JsonProperty("participant_identity") final String participantIdentity,
-        @JsonProperty(
-            "participant_messaging_binding"
-        ) final Object participantMessagingBinding,
+        @JsonProperty("participant_messaging_binding") final Map<
+            String,
+            Object
+        > participantMessagingBinding,
         @JsonProperty("conversation_sid") final String conversationSid,
         @JsonProperty(
             "conversation_unique_name"
@@ -136,7 +137,10 @@ public class ParticipantConversation extends Resource {
         @JsonProperty(
             "conversation_state"
         ) final ParticipantConversation.State conversationState,
-        @JsonProperty("conversation_timers") final Object conversationTimers,
+        @JsonProperty("conversation_timers") final Map<
+            String,
+            Object
+        > conversationTimers,
         @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
@@ -179,7 +183,7 @@ public class ParticipantConversation extends Resource {
         return this.participantIdentity;
     }
 
-    public final Object getParticipantMessagingBinding() {
+    public final Map<String, Object> getParticipantMessagingBinding() {
         return this.participantMessagingBinding;
     }
 
@@ -215,7 +219,7 @@ public class ParticipantConversation extends Resource {
         return this.conversationState;
     }
 
-    public final Object getConversationTimers() {
+    public final Map<String, Object> getConversationTimers() {
         return this.conversationTimers;
     }
 

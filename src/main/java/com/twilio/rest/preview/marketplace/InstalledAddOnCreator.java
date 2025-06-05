@@ -26,12 +26,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
 
     private String availableAddOnSid;
     private Boolean acceptTermsOfService;
-    private Object configuration;
+    private Map<String, Object> configuration;
     private String uniqueName;
 
     public InstalledAddOnCreator(
@@ -56,7 +58,9 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
         return this;
     }
 
-    public InstalledAddOnCreator setConfiguration(final Object configuration) {
+    public InstalledAddOnCreator setConfiguration(
+        final Map<String, Object> configuration
+    ) {
         this.configuration = configuration;
         return this;
     }

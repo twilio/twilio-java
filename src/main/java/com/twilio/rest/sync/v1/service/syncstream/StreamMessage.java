@@ -25,6 +25,8 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -33,12 +35,12 @@ import lombok.ToString;
 @ToString
 public class StreamMessage extends Resource {
 
-    private static final long serialVersionUID = 40152669898660L;
+    private static final long serialVersionUID = 233477236246646L;
 
     public static StreamMessageCreator creator(
         final String pathServiceSid,
         final String pathStreamSid,
-        final Object data
+        final Map<String, Object> data
     ) {
         return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
     }
@@ -87,12 +89,12 @@ public class StreamMessage extends Resource {
     }
 
     private final String sid;
-    private final Object data;
+    private final Map<String, Object> data;
 
     @JsonCreator
     private StreamMessage(
         @JsonProperty("sid") final String sid,
-        @JsonProperty("data") final Object data
+        @JsonProperty("data") final Map<String, Object> data
     ) {
         this.sid = sid;
         this.data = data;
@@ -102,7 +104,7 @@ public class StreamMessage extends Resource {
         return this.sid;
     }
 
-    public final Object getData() {
+    public final Map<String, Object> getData() {
         return this.data;
     }
 

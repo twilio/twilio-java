@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class TaskQueueRealTimeStatistics extends Resource {
 
-    private static final long serialVersionUID = 39477309222936L;
+    private static final long serialVersionUID = 59495775727482L;
 
     public static TaskQueueRealTimeStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -97,14 +99,14 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final List<Object> activityStatistics;
+    private final List<Map<String, Object>> activityStatistics;
     private final Integer longestTaskWaitingAge;
     private final String longestTaskWaitingSid;
     private final Integer longestRelativeTaskAgeInQueue;
     private final String longestRelativeTaskSidInQueue;
     private final String taskQueueSid;
-    private final Object tasksByPriority;
-    private final Object tasksByStatus;
+    private final Map<String, Object> tasksByPriority;
+    private final Map<String, Object> tasksByStatus;
     private final Integer totalAvailableWorkers;
     private final Integer totalEligibleWorkers;
     private final Integer totalTasks;
@@ -115,7 +117,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     private TaskQueueRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("activity_statistics") final List<
-            Object
+            Map<String, Object>
         > activityStatistics,
         @JsonProperty(
             "longest_task_waiting_age"
@@ -130,8 +132,14 @@ public class TaskQueueRealTimeStatistics extends Resource {
             "longest_relative_task_sid_in_queue"
         ) final String longestRelativeTaskSidInQueue,
         @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty("tasks_by_priority") final Object tasksByPriority,
-        @JsonProperty("tasks_by_status") final Object tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Map<
+            String,
+            Object
+        > tasksByPriority,
+        @JsonProperty("tasks_by_status") final Map<
+            String,
+            Object
+        > tasksByStatus,
         @JsonProperty(
             "total_available_workers"
         ) final Integer totalAvailableWorkers,
@@ -162,7 +170,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
         return this.accountSid;
     }
 
-    public final List<Object> getActivityStatistics() {
+    public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
@@ -186,11 +194,11 @@ public class TaskQueueRealTimeStatistics extends Resource {
         return this.taskQueueSid;
     }
 
-    public final Object getTasksByPriority() {
+    public final Map<String, Object> getTasksByPriority() {
         return this.tasksByPriority;
     }
 
-    public final Object getTasksByStatus() {
+    public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 

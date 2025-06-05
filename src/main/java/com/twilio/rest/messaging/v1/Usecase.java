@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Usecase extends Resource {
 
-    private static final long serialVersionUID = 263579139526494L;
+    private static final long serialVersionUID = 232787447190817L;
 
     public static UsecaseFetcher fetcher() {
         return new UsecaseFetcher();
@@ -83,14 +85,16 @@ public class Usecase extends Resource {
         }
     }
 
-    private final List<Object> usecases;
+    private final List<Map<String, Object>> usecases;
 
     @JsonCreator
-    private Usecase(@JsonProperty("usecases") final List<Object> usecases) {
+    private Usecase(
+        @JsonProperty("usecases") final List<Map<String, Object>> usecases
+    ) {
         this.usecases = usecases;
     }
 
-    public final List<Object> getUsecases() {
+    public final List<Map<String, Object>> getUsecases() {
         return this.usecases;
     }
 

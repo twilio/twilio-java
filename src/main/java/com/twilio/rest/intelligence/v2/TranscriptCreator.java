@@ -27,15 +27,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 
 public class TranscriptCreator extends Creator<Transcript> {
 
     private String serviceSid;
-    private Object channel;
+    private Map<String, Object> channel;
     private String customerKey;
     private ZonedDateTime mediaStartTime;
 
-    public TranscriptCreator(final String serviceSid, final Object channel) {
+    public TranscriptCreator(
+        final String serviceSid,
+        final Map<String, Object> channel
+    ) {
         this.serviceSid = serviceSid;
         this.channel = channel;
     }
@@ -45,7 +50,7 @@ public class TranscriptCreator extends Creator<Transcript> {
         return this;
     }
 
-    public TranscriptCreator setChannel(final Object channel) {
+    public TranscriptCreator setChannel(final Map<String, Object> channel) {
         this.channel = channel;
         return this;
     }

@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class WorkerStatistics extends Resource {
 
-    private static final long serialVersionUID = 274598515162304L;
+    private static final long serialVersionUID = 54379371741662L;
 
     public static WorkerStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -87,7 +89,7 @@ public class WorkerStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final Object cumulative;
+    private final Map<String, Object> cumulative;
     private final String workerSid;
     private final String workspaceSid;
     private final URI url;
@@ -95,7 +97,7 @@ public class WorkerStatistics extends Resource {
     @JsonCreator
     private WorkerStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Object cumulative,
+        @JsonProperty("cumulative") final Map<String, Object> cumulative,
         @JsonProperty("worker_sid") final String workerSid,
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url
@@ -111,7 +113,7 @@ public class WorkerStatistics extends Resource {
         return this.accountSid;
     }
 
-    public final Object getCumulative() {
+    public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 

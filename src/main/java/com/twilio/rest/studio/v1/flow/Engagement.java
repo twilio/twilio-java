@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Engagement extends Resource {
 
-    private static final long serialVersionUID = 235993867239207L;
+    private static final long serialVersionUID = 71723617578664L;
 
     public static EngagementCreator creator(
         final String pathFlowSid,
@@ -115,7 +115,7 @@ public class Engagement extends Resource {
     private final String flowSid;
     private final String contactSid;
     private final String contactChannelAddress;
-    private final Object context;
+    private final Map<String, Object> context;
     private final Engagement.Status status;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -131,7 +131,7 @@ public class Engagement extends Resource {
         @JsonProperty(
             "contact_channel_address"
         ) final String contactChannelAddress,
-        @JsonProperty("context") final Object context,
+        @JsonProperty("context") final Map<String, Object> context,
         @JsonProperty("status") final Engagement.Status status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -171,7 +171,7 @@ public class Engagement extends Resource {
         return this.contactChannelAddress;
     }
 
-    public final Object getContext() {
+    public final Map<String, Object> getContext() {
         return this.context;
     }
 

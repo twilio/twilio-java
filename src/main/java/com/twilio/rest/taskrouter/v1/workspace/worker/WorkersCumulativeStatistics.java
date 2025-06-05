@@ -29,6 +29,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class WorkersCumulativeStatistics extends Resource {
 
-    private static final long serialVersionUID = 274113932361256L;
+    private static final long serialVersionUID = 68159864681377L;
 
     public static WorkersCumulativeStatisticsFetcher fetcher(
         final String pathWorkspaceSid
@@ -97,7 +99,7 @@ public class WorkersCumulativeStatistics extends Resource {
     private final String accountSid;
     private final ZonedDateTime startTime;
     private final ZonedDateTime endTime;
-    private final List<Object> activityDurations;
+    private final List<Map<String, Object>> activityDurations;
     private final Integer reservationsCreated;
     private final Integer reservationsAccepted;
     private final Integer reservationsRejected;
@@ -113,7 +115,7 @@ public class WorkersCumulativeStatistics extends Resource {
         @JsonProperty("start_time") final String startTime,
         @JsonProperty("end_time") final String endTime,
         @JsonProperty("activity_durations") final List<
-            Object
+            Map<String, Object>
         > activityDurations,
         @JsonProperty("reservations_created") final Integer reservationsCreated,
         @JsonProperty(
@@ -160,7 +162,7 @@ public class WorkersCumulativeStatistics extends Resource {
         return this.endTime;
     }
 
-    public final List<Object> getActivityDurations() {
+    public final List<Map<String, Object>> getActivityDurations() {
         return this.activityDurations;
     }
 

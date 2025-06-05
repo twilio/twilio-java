@@ -16,8 +16,6 @@ package com.twilio.rest.marketplace.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -124,10 +122,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
             );
         }
         if (configuration != null) {
-            request.addPostParam(
-                "Configuration",
-                Converter.mapToJson(configuration)
-            );
+            request.addPostParam("Configuration", configuration.toString());
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);

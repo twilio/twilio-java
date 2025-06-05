@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Notification extends Resource {
 
-    private static final long serialVersionUID = 63109140680449L;
+    private static final long serialVersionUID = 46010876689651L;
 
     public static NotificationFetcher fetcher(final String pathChatServiceSid) {
         return new NotificationFetcher(pathChatServiceSid);
@@ -89,9 +91,9 @@ public class Notification extends Resource {
 
     private final String accountSid;
     private final String chatServiceSid;
-    private final Object newMessage;
-    private final Object addedToConversation;
-    private final Object removedFromConversation;
+    private final Map<String, Object> newMessage;
+    private final Map<String, Object> addedToConversation;
+    private final Map<String, Object> removedFromConversation;
     private final Boolean logEnabled;
     private final URI url;
 
@@ -99,11 +101,15 @@ public class Notification extends Resource {
     private Notification(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("new_message") final Object newMessage,
-        @JsonProperty("added_to_conversation") final Object addedToConversation,
-        @JsonProperty(
-            "removed_from_conversation"
-        ) final Object removedFromConversation,
+        @JsonProperty("new_message") final Map<String, Object> newMessage,
+        @JsonProperty("added_to_conversation") final Map<
+            String,
+            Object
+        > addedToConversation,
+        @JsonProperty("removed_from_conversation") final Map<
+            String,
+            Object
+        > removedFromConversation,
         @JsonProperty("log_enabled") final Boolean logEnabled,
         @JsonProperty("url") final URI url
     ) {
@@ -124,15 +130,15 @@ public class Notification extends Resource {
         return this.chatServiceSid;
     }
 
-    public final Object getNewMessage() {
+    public final Map<String, Object> getNewMessage() {
         return this.newMessage;
     }
 
-    public final Object getAddedToConversation() {
+    public final Map<String, Object> getAddedToConversation() {
         return this.addedToConversation;
     }
 
-    public final Object getRemovedFromConversation() {
+    public final Map<String, Object> getRemovedFromConversation() {
         return this.removedFromConversation;
     }
 

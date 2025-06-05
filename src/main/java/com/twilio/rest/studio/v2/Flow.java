@@ -40,12 +40,12 @@ import lombok.ToString;
 @ToString
 public class Flow extends Resource {
 
-    private static final long serialVersionUID = 226522965529433L;
+    private static final long serialVersionUID = 951890745581L;
 
     public static FlowCreator creator(
         final String friendlyName,
         final Flow.Status status,
-        final Object definition
+        final Map<String, Object> definition
     ) {
         return new FlowCreator(friendlyName, status, definition);
     }
@@ -115,13 +115,13 @@ public class Flow extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
-    private final Object definition;
+    private final Map<String, Object> definition;
     private final Flow.Status status;
     private final Integer revision;
     private final String commitMessage;
     private final Boolean valid;
-    private final List<Object> errors;
-    private final List<Object> warnings;
+    private final List<Map<String, Object>> errors;
+    private final List<Map<String, Object>> warnings;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI webhookUrl;
@@ -133,13 +133,13 @@ public class Flow extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("definition") final Object definition,
+        @JsonProperty("definition") final Map<String, Object> definition,
         @JsonProperty("status") final Flow.Status status,
         @JsonProperty("revision") final Integer revision,
         @JsonProperty("commit_message") final String commitMessage,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty("errors") final List<Object> errors,
-        @JsonProperty("warnings") final List<Object> warnings,
+        @JsonProperty("errors") final List<Map<String, Object>> errors,
+        @JsonProperty("warnings") final List<Map<String, Object>> warnings,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("webhook_url") final URI webhookUrl,
@@ -175,7 +175,7 @@ public class Flow extends Resource {
         return this.friendlyName;
     }
 
-    public final Object getDefinition() {
+    public final Map<String, Object> getDefinition() {
         return this.definition;
     }
 
@@ -195,11 +195,11 @@ public class Flow extends Resource {
         return this.valid;
     }
 
-    public final List<Object> getErrors() {
+    public final List<Map<String, Object>> getErrors() {
         return this.errors;
     }
 
-    public final List<Object> getWarnings() {
+    public final List<Map<String, Object>> getWarnings() {
         return this.warnings;
     }
 

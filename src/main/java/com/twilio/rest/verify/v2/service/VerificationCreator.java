@@ -26,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class VerificationCreator extends Creator<Verification> {
 
@@ -39,8 +41,8 @@ public class VerificationCreator extends Creator<Verification> {
     private String customCode;
     private String amount;
     private String payee;
-    private Object rateLimits;
-    private Object channelConfiguration;
+    private Map<String, Object> rateLimits;
+    private Map<String, Object> channelConfiguration;
     private String appHash;
     private String templateSid;
     private String templateCustomSubstitutions;
@@ -106,13 +108,15 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
-    public VerificationCreator setRateLimits(final Object rateLimits) {
+    public VerificationCreator setRateLimits(
+        final Map<String, Object> rateLimits
+    ) {
         this.rateLimits = rateLimits;
         return this;
     }
 
     public VerificationCreator setChannelConfiguration(
-        final Object channelConfiguration
+        final Map<String, Object> channelConfiguration
     ) {
         this.channelConfiguration = channelConfiguration;
         return this;

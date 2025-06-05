@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Currency;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class Recording extends Resource {
 
-    private static final long serialVersionUID = 116469328434210L;
+    private static final long serialVersionUID = 71375271651535L;
 
     public static RecordingDeleter deleter(
         final String pathConferenceSid,
@@ -162,7 +164,7 @@ public class Recording extends Resource {
     private final Integer channels;
     private final Recording.Source source;
     private final Integer errorCode;
-    private final Object encryptionDetails;
+    private final Map<String, Object> encryptionDetails;
     private final String uri;
 
     @JsonCreator
@@ -184,7 +186,10 @@ public class Recording extends Resource {
         @JsonProperty("channels") final Integer channels,
         @JsonProperty("source") final Recording.Source source,
         @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("encryption_details") final Object encryptionDetails,
+        @JsonProperty("encryption_details") final Map<
+            String,
+            Object
+        > encryptionDetails,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
@@ -266,7 +271,7 @@ public class Recording extends Resource {
         return this.errorCode;
     }
 
-    public final Object getEncryptionDetails() {
+    public final Map<String, Object> getEncryptionDetails() {
         return this.encryptionDetails;
     }
 

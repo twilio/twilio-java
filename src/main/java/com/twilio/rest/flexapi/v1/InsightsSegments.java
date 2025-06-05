@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class InsightsSegments extends Resource {
 
-    private static final long serialVersionUID = 213803097152379L;
+    private static final long serialVersionUID = 85034429282364L;
 
     public static InsightsSegmentsReader reader() {
         return new InsightsSegmentsReader();
@@ -101,9 +103,9 @@ public class InsightsSegments extends Resource {
     private final String customerName;
     private final String customerLink;
     private final String segmentRecordingOffset;
-    private final Object media;
-    private final Object assessmentType;
-    private final Object assessmentPercentage;
+    private final Map<String, Object> media;
+    private final Map<String, Object> assessmentType;
+    private final Map<String, Object> assessmentPercentage;
     private final URI url;
 
     @JsonCreator
@@ -132,11 +134,15 @@ public class InsightsSegments extends Resource {
         @JsonProperty(
             "segment_recording_offset"
         ) final String segmentRecordingOffset,
-        @JsonProperty("media") final Object media,
-        @JsonProperty("assessment_type") final Object assessmentType,
-        @JsonProperty(
-            "assessment_percentage"
-        ) final Object assessmentPercentage,
+        @JsonProperty("media") final Map<String, Object> media,
+        @JsonProperty("assessment_type") final Map<
+            String,
+            Object
+        > assessmentType,
+        @JsonProperty("assessment_percentage") final Map<
+            String,
+            Object
+        > assessmentPercentage,
         @JsonProperty("url") final URI url
     ) {
         this.segmentId = segmentId;
@@ -235,15 +241,15 @@ public class InsightsSegments extends Resource {
         return this.segmentRecordingOffset;
     }
 
-    public final Object getMedia() {
+    public final Map<String, Object> getMedia() {
         return this.media;
     }
 
-    public final Object getAssessmentType() {
+    public final Map<String, Object> getAssessmentType() {
         return this.assessmentType;
     }
 
-    public final Object getAssessmentPercentage() {
+    public final Map<String, Object> getAssessmentPercentage() {
         return this.assessmentPercentage;
     }
 

@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class UsageRecord extends Resource {
 
-    private static final long serialVersionUID = 160739434697257L;
+    private static final long serialVersionUID = 269766941607639L;
 
     public static UsageRecordReader reader() {
         return new UsageRecordReader();
@@ -92,7 +94,7 @@ public class UsageRecord extends Resource {
     private final String networkSid;
     private final String fleetSid;
     private final String isoCountry;
-    private final Object period;
+    private final Map<String, Object> period;
     private final Long dataUpload;
     private final Long dataDownload;
     private final Long dataTotal;
@@ -106,7 +108,7 @@ public class UsageRecord extends Resource {
         @JsonProperty("network_sid") final String networkSid,
         @JsonProperty("fleet_sid") final String fleetSid,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("period") final Object period,
+        @JsonProperty("period") final Map<String, Object> period,
         @JsonProperty("data_upload") final Long dataUpload,
         @JsonProperty("data_download") final Long dataDownload,
         @JsonProperty("data_total") final Long dataTotal,
@@ -148,7 +150,7 @@ public class UsageRecord extends Resource {
         return this.isoCountry;
     }
 
-    public final Object getPeriod() {
+    public final Map<String, Object> getPeriod() {
         return this.period;
     }
 

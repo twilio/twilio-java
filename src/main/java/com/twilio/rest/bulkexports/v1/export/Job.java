@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Job extends Resource {
 
-    private static final long serialVersionUID = 247111687776242L;
+    private static final long serialVersionUID = 103628862500013L;
 
     public static JobDeleter deleter(final String pathJobSid) {
         return new JobDeleter(pathJobSid);
@@ -89,7 +91,7 @@ public class Job extends Resource {
 
     private final String resourceType;
     private final String friendlyName;
-    private final Object details;
+    private final Map<String, Object> details;
     private final String startDay;
     private final String endDay;
     private final String jobSid;
@@ -104,7 +106,7 @@ public class Job extends Resource {
     private Job(
         @JsonProperty("resource_type") final String resourceType,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("details") final Object details,
+        @JsonProperty("details") final Map<String, Object> details,
         @JsonProperty("start_day") final String startDay,
         @JsonProperty("end_day") final String endDay,
         @JsonProperty("job_sid") final String jobSid,
@@ -139,7 +141,7 @@ public class Job extends Resource {
         return this.friendlyName;
     }
 
-    public final Object getDetails() {
+    public final Map<String, Object> getDetails() {
         return this.details;
     }
 

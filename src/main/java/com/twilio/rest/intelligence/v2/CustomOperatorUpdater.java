@@ -25,18 +25,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
 
 public class CustomOperatorUpdater extends Updater<CustomOperator> {
 
     private String pathSid;
     private String friendlyName;
-    private Object config;
+    private Map<String, Object> config;
     private String ifMatch;
 
     public CustomOperatorUpdater(
         final String pathSid,
         final String friendlyName,
-        final Object config
+        final Map<String, Object> config
     ) {
         this.pathSid = pathSid;
         this.friendlyName = friendlyName;
@@ -48,7 +49,7 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
         return this;
     }
 
-    public CustomOperatorUpdater setConfig(final Object config) {
+    public CustomOperatorUpdater setConfig(final Map<String, Object> config) {
         this.config = config;
         return this;
     }

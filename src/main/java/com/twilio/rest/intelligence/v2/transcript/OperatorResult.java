@@ -29,6 +29,8 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class OperatorResult extends Resource {
 
-    private static final long serialVersionUID = 96022341656916L;
+    private static final long serialVersionUID = 110796815402135L;
 
     public static OperatorResultFetcher fetcher(
         final String pathTranscriptSid,
@@ -99,14 +101,14 @@ public class OperatorResult extends Resource {
     private final Boolean extractMatch;
     private final BigDecimal matchProbability;
     private final String normalizedResult;
-    private final List<Object> utteranceResults;
+    private final List<Map<String, Object>> utteranceResults;
     private final Boolean utteranceMatch;
     private final String predictedLabel;
     private final BigDecimal predictedProbability;
-    private final Object labelProbabilities;
-    private final Object extractResults;
-    private final Object textGenerationResults;
-    private final Object jsonResults;
+    private final Map<String, Object> labelProbabilities;
+    private final Map<String, Object> extractResults;
+    private final Map<String, Object> textGenerationResults;
+    private final Map<String, Object> jsonResults;
     private final String transcriptSid;
     private final URI url;
 
@@ -120,18 +122,27 @@ public class OperatorResult extends Resource {
         @JsonProperty("extract_match") final Boolean extractMatch,
         @JsonProperty("match_probability") final BigDecimal matchProbability,
         @JsonProperty("normalized_result") final String normalizedResult,
-        @JsonProperty("utterance_results") final List<Object> utteranceResults,
+        @JsonProperty("utterance_results") final List<
+            Map<String, Object>
+        > utteranceResults,
         @JsonProperty("utterance_match") final Boolean utteranceMatch,
         @JsonProperty("predicted_label") final String predictedLabel,
         @JsonProperty(
             "predicted_probability"
         ) final BigDecimal predictedProbability,
-        @JsonProperty("label_probabilities") final Object labelProbabilities,
-        @JsonProperty("extract_results") final Object extractResults,
-        @JsonProperty(
-            "text_generation_results"
-        ) final Object textGenerationResults,
-        @JsonProperty("json_results") final Object jsonResults,
+        @JsonProperty("label_probabilities") final Map<
+            String,
+            Object
+        > labelProbabilities,
+        @JsonProperty("extract_results") final Map<
+            String,
+            Object
+        > extractResults,
+        @JsonProperty("text_generation_results") final Map<
+            String,
+            Object
+        > textGenerationResults,
+        @JsonProperty("json_results") final Map<String, Object> jsonResults,
         @JsonProperty("transcript_sid") final String transcriptSid,
         @JsonProperty("url") final URI url
     ) {
@@ -177,7 +188,7 @@ public class OperatorResult extends Resource {
         return this.normalizedResult;
     }
 
-    public final List<Object> getUtteranceResults() {
+    public final List<Map<String, Object>> getUtteranceResults() {
         return this.utteranceResults;
     }
 
@@ -193,19 +204,19 @@ public class OperatorResult extends Resource {
         return this.predictedProbability;
     }
 
-    public final Object getLabelProbabilities() {
+    public final Map<String, Object> getLabelProbabilities() {
         return this.labelProbabilities;
     }
 
-    public final Object getExtractResults() {
+    public final Map<String, Object> getExtractResults() {
         return this.extractResults;
     }
 
-    public final Object getTextGenerationResults() {
+    public final Map<String, Object> getTextGenerationResults() {
         return this.textGenerationResults;
     }
 
-    public final Object getJsonResults() {
+    public final Map<String, Object> getJsonResults() {
         return this.jsonResults;
     }
 

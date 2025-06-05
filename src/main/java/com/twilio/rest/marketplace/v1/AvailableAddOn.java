@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class AvailableAddOn extends Resource {
 
-    private static final long serialVersionUID = 97457847715408L;
+    private static final long serialVersionUID = 265387241353044L;
 
     public static AvailableAddOnFetcher fetcher(final String pathSid) {
         return new AvailableAddOnFetcher(pathSid);
@@ -93,7 +93,7 @@ public class AvailableAddOn extends Resource {
     private final String friendlyName;
     private final String description;
     private final String pricingType;
-    private final Object configurationSchema;
+    private final Map<String, Object> configurationSchema;
     private final URI url;
     private final Map<String, String> links;
 
@@ -103,7 +103,10 @@ public class AvailableAddOn extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("description") final String description,
         @JsonProperty("pricing_type") final String pricingType,
-        @JsonProperty("configuration_schema") final Object configurationSchema,
+        @JsonProperty("configuration_schema") final Map<
+            String,
+            Object
+        > configurationSchema,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -132,7 +135,7 @@ public class AvailableAddOn extends Resource {
         return this.pricingType;
     }
 
-    public final Object getConfigurationSchema() {
+    public final Map<String, Object> getConfigurationSchema() {
         return this.configurationSchema;
     }
 

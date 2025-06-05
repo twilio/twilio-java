@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Notification extends Resource {
 
-    private static final long serialVersionUID = 39127481563335L;
+    private static final long serialVersionUID = 129411229878484L;
 
     public static NotificationCreator creator(final String pathServiceSid) {
         return new NotificationCreator(pathServiceSid);
@@ -99,13 +101,13 @@ public class Notification extends Resource {
     private final String body;
     private final String sound;
     private final String action;
-    private final Object data;
-    private final Object apn;
-    private final Object gcm;
-    private final Object fcm;
-    private final Object sms;
-    private final Object facebookMessenger;
-    private final Object alexa;
+    private final Map<String, Object> data;
+    private final Map<String, Object> apn;
+    private final Map<String, Object> gcm;
+    private final Map<String, Object> fcm;
+    private final Map<String, Object> sms;
+    private final Map<String, Object> facebookMessenger;
+    private final Map<String, Object> alexa;
 
     @JsonCreator
     private Notification(
@@ -122,13 +124,16 @@ public class Notification extends Resource {
         @JsonProperty("body") final String body,
         @JsonProperty("sound") final String sound,
         @JsonProperty("action") final String action,
-        @JsonProperty("data") final Object data,
-        @JsonProperty("apn") final Object apn,
-        @JsonProperty("gcm") final Object gcm,
-        @JsonProperty("fcm") final Object fcm,
-        @JsonProperty("sms") final Object sms,
-        @JsonProperty("facebook_messenger") final Object facebookMessenger,
-        @JsonProperty("alexa") final Object alexa
+        @JsonProperty("data") final Map<String, Object> data,
+        @JsonProperty("apn") final Map<String, Object> apn,
+        @JsonProperty("gcm") final Map<String, Object> gcm,
+        @JsonProperty("fcm") final Map<String, Object> fcm,
+        @JsonProperty("sms") final Map<String, Object> sms,
+        @JsonProperty("facebook_messenger") final Map<
+            String,
+            Object
+        > facebookMessenger,
+        @JsonProperty("alexa") final Map<String, Object> alexa
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -204,31 +209,31 @@ public class Notification extends Resource {
         return this.action;
     }
 
-    public final Object getData() {
+    public final Map<String, Object> getData() {
         return this.data;
     }
 
-    public final Object getApn() {
+    public final Map<String, Object> getApn() {
         return this.apn;
     }
 
-    public final Object getGcm() {
+    public final Map<String, Object> getGcm() {
         return this.gcm;
     }
 
-    public final Object getFcm() {
+    public final Map<String, Object> getFcm() {
         return this.fcm;
     }
 
-    public final Object getSms() {
+    public final Map<String, Object> getSms() {
         return this.sms;
     }
 
-    public final Object getFacebookMessenger() {
+    public final Map<String, Object> getFacebookMessenger() {
         return this.facebookMessenger;
     }
 
-    public final Object getAlexa() {
+    public final Map<String, Object> getAlexa() {
         return this.alexa;
     }
 

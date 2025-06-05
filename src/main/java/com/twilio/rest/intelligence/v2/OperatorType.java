@@ -30,6 +30,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class OperatorType extends Resource {
 
-    private static final long serialVersionUID = 63323737873758L;
+    private static final long serialVersionUID = 227558057824727L;
 
     public static OperatorTypeFetcher fetcher(final String pathSid) {
         return new OperatorTypeFetcher(pathSid);
@@ -101,7 +103,7 @@ public class OperatorType extends Resource {
     private final OperatorType.Provider provider;
     private final OperatorType.Availability availability;
     private final Boolean configurable;
-    private final Object configSchema;
+    private final Map<String, Object> configSchema;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -122,7 +124,7 @@ public class OperatorType extends Resource {
             "availability"
         ) final OperatorType.Availability availability,
         @JsonProperty("configurable") final Boolean configurable,
-        @JsonProperty("config_schema") final Object configSchema,
+        @JsonProperty("config_schema") final Map<String, Object> configSchema,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -183,7 +185,7 @@ public class OperatorType extends Resource {
         return this.configurable;
     }
 
-    public final Object getConfigSchema() {
+    public final Map<String, Object> getConfigSchema() {
         return this.configSchema;
     }
 

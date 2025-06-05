@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class AssignedAddOn extends Resource {
 
-    private static final long serialVersionUID = 133423799490879L;
+    private static final long serialVersionUID = 114193682949091L;
 
     public static AssignedAddOnCreator creator(
         final String pathResourceSid,
@@ -155,7 +155,7 @@ public class AssignedAddOn extends Resource {
     private final String resourceSid;
     private final String friendlyName;
     private final String description;
-    private final Object configuration;
+    private final Map<String, Object> configuration;
     private final String uniqueName;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -169,7 +169,7 @@ public class AssignedAddOn extends Resource {
         @JsonProperty("resource_sid") final String resourceSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("description") final String description,
-        @JsonProperty("configuration") final Object configuration,
+        @JsonProperty("configuration") final Map<String, Object> configuration,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -212,7 +212,7 @@ public class AssignedAddOn extends Resource {
         return this.description;
     }
 
-    public final Object getConfiguration() {
+    public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 

@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class ExecutionStep extends Resource {
 
-    private static final long serialVersionUID = 120870328761943L;
+    private static final long serialVersionUID = 56382327963536L;
 
     public static ExecutionStepFetcher fetcher(
         final String pathFlowSid,
@@ -104,7 +104,7 @@ public class ExecutionStep extends Resource {
     private final String executionSid;
     private final String parentStepSid;
     private final String name;
-    private final Object context;
+    private final Map<String, Object> context;
     private final String transitionedFrom;
     private final String transitionedTo;
     private final ZonedDateTime dateCreated;
@@ -120,7 +120,7 @@ public class ExecutionStep extends Resource {
         @JsonProperty("execution_sid") final String executionSid,
         @JsonProperty("parent_step_sid") final String parentStepSid,
         @JsonProperty("name") final String name,
-        @JsonProperty("context") final Object context,
+        @JsonProperty("context") final Map<String, Object> context,
         @JsonProperty("transitioned_from") final String transitionedFrom,
         @JsonProperty("transitioned_to") final String transitionedTo,
         @JsonProperty("date_created") final String dateCreated,
@@ -167,7 +167,7 @@ public class ExecutionStep extends Resource {
         return this.name;
     }
 
-    public final Object getContext() {
+    public final Map<String, Object> getContext() {
         return this.context;
     }
 

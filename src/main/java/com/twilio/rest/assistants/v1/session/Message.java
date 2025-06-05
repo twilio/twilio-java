@@ -27,6 +27,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 199210497718096L;
+    private static final long serialVersionUID = 88120971522058L;
 
     public static MessageReader reader(final String pathSessionId) {
         return new MessageReader(pathSessionId);
@@ -90,8 +92,8 @@ public class Message extends Resource {
     private final String sessionId;
     private final String identity;
     private final String role;
-    private final Object content;
-    private final Object meta;
+    private final Map<String, Object> content;
+    private final Map<String, Object> meta;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -103,8 +105,8 @@ public class Message extends Resource {
         @JsonProperty("session_id") final String sessionId,
         @JsonProperty("identity") final String identity,
         @JsonProperty("role") final String role,
-        @JsonProperty("content") final Object content,
-        @JsonProperty("meta") final Object meta,
+        @JsonProperty("content") final Map<String, Object> content,
+        @JsonProperty("meta") final Map<String, Object> meta,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -144,11 +146,11 @@ public class Message extends Resource {
         return this.role;
     }
 
-    public final Object getContent() {
+    public final Map<String, Object> getContent() {
         return this.content;
     }
 
-    public final Object getMeta() {
+    public final Map<String, Object> getMeta() {
         return this.meta;
     }
 

@@ -30,6 +30,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class ConferenceParticipant extends Resource {
 
-    private static final long serialVersionUID = 82077087157213L;
+    private static final long serialVersionUID = 67216866718855L;
 
     public static ConferenceParticipantFetcher fetcher(
         final String pathConferenceSid,
@@ -122,9 +124,9 @@ public class ConferenceParticipant extends Resource {
     private final ConferenceParticipant.Region conferenceRegion;
     private final ConferenceParticipant.CallType callType;
     private final ConferenceParticipant.ProcessingState processingState;
-    private final Object properties;
-    private final Object events;
-    private final Object metrics;
+    private final Map<String, Object> properties;
+    private final Map<String, Object> events;
+    private final Map<String, Object> metrics;
     private final URI url;
 
     @JsonCreator
@@ -172,9 +174,9 @@ public class ConferenceParticipant extends Resource {
         @JsonProperty(
             "processing_state"
         ) final ConferenceParticipant.ProcessingState processingState,
-        @JsonProperty("properties") final Object properties,
-        @JsonProperty("events") final Object events,
-        @JsonProperty("metrics") final Object metrics,
+        @JsonProperty("properties") final Map<String, Object> properties,
+        @JsonProperty("events") final Map<String, Object> events,
+        @JsonProperty("metrics") final Map<String, Object> metrics,
         @JsonProperty("url") final URI url
     ) {
         this.participantSid = participantSid;
@@ -298,15 +300,15 @@ public class ConferenceParticipant extends Resource {
         return this.processingState;
     }
 
-    public final Object getProperties() {
+    public final Map<String, Object> getProperties() {
         return this.properties;
     }
 
-    public final Object getEvents() {
+    public final Map<String, Object> getEvents() {
         return this.events;
     }
 
-    public final Object getMetrics() {
+    public final Map<String, Object> getMetrics() {
         return this.metrics;
     }
 

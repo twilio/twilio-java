@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class ConversationWithParticipants extends Resource {
 
-    private static final long serialVersionUID = 41574022662710L;
+    private static final long serialVersionUID = 37532883203442L;
 
     public static ConversationWithParticipantsCreator creator() {
         return new ConversationWithParticipantsCreator();
@@ -104,9 +104,9 @@ public class ConversationWithParticipants extends Resource {
     private final ConversationWithParticipants.State state;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Object timers;
+    private final Map<String, Object> timers;
     private final Map<String, String> links;
-    private final Object bindings;
+    private final Map<String, Object> bindings;
     private final URI url;
 
     @JsonCreator
@@ -121,9 +121,9 @@ public class ConversationWithParticipants extends Resource {
         @JsonProperty("state") final ConversationWithParticipants.State state,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("timers") final Object timers,
+        @JsonProperty("timers") final Map<String, Object> timers,
         @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("bindings") final Object bindings,
+        @JsonProperty("bindings") final Map<String, Object> bindings,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -182,7 +182,7 @@ public class ConversationWithParticipants extends Resource {
         return this.dateUpdated;
     }
 
-    public final Object getTimers() {
+    public final Map<String, Object> getTimers() {
         return this.timers;
     }
 
@@ -190,7 +190,7 @@ public class ConversationWithParticipants extends Resource {
         return this.links;
     }
 
-    public final Object getBindings() {
+    public final Map<String, Object> getBindings() {
         return this.bindings;
     }
 

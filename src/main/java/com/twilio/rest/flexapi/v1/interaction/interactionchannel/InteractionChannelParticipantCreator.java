@@ -26,6 +26,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class InteractionChannelParticipantCreator
     extends Creator<InteractionChannelParticipant> {
@@ -33,14 +35,14 @@ public class InteractionChannelParticipantCreator
     private String pathInteractionSid;
     private String pathChannelSid;
     private InteractionChannelParticipant.Type type;
-    private Object mediaProperties;
-    private Object routingProperties;
+    private Map<String, Object> mediaProperties;
+    private Map<String, Object> routingProperties;
 
     public InteractionChannelParticipantCreator(
         final String pathInteractionSid,
         final String pathChannelSid,
         final InteractionChannelParticipant.Type type,
-        final Object mediaProperties
+        final Map<String, Object> mediaProperties
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
@@ -56,14 +58,14 @@ public class InteractionChannelParticipantCreator
     }
 
     public InteractionChannelParticipantCreator setMediaProperties(
-        final Object mediaProperties
+        final Map<String, Object> mediaProperties
     ) {
         this.mediaProperties = mediaProperties;
         return this;
     }
 
     public InteractionChannelParticipantCreator setRoutingProperties(
-        final Object routingProperties
+        final Map<String, Object> routingProperties
     ) {
         this.routingProperties = routingProperties;
         return this;

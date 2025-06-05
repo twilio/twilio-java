@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -36,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class LegacyContent extends Resource {
 
-    private static final long serialVersionUID = 180462351955228L;
+    private static final long serialVersionUID = 57833124155343L;
 
     public static LegacyContentReader reader() {
         return new LegacyContentReader();
@@ -91,8 +93,8 @@ public class LegacyContent extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String language;
-    private final Object variables;
-    private final Object types;
+    private final Map<String, Object> variables;
+    private final Map<String, Object> types;
     private final String legacyTemplateName;
     private final String legacyBody;
     private final URI url;
@@ -105,8 +107,8 @@ public class LegacyContent extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language") final String language,
-        @JsonProperty("variables") final Object variables,
-        @JsonProperty("types") final Object types,
+        @JsonProperty("variables") final Map<String, Object> variables,
+        @JsonProperty("types") final Map<String, Object> types,
         @JsonProperty("legacy_template_name") final String legacyTemplateName,
         @JsonProperty("legacy_body") final String legacyBody,
         @JsonProperty("url") final URI url
@@ -148,11 +150,11 @@ public class LegacyContent extends Resource {
         return this.language;
     }
 
-    public final Object getVariables() {
+    public final Map<String, Object> getVariables() {
         return this.variables;
     }
 
-    public final Object getTypes() {
+    public final Map<String, Object> getTypes() {
         return this.types;
     }
 

@@ -26,6 +26,8 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class UsageRecord extends Resource {
 
-    private static final long serialVersionUID = 61247998044414L;
+    private static final long serialVersionUID = 2654718760239L;
 
     public static UsageRecordReader reader() {
         return new UsageRecordReader();
@@ -84,16 +86,16 @@ public class UsageRecord extends Resource {
     }
 
     private final String accountSid;
-    private final Object period;
-    private final Object commands;
-    private final Object data;
+    private final Map<String, Object> period;
+    private final Map<String, Object> commands;
+    private final Map<String, Object> data;
 
     @JsonCreator
     private UsageRecord(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("period") final Object period,
-        @JsonProperty("commands") final Object commands,
-        @JsonProperty("data") final Object data
+        @JsonProperty("period") final Map<String, Object> period,
+        @JsonProperty("commands") final Map<String, Object> commands,
+        @JsonProperty("data") final Map<String, Object> data
     ) {
         this.accountSid = accountSid;
         this.period = period;
@@ -105,15 +107,15 @@ public class UsageRecord extends Resource {
         return this.accountSid;
     }
 
-    public final Object getPeriod() {
+    public final Map<String, Object> getPeriod() {
         return this.period;
     }
 
-    public final Object getCommands() {
+    public final Map<String, Object> getCommands() {
         return this.commands;
     }
 
-    public final Object getData() {
+    public final Map<String, Object> getData() {
         return this.data;
     }
 

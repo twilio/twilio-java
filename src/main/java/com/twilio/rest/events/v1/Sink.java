@@ -39,11 +39,11 @@ import lombok.ToString;
 @ToString
 public class Sink extends Resource {
 
-    private static final long serialVersionUID = 46637240967094L;
+    private static final long serialVersionUID = 81524362005938L;
 
     public static SinkCreator creator(
         final String description,
-        final Object sinkConfiguration,
+        final Map<String, Object> sinkConfiguration,
         final Sink.SinkType sinkType
     ) {
         return new SinkCreator(description, sinkConfiguration, sinkType);
@@ -115,7 +115,7 @@ public class Sink extends Resource {
     private final ZonedDateTime dateUpdated;
     private final String description;
     private final String sid;
-    private final Object sinkConfiguration;
+    private final Map<String, Object> sinkConfiguration;
     private final Sink.SinkType sinkType;
     private final Sink.Status status;
     private final URI url;
@@ -127,7 +127,10 @@ public class Sink extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("description") final String description,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("sink_configuration") final Object sinkConfiguration,
+        @JsonProperty("sink_configuration") final Map<
+            String,
+            Object
+        > sinkConfiguration,
         @JsonProperty("sink_type") final Sink.SinkType sinkType,
         @JsonProperty("status") final Sink.Status status,
         @JsonProperty("url") final URI url,
@@ -160,7 +163,7 @@ public class Sink extends Resource {
         return this.sid;
     }
 
-    public final Object getSinkConfiguration() {
+    public final Map<String, Object> getSinkConfiguration() {
         return this.sinkConfiguration;
     }
 

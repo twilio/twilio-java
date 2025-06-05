@@ -30,6 +30,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -38,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class SupportingDocument extends Resource {
 
-    private static final long serialVersionUID = 59974042886137L;
+    private static final long serialVersionUID = 89965125257195L;
 
     public static SupportingDocumentCreator creator(
         final String friendlyName,
@@ -112,9 +114,9 @@ public class SupportingDocument extends Resource {
     private final String mimeType;
     private final SupportingDocument.Status status;
     private final String failureReason;
-    private final List<Object> errors;
+    private final List<Map<String, Object>> errors;
     private final String type;
-    private final Object attributes;
+    private final Map<String, Object> attributes;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -127,9 +129,9 @@ public class SupportingDocument extends Resource {
         @JsonProperty("mime_type") final String mimeType,
         @JsonProperty("status") final SupportingDocument.Status status,
         @JsonProperty("failure_reason") final String failureReason,
-        @JsonProperty("errors") final List<Object> errors,
+        @JsonProperty("errors") final List<Map<String, Object>> errors,
         @JsonProperty("type") final String type,
-        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty("attributes") final Map<String, Object> attributes,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -172,7 +174,7 @@ public class SupportingDocument extends Resource {
         return this.failureReason;
     }
 
-    public final List<Object> getErrors() {
+    public final List<Map<String, Object>> getErrors() {
         return this.errors;
     }
 
@@ -180,7 +182,7 @@ public class SupportingDocument extends Resource {
         return this.type;
     }
 
-    public final Object getAttributes() {
+    public final Map<String, Object> getAttributes() {
         return this.attributes;
     }
 

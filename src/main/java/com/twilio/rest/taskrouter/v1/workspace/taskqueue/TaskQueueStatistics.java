@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class TaskQueueStatistics extends Resource {
 
-    private static final long serialVersionUID = 190604441305454L;
+    private static final long serialVersionUID = 273955433542749L;
 
     public static TaskQueueStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -90,8 +92,8 @@ public class TaskQueueStatistics extends Resource {
     }
 
     private final String accountSid;
-    private final Object cumulative;
-    private final Object realtime;
+    private final Map<String, Object> cumulative;
+    private final Map<String, Object> realtime;
     private final String taskQueueSid;
     private final String workspaceSid;
     private final URI url;
@@ -99,8 +101,8 @@ public class TaskQueueStatistics extends Resource {
     @JsonCreator
     private TaskQueueStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Object cumulative,
-        @JsonProperty("realtime") final Object realtime,
+        @JsonProperty("cumulative") final Map<String, Object> cumulative,
+        @JsonProperty("realtime") final Map<String, Object> realtime,
         @JsonProperty("task_queue_sid") final String taskQueueSid,
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url
@@ -117,11 +119,11 @@ public class TaskQueueStatistics extends Resource {
         return this.accountSid;
     }
 
-    public final Object getCumulative() {
+    public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
-    public final Object getRealtime() {
+    public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 

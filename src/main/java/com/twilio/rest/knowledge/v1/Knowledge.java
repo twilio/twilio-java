@@ -30,6 +30,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +42,7 @@ import lombok.ToString;
 @ToString
 public class Knowledge extends Resource {
 
-    private static final long serialVersionUID = 209519777042711L;
+    private static final long serialVersionUID = 142704301669097L;
 
     @ToString
     public static class KnowledgeV1ServiceCreatePolicyRequest {
@@ -67,7 +69,7 @@ public class Knowledge extends Resource {
         @JsonProperty("policy_details")
         @Getter
         @Setter
-        private Object policyDetails;
+        private Map<String, Object> policyDetails;
 
         public String getPolicyDetails() {
             return Converter.mapToJson(policyDetails);
@@ -103,7 +105,7 @@ public class Knowledge extends Resource {
         @JsonProperty("knowledge_source_details")
         @Getter
         @Setter
-        private Object knowledgeSourceDetails;
+        private Map<String, Object> knowledgeSourceDetails;
 
         public String getKnowledgeSourceDetails() {
             return Converter.mapToJson(knowledgeSourceDetails);
@@ -159,7 +161,7 @@ public class Knowledge extends Resource {
         @JsonProperty("knowledge_source_details")
         @Getter
         @Setter
-        private Object knowledgeSourceDetails;
+        private Map<String, Object> knowledgeSourceDetails;
 
         public String getKnowledgeSourceDetails() {
             return Converter.mapToJson(knowledgeSourceDetails);
@@ -282,7 +284,7 @@ public class Knowledge extends Resource {
     private final String description;
     private final String id;
     private final String accountSid;
-    private final Object knowledgeSourceDetails;
+    private final Map<String, Object> knowledgeSourceDetails;
     private final String name;
     private final String status;
     private final String type;
@@ -296,9 +298,10 @@ public class Knowledge extends Resource {
         @JsonProperty("description") final String description,
         @JsonProperty("id") final String id,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "knowledge_source_details"
-        ) final Object knowledgeSourceDetails,
+        @JsonProperty("knowledge_source_details") final Map<
+            String,
+            Object
+        > knowledgeSourceDetails,
         @JsonProperty("name") final String name,
         @JsonProperty("status") final String status,
         @JsonProperty("type") final String type,
@@ -332,7 +335,7 @@ public class Knowledge extends Resource {
         return this.accountSid;
     }
 
-    public final Object getKnowledgeSourceDetails() {
+    public final Map<String, Object> getKnowledgeSourceDetails() {
         return this.knowledgeSourceDetails;
     }
 

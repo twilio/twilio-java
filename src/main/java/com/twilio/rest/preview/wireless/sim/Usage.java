@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Usage extends Resource {
 
-    private static final long serialVersionUID = 121951253587869L;
+    private static final long serialVersionUID = 23834274390782L;
 
     public static UsageFetcher fetcher(final String pathSimSid) {
         return new UsageFetcher(pathSimSid);
@@ -86,11 +88,11 @@ public class Usage extends Resource {
     private final String simSid;
     private final String simUniqueName;
     private final String accountSid;
-    private final Object period;
-    private final Object commandsUsage;
-    private final Object commandsCosts;
-    private final Object dataUsage;
-    private final Object dataCosts;
+    private final Map<String, Object> period;
+    private final Map<String, Object> commandsUsage;
+    private final Map<String, Object> commandsCosts;
+    private final Map<String, Object> dataUsage;
+    private final Map<String, Object> dataCosts;
     private final URI url;
 
     @JsonCreator
@@ -98,11 +100,11 @@ public class Usage extends Resource {
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("sim_unique_name") final String simUniqueName,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("period") final Object period,
-        @JsonProperty("commands_usage") final Object commandsUsage,
-        @JsonProperty("commands_costs") final Object commandsCosts,
-        @JsonProperty("data_usage") final Object dataUsage,
-        @JsonProperty("data_costs") final Object dataCosts,
+        @JsonProperty("period") final Map<String, Object> period,
+        @JsonProperty("commands_usage") final Map<String, Object> commandsUsage,
+        @JsonProperty("commands_costs") final Map<String, Object> commandsCosts,
+        @JsonProperty("data_usage") final Map<String, Object> dataUsage,
+        @JsonProperty("data_costs") final Map<String, Object> dataCosts,
         @JsonProperty("url") final URI url
     ) {
         this.simSid = simSid;
@@ -128,23 +130,23 @@ public class Usage extends Resource {
         return this.accountSid;
     }
 
-    public final Object getPeriod() {
+    public final Map<String, Object> getPeriod() {
         return this.period;
     }
 
-    public final Object getCommandsUsage() {
+    public final Map<String, Object> getCommandsUsage() {
         return this.commandsUsage;
     }
 
-    public final Object getCommandsCosts() {
+    public final Map<String, Object> getCommandsCosts() {
         return this.commandsCosts;
     }
 
-    public final Object getDataUsage() {
+    public final Map<String, Object> getDataUsage() {
         return this.dataUsage;
     }
 
-    public final Object getDataCosts() {
+    public final Map<String, Object> getDataCosts() {
         return this.dataCosts;
     }
 

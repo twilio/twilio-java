@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class InsightsSettingsComment extends Resource {
 
-    private static final long serialVersionUID = 68958338849583L;
+    private static final long serialVersionUID = 241533672645071L;
 
     public static InsightsSettingsCommentFetcher fetcher() {
         return new InsightsSettingsCommentFetcher();
@@ -84,13 +86,13 @@ public class InsightsSettingsComment extends Resource {
     }
 
     private final String accountSid;
-    private final Object comments;
+    private final Map<String, Object> comments;
     private final URI url;
 
     @JsonCreator
     private InsightsSettingsComment(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("comments") final Object comments,
+        @JsonProperty("comments") final Map<String, Object> comments,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -102,7 +104,7 @@ public class InsightsSettingsComment extends Resource {
         return this.accountSid;
     }
 
-    public final Object getComments() {
+    public final Map<String, Object> getComments() {
         return this.comments;
     }
 

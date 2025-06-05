@@ -31,6 +31,8 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -39,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortIn extends Resource {
 
-    private static final long serialVersionUID = 7577870188029L;
+    private static final long serialVersionUID = 79710628855525L;
 
     public static PortingPortInCreator creator() {
         return new PortingPortInCreator();
@@ -120,8 +122,8 @@ public class PortingPortIn extends Resource {
     private final String targetPortInTimeRangeStart;
     private final String targetPortInTimeRangeEnd;
     private final String portInRequestStatus;
-    private final Object losingCarrierInformation;
-    private final List<Object> phoneNumbers;
+    private final Map<String, Object> losingCarrierInformation;
+    private final List<Map<String, Object>> phoneNumbers;
     private final List<String> documents;
     private final ZonedDateTime dateCreated;
 
@@ -143,10 +145,13 @@ public class PortingPortIn extends Resource {
         @JsonProperty(
             "port_in_request_status"
         ) final String portInRequestStatus,
-        @JsonProperty(
-            "losing_carrier_information"
-        ) final Object losingCarrierInformation,
-        @JsonProperty("phone_numbers") final List<Object> phoneNumbers,
+        @JsonProperty("losing_carrier_information") final Map<
+            String,
+            Object
+        > losingCarrierInformation,
+        @JsonProperty("phone_numbers") final List<
+            Map<String, Object>
+        > phoneNumbers,
         @JsonProperty("documents") final List<String> documents,
         @JsonProperty("date_created") final String dateCreated
     ) {
@@ -197,11 +202,11 @@ public class PortingPortIn extends Resource {
         return this.portInRequestStatus;
     }
 
-    public final Object getLosingCarrierInformation() {
+    public final Map<String, Object> getLosingCarrierInformation() {
         return this.losingCarrierInformation;
     }
 
-    public final List<Object> getPhoneNumbers() {
+    public final List<Map<String, Object>> getPhoneNumbers() {
         return this.phoneNumbers;
     }
 

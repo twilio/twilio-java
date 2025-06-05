@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 265382632972175L;
+    private static final long serialVersionUID = 141589309941045L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -83,24 +85,24 @@ public class PhoneNumber extends Resource {
         }
     }
 
-    private final Object callerName;
+    private final Map<String, Object> callerName;
     private final String countryCode;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
-    private final Object carrier;
-    private final Object addOns;
+    private final Map<String, Object> carrier;
+    private final Map<String, Object> addOns;
     private final URI url;
 
     @JsonCreator
     private PhoneNumber(
-        @JsonProperty("caller_name") final Object callerName,
+        @JsonProperty("caller_name") final Map<String, Object> callerName,
         @JsonProperty("country_code") final String countryCode,
         @JsonProperty(
             "phone_number"
         ) final com.twilio.type.PhoneNumber phoneNumber,
         @JsonProperty("national_format") final String nationalFormat,
-        @JsonProperty("carrier") final Object carrier,
-        @JsonProperty("add_ons") final Object addOns,
+        @JsonProperty("carrier") final Map<String, Object> carrier,
+        @JsonProperty("add_ons") final Map<String, Object> addOns,
         @JsonProperty("url") final URI url
     ) {
         this.callerName = callerName;
@@ -112,7 +114,7 @@ public class PhoneNumber extends Resource {
         this.url = url;
     }
 
-    public final Object getCallerName() {
+    public final Map<String, Object> getCallerName() {
         return this.callerName;
     }
 
@@ -128,11 +130,11 @@ public class PhoneNumber extends Resource {
         return this.nationalFormat;
     }
 
-    public final Object getCarrier() {
+    public final Map<String, Object> getCarrier() {
         return this.carrier;
     }
 
-    public final Object getAddOns() {
+    public final Map<String, Object> getAddOns() {
         return this.addOns;
     }
 

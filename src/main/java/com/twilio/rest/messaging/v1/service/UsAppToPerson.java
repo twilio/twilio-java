@@ -29,6 +29,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class UsAppToPerson extends Resource {
 
-    private static final long serialVersionUID = 46330375606401L;
+    private static final long serialVersionUID = 1672467414686L;
 
     public static UsAppToPersonCreator creator(
         final String pathMessagingServiceSid,
@@ -163,7 +165,7 @@ public class UsAppToPerson extends Resource {
     private final String campaignStatus;
     private final String campaignId;
     private final Boolean isExternallyRegistered;
-    private final Object rateLimits;
+    private final Map<String, Object> rateLimits;
     private final String messageFlow;
     private final String optInMessage;
     private final String optOutMessage;
@@ -175,7 +177,7 @@ public class UsAppToPerson extends Resource {
     private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Boolean mock;
-    private final List<Object> errors;
+    private final List<Map<String, Object>> errors;
 
     @JsonCreator
     private UsAppToPerson(
@@ -200,7 +202,7 @@ public class UsAppToPerson extends Resource {
         @JsonProperty(
             "is_externally_registered"
         ) final Boolean isExternallyRegistered,
-        @JsonProperty("rate_limits") final Object rateLimits,
+        @JsonProperty("rate_limits") final Map<String, Object> rateLimits,
         @JsonProperty("message_flow") final String messageFlow,
         @JsonProperty("opt_in_message") final String optInMessage,
         @JsonProperty("opt_out_message") final String optOutMessage,
@@ -212,7 +214,7 @@ public class UsAppToPerson extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
         @JsonProperty("mock") final Boolean mock,
-        @JsonProperty("errors") final List<Object> errors
+        @JsonProperty("errors") final List<Map<String, Object>> errors
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -304,7 +306,7 @@ public class UsAppToPerson extends Resource {
         return this.isExternallyRegistered;
     }
 
-    public final Object getRateLimits() {
+    public final Map<String, Object> getRateLimits() {
         return this.rateLimits;
     }
 
@@ -352,7 +354,7 @@ public class UsAppToPerson extends Resource {
         return this.mock;
     }
 
-    public final List<Object> getErrors() {
+    public final List<Map<String, Object>> getErrors() {
         return this.errors;
     }
 

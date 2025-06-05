@@ -26,25 +26,29 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class InteractionChannelInviteCreator
     extends Creator<InteractionChannelInvite> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Object routing;
+    private Map<String, Object> routing;
 
     public InteractionChannelInviteCreator(
         final String pathInteractionSid,
         final String pathChannelSid,
-        final Object routing
+        final Map<String, Object> routing
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
         this.routing = routing;
     }
 
-    public InteractionChannelInviteCreator setRouting(final Object routing) {
+    public InteractionChannelInviteCreator setRouting(
+        final Map<String, Object> routing
+    ) {
         this.routing = routing;
         return this;
     }

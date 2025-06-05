@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Execution extends Resource {
 
-    private static final long serialVersionUID = 21663033797562L;
+    private static final long serialVersionUID = 276284150060496L;
 
     public static ExecutionCreator creator(
         final String pathFlowSid,
@@ -122,7 +122,7 @@ public class Execution extends Resource {
     private final String accountSid;
     private final String flowSid;
     private final String contactChannelAddress;
-    private final Object context;
+    private final Map<String, Object> context;
     private final Execution.Status status;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -137,7 +137,7 @@ public class Execution extends Resource {
         @JsonProperty(
             "contact_channel_address"
         ) final String contactChannelAddress,
-        @JsonProperty("context") final Object context,
+        @JsonProperty("context") final Map<String, Object> context,
         @JsonProperty("status") final Execution.Status status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -172,7 +172,7 @@ public class Execution extends Resource {
         return this.contactChannelAddress;
     }
 
-    public final Object getContext() {
+    public final Map<String, Object> getContext() {
         return this.context;
     }
 

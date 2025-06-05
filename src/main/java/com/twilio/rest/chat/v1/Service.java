@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 110917515886997L;
+    private static final long serialVersionUID = 258386577185944L;
 
     public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
@@ -116,13 +116,13 @@ public class Service extends Resource {
     private final Boolean reachabilityEnabled;
     private final Integer typingIndicatorTimeout;
     private final Integer consumptionReportInterval;
-    private final Object limits;
-    private final Object webhooks;
+    private final Map<String, Object> limits;
+    private final Map<String, Object> webhooks;
     private final String preWebhookUrl;
     private final String postWebhookUrl;
     private final String webhookMethod;
     private final List<String> webhookFilters;
-    private final Object notifications;
+    private final Map<String, Object> notifications;
     private final URI url;
     private final Map<String, String> links;
 
@@ -150,13 +150,13 @@ public class Service extends Resource {
         @JsonProperty(
             "consumption_report_interval"
         ) final Integer consumptionReportInterval,
-        @JsonProperty("limits") final Object limits,
-        @JsonProperty("webhooks") final Object webhooks,
+        @JsonProperty("limits") final Map<String, Object> limits,
+        @JsonProperty("webhooks") final Map<String, Object> webhooks,
         @JsonProperty("pre_webhook_url") final String preWebhookUrl,
         @JsonProperty("post_webhook_url") final String postWebhookUrl,
         @JsonProperty("webhook_method") final String webhookMethod,
         @JsonProperty("webhook_filters") final List<String> webhookFilters,
-        @JsonProperty("notifications") final Object notifications,
+        @JsonProperty("notifications") final Map<String, Object> notifications,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -231,11 +231,11 @@ public class Service extends Resource {
         return this.consumptionReportInterval;
     }
 
-    public final Object getLimits() {
+    public final Map<String, Object> getLimits() {
         return this.limits;
     }
 
-    public final Object getWebhooks() {
+    public final Map<String, Object> getWebhooks() {
         return this.webhooks;
     }
 
@@ -255,7 +255,7 @@ public class Service extends Resource {
         return this.webhookFilters;
     }
 
-    public final Object getNotifications() {
+    public final Map<String, Object> getNotifications() {
         return this.notifications;
     }
 

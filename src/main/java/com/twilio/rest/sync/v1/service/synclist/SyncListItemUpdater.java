@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
 
 public class SyncListItemUpdater extends Updater<SyncListItem> {
 
@@ -32,7 +33,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     private String pathListSid;
     private Integer pathIndex;
     private String ifMatch;
-    private Object data;
+    private Map<String, Object> data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
@@ -52,7 +53,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
         return this;
     }
 
-    public SyncListItemUpdater setData(final Object data) {
+    public SyncListItemUpdater setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }

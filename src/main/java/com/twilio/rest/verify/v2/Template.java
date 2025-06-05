@@ -26,6 +26,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Template extends Resource {
 
-    private static final long serialVersionUID = 65509431803046L;
+    private static final long serialVersionUID = 229000530855919L;
 
     public static TemplateReader reader() {
         return new TemplateReader();
@@ -87,7 +89,7 @@ public class Template extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final List<String> channels;
-    private final Object translations;
+    private final Map<String, Object> translations;
 
     @JsonCreator
     private Template(
@@ -95,7 +97,7 @@ public class Template extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("channels") final List<String> channels,
-        @JsonProperty("translations") final Object translations
+        @JsonProperty("translations") final Map<String, Object> translations
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -120,7 +122,7 @@ public class Template extends Resource {
         return this.channels;
     }
 
-    public final Object getTranslations() {
+    public final Map<String, Object> getTranslations() {
         return this.translations;
     }
 

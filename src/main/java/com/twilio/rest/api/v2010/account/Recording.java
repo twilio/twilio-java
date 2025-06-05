@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Recording extends Resource {
 
-    private static final long serialVersionUID = 4350436652972L;
+    private static final long serialVersionUID = 8927692317007L;
 
     public static RecordingDeleter deleter(final String pathSid) {
         return new RecordingDeleter(pathSid);
@@ -130,7 +130,7 @@ public class Recording extends Resource {
     private final Recording.Source source;
     private final Integer errorCode;
     private final String uri;
-    private final Object encryptionDetails;
+    private final Map<String, Object> encryptionDetails;
     private final Map<String, String> subresourceUris;
     private final URI mediaUrl;
 
@@ -152,7 +152,10 @@ public class Recording extends Resource {
         @JsonProperty("source") final Recording.Source source,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("uri") final String uri,
-        @JsonProperty("encryption_details") final Object encryptionDetails,
+        @JsonProperty("encryption_details") final Map<
+            String,
+            Object
+        > encryptionDetails,
         @JsonProperty("subresource_uris") final Map<
             String,
             String
@@ -244,7 +247,7 @@ public class Recording extends Resource {
         return this.uri;
     }
 
-    public final Object getEncryptionDetails() {
+    public final Map<String, Object> getEncryptionDetails() {
         return this.encryptionDetails;
     }
 

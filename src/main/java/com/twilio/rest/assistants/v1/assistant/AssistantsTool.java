@@ -27,6 +27,8 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class AssistantsTool extends Resource {
 
-    private static final long serialVersionUID = 45363096376321L;
+    private static final long serialVersionUID = 65943663776562L;
 
     public static AssistantsToolCreator creator(
         final String pathAssistantId,
@@ -102,7 +104,7 @@ public class AssistantsTool extends Resource {
     private final String description;
     private final Boolean enabled;
     private final String id;
-    private final Object meta;
+    private final Map<String, Object> meta;
     private final String name;
     private final Boolean requiresAuth;
     private final String type;
@@ -116,7 +118,7 @@ public class AssistantsTool extends Resource {
         @JsonProperty("description") final String description,
         @JsonProperty("enabled") final Boolean enabled,
         @JsonProperty("id") final String id,
-        @JsonProperty("meta") final Object meta,
+        @JsonProperty("meta") final Map<String, Object> meta,
         @JsonProperty("name") final String name,
         @JsonProperty("requires_auth") final Boolean requiresAuth,
         @JsonProperty("type") final String type,
@@ -153,7 +155,7 @@ public class AssistantsTool extends Resource {
         return this.id;
     }
 
-    public final Object getMeta() {
+    public final Map<String, Object> getMeta() {
         return this.meta;
     }
 

@@ -86,7 +86,7 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
             request.addPostParam("FriendlyName", friendlyName);
         }
         if (policy != null) {
-            request.addPostParam("Policy", Converter.mapToJson(policy));
+            request.addPostParam("Policy", Converter.objectToJson(policy));
         }
     }
 }

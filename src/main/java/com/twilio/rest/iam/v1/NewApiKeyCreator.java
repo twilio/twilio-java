@@ -108,7 +108,7 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
             request.addPostParam("KeyType", keyType.toString());
         }
         if (policy != null) {
-            request.addPostParam("Policy", Converter.mapToJson(policy));
+            request.addPostParam("Policy", Converter.objectToJson(policy));
         }
     }
 }

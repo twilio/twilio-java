@@ -126,7 +126,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
         if (configuration != null) {
             request.addPostParam(
                 "Configuration",
-                Converter.mapToJson(configuration)
+                Converter.objectToJson(configuration)
             );
         }
         if (uniqueName != null) {

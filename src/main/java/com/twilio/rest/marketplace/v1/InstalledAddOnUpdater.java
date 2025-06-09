@@ -88,7 +88,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         if (configuration != null) {
             request.addPostParam(
                 "Configuration",
-                Converter.mapToJson(configuration)
+                Converter.objectToJson(configuration)
             );
         }
         if (uniqueName != null) {

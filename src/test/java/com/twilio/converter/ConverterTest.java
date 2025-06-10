@@ -2,8 +2,6 @@ package com.twilio.converter;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.Assert;
@@ -61,6 +59,48 @@ public class ConverterTest {
     public void testAnyTypeIntArray() {
         Container c = new Container(new int[]{1, 2, 3});
         Assert.assertEquals("[1, 2, 3]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeLongArray() {
+        Container c = new Container(new long[]{1L, 2L, 3L});
+        Assert.assertEquals("[1, 2, 3]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeDoubleArray() {
+        Container c = new Container(new double[]{1.1, 2.2, 3.3});
+        Assert.assertEquals("[1.1, 2.2, 3.3]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeFloatArray() {
+        Container c = new Container(new float[]{1.1f, 2.2f, 3.3f});
+        Assert.assertEquals("[1.1, 2.2, 3.3]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeBooleanArray() {
+        Container c = new Container(new boolean[]{true, false});
+        Assert.assertEquals("[true, false]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeByteArray() {
+        Container c = new Container(new byte[]{1, 2, 3});
+        Assert.assertEquals("[1, 2, 3]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeShortArray() {
+        Container c = new Container(new short[]{1, 2, 3});
+        Assert.assertEquals("[1, 2, 3]", c.getEmails());
+    }
+
+    @Test
+    public void testAnyTypeCharArray() {
+        Container c = new Container(new char[]{'a', 'b', 'c'});
+        Assert.assertEquals("[a, b, c]", c.getEmails());
     }
 
     @Test

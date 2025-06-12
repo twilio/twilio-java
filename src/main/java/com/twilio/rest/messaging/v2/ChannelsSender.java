@@ -31,8 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +56,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("verification_method")
         @Getter
         @Setter
-        private ChannelsSender.VerificationMethodEnum verificationMethod;
+        private VerificationMethodEnum verificationMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("verification_code")
@@ -96,7 +94,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("callback_method")
         @Getter
         @Setter
-        private ChannelsSender.CallbackMethodEnum callbackMethod;
+        private CallbackMethodEnum callbackMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("fallback_url")
@@ -108,7 +106,7 @@ public class ChannelsSender extends Resource {
         @JsonProperty("fallback_method")
         @Getter
         @Setter
-        private ChannelsSender.FallbackMethodEnum fallbackMethod;
+        private FallbackMethodEnum fallbackMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status_callback_url")
@@ -164,10 +162,10 @@ public class ChannelsSender extends Resource {
         @JsonProperty("emails")
         @Getter
         @Setter
-        private Map<String, Object> emails;
+        private Object emails;
 
         public String getEmails() {
-            return Converter.mapToJson(emails);
+            return Converter.objectToJson(emails);
         }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -186,10 +184,10 @@ public class ChannelsSender extends Resource {
         @JsonProperty("websites")
         @Getter
         @Setter
-        private Map<String, Object> websites;
+        private Object websites;
 
         public String getWebsites() {
-            return Converter.mapToJson(websites);
+            return Converter.objectToJson(websites);
         }
 
         public static MessagingV2ChannelsSenderProfile fromJson(

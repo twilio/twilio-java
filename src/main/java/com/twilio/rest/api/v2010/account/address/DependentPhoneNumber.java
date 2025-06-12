@@ -21,14 +21,17 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class DependentPhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 224283084949736L;
+    private static final long serialVersionUID = 279811089031324L;
 
     public static DependentPhoneNumberReader reader(
         final String pathAddressSid
@@ -104,14 +107,14 @@ public class DependentPhoneNumber extends Resource {
     private final HttpMethod voiceFallbackMethod;
     private final URI voiceFallbackUrl;
     private final Boolean voiceCallerIdLookup;
-    private final String dateCreated;
-    private final String dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final HttpMethod smsFallbackMethod;
     private final URI smsFallbackUrl;
     private final HttpMethod smsMethod;
     private final URI smsUrl;
     private final DependentPhoneNumber.AddressRequirement addressRequirements;
-    private final PhoneNumberCapabilities capabilities;
+    private final Map<String, Object> capabilities;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final String apiVersion;
@@ -148,9 +151,7 @@ public class DependentPhoneNumber extends Resource {
         @JsonProperty(
             "address_requirements"
         ) final DependentPhoneNumber.AddressRequirement addressRequirements,
-        @JsonProperty(
-            "capabilities"
-        ) final PhoneNumberCapabilities capabilities,
+        @JsonProperty("capabilities") final Map<String, Object> capabilities,
         @JsonProperty("status_callback") final URI statusCallback,
         @JsonProperty(
             "status_callback_method"
@@ -174,8 +175,8 @@ public class DependentPhoneNumber extends Resource {
         this.voiceFallbackMethod = voiceFallbackMethod;
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.smsFallbackMethod = smsFallbackMethod;
         this.smsFallbackUrl = smsFallbackUrl;
         this.smsMethod = smsMethod;
@@ -229,11 +230,11 @@ public class DependentPhoneNumber extends Resource {
         return this.voiceCallerIdLookup;
     }
 
-    public final String getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
-    public final String getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -257,7 +258,7 @@ public class DependentPhoneNumber extends Resource {
         return this.addressRequirements;
     }
 
-    public final PhoneNumberCapabilities getCapabilities() {
+    public final Map<String, Object> getCapabilities() {
         return this.capabilities;
     }
 

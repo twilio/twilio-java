@@ -61,6 +61,7 @@ public class Conference extends TwiML {
 
     public enum Region {
         US1("us1"),
+        US2("us2"),
         IE1("ie1"),
         SG1("sg1"),
         BR1("br1"),

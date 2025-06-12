@@ -1,6 +1,26 @@
 twilio-java changelog
 =====================
 
+[2025-06-12] Version 10.9.2
+---------------------------
+**Library - Chore**
+- [PR #858](https://github.com/twilio/twilio-java/pull/858): handle any Type with object datatype. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Change DependentPhoneNumber `capabilities` type `object` and `date_created`, `date_updated` to `date_time<rfc2822>`
+- Updated the `Default` value from 0 to 1 in the Recordings Resource `channels` property
+
+**Serverless**
+- Update `ienum` type level in Logs api
+
+**Verify**
+- Update Channel list in Verify Attempst API
+- Update `ienum` type for Conversion_Status in Verify Attempts API
+
+**Twiml**
+- Add `us2` to the list of supported values for the region attribute in the `<Conference>` TwiML noun.
+
+
 [2025-05-29] Version 10.9.1
 ---------------------------
 **Library - Chore**

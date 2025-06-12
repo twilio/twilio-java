@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlPhoneme}
@@ -18,7 +18,7 @@ public class SsmlPhonemeTest {
     public void testElementWithParams() {
         SsmlPhoneme elem = new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>",
             elem.toXml()
@@ -29,7 +29,7 @@ public class SsmlPhonemeTest {
     public void testXmlAttributesDeserialization() {
         final SsmlPhoneme elem = new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlPhoneme.Builder.fromXml("<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>").build().toXml(),
             elem.toXml()
         );

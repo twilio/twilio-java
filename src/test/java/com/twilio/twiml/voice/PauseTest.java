@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Pause}
@@ -19,7 +19,7 @@ public class PauseTest {
     public void testEmptyElement() {
         Pause elem = new Pause.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pause/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class PauseTest {
     public void testEmptyElementUrl() {
         Pause elem = new Pause.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CPause%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CPause%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Pause elem = new Pause.Builder().length(1).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pause length=\"1\"/>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class PauseTest {
     public void testElementWithExtraAttributes() {
         Pause elem = new Pause.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pause a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -63,7 +63,7 @@ public class PauseTest {
 
         Pause elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pause>" +
             "Hey no tags!" +
@@ -83,7 +83,7 @@ public class PauseTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pause>" +
             "before" +
@@ -103,7 +103,7 @@ public class PauseTest {
         Pause.Builder builder = new Pause.Builder();
         Pause elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pause>" +
             "<genericTag>" +
@@ -118,7 +118,7 @@ public class PauseTest {
     public void testXmlAttributesDeserialization() {
         final Pause elem = new Pause.Builder().length(1).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Pause.Builder.fromXml("<Pause length=\"1\"/>").build().toXml(),
             elem.toXml()
         );

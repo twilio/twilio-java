@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Echo}
@@ -19,7 +19,7 @@ public class EchoTest {
     public void testEmptyElement() {
         Echo elem = new Echo.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Echo/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class EchoTest {
     public void testEmptyElementUrl() {
         Echo elem = new Echo.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CEcho%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CEcho%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithExtraAttributes() {
         Echo elem = new Echo.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Echo a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -52,7 +52,7 @@ public class EchoTest {
 
         Echo elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Echo>" +
             "Hey no tags!" +
@@ -72,7 +72,7 @@ public class EchoTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Echo>" +
             "before" +
@@ -92,7 +92,7 @@ public class EchoTest {
         Echo.Builder builder = new Echo.Builder();
         Echo elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Echo>" +
             "<genericTag>" +
@@ -107,7 +107,7 @@ public class EchoTest {
     public void testXmlAttributesDeserialization() {
         final Echo elem = new Echo.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             Echo.Builder.fromXml("<Echo/>").build().toXml(),
             elem.toXml()
         );

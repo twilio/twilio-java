@@ -30,17 +30,11 @@ import com.twilio.rest.Domains;
 public class KnowledgeReader extends Reader<Knowledge> {
 
     private Integer pageSize;
-    private String tags;
 
     public KnowledgeReader() {}
 
     public KnowledgeReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
-        return this;
-    }
-
-    public KnowledgeReader setTags(final String tags) {
-        this.tags = tags;
         return this;
     }
 
@@ -132,9 +126,6 @@ public class KnowledgeReader extends Reader<Knowledge> {
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
-        }
-        if (tags != null) {
-            request.addQueryParam("Tags", tags);
         }
 
         if (getPageSize() != null) {

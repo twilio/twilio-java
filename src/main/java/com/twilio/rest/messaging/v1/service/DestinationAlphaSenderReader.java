@@ -31,18 +31,10 @@ public class DestinationAlphaSenderReader
     extends Reader<DestinationAlphaSender> {
 
     private String pathServiceSid;
-    private String isoCountryCode;
     private Long pageSize;
 
     public DestinationAlphaSenderReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
-    }
-
-    public DestinationAlphaSenderReader setIsoCountryCode(
-        final String isoCountryCode
-    ) {
-        this.isoCountryCode = isoCountryCode;
-        return this;
     }
 
     public DestinationAlphaSenderReader setPageSize(final Long pageSize) {
@@ -145,9 +137,6 @@ public class DestinationAlphaSenderReader
     }
 
     private void addQueryParams(final Request request) {
-        if (isoCountryCode != null) {
-            request.addQueryParam("IsoCountryCode", isoCountryCode);
-        }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());
         }

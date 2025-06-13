@@ -26,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class InteractionChannelParticipantCreator
     extends Creator<InteractionChannelParticipant> {
@@ -35,14 +33,14 @@ public class InteractionChannelParticipantCreator
     private String pathInteractionSid;
     private String pathChannelSid;
     private InteractionChannelParticipant.Type type;
-    private Map<String, Object> mediaProperties;
-    private Map<String, Object> routingProperties;
+    private Object mediaProperties;
+    private Object routingProperties;
 
     public InteractionChannelParticipantCreator(
         final String pathInteractionSid,
         final String pathChannelSid,
         final InteractionChannelParticipant.Type type,
-        final Map<String, Object> mediaProperties
+        final Object mediaProperties
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
@@ -58,14 +56,14 @@ public class InteractionChannelParticipantCreator
     }
 
     public InteractionChannelParticipantCreator setMediaProperties(
-        final Map<String, Object> mediaProperties
+        final Object mediaProperties
     ) {
         this.mediaProperties = mediaProperties;
         return this;
     }
 
     public InteractionChannelParticipantCreator setRoutingProperties(
-        final Map<String, Object> routingProperties
+        final Object routingProperties
     ) {
         this.routingProperties = routingProperties;
         return this;
@@ -132,13 +130,13 @@ public class InteractionChannelParticipantCreator
         if (mediaProperties != null) {
             request.addPostParam(
                 "MediaProperties",
-                Converter.mapToJson(mediaProperties)
+                Converter.objectToJson(mediaProperties)
             );
         }
         if (routingProperties != null) {
             request.addPostParam(
                 "RoutingProperties",
-                Converter.mapToJson(routingProperties)
+                Converter.objectToJson(routingProperties)
             );
         }
     }

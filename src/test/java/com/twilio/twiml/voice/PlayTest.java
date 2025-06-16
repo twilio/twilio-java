@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -20,7 +20,7 @@ public class PlayTest {
     public void testElementWithParams() {
         Play elem = new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>",
             elem.toXml()
@@ -31,7 +31,7 @@ public class PlayTest {
     public void testXmlAttributesDeserialization() {
         final Play elem = new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Play.Builder.fromXml("<Play digits=\"digits\" loop=\"1\">https://example.com</Play>").build().toXml(),
             elem.toXml()
         );

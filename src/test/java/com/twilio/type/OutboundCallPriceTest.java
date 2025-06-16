@@ -1,9 +1,8 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.io.IOException;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link OutboundCallPrice}.
@@ -18,7 +17,7 @@ public class OutboundCallPriceTest extends TypeTest {
             "}";
 
         OutboundCallPrice ocp = fromJson(json, OutboundCallPrice.class);
-        Assert.assertEquals(1.00, ocp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, ocp.getCurrentPrice(), 0.00);
+        assertEquals(1.00, ocp.getBasePrice(), 0.00);
+        assertEquals(2.00, ocp.getCurrentPrice(), 0.00);
     }
 }

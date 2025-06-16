@@ -1,12 +1,16 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.fail;
 
 public class SubscribeRuleTest extends TypeTest {
     @Test
@@ -37,10 +41,10 @@ public class SubscribeRuleTest extends TypeTest {
                 "}";
 
         SubscribeRule r = fromJson(json, SubscribeRule.class);
-        Assert.assertEquals(SubscribeRule.Type.INCLUDE, r.getType());
-        Assert.assertEquals(true, r.getAll());
+        assertEquals(SubscribeRule.Type.INCLUDE, r.getType());
+        assertEquals(true, r.getAll());
 
-        Assert.assertTrue(convertsToAndFromJson(r, SubscribeRule.class));
+        assertTrue(convertsToAndFromJson(r, SubscribeRule.class));
     }
 
     @Test
@@ -54,13 +58,13 @@ public class SubscribeRuleTest extends TypeTest {
                 "}";
 
         SubscribeRule r = fromJson(json, SubscribeRule.class);
-        Assert.assertEquals(SubscribeRule.Type.EXCLUDE, r.getType());
-        Assert.assertEquals(SubscribeRule.Kind.VIDEO, r.getKind());
-        Assert.assertEquals("alice", r.getPublisher());
-        Assert.assertEquals(SubscribeRule.Priority.STANDARD, r.getPriority());
-        Assert.assertNull(r.getAll());
+        assertEquals(SubscribeRule.Type.EXCLUDE, r.getType());
+        assertEquals(SubscribeRule.Kind.VIDEO, r.getKind());
+        assertEquals("alice", r.getPublisher());
+        assertEquals(SubscribeRule.Priority.STANDARD, r.getPriority());
+        assertNull(r.getAll());
 
-        Assert.assertTrue(convertsToAndFromJson(r, SubscribeRule.class));
+        assertTrue(convertsToAndFromJson(r, SubscribeRule.class));
     }
 
     @Test
@@ -79,6 +83,6 @@ public class SubscribeRuleTest extends TypeTest {
                 allAudio, presenterVideo
         ));
 
-        Assert.assertTrue(convertsToAndFromJson(update, SubscribeRulesUpdate.class));
+        assertTrue(convertsToAndFromJson(update, SubscribeRulesUpdate.class));
     }
 }

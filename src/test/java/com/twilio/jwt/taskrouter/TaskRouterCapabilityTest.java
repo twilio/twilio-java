@@ -1,5 +1,8 @@
 package com.twilio.jwt.taskrouter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.security.Keys;
 import java.io.IOException;
@@ -12,14 +15,14 @@ import java.util.Map;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import com.twilio.http.HttpMethod;
 import com.twilio.jwt.Jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link TaskRouterCapability}.
@@ -64,11 +67,11 @@ public class TaskRouterCapabilityTest {
                 .build();
         Claims claims = getClaims(jwt);
 
-        Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
-        Assert.assertEquals(WORKER_SID, claims.get("channel"));
-        Assert.assertEquals(ACCOUNT_SID, claims.get("account_sid"));
-        Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
-        Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
+        assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
+        assertEquals(WORKER_SID, claims.get("channel"));
+        assertEquals(ACCOUNT_SID, claims.get("account_sid"));
+        assertEquals(ACCOUNT_SID, claims.getIssuer());
+        assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
     @Test
@@ -103,14 +106,14 @@ public class TaskRouterCapabilityTest {
                         .build();
         final Claims claims = getClaims(jwt);
 
-        Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
-        Assert.assertEquals(WORKER_SID, claims.get("channel"));
-        Assert.assertEquals(ACCOUNT_SID, claims.get("account_sid"));
-        Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
-        Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
+        assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
+        assertEquals(WORKER_SID, claims.get("channel"));
+        assertEquals(ACCOUNT_SID, claims.get("account_sid"));
+        assertEquals(ACCOUNT_SID, claims.getIssuer());
+        assertTrue(claims.getExpiration().getTime() > new Date().getTime());
 
         final List<Policy> claimedPolicies = (List<Policy>) claims.get("policies");
         final int connectionPolicies = 2;
-        Assert.assertEquals(policies.size() + connectionPolicies, claimedPolicies.size());
+        assertEquals(policies.size() + connectionPolicies, claimedPolicies.size());
     }
 }

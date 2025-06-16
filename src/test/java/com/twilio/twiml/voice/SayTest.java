@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Say}
@@ -19,7 +19,7 @@ public class SayTest {
     public void testEmptyElement() {
         Say elem = new Say.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SayTest {
     public void testEmptyElementUrl() {
         Say elem = new Say.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CSay%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CSay%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SayTest {
     public void testElementWithExtraAttributes() {
         Say elem = new Say.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -84,7 +84,7 @@ public class SayTest {
 
         Say elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -110,7 +110,7 @@ public class SayTest {
 
         Say elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say>" +
             "Hey no tags!" +
@@ -130,7 +130,7 @@ public class SayTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say>" +
             "before" +
@@ -150,7 +150,7 @@ public class SayTest {
         Say.Builder builder = new Say.Builder();
         Say elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say>" +
             "<genericTag>" +
@@ -169,7 +169,7 @@ public class SayTest {
         Say.Builder builder = new Say.Builder();
         Say elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Say>" +
             "<genericTag key=\"value\">" +
@@ -184,7 +184,7 @@ public class SayTest {
     public void testXmlAttributesDeserialization() {
         final Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Say.Builder.fromXml("<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>").build().toXml(),
             elem.toXml()
         );
@@ -219,7 +219,7 @@ public class SayTest {
 
         final Say elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Say.Builder.fromXml("<Say>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -256,7 +256,7 @@ public class SayTest {
 
         final Say elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Say.Builder.fromXml("<Say>" +
                 "<break/>" +
                 "<emphasis/>" +

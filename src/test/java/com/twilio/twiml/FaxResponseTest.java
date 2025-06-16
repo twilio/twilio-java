@@ -9,10 +9,10 @@ package com.twilio.twiml;
 
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.fax.Receive;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link FaxResponse}
@@ -22,7 +22,7 @@ public class FaxResponseTest {
     public void testEmptyElement() {
         FaxResponse elem = new FaxResponse.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response/>",
             elem.toXml()
@@ -33,14 +33,14 @@ public class FaxResponseTest {
     public void testEmptyElementUrl() {
         FaxResponse elem = new FaxResponse.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CResponse%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CResponse%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithExtraAttributes() {
         FaxResponse elem = new FaxResponse.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -61,7 +61,7 @@ public class FaxResponseTest {
 
         FaxResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
                 "<Receive action=\"https://example.com\" mediaType=\"application/pdf\" method=\"GET\" pageSize=\"letter\" storeMedia=\"true\"/>" +
@@ -78,7 +78,7 @@ public class FaxResponseTest {
 
         FaxResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "Hey no tags!" +
@@ -98,7 +98,7 @@ public class FaxResponseTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "before" +
@@ -118,7 +118,7 @@ public class FaxResponseTest {
         FaxResponse.Builder builder = new FaxResponse.Builder();
         FaxResponse elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "<genericTag>" +
@@ -137,7 +137,7 @@ public class FaxResponseTest {
         FaxResponse.Builder builder = new FaxResponse.Builder();
         FaxResponse elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
             "<genericTag key=\"value\">" +
@@ -152,7 +152,7 @@ public class FaxResponseTest {
     public void testXmlAttributesDeserialization() {
         final FaxResponse elem = new FaxResponse.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             FaxResponse.Builder.fromXml("<Response/>").build().toXml(),
             elem.toXml()
         );
@@ -172,7 +172,7 @@ public class FaxResponseTest {
 
         final FaxResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             FaxResponse.Builder.fromXml("<Response>" +
                 "<Receive action=\"https://example.com\" mediaType=\"application/pdf\" method=\"GET\" pageSize=\"letter\" storeMedia=\"true\"/>" +
             "</Response>").build().toXml(),
@@ -188,7 +188,7 @@ public class FaxResponseTest {
 
         final FaxResponse elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             FaxResponse.Builder.fromXml("<Response>" +
                 "<Receive/>" +
             "</Response>").build().toXml(),

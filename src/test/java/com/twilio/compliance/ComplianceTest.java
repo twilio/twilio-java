@@ -19,9 +19,9 @@ import static com.tngtech.archunit.lang.conditions.ArchConditions.dependOnClasse
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.GeneralCodingRules.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +43,7 @@ public class ComplianceTest {
         };
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         assertTrue(twilioClasses.size() > 0);
         assertTrue(resourceClasses.size() > 1);

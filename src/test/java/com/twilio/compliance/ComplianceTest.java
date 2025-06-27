@@ -6,7 +6,6 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
-import com.tngtech.archunit.core.importer.ImportOptions;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.elements.GivenClasses;
 import com.tngtech.archunit.lang.syntax.elements.GivenClassesConjunction;
@@ -15,6 +14,7 @@ import com.twilio.base.Resource;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
+import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static com.tngtech.archunit.lang.conditions.ArchConditions.dependOnClassesThat;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.GeneralCodingRules.*;
@@ -29,15 +29,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ComplianceTest {
-    static final private ImportOptions importOpts = new ImportOptions().with(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS);
+    static final private List<ImportOption> importOpts = buildImportOptions();
     static final private JavaClasses twilioClasses = new ClassFileImporter(importOpts).importPackages("com.twilio");
     static final private List<Class> resourceClasses = getResourceClasses(twilioClasses);
     static final private List<Class> variantClasses = new ArrayList<Class>(); // classes that do not follow the generic template
 
+    private static List<ImportOption> buildImportOptions() {
+        List<ImportOption> options = new ArrayList<ImportOption>();
+        options.add(DO_NOT_INCLUDE_TESTS);
+        return options;
+    }
+
     private static DescribedPredicate<JavaClass> areNotInVariantList() {
         return new DescribedPredicate<JavaClass>("classes that follow the same template pattern") {
             @Override
-            public boolean apply(final JavaClass input) {
+            public boolean test(final JavaClass input) {
                 return !variantClasses.contains(input.getName());
             }
         };

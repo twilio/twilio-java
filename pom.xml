@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.twilio.sdk</groupId>
-  <artifactId>twilio</artifactId>
+  <artifactId>twilio-java-sdk</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>10.9.2</version>
+  <version>10.0.0-rc.5</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>

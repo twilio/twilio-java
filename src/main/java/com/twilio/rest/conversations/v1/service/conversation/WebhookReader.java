@@ -31,7 +31,7 @@ public class WebhookReader extends Reader<Webhook> {
 
     private String pathChatServiceSid;
     private String pathConversationSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WebhookReader(
         final String pathChatServiceSid,
@@ -41,7 +41,7 @@ public class WebhookReader extends Reader<Webhook> {
         this.pathConversationSid = pathConversationSid;
     }
 
-    public WebhookReader setPageSize(final Integer pageSize) {
+    public WebhookReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

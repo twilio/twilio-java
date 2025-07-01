@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class EnvironmentReader extends Reader<Environment> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EnvironmentReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public EnvironmentReader setPageSize(final Integer pageSize) {
+    public EnvironmentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

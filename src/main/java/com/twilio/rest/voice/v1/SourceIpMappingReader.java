@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class SourceIpMappingReader extends Reader<SourceIpMapping> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public SourceIpMappingReader() {}
 
-    public SourceIpMappingReader setPageSize(final Integer pageSize) {
+    public SourceIpMappingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

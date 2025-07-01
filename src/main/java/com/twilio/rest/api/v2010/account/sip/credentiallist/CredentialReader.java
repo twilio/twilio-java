@@ -31,7 +31,7 @@ public class CredentialReader extends Reader<Credential> {
 
     private String pathCredentialListSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CredentialReader(final String pathCredentialListSid) {
         this.pathCredentialListSid = pathCredentialListSid;
@@ -45,7 +45,7 @@ public class CredentialReader extends Reader<Credential> {
         this.pathCredentialListSid = pathCredentialListSid;
     }
 
-    public CredentialReader setPageSize(final Integer pageSize) {
+    public CredentialReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

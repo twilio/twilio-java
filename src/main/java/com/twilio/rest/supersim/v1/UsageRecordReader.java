@@ -38,7 +38,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private UsageRecord.Granularity granularity;
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UsageRecordReader() {}
 
@@ -84,7 +84,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         return this;
     }
 
-    public UsageRecordReader setPageSize(final Integer pageSize) {
+    public UsageRecordReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

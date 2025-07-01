@@ -31,7 +31,7 @@ public class AssessmentsReader extends Reader<Assessments> {
 
     private String authorization;
     private String segmentId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AssessmentsReader() {}
 
@@ -45,7 +45,7 @@ public class AssessmentsReader extends Reader<Assessments> {
         return this;
     }
 
-    public AssessmentsReader setPageSize(final Integer pageSize) {
+    public AssessmentsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

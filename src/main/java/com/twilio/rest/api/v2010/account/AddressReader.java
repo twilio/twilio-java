@@ -32,8 +32,9 @@ public class AddressReader extends Reader<Address> {
     private String pathAccountSid;
     private String customerName;
     private String friendlyName;
+    private Boolean emergencyEnabled;
     private String isoCountry;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AddressReader() {}
 
@@ -51,12 +52,17 @@ public class AddressReader extends Reader<Address> {
         return this;
     }
 
+    public AddressReader setEmergencyEnabled(final Boolean emergencyEnabled) {
+        this.emergencyEnabled = emergencyEnabled;
+        return this;
+    }
+
     public AddressReader setIsoCountry(final String isoCountry) {
         this.isoCountry = isoCountry;
         return this;
     }
 
-    public AddressReader setPageSize(final Integer pageSize) {
+    public AddressReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -161,6 +167,12 @@ public class AddressReader extends Reader<Address> {
         }
         if (friendlyName != null) {
             request.addQueryParam("FriendlyName", friendlyName);
+        }
+        if (emergencyEnabled != null) {
+            request.addQueryParam(
+                "EmergencyEnabled",
+                emergencyEnabled.toString()
+            );
         }
         if (isoCountry != null) {
             request.addQueryParam("IsoCountry", isoCountry);

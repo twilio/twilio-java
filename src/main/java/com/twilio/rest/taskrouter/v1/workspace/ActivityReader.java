@@ -32,7 +32,7 @@ public class ActivityReader extends Reader<Activity> {
     private String pathWorkspaceSid;
     private String friendlyName;
     private String available;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ActivityReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -48,7 +48,7 @@ public class ActivityReader extends Reader<Activity> {
         return this;
     }
 
-    public ActivityReader setPageSize(final Integer pageSize) {
+    public ActivityReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

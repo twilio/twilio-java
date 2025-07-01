@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class OperatorResult extends Resource {
 
-    private static final long serialVersionUID = 197278046028453L;
+    private static final long serialVersionUID = 110796815402135L;
 
     public static OperatorResultFetcher fetcher(
         final String pathTranscriptSid,
@@ -108,6 +108,7 @@ public class OperatorResult extends Resource {
     private final Map<String, Object> labelProbabilities;
     private final Map<String, Object> extractResults;
     private final Map<String, Object> textGenerationResults;
+    private final Map<String, Object> jsonResults;
     private final String transcriptSid;
     private final URI url;
 
@@ -141,6 +142,7 @@ public class OperatorResult extends Resource {
             String,
             Object
         > textGenerationResults,
+        @JsonProperty("json_results") final Map<String, Object> jsonResults,
         @JsonProperty("transcript_sid") final String transcriptSid,
         @JsonProperty("url") final URI url
     ) {
@@ -157,6 +159,7 @@ public class OperatorResult extends Resource {
         this.labelProbabilities = labelProbabilities;
         this.extractResults = extractResults;
         this.textGenerationResults = textGenerationResults;
+        this.jsonResults = jsonResults;
         this.transcriptSid = transcriptSid;
         this.url = url;
     }
@@ -213,6 +216,10 @@ public class OperatorResult extends Resource {
         return this.textGenerationResults;
     }
 
+    public final Map<String, Object> getJsonResults() {
+        return this.jsonResults;
+    }
+
     public final String getTranscriptSid() {
         return this.transcriptSid;
     }
@@ -250,6 +257,7 @@ public class OperatorResult extends Resource {
                 textGenerationResults,
                 other.textGenerationResults
             ) &&
+            Objects.equals(jsonResults, other.jsonResults) &&
             Objects.equals(transcriptSid, other.transcriptSid) &&
             Objects.equals(url, other.url)
         );
@@ -271,6 +279,7 @@ public class OperatorResult extends Resource {
             labelProbabilities,
             extractResults,
             textGenerationResults,
+            jsonResults,
             transcriptSid,
             url
         );
@@ -281,7 +290,9 @@ public class OperatorResult extends Resource {
         UTTERANCE_CLASSIFY("utterance_classify"),
         EXTRACT("extract"),
         EXTRACT_NORMALIZE("extract_normalize"),
-        PII_EXTRACT("pii_extract");
+        PII_EXTRACT("pii_extract"),
+        TEXT_GENERATION("text_generation"),
+        JSON("json");
 
         private final String value;
 

@@ -191,6 +191,28 @@ public class ComplianceRegistrationInquiries extends Resource {
         }
     }
 
+    public enum PhoneNumberType {
+        LOCAL("local"),
+        NATIONAL("national"),
+        MOBILE("mobile"),
+        TOLL_FREE("toll-free");
+
+        private final String value;
+
+        private PhoneNumberType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PhoneNumberType forValue(final String value) {
+            return Promoter.enumFromString(value, PhoneNumberType.values());
+        }
+    }
+
     public enum BusinessRegistrationAuthority {
         UK_CRN("UK:CRN"),
         US_EIN("US:EIN"),
@@ -236,28 +258,6 @@ public class ComplianceRegistrationInquiries extends Resource {
         @JsonCreator
         public static EndUserType forValue(final String value) {
             return Promoter.enumFromString(value, EndUserType.values());
-        }
-    }
-
-    public enum PhoneNumberType {
-        LOCAL("local"),
-        NATIONAL("national"),
-        MOBILE("mobile"),
-        TOLL_FREE("toll-free");
-
-        private final String value;
-
-        private PhoneNumberType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PhoneNumberType forValue(final String value) {
-            return Promoter.enumFromString(value, PhoneNumberType.values());
         }
     }
 }

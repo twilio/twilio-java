@@ -32,7 +32,7 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
     private CustomerProfiles.Status status;
     private String friendlyName;
     private String policySid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomerProfilesReader() {}
 
@@ -53,7 +53,7 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
         return this;
     }
 
-    public CustomerProfilesReader setPageSize(final Integer pageSize) {
+    public CustomerProfilesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

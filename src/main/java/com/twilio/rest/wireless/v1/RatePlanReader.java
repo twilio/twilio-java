@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class RatePlanReader extends Reader<RatePlan> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public RatePlanReader() {}
 
-    public RatePlanReader setPageSize(final Integer pageSize) {
+    public RatePlanReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

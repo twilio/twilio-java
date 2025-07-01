@@ -36,7 +36,7 @@ public class AllTimeReader extends Reader<AllTime> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AllTimeReader() {}
 
@@ -66,7 +66,7 @@ public class AllTimeReader extends Reader<AllTime> {
         return this;
     }
 
-    public AllTimeReader setPageSize(final Integer pageSize) {
+    public AllTimeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

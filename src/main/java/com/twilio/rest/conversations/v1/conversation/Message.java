@@ -277,26 +277,6 @@ public class Message extends Resource {
         );
     }
 
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
-    }
-
     public enum OrderType {
         ASC("asc"),
         DESC("desc");
@@ -314,6 +294,26 @@ public class Message extends Resource {
         @JsonCreator
         public static OrderType forValue(final String value) {
             return Promoter.enumFromString(value, OrderType.values());
+        }
+    }
+
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
         }
     }
 }

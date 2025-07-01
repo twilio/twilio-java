@@ -243,46 +243,6 @@ public class Bundle extends Resource {
         );
     }
 
-    public enum SortBy {
-        VALID_UNTIL("valid-until"),
-        DATE_UPDATED("date-updated");
-
-        private final String value;
-
-        private SortBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortBy forValue(final String value) {
-            return Promoter.enumFromString(value, SortBy.values());
-        }
-    }
-
-    public enum SortDirection {
-        ASC("ASC"),
-        DESC("DESC");
-
-        private final String value;
-
-        private SortDirection(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortDirection forValue(final String value) {
-            return Promoter.enumFromString(value, SortDirection.values());
-        }
-    }
-
     public enum EndUserType {
         INDIVIDUAL("individual"),
         BUSINESS("business");
@@ -324,6 +284,46 @@ public class Bundle extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum SortBy {
+        VALID_UNTIL("valid-until"),
+        DATE_UPDATED("date-updated");
+
+        private final String value;
+
+        private SortBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortBy forValue(final String value) {
+            return Promoter.enumFromString(value, SortBy.values());
+        }
+    }
+
+    public enum SortDirection {
+        ASC("ASC"),
+        DESC("DESC");
+
+        private final String value;
+
+        private SortDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortDirection forValue(final String value) {
+            return Promoter.enumFromString(value, SortDirection.values());
         }
     }
 }

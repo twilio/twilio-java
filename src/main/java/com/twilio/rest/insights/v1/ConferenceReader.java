@@ -39,7 +39,7 @@ public class ConferenceReader extends Reader<Conference> {
     private String subaccount;
     private String detectedIssues;
     private String endReason;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConferenceReader() {}
 
@@ -93,7 +93,7 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
-    public ConferenceReader setPageSize(final Integer pageSize) {
+    public ConferenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

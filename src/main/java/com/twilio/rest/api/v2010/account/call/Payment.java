@@ -257,26 +257,6 @@ public class Payment extends Resource {
         }
     }
 
-    public enum Status {
-        COMPLETE("complete"),
-        CANCEL("cancel");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum BankAccountType {
         CONSUMER_CHECKING("consumer-checking"),
         CONSUMER_SAVINGS("consumer-savings"),
@@ -319,6 +299,26 @@ public class Payment extends Resource {
         @JsonCreator
         public static Capture forValue(final String value) {
             return Promoter.enumFromString(value, Capture.values());
+        }
+    }
+
+    public enum Status {
+        COMPLETE("complete"),
+        CANCEL("cancel");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 }

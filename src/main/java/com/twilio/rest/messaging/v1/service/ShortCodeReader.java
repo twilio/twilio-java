@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class ShortCodeReader extends Reader<ShortCode> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ShortCodeReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public ShortCodeReader setPageSize(final Integer pageSize) {
+    public ShortCodeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

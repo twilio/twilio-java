@@ -36,7 +36,7 @@ public class MediaReader extends Reader<Media> {
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateCreatedBefore;
     private ZonedDateTime dateCreatedAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MediaReader(final String pathMessageSid) {
         this.pathMessageSid = pathMessageSid;
@@ -69,7 +69,7 @@ public class MediaReader extends Reader<Media> {
         return this;
     }
 
-    public MediaReader setPageSize(final Integer pageSize) {
+    public MediaReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

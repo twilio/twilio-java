@@ -34,7 +34,7 @@ public class ParticipantReader extends Reader<Participant> {
     private Boolean muted;
     private Boolean hold;
     private Boolean coaching;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
@@ -63,7 +63,7 @@ public class ParticipantReader extends Reader<Participant> {
         return this;
     }
 
-    public ParticipantReader setPageSize(final Integer pageSize) {
+    public ParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

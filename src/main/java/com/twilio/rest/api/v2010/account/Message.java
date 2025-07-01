@@ -440,12 +440,13 @@ public class Message extends Resource {
         }
     }
 
-    public enum ScheduleType {
-        FIXED("fixed");
+    public enum RiskCheck {
+        ENABLE("enable"),
+        DISABLE("disable");
 
         private final String value;
 
-        private ScheduleType(final String value) {
+        private RiskCheck(final String value) {
             this.value = value;
         }
 
@@ -454,8 +455,46 @@ public class Message extends Resource {
         }
 
         @JsonCreator
-        public static ScheduleType forValue(final String value) {
-            return Promoter.enumFromString(value, ScheduleType.values());
+        public static RiskCheck forValue(final String value) {
+            return Promoter.enumFromString(value, RiskCheck.values());
+        }
+    }
+
+    public enum TrafficType {
+        FREE("free");
+
+        private final String value;
+
+        private TrafficType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TrafficType forValue(final String value) {
+            return Promoter.enumFromString(value, TrafficType.values());
+        }
+    }
+
+    public enum UpdateStatus {
+        CANCELED("canceled");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
         }
     }
 
@@ -481,13 +520,12 @@ public class Message extends Resource {
         }
     }
 
-    public enum RiskCheck {
-        ENABLE("enable"),
-        DISABLE("disable");
+    public enum ScheduleType {
+        FIXED("fixed");
 
         private final String value;
 
-        private RiskCheck(final String value) {
+        private ScheduleType(final String value) {
             this.value = value;
         }
 
@@ -496,8 +534,8 @@ public class Message extends Resource {
         }
 
         @JsonCreator
-        public static RiskCheck forValue(final String value) {
-            return Promoter.enumFromString(value, RiskCheck.values());
+        public static ScheduleType forValue(final String value) {
+            return Promoter.enumFromString(value, ScheduleType.values());
         }
     }
 
@@ -518,25 +556,6 @@ public class Message extends Resource {
         @JsonCreator
         public static ContentRetention forValue(final String value) {
             return Promoter.enumFromString(value, ContentRetention.values());
-        }
-    }
-
-    public enum UpdateStatus {
-        CANCELED("canceled");
-
-        private final String value;
-
-        private UpdateStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateStatus.values());
         }
     }
 

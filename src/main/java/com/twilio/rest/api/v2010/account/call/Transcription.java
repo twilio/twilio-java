@@ -205,6 +205,27 @@ public class Transcription extends Resource {
         );
     }
 
+    public enum Track {
+        INBOUND_TRACK("inbound_track"),
+        OUTBOUND_TRACK("outbound_track"),
+        BOTH_TRACKS("both_tracks");
+
+        private final String value;
+
+        private Track(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Track forValue(final String value) {
+            return Promoter.enumFromString(value, Track.values());
+        }
+    }
+
     public enum UpdateStatus {
         STOPPED("stopped");
 
@@ -241,27 +262,6 @@ public class Transcription extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum Track {
-        INBOUND_TRACK("inbound_track"),
-        OUTBOUND_TRACK("outbound_track"),
-        BOTH_TRACKS("both_tracks");
-
-        private final String value;
-
-        private Track(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Track forValue(final String value) {
-            return Promoter.enumFromString(value, Track.values());
         }
     }
 }

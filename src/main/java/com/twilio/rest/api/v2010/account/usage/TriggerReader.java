@@ -33,7 +33,7 @@ public class TriggerReader extends Reader<Trigger> {
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
     private Trigger.UsageCategory usageCategory;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TriggerReader() {}
 
@@ -58,7 +58,7 @@ public class TriggerReader extends Reader<Trigger> {
         return this;
     }
 
-    public TriggerReader setPageSize(final Integer pageSize) {
+    public TriggerReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

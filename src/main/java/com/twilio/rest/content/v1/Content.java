@@ -108,6 +108,18 @@ public class Content extends Resource {
         @Setter
         private String label;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address")
+        @Getter
+        @Setter
+        private String address;
+
         public static TwilioLocation fromJson(
             String jsonString,
             ObjectMapper mapper
@@ -179,7 +191,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.CallToActionActionType type;
+        private CallToActionActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -204,6 +216,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private String code;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
 
         public static CallToActionAction fromJson(
             String jsonString,
@@ -243,7 +261,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.QuickReplyActionType type;
+        private QuickReplyActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -295,7 +313,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.CardActionType type;
+        private CardActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -471,7 +489,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.CarouselActionType type;
+        private CarouselActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
@@ -675,6 +693,35 @@ public class Content extends Resource {
     }
 
     @ToString
+    public static class TwilioSchedule {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("title")
+        @Getter
+        @Setter
+        private String title;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("timeSlots")
+        @Getter
+        @Setter
+        private String timeSlots;
+
+        public static TwilioSchedule fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, TwilioSchedule.class);
+        }
+    }
+
+    @ToString
     public static class WhatsappCard {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -722,7 +769,7 @@ public class Content extends Resource {
         @JsonProperty("type")
         @Getter
         @Setter
-        private Content.AuthenticationActionType type;
+        private AuthenticationActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("copy_code_text")
@@ -829,6 +876,12 @@ public class Content extends Resource {
         @Getter
         @Setter
         private TwilioFlows twilioFlows;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio/schedule")
+        @Getter
+        @Setter
+        private TwilioSchedule twilioSchedule;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")

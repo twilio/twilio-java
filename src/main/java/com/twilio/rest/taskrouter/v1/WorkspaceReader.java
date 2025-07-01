@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class WorkspaceReader extends Reader<Workspace> {
 
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WorkspaceReader() {}
 
@@ -39,7 +39,7 @@ public class WorkspaceReader extends Reader<Workspace> {
         return this;
     }
 
-    public WorkspaceReader setPageSize(final Integer pageSize) {
+    public WorkspaceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -35,7 +35,7 @@ public class CountryReader extends Reader<Country> {
     private Boolean lowRiskNumbersEnabled;
     private Boolean highRiskSpecialNumbersEnabled;
     private Boolean highRiskTollfraudNumbersEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CountryReader() {}
 
@@ -75,7 +75,7 @@ public class CountryReader extends Reader<Country> {
         return this;
     }
 
-    public CountryReader setPageSize(final Integer pageSize) {
+    public CountryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

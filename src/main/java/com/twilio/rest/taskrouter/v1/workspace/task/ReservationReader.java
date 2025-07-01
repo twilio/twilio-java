@@ -33,7 +33,7 @@ public class ReservationReader extends Reader<Reservation> {
     private String pathTaskSid;
     private Reservation.Status reservationStatus;
     private String workerSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ReservationReader(
         final String pathWorkspaceSid,
@@ -55,7 +55,7 @@ public class ReservationReader extends Reader<Reservation> {
         return this;
     }
 
-    public ReservationReader setPageSize(final Integer pageSize) {
+    public ReservationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

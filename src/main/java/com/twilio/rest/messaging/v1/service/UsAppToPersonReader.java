@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
     private String pathMessagingServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UsAppToPersonReader(final String pathMessagingServiceSid) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-    public UsAppToPersonReader setPageSize(final Integer pageSize) {
+    public UsAppToPersonReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

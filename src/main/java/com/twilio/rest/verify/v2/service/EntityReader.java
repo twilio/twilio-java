@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class EntityReader extends Reader<Entity> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EntityReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public EntityReader setPageSize(final Integer pageSize) {
+    public EntityReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

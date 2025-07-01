@@ -34,7 +34,7 @@ public class InviteReader extends Reader<Invite> {
     private String pathServiceSid;
     private String pathChannelSid;
     private List<String> identity;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InviteReader(
         final String pathServiceSid,
@@ -53,7 +53,7 @@ public class InviteReader extends Reader<Invite> {
         return setIdentity(Promoter.listOfOne(identity));
     }
 
-    public InviteReader setPageSize(final Integer pageSize) {
+    public InviteReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

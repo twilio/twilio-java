@@ -218,27 +218,6 @@ public class UsageRecord extends Resource {
         );
     }
 
-    public enum Granularity {
-        HOUR("hour"),
-        DAY("day"),
-        ALL("all");
-
-        private final String value;
-
-        private Granularity(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
-        }
-    }
-
     public enum Group {
         SIM("sim"),
         FLEET("fleet"),
@@ -258,6 +237,27 @@ public class UsageRecord extends Resource {
         @JsonCreator
         public static Group forValue(final String value) {
             return Promoter.enumFromString(value, Group.values());
+        }
+    }
+
+    public enum Granularity {
+        HOUR("hour"),
+        DAY("day"),
+        ALL("all");
+
+        private final String value;
+
+        private Granularity(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Granularity forValue(final String value) {
+            return Promoter.enumFromString(value, Granularity.values());
         }
     }
 }

@@ -36,7 +36,7 @@ public class NotificationReader extends Reader<Notification> {
     private LocalDate messageDate;
     private LocalDate messageDateBefore;
     private LocalDate messageDateAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public NotificationReader() {}
 
@@ -68,7 +68,7 @@ public class NotificationReader extends Reader<Notification> {
         return this;
     }
 
-    public NotificationReader setPageSize(final Integer pageSize) {
+    public NotificationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

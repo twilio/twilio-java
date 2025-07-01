@@ -38,7 +38,7 @@ public class RecordingReader extends Reader<Recording> {
     private String callSid;
     private String conferenceSid;
     private Boolean includeSoftDeleted;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RecordingReader() {}
 
@@ -82,7 +82,7 @@ public class RecordingReader extends Reader<Recording> {
         return this;
     }
 
-    public RecordingReader setPageSize(final Integer pageSize) {
+    public RecordingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

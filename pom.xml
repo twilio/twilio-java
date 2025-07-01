@@ -5,7 +5,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>10.6.7</version>
+  <version>10.9.2</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -19,7 +19,7 @@
     <url>git@github.com:twilio/twilio-java.git</url>
     <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
     <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
-    <tag>10.6.7</tag>
+    <tag>10.9.2</tag>
   </scm>
   <developers>
     <developer>
@@ -104,14 +104,13 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.13</version>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.8.0</version>
             <extensions>true</extensions>
             <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              <publishingServerId>central</publishingServerId>
+              <autoPublish>true</autoPublish>
             </configuration>
           </plugin>
           <plugin>
@@ -167,9 +166,9 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.14.0</jackson.version>
+    <jackson.version>2.15.0</jackson.version>
     <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
-    <jjwt.version>0.11.2</jjwt.version>
+    <jjwt.version>0.12.6</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
     <sonar.organization>twilio</sonar.organization>
@@ -337,6 +336,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -489,9 +493,4 @@
       </plugin>
     </plugins>
   </build>
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
 </project>

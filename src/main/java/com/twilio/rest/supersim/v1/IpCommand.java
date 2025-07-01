@@ -243,26 +243,6 @@ public class IpCommand extends Resource {
         );
     }
 
-    public enum Direction {
-        TO_SIM("to_sim"),
-        FROM_SIM("from_sim");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
-    }
-
     public enum PayloadType {
         TEXT("text"),
         BINARY("binary");
@@ -302,6 +282,26 @@ public class IpCommand extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Direction {
+        TO_SIM("to_sim"),
+        FROM_SIM("from_sim");
+
+        private final String value;
+
+        private Direction(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Direction forValue(final String value) {
+            return Promoter.enumFromString(value, Direction.values());
         }
     }
 }

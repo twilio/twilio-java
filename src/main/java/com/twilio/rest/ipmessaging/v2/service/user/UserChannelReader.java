@@ -31,7 +31,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     private String pathServiceSid;
     private String pathUserSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UserChannelReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class UserChannelReader extends Reader<UserChannel> {
         this.pathUserSid = pathUserSid;
     }
 
-    public UserChannelReader setPageSize(final Integer pageSize) {
+    public UserChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

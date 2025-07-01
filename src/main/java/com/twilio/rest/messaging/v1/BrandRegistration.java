@@ -337,29 +337,6 @@ public class BrandRegistration extends Resource {
         );
     }
 
-    public enum Status {
-        PENDING("PENDING"),
-        APPROVED("APPROVED"),
-        FAILED("FAILED"),
-        IN_REVIEW("IN_REVIEW"),
-        DELETED("DELETED");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     public enum BrandFeedback {
         TAX_ID("TAX_ID"),
         STOCK_SYMBOL("STOCK_SYMBOL"),
@@ -380,6 +357,31 @@ public class BrandRegistration extends Resource {
         @JsonCreator
         public static BrandFeedback forValue(final String value) {
             return Promoter.enumFromString(value, BrandFeedback.values());
+        }
+    }
+
+    public enum Status {
+        PENDING("PENDING"),
+        APPROVED("APPROVED"),
+        FAILED("FAILED"),
+        IN_REVIEW("IN_REVIEW"),
+        DELETION_PENDING("DELETION_PENDING"),
+        DELETION_FAILED("DELETION_FAILED"),
+        SUSPENDED("SUSPENDED");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
 

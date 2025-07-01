@@ -26,6 +26,7 @@ public enum Domains {
     INSIGHTS("insights"),
     INTELLIGENCE("intelligence"),
     IPMESSAGING("ip-messaging"),
+    KNOWLEDGE("knowledge"),
     LOOKUPS("lookups"),
     MARKETPLACE("marketplace"),
     MESSAGING("messaging"),

@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class TrunkReader extends Reader<Trunk> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public TrunkReader() {}
 
-    public TrunkReader setPageSize(final Integer pageSize) {
+    public TrunkReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

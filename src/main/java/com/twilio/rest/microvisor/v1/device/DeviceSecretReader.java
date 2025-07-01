@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class DeviceSecretReader extends Reader<DeviceSecret> {
 
     private String pathDeviceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DeviceSecretReader(final String pathDeviceSid) {
         this.pathDeviceSid = pathDeviceSid;
     }
 
-    public DeviceSecretReader setPageSize(final Integer pageSize) {
+    public DeviceSecretReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

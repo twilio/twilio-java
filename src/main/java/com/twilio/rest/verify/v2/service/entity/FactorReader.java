@@ -31,7 +31,7 @@ public class FactorReader extends Reader<Factor> {
 
     private String pathServiceSid;
     private String pathIdentity;
-    private Integer pageSize;
+    private Long pageSize;
 
     public FactorReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class FactorReader extends Reader<Factor> {
         this.pathIdentity = pathIdentity;
     }
 
-    public FactorReader setPageSize(final Integer pageSize) {
+    public FactorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class KeyReader extends Reader<Key> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public KeyReader() {}
 
@@ -38,7 +38,7 @@ public class KeyReader extends Reader<Key> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public KeyReader setPageSize(final Integer pageSize) {
+    public KeyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

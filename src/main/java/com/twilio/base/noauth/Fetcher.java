@@ -3,7 +3,6 @@ package com.twilio.base.noauth;
 import com.twilio.Twilio;
 
 import com.twilio.TwilioNoAuth;
-import com.twilio.base.noauth.Resource;
 import com.twilio.http.noauth.NoAuthTwilioRestClient;
 
 import java.util.concurrent.CompletableFuture;

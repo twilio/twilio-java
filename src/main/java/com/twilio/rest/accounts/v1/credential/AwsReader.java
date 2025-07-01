@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class AwsReader extends Reader<Aws> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public AwsReader() {}
 
-    public AwsReader setPageSize(final Integer pageSize) {
+    public AwsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

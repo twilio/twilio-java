@@ -31,7 +31,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     private String pathRoomSid;
     private String pathParticipantSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SubscribedTrackReader(
         final String pathRoomSid,
@@ -41,7 +41,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public SubscribedTrackReader setPageSize(final Integer pageSize) {
+    public SubscribedTrackReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

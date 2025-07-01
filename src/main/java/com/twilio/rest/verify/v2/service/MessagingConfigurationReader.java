@@ -31,13 +31,13 @@ public class MessagingConfigurationReader
     extends Reader<MessagingConfiguration> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MessagingConfigurationReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public MessagingConfigurationReader setPageSize(final Integer pageSize) {
+    public MessagingConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class InstalledAddOnReader extends Reader<InstalledAddOn> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public InstalledAddOnReader() {}
 
-    public InstalledAddOnReader setPageSize(final Integer pageSize) {
+    public InstalledAddOnReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

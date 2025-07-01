@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class TaskChannelReader extends Reader<TaskChannel> {
 
     private String pathWorkspaceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TaskChannelReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public TaskChannelReader setPageSize(final Integer pageSize) {
+    public TaskChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

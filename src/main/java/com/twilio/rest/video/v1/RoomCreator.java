@@ -43,9 +43,11 @@ public class RoomCreator extends Creator<Room> {
     private HttpMethod statusCallbackMethod;
     private Integer maxParticipants;
     private Boolean recordParticipantsOnConnect;
+    private Boolean transcribeParticipantsOnConnect;
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
     private Map<String, Object> recordingRules;
+    private Map<String, Object> transcriptionsConfiguration;
     private Boolean audioOnly;
     private Integer maxParticipantDuration;
     private Integer emptyRoomTimeout;
@@ -97,6 +99,13 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
+    public RoomCreator setTranscribeParticipantsOnConnect(
+        final Boolean transcribeParticipantsOnConnect
+    ) {
+        this.transcribeParticipantsOnConnect = transcribeParticipantsOnConnect;
+        return this;
+    }
+
     public RoomCreator setVideoCodecs(final List<Room.VideoCodec> videoCodecs) {
         this.videoCodecs = videoCodecs;
         return this;
@@ -115,6 +124,13 @@ public class RoomCreator extends Creator<Room> {
         final Map<String, Object> recordingRules
     ) {
         this.recordingRules = recordingRules;
+        return this;
+    }
+
+    public RoomCreator setTranscriptionsConfiguration(
+        final Map<String, Object> transcriptionsConfiguration
+    ) {
+        this.transcriptionsConfiguration = transcriptionsConfiguration;
         return this;
     }
 
@@ -206,6 +222,12 @@ public class RoomCreator extends Creator<Room> {
                 recordParticipantsOnConnect.toString()
             );
         }
+        if (transcribeParticipantsOnConnect != null) {
+            request.addPostParam(
+                "TranscribeParticipantsOnConnect",
+                transcribeParticipantsOnConnect.toString()
+            );
+        }
         if (videoCodecs != null) {
             for (Room.VideoCodec prop : videoCodecs) {
                 request.addPostParam("VideoCodecs", prop.toString());
@@ -218,6 +240,12 @@ public class RoomCreator extends Creator<Room> {
             request.addPostParam(
                 "RecordingRules",
                 Converter.mapToJson(recordingRules)
+            );
+        }
+        if (transcriptionsConfiguration != null) {
+            request.addPostParam(
+                "TranscriptionsConfiguration",
+                Converter.mapToJson(transcriptionsConfiguration)
             );
         }
         if (audioOnly != null) {

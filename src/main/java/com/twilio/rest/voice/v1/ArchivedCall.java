@@ -14,6 +14,7 @@
 
 package com.twilio.rest.voice.v1;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -81,5 +82,18 @@ public class ArchivedCall extends Resource {
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
+    }
+
+    @JsonCreator
+    private ArchivedCall() {}
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == this.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

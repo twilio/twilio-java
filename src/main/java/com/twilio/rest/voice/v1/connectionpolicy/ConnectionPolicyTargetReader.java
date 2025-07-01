@@ -31,13 +31,13 @@ public class ConnectionPolicyTargetReader
     extends Reader<ConnectionPolicyTarget> {
 
     private String pathConnectionPolicySid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConnectionPolicyTargetReader(final String pathConnectionPolicySid) {
         this.pathConnectionPolicySid = pathConnectionPolicySid;
     }
 
-    public ConnectionPolicyTargetReader setPageSize(final Integer pageSize) {
+    public ConnectionPolicyTargetReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

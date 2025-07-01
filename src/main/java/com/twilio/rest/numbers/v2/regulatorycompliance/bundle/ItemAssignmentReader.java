@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class ItemAssignmentReader extends Reader<ItemAssignment> {
 
     private String pathBundleSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ItemAssignmentReader(final String pathBundleSid) {
         this.pathBundleSid = pathBundleSid;
     }
 
-    public ItemAssignmentReader setPageSize(final Integer pageSize) {
+    public ItemAssignmentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

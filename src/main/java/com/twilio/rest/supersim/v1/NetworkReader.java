@@ -32,7 +32,7 @@ public class NetworkReader extends Reader<Network> {
     private String isoCountry;
     private String mcc;
     private String mnc;
-    private Integer pageSize;
+    private Long pageSize;
 
     public NetworkReader() {}
 
@@ -51,7 +51,7 @@ public class NetworkReader extends Reader<Network> {
         return this;
     }
 
-    public NetworkReader setPageSize(final Integer pageSize) {
+    public NetworkReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

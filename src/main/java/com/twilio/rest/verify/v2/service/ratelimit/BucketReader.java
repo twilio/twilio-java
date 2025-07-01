@@ -31,7 +31,7 @@ public class BucketReader extends Reader<Bucket> {
 
     private String pathServiceSid;
     private String pathRateLimitSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BucketReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class BucketReader extends Reader<Bucket> {
         this.pathRateLimitSid = pathRateLimitSid;
     }
 
-    public BucketReader setPageSize(final Integer pageSize) {
+    public BucketReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

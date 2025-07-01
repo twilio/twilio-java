@@ -36,7 +36,7 @@ public class DailyReader extends Reader<Daily> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DailyReader() {}
 
@@ -64,7 +64,7 @@ public class DailyReader extends Reader<Daily> {
         return this;
     }
 
-    public DailyReader setPageSize(final Integer pageSize) {
+    public DailyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

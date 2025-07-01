@@ -38,7 +38,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     private String verifyServiceSid;
     private String verificationSid;
     private VerificationAttempt.ConversionStatus status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public VerificationAttemptReader() {}
 
@@ -96,7 +96,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
         return this;
     }
 
-    public VerificationAttemptReader setPageSize(final Integer pageSize) {
+    public VerificationAttemptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

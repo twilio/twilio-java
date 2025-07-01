@@ -36,7 +36,7 @@ public class RecordingReader extends Reader<Recording> {
     private LocalDate dateCreated;
     private LocalDate dateCreatedBefore;
     private LocalDate dateCreatedAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RecordingReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
@@ -69,7 +69,7 @@ public class RecordingReader extends Reader<Recording> {
         return this;
     }
 
-    public RecordingReader setPageSize(final Integer pageSize) {
+    public RecordingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

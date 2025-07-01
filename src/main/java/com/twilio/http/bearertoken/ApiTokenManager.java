@@ -1,8 +1,8 @@
 package com.twilio.http.bearertoken;
 
 import com.twilio.annotations.Beta;
-import com.twilio.rest.previewiam.v1.Token;
-import com.twilio.rest.previewiam.v1.TokenCreator;
+import com.twilio.rest.iam.v1.Token;
+import com.twilio.rest.iam.v1.TokenCreator;
 
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ public class ApiTokenManager implements TokenManager {
     private String audience;
     private String refreshToken;
     private String scope;
-    
+
     @Override
     public String fetchAccessToken() {
         TokenCreator tokenCreator = Token.creator(grantType, clientId).setClientSecret(clientSecret);

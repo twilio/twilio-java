@@ -31,7 +31,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
     private String pathAddressSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DependentPhoneNumberReader(final String pathAddressSid) {
         this.pathAddressSid = pathAddressSid;
@@ -45,7 +45,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
         this.pathAddressSid = pathAddressSid;
     }
 
-    public DependentPhoneNumberReader setPageSize(final Integer pageSize) {
+    public DependentPhoneNumberReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

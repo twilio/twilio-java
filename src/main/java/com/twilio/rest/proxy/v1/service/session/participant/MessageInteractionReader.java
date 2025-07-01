@@ -32,7 +32,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
     private String pathServiceSid;
     private String pathSessionSid;
     private String pathParticipantSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MessageInteractionReader(
         final String pathServiceSid,
@@ -44,7 +44,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public MessageInteractionReader setPageSize(final Integer pageSize) {
+    public MessageInteractionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

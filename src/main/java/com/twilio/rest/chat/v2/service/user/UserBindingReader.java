@@ -34,7 +34,7 @@ public class UserBindingReader extends Reader<UserBinding> {
     private String pathServiceSid;
     private String pathUserSid;
     private List<UserBinding.BindingType> bindingType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UserBindingReader(
         final String pathServiceSid,
@@ -57,7 +57,7 @@ public class UserBindingReader extends Reader<UserBinding> {
         return setBindingType(Promoter.listOfOne(bindingType));
     }
 
-    public UserBindingReader setPageSize(final Integer pageSize) {
+    public UserBindingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

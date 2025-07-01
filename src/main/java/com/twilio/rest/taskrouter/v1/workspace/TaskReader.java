@@ -42,7 +42,7 @@ public class TaskReader extends Reader<Task> {
     private String routingTarget;
     private String ordering;
     private Boolean hasAddons;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TaskReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -104,7 +104,7 @@ public class TaskReader extends Reader<Task> {
         return this;
     }
 
-    public TaskReader setPageSize(final Integer pageSize) {
+    public TaskReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

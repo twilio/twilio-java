@@ -31,7 +31,7 @@ public class OperatorResultReader extends Reader<OperatorResult> {
 
     private String pathTranscriptSid;
     private Boolean redacted;
-    private Integer pageSize;
+    private Long pageSize;
 
     public OperatorResultReader(final String pathTranscriptSid) {
         this.pathTranscriptSid = pathTranscriptSid;
@@ -42,7 +42,7 @@ public class OperatorResultReader extends Reader<OperatorResult> {
         return this;
     }
 
-    public OperatorResultReader setPageSize(final Integer pageSize) {
+    public OperatorResultReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

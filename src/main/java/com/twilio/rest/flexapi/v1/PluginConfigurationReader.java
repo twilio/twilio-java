@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class PluginConfigurationReader extends Reader<PluginConfiguration> {
 
     private String flexMetadata;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PluginConfigurationReader() {}
 
@@ -41,7 +41,7 @@ public class PluginConfigurationReader extends Reader<PluginConfiguration> {
         return this;
     }
 
-    public PluginConfigurationReader setPageSize(final Integer pageSize) {
+    public PluginConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

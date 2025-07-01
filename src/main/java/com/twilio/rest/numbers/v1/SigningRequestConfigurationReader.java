@@ -32,7 +32,7 @@ public class SigningRequestConfigurationReader
 
     private String country;
     private String product;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SigningRequestConfigurationReader() {}
 
@@ -46,9 +46,7 @@ public class SigningRequestConfigurationReader
         return this;
     }
 
-    public SigningRequestConfigurationReader setPageSize(
-        final Integer pageSize
-    ) {
+    public SigningRequestConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

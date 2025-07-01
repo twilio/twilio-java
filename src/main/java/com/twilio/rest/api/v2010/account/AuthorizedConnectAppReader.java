@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AuthorizedConnectAppReader() {}
 
@@ -38,7 +38,7 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AuthorizedConnectAppReader setPageSize(final Integer pageSize) {
+    public AuthorizedConnectAppReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

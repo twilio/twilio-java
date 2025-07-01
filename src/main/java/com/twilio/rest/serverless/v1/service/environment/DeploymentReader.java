@@ -31,7 +31,7 @@ public class DeploymentReader extends Reader<Deployment> {
 
     private String pathServiceSid;
     private String pathEnvironmentSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DeploymentReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class DeploymentReader extends Reader<Deployment> {
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
-    public DeploymentReader setPageSize(final Integer pageSize) {
+    public DeploymentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

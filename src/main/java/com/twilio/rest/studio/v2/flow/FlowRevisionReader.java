@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class FlowRevisionReader extends Reader<FlowRevision> {
 
     private String pathSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public FlowRevisionReader(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public FlowRevisionReader setPageSize(final Integer pageSize) {
+    public FlowRevisionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

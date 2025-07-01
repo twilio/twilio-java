@@ -34,7 +34,7 @@ public class ChallengeReader extends Reader<Challenge> {
     private String factorSid;
     private Challenge.ChallengeStatuses status;
     private Challenge.ListOrders order;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ChallengeReader(
         final String pathServiceSid,
@@ -59,7 +59,7 @@ public class ChallengeReader extends Reader<Challenge> {
         return this;
     }
 
-    public ChallengeReader setPageSize(final Integer pageSize) {
+    public ChallengeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

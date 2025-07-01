@@ -33,7 +33,7 @@ public class InsightsAssessmentsCommentReader
     private String authorization;
     private String segmentId;
     private String agentId;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InsightsAssessmentsCommentReader() {}
 
@@ -56,9 +56,7 @@ public class InsightsAssessmentsCommentReader
         return this;
     }
 
-    public InsightsAssessmentsCommentReader setPageSize(
-        final Integer pageSize
-    ) {
+    public InsightsAssessmentsCommentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

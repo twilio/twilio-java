@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class ExecutionStep extends Resource {
 
-    private static final long serialVersionUID = 271983635262130L;
+    private static final long serialVersionUID = 56382327963536L;
 
     public static ExecutionStepFetcher fetcher(
         final String pathFlowSid,
@@ -102,6 +102,7 @@ public class ExecutionStep extends Resource {
     private final String accountSid;
     private final String flowSid;
     private final String executionSid;
+    private final String parentStepSid;
     private final String name;
     private final Map<String, Object> context;
     private final String transitionedFrom;
@@ -117,6 +118,7 @@ public class ExecutionStep extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty("execution_sid") final String executionSid,
+        @JsonProperty("parent_step_sid") final String parentStepSid,
         @JsonProperty("name") final String name,
         @JsonProperty("context") final Map<String, Object> context,
         @JsonProperty("transitioned_from") final String transitionedFrom,
@@ -130,6 +132,7 @@ public class ExecutionStep extends Resource {
         this.accountSid = accountSid;
         this.flowSid = flowSid;
         this.executionSid = executionSid;
+        this.parentStepSid = parentStepSid;
         this.name = name;
         this.context = context;
         this.transitionedFrom = transitionedFrom;
@@ -154,6 +157,10 @@ public class ExecutionStep extends Resource {
 
     public final String getExecutionSid() {
         return this.executionSid;
+    }
+
+    public final String getParentStepSid() {
+        return this.parentStepSid;
     }
 
     public final String getName() {
@@ -205,6 +212,7 @@ public class ExecutionStep extends Resource {
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(flowSid, other.flowSid) &&
             Objects.equals(executionSid, other.executionSid) &&
+            Objects.equals(parentStepSid, other.parentStepSid) &&
             Objects.equals(name, other.name) &&
             Objects.equals(context, other.context) &&
             Objects.equals(transitionedFrom, other.transitionedFrom) &&
@@ -223,6 +231,7 @@ public class ExecutionStep extends Resource {
             accountSid,
             flowSid,
             executionSid,
+            parentStepSid,
             name,
             context,
             transitionedFrom,

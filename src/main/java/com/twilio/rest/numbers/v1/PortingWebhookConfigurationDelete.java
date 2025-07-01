@@ -89,6 +89,19 @@ public class PortingWebhookConfigurationDelete extends Resource {
         }
     }
 
+    @JsonCreator
+    private PortingWebhookConfigurationDelete() {}
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == this.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
     public enum WebhookType {
         PORT_IN("PORT_IN"),
         PORT_OUT("PORT_OUT");

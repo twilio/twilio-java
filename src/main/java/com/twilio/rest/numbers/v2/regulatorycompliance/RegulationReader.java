@@ -33,7 +33,7 @@ public class RegulationReader extends Reader<Regulation> {
     private String isoCountry;
     private String numberType;
     private Boolean includeConstraints;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RegulationReader() {}
 
@@ -61,7 +61,7 @@ public class RegulationReader extends Reader<Regulation> {
         return this;
     }
 
-    public RegulationReader setPageSize(final Integer pageSize) {
+    public RegulationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

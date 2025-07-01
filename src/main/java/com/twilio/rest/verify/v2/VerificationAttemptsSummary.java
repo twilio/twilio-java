@@ -26,7 +26,6 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Objects;
 import lombok.ToString;
@@ -36,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class VerificationAttemptsSummary extends Resource {
 
-    private static final long serialVersionUID = 224637081616234L;
+    private static final long serialVersionUID = 99139871813599L;
 
     public static VerificationAttemptsSummaryFetcher fetcher() {
         return new VerificationAttemptsSummaryFetcher();
@@ -94,7 +93,7 @@ public class VerificationAttemptsSummary extends Resource {
     private final Integer totalAttempts;
     private final Integer totalConverted;
     private final Integer totalUnconverted;
-    private final BigDecimal conversionRatePercentage;
+    private final String conversionRatePercentage;
     private final URI url;
 
     @JsonCreator
@@ -104,7 +103,7 @@ public class VerificationAttemptsSummary extends Resource {
         @JsonProperty("total_unconverted") final Integer totalUnconverted,
         @JsonProperty(
             "conversion_rate_percentage"
-        ) final BigDecimal conversionRatePercentage,
+        ) final String conversionRatePercentage,
         @JsonProperty("url") final URI url
     ) {
         this.totalAttempts = totalAttempts;
@@ -126,7 +125,7 @@ public class VerificationAttemptsSummary extends Resource {
         return this.totalUnconverted;
     }
 
-    public final BigDecimal getConversionRatePercentage() {
+    public final String getConversionRatePercentage() {
         return this.conversionRatePercentage;
     }
 

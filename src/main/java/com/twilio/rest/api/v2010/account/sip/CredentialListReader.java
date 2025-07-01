@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class CredentialListReader extends Reader<CredentialList> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CredentialListReader() {}
 
@@ -38,7 +38,7 @@ public class CredentialListReader extends Reader<CredentialList> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public CredentialListReader setPageSize(final Integer pageSize) {
+    public CredentialListReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

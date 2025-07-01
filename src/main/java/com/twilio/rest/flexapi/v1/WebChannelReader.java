@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class WebChannelReader extends Reader<WebChannel> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public WebChannelReader() {}
 
-    public WebChannelReader setPageSize(final Integer pageSize) {
+    public WebChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

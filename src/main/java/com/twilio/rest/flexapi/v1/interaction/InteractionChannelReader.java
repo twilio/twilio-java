@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class InteractionChannelReader extends Reader<InteractionChannel> {
 
     private String pathInteractionSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InteractionChannelReader(final String pathInteractionSid) {
         this.pathInteractionSid = pathInteractionSid;
     }
 
-    public InteractionChannelReader setPageSize(final Integer pageSize) {
+    public InteractionChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

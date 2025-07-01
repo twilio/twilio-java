@@ -31,7 +31,7 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
 
     private String sim;
     private SettingsUpdate.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SettingsUpdateReader() {}
 
@@ -45,7 +45,7 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
         return this;
     }
 
-    public SettingsUpdateReader setPageSize(final Integer pageSize) {
+    public SettingsUpdateReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

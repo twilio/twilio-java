@@ -33,7 +33,7 @@ public class IpCommandReader extends Reader<IpCommand> {
     private String simIccid;
     private IpCommand.Status status;
     private IpCommand.Direction direction;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpCommandReader() {}
 
@@ -57,7 +57,7 @@ public class IpCommandReader extends Reader<IpCommand> {
         return this;
     }
 
-    public IpCommandReader setPageSize(final Integer pageSize) {
+    public IpCommandReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

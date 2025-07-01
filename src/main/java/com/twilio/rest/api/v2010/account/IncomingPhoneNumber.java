@@ -506,6 +506,53 @@ public class IncomingPhoneNumber extends Resource {
         );
     }
 
+    public enum EmergencyAddressStatus {
+        REGISTERED("registered"),
+        UNREGISTERED("unregistered"),
+        PENDING_REGISTRATION("pending-registration"),
+        REGISTRATION_FAILURE("registration-failure"),
+        PENDING_UNREGISTRATION("pending-unregistration"),
+        UNREGISTRATION_FAILURE("unregistration-failure");
+
+        private final String value;
+
+        private EmergencyAddressStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EmergencyAddressStatus forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                EmergencyAddressStatus.values()
+            );
+        }
+    }
+
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
+
+        private final String value;
+
+        private VoiceReceiveMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
+        }
+    }
+
     public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
@@ -545,53 +592,6 @@ public class IncomingPhoneNumber extends Resource {
         @JsonCreator
         public static EmergencyStatus forValue(final String value) {
             return Promoter.enumFromString(value, EmergencyStatus.values());
-        }
-    }
-
-    public enum VoiceReceiveMode {
-        VOICE("voice"),
-        FAX("fax");
-
-        private final String value;
-
-        private VoiceReceiveMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VoiceReceiveMode forValue(final String value) {
-            return Promoter.enumFromString(value, VoiceReceiveMode.values());
-        }
-    }
-
-    public enum EmergencyAddressStatus {
-        REGISTERED("registered"),
-        UNREGISTERED("unregistered"),
-        PENDING_REGISTRATION("pending-registration"),
-        REGISTRATION_FAILURE("registration-failure"),
-        PENDING_UNREGISTRATION("pending-unregistration"),
-        UNREGISTRATION_FAILURE("unregistration-failure");
-
-        private final String value;
-
-        private EmergencyAddressStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EmergencyAddressStatus forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                EmergencyAddressStatus.values()
-            );
         }
     }
 }

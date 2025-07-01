@@ -35,7 +35,7 @@ public class TollFreeReader extends Reader<TollFree> {
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String origin;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TollFreeReader() {}
 
@@ -69,7 +69,7 @@ public class TollFreeReader extends Reader<TollFree> {
         return this;
     }
 
-    public TollFreeReader setPageSize(final Integer pageSize) {
+    public TollFreeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

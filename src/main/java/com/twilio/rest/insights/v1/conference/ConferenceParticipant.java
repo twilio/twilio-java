@@ -392,6 +392,33 @@ public class ConferenceParticipant extends Resource {
         );
     }
 
+    public enum Region {
+        US1("us1"),
+        US2("us2"),
+        AU1("au1"),
+        BR1("br1"),
+        IE1("ie1"),
+        JP1("jp1"),
+        SG1("sg1"),
+        DE1("de1"),
+        IN1("in1");
+
+        private final String value;
+
+        private Region(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Region forValue(final String value) {
+            return Promoter.enumFromString(value, Region.values());
+        }
+    }
+
     public enum CallDirection {
         INBOUND("inbound"),
         OUTBOUND("outbound");
@@ -498,32 +525,6 @@ public class ConferenceParticipant extends Resource {
         @JsonCreator
         public static CallType forValue(final String value) {
             return Promoter.enumFromString(value, CallType.values());
-        }
-    }
-
-    public enum Region {
-        US1("us1"),
-        US2("us2"),
-        AU1("au1"),
-        BR1("br1"),
-        IE1("ie1"),
-        JP1("jp1"),
-        SG1("sg1"),
-        DE1("de1");
-
-        private final String value;
-
-        private Region(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Region forValue(final String value) {
-            return Promoter.enumFromString(value, Region.values());
         }
     }
 }

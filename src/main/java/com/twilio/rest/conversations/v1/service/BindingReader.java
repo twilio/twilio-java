@@ -34,7 +34,7 @@ public class BindingReader extends Reader<Binding> {
     private String pathChatServiceSid;
     private List<Binding.BindingType> bindingType;
     private List<String> identity;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BindingReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -60,7 +60,7 @@ public class BindingReader extends Reader<Binding> {
         return setIdentity(Promoter.listOfOne(identity));
     }
 
-    public BindingReader setPageSize(final Integer pageSize) {
+    public BindingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

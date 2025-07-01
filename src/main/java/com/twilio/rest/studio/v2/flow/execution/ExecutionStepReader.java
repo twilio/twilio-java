@@ -31,7 +31,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     private String pathFlowSid;
     private String pathExecutionSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ExecutionStepReader(
         final String pathFlowSid,
@@ -41,7 +41,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
         this.pathExecutionSid = pathExecutionSid;
     }
 
-    public ExecutionStepReader setPageSize(final Integer pageSize) {
+    public ExecutionStepReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

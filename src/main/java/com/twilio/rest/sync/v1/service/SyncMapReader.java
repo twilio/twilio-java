@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class SyncMapReader extends Reader<SyncMap> {
 
     private String pathServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncMapReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public SyncMapReader setPageSize(final Integer pageSize) {
+    public SyncMapReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

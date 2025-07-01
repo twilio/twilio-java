@@ -32,7 +32,7 @@ public class TrustProductsReader extends Reader<TrustProducts> {
     private TrustProducts.Status status;
     private String friendlyName;
     private String policySid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TrustProductsReader() {}
 
@@ -51,7 +51,7 @@ public class TrustProductsReader extends Reader<TrustProducts> {
         return this;
     }
 
-    public TrustProductsReader setPageSize(final Integer pageSize) {
+    public TrustProductsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

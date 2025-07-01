@@ -34,7 +34,7 @@ public class MemberReader extends Reader<Member> {
     private String pathServiceSid;
     private String pathChannelSid;
     private List<String> identity;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MemberReader(
         final String pathServiceSid,
@@ -53,7 +53,7 @@ public class MemberReader extends Reader<Member> {
         return setIdentity(Promoter.listOfOne(identity));
     }
 
-    public MemberReader setPageSize(final Integer pageSize) {
+    public MemberReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

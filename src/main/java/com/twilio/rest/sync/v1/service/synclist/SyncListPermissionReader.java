@@ -31,7 +31,7 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
 
     private String pathServiceSid;
     private String pathListSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SyncListPermissionReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
         this.pathListSid = pathListSid;
     }
 
-    public SyncListPermissionReader setPageSize(final Integer pageSize) {
+    public SyncListPermissionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

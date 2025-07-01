@@ -35,7 +35,7 @@ public class ParticipantReader extends Reader<Participant> {
     private String identity;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
@@ -65,7 +65,7 @@ public class ParticipantReader extends Reader<Participant> {
         return this;
     }
 
-    public ParticipantReader setPageSize(final Integer pageSize) {
+    public ParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

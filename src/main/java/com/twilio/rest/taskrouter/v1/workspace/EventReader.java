@@ -42,7 +42,7 @@ public class EventReader extends Reader<Event> {
     private String workflowSid;
     private String taskChannel;
     private String sid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public EventReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -103,7 +103,7 @@ public class EventReader extends Reader<Event> {
         return this;
     }
 
-    public EventReader setPageSize(final Integer pageSize) {
+    public EventReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

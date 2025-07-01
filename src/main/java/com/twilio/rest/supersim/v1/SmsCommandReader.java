@@ -32,7 +32,7 @@ public class SmsCommandReader extends Reader<SmsCommand> {
     private String sim;
     private SmsCommand.Status status;
     private SmsCommand.Direction direction;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SmsCommandReader() {}
 
@@ -51,7 +51,7 @@ public class SmsCommandReader extends Reader<SmsCommand> {
         return this;
     }
 
-    public SmsCommandReader setPageSize(final Integer pageSize) {
+    public SmsCommandReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

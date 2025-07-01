@@ -221,7 +221,8 @@ public class BrandVetting extends Resource {
     }
 
     public enum VettingProvider {
-        CAMPAIGN_VERIFY("campaign-verify");
+        CAMPAIGN_VERIFY("campaign-verify"),
+        AEGIS("aegis");
 
         private final String value;
 

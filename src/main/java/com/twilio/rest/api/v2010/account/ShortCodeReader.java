@@ -32,7 +32,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     private String pathAccountSid;
     private String friendlyName;
     private String shortCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ShortCodeReader() {}
 
@@ -50,7 +50,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
         return this;
     }
 
-    public ShortCodeReader setPageSize(final Integer pageSize) {
+    public ShortCodeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

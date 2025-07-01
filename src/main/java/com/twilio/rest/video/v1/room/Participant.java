@@ -240,7 +240,8 @@ public class Participant extends Resource {
 
     public enum Status {
         CONNECTED("connected"),
-        DISCONNECTED("disconnected");
+        DISCONNECTED("disconnected"),
+        RECONNECTING("reconnecting");
 
         private final String value;
 

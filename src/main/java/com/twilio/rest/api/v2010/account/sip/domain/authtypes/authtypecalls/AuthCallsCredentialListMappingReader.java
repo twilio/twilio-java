@@ -32,7 +32,7 @@ public class AuthCallsCredentialListMappingReader
 
     private String pathDomainSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AuthCallsCredentialListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -47,7 +47,7 @@ public class AuthCallsCredentialListMappingReader
     }
 
     public AuthCallsCredentialListMappingReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;

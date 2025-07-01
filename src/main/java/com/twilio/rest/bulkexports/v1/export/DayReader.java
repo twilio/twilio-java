@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class DayReader extends Reader<Day> {
 
     private String pathResourceType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DayReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
     }
 
-    public DayReader setPageSize(final Integer pageSize) {
+    public DayReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

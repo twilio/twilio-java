@@ -36,7 +36,7 @@ public class YearlyReader extends Reader<Yearly> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public YearlyReader() {}
 
@@ -66,7 +66,7 @@ public class YearlyReader extends Reader<Yearly> {
         return this;
     }
 
-    public YearlyReader setPageSize(final Integer pageSize) {
+    public YearlyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

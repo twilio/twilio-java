@@ -42,7 +42,7 @@ public class BundleReader extends Reader<Bundle> {
     private ZonedDateTime validUntilDate;
     private ZonedDateTime validUntilDateBefore;
     private ZonedDateTime validUntilDateAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BundleReader() {}
 
@@ -107,7 +107,7 @@ public class BundleReader extends Reader<Bundle> {
         return this;
     }
 
-    public BundleReader setPageSize(final Integer pageSize) {
+    public BundleReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

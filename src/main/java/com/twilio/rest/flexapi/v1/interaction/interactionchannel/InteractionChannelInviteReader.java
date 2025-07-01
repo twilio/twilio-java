@@ -32,7 +32,7 @@ public class InteractionChannelInviteReader
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InteractionChannelInviteReader(
         final String pathInteractionSid,
@@ -42,7 +42,7 @@ public class InteractionChannelInviteReader
         this.pathChannelSid = pathChannelSid;
     }
 
-    public InteractionChannelInviteReader setPageSize(final Integer pageSize) {
+    public InteractionChannelInviteReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

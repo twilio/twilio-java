@@ -261,6 +261,26 @@ public class UserChannel extends Resource {
         );
     }
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     public enum ChannelStatus {
         JOINED("joined"),
         INVITED("invited"),
@@ -279,26 +299,6 @@ public class UserChannel extends Resource {
         @JsonCreator
         public static ChannelStatus forValue(final String value) {
             return Promoter.enumFromString(value, ChannelStatus.values());
-        }
-    }
-
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
         }
     }
 

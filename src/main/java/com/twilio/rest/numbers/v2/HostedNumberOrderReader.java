@@ -35,7 +35,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     private com.twilio.type.PhoneNumber phoneNumber;
     private String incomingPhoneNumberSid;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public HostedNumberOrderReader() {}
 
@@ -76,7 +76,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
         return this;
     }
 
-    public HostedNumberOrderReader setPageSize(final Integer pageSize) {
+    public HostedNumberOrderReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

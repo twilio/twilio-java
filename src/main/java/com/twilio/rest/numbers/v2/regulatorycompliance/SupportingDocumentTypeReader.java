@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 public class SupportingDocumentTypeReader
     extends Reader<SupportingDocumentType> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public SupportingDocumentTypeReader() {}
 
-    public SupportingDocumentTypeReader setPageSize(final Integer pageSize) {
+    public SupportingDocumentTypeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

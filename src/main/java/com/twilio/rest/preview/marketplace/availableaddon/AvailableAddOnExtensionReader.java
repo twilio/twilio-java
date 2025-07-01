@@ -31,13 +31,13 @@ public class AvailableAddOnExtensionReader
     extends Reader<AvailableAddOnExtension> {
 
     private String pathAvailableAddOnSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AvailableAddOnExtensionReader(final String pathAvailableAddOnSid) {
         this.pathAvailableAddOnSid = pathAvailableAddOnSid;
     }
 
-    public AvailableAddOnExtensionReader setPageSize(final Integer pageSize) {
+    public AvailableAddOnExtensionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

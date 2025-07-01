@@ -31,7 +31,7 @@ public class NetworkAccessProfileNetworkReader
     extends Reader<NetworkAccessProfileNetwork> {
 
     private String pathNetworkAccessProfileSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public NetworkAccessProfileNetworkReader(
         final String pathNetworkAccessProfileSid
@@ -39,9 +39,7 @@ public class NetworkAccessProfileNetworkReader
         this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
     }
 
-    public NetworkAccessProfileNetworkReader setPageSize(
-        final Integer pageSize
-    ) {
+    public NetworkAccessProfileNetworkReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

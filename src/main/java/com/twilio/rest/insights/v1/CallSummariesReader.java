@@ -61,7 +61,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String businessProfileIndustry;
     private String businessProfileBundleSid;
     private String businessProfileType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CallSummariesReader() {}
 
@@ -257,7 +257,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         return this;
     }
 
-    public CallSummariesReader setPageSize(final Integer pageSize) {
+    public CallSummariesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

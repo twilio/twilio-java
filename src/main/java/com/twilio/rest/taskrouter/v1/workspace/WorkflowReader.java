@@ -31,7 +31,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     private String pathWorkspaceSid;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WorkflowReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -42,7 +42,7 @@ public class WorkflowReader extends Reader<Workflow> {
         return this;
     }
 
-    public WorkflowReader setPageSize(final Integer pageSize) {
+    public WorkflowReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

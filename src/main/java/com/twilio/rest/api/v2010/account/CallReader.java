@@ -43,7 +43,7 @@ public class CallReader extends Reader<Call> {
     private ZonedDateTime endTime;
     private ZonedDateTime endTimeBefore;
     private ZonedDateTime endTimeAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CallReader() {}
 
@@ -109,7 +109,7 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
-    public CallReader setPageSize(final Integer pageSize) {
+    public CallReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

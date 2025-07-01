@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class TemplateReader extends Reader<Template> {
 
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public TemplateReader() {}
 
@@ -39,7 +39,7 @@ public class TemplateReader extends Reader<Template> {
         return this;
     }
 
-    public TemplateReader setPageSize(final Integer pageSize) {
+    public TemplateReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

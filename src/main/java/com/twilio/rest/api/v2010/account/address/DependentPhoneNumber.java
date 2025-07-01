@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class DependentPhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 170982689441309L;
+    private static final long serialVersionUID = 279811089031324L;
 
     public static DependentPhoneNumberReader reader(
         final String pathAddressSid
@@ -100,7 +100,7 @@ public class DependentPhoneNumber extends Resource {
 
     private final String sid;
     private final String accountSid;
-    private final com.twilio.type.PhoneNumber friendlyName;
+    private final String friendlyName;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final URI voiceUrl;
     private final HttpMethod voiceMethod;
@@ -129,9 +129,7 @@ public class DependentPhoneNumber extends Resource {
     private DependentPhoneNumber(
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "friendly_name"
-        ) final com.twilio.type.PhoneNumber friendlyName,
+        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty(
             "phone_number"
         ) final com.twilio.type.PhoneNumber phoneNumber,
@@ -204,7 +202,7 @@ public class DependentPhoneNumber extends Resource {
         return this.accountSid;
     }
 
-    public final com.twilio.type.PhoneNumber getFriendlyName() {
+    public final String getFriendlyName() {
         return this.friendlyName;
     }
 
@@ -374,26 +372,6 @@ public class DependentPhoneNumber extends Resource {
         );
     }
 
-    public enum EmergencyStatus {
-        ACTIVE("Active"),
-        INACTIVE("Inactive");
-
-        private final String value;
-
-        private EmergencyStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EmergencyStatus forValue(final String value) {
-            return Promoter.enumFromString(value, EmergencyStatus.values());
-        }
-    }
-
     public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
@@ -413,6 +391,26 @@ public class DependentPhoneNumber extends Resource {
         @JsonCreator
         public static AddressRequirement forValue(final String value) {
             return Promoter.enumFromString(value, AddressRequirement.values());
+        }
+    }
+
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+
+        private final String value;
+
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
         }
     }
 }

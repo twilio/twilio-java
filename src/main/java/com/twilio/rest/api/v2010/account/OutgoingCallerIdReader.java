@@ -33,7 +33,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public OutgoingCallerIdReader() {}
 
@@ -57,7 +57,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         return this;
     }
 
-    public OutgoingCallerIdReader setPageSize(final Integer pageSize) {
+    public OutgoingCallerIdReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

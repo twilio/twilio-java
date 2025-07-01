@@ -32,7 +32,7 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     private String pathChatServiceSid;
     private String pathConversationSid;
     private String pathMessageSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public DeliveryReceiptReader(
         final String pathChatServiceSid,
@@ -44,7 +44,7 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
         this.pathMessageSid = pathMessageSid;
     }
 
-    public DeliveryReceiptReader setPageSize(final Integer pageSize) {
+    public DeliveryReceiptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

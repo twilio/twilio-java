@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class UserReader extends Reader<User> {
 
     private String pathChatServiceSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UserReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
     }
 
-    public UserReader setPageSize(final Integer pageSize) {
+    public UserReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

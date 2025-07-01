@@ -252,6 +252,46 @@ public class NewFactor extends Resource {
         );
     }
 
+    public enum FactorTypes {
+        PUSH("push"),
+        TOTP("totp");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
+    public enum FactorStatuses {
+        UNVERIFIED("unverified"),
+        VERIFIED("verified");
+
+        private final String value;
+
+        private FactorStatuses(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, FactorStatuses.values());
+        }
+    }
+
     public enum TotpAlgorithms {
         SHA1("sha1"),
         SHA256("sha256"),
@@ -270,26 +310,6 @@ public class NewFactor extends Resource {
         @JsonCreator
         public static TotpAlgorithms forValue(final String value) {
             return Promoter.enumFromString(value, TotpAlgorithms.values());
-        }
-    }
-
-    public enum FactorTypes {
-        PUSH("push"),
-        TOTP("totp");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
 
@@ -314,26 +334,6 @@ public class NewFactor extends Resource {
                 value,
                 NotificationPlatforms.values()
             );
-        }
-    }
-
-    public enum FactorStatuses {
-        UNVERIFIED("unverified"),
-        VERIFIED("verified");
-
-        private final String value;
-
-        private FactorStatuses(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorStatuses forValue(final String value) {
-            return Promoter.enumFromString(value, FactorStatuses.values());
         }
     }
 }

@@ -329,26 +329,6 @@ public class Composition extends Resource {
         );
     }
 
-    public enum Format {
-        MP4("mp4"),
-        WEBM("webm");
-
-        private final String value;
-
-        private Format(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Format forValue(final String value) {
-            return Promoter.enumFromString(value, Format.values());
-        }
-    }
-
     public enum Status {
         ENQUEUED("enqueued"),
         PROCESSING("processing"),
@@ -369,6 +349,26 @@ public class Composition extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Format {
+        MP4("mp4"),
+        WEBM("webm");
+
+        private final String value;
+
+        private Format(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Format forValue(final String value) {
+            return Promoter.enumFromString(value, Format.values());
         }
     }
 }

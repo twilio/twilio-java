@@ -50,7 +50,7 @@ public class MobileReader extends Reader<Mobile> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MobileReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +166,7 @@ public class MobileReader extends Reader<Mobile> {
         return this;
     }
 
-    public MobileReader setPageSize(final Integer pageSize) {
+    public MobileReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

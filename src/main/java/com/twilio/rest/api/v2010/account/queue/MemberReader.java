@@ -31,7 +31,7 @@ public class MemberReader extends Reader<Member> {
 
     private String pathQueueSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MemberReader(final String pathQueueSid) {
         this.pathQueueSid = pathQueueSid;
@@ -45,7 +45,7 @@ public class MemberReader extends Reader<Member> {
         this.pathQueueSid = pathQueueSid;
     }
 
-    public MemberReader setPageSize(final Integer pageSize) {
+    public MemberReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

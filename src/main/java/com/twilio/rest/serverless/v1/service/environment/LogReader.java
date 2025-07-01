@@ -35,7 +35,7 @@ public class LogReader extends Reader<Log> {
     private String functionSid;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
-    private Integer pageSize;
+    private Long pageSize;
 
     public LogReader(
         final String pathServiceSid,
@@ -60,7 +60,7 @@ public class LogReader extends Reader<Log> {
         return this;
     }
 
-    public LogReader setPageSize(final Integer pageSize) {
+    public LogReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

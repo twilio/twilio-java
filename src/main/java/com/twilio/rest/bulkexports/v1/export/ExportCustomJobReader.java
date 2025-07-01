@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class ExportCustomJobReader extends Reader<ExportCustomJob> {
 
     private String pathResourceType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ExportCustomJobReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
     }
 
-    public ExportCustomJobReader setPageSize(final Integer pageSize) {
+    public ExportCustomJobReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

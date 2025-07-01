@@ -32,7 +32,7 @@ public class InsightsQuestionnairesReader
 
     private String authorization;
     private Boolean includeInactive;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InsightsQuestionnairesReader() {}
 
@@ -50,7 +50,7 @@ public class InsightsQuestionnairesReader
         return this;
     }
 
-    public InsightsQuestionnairesReader setPageSize(final Integer pageSize) {
+    public InsightsQuestionnairesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

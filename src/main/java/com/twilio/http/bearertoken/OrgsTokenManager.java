@@ -1,11 +1,9 @@
 package com.twilio.http.bearertoken;
 
 import com.twilio.annotations.Beta;
-import lombok.Setter;
 import com.twilio.exception.ApiException;
-import lombok.RequiredArgsConstructor;
-import com.twilio.rest.previewiam.v1.Token;
-import com.twilio.rest.previewiam.v1.TokenCreator;
+import com.twilio.rest.iam.v1.Token;
+import com.twilio.rest.iam.v1.TokenCreator;
 @Beta
 public class OrgsTokenManager implements TokenManager{
 

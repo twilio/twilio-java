@@ -36,7 +36,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ThisMonthReader() {}
 
@@ -66,7 +66,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
         return this;
     }
 
-    public ThisMonthReader setPageSize(final Integer pageSize) {
+    public ThisMonthReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -31,7 +31,7 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
 
     private CustomOperator.Availability availability;
     private String languageCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomOperatorReader() {}
 
@@ -47,7 +47,7 @@ public class CustomOperatorReader extends Reader<CustomOperator> {
         return this;
     }
 
-    public CustomOperatorReader setPageSize(final Integer pageSize) {
+    public CustomOperatorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

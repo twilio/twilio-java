@@ -502,26 +502,6 @@ public class Local extends Resource {
         }
     }
 
-    public enum VoiceReceiveMode {
-        VOICE("voice"),
-        FAX("fax");
-
-        private final String value;
-
-        private VoiceReceiveMode(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VoiceReceiveMode forValue(final String value) {
-            return Promoter.enumFromString(value, VoiceReceiveMode.values());
-        }
-    }
-
     public enum EmergencyAddressStatus {
         REGISTERED("registered"),
         UNREGISTERED("unregistered"),
@@ -546,6 +526,26 @@ public class Local extends Resource {
                 value,
                 EmergencyAddressStatus.values()
             );
+        }
+    }
+
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
+
+        private final String value;
+
+        private VoiceReceiveMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
         }
     }
 }

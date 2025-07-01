@@ -33,7 +33,7 @@ public class AssignedAddOnExtensionReader
     private String pathResourceSid;
     private String pathAssignedAddOnSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AssignedAddOnExtensionReader(
         final String pathResourceSid,
@@ -53,7 +53,7 @@ public class AssignedAddOnExtensionReader
         this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
 
-    public AssignedAddOnExtensionReader setPageSize(final Integer pageSize) {
+    public AssignedAddOnExtensionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

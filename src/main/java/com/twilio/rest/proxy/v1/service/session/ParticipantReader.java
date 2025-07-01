@@ -31,7 +31,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     private String pathServiceSid;
     private String pathSessionSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantReader(
         final String pathServiceSid,
@@ -41,7 +41,7 @@ public class ParticipantReader extends Reader<Participant> {
         this.pathSessionSid = pathSessionSid;
     }
 
-    public ParticipantReader setPageSize(final Integer pageSize) {
+    public ParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

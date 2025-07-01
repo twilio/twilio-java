@@ -32,7 +32,7 @@ public class PayloadReader extends Reader<Payload> {
     private String pathReferenceSid;
     private String pathAddOnResultSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PayloadReader(
         final String pathReferenceSid,
@@ -52,7 +52,7 @@ public class PayloadReader extends Reader<Payload> {
         this.pathAddOnResultSid = pathAddOnResultSid;
     }
 
-    public PayloadReader setPageSize(final Integer pageSize) {
+    public PayloadReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

@@ -326,27 +326,6 @@ public class Interaction extends Resource {
         );
     }
 
-    public enum Type {
-        MESSAGE("message"),
-        VOICE("voice"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     public enum ResourceStatus {
         ACCEPTED("accepted"),
         ANSWERED("answered"),
@@ -383,6 +362,27 @@ public class Interaction extends Resource {
         @JsonCreator
         public static ResourceStatus forValue(final String value) {
             return Promoter.enumFromString(value, ResourceStatus.values());
+        }
+    }
+
+    public enum Type {
+        MESSAGE("message"),
+        VOICE("voice"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
         }
     }
 }

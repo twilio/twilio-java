@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class SigningKeyReader extends Reader<SigningKey> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SigningKeyReader() {}
 
@@ -38,7 +38,7 @@ public class SigningKeyReader extends Reader<SigningKey> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public SigningKeyReader setPageSize(final Integer pageSize) {
+    public SigningKeyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

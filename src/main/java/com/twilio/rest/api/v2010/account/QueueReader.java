@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class QueueReader extends Reader<Queue> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public QueueReader() {}
 
@@ -38,7 +38,7 @@ public class QueueReader extends Reader<Queue> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public QueueReader setPageSize(final Integer pageSize) {
+    public QueueReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

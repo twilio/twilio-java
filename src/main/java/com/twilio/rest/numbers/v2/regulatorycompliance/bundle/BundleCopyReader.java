@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 public class BundleCopyReader extends Reader<BundleCopy> {
 
     private String pathBundleSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BundleCopyReader(final String pathBundleSid) {
         this.pathBundleSid = pathBundleSid;
     }
 
-    public BundleCopyReader setPageSize(final Integer pageSize) {
+    public BundleCopyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

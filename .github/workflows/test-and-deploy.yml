@@ -106,7 +106,7 @@ jobs:
         with:
           java-version: 11
           distribution: temurin
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}

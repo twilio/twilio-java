@@ -241,7 +241,7 @@ public class LocalCreator extends Creator<Local> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.phoneNumber.encode("utf-8")
+                this.phoneNumber.toString()
             );
 
         Request request = new Request(

@@ -149,7 +149,10 @@ public class ChallengeCreator extends Creator<Challenge> {
         }
         if (detailsFields != null) {
             for (Object prop : detailsFields) {
-                request.addPostParam("Details.Fields", prop.toString());
+                request.addPostParam(
+                    "Details.Fields",
+                    Converter.objectToJson(prop)
+                );
             }
         }
         if (hiddenDetails != null) {

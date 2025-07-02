@@ -15,6 +15,7 @@
 package com.twilio.rest.events.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -116,7 +117,7 @@ public class SubscriptionCreator extends Creator<Subscription> {
         }
         if (types != null) {
             for (Object prop : types) {
-                request.addPostParam("Types", prop.toString());
+                request.addPostParam("Types", Converter.objectToJson(prop));
             }
         }
     }

@@ -95,7 +95,7 @@ public class Notification extends Resource {
     private final List<String> identities;
     private final List<String> tags;
     private final List<String> segments;
-    private final Notification.Priority priority;
+    private final Priority priority;
     private final Integer ttl;
     private final String title;
     private final String body;
@@ -118,7 +118,7 @@ public class Notification extends Resource {
         @JsonProperty("identities") final List<String> identities,
         @JsonProperty("tags") final List<String> tags,
         @JsonProperty("segments") final List<String> segments,
-        @JsonProperty("priority") final Notification.Priority priority,
+        @JsonProperty("priority") final Priority priority,
         @JsonProperty("ttl") final Integer ttl,
         @JsonProperty("title") final String title,
         @JsonProperty("body") final String body,
@@ -185,7 +185,7 @@ public class Notification extends Resource {
         return this.segments;
     }
 
-    public final Notification.Priority getPriority() {
+    public final Priority getPriority() {
         return this.priority;
     }
 

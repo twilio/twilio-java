@@ -102,11 +102,11 @@ public class IpCommand extends Resource {
     private final String accountSid;
     private final String simSid;
     private final String simIccid;
-    private final IpCommand.Status status;
-    private final IpCommand.Direction direction;
+    private final Status status;
+    private final Direction direction;
     private final String deviceIp;
     private final Integer devicePort;
-    private final IpCommand.PayloadType payloadType;
+    private final PayloadType payloadType;
     private final String payload;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -118,11 +118,11 @@ public class IpCommand extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("sim_iccid") final String simIccid,
-        @JsonProperty("status") final IpCommand.Status status,
-        @JsonProperty("direction") final IpCommand.Direction direction,
+        @JsonProperty("status") final Status status,
+        @JsonProperty("direction") final Direction direction,
         @JsonProperty("device_ip") final String deviceIp,
         @JsonProperty("device_port") final Integer devicePort,
-        @JsonProperty("payload_type") final IpCommand.PayloadType payloadType,
+        @JsonProperty("payload_type") final PayloadType payloadType,
         @JsonProperty("payload") final String payload,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -159,11 +159,11 @@ public class IpCommand extends Resource {
         return this.simIccid;
     }
 
-    public final IpCommand.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
-    public final IpCommand.Direction getDirection() {
+    public final Direction getDirection() {
         return this.direction;
     }
 
@@ -175,7 +175,7 @@ public class IpCommand extends Resource {
         return this.devicePort;
     }
 
-    public final IpCommand.PayloadType getPayloadType() {
+    public final PayloadType getPayloadType() {
         return this.payloadType;
     }
 

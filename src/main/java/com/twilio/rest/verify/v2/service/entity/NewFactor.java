@@ -45,7 +45,7 @@ public class NewFactor extends Resource {
         final String pathServiceSid,
         final String pathIdentity,
         final String friendlyName,
-        final NewFactor.FactorTypes factorType
+        final FactorTypes factorType
     ) {
         return new NewFactorCreator(
             pathServiceSid,
@@ -107,8 +107,8 @@ public class NewFactor extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
-    private final NewFactor.FactorStatuses status;
-    private final NewFactor.FactorTypes factorType;
+    private final FactorStatuses status;
+    private final FactorTypes factorType;
     private final Map<String, Object> config;
     private final Map<String, Object> metadata;
     private final URI url;
@@ -124,8 +124,8 @@ public class NewFactor extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final NewFactor.FactorStatuses status,
-        @JsonProperty("factor_type") final NewFactor.FactorTypes factorType,
+        @JsonProperty("status") final FactorStatuses status,
+        @JsonProperty("factor_type") final FactorTypes factorType,
         @JsonProperty("config") final Map<String, Object> config,
         @JsonProperty("metadata") final Map<String, Object> metadata,
         @JsonProperty("url") final URI url
@@ -182,11 +182,11 @@ public class NewFactor extends Resource {
         return this.friendlyName;
     }
 
-    public final NewFactor.FactorStatuses getStatus() {
+    public final FactorStatuses getStatus() {
         return this.status;
     }
 
-    public final NewFactor.FactorTypes getFactorType() {
+    public final FactorTypes getFactorType() {
         return this.factorType;
     }
 

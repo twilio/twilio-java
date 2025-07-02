@@ -94,7 +94,7 @@ public class Feedback extends Resource {
 
     private final String accountSid;
     private final String messageSid;
-    private final Feedback.Outcome outcome;
+    private final Outcome outcome;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String uri;
@@ -103,7 +103,7 @@ public class Feedback extends Resource {
     private Feedback(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("message_sid") final String messageSid,
-        @JsonProperty("outcome") final Feedback.Outcome outcome,
+        @JsonProperty("outcome") final Outcome outcome,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri
@@ -124,7 +124,7 @@ public class Feedback extends Resource {
         return this.messageSid;
     }
 
-    public final Feedback.Outcome getOutcome() {
+    public final Outcome getOutcome() {
         return this.outcome;
     }
 

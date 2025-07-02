@@ -109,7 +109,7 @@ public class SubscribedTrack extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Boolean enabled;
-    private final SubscribedTrack.Kind kind;
+    private final Kind kind;
     private final URI url;
 
     @JsonCreator
@@ -122,7 +122,7 @@ public class SubscribedTrack extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("kind") final SubscribedTrack.Kind kind,
+        @JsonProperty("kind") final Kind kind,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -169,7 +169,7 @@ public class SubscribedTrack extends Resource {
         return this.enabled;
     }
 
-    public final SubscribedTrack.Kind getKind() {
+    public final Kind getKind() {
         return this.kind;
     }
 

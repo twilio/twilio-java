@@ -119,7 +119,7 @@ public class CustomOperator extends Resource {
     private final String author;
     private final String operatorType;
     private final Integer version;
-    private final CustomOperator.Availability availability;
+    private final Availability availability;
     private final Map<String, Object> config;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -134,9 +134,7 @@ public class CustomOperator extends Resource {
         @JsonProperty("author") final String author,
         @JsonProperty("operator_type") final String operatorType,
         @JsonProperty("version") final Integer version,
-        @JsonProperty(
-            "availability"
-        ) final CustomOperator.Availability availability,
+        @JsonProperty("availability") final Availability availability,
         @JsonProperty("config") final Map<String, Object> config,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -184,7 +182,7 @@ public class CustomOperator extends Resource {
         return this.version;
     }
 
-    public final CustomOperator.Availability getAvailability() {
+    public final Availability getAvailability() {
         return this.availability;
     }
 

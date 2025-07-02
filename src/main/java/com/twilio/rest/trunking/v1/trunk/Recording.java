@@ -87,23 +87,23 @@ public class Recording extends Resource {
         }
     }
 
-    private final Recording.RecordingMode mode;
-    private final Recording.RecordingTrim trim;
+    private final RecordingMode mode;
+    private final RecordingTrim trim;
 
     @JsonCreator
     private Recording(
-        @JsonProperty("mode") final Recording.RecordingMode mode,
-        @JsonProperty("trim") final Recording.RecordingTrim trim
+        @JsonProperty("mode") final RecordingMode mode,
+        @JsonProperty("trim") final RecordingTrim trim
     ) {
         this.mode = mode;
         this.trim = trim;
     }
 
-    public final Recording.RecordingMode getMode() {
+    public final RecordingMode getMode() {
         return this.mode;
     }
 
-    public final Recording.RecordingTrim getTrim() {
+    public final RecordingTrim getTrim() {
         return this.trim;
     }
 

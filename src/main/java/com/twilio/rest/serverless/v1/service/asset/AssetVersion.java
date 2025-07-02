@@ -102,7 +102,7 @@ public class AssetVersion extends Resource {
     private final String serviceSid;
     private final String assetSid;
     private final String path;
-    private final AssetVersion.Visibility visibility;
+    private final Visibility visibility;
     private final ZonedDateTime dateCreated;
     private final URI url;
 
@@ -113,7 +113,7 @@ public class AssetVersion extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("asset_sid") final String assetSid,
         @JsonProperty("path") final String path,
-        @JsonProperty("visibility") final AssetVersion.Visibility visibility,
+        @JsonProperty("visibility") final Visibility visibility,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
     ) {
@@ -147,7 +147,7 @@ public class AssetVersion extends Resource {
         return this.path;
     }
 
-    public final AssetVersion.Visibility getVisibility() {
+    public final Visibility getVisibility() {
         return this.visibility;
     }
 

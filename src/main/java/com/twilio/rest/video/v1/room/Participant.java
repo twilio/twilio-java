@@ -105,7 +105,7 @@ public class Participant extends Resource {
     private final String sid;
     private final String roomSid;
     private final String accountSid;
-    private final Participant.Status status;
+    private final Status status;
     private final String identity;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -120,7 +120,7 @@ public class Participant extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("room_sid") final String roomSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Participant.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("identity") final String identity,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -156,7 +156,7 @@ public class Participant extends Resource {
         return this.accountSid;
     }
 
-    public final Participant.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

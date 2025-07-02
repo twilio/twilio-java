@@ -110,7 +110,7 @@ public class Reservation extends Resource {
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Reservation.Status reservationStatus;
+    private final Status reservationStatus;
     private final String sid;
     private final String taskSid;
     private final String workerName;
@@ -124,9 +124,7 @@ public class Reservation extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "reservation_status"
-        ) final Reservation.Status reservationStatus,
+        @JsonProperty("reservation_status") final Status reservationStatus,
         @JsonProperty("sid") final String sid,
         @JsonProperty("task_sid") final String taskSid,
         @JsonProperty("worker_name") final String workerName,
@@ -160,7 +158,7 @@ public class Reservation extends Resource {
         return this.dateUpdated;
     }
 
-    public final Reservation.Status getReservationStatus() {
+    public final Status getReservationStatus() {
         return this.reservationStatus;
     }
 

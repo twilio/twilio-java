@@ -117,7 +117,7 @@ public class Service extends Resource {
     private final String uniqueName;
     private final URI url;
     private final String webhookUrl;
-    private final Service.HttpMethod webhookHttpMethod;
+    private final HttpMethod webhookHttpMethod;
     private final List<String> readOnlyAttachedOperatorSids;
     private final Integer version;
 
@@ -136,9 +136,7 @@ public class Service extends Resource {
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("url") final URI url,
         @JsonProperty("webhook_url") final String webhookUrl,
-        @JsonProperty(
-            "webhook_http_method"
-        ) final Service.HttpMethod webhookHttpMethod,
+        @JsonProperty("webhook_http_method") final HttpMethod webhookHttpMethod,
         @JsonProperty("read_only_attached_operator_sids") final List<
             String
         > readOnlyAttachedOperatorSids,
@@ -214,7 +212,7 @@ public class Service extends Resource {
         return this.webhookUrl;
     }
 
-    public final Service.HttpMethod getWebhookHttpMethod() {
+    public final HttpMethod getWebhookHttpMethod() {
         return this.webhookHttpMethod;
     }
 

@@ -108,7 +108,7 @@ public class FunctionVersion extends Resource {
     private final String serviceSid;
     private final String functionSid;
     private final String path;
-    private final FunctionVersion.Visibility visibility;
+    private final Visibility visibility;
     private final ZonedDateTime dateCreated;
     private final URI url;
     private final Map<String, String> links;
@@ -120,7 +120,7 @@ public class FunctionVersion extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("function_sid") final String functionSid,
         @JsonProperty("path") final String path,
-        @JsonProperty("visibility") final FunctionVersion.Visibility visibility,
+        @JsonProperty("visibility") final Visibility visibility,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
@@ -156,7 +156,7 @@ public class FunctionVersion extends Resource {
         return this.path;
     }
 
-    public final FunctionVersion.Visibility getVisibility() {
+    public final Visibility getVisibility() {
         return this.visibility;
     }
 

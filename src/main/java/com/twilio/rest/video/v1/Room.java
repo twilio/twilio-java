@@ -57,7 +57,7 @@ public class Room extends Resource {
 
     public static RoomUpdater updater(
         final String pathSid,
-        final Room.RoomStatus status
+        final RoomStatus status
     ) {
         return new RoomUpdater(pathSid, status);
     }
@@ -106,7 +106,7 @@ public class Room extends Resource {
     }
 
     private final String sid;
-    private final Room.RoomStatus status;
+    private final RoomStatus status;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String accountSid;
@@ -116,12 +116,12 @@ public class Room extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final ZonedDateTime endTime;
     private final Integer duration;
-    private final Room.RoomType type;
+    private final RoomType type;
     private final Integer maxParticipants;
     private final Integer maxParticipantDuration;
     private final Integer maxConcurrentPublishedTracks;
     private final Boolean recordParticipantsOnConnect;
-    private final List<Room.VideoCodec> videoCodecs;
+    private final List<VideoCodec> videoCodecs;
     private final String mediaRegion;
     private final Boolean audioOnly;
     private final Integer emptyRoomTimeout;
@@ -133,7 +133,7 @@ public class Room extends Resource {
     @JsonCreator
     private Room(
         @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Room.RoomStatus status,
+        @JsonProperty("status") final RoomStatus status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("account_sid") final String accountSid,
@@ -145,7 +145,7 @@ public class Room extends Resource {
         ) final HttpMethod statusCallbackMethod,
         @JsonProperty("end_time") final String endTime,
         @JsonProperty("duration") final Integer duration,
-        @JsonProperty("type") final Room.RoomType type,
+        @JsonProperty("type") final RoomType type,
         @JsonProperty("max_participants") final Integer maxParticipants,
         @JsonProperty(
             "max_participant_duration"
@@ -156,7 +156,7 @@ public class Room extends Resource {
         @JsonProperty(
             "record_participants_on_connect"
         ) final Boolean recordParticipantsOnConnect,
-        @JsonProperty("video_codecs") final List<Room.VideoCodec> videoCodecs,
+        @JsonProperty("video_codecs") final List<VideoCodec> videoCodecs,
         @JsonProperty("media_region") final String mediaRegion,
         @JsonProperty("audio_only") final Boolean audioOnly,
         @JsonProperty("empty_room_timeout") final Integer emptyRoomTimeout,
@@ -195,7 +195,7 @@ public class Room extends Resource {
         return this.sid;
     }
 
-    public final Room.RoomStatus getStatus() {
+    public final RoomStatus getStatus() {
         return this.status;
     }
 
@@ -235,7 +235,7 @@ public class Room extends Resource {
         return this.duration;
     }
 
-    public final Room.RoomType getType() {
+    public final RoomType getType() {
         return this.type;
     }
 
@@ -255,7 +255,7 @@ public class Room extends Resource {
         return this.recordParticipantsOnConnect;
     }
 
-    public final List<Room.VideoCodec> getVideoCodecs() {
+    public final List<VideoCodec> getVideoCodecs() {
         return this.videoCodecs;
     }
 

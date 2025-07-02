@@ -113,9 +113,9 @@ public class Account extends Resource {
     private final String friendlyName;
     private final String ownerAccountSid;
     private final String sid;
-    private final Account.Status status;
+    private final Status status;
     private final Map<String, String> subresourceUris;
-    private final Account.Type type;
+    private final Type type;
     private final String uri;
 
     @JsonCreator
@@ -126,12 +126,12 @@ public class Account extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("owner_account_sid") final String ownerAccountSid,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Account.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("subresource_uris") final Map<
             String,
             String
         > subresourceUris,
-        @JsonProperty("type") final Account.Type type,
+        @JsonProperty("type") final Type type,
         @JsonProperty("uri") final String uri
     ) {
         this.authToken = authToken;
@@ -170,7 +170,7 @@ public class Account extends Resource {
         return this.sid;
     }
 
-    public final Account.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -178,7 +178,7 @@ public class Account extends Resource {
         return this.subresourceUris;
     }
 
-    public final Account.Type getType() {
+    public final Type getType() {
         return this.type;
     }
 

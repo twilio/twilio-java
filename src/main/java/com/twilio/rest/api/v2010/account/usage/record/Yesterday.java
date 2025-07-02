@@ -98,7 +98,7 @@ public class Yesterday extends Resource {
     private final String accountSid;
     private final String apiVersion;
     private final String asOf;
-    private final Yesterday.Category category;
+    private final Category category;
     private final String count;
     private final String countUnit;
     private final String description;
@@ -116,14 +116,14 @@ public class Yesterday extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("as_of") final String asOf,
-        @JsonProperty("category") final Yesterday.Category category,
+        @JsonProperty("category") final Category category,
         @JsonProperty("count") final String count,
         @JsonProperty("count_unit") final String countUnit,
         @JsonProperty("description") final String description,
         @JsonProperty("end_date") final String endDate,
         @JsonProperty("price") final BigDecimal price,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
+            using = CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("start_date") final String startDate,
         @JsonProperty("subresource_uris") final Map<
@@ -163,7 +163,7 @@ public class Yesterday extends Resource {
         return this.asOf;
     }
 
-    public final Yesterday.Category getCategory() {
+    public final Category getCategory() {
         return this.category;
     }
 

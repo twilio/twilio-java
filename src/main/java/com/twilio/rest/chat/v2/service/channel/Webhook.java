@@ -44,7 +44,7 @@ public class Webhook extends Resource {
     public static WebhookCreator creator(
         final String pathServiceSid,
         final String pathChannelSid,
-        final Webhook.Type type
+        final Type type
     ) {
         return new WebhookCreator(pathServiceSid, pathChannelSid, type);
     }

@@ -107,7 +107,7 @@ public class Sim extends Resource {
     private final String uniqueName;
     private final String accountSid;
     private final String iccid;
-    private final Sim.Status status;
+    private final Status status;
     private final String fleetSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -120,7 +120,7 @@ public class Sim extends Resource {
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("iccid") final String iccid,
-        @JsonProperty("status") final Sim.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("fleet_sid") final String fleetSid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -155,7 +155,7 @@ public class Sim extends Resource {
         return this.iccid;
     }
 
-    public final Sim.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

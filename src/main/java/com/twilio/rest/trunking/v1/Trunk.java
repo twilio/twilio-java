@@ -113,8 +113,8 @@ public class Trunk extends Resource {
     private final String friendlyName;
     private final Boolean secure;
     private final Map<String, Object> recording;
-    private final Trunk.TransferSetting transferMode;
-    private final Trunk.TransferCallerId transferCallerId;
+    private final TransferSetting transferMode;
+    private final TransferCallerId transferCallerId;
     private final Boolean cnamLookupEnabled;
     private final String authType;
     private final List<String> authTypeSet;
@@ -135,10 +135,10 @@ public class Trunk extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("secure") final Boolean secure,
         @JsonProperty("recording") final Map<String, Object> recording,
-        @JsonProperty("transfer_mode") final Trunk.TransferSetting transferMode,
+        @JsonProperty("transfer_mode") final TransferSetting transferMode,
         @JsonProperty(
             "transfer_caller_id"
-        ) final Trunk.TransferCallerId transferCallerId,
+        ) final TransferCallerId transferCallerId,
         @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
         @JsonProperty("auth_type") final String authType,
         @JsonProperty("auth_type_set") final List<String> authTypeSet,
@@ -195,11 +195,11 @@ public class Trunk extends Resource {
         return this.recording;
     }
 
-    public final Trunk.TransferSetting getTransferMode() {
+    public final TransferSetting getTransferMode() {
         return this.transferMode;
     }
 
-    public final Trunk.TransferCallerId getTransferCallerId() {
+    public final TransferCallerId getTransferCallerId() {
         return this.transferCallerId;
     }
 

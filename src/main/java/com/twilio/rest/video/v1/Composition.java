@@ -103,7 +103,7 @@ public class Composition extends Resource {
     }
 
     private final String accountSid;
-    private final Composition.Status status;
+    private final Status status;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateCompleted;
     private final ZonedDateTime dateDeleted;
@@ -114,7 +114,7 @@ public class Composition extends Resource {
     private final Map<String, Object> videoLayout;
     private final String resolution;
     private final Boolean trim;
-    private final Composition.Format format;
+    private final Format format;
     private final Integer bitrate;
     private final Long size;
     private final Integer duration;
@@ -127,7 +127,7 @@ public class Composition extends Resource {
     @JsonCreator
     private Composition(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Composition.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_completed") final String dateCompleted,
         @JsonProperty("date_deleted") final String dateDeleted,
@@ -140,7 +140,7 @@ public class Composition extends Resource {
         @JsonProperty("video_layout") final Map<String, Object> videoLayout,
         @JsonProperty("resolution") final String resolution,
         @JsonProperty("trim") final Boolean trim,
-        @JsonProperty("format") final Composition.Format format,
+        @JsonProperty("format") final Format format,
         @JsonProperty("bitrate") final Integer bitrate,
         @JsonProperty("size") final Long size,
         @JsonProperty("duration") final Integer duration,
@@ -182,7 +182,7 @@ public class Composition extends Resource {
         return this.accountSid;
     }
 
-    public final Composition.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -226,7 +226,7 @@ public class Composition extends Resource {
         return this.trim;
     }
 
-    public final Composition.Format getFormat() {
+    public final Format getFormat() {
         return this.format;
     }
 

@@ -44,7 +44,7 @@ public class Webhook extends Resource {
     public static WebhookCreator creator(
         final String pathChatServiceSid,
         final String pathConversationSid,
-        final Webhook.Target target
+        final Target target
     ) {
         return new WebhookCreator(
             pathChatServiceSid,

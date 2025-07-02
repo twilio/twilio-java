@@ -42,7 +42,7 @@ public class AccessToken extends Resource {
     public static AccessTokenCreator creator(
         final String pathServiceSid,
         final String identity,
-        final AccessToken.FactorTypes factorType
+        final FactorTypes factorType
     ) {
         return new AccessTokenCreator(pathServiceSid, identity, factorType);
     }
@@ -101,7 +101,7 @@ public class AccessToken extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final String entityIdentity;
-    private final AccessToken.FactorTypes factorType;
+    private final FactorTypes factorType;
     private final String factorFriendlyName;
     private final String token;
     private final URI url;
@@ -114,7 +114,7 @@ public class AccessToken extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("entity_identity") final String entityIdentity,
-        @JsonProperty("factor_type") final AccessToken.FactorTypes factorType,
+        @JsonProperty("factor_type") final FactorTypes factorType,
         @JsonProperty("factor_friendly_name") final String factorFriendlyName,
         @JsonProperty("token") final String token,
         @JsonProperty("url") final URI url,
@@ -149,7 +149,7 @@ public class AccessToken extends Resource {
         return this.entityIdentity;
     }
 
-    public final AccessToken.FactorTypes getFactorType() {
+    public final FactorTypes getFactorType() {
         return this.factorType;
     }
 

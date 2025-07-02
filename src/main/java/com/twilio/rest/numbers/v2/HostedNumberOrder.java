@@ -69,7 +69,7 @@ public class HostedNumberOrder extends Resource {
 
     public static HostedNumberOrderUpdater updater(
         final String pathSid,
-        final HostedNumberOrder.Status status
+        final Status status
     ) {
         return new HostedNumberOrderUpdater(pathSid, status);
     }
@@ -125,7 +125,7 @@ public class HostedNumberOrder extends Resource {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final PhoneNumberCapabilities capabilities;
     private final String friendlyName;
-    private final HostedNumberOrder.Status status;
+    private final Status status;
     private final String failureReason;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -141,7 +141,7 @@ public class HostedNumberOrder extends Resource {
     private final Integer verificationCallDelay;
     private final String verificationCallExtension;
     private final String verificationCode;
-    private final HostedNumberOrder.VerificationType verificationType;
+    private final VerificationType verificationType;
 
     @JsonCreator
     private HostedNumberOrder(
@@ -159,7 +159,7 @@ public class HostedNumberOrder extends Resource {
             "capabilities"
         ) final PhoneNumberCapabilities capabilities,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final HostedNumberOrder.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -189,7 +189,7 @@ public class HostedNumberOrder extends Resource {
         @JsonProperty("verification_code") final String verificationCode,
         @JsonProperty(
             "verification_type"
-        ) final HostedNumberOrder.VerificationType verificationType
+        ) final VerificationType verificationType
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -250,7 +250,7 @@ public class HostedNumberOrder extends Resource {
         return this.friendlyName;
     }
 
-    public final HostedNumberOrder.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -314,7 +314,7 @@ public class HostedNumberOrder extends Resource {
         return this.verificationCode;
     }
 
-    public final HostedNumberOrder.VerificationType getVerificationType() {
+    public final VerificationType getVerificationType() {
         return this.verificationType;
     }
 

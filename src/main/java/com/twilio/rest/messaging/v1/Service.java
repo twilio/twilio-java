@@ -118,7 +118,7 @@ public class Service extends Resource {
     private final Boolean stickySender;
     private final Boolean mmsConverter;
     private final Boolean smartEncoding;
-    private final Service.ScanMessageContent scanMessageContent;
+    private final ScanMessageContent scanMessageContent;
     private final Boolean fallbackToLongCode;
     private final Boolean areaCodeGeomatch;
     private final Boolean synchronousValidation;
@@ -146,7 +146,7 @@ public class Service extends Resource {
         @JsonProperty("smart_encoding") final Boolean smartEncoding,
         @JsonProperty(
             "scan_message_content"
-        ) final Service.ScanMessageContent scanMessageContent,
+        ) final ScanMessageContent scanMessageContent,
         @JsonProperty("fallback_to_long_code") final Boolean fallbackToLongCode,
         @JsonProperty("area_code_geomatch") final Boolean areaCodeGeomatch,
         @JsonProperty(
@@ -240,7 +240,7 @@ public class Service extends Resource {
         return this.smartEncoding;
     }
 
-    public final Service.ScanMessageContent getScanMessageContent() {
+    public final ScanMessageContent getScanMessageContent() {
         return this.scanMessageContent;
     }
 

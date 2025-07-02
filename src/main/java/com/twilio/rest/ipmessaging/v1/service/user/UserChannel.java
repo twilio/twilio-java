@@ -92,7 +92,7 @@ public class UserChannel extends Resource {
     private final String serviceSid;
     private final String channelSid;
     private final String memberSid;
-    private final UserChannel.ChannelStatus status;
+    private final ChannelStatus status;
     private final Integer lastConsumedMessageIndex;
     private final Integer unreadMessagesCount;
     private final Map<String, String> links;
@@ -103,7 +103,7 @@ public class UserChannel extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("channel_sid") final String channelSid,
         @JsonProperty("member_sid") final String memberSid,
-        @JsonProperty("status") final UserChannel.ChannelStatus status,
+        @JsonProperty("status") final ChannelStatus status,
         @JsonProperty(
             "last_consumed_message_index"
         ) final Integer lastConsumedMessageIndex,
@@ -138,7 +138,7 @@ public class UserChannel extends Resource {
         return this.memberSid;
     }
 
-    public final UserChannel.ChannelStatus getStatus() {
+    public final ChannelStatus getStatus() {
         return this.status;
     }
 

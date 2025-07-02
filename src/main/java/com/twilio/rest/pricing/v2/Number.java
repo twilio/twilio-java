@@ -117,7 +117,7 @@ public class Number extends Resource {
             "originating_call_price"
         ) final InboundCallPrice originatingCallPrice,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
+            using = CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("url") final URI url
     ) {

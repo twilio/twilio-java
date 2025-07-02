@@ -101,8 +101,8 @@ public class SmsCommand extends Resource {
     private final String accountSid;
     private final String simSid;
     private final String payload;
-    private final SmsCommand.Status status;
-    private final SmsCommand.Direction direction;
+    private final Status status;
+    private final Direction direction;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -113,8 +113,8 @@ public class SmsCommand extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("payload") final String payload,
-        @JsonProperty("status") final SmsCommand.Status status,
-        @JsonProperty("direction") final SmsCommand.Direction direction,
+        @JsonProperty("status") final Status status,
+        @JsonProperty("direction") final Direction direction,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -146,11 +146,11 @@ public class SmsCommand extends Resource {
         return this.payload;
     }
 
-    public final SmsCommand.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
-    public final SmsCommand.Direction getDirection() {
+    public final Direction getDirection() {
         return this.direction;
     }
 

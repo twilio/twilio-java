@@ -117,13 +117,13 @@ public class UserConversation extends Resource {
     private final String participantSid;
     private final String userSid;
     private final String friendlyName;
-    private final UserConversation.State conversationState;
+    private final State conversationState;
     private final Map<String, Object> timers;
     private final String attributes;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String createdBy;
-    private final UserConversation.NotificationLevel notificationLevel;
+    private final NotificationLevel notificationLevel;
     private final String uniqueName;
     private final URI url;
     private final Map<String, String> links;
@@ -142,9 +142,7 @@ public class UserConversation extends Resource {
         @JsonProperty("participant_sid") final String participantSid,
         @JsonProperty("user_sid") final String userSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty(
-            "conversation_state"
-        ) final UserConversation.State conversationState,
+        @JsonProperty("conversation_state") final State conversationState,
         @JsonProperty("timers") final Map<String, Object> timers,
         @JsonProperty("attributes") final String attributes,
         @JsonProperty("date_created") final String dateCreated,
@@ -152,7 +150,7 @@ public class UserConversation extends Resource {
         @JsonProperty("created_by") final String createdBy,
         @JsonProperty(
             "notification_level"
-        ) final UserConversation.NotificationLevel notificationLevel,
+        ) final NotificationLevel notificationLevel,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
@@ -209,7 +207,7 @@ public class UserConversation extends Resource {
         return this.friendlyName;
     }
 
-    public final UserConversation.State getConversationState() {
+    public final State getConversationState() {
         return this.conversationState;
     }
 
@@ -233,7 +231,7 @@ public class UserConversation extends Resource {
         return this.createdBy;
     }
 
-    public final UserConversation.NotificationLevel getNotificationLevel() {
+    public final NotificationLevel getNotificationLevel() {
         return this.notificationLevel;
     }
 

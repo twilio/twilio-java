@@ -44,7 +44,7 @@ public class FlexFlow extends Resource {
     public static FlexFlowCreator creator(
         final String friendlyName,
         final String chatServiceSid,
-        final FlexFlow.ChannelType channelType
+        final ChannelType channelType
     ) {
         return new FlexFlowCreator(friendlyName, chatServiceSid, channelType);
     }
@@ -114,10 +114,10 @@ public class FlexFlow extends Resource {
     private final String sid;
     private final String friendlyName;
     private final String chatServiceSid;
-    private final FlexFlow.ChannelType channelType;
+    private final ChannelType channelType;
     private final String contactIdentity;
     private final Boolean enabled;
-    private final FlexFlow.IntegrationType integrationType;
+    private final IntegrationType integrationType;
     private final Map<String, Object> integration;
     private final Boolean longLived;
     private final Boolean janitorEnabled;
@@ -131,12 +131,10 @@ public class FlexFlow extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("channel_type") final FlexFlow.ChannelType channelType,
+        @JsonProperty("channel_type") final ChannelType channelType,
         @JsonProperty("contact_identity") final String contactIdentity,
         @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty(
-            "integration_type"
-        ) final FlexFlow.IntegrationType integrationType,
+        @JsonProperty("integration_type") final IntegrationType integrationType,
         @JsonProperty("integration") final Map<String, Object> integration,
         @JsonProperty("long_lived") final Boolean longLived,
         @JsonProperty("janitor_enabled") final Boolean janitorEnabled,
@@ -182,7 +180,7 @@ public class FlexFlow extends Resource {
         return this.chatServiceSid;
     }
 
-    public final FlexFlow.ChannelType getChannelType() {
+    public final ChannelType getChannelType() {
         return this.channelType;
     }
 
@@ -194,7 +192,7 @@ public class FlexFlow extends Resource {
         return this.enabled;
     }
 
-    public final FlexFlow.IntegrationType getIntegrationType() {
+    public final IntegrationType getIntegrationType() {
         return this.integrationType;
     }
 

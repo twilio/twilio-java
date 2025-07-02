@@ -43,7 +43,7 @@ public class EndUser extends Resource {
 
     public static EndUserCreator creator(
         final String friendlyName,
-        final EndUser.Type type
+        final Type type
     ) {
         return new EndUserCreator(friendlyName, type);
     }
@@ -110,7 +110,7 @@ public class EndUser extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
-    private final EndUser.Type type;
+    private final Type type;
     private final Map<String, Object> attributes;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -121,7 +121,7 @@ public class EndUser extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("type") final EndUser.Type type,
+        @JsonProperty("type") final Type type,
         @JsonProperty("attributes") final Map<String, Object> attributes,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -149,7 +149,7 @@ public class EndUser extends Resource {
         return this.friendlyName;
     }
 
-    public final EndUser.Type getType() {
+    public final Type getType() {
         return this.type;
     }
 

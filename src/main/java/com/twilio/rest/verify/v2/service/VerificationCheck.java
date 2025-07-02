@@ -94,7 +94,7 @@ public class VerificationCheck extends Resource {
     private final String serviceSid;
     private final String accountSid;
     private final String to;
-    private final VerificationCheck.Channel channel;
+    private final Channel channel;
     private final String status;
     private final Boolean valid;
     private final String amount;
@@ -109,7 +109,7 @@ public class VerificationCheck extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("to") final String to,
-        @JsonProperty("channel") final VerificationCheck.Channel channel,
+        @JsonProperty("channel") final Channel channel,
         @JsonProperty("status") final String status,
         @JsonProperty("valid") final Boolean valid,
         @JsonProperty("amount") final String amount,
@@ -150,7 +150,7 @@ public class VerificationCheck extends Resource {
         return this.to;
     }
 
-    public final VerificationCheck.Channel getChannel() {
+    public final Channel getChannel() {
         return this.channel;
     }
 

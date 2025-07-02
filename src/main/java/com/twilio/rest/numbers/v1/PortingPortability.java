@@ -92,7 +92,7 @@ public class PortingPortability extends Resource {
     private final Boolean pinAndAccountNumberRequired;
     private final String notPortableReason;
     private final Integer notPortableReasonCode;
-    private final PortingPortability.NumberType numberType;
+    private final NumberType numberType;
     private final String country;
     private final URI url;
 
@@ -110,9 +110,7 @@ public class PortingPortability extends Resource {
         @JsonProperty(
             "not_portable_reason_code"
         ) final Integer notPortableReasonCode,
-        @JsonProperty(
-            "number_type"
-        ) final PortingPortability.NumberType numberType,
+        @JsonProperty("number_type") final NumberType numberType,
         @JsonProperty("country") final String country,
         @JsonProperty("url") final URI url
     ) {
@@ -151,7 +149,7 @@ public class PortingPortability extends Resource {
         return this.notPortableReasonCode;
     }
 
-    public final PortingPortability.NumberType getNumberType() {
+    public final NumberType getNumberType() {
         return this.numberType;
     }
 

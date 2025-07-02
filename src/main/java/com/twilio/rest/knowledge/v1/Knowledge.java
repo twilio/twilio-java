@@ -69,10 +69,10 @@ public class Knowledge extends Resource {
         @JsonProperty("policy_details")
         @Getter
         @Setter
-        private Object policyDetails;
+        private Map<String, Object> policyDetails;
 
         public String getPolicyDetails() {
-            return Converter.objectToJson(policyDetails);
+            return Converter.mapToJson(policyDetails);
         }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)

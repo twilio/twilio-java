@@ -25,18 +25,21 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
 
 public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     private String pathSid;
-    private Object configuration;
+    private Map<String, Object> configuration;
     private String uniqueName;
 
     public InstalledAddOnUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public InstalledAddOnUpdater setConfiguration(final Object configuration) {
+    public InstalledAddOnUpdater setConfiguration(
+        final Map<String, Object> configuration
+    ) {
         this.configuration = configuration;
         return this;
     }
@@ -88,7 +91,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         if (configuration != null) {
             request.addPostParam(
                 "Configuration",
-                Converter.objectToJson(configuration)
+                Converter.mapToJson(configuration)
             );
         }
         if (uniqueName != null) {

@@ -25,12 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
 
 public class ApiKeyUpdater extends Updater<ApiKey> {
 
     private String pathSid;
     private String friendlyName;
-    private Object policy;
+    private Map<String, Object> policy;
 
     public ApiKeyUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,7 +42,7 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
         return this;
     }
 
-    public ApiKeyUpdater setPolicy(final Object policy) {
+    public ApiKeyUpdater setPolicy(final Map<String, Object> policy) {
         this.policy = policy;
         return this;
     }
@@ -86,7 +87,7 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
             request.addPostParam("FriendlyName", friendlyName);
         }
         if (policy != null) {
-            request.addPostParam("Policy", Converter.objectToJson(policy));
+            request.addPostParam("Policy", Converter.mapToJson(policy));
         }
     }
 }

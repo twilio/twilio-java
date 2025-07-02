@@ -26,13 +26,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class NewApiKeyCreator extends Creator<NewApiKey> {
 
     private String accountSid;
     private String friendlyName;
     private NewApiKey.Keytype keyType;
-    private Object policy;
+    private Map<String, Object> policy;
 
     public NewApiKeyCreator(final String accountSid) {
         this.accountSid = accountSid;
@@ -53,7 +55,7 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
         return this;
     }
 
-    public NewApiKeyCreator setPolicy(final Object policy) {
+    public NewApiKeyCreator setPolicy(final Map<String, Object> policy) {
         this.policy = policy;
         return this;
     }
@@ -108,7 +110,7 @@ public class NewApiKeyCreator extends Creator<NewApiKey> {
             request.addPostParam("KeyType", keyType.toString());
         }
         if (policy != null) {
-            request.addPostParam("Policy", Converter.objectToJson(policy));
+            request.addPostParam("Policy", Converter.mapToJson(policy));
         }
     }
 }

@@ -209,7 +209,7 @@ public class Message extends Resource {
 
     private final String body;
     private final String numSegments;
-    private final Direction direction;
+    private final Message.Direction direction;
     private final com.twilio.type.PhoneNumber from;
     private final String to;
     private final ZonedDateTime dateUpdated;
@@ -218,7 +218,7 @@ public class Message extends Resource {
     private final String uri;
     private final String accountSid;
     private final String numMedia;
-    private final Status status;
+    private final Message.Status status;
     private final String messagingServiceSid;
     private final String sid;
     private final ZonedDateTime dateSent;
@@ -232,7 +232,7 @@ public class Message extends Resource {
     private Message(
         @JsonProperty("body") final String body,
         @JsonProperty("num_segments") final String numSegments,
-        @JsonProperty("direction") final Direction direction,
+        @JsonProperty("direction") final Message.Direction direction,
         @JsonProperty("from") final com.twilio.type.PhoneNumber from,
         @JsonProperty("to") final String to,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -241,14 +241,14 @@ public class Message extends Resource {
         @JsonProperty("uri") final String uri,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("num_media") final String numMedia,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Message.Status status,
         @JsonProperty("messaging_service_sid") final String messagingServiceSid,
         @JsonProperty("sid") final String sid,
         @JsonProperty("date_sent") final String dateSent,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = CurrencyDeserializer.class
+            using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("subresource_uris") final Map<
@@ -286,7 +286,7 @@ public class Message extends Resource {
         return this.numSegments;
     }
 
-    public final Direction getDirection() {
+    public final Message.Direction getDirection() {
         return this.direction;
     }
 
@@ -322,7 +322,7 @@ public class Message extends Resource {
         return this.numMedia;
     }
 
-    public final Status getStatus() {
+    public final Message.Status getStatus() {
         return this.status;
     }
 

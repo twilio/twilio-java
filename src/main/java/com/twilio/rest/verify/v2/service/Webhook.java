@@ -127,10 +127,10 @@ public class Webhook extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final List<String> eventTypes;
-    private final Status status;
-    private final Version version;
+    private final Webhook.Status status;
+    private final Webhook.Version version;
     private final URI webhookUrl;
-    private final Methods webhookMethod;
+    private final Webhook.Methods webhookMethod;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -142,10 +142,10 @@ public class Webhook extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("event_types") final List<String> eventTypes,
-        @JsonProperty("status") final Status status,
-        @JsonProperty("version") final Version version,
+        @JsonProperty("status") final Webhook.Status status,
+        @JsonProperty("version") final Webhook.Version version,
         @JsonProperty("webhook_url") final URI webhookUrl,
-        @JsonProperty("webhook_method") final Methods webhookMethod,
+        @JsonProperty("webhook_method") final Webhook.Methods webhookMethod,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -184,11 +184,11 @@ public class Webhook extends Resource {
         return this.eventTypes;
     }
 
-    public final Status getStatus() {
+    public final Webhook.Status getStatus() {
         return this.status;
     }
 
-    public final Version getVersion() {
+    public final Webhook.Version getVersion() {
         return this.version;
     }
 
@@ -196,7 +196,7 @@ public class Webhook extends Resource {
         return this.webhookUrl;
     }
 
-    public final Methods getWebhookMethod() {
+    public final Webhook.Methods getWebhookMethod() {
         return this.webhookMethod;
     }
 

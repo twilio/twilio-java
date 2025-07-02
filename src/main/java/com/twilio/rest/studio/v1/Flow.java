@@ -99,7 +99,7 @@ public class Flow extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
-    private final Status status;
+    private final Flow.Status status;
     private final Integer version;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -111,7 +111,7 @@ public class Flow extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Flow.Status status,
         @JsonProperty("version") final Integer version,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -141,7 +141,7 @@ public class Flow extends Resource {
         return this.friendlyName;
     }
 
-    public final Status getStatus() {
+    public final Flow.Status getStatus() {
         return this.status;
     }
 

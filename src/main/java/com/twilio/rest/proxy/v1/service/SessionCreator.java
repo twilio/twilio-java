@@ -16,6 +16,8 @@ package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.converter.Converter;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -137,7 +139,10 @@ public class SessionCreator extends Creator<Session> {
         }
         if (participants != null) {
             for (Object prop : participants) {
-                request.addPostParam("Participants", prop.toString());
+                request.addPostParam(
+                    "Participants",
+                    Converter.objectToJson(prop)
+                );
             }
         }
     }

@@ -213,7 +213,7 @@ public class User extends Resource {
 
     public static UserCreator creator(
         final String pathOrganizationSid,
-        final ScimUser scimUser
+        final User.ScimUser scimUser
     ) {
         return new UserCreator(pathOrganizationSid, scimUser);
     }
@@ -239,7 +239,7 @@ public class User extends Resource {
     public static UserUpdater updater(
         final String pathOrganizationSid,
         final String pathUserSid,
-        final ScimUser scimUser
+        final User.ScimUser scimUser
     ) {
         return new UserUpdater(pathOrganizationSid, pathUserSid, scimUser);
     }

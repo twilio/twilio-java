@@ -121,7 +121,7 @@ public class CustomerProfilesEvaluations extends Resource {
     private final String accountSid;
     private final String policySid;
     private final String customerProfileSid;
-    private final Status status;
+    private final CustomerProfilesEvaluations.Status status;
     private final List<Map<String, Object>> results;
     private final ZonedDateTime dateCreated;
     private final URI url;
@@ -132,7 +132,7 @@ public class CustomerProfilesEvaluations extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("policy_sid") final String policySid,
         @JsonProperty("customer_profile_sid") final String customerProfileSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final CustomerProfilesEvaluations.Status status,
         @JsonProperty("results") final List<Map<String, Object>> results,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
@@ -163,7 +163,7 @@ public class CustomerProfilesEvaluations extends Resource {
         return this.customerProfileSid;
     }
 
-    public final Status getStatus() {
+    public final CustomerProfilesEvaluations.Status getStatus() {
         return this.status;
     }
 

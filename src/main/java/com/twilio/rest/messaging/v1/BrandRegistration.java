@@ -114,14 +114,14 @@ public class BrandRegistration extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String brandType;
-    private final Status status;
+    private final BrandRegistration.Status status;
     private final String tcrId;
     private final String failureReason;
     private final List<Map<String, Object>> errors;
     private final URI url;
     private final Integer brandScore;
-    private final List<BrandFeedback> brandFeedback;
-    private final IdentityStatus identityStatus;
+    private final List<BrandRegistration.BrandFeedback> brandFeedback;
+    private final BrandRegistration.IdentityStatus identityStatus;
     private final Boolean russell3000;
     private final Boolean governmentEntity;
     private final String taxExemptStatus;
@@ -142,14 +142,18 @@ public class BrandRegistration extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("brand_type") final String brandType,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final BrandRegistration.Status status,
         @JsonProperty("tcr_id") final String tcrId,
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("errors") final List<Map<String, Object>> errors,
         @JsonProperty("url") final URI url,
         @JsonProperty("brand_score") final Integer brandScore,
-        @JsonProperty("brand_feedback") final List<BrandFeedback> brandFeedback,
-        @JsonProperty("identity_status") final IdentityStatus identityStatus,
+        @JsonProperty("brand_feedback") final List<
+            BrandRegistration.BrandFeedback
+        > brandFeedback,
+        @JsonProperty(
+            "identity_status"
+        ) final BrandRegistration.IdentityStatus identityStatus,
         @JsonProperty("russell3000") final Boolean russell3000,
         @JsonProperty("government_entity") final Boolean governmentEntity,
         @JsonProperty("tax_exempt_status") final String taxExemptStatus,
@@ -210,7 +214,7 @@ public class BrandRegistration extends Resource {
         return this.brandType;
     }
 
-    public final Status getStatus() {
+    public final BrandRegistration.Status getStatus() {
         return this.status;
     }
 
@@ -234,11 +238,11 @@ public class BrandRegistration extends Resource {
         return this.brandScore;
     }
 
-    public final List<BrandFeedback> getBrandFeedback() {
+    public final List<BrandRegistration.BrandFeedback> getBrandFeedback() {
         return this.brandFeedback;
     }
 
-    public final IdentityStatus getIdentityStatus() {
+    public final BrandRegistration.IdentityStatus getIdentityStatus() {
         return this.identityStatus;
     }
 

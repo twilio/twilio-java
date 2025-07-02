@@ -111,7 +111,7 @@ public class Conversation extends Resource {
     private final String friendlyName;
     private final String uniqueName;
     private final String attributes;
-    private final State state;
+    private final Conversation.State state;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Map<String, Object> timers;
@@ -128,7 +128,7 @@ public class Conversation extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty("state") final State state,
+        @JsonProperty("state") final Conversation.State state,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("timers") final Map<String, Object> timers,
@@ -180,7 +180,7 @@ public class Conversation extends Resource {
         return this.attributes;
     }
 
-    public final State getState() {
+    public final Conversation.State getState() {
         return this.state;
     }
 

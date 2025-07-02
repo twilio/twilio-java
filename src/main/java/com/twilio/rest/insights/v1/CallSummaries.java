@@ -91,10 +91,10 @@ public class CallSummaries extends Resource {
 
     private final String accountSid;
     private final String callSid;
-    private final AnsweredBy answeredBy;
-    private final CallType callType;
-    private final CallState callState;
-    private final ProcessingState processingState;
+    private final CallSummaries.AnsweredBy answeredBy;
+    private final CallSummaries.CallType callType;
+    private final CallSummaries.CallState callState;
+    private final CallSummaries.ProcessingState processingState;
     private final ZonedDateTime createdTime;
     private final ZonedDateTime startTime;
     private final ZonedDateTime endTime;
@@ -117,10 +117,12 @@ public class CallSummaries extends Resource {
     private CallSummaries(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("answered_by") final AnsweredBy answeredBy,
-        @JsonProperty("call_type") final CallType callType,
-        @JsonProperty("call_state") final CallState callState,
-        @JsonProperty("processing_state") final ProcessingState processingState,
+        @JsonProperty("answered_by") final CallSummaries.AnsweredBy answeredBy,
+        @JsonProperty("call_type") final CallSummaries.CallType callType,
+        @JsonProperty("call_state") final CallSummaries.CallState callState,
+        @JsonProperty(
+            "processing_state"
+        ) final CallSummaries.ProcessingState processingState,
         @JsonProperty("created_time") final String createdTime,
         @JsonProperty("start_time") final String startTime,
         @JsonProperty("end_time") final String endTime,
@@ -172,19 +174,19 @@ public class CallSummaries extends Resource {
         return this.callSid;
     }
 
-    public final AnsweredBy getAnsweredBy() {
+    public final CallSummaries.AnsweredBy getAnsweredBy() {
         return this.answeredBy;
     }
 
-    public final CallType getCallType() {
+    public final CallSummaries.CallType getCallType() {
         return this.callType;
     }
 
-    public final CallState getCallState() {
+    public final CallSummaries.CallState getCallState() {
         return this.callState;
     }
 
-    public final ProcessingState getProcessingState() {
+    public final CallSummaries.ProcessingState getProcessingState() {
         return this.processingState;
     }
 

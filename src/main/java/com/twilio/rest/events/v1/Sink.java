@@ -44,7 +44,7 @@ public class Sink extends Resource {
     public static SinkCreator creator(
         final String description,
         final Object sinkConfiguration,
-        final SinkType sinkType
+        final Sink.SinkType sinkType
     ) {
         return new SinkCreator(description, sinkConfiguration, sinkType);
     }
@@ -116,8 +116,8 @@ public class Sink extends Resource {
     private final String description;
     private final String sid;
     private final Map<String, Object> sinkConfiguration;
-    private final SinkType sinkType;
-    private final Status status;
+    private final Sink.SinkType sinkType;
+    private final Sink.Status status;
     private final URI url;
     private final Map<String, String> links;
 
@@ -131,8 +131,8 @@ public class Sink extends Resource {
             String,
             Object
         > sinkConfiguration,
-        @JsonProperty("sink_type") final SinkType sinkType,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("sink_type") final Sink.SinkType sinkType,
+        @JsonProperty("status") final Sink.Status status,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -167,11 +167,11 @@ public class Sink extends Resource {
         return this.sinkConfiguration;
     }
 
-    public final SinkType getSinkType() {
+    public final Sink.SinkType getSinkType() {
         return this.sinkType;
     }
 
-    public final Status getStatus() {
+    public final Sink.Status getStatus() {
         return this.status;
     }
 

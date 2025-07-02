@@ -113,7 +113,7 @@ public class AuthorizedConnectApp extends Resource {
     private final String connectAppFriendlyName;
     private final URI connectAppHomepageUrl;
     private final String connectAppSid;
-    private final List<Permission> permissions;
+    private final List<AuthorizedConnectApp.Permission> permissions;
     private final String uri;
 
     @JsonCreator
@@ -132,7 +132,9 @@ public class AuthorizedConnectApp extends Resource {
             "connect_app_homepage_url"
         ) final URI connectAppHomepageUrl,
         @JsonProperty("connect_app_sid") final String connectAppSid,
-        @JsonProperty("permissions") final List<Permission> permissions,
+        @JsonProperty("permissions") final List<
+            AuthorizedConnectApp.Permission
+        > permissions,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
@@ -169,7 +171,7 @@ public class AuthorizedConnectApp extends Resource {
         return this.connectAppSid;
     }
 
-    public final List<Permission> getPermissions() {
+    public final List<AuthorizedConnectApp.Permission> getPermissions() {
         return this.permissions;
     }
 

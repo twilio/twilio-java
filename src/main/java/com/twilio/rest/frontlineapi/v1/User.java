@@ -92,7 +92,7 @@ public class User extends Resource {
     private final String identity;
     private final String friendlyName;
     private final String avatar;
-    private final StateType state;
+    private final User.StateType state;
     private final Boolean isAvailable;
     private final URI url;
 
@@ -102,7 +102,7 @@ public class User extends Resource {
         @JsonProperty("identity") final String identity,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("avatar") final String avatar,
-        @JsonProperty("state") final StateType state,
+        @JsonProperty("state") final User.StateType state,
         @JsonProperty("is_available") final Boolean isAvailable,
         @JsonProperty("url") final URI url
     ) {
@@ -131,7 +131,7 @@ public class User extends Resource {
         return this.avatar;
     }
 
-    public final StateType getState() {
+    public final User.StateType getState() {
         return this.state;
     }
 

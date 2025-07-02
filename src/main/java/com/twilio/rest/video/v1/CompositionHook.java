@@ -120,7 +120,7 @@ public class CompositionHook extends Resource {
     private final Map<String, Object> videoLayout;
     private final String resolution;
     private final Boolean trim;
-    private final Format format;
+    private final CompositionHook.Format format;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final URI url;
@@ -140,7 +140,7 @@ public class CompositionHook extends Resource {
         @JsonProperty("video_layout") final Map<String, Object> videoLayout,
         @JsonProperty("resolution") final String resolution,
         @JsonProperty("trim") final Boolean trim,
-        @JsonProperty("format") final Format format,
+        @JsonProperty("format") final CompositionHook.Format format,
         @JsonProperty("status_callback") final URI statusCallback,
         @JsonProperty(
             "status_callback_method"
@@ -208,7 +208,7 @@ public class CompositionHook extends Resource {
         return this.trim;
     }
 
-    public final Format getFormat() {
+    public final CompositionHook.Format getFormat() {
         return this.format;
     }
 

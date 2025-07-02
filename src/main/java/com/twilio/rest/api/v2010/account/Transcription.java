@@ -124,7 +124,7 @@ public class Transcription extends Resource {
     private final Currency priceUnit;
     private final String recordingSid;
     private final String sid;
-    private final Status status;
+    private final Transcription.Status status;
     private final String transcriptionText;
     private final String type;
     private final String uri;
@@ -138,11 +138,11 @@ public class Transcription extends Resource {
         @JsonProperty("duration") final String duration,
         @JsonProperty("price") final BigDecimal price,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = CurrencyDeserializer.class
+            using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("recording_sid") final String recordingSid,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Transcription.Status status,
         @JsonProperty("transcription_text") final String transcriptionText,
         @JsonProperty("type") final String type,
         @JsonProperty("uri") final String uri
@@ -198,7 +198,7 @@ public class Transcription extends Resource {
         return this.sid;
     }
 
-    public final Status getStatus() {
+    public final Transcription.Status getStatus() {
         return this.status;
     }
 

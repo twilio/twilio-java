@@ -43,7 +43,7 @@ public class Trigger extends Resource {
     public static TriggerCreator creator(
         final URI callbackUrl,
         final String triggerValue,
-        final UsageCategory usageCategory
+        final Trigger.UsageCategory usageCategory
     ) {
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
     }
@@ -52,7 +52,7 @@ public class Trigger extends Resource {
         final String pathAccountSid,
         final URI callbackUrl,
         final String triggerValue,
-        final UsageCategory usageCategory
+        final Trigger.UsageCategory usageCategory
     ) {
         return new TriggerCreator(
             pathAccountSid,
@@ -155,12 +155,12 @@ public class Trigger extends Resource {
     private final ZonedDateTime dateFired;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
-    private final Recurring recurring;
+    private final Trigger.Recurring recurring;
     private final String sid;
-    private final TriggerField triggerBy;
+    private final Trigger.TriggerField triggerBy;
     private final String triggerValue;
     private final String uri;
-    private final UsageCategory usageCategory;
+    private final Trigger.UsageCategory usageCategory;
     private final String usageRecordUri;
 
     @JsonCreator
@@ -174,12 +174,14 @@ public class Trigger extends Resource {
         @JsonProperty("date_fired") final String dateFired,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("recurring") final Recurring recurring,
+        @JsonProperty("recurring") final Trigger.Recurring recurring,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("trigger_by") final TriggerField triggerBy,
+        @JsonProperty("trigger_by") final Trigger.TriggerField triggerBy,
         @JsonProperty("trigger_value") final String triggerValue,
         @JsonProperty("uri") final String uri,
-        @JsonProperty("usage_category") final UsageCategory usageCategory,
+        @JsonProperty(
+            "usage_category"
+        ) final Trigger.UsageCategory usageCategory,
         @JsonProperty("usage_record_uri") final String usageRecordUri
     ) {
         this.accountSid = accountSid;
@@ -236,7 +238,7 @@ public class Trigger extends Resource {
         return this.friendlyName;
     }
 
-    public final Recurring getRecurring() {
+    public final Trigger.Recurring getRecurring() {
         return this.recurring;
     }
 
@@ -244,7 +246,7 @@ public class Trigger extends Resource {
         return this.sid;
     }
 
-    public final TriggerField getTriggerBy() {
+    public final Trigger.TriggerField getTriggerBy() {
         return this.triggerBy;
     }
 
@@ -256,7 +258,7 @@ public class Trigger extends Resource {
         return this.uri;
     }
 
-    public final UsageCategory getUsageCategory() {
+    public final Trigger.UsageCategory getUsageCategory() {
         return this.usageCategory;
     }
 

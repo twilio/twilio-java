@@ -112,7 +112,7 @@ public class SupportingDocument extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String mimeType;
-    private final Status status;
+    private final SupportingDocument.Status status;
     private final String failureReason;
     private final List<Map<String, Object>> errors;
     private final String type;
@@ -127,7 +127,7 @@ public class SupportingDocument extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("mime_type") final String mimeType,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final SupportingDocument.Status status,
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("errors") final List<Map<String, Object>> errors,
         @JsonProperty("type") final String type,
@@ -166,7 +166,7 @@ public class SupportingDocument extends Resource {
         return this.mimeType;
     }
 
-    public final Status getStatus() {
+    public final SupportingDocument.Status getStatus() {
         return this.status;
     }
 

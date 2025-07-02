@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -71,6 +72,10 @@ public class Tool extends Resource {
         @Setter
         private Object policyDetails;
 
+        public String getPolicyDetails() {
+            return Converter.objectToJson(policyDetails);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
@@ -115,6 +120,10 @@ public class Tool extends Resource {
         @Setter
         private Map<String, Object> meta;
 
+        public String getMeta() {
+            return Converter.mapToJson(meta);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
@@ -133,15 +142,7 @@ public class Tool extends Resource {
         @Setter
         private String type;
 
-        public AssistantsV1ServiceCreateToolRequest(
-            final Boolean enabled,
-            final String name,
-            final String type
-        ) {
-            this.enabled = enabled;
-            this.name = name;
-            this.type = type;
-        }
+        public AssistantsV1ServiceCreateToolRequest() {}
 
         public static AssistantsV1ServiceCreateToolRequest fromJson(
             String jsonString,
@@ -180,6 +181,10 @@ public class Tool extends Resource {
         @Getter
         @Setter
         private Map<String, Object> meta;
+
+        public String getMeta() {
+            return Converter.mapToJson(meta);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -257,6 +262,10 @@ public class Tool extends Resource {
         @Setter
         private Map<String, Object> policyDetails;
 
+        public String getPolicyDetails() {
+            return Converter.mapToJson(policyDetails);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("dateCreated")
         @Getter
@@ -289,7 +298,7 @@ public class Tool extends Resource {
     }
 
     public static ToolCreator creator(
-        final AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
+        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
     ) {
         return new ToolCreator(assistantsV1ServiceCreateToolRequest);
     }

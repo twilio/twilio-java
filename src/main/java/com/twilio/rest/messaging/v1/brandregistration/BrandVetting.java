@@ -41,7 +41,7 @@ public class BrandVetting extends Resource {
 
     public static BrandVettingCreator creator(
         final String pathBrandSid,
-        final VettingProvider vettingProvider
+        final BrandVetting.VettingProvider vettingProvider
     ) {
         return new BrandVettingCreator(pathBrandSid, vettingProvider);
     }
@@ -108,7 +108,7 @@ public class BrandVetting extends Resource {
     private final String vettingId;
     private final String vettingClass;
     private final String vettingStatus;
-    private final VettingProvider vettingProvider;
+    private final BrandVetting.VettingProvider vettingProvider;
     private final URI url;
 
     @JsonCreator
@@ -121,7 +121,9 @@ public class BrandVetting extends Resource {
         @JsonProperty("vetting_id") final String vettingId,
         @JsonProperty("vetting_class") final String vettingClass,
         @JsonProperty("vetting_status") final String vettingStatus,
-        @JsonProperty("vetting_provider") final VettingProvider vettingProvider,
+        @JsonProperty(
+            "vetting_provider"
+        ) final BrandVetting.VettingProvider vettingProvider,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -168,7 +170,7 @@ public class BrandVetting extends Resource {
         return this.vettingStatus;
     }
 
-    public final VettingProvider getVettingProvider() {
+    public final BrandVetting.VettingProvider getVettingProvider() {
         return this.vettingProvider;
     }
 

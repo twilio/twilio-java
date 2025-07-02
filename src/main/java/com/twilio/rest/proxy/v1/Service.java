@@ -110,8 +110,8 @@ public class Service extends Resource {
     private final String chatInstanceSid;
     private final URI callbackUrl;
     private final Integer defaultTtl;
-    private final NumberSelectionBehavior numberSelectionBehavior;
-    private final GeoMatchLevel geoMatchLevel;
+    private final Service.NumberSelectionBehavior numberSelectionBehavior;
+    private final Service.GeoMatchLevel geoMatchLevel;
     private final URI interceptCallbackUrl;
     private final URI outOfSessionCallbackUrl;
     private final ZonedDateTime dateCreated;
@@ -129,8 +129,10 @@ public class Service extends Resource {
         @JsonProperty("default_ttl") final Integer defaultTtl,
         @JsonProperty(
             "number_selection_behavior"
-        ) final NumberSelectionBehavior numberSelectionBehavior,
-        @JsonProperty("geo_match_level") final GeoMatchLevel geoMatchLevel,
+        ) final Service.NumberSelectionBehavior numberSelectionBehavior,
+        @JsonProperty(
+            "geo_match_level"
+        ) final Service.GeoMatchLevel geoMatchLevel,
         @JsonProperty("intercept_callback_url") final URI interceptCallbackUrl,
         @JsonProperty(
             "out_of_session_callback_url"
@@ -180,11 +182,11 @@ public class Service extends Resource {
         return this.defaultTtl;
     }
 
-    public final NumberSelectionBehavior getNumberSelectionBehavior() {
+    public final Service.NumberSelectionBehavior getNumberSelectionBehavior() {
         return this.numberSelectionBehavior;
     }
 
-    public final GeoMatchLevel getGeoMatchLevel() {
+    public final Service.GeoMatchLevel getGeoMatchLevel() {
         return this.geoMatchLevel;
     }
 

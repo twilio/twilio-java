@@ -116,7 +116,7 @@ public class Workspace extends Resource {
     private final String sid;
     private final String timeoutActivityName;
     private final String timeoutActivitySid;
-    private final QueueOrder prioritizeQueueOrder;
+    private final Workspace.QueueOrder prioritizeQueueOrder;
     private final URI url;
     private final Map<String, String> links;
 
@@ -136,7 +136,7 @@ public class Workspace extends Resource {
         @JsonProperty("timeout_activity_sid") final String timeoutActivitySid,
         @JsonProperty(
             "prioritize_queue_order"
-        ) final QueueOrder prioritizeQueueOrder,
+        ) final Workspace.QueueOrder prioritizeQueueOrder,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -205,7 +205,7 @@ public class Workspace extends Resource {
         return this.timeoutActivitySid;
     }
 
-    public final QueueOrder getPrioritizeQueueOrder() {
+    public final Workspace.QueueOrder getPrioritizeQueueOrder() {
         return this.prioritizeQueueOrder;
     }
 

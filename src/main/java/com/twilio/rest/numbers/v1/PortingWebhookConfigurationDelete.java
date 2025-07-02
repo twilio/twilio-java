@@ -35,7 +35,7 @@ public class PortingWebhookConfigurationDelete extends Resource {
     private static final long serialVersionUID = 0L;
 
     public static PortingWebhookConfigurationDeleteDeleter deleter(
-        final WebhookType webhookType
+        final PortingWebhookConfigurationDelete.WebhookType webhookType
     ) {
         return new PortingWebhookConfigurationDeleteDeleter(webhookType);
     }

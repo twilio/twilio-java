@@ -116,7 +116,7 @@ public class HostedNumberOrder extends Resource {
     private final PhoneNumberCapabilities capabilities;
     private final String friendlyName;
     private final String uniqueName;
-    private final Status status;
+    private final HostedNumberOrder.Status status;
     private final String failureReason;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -124,7 +124,7 @@ public class HostedNumberOrder extends Resource {
     private final String email;
     private final List<String> ccEmails;
     private final URI url;
-    private final VerificationType verificationType;
+    private final HostedNumberOrder.VerificationType verificationType;
     private final String verificationDocumentSid;
     private final String extension;
     private final Integer callDelay;
@@ -148,7 +148,7 @@ public class HostedNumberOrder extends Resource {
         ) final PhoneNumberCapabilities capabilities,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final HostedNumberOrder.Status status,
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -160,7 +160,7 @@ public class HostedNumberOrder extends Resource {
         @JsonProperty("url") final URI url,
         @JsonProperty(
             "verification_type"
-        ) final VerificationType verificationType,
+        ) final HostedNumberOrder.VerificationType verificationType,
         @JsonProperty(
             "verification_document_sid"
         ) final String verificationDocumentSid,
@@ -232,7 +232,7 @@ public class HostedNumberOrder extends Resource {
         return this.uniqueName;
     }
 
-    public final Status getStatus() {
+    public final HostedNumberOrder.Status getStatus() {
         return this.status;
     }
 
@@ -264,7 +264,7 @@ public class HostedNumberOrder extends Resource {
         return this.url;
     }
 
-    public final VerificationType getVerificationType() {
+    public final HostedNumberOrder.VerificationType getVerificationType() {
         return this.verificationType;
     }
 

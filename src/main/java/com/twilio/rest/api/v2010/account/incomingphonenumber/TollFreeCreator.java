@@ -243,7 +243,7 @@ public class TollFreeCreator extends Creator<TollFree> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.phoneNumber.toString()
+                this.phoneNumber.encode("utf-8")
             );
 
         Request request = new Request(

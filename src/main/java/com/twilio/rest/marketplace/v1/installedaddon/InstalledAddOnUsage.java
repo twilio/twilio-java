@@ -111,7 +111,7 @@ public class InstalledAddOnUsage extends Resource {
 
     public static InstalledAddOnUsageCreator creator(
         final String pathInstalledAddOnSid,
-        final MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
+        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
     ) {
         return new InstalledAddOnUsageCreator(
             pathInstalledAddOnSid,

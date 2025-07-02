@@ -88,8 +88,8 @@ public class Metric extends Resource {
     private final String timestamp;
     private final String callSid;
     private final String accountSid;
-    private final TwilioEdge edge;
-    private final StreamDirection direction;
+    private final Metric.TwilioEdge edge;
+    private final Metric.StreamDirection direction;
     private final Map<String, Object> carrierEdge;
     private final Map<String, Object> sipEdge;
     private final Map<String, Object> sdkEdge;
@@ -100,8 +100,8 @@ public class Metric extends Resource {
         @JsonProperty("timestamp") final String timestamp,
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("edge") final TwilioEdge edge,
-        @JsonProperty("direction") final StreamDirection direction,
+        @JsonProperty("edge") final Metric.TwilioEdge edge,
+        @JsonProperty("direction") final Metric.StreamDirection direction,
         @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
         @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
         @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
@@ -130,11 +130,11 @@ public class Metric extends Resource {
         return this.accountSid;
     }
 
-    public final TwilioEdge getEdge() {
+    public final Metric.TwilioEdge getEdge() {
         return this.edge;
     }
 
-    public final StreamDirection getDirection() {
+    public final Metric.StreamDirection getDirection() {
         return this.direction;
     }
 

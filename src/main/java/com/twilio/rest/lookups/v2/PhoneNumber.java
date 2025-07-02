@@ -92,7 +92,7 @@ public class PhoneNumber extends Resource {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
     private final Boolean valid;
-    private final List<ValidationError> validationErrors;
+    private final List<PhoneNumber.ValidationError> validationErrors;
     private final Map<String, Object> callerName;
     private final Map<String, Object> simSwap;
     private final Map<String, Object> callForwarding;
@@ -115,7 +115,7 @@ public class PhoneNumber extends Resource {
         @JsonProperty("national_format") final String nationalFormat,
         @JsonProperty("valid") final Boolean valid,
         @JsonProperty("validation_errors") final List<
-            ValidationError
+            PhoneNumber.ValidationError
         > validationErrors,
         @JsonProperty("caller_name") final Map<String, Object> callerName,
         @JsonProperty("sim_swap") final Map<String, Object> simSwap,
@@ -183,7 +183,7 @@ public class PhoneNumber extends Resource {
         return this.valid;
     }
 
-    public final List<ValidationError> getValidationErrors() {
+    public final List<PhoneNumber.ValidationError> getValidationErrors() {
         return this.validationErrors;
     }
 

@@ -55,7 +55,7 @@ public class InteractionChannel extends Resource {
     public static InteractionChannelUpdater updater(
         final String pathInteractionSid,
         final String pathSid,
-        final UpdateChannelStatus status
+        final InteractionChannel.UpdateChannelStatus status
     ) {
         return new InteractionChannelUpdater(
             pathInteractionSid,
@@ -109,8 +109,8 @@ public class InteractionChannel extends Resource {
 
     private final String sid;
     private final String interactionSid;
-    private final Type type;
-    private final ChannelStatus status;
+    private final InteractionChannel.Type type;
+    private final InteractionChannel.ChannelStatus status;
     private final Integer errorCode;
     private final String errorMessage;
     private final URI url;
@@ -120,8 +120,8 @@ public class InteractionChannel extends Resource {
     private InteractionChannel(
         @JsonProperty("sid") final String sid,
         @JsonProperty("interaction_sid") final String interactionSid,
-        @JsonProperty("type") final Type type,
-        @JsonProperty("status") final ChannelStatus status,
+        @JsonProperty("type") final InteractionChannel.Type type,
+        @JsonProperty("status") final InteractionChannel.ChannelStatus status,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("error_message") final String errorMessage,
         @JsonProperty("url") final URI url,
@@ -145,11 +145,11 @@ public class InteractionChannel extends Resource {
         return this.interactionSid;
     }
 
-    public final Type getType() {
+    public final InteractionChannel.Type getType() {
         return this.type;
     }
 
-    public final ChannelStatus getStatus() {
+    public final InteractionChannel.ChannelStatus getStatus() {
         return this.status;
     }
 

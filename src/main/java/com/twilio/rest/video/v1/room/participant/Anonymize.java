@@ -92,7 +92,7 @@ public class Anonymize extends Resource {
     private final String sid;
     private final String roomSid;
     private final String accountSid;
-    private final Status status;
+    private final Anonymize.Status status;
     private final String identity;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -106,7 +106,7 @@ public class Anonymize extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("room_sid") final String roomSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Anonymize.Status status,
         @JsonProperty("identity") final String identity,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -140,7 +140,7 @@ public class Anonymize extends Resource {
         return this.accountSid;
     }
 
-    public final Status getStatus() {
+    public final Anonymize.Status getStatus() {
         return this.status;
     }
 

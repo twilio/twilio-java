@@ -16,6 +16,8 @@ package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.converter.Converter;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -86,7 +88,7 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
     private void addPostParams(final Request request) {
         if (items != null) {
             for (Object prop : items) {
-                request.addPostParam("Items", prop.toString());
+                request.addPostParam("Items", Converter.objectToJson(prop));
             }
         }
     }

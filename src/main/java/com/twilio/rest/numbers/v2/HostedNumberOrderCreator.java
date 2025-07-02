@@ -196,12 +196,12 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.phoneNumber.toString()
+                this.phoneNumber.encode("utf-8")
             );
         path =
             path.replace(
                 "{" + "ContactPhoneNumber" + "}",
-                this.contactPhoneNumber.toString()
+                this.contactPhoneNumber.encode("utf-8")
             );
         path =
             path.replace("{" + "AddressSid" + "}", this.addressSid.toString());

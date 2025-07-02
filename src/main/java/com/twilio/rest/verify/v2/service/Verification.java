@@ -60,7 +60,7 @@ public class Verification extends Resource {
     public static VerificationUpdater updater(
         final String pathServiceSid,
         final String pathSid,
-        final Status status
+        final Verification.Status status
     ) {
         return new VerificationUpdater(pathServiceSid, pathSid, status);
     }
@@ -112,7 +112,7 @@ public class Verification extends Resource {
     private final String serviceSid;
     private final String accountSid;
     private final String to;
-    private final Channel channel;
+    private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
     private final Map<String, Object> lookup;
@@ -130,7 +130,7 @@ public class Verification extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("to") final String to,
-        @JsonProperty("channel") final Channel channel,
+        @JsonProperty("channel") final Verification.Channel channel,
         @JsonProperty("status") final String status,
         @JsonProperty("valid") final Boolean valid,
         @JsonProperty("lookup") final Map<String, Object> lookup,
@@ -177,7 +177,7 @@ public class Verification extends Resource {
         return this.to;
     }
 
-    public final Channel getChannel() {
+    public final Verification.Channel getChannel() {
         return this.channel;
     }
 

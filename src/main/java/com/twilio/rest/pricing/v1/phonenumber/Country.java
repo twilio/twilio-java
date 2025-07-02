@@ -106,7 +106,7 @@ public class Country extends Resource {
             PhoneNumberPrice
         > phoneNumberPrices,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = CurrencyDeserializer.class
+            using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("url") final URI url
     ) {

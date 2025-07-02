@@ -130,12 +130,12 @@ public class UserChannel extends Resource {
     private final String channelSid;
     private final String userSid;
     private final String memberSid;
-    private final ChannelStatus status;
+    private final UserChannel.ChannelStatus status;
     private final Integer lastConsumedMessageIndex;
     private final Integer unreadMessagesCount;
     private final Map<String, String> links;
     private final URI url;
-    private final NotificationLevel notificationLevel;
+    private final UserChannel.NotificationLevel notificationLevel;
 
     @JsonCreator
     private UserChannel(
@@ -144,7 +144,7 @@ public class UserChannel extends Resource {
         @JsonProperty("channel_sid") final String channelSid,
         @JsonProperty("user_sid") final String userSid,
         @JsonProperty("member_sid") final String memberSid,
-        @JsonProperty("status") final ChannelStatus status,
+        @JsonProperty("status") final UserChannel.ChannelStatus status,
         @JsonProperty(
             "last_consumed_message_index"
         ) final Integer lastConsumedMessageIndex,
@@ -155,7 +155,7 @@ public class UserChannel extends Resource {
         @JsonProperty("url") final URI url,
         @JsonProperty(
             "notification_level"
-        ) final NotificationLevel notificationLevel
+        ) final UserChannel.NotificationLevel notificationLevel
     ) {
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -190,7 +190,7 @@ public class UserChannel extends Resource {
         return this.memberSid;
     }
 
-    public final ChannelStatus getStatus() {
+    public final UserChannel.ChannelStatus getStatus() {
         return this.status;
     }
 
@@ -210,7 +210,7 @@ public class UserChannel extends Resource {
         return this.url;
     }
 
-    public final NotificationLevel getNotificationLevel() {
+    public final UserChannel.NotificationLevel getNotificationLevel() {
         return this.notificationLevel;
     }
 

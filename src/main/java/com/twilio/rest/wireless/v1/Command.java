@@ -102,11 +102,11 @@ public class Command extends Resource {
     private final String accountSid;
     private final String simSid;
     private final String command;
-    private final CommandMode commandMode;
-    private final Transport transport;
+    private final Command.CommandMode commandMode;
+    private final Command.Transport transport;
     private final Boolean deliveryReceiptRequested;
-    private final Status status;
-    private final Direction direction;
+    private final Command.Status status;
+    private final Command.Direction direction;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -117,13 +117,13 @@ public class Command extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("command") final String command,
-        @JsonProperty("command_mode") final CommandMode commandMode,
-        @JsonProperty("transport") final Transport transport,
+        @JsonProperty("command_mode") final Command.CommandMode commandMode,
+        @JsonProperty("transport") final Command.Transport transport,
         @JsonProperty(
             "delivery_receipt_requested"
         ) final Boolean deliveryReceiptRequested,
-        @JsonProperty("status") final Status status,
-        @JsonProperty("direction") final Direction direction,
+        @JsonProperty("status") final Command.Status status,
+        @JsonProperty("direction") final Command.Direction direction,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url
@@ -158,11 +158,11 @@ public class Command extends Resource {
         return this.command;
     }
 
-    public final CommandMode getCommandMode() {
+    public final Command.CommandMode getCommandMode() {
         return this.commandMode;
     }
 
-    public final Transport getTransport() {
+    public final Command.Transport getTransport() {
         return this.transport;
     }
 
@@ -170,11 +170,11 @@ public class Command extends Resource {
         return this.deliveryReceiptRequested;
     }
 
-    public final Status getStatus() {
+    public final Command.Status getStatus() {
         return this.status;
     }
 
-    public final Direction getDirection() {
+    public final Command.Direction getDirection() {
         return this.direction;
     }
 

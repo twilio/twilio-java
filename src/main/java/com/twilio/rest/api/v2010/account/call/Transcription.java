@@ -52,7 +52,7 @@ public class Transcription extends Resource {
     public static TranscriptionUpdater updater(
         final String pathCallSid,
         final String pathSid,
-        final UpdateStatus status
+        final Transcription.UpdateStatus status
     ) {
         return new TranscriptionUpdater(pathCallSid, pathSid, status);
     }
@@ -61,7 +61,7 @@ public class Transcription extends Resource {
         final String pathAccountSid,
         final String pathCallSid,
         final String pathSid,
-        final UpdateStatus status
+        final Transcription.UpdateStatus status
     ) {
         return new TranscriptionUpdater(
             pathAccountSid,
@@ -118,7 +118,7 @@ public class Transcription extends Resource {
     private final String accountSid;
     private final String callSid;
     private final String name;
-    private final Status status;
+    private final Transcription.Status status;
     private final ZonedDateTime dateUpdated;
     private final String uri;
 
@@ -128,7 +128,7 @@ public class Transcription extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("name") final String name,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Transcription.Status status,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri
     ) {
@@ -157,7 +157,7 @@ public class Transcription extends Resource {
         return this.name;
     }
 
-    public final Status getStatus() {
+    public final Transcription.Status getStatus() {
         return this.status;
     }
 

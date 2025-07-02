@@ -90,7 +90,7 @@ public class BillingPeriod extends Resource {
     private final String simSid;
     private final ZonedDateTime startTime;
     private final ZonedDateTime endTime;
-    private final BpType periodType;
+    private final BillingPeriod.BpType periodType;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -101,7 +101,7 @@ public class BillingPeriod extends Resource {
         @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("start_time") final String startTime,
         @JsonProperty("end_time") final String endTime,
-        @JsonProperty("period_type") final BpType periodType,
+        @JsonProperty("period_type") final BillingPeriod.BpType periodType,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated
     ) {
@@ -135,7 +135,7 @@ public class BillingPeriod extends Resource {
         return this.endTime;
     }
 
-    public final BpType getPeriodType() {
+    public final BillingPeriod.BpType getPeriodType() {
         return this.periodType;
     }
 

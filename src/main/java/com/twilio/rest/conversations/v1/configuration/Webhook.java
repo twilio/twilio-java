@@ -90,21 +90,21 @@ public class Webhook extends Resource {
     }
 
     private final String accountSid;
-    private final Method method;
+    private final Webhook.Method method;
     private final List<String> filters;
     private final String preWebhookUrl;
     private final String postWebhookUrl;
-    private final Target target;
+    private final Webhook.Target target;
     private final URI url;
 
     @JsonCreator
     private Webhook(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("method") final Method method,
+        @JsonProperty("method") final Webhook.Method method,
         @JsonProperty("filters") final List<String> filters,
         @JsonProperty("pre_webhook_url") final String preWebhookUrl,
         @JsonProperty("post_webhook_url") final String postWebhookUrl,
-        @JsonProperty("target") final Target target,
+        @JsonProperty("target") final Webhook.Target target,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -120,7 +120,7 @@ public class Webhook extends Resource {
         return this.accountSid;
     }
 
-    public final Method getMethod() {
+    public final Webhook.Method getMethod() {
         return this.method;
     }
 
@@ -136,7 +136,7 @@ public class Webhook extends Resource {
         return this.postWebhookUrl;
     }
 
-    public final Target getTarget() {
+    public final Webhook.Target getTarget() {
         return this.target;
     }
 

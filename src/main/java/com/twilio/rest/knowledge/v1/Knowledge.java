@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -70,6 +71,10 @@ public class Knowledge extends Resource {
         @Setter
         private Object policyDetails;
 
+        public String getPolicyDetails() {
+            return Converter.objectToJson(policyDetails);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
@@ -102,6 +107,10 @@ public class Knowledge extends Resource {
         @Setter
         private Map<String, Object> knowledgeSourceDetails;
 
+        public String getKnowledgeSourceDetails() {
+            return Converter.mapToJson(knowledgeSourceDetails);
+        }
+
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
@@ -126,13 +135,7 @@ public class Knowledge extends Resource {
         @Setter
         private String embeddingModel;
 
-        public KnowledgeV1ServiceCreateKnowledgeRequest(
-            final String name,
-            final String type
-        ) {
-            this.name = name;
-            this.type = type;
-        }
+        public KnowledgeV1ServiceCreateKnowledgeRequest() {}
 
         public static KnowledgeV1ServiceCreateKnowledgeRequest fromJson(
             String jsonString,
@@ -159,6 +162,10 @@ public class Knowledge extends Resource {
         @Getter
         @Setter
         private Map<String, Object> knowledgeSourceDetails;
+
+        public String getKnowledgeSourceDetails() {
+            return Converter.mapToJson(knowledgeSourceDetails);
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -198,7 +205,7 @@ public class Knowledge extends Resource {
     }
 
     public static KnowledgeCreator creator(
-        final KnowledgeV1ServiceCreateKnowledgeRequest knowledgeV1ServiceCreateKnowledgeRequest
+        final Knowledge.KnowledgeV1ServiceCreateKnowledgeRequest knowledgeV1ServiceCreateKnowledgeRequest
     ) {
         return new KnowledgeCreator(knowledgeV1ServiceCreateKnowledgeRequest);
     }

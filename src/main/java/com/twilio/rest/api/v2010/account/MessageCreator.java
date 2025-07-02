@@ -318,7 +318,7 @@ public class MessageCreator extends Creator<Message> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path = path.replace("{" + "To" + "}", this.to.toString());
+        path = path.replace("{" + "To" + "}", this.to.encode("utf-8"));
 
         Request request = new Request(
             HttpMethod.POST,

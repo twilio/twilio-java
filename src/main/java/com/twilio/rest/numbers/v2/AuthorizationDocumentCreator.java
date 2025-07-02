@@ -118,7 +118,7 @@ public class AuthorizationDocumentCreator
         path =
             path.replace(
                 "{" + "ContactPhoneNumber" + "}",
-                this.contactPhoneNumber.toString()
+                this.contactPhoneNumber.encode("utf-8")
             );
         path =
             path.replace(

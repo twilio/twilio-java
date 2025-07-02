@@ -38,8 +38,8 @@ public class ComplianceRegistrationInquiries extends Resource {
     private static final long serialVersionUID = 153862952025802L;
 
     public static ComplianceRegistrationInquiriesCreator creator(
-        final EndUserType endUserType,
-        final PhoneNumberType phoneNumberType
+        final ComplianceRegistrationInquiries.EndUserType endUserType,
+        final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType
     ) {
         return new ComplianceRegistrationInquiriesCreator(
             endUserType,

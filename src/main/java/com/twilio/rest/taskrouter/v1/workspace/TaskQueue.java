@@ -127,7 +127,7 @@ public class TaskQueue extends Resource {
     private final String reservationActivityName;
     private final String sid;
     private final String targetWorkers;
-    private final TaskOrder taskOrder;
+    private final TaskQueue.TaskOrder taskOrder;
     private final URI url;
     private final String workspaceSid;
     private final Map<String, String> links;
@@ -153,7 +153,7 @@ public class TaskQueue extends Resource {
         ) final String reservationActivityName,
         @JsonProperty("sid") final String sid,
         @JsonProperty("target_workers") final String targetWorkers,
-        @JsonProperty("task_order") final TaskOrder taskOrder,
+        @JsonProperty("task_order") final TaskQueue.TaskOrder taskOrder,
         @JsonProperty("url") final URI url,
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("links") final Map<String, String> links
@@ -219,7 +219,7 @@ public class TaskQueue extends Resource {
         return this.targetWorkers;
     }
 
-    public final TaskOrder getTaskOrder() {
+    public final TaskQueue.TaskOrder getTaskOrder() {
         return this.taskOrder;
     }
 

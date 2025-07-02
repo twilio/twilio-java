@@ -87,7 +87,7 @@ public class Feedback extends Resource {
 
     public static FeedbackCreator creator(
         final String pathId,
-        final AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
+        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
     ) {
         return new FeedbackCreator(
             pathId,

@@ -42,7 +42,7 @@ public class Role extends Resource {
 
     public static RoleCreator creator(
         final String friendlyName,
-        final RoleType type,
+        final Role.RoleType type,
         final List<String> permission
     ) {
         return new RoleCreator(friendlyName, type, permission);
@@ -114,7 +114,7 @@ public class Role extends Resource {
     private final String accountSid;
     private final String chatServiceSid;
     private final String friendlyName;
-    private final RoleType type;
+    private final Role.RoleType type;
     private final List<String> permissions;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -126,7 +126,7 @@ public class Role extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("type") final RoleType type,
+        @JsonProperty("type") final Role.RoleType type,
         @JsonProperty("permissions") final List<String> permissions,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -159,7 +159,7 @@ public class Role extends Resource {
         return this.friendlyName;
     }
 
-    public final RoleType getType() {
+    public final Role.RoleType getType() {
         return this.type;
     }
 

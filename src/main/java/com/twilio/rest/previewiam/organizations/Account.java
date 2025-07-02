@@ -94,7 +94,7 @@ public class Account extends Resource {
 
     private final String accountSid;
     private final String friendlyName;
-    private final StatusEnum status;
+    private final Account.StatusEnum status;
     private final String ownerSid;
     private final ZonedDateTime dateCreated;
 
@@ -102,7 +102,7 @@ public class Account extends Resource {
     private Account(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final StatusEnum status,
+        @JsonProperty("status") final Account.StatusEnum status,
         @JsonProperty("owner_sid") final String ownerSid,
         @JsonProperty("date_created") final String dateCreated
     ) {
@@ -121,7 +121,7 @@ public class Account extends Resource {
         return this.friendlyName;
     }
 
-    public final StatusEnum getStatus() {
+    public final Account.StatusEnum getStatus() {
         return this.status;
     }
 

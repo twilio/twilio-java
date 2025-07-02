@@ -100,7 +100,7 @@ public class ParticipantConversation extends Resource {
     private final ZonedDateTime conversationDateCreated;
     private final ZonedDateTime conversationDateUpdated;
     private final String conversationCreatedBy;
-    private final ParticipantConversation.State conversationState;
+    private final State conversationState;
     private final Map<String, Object> conversationTimers;
     private final Map<String, String> links;
 
@@ -134,9 +134,7 @@ public class ParticipantConversation extends Resource {
         @JsonProperty(
             "conversation_created_by"
         ) final String conversationCreatedBy,
-        @JsonProperty(
-            "conversation_state"
-        ) final ParticipantConversation.State conversationState,
+        @JsonProperty("conversation_state") final State conversationState,
         @JsonProperty("conversation_timers") final Map<
             String,
             Object
@@ -215,7 +213,7 @@ public class ParticipantConversation extends Resource {
         return this.conversationCreatedBy;
     }
 
-    public final ParticipantConversation.State getConversationState() {
+    public final State getConversationState() {
         return this.conversationState;
     }
 

@@ -94,7 +94,7 @@ public class BundleCopy extends Resource {
     private final String accountSid;
     private final String regulationSid;
     private final String friendlyName;
-    private final BundleCopy.Status status;
+    private final Status status;
     private final ZonedDateTime validUntil;
     private final String email;
     private final URI statusCallback;
@@ -107,7 +107,7 @@ public class BundleCopy extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("regulation_sid") final String regulationSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final BundleCopy.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("valid_until") final String validUntil,
         @JsonProperty("email") final String email,
         @JsonProperty("status_callback") final URI statusCallback,
@@ -142,7 +142,7 @@ public class BundleCopy extends Resource {
         return this.friendlyName;
     }
 
-    public final BundleCopy.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

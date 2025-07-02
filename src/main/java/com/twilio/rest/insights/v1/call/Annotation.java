@@ -91,8 +91,8 @@ public class Annotation extends Resource {
 
     private final String callSid;
     private final String accountSid;
-    private final Annotation.AnsweredBy answeredBy;
-    private final Annotation.ConnectivityIssue connectivityIssue;
+    private final AnsweredBy answeredBy;
+    private final ConnectivityIssue connectivityIssue;
     private final List<String> qualityIssues;
     private final Boolean spam;
     private final Integer callScore;
@@ -104,10 +104,10 @@ public class Annotation extends Resource {
     private Annotation(
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("answered_by") final Annotation.AnsweredBy answeredBy,
+        @JsonProperty("answered_by") final AnsweredBy answeredBy,
         @JsonProperty(
             "connectivity_issue"
-        ) final Annotation.ConnectivityIssue connectivityIssue,
+        ) final ConnectivityIssue connectivityIssue,
         @JsonProperty("quality_issues") final List<String> qualityIssues,
         @JsonProperty("spam") final Boolean spam,
         @JsonProperty("call_score") final Integer callScore,
@@ -135,11 +135,11 @@ public class Annotation extends Resource {
         return this.accountSid;
     }
 
-    public final Annotation.AnsweredBy getAnsweredBy() {
+    public final AnsweredBy getAnsweredBy() {
         return this.answeredBy;
     }
 
-    public final Annotation.ConnectivityIssue getConnectivityIssue() {
+    public final ConnectivityIssue getConnectivityIssue() {
         return this.connectivityIssue;
     }
 

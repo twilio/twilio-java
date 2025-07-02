@@ -84,19 +84,19 @@ public class ProvisioningStatus extends Resource {
         }
     }
 
-    private final ProvisioningStatus.Status status;
+    private final Status status;
     private final URI url;
 
     @JsonCreator
     private ProvisioningStatus(
-        @JsonProperty("status") final ProvisioningStatus.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("url") final URI url
     ) {
         this.status = status;
         this.url = url;
     }
 
-    public final ProvisioningStatus.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

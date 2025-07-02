@@ -108,8 +108,8 @@ public class Sim extends Resource {
     private final String friendlyName;
     private final String iccid;
     private final String eId;
-    private final Sim.Status status;
-    private final Sim.ResetStatus resetStatus;
+    private final Status status;
+    private final ResetStatus resetStatus;
     private final URI commandsCallbackUrl;
     private final HttpMethod commandsCallbackMethod;
     private final HttpMethod smsFallbackMethod;
@@ -135,8 +135,8 @@ public class Sim extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("iccid") final String iccid,
         @JsonProperty("e_id") final String eId,
-        @JsonProperty("status") final Sim.Status status,
-        @JsonProperty("reset_status") final Sim.ResetStatus resetStatus,
+        @JsonProperty("status") final Status status,
+        @JsonProperty("reset_status") final ResetStatus resetStatus,
         @JsonProperty("commands_callback_url") final URI commandsCallbackUrl,
         @JsonProperty(
             "commands_callback_method"
@@ -211,11 +211,11 @@ public class Sim extends Resource {
         return this.eId;
     }
 
-    public final Sim.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
-    public final Sim.ResetStatus getResetStatus() {
+    public final ResetStatus getResetStatus() {
         return this.resetStatus;
     }
 

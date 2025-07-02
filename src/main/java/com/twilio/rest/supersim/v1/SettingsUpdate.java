@@ -91,7 +91,7 @@ public class SettingsUpdate extends Resource {
     private final String sid;
     private final String iccid;
     private final String simSid;
-    private final SettingsUpdate.Status status;
+    private final Status status;
     private final List<Map<String, Object>> packages;
     private final ZonedDateTime dateCompleted;
     private final ZonedDateTime dateCreated;
@@ -102,7 +102,7 @@ public class SettingsUpdate extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("iccid") final String iccid,
         @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("status") final SettingsUpdate.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("packages") final List<Map<String, Object>> packages,
         @JsonProperty("date_completed") final String dateCompleted,
         @JsonProperty("date_created") final String dateCreated,
@@ -131,7 +131,7 @@ public class SettingsUpdate extends Resource {
         return this.simSid;
     }
 
-    public final SettingsUpdate.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

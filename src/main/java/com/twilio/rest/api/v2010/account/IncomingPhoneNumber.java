@@ -153,7 +153,7 @@ public class IncomingPhoneNumber extends Resource {
 
     private final String accountSid;
     private final String addressSid;
-    private final IncomingPhoneNumber.AddressRequirement addressRequirements;
+    private final AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
     private final PhoneNumberCapabilities capabilities;
@@ -173,16 +173,16 @@ public class IncomingPhoneNumber extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
     private final String uri;
-    private final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
+    private final VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
-    private final IncomingPhoneNumber.EmergencyStatus emergencyStatus;
+    private final EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
-    private final IncomingPhoneNumber.EmergencyAddressStatus emergencyAddressStatus;
+    private final EmergencyAddressStatus emergencyAddressStatus;
     private final String bundleSid;
     private final String status;
 
@@ -192,7 +192,7 @@ public class IncomingPhoneNumber extends Resource {
         @JsonProperty("address_sid") final String addressSid,
         @JsonProperty(
             "address_requirements"
-        ) final IncomingPhoneNumber.AddressRequirement addressRequirements,
+        ) final AddressRequirement addressRequirements,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("beta") final Boolean beta,
         @JsonProperty(
@@ -220,7 +220,7 @@ public class IncomingPhoneNumber extends Resource {
         @JsonProperty("uri") final String uri,
         @JsonProperty(
             "voice_receive_mode"
-        ) final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode,
+        ) final VoiceReceiveMode voiceReceiveMode,
         @JsonProperty("voice_application_sid") final String voiceApplicationSid,
         @JsonProperty(
             "voice_caller_id_lookup"
@@ -231,13 +231,11 @@ public class IncomingPhoneNumber extends Resource {
         @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
         @JsonProperty("voice_method") final HttpMethod voiceMethod,
         @JsonProperty("voice_url") final URI voiceUrl,
-        @JsonProperty(
-            "emergency_status"
-        ) final IncomingPhoneNumber.EmergencyStatus emergencyStatus,
+        @JsonProperty("emergency_status") final EmergencyStatus emergencyStatus,
         @JsonProperty("emergency_address_sid") final String emergencyAddressSid,
         @JsonProperty(
             "emergency_address_status"
-        ) final IncomingPhoneNumber.EmergencyAddressStatus emergencyAddressStatus,
+        ) final EmergencyAddressStatus emergencyAddressStatus,
         @JsonProperty("bundle_sid") final String bundleSid,
         @JsonProperty("status") final String status
     ) {
@@ -285,7 +283,7 @@ public class IncomingPhoneNumber extends Resource {
         return this.addressSid;
     }
 
-    public final IncomingPhoneNumber.AddressRequirement getAddressRequirements() {
+    public final AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
@@ -365,7 +363,7 @@ public class IncomingPhoneNumber extends Resource {
         return this.uri;
     }
 
-    public final IncomingPhoneNumber.VoiceReceiveMode getVoiceReceiveMode() {
+    public final VoiceReceiveMode getVoiceReceiveMode() {
         return this.voiceReceiveMode;
     }
 
@@ -393,7 +391,7 @@ public class IncomingPhoneNumber extends Resource {
         return this.voiceUrl;
     }
 
-    public final IncomingPhoneNumber.EmergencyStatus getEmergencyStatus() {
+    public final EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
     }
 
@@ -401,7 +399,7 @@ public class IncomingPhoneNumber extends Resource {
         return this.emergencyAddressSid;
     }
 
-    public final IncomingPhoneNumber.EmergencyAddressStatus getEmergencyAddressStatus() {
+    public final EmergencyAddressStatus getEmergencyAddressStatus() {
         return this.emergencyAddressStatus;
     }
 

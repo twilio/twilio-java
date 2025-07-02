@@ -39,7 +39,7 @@ public class Credential extends Resource {
 
     private static final long serialVersionUID = 265726674321801L;
 
-    public static CredentialCreator creator(final Credential.PushType type) {
+    public static CredentialCreator creator(final PushType type) {
         return new CredentialCreator(type);
     }
 
@@ -105,7 +105,7 @@ public class Credential extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
-    private final Credential.PushType type;
+    private final PushType type;
     private final String sandbox;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -116,7 +116,7 @@ public class Credential extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("type") final Credential.PushType type,
+        @JsonProperty("type") final PushType type,
         @JsonProperty("sandbox") final String sandbox,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -144,7 +144,7 @@ public class Credential extends Resource {
         return this.friendlyName;
     }
 
-    public final Credential.PushType getType() {
+    public final PushType getType() {
         return this.type;
     }
 

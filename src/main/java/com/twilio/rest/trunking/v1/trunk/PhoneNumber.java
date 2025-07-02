@@ -111,7 +111,7 @@ public class PhoneNumber extends Resource {
     }
 
     private final String accountSid;
-    private final PhoneNumber.AddressRequirement addressRequirements;
+    private final AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
     private final Map<String, String> capabilities;
@@ -142,7 +142,7 @@ public class PhoneNumber extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty(
             "address_requirements"
-        ) final PhoneNumber.AddressRequirement addressRequirements,
+        ) final AddressRequirement addressRequirements,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("beta") final Boolean beta,
         @JsonProperty("capabilities") final Map<String, String> capabilities,
@@ -208,7 +208,7 @@ public class PhoneNumber extends Resource {
         return this.accountSid;
     }
 
-    public final PhoneNumber.AddressRequirement getAddressRequirements() {
+    public final AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 

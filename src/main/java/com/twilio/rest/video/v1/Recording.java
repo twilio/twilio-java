@@ -98,16 +98,16 @@ public class Recording extends Resource {
     }
 
     private final String accountSid;
-    private final Recording.Status status;
+    private final Status status;
     private final ZonedDateTime dateCreated;
     private final String sid;
     private final String sourceSid;
     private final Long size;
     private final URI url;
-    private final Recording.Type type;
+    private final Type type;
     private final Integer duration;
-    private final Recording.Format containerFormat;
-    private final Recording.Codec codec;
+    private final Format containerFormat;
+    private final Codec codec;
     private final Map<String, Object> groupingSids;
     private final String trackName;
     private final Long offset;
@@ -119,18 +119,16 @@ public class Recording extends Resource {
     @JsonCreator
     private Recording(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Recording.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("sid") final String sid,
         @JsonProperty("source_sid") final String sourceSid,
         @JsonProperty("size") final Long size,
         @JsonProperty("url") final URI url,
-        @JsonProperty("type") final Recording.Type type,
+        @JsonProperty("type") final Type type,
         @JsonProperty("duration") final Integer duration,
-        @JsonProperty(
-            "container_format"
-        ) final Recording.Format containerFormat,
-        @JsonProperty("codec") final Recording.Codec codec,
+        @JsonProperty("container_format") final Format containerFormat,
+        @JsonProperty("codec") final Codec codec,
         @JsonProperty("grouping_sids") final Map<String, Object> groupingSids,
         @JsonProperty("track_name") final String trackName,
         @JsonProperty("offset") final Long offset,
@@ -167,7 +165,7 @@ public class Recording extends Resource {
         return this.accountSid;
     }
 
-    public final Recording.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -191,7 +189,7 @@ public class Recording extends Resource {
         return this.url;
     }
 
-    public final Recording.Type getType() {
+    public final Type getType() {
         return this.type;
     }
 
@@ -199,11 +197,11 @@ public class Recording extends Resource {
         return this.duration;
     }
 
-    public final Recording.Format getContainerFormat() {
+    public final Format getContainerFormat() {
         return this.containerFormat;
     }
 
-    public final Recording.Codec getCodec() {
+    public final Codec getCodec() {
         return this.codec;
     }
 

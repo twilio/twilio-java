@@ -111,7 +111,7 @@ public class Binding extends Resource {
     private final String endpoint;
     private final String identity;
     private final String credentialSid;
-    private final Binding.BindingType bindingType;
+    private final BindingType bindingType;
     private final List<String> messageTypes;
     private final URI url;
     private final Map<String, String> links;
@@ -126,7 +126,7 @@ public class Binding extends Resource {
         @JsonProperty("endpoint") final String endpoint,
         @JsonProperty("identity") final String identity,
         @JsonProperty("credential_sid") final String credentialSid,
-        @JsonProperty("binding_type") final Binding.BindingType bindingType,
+        @JsonProperty("binding_type") final BindingType bindingType,
         @JsonProperty("message_types") final List<String> messageTypes,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
@@ -177,7 +177,7 @@ public class Binding extends Resource {
         return this.credentialSid;
     }
 
-    public final Binding.BindingType getBindingType() {
+    public final BindingType getBindingType() {
         return this.bindingType;
     }
 

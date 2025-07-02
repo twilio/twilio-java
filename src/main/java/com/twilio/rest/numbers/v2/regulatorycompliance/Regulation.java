@@ -94,7 +94,7 @@ public class Regulation extends Resource {
     private final String friendlyName;
     private final String isoCountry;
     private final String numberType;
-    private final Regulation.EndUserType endUserType;
+    private final EndUserType endUserType;
     private final Map<String, Object> requirements;
     private final URI url;
 
@@ -104,7 +104,7 @@ public class Regulation extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("iso_country") final String isoCountry,
         @JsonProperty("number_type") final String numberType,
-        @JsonProperty("end_user_type") final Regulation.EndUserType endUserType,
+        @JsonProperty("end_user_type") final EndUserType endUserType,
         @JsonProperty("requirements") final Map<String, Object> requirements,
         @JsonProperty("url") final URI url
     ) {
@@ -133,7 +133,7 @@ public class Regulation extends Resource {
         return this.numberType;
     }
 
-    public final Regulation.EndUserType getEndUserType() {
+    public final EndUserType getEndUserType() {
         return this.endUserType;
     }
 

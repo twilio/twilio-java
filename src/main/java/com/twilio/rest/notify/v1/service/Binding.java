@@ -45,7 +45,7 @@ public class Binding extends Resource {
     public static BindingCreator creator(
         final String pathServiceSid,
         final String identity,
-        final Binding.BindingType bindingType,
+        final BindingType bindingType,
         final String address
     ) {
         return new BindingCreator(

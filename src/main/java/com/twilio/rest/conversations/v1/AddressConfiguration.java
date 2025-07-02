@@ -42,7 +42,7 @@ public class AddressConfiguration extends Resource {
     private static final long serialVersionUID = 162346024858734L;
 
     public static AddressConfigurationCreator creator(
-        final AddressConfiguration.Type type,
+        final Type type,
         final String address
     ) {
         return new AddressConfigurationCreator(type, address);

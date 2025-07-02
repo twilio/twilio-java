@@ -106,10 +106,10 @@ public class ConferenceParticipant extends Resource {
     private final String conferenceSid;
     private final String callSid;
     private final String accountSid;
-    private final ConferenceParticipant.CallDirection callDirection;
+    private final CallDirection callDirection;
     private final String from;
     private final String to;
-    private final ConferenceParticipant.CallStatus callStatus;
+    private final CallStatus callStatus;
     private final String countryCode;
     private final Boolean isModerator;
     private final ZonedDateTime joinTime;
@@ -117,13 +117,13 @@ public class ConferenceParticipant extends Resource {
     private final Integer durationSeconds;
     private final Integer outboundQueueLength;
     private final Integer outboundTimeInQueue;
-    private final ConferenceParticipant.JitterBufferSize jitterBufferSize;
+    private final JitterBufferSize jitterBufferSize;
     private final Boolean isCoach;
     private final List<String> coachedParticipants;
-    private final ConferenceParticipant.Region participantRegion;
-    private final ConferenceParticipant.Region conferenceRegion;
-    private final ConferenceParticipant.CallType callType;
-    private final ConferenceParticipant.ProcessingState processingState;
+    private final Region participantRegion;
+    private final Region conferenceRegion;
+    private final CallType callType;
+    private final ProcessingState processingState;
     private final Map<String, Object> properties;
     private final Map<String, Object> events;
     private final Map<String, Object> metrics;
@@ -136,14 +136,10 @@ public class ConferenceParticipant extends Resource {
         @JsonProperty("conference_sid") final String conferenceSid,
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "call_direction"
-        ) final ConferenceParticipant.CallDirection callDirection,
+        @JsonProperty("call_direction") final CallDirection callDirection,
         @JsonProperty("from") final String from,
         @JsonProperty("to") final String to,
-        @JsonProperty(
-            "call_status"
-        ) final ConferenceParticipant.CallStatus callStatus,
+        @JsonProperty("call_status") final CallStatus callStatus,
         @JsonProperty("country_code") final String countryCode,
         @JsonProperty("is_moderator") final Boolean isModerator,
         @JsonProperty("join_time") final String joinTime,
@@ -157,23 +153,15 @@ public class ConferenceParticipant extends Resource {
         ) final Integer outboundTimeInQueue,
         @JsonProperty(
             "jitter_buffer_size"
-        ) final ConferenceParticipant.JitterBufferSize jitterBufferSize,
+        ) final JitterBufferSize jitterBufferSize,
         @JsonProperty("is_coach") final Boolean isCoach,
         @JsonProperty("coached_participants") final List<
             String
         > coachedParticipants,
-        @JsonProperty(
-            "participant_region"
-        ) final ConferenceParticipant.Region participantRegion,
-        @JsonProperty(
-            "conference_region"
-        ) final ConferenceParticipant.Region conferenceRegion,
-        @JsonProperty(
-            "call_type"
-        ) final ConferenceParticipant.CallType callType,
-        @JsonProperty(
-            "processing_state"
-        ) final ConferenceParticipant.ProcessingState processingState,
+        @JsonProperty("participant_region") final Region participantRegion,
+        @JsonProperty("conference_region") final Region conferenceRegion,
+        @JsonProperty("call_type") final CallType callType,
+        @JsonProperty("processing_state") final ProcessingState processingState,
         @JsonProperty("properties") final Map<String, Object> properties,
         @JsonProperty("events") final Map<String, Object> events,
         @JsonProperty("metrics") final Map<String, Object> metrics,
@@ -228,7 +216,7 @@ public class ConferenceParticipant extends Resource {
         return this.accountSid;
     }
 
-    public final ConferenceParticipant.CallDirection getCallDirection() {
+    public final CallDirection getCallDirection() {
         return this.callDirection;
     }
 
@@ -240,7 +228,7 @@ public class ConferenceParticipant extends Resource {
         return this.to;
     }
 
-    public final ConferenceParticipant.CallStatus getCallStatus() {
+    public final CallStatus getCallStatus() {
         return this.callStatus;
     }
 
@@ -272,7 +260,7 @@ public class ConferenceParticipant extends Resource {
         return this.outboundTimeInQueue;
     }
 
-    public final ConferenceParticipant.JitterBufferSize getJitterBufferSize() {
+    public final JitterBufferSize getJitterBufferSize() {
         return this.jitterBufferSize;
     }
 
@@ -284,19 +272,19 @@ public class ConferenceParticipant extends Resource {
         return this.coachedParticipants;
     }
 
-    public final ConferenceParticipant.Region getParticipantRegion() {
+    public final Region getParticipantRegion() {
         return this.participantRegion;
     }
 
-    public final ConferenceParticipant.Region getConferenceRegion() {
+    public final Region getConferenceRegion() {
         return this.conferenceRegion;
     }
 
-    public final ConferenceParticipant.CallType getCallType() {
+    public final CallType getCallType() {
         return this.callType;
     }
 
-    public final ConferenceParticipant.ProcessingState getProcessingState() {
+    public final ProcessingState getProcessingState() {
         return this.processingState;
     }
 

@@ -94,7 +94,7 @@ public class Webhook extends Resource {
     private final URI preWebhookUrl;
     private final URI postWebhookUrl;
     private final List<String> filters;
-    private final Webhook.Method method;
+    private final Method method;
     private final URI url;
 
     @JsonCreator
@@ -104,7 +104,7 @@ public class Webhook extends Resource {
         @JsonProperty("pre_webhook_url") final URI preWebhookUrl,
         @JsonProperty("post_webhook_url") final URI postWebhookUrl,
         @JsonProperty("filters") final List<String> filters,
-        @JsonProperty("method") final Webhook.Method method,
+        @JsonProperty("method") final Method method,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -136,7 +136,7 @@ public class Webhook extends Resource {
         return this.filters;
     }
 
-    public final Webhook.Method getMethod() {
+    public final Method getMethod() {
         return this.method;
     }
 

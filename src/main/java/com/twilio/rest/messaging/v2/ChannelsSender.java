@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -164,10 +163,6 @@ public class ChannelsSender extends Resource {
         @Setter
         private Object emails;
 
-        public String getEmails() {
-            return Converter.objectToJson(emails);
-        }
-
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("logo_url")
         @Getter
@@ -185,10 +180,6 @@ public class ChannelsSender extends Resource {
         @Getter
         @Setter
         private Object websites;
-
-        public String getWebsites() {
-            return Converter.objectToJson(websites);
-        }
 
         public static MessagingV2ChannelsSenderProfile fromJson(
             String jsonString,
@@ -228,7 +219,9 @@ public class ChannelsSender extends Resource {
         @Setter
         private MessagingV2ChannelsSenderProfile profile;
 
-        public MessagingV2ChannelsSenderRequestsCreate() {}
+        public MessagingV2ChannelsSenderRequestsCreate(final String senderId) {
+            this.senderId = senderId;
+        }
 
         public static MessagingV2ChannelsSenderRequestsCreate fromJson(
             String jsonString,
@@ -448,7 +441,7 @@ public class ChannelsSender extends Resource {
     }
 
     public static ChannelsSenderCreator creator(
-        final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
+        final MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
     ) {
         return new ChannelsSenderCreator(
             messagingV2ChannelsSenderRequestsCreate
@@ -527,7 +520,7 @@ public class ChannelsSender extends Resource {
     }
 
     private final String sid;
-    private final ChannelsSender.Status status;
+    private final Status status;
     private final String senderId;
     private final MessagingV2ChannelsSenderConfiguration configuration;
     private final MessagingV2ChannelsSenderWebhook webhook;
@@ -541,7 +534,7 @@ public class ChannelsSender extends Resource {
     @JsonCreator
     private ChannelsSender(
         @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final ChannelsSender.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("sender_id") final String senderId,
         @JsonProperty(
             "configuration"
@@ -573,7 +566,7 @@ public class ChannelsSender extends Resource {
         return this.sid;
     }
 
-    public final ChannelsSender.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

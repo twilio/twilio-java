@@ -107,7 +107,7 @@ public class Fleet extends Resource {
     private final URI url;
     private final Boolean dataEnabled;
     private final Integer dataLimit;
-    private final Fleet.DataMetering dataMetering;
+    private final DataMetering dataMetering;
     private final Boolean smsCommandsEnabled;
     private final URI smsCommandsUrl;
     private final HttpMethod smsCommandsMethod;
@@ -125,7 +125,7 @@ public class Fleet extends Resource {
         @JsonProperty("url") final URI url,
         @JsonProperty("data_enabled") final Boolean dataEnabled,
         @JsonProperty("data_limit") final Integer dataLimit,
-        @JsonProperty("data_metering") final Fleet.DataMetering dataMetering,
+        @JsonProperty("data_metering") final DataMetering dataMetering,
         @JsonProperty("sms_commands_enabled") final Boolean smsCommandsEnabled,
         @JsonProperty("sms_commands_url") final URI smsCommandsUrl,
         @JsonProperty("sms_commands_method") final HttpMethod smsCommandsMethod,
@@ -184,7 +184,7 @@ public class Fleet extends Resource {
         return this.dataLimit;
     }
 
-    public final Fleet.DataMetering getDataMetering() {
+    public final DataMetering getDataMetering() {
         return this.dataMetering;
     }
 

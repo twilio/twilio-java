@@ -108,7 +108,7 @@ public class Transcript extends Resource {
     private final String sid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final Transcript.Status status;
+    private final Status status;
     private final Map<String, Object> channel;
     private final Boolean dataLogging;
     private final String languageCode;
@@ -126,7 +126,7 @@ public class Transcript extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("status") final Transcript.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("channel") final Map<String, Object> channel,
         @JsonProperty("data_logging") final Boolean dataLogging,
         @JsonProperty("language_code") final String languageCode,
@@ -175,7 +175,7 @@ public class Transcript extends Resource {
         return this.dateUpdated;
     }
 
-    public final Transcript.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

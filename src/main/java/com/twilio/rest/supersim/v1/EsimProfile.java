@@ -98,7 +98,7 @@ public class EsimProfile extends Resource {
     private final String accountSid;
     private final String iccid;
     private final String simSid;
-    private final EsimProfile.Status status;
+    private final Status status;
     private final String eid;
     private final URI smdpPlusAddress;
     private final String matchingId;
@@ -115,7 +115,7 @@ public class EsimProfile extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("iccid") final String iccid,
         @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("status") final EsimProfile.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("eid") final String eid,
         @JsonProperty("smdp_plus_address") final URI smdpPlusAddress,
         @JsonProperty("matching_id") final String matchingId,
@@ -158,7 +158,7 @@ public class EsimProfile extends Resource {
         return this.simSid;
     }
 
-    public final EsimProfile.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

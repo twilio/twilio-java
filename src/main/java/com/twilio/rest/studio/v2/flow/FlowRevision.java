@@ -100,7 +100,7 @@ public class FlowRevision extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final Map<String, Object> definition;
-    private final FlowRevision.Status status;
+    private final Status status;
     private final Integer revision;
     private final String commitMessage;
     private final Boolean valid;
@@ -115,7 +115,7 @@ public class FlowRevision extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("definition") final Map<String, Object> definition,
-        @JsonProperty("status") final FlowRevision.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("revision") final Integer revision,
         @JsonProperty("commit_message") final String commitMessage,
         @JsonProperty("valid") final Boolean valid,
@@ -154,7 +154,7 @@ public class FlowRevision extends Resource {
         return this.definition;
     }
 
-    public final FlowRevision.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

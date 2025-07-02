@@ -115,7 +115,7 @@ public class UserBinding extends Resource {
     private final String identity;
     private final String userSid;
     private final String credentialSid;
-    private final UserBinding.BindingType bindingType;
+    private final BindingType bindingType;
     private final List<String> messageTypes;
     private final URI url;
 
@@ -130,7 +130,7 @@ public class UserBinding extends Resource {
         @JsonProperty("identity") final String identity,
         @JsonProperty("user_sid") final String userSid,
         @JsonProperty("credential_sid") final String credentialSid,
-        @JsonProperty("binding_type") final UserBinding.BindingType bindingType,
+        @JsonProperty("binding_type") final BindingType bindingType,
         @JsonProperty("message_types") final List<String> messageTypes,
         @JsonProperty("url") final URI url
     ) {
@@ -184,7 +184,7 @@ public class UserBinding extends Resource {
         return this.credentialSid;
     }
 
-    public final UserBinding.BindingType getBindingType() {
+    public final BindingType getBindingType() {
         return this.bindingType;
     }
 

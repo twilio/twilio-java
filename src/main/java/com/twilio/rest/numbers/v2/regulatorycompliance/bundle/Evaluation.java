@@ -104,7 +104,7 @@ public class Evaluation extends Resource {
     private final String accountSid;
     private final String regulationSid;
     private final String bundleSid;
-    private final Evaluation.Status status;
+    private final Status status;
     private final List<Map<String, Object>> results;
     private final ZonedDateTime dateCreated;
     private final URI url;
@@ -115,7 +115,7 @@ public class Evaluation extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("regulation_sid") final String regulationSid,
         @JsonProperty("bundle_sid") final String bundleSid,
-        @JsonProperty("status") final Evaluation.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("results") final List<Map<String, Object>> results,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
@@ -146,7 +146,7 @@ public class Evaluation extends Resource {
         return this.bundleSid;
     }
 
-    public final Evaluation.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

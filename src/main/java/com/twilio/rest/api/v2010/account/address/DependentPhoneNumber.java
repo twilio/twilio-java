@@ -113,7 +113,7 @@ public class DependentPhoneNumber extends Resource {
     private final URI smsFallbackUrl;
     private final HttpMethod smsMethod;
     private final URI smsUrl;
-    private final DependentPhoneNumber.AddressRequirement addressRequirements;
+    private final AddressRequirement addressRequirements;
     private final Map<String, Object> capabilities;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
@@ -121,7 +121,7 @@ public class DependentPhoneNumber extends Resource {
     private final String smsApplicationSid;
     private final String voiceApplicationSid;
     private final String trunkSid;
-    private final DependentPhoneNumber.EmergencyStatus emergencyStatus;
+    private final EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
     private final String uri;
 
@@ -150,7 +150,7 @@ public class DependentPhoneNumber extends Resource {
         @JsonProperty("sms_url") final URI smsUrl,
         @JsonProperty(
             "address_requirements"
-        ) final DependentPhoneNumber.AddressRequirement addressRequirements,
+        ) final AddressRequirement addressRequirements,
         @JsonProperty("capabilities") final Map<String, Object> capabilities,
         @JsonProperty("status_callback") final URI statusCallback,
         @JsonProperty(
@@ -160,9 +160,7 @@ public class DependentPhoneNumber extends Resource {
         @JsonProperty("sms_application_sid") final String smsApplicationSid,
         @JsonProperty("voice_application_sid") final String voiceApplicationSid,
         @JsonProperty("trunk_sid") final String trunkSid,
-        @JsonProperty(
-            "emergency_status"
-        ) final DependentPhoneNumber.EmergencyStatus emergencyStatus,
+        @JsonProperty("emergency_status") final EmergencyStatus emergencyStatus,
         @JsonProperty("emergency_address_sid") final String emergencyAddressSid,
         @JsonProperty("uri") final String uri
     ) {
@@ -254,7 +252,7 @@ public class DependentPhoneNumber extends Resource {
         return this.smsUrl;
     }
 
-    public final DependentPhoneNumber.AddressRequirement getAddressRequirements() {
+    public final AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
@@ -286,7 +284,7 @@ public class DependentPhoneNumber extends Resource {
         return this.trunkSid;
     }
 
-    public final DependentPhoneNumber.EmergencyStatus getEmergencyStatus() {
+    public final EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
     }
 

@@ -99,25 +99,25 @@ public class Room extends Resource {
     private final String roomName;
     private final ZonedDateTime createTime;
     private final ZonedDateTime endTime;
-    private final Room.RoomType roomType;
-    private final Room.RoomStatus roomStatus;
+    private final RoomType roomType;
+    private final RoomStatus roomStatus;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
-    private final Room.CreatedMethod createdMethod;
-    private final Room.EndReason endReason;
+    private final CreatedMethod createdMethod;
+    private final EndReason endReason;
     private final Integer maxParticipants;
     private final Integer uniqueParticipants;
     private final Integer uniqueParticipantIdentities;
     private final Integer concurrentParticipants;
     private final Integer maxConcurrentParticipants;
-    private final List<Room.Codec> codecs;
-    private final Room.TwilioRealm mediaRegion;
+    private final List<Codec> codecs;
+    private final TwilioRealm mediaRegion;
     private final Long durationSec;
     private final Long totalParticipantDurationSec;
     private final Long totalRecordingDurationSec;
-    private final Room.ProcessingState processingState;
+    private final ProcessingState processingState;
     private final Boolean recordingEnabled;
-    private final Room.EdgeLocation edgeLocation;
+    private final EdgeLocation edgeLocation;
     private final URI url;
     private final Map<String, String> links;
 
@@ -128,14 +128,14 @@ public class Room extends Resource {
         @JsonProperty("room_name") final String roomName,
         @JsonProperty("create_time") final String createTime,
         @JsonProperty("end_time") final String endTime,
-        @JsonProperty("room_type") final Room.RoomType roomType,
-        @JsonProperty("room_status") final Room.RoomStatus roomStatus,
+        @JsonProperty("room_type") final RoomType roomType,
+        @JsonProperty("room_status") final RoomStatus roomStatus,
         @JsonProperty("status_callback") final URI statusCallback,
         @JsonProperty(
             "status_callback_method"
         ) final HttpMethod statusCallbackMethod,
-        @JsonProperty("created_method") final Room.CreatedMethod createdMethod,
-        @JsonProperty("end_reason") final Room.EndReason endReason,
+        @JsonProperty("created_method") final CreatedMethod createdMethod,
+        @JsonProperty("end_reason") final EndReason endReason,
         @JsonProperty("max_participants") final Integer maxParticipants,
         @JsonProperty("unique_participants") final Integer uniqueParticipants,
         @JsonProperty(
@@ -147,8 +147,8 @@ public class Room extends Resource {
         @JsonProperty(
             "max_concurrent_participants"
         ) final Integer maxConcurrentParticipants,
-        @JsonProperty("codecs") final List<Room.Codec> codecs,
-        @JsonProperty("media_region") final Room.TwilioRealm mediaRegion,
+        @JsonProperty("codecs") final List<Codec> codecs,
+        @JsonProperty("media_region") final TwilioRealm mediaRegion,
         @JsonProperty("duration_sec") final Long durationSec,
         @JsonProperty(
             "total_participant_duration_sec"
@@ -156,11 +156,9 @@ public class Room extends Resource {
         @JsonProperty(
             "total_recording_duration_sec"
         ) final Long totalRecordingDurationSec,
-        @JsonProperty(
-            "processing_state"
-        ) final Room.ProcessingState processingState,
+        @JsonProperty("processing_state") final ProcessingState processingState,
         @JsonProperty("recording_enabled") final Boolean recordingEnabled,
-        @JsonProperty("edge_location") final Room.EdgeLocation edgeLocation,
+        @JsonProperty("edge_location") final EdgeLocation edgeLocation,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -212,11 +210,11 @@ public class Room extends Resource {
         return this.endTime;
     }
 
-    public final Room.RoomType getRoomType() {
+    public final RoomType getRoomType() {
         return this.roomType;
     }
 
-    public final Room.RoomStatus getRoomStatus() {
+    public final RoomStatus getRoomStatus() {
         return this.roomStatus;
     }
 
@@ -228,11 +226,11 @@ public class Room extends Resource {
         return this.statusCallbackMethod;
     }
 
-    public final Room.CreatedMethod getCreatedMethod() {
+    public final CreatedMethod getCreatedMethod() {
         return this.createdMethod;
     }
 
-    public final Room.EndReason getEndReason() {
+    public final EndReason getEndReason() {
         return this.endReason;
     }
 
@@ -256,11 +254,11 @@ public class Room extends Resource {
         return this.maxConcurrentParticipants;
     }
 
-    public final List<Room.Codec> getCodecs() {
+    public final List<Codec> getCodecs() {
         return this.codecs;
     }
 
-    public final Room.TwilioRealm getMediaRegion() {
+    public final TwilioRealm getMediaRegion() {
         return this.mediaRegion;
     }
 
@@ -276,7 +274,7 @@ public class Room extends Resource {
         return this.totalRecordingDurationSec;
     }
 
-    public final Room.ProcessingState getProcessingState() {
+    public final ProcessingState getProcessingState() {
         return this.processingState;
     }
 
@@ -284,7 +282,7 @@ public class Room extends Resource {
         return this.recordingEnabled;
     }
 
-    public final Room.EdgeLocation getEdgeLocation() {
+    public final EdgeLocation getEdgeLocation() {
         return this.edgeLocation;
     }
 

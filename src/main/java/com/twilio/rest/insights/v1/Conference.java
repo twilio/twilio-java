@@ -101,19 +101,19 @@ public class Conference extends Resource {
     private final ZonedDateTime endTime;
     private final Integer durationSeconds;
     private final Integer connectDurationSeconds;
-    private final Conference.ConferenceStatus status;
+    private final ConferenceStatus status;
     private final Integer maxParticipants;
     private final Integer maxConcurrentParticipants;
     private final Integer uniqueParticipants;
-    private final Conference.ConferenceEndReason endReason;
+    private final ConferenceEndReason endReason;
     private final String endedBy;
-    private final Conference.Region mixerRegion;
-    private final Conference.Region mixerRegionRequested;
+    private final Region mixerRegion;
+    private final Region mixerRegionRequested;
     private final Boolean recordingEnabled;
     private final Map<String, Object> detectedIssues;
-    private final List<Conference.Tag> tags;
+    private final List<Tag> tags;
     private final Map<String, Object> tagInfo;
-    private final Conference.ProcessingState processingState;
+    private final ProcessingState processingState;
     private final URI url;
     private final Map<String, String> links;
 
@@ -129,30 +129,26 @@ public class Conference extends Resource {
         @JsonProperty(
             "connect_duration_seconds"
         ) final Integer connectDurationSeconds,
-        @JsonProperty("status") final Conference.ConferenceStatus status,
+        @JsonProperty("status") final ConferenceStatus status,
         @JsonProperty("max_participants") final Integer maxParticipants,
         @JsonProperty(
             "max_concurrent_participants"
         ) final Integer maxConcurrentParticipants,
         @JsonProperty("unique_participants") final Integer uniqueParticipants,
-        @JsonProperty(
-            "end_reason"
-        ) final Conference.ConferenceEndReason endReason,
+        @JsonProperty("end_reason") final ConferenceEndReason endReason,
         @JsonProperty("ended_by") final String endedBy,
-        @JsonProperty("mixer_region") final Conference.Region mixerRegion,
+        @JsonProperty("mixer_region") final Region mixerRegion,
         @JsonProperty(
             "mixer_region_requested"
-        ) final Conference.Region mixerRegionRequested,
+        ) final Region mixerRegionRequested,
         @JsonProperty("recording_enabled") final Boolean recordingEnabled,
         @JsonProperty("detected_issues") final Map<
             String,
             Object
         > detectedIssues,
-        @JsonProperty("tags") final List<Conference.Tag> tags,
+        @JsonProperty("tags") final List<Tag> tags,
         @JsonProperty("tag_info") final Map<String, Object> tagInfo,
-        @JsonProperty(
-            "processing_state"
-        ) final Conference.ProcessingState processingState,
+        @JsonProperty("processing_state") final ProcessingState processingState,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -213,7 +209,7 @@ public class Conference extends Resource {
         return this.connectDurationSeconds;
     }
 
-    public final Conference.ConferenceStatus getStatus() {
+    public final ConferenceStatus getStatus() {
         return this.status;
     }
 
@@ -229,7 +225,7 @@ public class Conference extends Resource {
         return this.uniqueParticipants;
     }
 
-    public final Conference.ConferenceEndReason getEndReason() {
+    public final ConferenceEndReason getEndReason() {
         return this.endReason;
     }
 
@@ -237,11 +233,11 @@ public class Conference extends Resource {
         return this.endedBy;
     }
 
-    public final Conference.Region getMixerRegion() {
+    public final Region getMixerRegion() {
         return this.mixerRegion;
     }
 
-    public final Conference.Region getMixerRegionRequested() {
+    public final Region getMixerRegionRequested() {
         return this.mixerRegionRequested;
     }
 
@@ -253,7 +249,7 @@ public class Conference extends Resource {
         return this.detectedIssues;
     }
 
-    public final List<Conference.Tag> getTags() {
+    public final List<Tag> getTags() {
         return this.tags;
     }
 
@@ -261,7 +257,7 @@ public class Conference extends Resource {
         return this.tagInfo;
     }
 
-    public final Conference.ProcessingState getProcessingState() {
+    public final ProcessingState getProcessingState() {
         return this.processingState;
     }
 

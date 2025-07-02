@@ -98,8 +98,8 @@ public class VerificationAttempt extends Resource {
     private final String verificationSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final VerificationAttempt.ConversionStatus conversionStatus;
-    private final VerificationAttempt.Channels channel;
+    private final ConversionStatus conversionStatus;
+    private final Channels channel;
     private final Map<String, Object> price;
     private final Map<String, Object> channelData;
     private final URI url;
@@ -114,8 +114,8 @@ public class VerificationAttempt extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty(
             "conversion_status"
-        ) final VerificationAttempt.ConversionStatus conversionStatus,
-        @JsonProperty("channel") final VerificationAttempt.Channels channel,
+        ) final ConversionStatus conversionStatus,
+        @JsonProperty("channel") final Channels channel,
         @JsonProperty("price") final Map<String, Object> price,
         @JsonProperty("channel_data") final Map<String, Object> channelData,
         @JsonProperty("url") final URI url
@@ -157,11 +157,11 @@ public class VerificationAttempt extends Resource {
         return this.dateUpdated;
     }
 
-    public final VerificationAttempt.ConversionStatus getConversionStatus() {
+    public final ConversionStatus getConversionStatus() {
         return this.conversionStatus;
     }
 
-    public final VerificationAttempt.Channels getChannel() {
+    public final Channels getChannel() {
         return this.channel;
     }
 

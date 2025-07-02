@@ -38,7 +38,7 @@ public class FlowValidate extends Resource {
 
     public static FlowValidateUpdater updater(
         final String friendlyName,
-        final FlowValidate.Status status,
+        final Status status,
         final Object definition
     ) {
         return new FlowValidateUpdater(friendlyName, status, definition);

@@ -57,7 +57,7 @@ public class Stream extends Resource {
     public static StreamUpdater updater(
         final String pathCallSid,
         final String pathSid,
-        final Stream.UpdateStatus status
+        final UpdateStatus status
     ) {
         return new StreamUpdater(pathCallSid, pathSid, status);
     }
@@ -66,7 +66,7 @@ public class Stream extends Resource {
         final String pathAccountSid,
         final String pathCallSid,
         final String pathSid,
-        final Stream.UpdateStatus status
+        final UpdateStatus status
     ) {
         return new StreamUpdater(pathAccountSid, pathCallSid, pathSid, status);
     }
@@ -118,7 +118,7 @@ public class Stream extends Resource {
     private final String accountSid;
     private final String callSid;
     private final String name;
-    private final Stream.Status status;
+    private final Status status;
     private final ZonedDateTime dateUpdated;
     private final String uri;
 
@@ -128,7 +128,7 @@ public class Stream extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("name") final String name,
-        @JsonProperty("status") final Stream.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri
     ) {
@@ -157,7 +157,7 @@ public class Stream extends Resource {
         return this.name;
     }
 
-    public final Stream.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

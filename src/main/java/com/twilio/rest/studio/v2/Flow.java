@@ -44,8 +44,8 @@ public class Flow extends Resource {
 
     public static FlowCreator creator(
         final String friendlyName,
-        final Flow.Status status,
-        final Map<String, Object> definition
+        final Status status,
+        final Object definition
     ) {
         return new FlowCreator(friendlyName, status, definition);
     }
@@ -64,7 +64,7 @@ public class Flow extends Resource {
 
     public static FlowUpdater updater(
         final String pathSid,
-        final Flow.Status status
+        final Status status
     ) {
         return new FlowUpdater(pathSid, status);
     }
@@ -116,7 +116,7 @@ public class Flow extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final Map<String, Object> definition;
-    private final Flow.Status status;
+    private final Status status;
     private final Integer revision;
     private final String commitMessage;
     private final Boolean valid;
@@ -134,7 +134,7 @@ public class Flow extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("definition") final Map<String, Object> definition,
-        @JsonProperty("status") final Flow.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("revision") final Integer revision,
         @JsonProperty("commit_message") final String commitMessage,
         @JsonProperty("valid") final Boolean valid,
@@ -179,7 +179,7 @@ public class Flow extends Resource {
         return this.definition;
     }
 
-    public final Flow.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

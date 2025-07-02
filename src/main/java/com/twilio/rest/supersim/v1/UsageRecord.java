@@ -114,7 +114,7 @@ public class UsageRecord extends Resource {
         @JsonProperty("data_total") final Long dataTotal,
         @JsonProperty("data_total_billed") final BigDecimal dataTotalBilled,
         @JsonProperty("billed_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
+            using = CurrencyDeserializer.class
         ) final Currency billedUnit
     ) {
         this.accountSid = accountSid;

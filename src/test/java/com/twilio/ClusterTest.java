@@ -38,7 +38,7 @@ public class ClusterTest {
     String clientSecret;
     String messageSid;
     TwilioRestClient customRestClient;
-    
+
     String accountSid;
 
     @Before
@@ -57,11 +57,11 @@ public class ClusterTest {
         orgsClientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
         TwilioOrgsTokenAuth.init(grantType, orgsClientId, orgsClientSecret);
-        
+
         clientId = System.getenv("TWILIO_CLIENT_ID");
         clientSecret = System.getenv("TWILIO_CLIENT_SECRET");
         messageSid = System.getenv("TWILIO_MESSAGE_SID");
-        
+
         // CustomHttpClient
         customRestClient = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(new CustomHttpClient()).build();
     }
@@ -117,7 +117,7 @@ public class ClusterTest {
         sinkConfiguration.put("destination", "http://example.org/webhook");
         sinkConfiguration.put("method", "post");
         sinkConfiguration.put("batch_events",false);
-        List<Map<String, Object>> types = new ArrayList<>();
+        List<Object> types = new ArrayList<>();
         Map<String, Object> types1 = new HashMap<>();
         Map<String, Object> types2 = new HashMap<>();
         types1.put("type", "com.twilio.messaging.message.delivered");
@@ -175,7 +175,7 @@ public class ClusterTest {
 //    @Test
 //    public void testPublicOAuthFetchMessage() {
 //        Twilio.init(new ClientCredentialProvider(clientId, clientSecret), accountSid);
-//        // Fetching an existing message; if this test fails, the SID might be deleted, 
+//        // Fetching an existing message; if this test fails, the SID might be deleted,
 //        // in that case, change TWILIO_MESSAGE_SID in twilio-java repo env variables
 //        Message message = Message.fetcher(messageSid).fetch();
 //        assertNotNull(message);

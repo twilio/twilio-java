@@ -95,7 +95,7 @@ public class OperatorResult extends Resource {
         }
     }
 
-    private final OperatorResult.OperatorType operatorType;
+    private final OperatorType operatorType;
     private final String name;
     private final String operatorSid;
     private final Boolean extractMatch;
@@ -114,9 +114,7 @@ public class OperatorResult extends Resource {
 
     @JsonCreator
     private OperatorResult(
-        @JsonProperty(
-            "operator_type"
-        ) final OperatorResult.OperatorType operatorType,
+        @JsonProperty("operator_type") final OperatorType operatorType,
         @JsonProperty("name") final String name,
         @JsonProperty("operator_sid") final String operatorSid,
         @JsonProperty("extract_match") final Boolean extractMatch,
@@ -164,7 +162,7 @@ public class OperatorResult extends Resource {
         this.url = url;
     }
 
-    public final OperatorResult.OperatorType getOperatorType() {
+    public final OperatorType getOperatorType() {
         return this.operatorType;
     }
 

@@ -39,7 +39,7 @@ public class Form extends Resource {
 
     private static final long serialVersionUID = 202517967097226L;
 
-    public static FormFetcher fetcher(final Form.FormTypes formType) {
+    public static FormFetcher fetcher(final FormTypes formType) {
         return new FormFetcher(formType);
     }
 
@@ -86,14 +86,14 @@ public class Form extends Resource {
         }
     }
 
-    private final Form.FormTypes formType;
+    private final FormTypes formType;
     private final Map<String, Object> forms;
     private final Map<String, Object> formMeta;
     private final URI url;
 
     @JsonCreator
     private Form(
-        @JsonProperty("form_type") final Form.FormTypes formType,
+        @JsonProperty("form_type") final FormTypes formType,
         @JsonProperty("forms") final Map<String, Object> forms,
         @JsonProperty("form_meta") final Map<String, Object> formMeta,
         @JsonProperty("url") final URI url
@@ -104,7 +104,7 @@ public class Form extends Resource {
         this.url = url;
     }
 
-    public final Form.FormTypes getFormType() {
+    public final FormTypes getFormType() {
         return this.formType;
     }
 

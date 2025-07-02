@@ -93,7 +93,7 @@ public class Message extends Resource {
 
     public static MessageCreator creator(
         final String pathId,
-        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
+        final AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
     ) {
         return new MessageCreator(
             pathId,

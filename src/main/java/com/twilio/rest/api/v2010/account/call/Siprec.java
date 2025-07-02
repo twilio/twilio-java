@@ -52,7 +52,7 @@ public class Siprec extends Resource {
     public static SiprecUpdater updater(
         final String pathCallSid,
         final String pathSid,
-        final Siprec.UpdateStatus status
+        final UpdateStatus status
     ) {
         return new SiprecUpdater(pathCallSid, pathSid, status);
     }
@@ -61,7 +61,7 @@ public class Siprec extends Resource {
         final String pathAccountSid,
         final String pathCallSid,
         final String pathSid,
-        final Siprec.UpdateStatus status
+        final UpdateStatus status
     ) {
         return new SiprecUpdater(pathAccountSid, pathCallSid, pathSid, status);
     }
@@ -113,7 +113,7 @@ public class Siprec extends Resource {
     private final String accountSid;
     private final String callSid;
     private final String name;
-    private final Siprec.Status status;
+    private final Status status;
     private final ZonedDateTime dateUpdated;
     private final String uri;
 
@@ -123,7 +123,7 @@ public class Siprec extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("name") final String name,
-        @JsonProperty("status") final Siprec.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri
     ) {
@@ -152,7 +152,7 @@ public class Siprec extends Resource {
         return this.name;
     }
 
-    public final Siprec.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

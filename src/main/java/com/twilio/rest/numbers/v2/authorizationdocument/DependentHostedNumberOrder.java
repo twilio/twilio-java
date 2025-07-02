@@ -105,7 +105,7 @@ public class DependentHostedNumberOrder extends Resource {
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final PhoneNumberCapabilities capabilities;
     private final String friendlyName;
-    private final DependentHostedNumberOrder.Status status;
+    private final Status status;
     private final String failureReason;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -134,7 +134,7 @@ public class DependentHostedNumberOrder extends Resource {
             "capabilities"
         ) final PhoneNumberCapabilities capabilities,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final DependentHostedNumberOrder.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -205,7 +205,7 @@ public class DependentHostedNumberOrder extends Resource {
         return this.friendlyName;
     }
 
-    public final DependentHostedNumberOrder.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

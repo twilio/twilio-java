@@ -103,16 +103,16 @@ public class RoomRecording extends Resource {
     }
 
     private final String accountSid;
-    private final RoomRecording.Status status;
+    private final Status status;
     private final ZonedDateTime dateCreated;
     private final String sid;
     private final String sourceSid;
     private final Long size;
     private final URI url;
-    private final RoomRecording.Type type;
+    private final Type type;
     private final Integer duration;
-    private final RoomRecording.Format containerFormat;
-    private final RoomRecording.Codec codec;
+    private final Format containerFormat;
+    private final Codec codec;
     private final Map<String, Object> groupingSids;
     private final String trackName;
     private final Long offset;
@@ -123,18 +123,16 @@ public class RoomRecording extends Resource {
     @JsonCreator
     private RoomRecording(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final RoomRecording.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("sid") final String sid,
         @JsonProperty("source_sid") final String sourceSid,
         @JsonProperty("size") final Long size,
         @JsonProperty("url") final URI url,
-        @JsonProperty("type") final RoomRecording.Type type,
+        @JsonProperty("type") final Type type,
         @JsonProperty("duration") final Integer duration,
-        @JsonProperty(
-            "container_format"
-        ) final RoomRecording.Format containerFormat,
-        @JsonProperty("codec") final RoomRecording.Codec codec,
+        @JsonProperty("container_format") final Format containerFormat,
+        @JsonProperty("codec") final Codec codec,
         @JsonProperty("grouping_sids") final Map<String, Object> groupingSids,
         @JsonProperty("track_name") final String trackName,
         @JsonProperty("offset") final Long offset,
@@ -167,7 +165,7 @@ public class RoomRecording extends Resource {
         return this.accountSid;
     }
 
-    public final RoomRecording.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -191,7 +189,7 @@ public class RoomRecording extends Resource {
         return this.url;
     }
 
-    public final RoomRecording.Type getType() {
+    public final Type getType() {
         return this.type;
     }
 
@@ -199,11 +197,11 @@ public class RoomRecording extends Resource {
         return this.duration;
     }
 
-    public final RoomRecording.Format getContainerFormat() {
+    public final Format getContainerFormat() {
         return this.containerFormat;
     }
 
-    public final RoomRecording.Codec getCodec() {
+    public final Codec getCodec() {
         return this.codec;
     }
 

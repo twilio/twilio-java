@@ -42,8 +42,8 @@ public class InteractionChannelParticipant extends Resource {
     public static InteractionChannelParticipantCreator creator(
         final String pathInteractionSid,
         final String pathChannelSid,
-        final InteractionChannelParticipant.Type type,
-        final Map<String, Object> mediaProperties
+        final Type type,
+        final Object mediaProperties
     ) {
         return new InteractionChannelParticipantCreator(
             pathInteractionSid,
@@ -67,7 +67,7 @@ public class InteractionChannelParticipant extends Resource {
         final String pathInteractionSid,
         final String pathChannelSid,
         final String pathSid,
-        final InteractionChannelParticipant.Status status
+        final Status status
     ) {
         return new InteractionChannelParticipantUpdater(
             pathInteractionSid,
@@ -127,7 +127,7 @@ public class InteractionChannelParticipant extends Resource {
     }
 
     private final String sid;
-    private final InteractionChannelParticipant.Type type;
+    private final Type type;
     private final String interactionSid;
     private final String channelSid;
     private final URI url;
@@ -136,7 +136,7 @@ public class InteractionChannelParticipant extends Resource {
     @JsonCreator
     private InteractionChannelParticipant(
         @JsonProperty("sid") final String sid,
-        @JsonProperty("type") final InteractionChannelParticipant.Type type,
+        @JsonProperty("type") final Type type,
         @JsonProperty("interaction_sid") final String interactionSid,
         @JsonProperty("channel_sid") final String channelSid,
         @JsonProperty("url") final URI url,
@@ -157,7 +157,7 @@ public class InteractionChannelParticipant extends Resource {
         return this.sid;
     }
 
-    public final InteractionChannelParticipant.Type getType() {
+    public final Type getType() {
         return this.type;
     }
 

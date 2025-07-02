@@ -43,7 +43,7 @@ public class Webhook extends Resource {
 
     public static WebhookCreator creator(
         final String pathConversationSid,
-        final Webhook.Target target
+        final Target target
     ) {
         return new WebhookCreator(pathConversationSid, target);
     }
@@ -238,8 +238,8 @@ public class Webhook extends Resource {
     }
 
     public enum Method {
-        GET("GET"),
-        POST("POST");
+        GET("get"),
+        POST("post");
 
         private final String value;
 

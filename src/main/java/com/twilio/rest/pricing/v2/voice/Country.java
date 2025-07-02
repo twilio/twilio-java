@@ -111,7 +111,7 @@ public class Country extends Resource {
             InboundCallPrice
         > inboundCallPrices,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
+            using = CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("url") final URI url
     ) {

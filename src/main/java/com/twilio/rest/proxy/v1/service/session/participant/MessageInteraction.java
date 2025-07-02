@@ -142,16 +142,16 @@ public class MessageInteraction extends Resource {
     private final String serviceSid;
     private final String accountSid;
     private final String data;
-    private final MessageInteraction.Type type;
+    private final Type type;
     private final String participantSid;
     private final String inboundParticipantSid;
     private final String inboundResourceSid;
-    private final MessageInteraction.ResourceStatus inboundResourceStatus;
+    private final ResourceStatus inboundResourceStatus;
     private final String inboundResourceType;
     private final URI inboundResourceUrl;
     private final String outboundParticipantSid;
     private final String outboundResourceSid;
-    private final MessageInteraction.ResourceStatus outboundResourceStatus;
+    private final ResourceStatus outboundResourceStatus;
     private final String outboundResourceType;
     private final URI outboundResourceUrl;
     private final ZonedDateTime dateCreated;
@@ -165,7 +165,7 @@ public class MessageInteraction extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("data") final String data,
-        @JsonProperty("type") final MessageInteraction.Type type,
+        @JsonProperty("type") final Type type,
         @JsonProperty("participant_sid") final String participantSid,
         @JsonProperty(
             "inbound_participant_sid"
@@ -173,7 +173,7 @@ public class MessageInteraction extends Resource {
         @JsonProperty("inbound_resource_sid") final String inboundResourceSid,
         @JsonProperty(
             "inbound_resource_status"
-        ) final MessageInteraction.ResourceStatus inboundResourceStatus,
+        ) final ResourceStatus inboundResourceStatus,
         @JsonProperty("inbound_resource_type") final String inboundResourceType,
         @JsonProperty("inbound_resource_url") final URI inboundResourceUrl,
         @JsonProperty(
@@ -182,7 +182,7 @@ public class MessageInteraction extends Resource {
         @JsonProperty("outbound_resource_sid") final String outboundResourceSid,
         @JsonProperty(
             "outbound_resource_status"
-        ) final MessageInteraction.ResourceStatus outboundResourceStatus,
+        ) final ResourceStatus outboundResourceStatus,
         @JsonProperty(
             "outbound_resource_type"
         ) final String outboundResourceType,
@@ -233,7 +233,7 @@ public class MessageInteraction extends Resource {
         return this.data;
     }
 
-    public final MessageInteraction.Type getType() {
+    public final Type getType() {
         return this.type;
     }
 
@@ -249,7 +249,7 @@ public class MessageInteraction extends Resource {
         return this.inboundResourceSid;
     }
 
-    public final MessageInteraction.ResourceStatus getInboundResourceStatus() {
+    public final ResourceStatus getInboundResourceStatus() {
         return this.inboundResourceStatus;
     }
 
@@ -269,7 +269,7 @@ public class MessageInteraction extends Resource {
         return this.outboundResourceSid;
     }
 
-    public final MessageInteraction.ResourceStatus getOutboundResourceStatus() {
+    public final ResourceStatus getOutboundResourceStatus() {
         return this.outboundResourceStatus;
     }
 

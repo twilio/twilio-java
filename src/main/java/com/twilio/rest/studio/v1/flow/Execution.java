@@ -70,7 +70,7 @@ public class Execution extends Resource {
     public static ExecutionUpdater updater(
         final String pathFlowSid,
         final String pathSid,
-        final Execution.Status status
+        final Status status
     ) {
         return new ExecutionUpdater(pathFlowSid, pathSid, status);
     }
@@ -124,7 +124,7 @@ public class Execution extends Resource {
     private final String contactSid;
     private final String contactChannelAddress;
     private final Map<String, Object> context;
-    private final Execution.Status status;
+    private final Status status;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -140,7 +140,7 @@ public class Execution extends Resource {
             "contact_channel_address"
         ) final String contactChannelAddress,
         @JsonProperty("context") final Map<String, Object> context,
-        @JsonProperty("status") final Execution.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -183,7 +183,7 @@ public class Execution extends Resource {
         return this.context;
     }
 
-    public final Execution.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

@@ -103,14 +103,14 @@ public class Participant extends Resource {
     private final Long durationSec;
     private final String accountSid;
     private final String roomSid;
-    private final Participant.RoomStatus status;
-    private final List<Participant.Codec> codecs;
+    private final RoomStatus status;
+    private final List<Codec> codecs;
     private final String endReason;
     private final Integer errorCode;
     private final String errorCodeUrl;
-    private final Participant.TwilioRealm mediaRegion;
+    private final TwilioRealm mediaRegion;
     private final Map<String, Object> properties;
-    private final Participant.EdgeLocation edgeLocation;
+    private final EdgeLocation edgeLocation;
     private final Map<String, Object> publisherInfo;
     private final URI url;
 
@@ -123,16 +123,14 @@ public class Participant extends Resource {
         @JsonProperty("duration_sec") final Long durationSec,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("status") final Participant.RoomStatus status,
-        @JsonProperty("codecs") final List<Participant.Codec> codecs,
+        @JsonProperty("status") final RoomStatus status,
+        @JsonProperty("codecs") final List<Codec> codecs,
         @JsonProperty("end_reason") final String endReason,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("error_code_url") final String errorCodeUrl,
-        @JsonProperty("media_region") final Participant.TwilioRealm mediaRegion,
+        @JsonProperty("media_region") final TwilioRealm mediaRegion,
         @JsonProperty("properties") final Map<String, Object> properties,
-        @JsonProperty(
-            "edge_location"
-        ) final Participant.EdgeLocation edgeLocation,
+        @JsonProperty("edge_location") final EdgeLocation edgeLocation,
         @JsonProperty("publisher_info") final Map<String, Object> publisherInfo,
         @JsonProperty("url") final URI url
     ) {
@@ -183,11 +181,11 @@ public class Participant extends Resource {
         return this.roomSid;
     }
 
-    public final Participant.RoomStatus getStatus() {
+    public final RoomStatus getStatus() {
         return this.status;
     }
 
-    public final List<Participant.Codec> getCodecs() {
+    public final List<Codec> getCodecs() {
         return this.codecs;
     }
 
@@ -203,7 +201,7 @@ public class Participant extends Resource {
         return this.errorCodeUrl;
     }
 
-    public final Participant.TwilioRealm getMediaRegion() {
+    public final TwilioRealm getMediaRegion() {
         return this.mediaRegion;
     }
 
@@ -211,7 +209,7 @@ public class Participant extends Resource {
         return this.properties;
     }
 
-    public final Participant.EdgeLocation getEdgeLocation() {
+    public final EdgeLocation getEdgeLocation() {
         return this.edgeLocation;
     }
 

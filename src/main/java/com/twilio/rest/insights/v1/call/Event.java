@@ -88,9 +88,9 @@ public class Event extends Resource {
     private final String timestamp;
     private final String callSid;
     private final String accountSid;
-    private final Event.TwilioEdge edge;
+    private final TwilioEdge edge;
     private final String group;
-    private final Event.Level level;
+    private final Level level;
     private final String name;
     private final Map<String, Object> carrierEdge;
     private final Map<String, Object> sipEdge;
@@ -102,9 +102,9 @@ public class Event extends Resource {
         @JsonProperty("timestamp") final String timestamp,
         @JsonProperty("call_sid") final String callSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("edge") final Event.TwilioEdge edge,
+        @JsonProperty("edge") final TwilioEdge edge,
         @JsonProperty("group") final String group,
-        @JsonProperty("level") final Event.Level level,
+        @JsonProperty("level") final Level level,
         @JsonProperty("name") final String name,
         @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
         @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
@@ -136,7 +136,7 @@ public class Event extends Resource {
         return this.accountSid;
     }
 
-    public final Event.TwilioEdge getEdge() {
+    public final TwilioEdge getEdge() {
         return this.edge;
     }
 
@@ -144,7 +144,7 @@ public class Event extends Resource {
         return this.group;
     }
 
-    public final Event.Level getLevel() {
+    public final Level getLevel() {
         return this.level;
     }
 

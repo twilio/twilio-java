@@ -90,7 +90,7 @@ public class BuildStatus extends Resource {
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
-    private final BuildStatus.Status status;
+    private final Status status;
     private final URI url;
 
     @JsonCreator
@@ -98,7 +98,7 @@ public class BuildStatus extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("status") final BuildStatus.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -120,7 +120,7 @@ public class BuildStatus extends Resource {
         return this.serviceSid;
     }
 
-    public final BuildStatus.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 

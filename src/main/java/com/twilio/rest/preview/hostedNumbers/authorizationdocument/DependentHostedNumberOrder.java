@@ -104,14 +104,14 @@ public class DependentHostedNumberOrder extends Resource {
     private final PhoneNumberCapabilities capabilities;
     private final String friendlyName;
     private final String uniqueName;
-    private final DependentHostedNumberOrder.Status status;
+    private final Status status;
     private final String failureReason;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Integer verificationAttempts;
     private final String email;
     private final List<String> ccEmails;
-    private final DependentHostedNumberOrder.VerificationType verificationType;
+    private final VerificationType verificationType;
     private final String verificationDocumentSid;
     private final String extension;
     private final Integer callDelay;
@@ -135,7 +135,7 @@ public class DependentHostedNumberOrder extends Resource {
         ) final PhoneNumberCapabilities capabilities,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("status") final DependentHostedNumberOrder.Status status,
+        @JsonProperty("status") final Status status,
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -146,7 +146,7 @@ public class DependentHostedNumberOrder extends Resource {
         @JsonProperty("cc_emails") final List<String> ccEmails,
         @JsonProperty(
             "verification_type"
-        ) final DependentHostedNumberOrder.VerificationType verificationType,
+        ) final VerificationType verificationType,
         @JsonProperty(
             "verification_document_sid"
         ) final String verificationDocumentSid,
@@ -217,7 +217,7 @@ public class DependentHostedNumberOrder extends Resource {
         return this.uniqueName;
     }
 
-    public final DependentHostedNumberOrder.Status getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -245,7 +245,7 @@ public class DependentHostedNumberOrder extends Resource {
         return this.ccEmails;
     }
 
-    public final DependentHostedNumberOrder.VerificationType getVerificationType() {
+    public final VerificationType getVerificationType() {
         return this.verificationType;
     }
 

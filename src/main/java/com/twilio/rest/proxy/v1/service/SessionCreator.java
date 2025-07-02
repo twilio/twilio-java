@@ -16,8 +16,6 @@ package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,8 +28,6 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class SessionCreator extends Creator<Session> {
 
@@ -41,7 +37,7 @@ public class SessionCreator extends Creator<Session> {
     private Integer ttl;
     private Session.Mode mode;
     private Session.Status status;
-    private List<Map<String, Object>> participants;
+    private List<Object> participants;
 
     public SessionCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -72,16 +68,12 @@ public class SessionCreator extends Creator<Session> {
         return this;
     }
 
-    public SessionCreator setParticipants(
-        final List<Map<String, Object>> participants
-    ) {
+    public SessionCreator setParticipants(final List<Object> participants) {
         this.participants = participants;
         return this;
     }
 
-    public SessionCreator setParticipants(
-        final Map<String, Object> participants
-    ) {
+    public SessionCreator setParticipants(final Object participants) {
         return setParticipants(Promoter.listOfOne(participants));
     }
 
@@ -144,8 +136,8 @@ public class SessionCreator extends Creator<Session> {
             request.addPostParam("Status", status.toString());
         }
         if (participants != null) {
-            for (Map<String, Object> prop : participants) {
-                request.addPostParam("Participants", Converter.mapToJson(prop));
+            for (Object prop : participants) {
+                request.addPostParam("Participants", prop.toString());
             }
         }
     }

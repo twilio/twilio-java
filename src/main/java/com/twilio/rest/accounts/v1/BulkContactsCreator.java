@@ -16,8 +16,6 @@ package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -29,23 +27,21 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class BulkContactsCreator extends Creator<BulkContacts> {
 
-    private List<Map<String, Object>> items;
+    private List<Object> items;
 
-    public BulkContactsCreator(final List<Map<String, Object>> items) {
+    public BulkContactsCreator(final List<Object> items) {
         this.items = items;
     }
 
-    public BulkContactsCreator setItems(final List<Map<String, Object>> items) {
+    public BulkContactsCreator setItems(final List<Object> items) {
         this.items = items;
         return this;
     }
 
-    public BulkContactsCreator setItems(final Map<String, Object> items) {
+    public BulkContactsCreator setItems(final Object items) {
         return setItems(Promoter.listOfOne(items));
     }
 
@@ -89,8 +85,8 @@ public class BulkContactsCreator extends Creator<BulkContacts> {
 
     private void addPostParams(final Request request) {
         if (items != null) {
-            for (Map<String, Object> prop : items) {
-                request.addPostParam("Items", Converter.mapToJson(prop));
+            for (Object prop : items) {
+                request.addPostParam("Items", prop.toString());
             }
         }
     }

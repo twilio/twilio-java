@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class ChannelsSender extends Resource {
 
-    private static final long serialVersionUID = 42075077215889L;
+    private static final long serialVersionUID = 103954331986266L;
 
     @ToString
     public static class MessagingV2ChannelsSenderConfiguration {
@@ -276,6 +276,120 @@ public class ChannelsSender extends Resource {
     }
 
     @ToString
+    public static class MessagingV2ChannelsSenderProfileResponseEmails {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("email")
+        @Getter
+        @Setter
+        private String email;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        public static MessagingV2ChannelsSenderProfileResponseEmails fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileResponseEmails.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileResponseWebsites {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("website")
+        @Getter
+        @Setter
+        private String website;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        public static MessagingV2ChannelsSenderProfileResponseWebsites fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileResponseWebsites.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileResponse {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("about")
+        @Getter
+        @Setter
+        private String about;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address")
+        @Getter
+        @Setter
+        private String address;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        @Setter
+        private String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("emails")
+        @Getter
+        @Setter
+        private List<MessagingV2ChannelsSenderProfileResponseEmails> emails;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("logo_url")
+        @Getter
+        @Setter
+        private String logoUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("vertical")
+        @Getter
+        @Setter
+        private String vertical;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("websites")
+        @Getter
+        @Setter
+        private List<MessagingV2ChannelsSenderProfileResponseWebsites> websites;
+
+        public static MessagingV2ChannelsSenderProfileResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileResponse.class
+            );
+        }
+    }
+
+    @ToString
     public static class MessagingV2ChannelsSenderProperties {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -417,7 +531,7 @@ public class ChannelsSender extends Resource {
     private final String senderId;
     private final MessagingV2ChannelsSenderConfiguration configuration;
     private final MessagingV2ChannelsSenderWebhook webhook;
-    private final MessagingV2ChannelsSenderProfile profile;
+    private final MessagingV2ChannelsSenderProfileResponse profile;
     private final MessagingV2ChannelsSenderProperties properties;
     private final List<
         MessagingV2ChannelsSenderOfflineReasonsItems
@@ -433,7 +547,9 @@ public class ChannelsSender extends Resource {
             "configuration"
         ) final MessagingV2ChannelsSenderConfiguration configuration,
         @JsonProperty("webhook") final MessagingV2ChannelsSenderWebhook webhook,
-        @JsonProperty("profile") final MessagingV2ChannelsSenderProfile profile,
+        @JsonProperty(
+            "profile"
+        ) final MessagingV2ChannelsSenderProfileResponse profile,
         @JsonProperty(
             "properties"
         ) final MessagingV2ChannelsSenderProperties properties,
@@ -473,7 +589,7 @@ public class ChannelsSender extends Resource {
         return this.webhook;
     }
 
-    public final MessagingV2ChannelsSenderProfile getProfile() {
+    public final MessagingV2ChannelsSenderProfileResponse getProfile() {
         return this.profile;
     }
 

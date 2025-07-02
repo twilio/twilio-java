@@ -43,7 +43,7 @@ public class Transcript extends Resource {
 
     public static TranscriptCreator creator(
         final String serviceSid,
-        final Map<String, Object> channel
+        final Object channel
     ) {
         return new TranscriptCreator(serviceSid, channel);
     }

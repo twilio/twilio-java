@@ -25,13 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class EndUserUpdater extends Updater<EndUser> {
 
     private String pathSid;
     private String friendlyName;
-    private Map<String, Object> attributes;
+    private Object attributes;
 
     public EndUserUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -42,7 +41,7 @@ public class EndUserUpdater extends Updater<EndUser> {
         return this;
     }
 
-    public EndUserUpdater setAttributes(final Map<String, Object> attributes) {
+    public EndUserUpdater setAttributes(final Object attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -87,7 +86,10 @@ public class EndUserUpdater extends Updater<EndUser> {
             request.addPostParam("FriendlyName", friendlyName);
         }
         if (attributes != null) {
-            request.addPostParam("Attributes", Converter.mapToJson(attributes));
+            request.addPostParam(
+                "Attributes",
+                Converter.objectToJson(attributes)
+            );
         }
     }
 }

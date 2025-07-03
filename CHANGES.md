@@ -1,6 +1,10 @@
 twilio-java changelog
 =====================
 
+[2025-07-03] Version 11.0.0-rc.0
+--------------------------------
+- Release Candidate prep
+
 [2025-06-12] Version 10.9.2
 ---------------------------
 **Library - Chore**

@@ -115,7 +115,7 @@ public class AuthorizationDocument extends Resource {
 
     private final String sid;
     private final String addressSid;
-    private final Status status;
+    private final AuthorizationDocument.Status status;
     private final String email;
     private final List<String> ccEmails;
     private final ZonedDateTime dateCreated;
@@ -127,7 +127,7 @@ public class AuthorizationDocument extends Resource {
     private AuthorizationDocument(
         @JsonProperty("sid") final String sid,
         @JsonProperty("address_sid") final String addressSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final AuthorizationDocument.Status status,
         @JsonProperty("email") final String email,
         @JsonProperty("cc_emails") final List<String> ccEmails,
         @JsonProperty("date_created") final String dateCreated,
@@ -154,7 +154,7 @@ public class AuthorizationDocument extends Resource {
         return this.addressSid;
     }
 
-    public final Status getStatus() {
+    public final AuthorizationDocument.Status getStatus() {
         return this.status;
     }
 

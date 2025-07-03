@@ -25,13 +25,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
 
 public class DocumentUpdater extends Updater<Document> {
 
     private String pathServiceSid;
     private String pathSid;
     private String ifMatch;
-    private Object data;
+    private Map<String, Object> data;
     private Integer ttl;
 
     public DocumentUpdater(final String pathServiceSid, final String pathSid) {
@@ -44,7 +45,7 @@ public class DocumentUpdater extends Updater<Document> {
         return this;
     }
 
-    public DocumentUpdater setData(final Object data) {
+    public DocumentUpdater setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -100,7 +101,7 @@ public class DocumentUpdater extends Updater<Document> {
 
     private void addPostParams(final Request request) {
         if (data != null) {
-            request.addPostParam("Data", Converter.objectToJson(data));
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());

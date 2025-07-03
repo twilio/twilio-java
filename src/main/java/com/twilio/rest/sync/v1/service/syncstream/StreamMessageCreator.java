@@ -26,24 +26,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class StreamMessageCreator extends Creator<StreamMessage> {
 
     private String pathServiceSid;
     private String pathStreamSid;
-    private Object data;
+    private Map<String, Object> data;
 
     public StreamMessageCreator(
         final String pathServiceSid,
         final String pathStreamSid,
-        final Object data
+        final Map<String, Object> data
     ) {
         this.pathServiceSid = pathServiceSid;
         this.pathStreamSid = pathStreamSid;
         this.data = data;
     }
 
-    public StreamMessageCreator setData(final Object data) {
+    public StreamMessageCreator setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -98,7 +100,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     private void addPostParams(final Request request) {
         if (data != null) {
-            request.addPostParam("Data", Converter.objectToJson(data));
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
     }
 }

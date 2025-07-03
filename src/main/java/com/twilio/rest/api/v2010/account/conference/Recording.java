@@ -87,7 +87,7 @@ public class Recording extends Resource {
     public static RecordingUpdater updater(
         final String pathConferenceSid,
         final String pathSid,
-        final Status status
+        final Recording.Status status
     ) {
         return new RecordingUpdater(pathConferenceSid, pathSid, status);
     }
@@ -96,7 +96,7 @@ public class Recording extends Resource {
         final String pathAccountSid,
         final String pathConferenceSid,
         final String pathSid,
-        final Status status
+        final Recording.Status status
     ) {
         return new RecordingUpdater(
             pathAccountSid,
@@ -160,9 +160,9 @@ public class Recording extends Resource {
     private final String sid;
     private final String price;
     private final Currency priceUnit;
-    private final Status status;
+    private final Recording.Status status;
     private final Integer channels;
-    private final Source source;
+    private final Recording.Source source;
     private final Integer errorCode;
     private final Map<String, Object> encryptionDetails;
     private final String uri;
@@ -180,11 +180,11 @@ public class Recording extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("price") final String price,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = CurrencyDeserializer.class
+            using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Recording.Status status,
         @JsonProperty("channels") final Integer channels,
-        @JsonProperty("source") final Source source,
+        @JsonProperty("source") final Recording.Source source,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("encryption_details") final Map<
             String,
@@ -255,7 +255,7 @@ public class Recording extends Resource {
         return this.priceUnit;
     }
 
-    public final Status getStatus() {
+    public final Recording.Status getStatus() {
         return this.status;
     }
 
@@ -263,7 +263,7 @@ public class Recording extends Resource {
         return this.channels;
     }
 
-    public final Source getSource() {
+    public final Recording.Source getSource() {
         return this.source;
     }
 

@@ -72,7 +72,7 @@ public class ApprovalCreate extends Resource {
 
     public static ApprovalCreateCreator creator(
         final String pathContentSid,
-        final ContentApprovalRequest contentApprovalRequest
+        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
     ) {
         return new ApprovalCreateCreator(
             pathContentSid,

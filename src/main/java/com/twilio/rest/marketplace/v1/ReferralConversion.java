@@ -62,7 +62,7 @@ public class ReferralConversion extends Resource {
     }
 
     public static ReferralConversionCreator creator(
-        final CreateReferralConversionRequest createReferralConversionRequest
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
     ) {
         return new ReferralConversionCreator(createReferralConversionRequest);
     }

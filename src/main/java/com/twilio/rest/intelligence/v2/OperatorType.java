@@ -98,10 +98,10 @@ public class OperatorType extends Resource {
     private final String friendlyName;
     private final String description;
     private final URI docsLink;
-    private final OutputType outputType;
+    private final OperatorType.OutputType outputType;
     private final List<String> supportedLanguages;
-    private final Provider provider;
-    private final Availability availability;
+    private final OperatorType.Provider provider;
+    private final OperatorType.Availability availability;
     private final Boolean configurable;
     private final Map<String, Object> configSchema;
     private final ZonedDateTime dateCreated;
@@ -115,12 +115,14 @@ public class OperatorType extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("description") final String description,
         @JsonProperty("docs_link") final URI docsLink,
-        @JsonProperty("output_type") final OutputType outputType,
+        @JsonProperty("output_type") final OperatorType.OutputType outputType,
         @JsonProperty("supported_languages") final List<
             String
         > supportedLanguages,
-        @JsonProperty("provider") final Provider provider,
-        @JsonProperty("availability") final Availability availability,
+        @JsonProperty("provider") final OperatorType.Provider provider,
+        @JsonProperty(
+            "availability"
+        ) final OperatorType.Availability availability,
         @JsonProperty("configurable") final Boolean configurable,
         @JsonProperty("config_schema") final Map<String, Object> configSchema,
         @JsonProperty("date_created") final String dateCreated,
@@ -163,7 +165,7 @@ public class OperatorType extends Resource {
         return this.docsLink;
     }
 
-    public final OutputType getOutputType() {
+    public final OperatorType.OutputType getOutputType() {
         return this.outputType;
     }
 
@@ -171,11 +173,11 @@ public class OperatorType extends Resource {
         return this.supportedLanguages;
     }
 
-    public final Provider getProvider() {
+    public final OperatorType.Provider getProvider() {
         return this.provider;
     }
 
-    public final Availability getAvailability() {
+    public final OperatorType.Availability getAvailability() {
         return this.availability;
     }
 

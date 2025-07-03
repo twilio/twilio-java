@@ -43,7 +43,7 @@ public class Webhook extends Resource {
 
     public static WebhookCreator creator(
         final String pathConversationSid,
-        final Target target
+        final Webhook.Target target
     ) {
         return new WebhookCreator(pathConversationSid, target);
     }

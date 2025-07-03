@@ -189,7 +189,7 @@ public class Call extends Resource {
     private final String from;
     private final String fromFormatted;
     private final String phoneNumberSid;
-    private final Status status;
+    private final Call.Status status;
     private final ZonedDateTime startTime;
     private final ZonedDateTime endTime;
     private final String duration;
@@ -218,13 +218,13 @@ public class Call extends Resource {
         @JsonProperty("from") final String from,
         @JsonProperty("from_formatted") final String fromFormatted,
         @JsonProperty("phone_number_sid") final String phoneNumberSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Call.Status status,
         @JsonProperty("start_time") final String startTime,
         @JsonProperty("end_time") final String endTime,
         @JsonProperty("duration") final String duration,
         @JsonProperty("price") final String price,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = CurrencyDeserializer.class
+            using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("direction") final String direction,
         @JsonProperty("answered_by") final String answeredBy,
@@ -308,7 +308,7 @@ public class Call extends Resource {
         return this.phoneNumberSid;
     }
 
-    public final Status getStatus() {
+    public final Call.Status getStatus() {
         return this.status;
     }
 

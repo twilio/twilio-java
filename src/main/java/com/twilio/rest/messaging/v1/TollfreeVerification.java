@@ -50,7 +50,7 @@ public class TollfreeVerification extends Resource {
         final String useCaseSummary,
         final String productionMessageSample,
         final List<String> optInImageUrls,
-        final OptInType optInType,
+        final TollfreeVerification.OptInType optInType,
         final String messageVolume,
         final String tollfreePhoneNumberSid
     ) {
@@ -151,11 +151,11 @@ public class TollfreeVerification extends Resource {
     private final String useCaseSummary;
     private final String productionMessageSample;
     private final List<String> optInImageUrls;
-    private final OptInType optInType;
+    private final TollfreeVerification.OptInType optInType;
     private final String messageVolume;
     private final String additionalInformation;
     private final String tollfreePhoneNumberSid;
-    private final Status status;
+    private final TollfreeVerification.Status status;
     private final URI url;
     private final String rejectionReason;
     private final Integer errorCode;
@@ -209,7 +209,9 @@ public class TollfreeVerification extends Resource {
             "production_message_sample"
         ) final String productionMessageSample,
         @JsonProperty("opt_in_image_urls") final List<String> optInImageUrls,
-        @JsonProperty("opt_in_type") final OptInType optInType,
+        @JsonProperty(
+            "opt_in_type"
+        ) final TollfreeVerification.OptInType optInType,
         @JsonProperty("message_volume") final String messageVolume,
         @JsonProperty(
             "additional_information"
@@ -217,7 +219,7 @@ public class TollfreeVerification extends Resource {
         @JsonProperty(
             "tollfree_phone_number_sid"
         ) final String tollfreePhoneNumberSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final TollfreeVerification.Status status,
         @JsonProperty("url") final URI url,
         @JsonProperty("rejection_reason") final String rejectionReason,
         @JsonProperty("error_code") final Integer errorCode,
@@ -365,7 +367,7 @@ public class TollfreeVerification extends Resource {
         return this.optInImageUrls;
     }
 
-    public final OptInType getOptInType() {
+    public final TollfreeVerification.OptInType getOptInType() {
         return this.optInType;
     }
 
@@ -381,7 +383,7 @@ public class TollfreeVerification extends Resource {
         return this.tollfreePhoneNumberSid;
     }
 
-    public final Status getStatus() {
+    public final TollfreeVerification.Status getStatus() {
         return this.status;
     }
 

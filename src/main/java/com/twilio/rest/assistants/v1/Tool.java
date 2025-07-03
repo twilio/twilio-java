@@ -289,7 +289,7 @@ public class Tool extends Resource {
     }
 
     public static ToolCreator creator(
-        final AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
+        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
     ) {
         return new ToolCreator(assistantsV1ServiceCreateToolRequest);
     }

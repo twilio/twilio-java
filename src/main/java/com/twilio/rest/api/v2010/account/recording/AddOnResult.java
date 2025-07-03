@@ -134,7 +134,7 @@ public class AddOnResult extends Resource {
 
     private final String sid;
     private final String accountSid;
-    private final Status status;
+    private final AddOnResult.Status status;
     private final String addOnSid;
     private final String addOnConfigurationSid;
     private final ZonedDateTime dateCreated;
@@ -147,7 +147,7 @@ public class AddOnResult extends Resource {
     private AddOnResult(
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final AddOnResult.Status status,
         @JsonProperty("add_on_sid") final String addOnSid,
         @JsonProperty(
             "add_on_configuration_sid"
@@ -182,7 +182,7 @@ public class AddOnResult extends Resource {
         return this.accountSid;
     }
 
-    public final Status getStatus() {
+    public final AddOnResult.Status getStatus() {
         return this.status;
     }
 

@@ -370,7 +370,7 @@ public class Assistant extends Resource {
     }
 
     public static AssistantCreator creator(
-        final AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
+        final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
     ) {
         return new AssistantCreator(assistantsV1ServiceCreateAssistantRequest);
     }

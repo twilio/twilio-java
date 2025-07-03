@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
 
 public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
@@ -32,7 +33,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private String pathMapSid;
     private String pathKey;
     private String ifMatch;
-    private Object data;
+    private Map<String, Object> data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
@@ -52,7 +53,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         return this;
     }
 
-    public SyncMapItemUpdater setData(final Object data) {
+    public SyncMapItemUpdater setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -119,7 +120,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     private void addPostParams(final Request request) {
         if (data != null) {
-            request.addPostParam("Data", Converter.objectToJson(data));
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());

@@ -110,7 +110,7 @@ public class Configuration extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Map<String, Object> attributes;
-    private final Status status;
+    private final Configuration.Status status;
     private final String taskrouterWorkspaceSid;
     private final String taskrouterTargetWorkflowSid;
     private final String taskrouterTargetTaskqueueSid;
@@ -162,7 +162,7 @@ public class Configuration extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("attributes") final Map<String, Object> attributes,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Configuration.Status status,
         @JsonProperty(
             "taskrouter_workspace_sid"
         ) final String taskrouterWorkspaceSid,
@@ -343,7 +343,7 @@ public class Configuration extends Resource {
         return this.attributes;
     }
 
-    public final Status getStatus() {
+    public final Configuration.Status getStatus() {
         return this.status;
     }
 

@@ -107,7 +107,7 @@ public class Local extends Resource {
 
     private final String accountSid;
     private final String addressSid;
-    private final AddressRequirement addressRequirements;
+    private final Local.AddressRequirement addressRequirements;
     private final String apiVersion;
     private final Boolean beta;
     private final PhoneNumberCapabilities capabilities;
@@ -127,16 +127,16 @@ public class Local extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
     private final String uri;
-    private final VoiceReceiveMode voiceReceiveMode;
+    private final Local.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
-    private final EmergencyStatus emergencyStatus;
+    private final Local.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
-    private final EmergencyAddressStatus emergencyAddressStatus;
+    private final Local.EmergencyAddressStatus emergencyAddressStatus;
     private final String bundleSid;
     private final String status;
 
@@ -146,7 +146,7 @@ public class Local extends Resource {
         @JsonProperty("address_sid") final String addressSid,
         @JsonProperty(
             "address_requirements"
-        ) final AddressRequirement addressRequirements,
+        ) final Local.AddressRequirement addressRequirements,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("beta") final Boolean beta,
         @JsonProperty(
@@ -174,7 +174,7 @@ public class Local extends Resource {
         @JsonProperty("uri") final String uri,
         @JsonProperty(
             "voice_receive_mode"
-        ) final VoiceReceiveMode voiceReceiveMode,
+        ) final Local.VoiceReceiveMode voiceReceiveMode,
         @JsonProperty("voice_application_sid") final String voiceApplicationSid,
         @JsonProperty(
             "voice_caller_id_lookup"
@@ -185,11 +185,13 @@ public class Local extends Resource {
         @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
         @JsonProperty("voice_method") final HttpMethod voiceMethod,
         @JsonProperty("voice_url") final URI voiceUrl,
-        @JsonProperty("emergency_status") final EmergencyStatus emergencyStatus,
+        @JsonProperty(
+            "emergency_status"
+        ) final Local.EmergencyStatus emergencyStatus,
         @JsonProperty("emergency_address_sid") final String emergencyAddressSid,
         @JsonProperty(
             "emergency_address_status"
-        ) final EmergencyAddressStatus emergencyAddressStatus,
+        ) final Local.EmergencyAddressStatus emergencyAddressStatus,
         @JsonProperty("bundle_sid") final String bundleSid,
         @JsonProperty("status") final String status
     ) {
@@ -237,7 +239,7 @@ public class Local extends Resource {
         return this.addressSid;
     }
 
-    public final AddressRequirement getAddressRequirements() {
+    public final Local.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
@@ -317,7 +319,7 @@ public class Local extends Resource {
         return this.uri;
     }
 
-    public final VoiceReceiveMode getVoiceReceiveMode() {
+    public final Local.VoiceReceiveMode getVoiceReceiveMode() {
         return this.voiceReceiveMode;
     }
 
@@ -345,7 +347,7 @@ public class Local extends Resource {
         return this.voiceUrl;
     }
 
-    public final EmergencyStatus getEmergencyStatus() {
+    public final Local.EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
     }
 
@@ -353,7 +355,7 @@ public class Local extends Resource {
         return this.emergencyAddressSid;
     }
 
-    public final EmergencyAddressStatus getEmergencyAddressStatus() {
+    public final Local.EmergencyAddressStatus getEmergencyAddressStatus() {
         return this.emergencyAddressStatus;
     }
 

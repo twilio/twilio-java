@@ -135,8 +135,8 @@ public class InteractionTransfer extends Resource {
     private final String interactionSid;
     private final String channelSid;
     private final String executionSid;
-    private final TransferType type;
-    private final TransferStatus status;
+    private final InteractionTransfer.TransferType type;
+    private final InteractionTransfer.TransferStatus status;
     private final String from;
     private final String to;
     private final String noteSid;
@@ -153,8 +153,8 @@ public class InteractionTransfer extends Resource {
         @JsonProperty("interaction_sid") final String interactionSid,
         @JsonProperty("channel_sid") final String channelSid,
         @JsonProperty("execution_sid") final String executionSid,
-        @JsonProperty("type") final TransferType type,
-        @JsonProperty("status") final TransferStatus status,
+        @JsonProperty("type") final InteractionTransfer.TransferType type,
+        @JsonProperty("status") final InteractionTransfer.TransferStatus status,
         @JsonProperty("from") final String from,
         @JsonProperty("to") final String to,
         @JsonProperty("note_sid") final String noteSid,
@@ -204,11 +204,11 @@ public class InteractionTransfer extends Resource {
         return this.executionSid;
     }
 
-    public final TransferType getType() {
+    public final InteractionTransfer.TransferType getType() {
         return this.type;
     }
 
-    public final TransferStatus getStatus() {
+    public final InteractionTransfer.TransferStatus getStatus() {
         return this.status;
     }
 

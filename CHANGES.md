@@ -1,6 +1,35 @@
 twilio-java changelog
 =====================
 
+[2025-07-03] Version 11.0.0-rc.1
+--------------------------------
+**Library - Chore**
+- [PR #875](https://github.com/twilio/twilio-java/pull/875): prepare for RC release. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #874](https://github.com/twilio/twilio-java/pull/874): Handle List<Object> serialization. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #873](https://github.com/twilio/twilio-java/pull/873): use Object for anyType. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.
+
+**Twiml**
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+
 [2025-07-03] Version 11.0.0-rc.0
 --------------------------------
 - Release Candidate prep

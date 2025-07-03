@@ -441,7 +441,7 @@ public class ChannelsSender extends Resource {
     }
 
     public static ChannelsSenderCreator creator(
-        final MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
+        final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
     ) {
         return new ChannelsSenderCreator(
             messagingV2ChannelsSenderRequestsCreate
@@ -520,7 +520,7 @@ public class ChannelsSender extends Resource {
     }
 
     private final String sid;
-    private final Status status;
+    private final ChannelsSender.Status status;
     private final String senderId;
     private final MessagingV2ChannelsSenderConfiguration configuration;
     private final MessagingV2ChannelsSenderWebhook webhook;
@@ -534,7 +534,7 @@ public class ChannelsSender extends Resource {
     @JsonCreator
     private ChannelsSender(
         @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final ChannelsSender.Status status,
         @JsonProperty("sender_id") final String senderId,
         @JsonProperty(
             "configuration"
@@ -566,7 +566,7 @@ public class ChannelsSender extends Resource {
         return this.sid;
     }
 
-    public final Status getStatus() {
+    public final ChannelsSender.Status getStatus() {
         return this.status;
     }
 

@@ -204,7 +204,7 @@ public class Knowledge extends Resource {
     }
 
     public static KnowledgeCreator creator(
-        final AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest
+        final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest
     ) {
         return new KnowledgeCreator(assistantsV1ServiceCreateKnowledgeRequest);
     }

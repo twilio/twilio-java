@@ -942,7 +942,7 @@ public class Content extends Resource {
     }
 
     public static ContentCreator creator(
-        final ContentCreateRequest contentCreateRequest
+        final Content.ContentCreateRequest contentCreateRequest
     ) {
         return new ContentCreator(contentCreateRequest);
     }

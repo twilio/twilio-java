@@ -115,7 +115,7 @@ public class Task extends Resource {
 
     private final String accountSid;
     private final Integer age;
-    private final Status assignmentStatus;
+    private final Task.Status assignmentStatus;
     private final String attributes;
     private final String addons;
     private final ZonedDateTime dateCreated;
@@ -142,7 +142,7 @@ public class Task extends Resource {
     private Task(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("age") final Integer age,
-        @JsonProperty("assignment_status") final Status assignmentStatus,
+        @JsonProperty("assignment_status") final Task.Status assignmentStatus,
         @JsonProperty("attributes") final String attributes,
         @JsonProperty("addons") final String addons,
         @JsonProperty("date_created") final String dateCreated,
@@ -209,7 +209,7 @@ public class Task extends Resource {
         return this.age;
     }
 
-    public final Status getAssignmentStatus() {
+    public final Task.Status getAssignmentStatus() {
         return this.assignmentStatus;
     }
 

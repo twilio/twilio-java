@@ -125,9 +125,9 @@ public class Recording extends Resource {
     private final String sid;
     private final String price;
     private final String priceUnit;
-    private final Status status;
+    private final Recording.Status status;
     private final Integer channels;
-    private final Source source;
+    private final Recording.Source source;
     private final Integer errorCode;
     private final String uri;
     private final Map<String, Object> encryptionDetails;
@@ -147,9 +147,9 @@ public class Recording extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("price") final String price,
         @JsonProperty("price_unit") final String priceUnit,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Recording.Status status,
         @JsonProperty("channels") final Integer channels,
-        @JsonProperty("source") final Source source,
+        @JsonProperty("source") final Recording.Source source,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("uri") final String uri,
         @JsonProperty("encryption_details") final Map<
@@ -227,7 +227,7 @@ public class Recording extends Resource {
         return this.priceUnit;
     }
 
-    public final Status getStatus() {
+    public final Recording.Status getStatus() {
         return this.status;
     }
 
@@ -235,7 +235,7 @@ public class Recording extends Resource {
         return this.channels;
     }
 
-    public final Source getSource() {
+    public final Recording.Source getSource() {
         return this.source;
     }
 

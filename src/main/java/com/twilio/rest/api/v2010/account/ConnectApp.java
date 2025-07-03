@@ -131,7 +131,7 @@ public class ConnectApp extends Resource {
     private final String description;
     private final String friendlyName;
     private final URI homepageUrl;
-    private final List<Permission> permissions;
+    private final List<ConnectApp.Permission> permissions;
     private final String sid;
     private final String uri;
 
@@ -149,7 +149,9 @@ public class ConnectApp extends Resource {
         @JsonProperty("description") final String description,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("homepage_url") final URI homepageUrl,
-        @JsonProperty("permissions") final List<Permission> permissions,
+        @JsonProperty("permissions") final List<
+            ConnectApp.Permission
+        > permissions,
         @JsonProperty("sid") final String sid,
         @JsonProperty("uri") final String uri
     ) {
@@ -198,7 +200,7 @@ public class ConnectApp extends Resource {
         return this.homepageUrl;
     }
 
-    public final List<Permission> getPermissions() {
+    public final List<ConnectApp.Permission> getPermissions() {
         return this.permissions;
     }
 

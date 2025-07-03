@@ -107,7 +107,7 @@ public class DeliveryReceipt extends Resource {
     private final String messageSid;
     private final String channelMessageSid;
     private final String participantSid;
-    private final DeliveryStatus status;
+    private final DeliveryReceipt.DeliveryStatus status;
     private final Integer errorCode;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -121,7 +121,7 @@ public class DeliveryReceipt extends Resource {
         @JsonProperty("message_sid") final String messageSid,
         @JsonProperty("channel_message_sid") final String channelMessageSid,
         @JsonProperty("participant_sid") final String participantSid,
-        @JsonProperty("status") final DeliveryStatus status,
+        @JsonProperty("status") final DeliveryReceipt.DeliveryStatus status,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -164,7 +164,7 @@ public class DeliveryReceipt extends Resource {
         return this.participantSid;
     }
 
-    public final DeliveryStatus getStatus() {
+    public final DeliveryReceipt.DeliveryStatus getStatus() {
         return this.status;
     }
 

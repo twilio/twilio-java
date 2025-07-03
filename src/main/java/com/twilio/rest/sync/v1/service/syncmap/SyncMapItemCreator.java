@@ -26,13 +26,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.util.Map;
+import java.util.Map;
 
 public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     private String pathServiceSid;
     private String pathMapSid;
     private String key;
-    private Object data;
+    private Map<String, Object> data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
@@ -41,7 +43,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         final String pathServiceSid,
         final String pathMapSid,
         final String key,
-        final Object data
+        final Map<String, Object> data
     ) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -54,7 +56,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         return this;
     }
 
-    public SyncMapItemCreator setData(final Object data) {
+    public SyncMapItemCreator setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -124,7 +126,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
             request.addPostParam("Key", key);
         }
         if (data != null) {
-            request.addPostParam("Data", Converter.objectToJson(data));
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());

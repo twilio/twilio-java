@@ -98,7 +98,7 @@ public class Yearly extends Resource {
     private final String accountSid;
     private final String apiVersion;
     private final String asOf;
-    private final Category category;
+    private final Yearly.Category category;
     private final String count;
     private final String countUnit;
     private final String description;
@@ -116,14 +116,14 @@ public class Yearly extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("api_version") final String apiVersion,
         @JsonProperty("as_of") final String asOf,
-        @JsonProperty("category") final Category category,
+        @JsonProperty("category") final Yearly.Category category,
         @JsonProperty("count") final String count,
         @JsonProperty("count_unit") final String countUnit,
         @JsonProperty("description") final String description,
         @JsonProperty("end_date") final String endDate,
         @JsonProperty("price") final BigDecimal price,
         @JsonProperty("price_unit") @JsonDeserialize(
-            using = CurrencyDeserializer.class
+            using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("start_date") final String startDate,
         @JsonProperty("subresource_uris") final Map<
@@ -163,7 +163,7 @@ public class Yearly extends Resource {
         return this.asOf;
     }
 
-    public final Category getCategory() {
+    public final Yearly.Category getCategory() {
         return this.category;
     }
 

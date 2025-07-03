@@ -84,14 +84,14 @@ public class SimIpAddress extends Resource {
     }
 
     private final String ipAddress;
-    private final IpAddressVersion ipAddressVersion;
+    private final SimIpAddress.IpAddressVersion ipAddressVersion;
 
     @JsonCreator
     private SimIpAddress(
         @JsonProperty("ip_address") final String ipAddress,
         @JsonProperty(
             "ip_address_version"
-        ) final IpAddressVersion ipAddressVersion
+        ) final SimIpAddress.IpAddressVersion ipAddressVersion
     ) {
         this.ipAddress = ipAddress;
         this.ipAddressVersion = ipAddressVersion;
@@ -101,7 +101,7 @@ public class SimIpAddress extends Resource {
         return this.ipAddress;
     }
 
-    public final IpAddressVersion getIpAddressVersion() {
+    public final SimIpAddress.IpAddressVersion getIpAddressVersion() {
         return this.ipAddressVersion;
     }
 

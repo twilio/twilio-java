@@ -119,7 +119,7 @@ public class Channel extends Resource {
     private final String friendlyName;
     private final String uniqueName;
     private final String attributes;
-    private final ChannelType type;
+    private final Channel.ChannelType type;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String createdBy;
@@ -136,7 +136,7 @@ public class Channel extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("unique_name") final String uniqueName,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty("type") final ChannelType type,
+        @JsonProperty("type") final Channel.ChannelType type,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("created_by") final String createdBy,
@@ -185,7 +185,7 @@ public class Channel extends Resource {
         return this.attributes;
     }
 
-    public final ChannelType getType() {
+    public final Channel.ChannelType getType() {
         return this.type;
     }
 

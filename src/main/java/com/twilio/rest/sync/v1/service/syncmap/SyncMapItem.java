@@ -45,7 +45,7 @@ public class SyncMapItem extends Resource {
         final String pathServiceSid,
         final String pathMapSid,
         final String key,
-        final Object data
+        final Map<String, Object> data
     ) {
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }

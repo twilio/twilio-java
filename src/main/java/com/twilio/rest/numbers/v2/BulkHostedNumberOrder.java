@@ -109,7 +109,7 @@ public class BulkHostedNumberOrder extends Resource {
     }
 
     private final String bulkHostingSid;
-    private final RequestStatus requestStatus;
+    private final BulkHostedNumberOrder.RequestStatus requestStatus;
     private final String friendlyName;
     private final String notificationEmail;
     private final ZonedDateTime dateCreated;
@@ -121,7 +121,9 @@ public class BulkHostedNumberOrder extends Resource {
     @JsonCreator
     private BulkHostedNumberOrder(
         @JsonProperty("bulk_hosting_sid") final String bulkHostingSid,
-        @JsonProperty("request_status") final RequestStatus requestStatus,
+        @JsonProperty(
+            "request_status"
+        ) final BulkHostedNumberOrder.RequestStatus requestStatus,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("notification_email") final String notificationEmail,
         @JsonProperty("date_created") final String dateCreated,
@@ -146,7 +148,7 @@ public class BulkHostedNumberOrder extends Resource {
         return this.bulkHostingSid;
     }
 
-    public final RequestStatus getRequestStatus() {
+    public final BulkHostedNumberOrder.RequestStatus getRequestStatus() {
         return this.requestStatus;
     }
 

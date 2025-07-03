@@ -123,8 +123,8 @@ public class Factor extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
-    private final FactorStatuses status;
-    private final FactorTypes factorType;
+    private final Factor.FactorStatuses status;
+    private final Factor.FactorTypes factorType;
     private final Map<String, Object> config;
     private final Map<String, Object> metadata;
     private final URI url;
@@ -139,8 +139,8 @@ public class Factor extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final FactorStatuses status,
-        @JsonProperty("factor_type") final FactorTypes factorType,
+        @JsonProperty("status") final Factor.FactorStatuses status,
+        @JsonProperty("factor_type") final Factor.FactorTypes factorType,
         @JsonProperty("config") final Map<String, Object> config,
         @JsonProperty("metadata") final Map<String, Object> metadata,
         @JsonProperty("url") final URI url
@@ -192,11 +192,11 @@ public class Factor extends Resource {
         return this.friendlyName;
     }
 
-    public final FactorStatuses getStatus() {
+    public final Factor.FactorStatuses getStatus() {
         return this.status;
     }
 
-    public final FactorTypes getFactorType() {
+    public final Factor.FactorTypes getFactorType() {
         return this.factorType;
     }
 

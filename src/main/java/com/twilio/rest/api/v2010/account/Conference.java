@@ -120,10 +120,10 @@ public class Conference extends Resource {
     private final String friendlyName;
     private final String region;
     private final String sid;
-    private final Status status;
+    private final Conference.Status status;
     private final String uri;
     private final Map<String, String> subresourceUris;
-    private final ReasonConferenceEnded reasonConferenceEnded;
+    private final Conference.ReasonConferenceEnded reasonConferenceEnded;
     private final String callSidEndingConference;
 
     @JsonCreator
@@ -135,7 +135,7 @@ public class Conference extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("region") final String region,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Conference.Status status,
         @JsonProperty("uri") final String uri,
         @JsonProperty("subresource_uris") final Map<
             String,
@@ -143,7 +143,7 @@ public class Conference extends Resource {
         > subresourceUris,
         @JsonProperty(
             "reason_conference_ended"
-        ) final ReasonConferenceEnded reasonConferenceEnded,
+        ) final Conference.ReasonConferenceEnded reasonConferenceEnded,
         @JsonProperty(
             "call_sid_ending_conference"
         ) final String callSidEndingConference
@@ -190,7 +190,7 @@ public class Conference extends Resource {
         return this.sid;
     }
 
-    public final Status getStatus() {
+    public final Conference.Status getStatus() {
         return this.status;
     }
 
@@ -202,7 +202,7 @@ public class Conference extends Resource {
         return this.subresourceUris;
     }
 
-    public final ReasonConferenceEnded getReasonConferenceEnded() {
+    public final Conference.ReasonConferenceEnded getReasonConferenceEnded() {
         return this.reasonConferenceEnded;
     }
 

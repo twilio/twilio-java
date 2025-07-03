@@ -121,10 +121,10 @@ public class Session extends Resource {
     private final ZonedDateTime dateLastInteraction;
     private final ZonedDateTime dateExpiry;
     private final String uniqueName;
-    private final Status status;
+    private final Session.Status status;
     private final String closedReason;
     private final Integer ttl;
-    private final Mode mode;
+    private final Session.Mode mode;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -140,10 +140,10 @@ public class Session extends Resource {
         @JsonProperty("date_last_interaction") final String dateLastInteraction,
         @JsonProperty("date_expiry") final String dateExpiry,
         @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Session.Status status,
         @JsonProperty("closed_reason") final String closedReason,
         @JsonProperty("ttl") final Integer ttl,
-        @JsonProperty("mode") final Mode mode,
+        @JsonProperty("mode") final Session.Mode mode,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -200,7 +200,7 @@ public class Session extends Resource {
         return this.uniqueName;
     }
 
-    public final Status getStatus() {
+    public final Session.Status getStatus() {
         return this.status;
     }
 
@@ -212,7 +212,7 @@ public class Session extends Resource {
         return this.ttl;
     }
 
-    public final Mode getMode() {
+    public final Session.Mode getMode() {
         return this.mode;
     }
 

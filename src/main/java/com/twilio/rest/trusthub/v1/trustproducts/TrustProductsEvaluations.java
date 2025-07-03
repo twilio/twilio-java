@@ -115,7 +115,7 @@ public class TrustProductsEvaluations extends Resource {
     private final String accountSid;
     private final String policySid;
     private final String trustProductSid;
-    private final Status status;
+    private final TrustProductsEvaluations.Status status;
     private final List<Map<String, Object>> results;
     private final ZonedDateTime dateCreated;
     private final URI url;
@@ -126,7 +126,7 @@ public class TrustProductsEvaluations extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("policy_sid") final String policySid,
         @JsonProperty("trust_product_sid") final String trustProductSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final TrustProductsEvaluations.Status status,
         @JsonProperty("results") final List<Map<String, Object>> results,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
@@ -157,7 +157,7 @@ public class TrustProductsEvaluations extends Resource {
         return this.trustProductSid;
     }
 
-    public final Status getStatus() {
+    public final TrustProductsEvaluations.Status getStatus() {
         return this.status;
     }
 

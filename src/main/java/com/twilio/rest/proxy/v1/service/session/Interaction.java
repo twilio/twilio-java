@@ -110,15 +110,15 @@ public class Interaction extends Resource {
     private final String serviceSid;
     private final String accountSid;
     private final String data;
-    private final Type type;
+    private final Interaction.Type type;
     private final String inboundParticipantSid;
     private final String inboundResourceSid;
-    private final ResourceStatus inboundResourceStatus;
+    private final Interaction.ResourceStatus inboundResourceStatus;
     private final String inboundResourceType;
     private final URI inboundResourceUrl;
     private final String outboundParticipantSid;
     private final String outboundResourceSid;
-    private final ResourceStatus outboundResourceStatus;
+    private final Interaction.ResourceStatus outboundResourceStatus;
     private final String outboundResourceType;
     private final URI outboundResourceUrl;
     private final ZonedDateTime dateCreated;
@@ -132,14 +132,14 @@ public class Interaction extends Resource {
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("data") final String data,
-        @JsonProperty("type") final Type type,
+        @JsonProperty("type") final Interaction.Type type,
         @JsonProperty(
             "inbound_participant_sid"
         ) final String inboundParticipantSid,
         @JsonProperty("inbound_resource_sid") final String inboundResourceSid,
         @JsonProperty(
             "inbound_resource_status"
-        ) final ResourceStatus inboundResourceStatus,
+        ) final Interaction.ResourceStatus inboundResourceStatus,
         @JsonProperty("inbound_resource_type") final String inboundResourceType,
         @JsonProperty("inbound_resource_url") final URI inboundResourceUrl,
         @JsonProperty(
@@ -148,7 +148,7 @@ public class Interaction extends Resource {
         @JsonProperty("outbound_resource_sid") final String outboundResourceSid,
         @JsonProperty(
             "outbound_resource_status"
-        ) final ResourceStatus outboundResourceStatus,
+        ) final Interaction.ResourceStatus outboundResourceStatus,
         @JsonProperty(
             "outbound_resource_type"
         ) final String outboundResourceType,
@@ -198,7 +198,7 @@ public class Interaction extends Resource {
         return this.data;
     }
 
-    public final Type getType() {
+    public final Interaction.Type getType() {
         return this.type;
     }
 
@@ -210,7 +210,7 @@ public class Interaction extends Resource {
         return this.inboundResourceSid;
     }
 
-    public final ResourceStatus getInboundResourceStatus() {
+    public final Interaction.ResourceStatus getInboundResourceStatus() {
         return this.inboundResourceStatus;
     }
 
@@ -230,7 +230,7 @@ public class Interaction extends Resource {
         return this.outboundResourceSid;
     }
 
-    public final ResourceStatus getOutboundResourceStatus() {
+    public final Interaction.ResourceStatus getOutboundResourceStatus() {
         return this.outboundResourceStatus;
     }
 

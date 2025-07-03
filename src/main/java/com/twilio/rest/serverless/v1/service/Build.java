@@ -110,11 +110,11 @@ public class Build extends Resource {
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
-    private final Status status;
+    private final Build.Status status;
     private final List<Map<String, Object>> assetVersions;
     private final List<Map<String, Object>> functionVersions;
     private final List<Map<String, Object>> dependencies;
-    private final Runtime runtime;
+    private final Build.Runtime runtime;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -125,7 +125,7 @@ public class Build extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Build.Status status,
         @JsonProperty("asset_versions") final List<
             Map<String, Object>
         > assetVersions,
@@ -135,7 +135,7 @@ public class Build extends Resource {
         @JsonProperty("dependencies") final List<
             Map<String, Object>
         > dependencies,
-        @JsonProperty("runtime") final Runtime runtime,
+        @JsonProperty("runtime") final Build.Runtime runtime,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -167,7 +167,7 @@ public class Build extends Resource {
         return this.serviceSid;
     }
 
-    public final Status getStatus() {
+    public final Build.Status getStatus() {
         return this.status;
     }
 
@@ -183,7 +183,7 @@ public class Build extends Resource {
         return this.dependencies;
     }
 
-    public final Runtime getRuntime() {
+    public final Build.Runtime getRuntime() {
         return this.runtime;
     }
 

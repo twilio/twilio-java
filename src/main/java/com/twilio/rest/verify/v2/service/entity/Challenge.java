@@ -125,12 +125,12 @@ public class Challenge extends Resource {
     private final ZonedDateTime dateUpdated;
     private final ZonedDateTime dateResponded;
     private final ZonedDateTime expirationDate;
-    private final ChallengeStatuses status;
-    private final ChallengeReasons respondedReason;
+    private final Challenge.ChallengeStatuses status;
+    private final Challenge.ChallengeReasons respondedReason;
     private final Map<String, Object> details;
     private final Map<String, Object> hiddenDetails;
     private final Map<String, Object> metadata;
-    private final FactorTypes factorType;
+    private final Challenge.FactorTypes factorType;
     private final URI url;
     private final Map<String, String> links;
 
@@ -146,14 +146,14 @@ public class Challenge extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("date_responded") final String dateResponded,
         @JsonProperty("expiration_date") final String expirationDate,
-        @JsonProperty("status") final ChallengeStatuses status,
+        @JsonProperty("status") final Challenge.ChallengeStatuses status,
         @JsonProperty(
             "responded_reason"
-        ) final ChallengeReasons respondedReason,
+        ) final Challenge.ChallengeReasons respondedReason,
         @JsonProperty("details") final Map<String, Object> details,
         @JsonProperty("hidden_details") final Map<String, Object> hiddenDetails,
         @JsonProperty("metadata") final Map<String, Object> metadata,
-        @JsonProperty("factor_type") final FactorTypes factorType,
+        @JsonProperty("factor_type") final Challenge.FactorTypes factorType,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {
@@ -219,11 +219,11 @@ public class Challenge extends Resource {
         return this.expirationDate;
     }
 
-    public final ChallengeStatuses getStatus() {
+    public final Challenge.ChallengeStatuses getStatus() {
         return this.status;
     }
 
-    public final ChallengeReasons getRespondedReason() {
+    public final Challenge.ChallengeReasons getRespondedReason() {
         return this.respondedReason;
     }
 
@@ -239,7 +239,7 @@ public class Challenge extends Resource {
         return this.metadata;
     }
 
-    public final FactorTypes getFactorType() {
+    public final Challenge.FactorTypes getFactorType() {
         return this.factorType;
     }
 

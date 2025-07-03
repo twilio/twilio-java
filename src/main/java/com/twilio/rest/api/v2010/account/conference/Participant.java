@@ -183,7 +183,7 @@ public class Participant extends Resource {
     private final Boolean muted;
     private final Boolean hold;
     private final Boolean startConferenceOnEnter;
-    private final Status status;
+    private final Participant.Status status;
     private final String queueTime;
     private final String uri;
 
@@ -205,7 +205,7 @@ public class Participant extends Resource {
         @JsonProperty(
             "start_conference_on_enter"
         ) final Boolean startConferenceOnEnter,
-        @JsonProperty("status") final Status status,
+        @JsonProperty("status") final Participant.Status status,
         @JsonProperty("queue_time") final String queueTime,
         @JsonProperty("uri") final String uri
     ) {
@@ -274,7 +274,7 @@ public class Participant extends Resource {
         return this.startConferenceOnEnter;
     }
 
-    public final Status getStatus() {
+    public final Participant.Status getStatus() {
         return this.status;
     }
 

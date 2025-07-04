@@ -62,7 +62,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-          
+
       - name: SonarCloud Scan
         if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.java == 11 && !github.event.pull_request.head.repo.fork }}
         env:
@@ -94,7 +94,7 @@ jobs:
       - name: Create GitHub Release
         uses: sendgrid/dx-automator/actions/release@main
         with:
-          footer: '**[Maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio/${version})**'
+          footer: '**[Maven](https://central.sonatype.com/artifact/com.twilio.sdk/twilio/${version})**'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

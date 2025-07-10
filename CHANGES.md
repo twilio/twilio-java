@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2025-07-10] Version 11.0.0-rc.2
+--------------------------------
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
 [2025-07-03] Version 11.0.0-rc.1
 --------------------------------
 **Library - Chore**

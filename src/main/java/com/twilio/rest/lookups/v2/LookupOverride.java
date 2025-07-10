@@ -239,39 +239,6 @@ public class LookupOverride extends Resource {
         );
     }
 
-    public enum OriginalLineTypeEnum {
-        MOBILE("mobile"),
-        LANDLINE("landline"),
-        TOLLFREE("tollFree"),
-        FIXEDVOIP("fixedVoip"),
-        NONFIXEDVOIP("nonFixedVoip"),
-        PERSONAL("personal"),
-        PREMIUM("premium"),
-        VOICEMAIL("voicemail"),
-        SHAREDCOST("sharedCost"),
-        UAN("uan"),
-        PAGER("pager"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private OriginalLineTypeEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OriginalLineTypeEnum forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                OriginalLineTypeEnum.values()
-            );
-        }
-    }
-
     public enum OverriddenLineTypeEnum {
         MOBILE("mobile"),
         LANDLINE("landline"),
@@ -332,6 +299,39 @@ public class LookupOverride extends Resource {
         @JsonCreator
         public static LineTypeEnum forValue(final String value) {
             return Promoter.enumFromString(value, LineTypeEnum.values());
+        }
+    }
+
+    public enum OriginalLineTypeEnum {
+        MOBILE("mobile"),
+        LANDLINE("landline"),
+        TOLLFREE("tollFree"),
+        FIXEDVOIP("fixedVoip"),
+        NONFIXEDVOIP("nonFixedVoip"),
+        PERSONAL("personal"),
+        PREMIUM("premium"),
+        VOICEMAIL("voicemail"),
+        SHAREDCOST("sharedCost"),
+        UAN("uan"),
+        PAGER("pager"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private OriginalLineTypeEnum(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OriginalLineTypeEnum forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                OriginalLineTypeEnum.values()
+            );
         }
     }
 }

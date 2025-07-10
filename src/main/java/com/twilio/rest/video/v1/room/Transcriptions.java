@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -37,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Transcriptions extends Resource {
 
-    private static final long serialVersionUID = 265092932948237L;
+    private static final long serialVersionUID = 69820289152110L;
 
     public static TranscriptionsCreator creator(final String pathRoomSid) {
         return new TranscriptionsCreator(pathRoomSid);
@@ -108,13 +110,13 @@ public class Transcriptions extends Resource {
     private final String accountSid;
     private final String roomSid;
     private final Transcriptions.Status status;
-    private final String identity;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final ZonedDateTime startTime;
     private final ZonedDateTime endTime;
     private final Integer duration;
     private final URI url;
+    private final Map<String, Object> configuration;
 
     @JsonCreator
     private Transcriptions(
@@ -122,25 +124,25 @@ public class Transcriptions extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("room_sid") final String roomSid,
         @JsonProperty("status") final Transcriptions.Status status,
-        @JsonProperty("identity") final String identity,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("start_time") final String startTime,
         @JsonProperty("end_time") final String endTime,
         @JsonProperty("duration") final Integer duration,
-        @JsonProperty("url") final URI url
+        @JsonProperty("url") final URI url,
+        @JsonProperty("configuration") final Map<String, Object> configuration
     ) {
         this.ttid = ttid;
         this.accountSid = accountSid;
         this.roomSid = roomSid;
         this.status = status;
-        this.identity = identity;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
         this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
         this.duration = duration;
         this.url = url;
+        this.configuration = configuration;
     }
 
     public final String getTtid() {
@@ -157,10 +159,6 @@ public class Transcriptions extends Resource {
 
     public final Transcriptions.Status getStatus() {
         return this.status;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
     }
 
     public final ZonedDateTime getDateCreated() {
@@ -187,6 +185,10 @@ public class Transcriptions extends Resource {
         return this.url;
     }
 
+    public final Map<String, Object> getConfiguration() {
+        return this.configuration;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -204,13 +206,13 @@ public class Transcriptions extends Resource {
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(roomSid, other.roomSid) &&
             Objects.equals(status, other.status) &&
-            Objects.equals(identity, other.identity) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(startTime, other.startTime) &&
             Objects.equals(endTime, other.endTime) &&
             Objects.equals(duration, other.duration) &&
-            Objects.equals(url, other.url)
+            Objects.equals(url, other.url) &&
+            Objects.equals(configuration, other.configuration)
         );
     }
 
@@ -221,18 +223,17 @@ public class Transcriptions extends Resource {
             accountSid,
             roomSid,
             status,
-            identity,
             dateCreated,
             dateUpdated,
             startTime,
             endTime,
             duration,
-            url
+            url,
+            configuration
         );
     }
 
     public enum Status {
-        CREATED("created"),
         STARTED("started"),
         STOPPED("stopped"),
         FAILED("failed");

@@ -86,7 +86,7 @@ public class TranscriptionsReader extends Reader<Transcriptions> {
         }
 
         return Page.fromJson(
-            "extensions",
+            "transcriptions",
             response.getContent(),
             Transcriptions.class,
             client.getObjectMapper()

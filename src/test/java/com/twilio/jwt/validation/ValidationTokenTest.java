@@ -6,12 +6,12 @@ import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.InvalidKeyException;
-import io.jsonwebtoken.security.Keys;
+import org.apache.hc.core5.http.message.BasicHeader;
+import org.apache.hc.core5.http.message.BasicHttpRequest;
+import org.apache.hc.core5.http.protocol.HttpContext;
+import org.apache.hc.core5.net.URIAuthority;
 import org.apache.http.*;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicHttpRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -208,7 +208,7 @@ public class ValidationTokenTest {
             futures.add(service.submit(new Runnable() {
                 public void run() {
                     try {
-                        i.process(getBasicRequest(), new HttpClientContext());
+                        i.process(getBasicRequest(), null, new HttpClientContext());
                     } catch (Exception e) {
                         e.printStackTrace();
                         Assert.fail(e.getMessage());
@@ -225,8 +225,9 @@ public class ValidationTokenTest {
     private BasicHttpRequest getBasicRequest() {
         return new BasicHttpRequest(
                 "GET",
-                "/some-url?with=params",
-                new ProtocolVersion("HTTP", 1, 1)
+                "",
+                new URIAuthority("/some-url?with=params"),
+                ""
         );
     }
 

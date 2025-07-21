@@ -157,9 +157,6 @@ public class NetworkHttpClient extends HttpClient {
             else {
                 httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
-                for (Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
-
-                }
             }
 
         }

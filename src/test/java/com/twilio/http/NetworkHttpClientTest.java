@@ -2,11 +2,11 @@ package com.twilio.http;
 
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
-import org.apache.http.HttpEntity;
+import org.apache.hc.core5.http.HttpEntity;
 import org.apache.http.StatusLine;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -72,7 +72,6 @@ public class NetworkHttpClientTest {
         when(mockEntity.isRepeatable()).thenReturn(true);
         when(mockEntity.getContentLength()).thenReturn(1L);
         when(mockEntity.getContent()).thenReturn(stream);
-        when(mockResponse.getStatusLine()).thenReturn(mockStatusLine);
         when(mockResponse.getEntity()).thenReturn(mockEntity);
         when(mockStatusLine.getStatusCode()).thenReturn(statusCode);
 

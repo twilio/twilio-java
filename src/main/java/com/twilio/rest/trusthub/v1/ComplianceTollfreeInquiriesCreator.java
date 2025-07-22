@@ -259,7 +259,7 @@ public class ComplianceTollfreeInquiriesCreator
         path =
             path.replace(
                 "{" + "TollfreePhoneNumber" + "}",
-                this.tollfreePhoneNumber.encode("utf-8")
+                this.tollfreePhoneNumber.toString()
             );
         path =
             path.replace(

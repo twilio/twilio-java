@@ -56,7 +56,7 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.encode("utf-8")
+                this.pathPhoneNumber.toString()
             );
 
         Request request = new Request(

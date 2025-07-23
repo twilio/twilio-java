@@ -4,16 +4,15 @@ import com.twilio.http.HttpClient;
 import com.twilio.http.Response;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.http.client.RedirectStrategy;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
+import org.apache.hc.client5.http.protocol.RedirectStrategy;
+import org.apache.hc.core5.http.io.SocketConfig;
 
 public abstract class NoAuthHttpClient {
     public static final RequestConfig DEFAULT_REQUEST_CONFIG = RequestConfig
             .custom()
             .setConnectTimeout(HttpClient.CONNECTION_TIMEOUT)
-            .setSocketTimeout(HttpClient.SOCKET_TIMEOUT)
             .build();
     public static final SocketConfig DEFAULT_SOCKET_CONFIG = SocketConfig
             .custom()
@@ -21,7 +20,7 @@ public abstract class NoAuthHttpClient {
             .build();
     @Getter
     @Setter
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy(new String[0]);
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Getter
     private Response lastResponse;
@@ -102,6 +101,6 @@ public abstract class NoAuthHttpClient {
         }
         return false;
     }
-    
+
     public abstract Response makeRequest(NoAuthRequest request);
 }

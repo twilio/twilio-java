@@ -5,22 +5,20 @@ import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.HttpUtility;
-import com.twilio.http.Request;
 import com.twilio.http.Response;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHeader;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.HttpVersion;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -31,7 +29,7 @@ import java.util.Map;
 
 public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
 
-    protected final org.apache.http.client.HttpClient client;
+    protected final HttpClient client;
     public NoAuthNetworkHttpClient() {
         this(DEFAULT_REQUEST_CONFIG);
     }
@@ -74,7 +72,7 @@ public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
                 .setRedirectStrategy(this.getRedirectStrategy())
                 .build();
     }
-    
+
     @Override
     public Response makeRequest(NoAuthRequest request) {
         HttpMethod method = request.getMethod();

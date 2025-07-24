@@ -5,6 +5,8 @@ import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -24,10 +27,12 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpVersion;
+import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
 
 
 public class NetworkHttpClient extends HttpClient {
@@ -157,6 +162,18 @@ public class NetworkHttpClient extends HttpClient {
             else {
                 httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
+                // Create your form parameters
+                List<NameValuePair> formParams = new ArrayList<>();
+                for ( Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                    for (String value : entry.getValue()) {
+                        formParams.add(new BasicNameValuePair(entry.getKey(), value));
+                    }
+                }
+
+                // Build the entity with URL form encoded parameters
+                UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(formParams, StandardCharsets.UTF_8);
+                // Set the entity on the request
+                httpUriRequestBase.setEntity(formEntity);
             }
 
         }

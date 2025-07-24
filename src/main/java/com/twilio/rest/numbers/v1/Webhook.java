@@ -35,31 +35,28 @@ import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class PortingWebhookConfigurationFetch extends Resource {
+public class Webhook extends Resource {
 
     private static final long serialVersionUID = 270526030240961L;
 
-    public static PortingWebhookConfigurationFetchFetcher fetcher() {
-        return new PortingWebhookConfigurationFetchFetcher();
+    public static WebhookFetcher fetcher() {
+        return new WebhookFetcher();
     }
 
     /**
-     * Converts a JSON String into a PortingWebhookConfigurationFetch object using the provided ObjectMapper.
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return PortingWebhookConfigurationFetch object represented by the provided JSON
+     * @return Webhook object represented by the provided JSON
      */
-    public static PortingWebhookConfigurationFetch fromJson(
+    public static Webhook fromJson(
         final String json,
         final ObjectMapper objectMapper
     ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                PortingWebhookConfigurationFetch.class
-            );
+            return objectMapper.readValue(json, Webhook.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -68,23 +65,20 @@ public class PortingWebhookConfigurationFetch extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PortingWebhookConfigurationFetch object using the provided
+     * Converts a JSON InputStream into a Webhook object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return PortingWebhookConfigurationFetch object represented by the provided JSON
+     * @return Webhook object represented by the provided JSON
      */
-    public static PortingWebhookConfigurationFetch fromJson(
+    public static Webhook fromJson(
         final InputStream json,
         final ObjectMapper objectMapper
     ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                PortingWebhookConfigurationFetch.class
-            );
+            return objectMapper.readValue(json, Webhook.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -100,7 +94,7 @@ public class PortingWebhookConfigurationFetch extends Resource {
     private final ZonedDateTime portOutTargetDateCreated;
 
     @JsonCreator
-    private PortingWebhookConfigurationFetch(
+    private Webhook(
         @JsonProperty("url") final URI url,
         @JsonProperty("port_in_target_url") final URI portInTargetUrl,
         @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
@@ -156,8 +150,7 @@ public class PortingWebhookConfigurationFetch extends Resource {
             return false;
         }
 
-        PortingWebhookConfigurationFetch other =
-            (PortingWebhookConfigurationFetch) o;
+        Webhook other = (Webhook) o;
 
         return (
             Objects.equals(url, other.url) &&

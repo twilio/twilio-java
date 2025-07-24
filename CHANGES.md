@@ -1,6 +1,17 @@
 twilio-java changelog
 =====================
 
+[2025-07-24] Version 11.0.0-rc.3
+--------------------------------
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Twiml**
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+
+
 [2025-07-10] Version 11.0.0-rc.2
 --------------------------------
 **Flex**

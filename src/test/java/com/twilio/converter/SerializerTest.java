@@ -14,6 +14,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 public class SerializerTest {
@@ -183,6 +184,30 @@ public class SerializerTest {
 
         Serializer.toString(request, "dateKey", date, dateBefore, dateAfter);
         assertEquals("2025-07-01", request.getQueryParams().get("dateKey>").get(0));
+        assertEquals("2025-07-05", request.getQueryParams().get("dateKey<").get(0));
+    }
+
+    @Test
+    public void testToStringWithLocalDateRangeBeforeNull() {
+        Request request = buildRequest();
+        LocalDate date = null;
+        LocalDate dateBefore = null;
+        LocalDate dateAfter = LocalDate.of(2025, 07, 1);
+
+        Serializer.toString(request, "dateKey", date, dateBefore, dateAfter);
+        assertNull(request.getQueryParams().get("dateKey<"));
+        assertEquals("2025-07-01", request.getQueryParams().get("dateKey>").get(0));
+    }
+
+    @Test
+    public void testToStringWithLocalDateRangeAfterNull() {
+        Request request = buildRequest();
+        LocalDate date = null;
+        LocalDate dateBefore = LocalDate.of(2025, 07, 5);
+        LocalDate dateAfter = null;
+
+        Serializer.toString(request, "dateKey", date, dateBefore, dateAfter);
+        assertNull(request.getQueryParams().get("dateKey>"));
         assertEquals("2025-07-05", request.getQueryParams().get("dateKey<").get(0));
     }
 

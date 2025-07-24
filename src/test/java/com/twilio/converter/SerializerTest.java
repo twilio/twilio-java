@@ -9,7 +9,9 @@ import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -139,6 +141,19 @@ public class SerializerTest {
         double value = 3.14159;
         Serializer.toString(request, "key", value, ParameterType.QUERY);
         assertEquals("3.14159", request.getQueryParams().get("key").get(0));
+    }
+
+    @Test
+    public void testToStringWithArray() {
+        Request request = buildRequest();
+        List<String> values = Arrays.asList("value1", "value2", "value3");
+        for (String value: values) {
+            Serializer.toString(request, "arrayKey", value, ParameterType.QUERY);
+        }
+        Serializer.toString(request, "key", "value", ParameterType.QUERY);
+        assertEquals(2, request.getQueryParams().size()); // 2 keys present
+        assertEquals(3, request.getQueryParams().get("arrayKey").size());
+        assertEquals(1, request.getQueryParams().get("key").size());
     }
 
     @Test

@@ -11,9 +11,6 @@ import java.util.Objects;
 
 public class Serializer {
 
-    public static void main(String[] args) {
-        toString(null, "key", "value", ParameterType.QUERY);
-    }
     public static <T> void toString(Request request, String key, T value, ParameterType parameterType) {
         if (value == null) return;
 

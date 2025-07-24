@@ -9,6 +9,8 @@ import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -138,6 +140,29 @@ public class SerializerTest {
         assertEquals("3.14159", request.getQueryParams().get("key").get(0));
     }
 
+    @Test
+    public void testToStringWithHashMapStringObject() {
+        Request request = buildRequest();
+        Map<String, Object> map = new HashMap<>();
+        map.put("key1", "value1");
+        map.put("key2", 123);
+        map.put("key3", true);
+
+        Serializer.toString(request, "mapKey", map, ParameterType.QUERY);
+        assertEquals("{\"key1\":\"value1\",\"key2\":123,\"key3\":true}", request.getQueryParams().get("mapKey").get(0));
+    }
+
+    @Test
+    public void testToStringWithHashMapStringString() {
+        Request request = buildRequest();
+        Map<String, String> map = new HashMap<>();
+        map.put("key1", "value1");
+        map.put("key2", "value2");
+
+        Serializer.toString(request, "mapKey", map, ParameterType.QUERY);
+        assertEquals("{\"key1\":\"value1\",\"key2\":\"value2\"}", request.getQueryParams().get("mapKey").get(0));
+    }
+    
     @Test
     public void testToStringWithLocalDate() {
         Request request = buildRequest();

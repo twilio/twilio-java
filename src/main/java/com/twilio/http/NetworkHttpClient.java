@@ -4,6 +4,9 @@ import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 
+import com.twilio.http.IRequest.FormParmeters;
+import com.twilio.http.IRequest.FormParmeters.Type;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -19,6 +22,8 @@ import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.entity.mime.HttpMultipartMode;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -134,6 +139,7 @@ public class NetworkHttpClient extends HttpClient {
             case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
         }
 
+        httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
 
         httpUriRequestBase.setVersion(HttpVersion.HTTP_1_1);
 
@@ -158,6 +164,21 @@ public class NetworkHttpClient extends HttpClient {
             } else if (EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue().equals(request.getContentType().getValue())) {
                 httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue());
+                MultipartEntityBuilder httpEntityBuilder = MultipartEntityBuilder.create();
+                httpEntityBuilder.setMode(HttpMultipartMode.LEGACY);
+                for( FormParmeters formParmeter: request.getFormParameters()) {
+                    // Create a file to upload.
+                    if ( formParmeter.getType().equals(Type.TEXT) )
+                        httpEntityBuilder.addTextBody(formParmeter.getName(), formParmeter.getValue().toString(), ContentType.DEFAULT_TEXT);
+                    else if ( formParmeter.getType().equals(Type.FILE) )
+                    {
+                        // Create a file entity for file parameters.
+                        File fileToUpload = new File(formParmeter.getValue().toString());
+                        httpEntityBuilder.addBinaryBody(formParmeter.getName(),new File(fileToUpload.getPath()),ContentType.APPLICATION_OCTET_STREAM,fileToUpload.getName());
+                    }
+                }
+                // Set the multipart entity on the request.
+                httpUriRequestBase.setEntity(httpEntityBuilder.build());
             }
             else {
                 httpUriRequestBase.addHeader(
@@ -179,10 +200,9 @@ public class NetworkHttpClient extends HttpClient {
         }
         httpUriRequestBase.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), isCustomClient));
 
-        CloseableHttpResponse response = null;
 
         try {
-            response = client.execute(httpUriRequestBase);
+            CloseableHttpResponse response = client.execute(httpUriRequestBase);
             HttpEntity entity = response.getEntity();
             return new Response(
                 // Consume the entire HTTP response before returning the stream

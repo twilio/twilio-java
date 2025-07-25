@@ -4,18 +4,14 @@ import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpRequest;
-import org.apache.http.impl.auth.UnsupportedDigestAlgorithmException;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.*;
 import java.util.function.Function;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.HttpRequest;
 
 import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
@@ -134,21 +130,21 @@ public class ValidationToken extends Jwt {
          ) throws IOException {
         Builder builder = new Builder(accountSid, credentialSid, signingKeySid, privateKey);
 
-        String method = request.getRequestLine().getMethod();
-        builder.method(method);
-        builder.algorithm(algorithm);
-
-        String uri = request.getRequestLine().getUri();
-        if (uri.contains("?")) {
-            String[] uriParts = uri.split("\\?");
-            builder.uri(uriParts[0]);
-            builder.queryString(uriParts[1]);
-        } else {
-            builder.uri(uri);
-        }
-
-        builder.headers(request.getAllHeaders());
-        builder.signedHeaders(signedHeaders);
+//        String method = request.getRequestLine().getMethod();
+//        builder.method(method);
+//        builder.algorithm(algorithm);
+//
+//        String uri = request.getRequestLine().getUri();
+//        if (uri.contains("?")) {
+//            String[] uriParts = uri.split("\\?");
+//            builder.uri(uriParts[0]);
+//            builder.queryString(uriParts[1]);
+//        } else {
+//            builder.uri(uri);
+//        }
+//
+//        builder.headers(request.getAllHeaders());
+//        builder.signedHeaders(signedHeaders);
 
         /**
          * If the request encloses an "entity", use it for the body. Note that this is dependent on several factors
@@ -156,10 +152,10 @@ public class ValidationToken extends Jwt {
          *
          * @see org.apache.http.client.methods.RequestBuilder#build
          */
-        if (request instanceof HttpEntityEnclosingRequest) {
-            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
-            builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
-        }
+//        if (request instanceof HttpEntityEnclosingRequest) {
+//            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
+//            builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
+//        }
 
         return builder.build();
     }

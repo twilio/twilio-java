@@ -1,6 +1,5 @@
 package com.twilio.http;
 
-import java.sql.Time;
 import lombok.Getter;
 import lombok.Setter;
 

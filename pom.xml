@@ -181,7 +181,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.24</version>
+      <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -341,6 +341,12 @@
       <artifactId>gson</artifactId>
       <version>2.10.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-multipart</artifactId>
+      <version>3.1.10</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -349,8 +355,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>8</source>
-          <target>8</target>
+          <source>11</source>
+          <target>11</target>
           <showDeprecation>true</showDeprecation>
           <forceJavacCompilerUse>true</forceJavacCompilerUse>
         </configuration>
@@ -385,7 +391,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.1</version>
         <executions>
           <execution>
             <id>attach-sources</id>

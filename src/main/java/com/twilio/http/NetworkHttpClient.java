@@ -6,8 +6,12 @@ import com.twilio.exception.ApiException;
 
 import com.twilio.http.IRequest.FormParmeters;
 import com.twilio.http.IRequest.FormParmeters.Type;
+import jakarta.ws.rs.core.MediaType;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +26,8 @@ import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.entity.mime.ContentBody;
+import org.apache.hc.client5.http.entity.mime.FileBody;
 import org.apache.hc.client5.http.entity.mime.HttpMultipartMode;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -38,6 +44,8 @@ import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 
 
 public class NetworkHttpClient extends HttpClient {
@@ -127,7 +135,7 @@ public class NetworkHttpClient extends HttpClient {
      * @param request request to make
      * @return Response of the HTTP request
      */
-    public Response makeRequest(final Request request) {
+    public Response makeRequest(final Request request)  {
 
         HttpMethod method = request.getMethod();
         HttpUriRequestBase httpUriRequestBase = null;
@@ -166,15 +174,23 @@ public class NetworkHttpClient extends HttpClient {
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue());
                 MultipartEntityBuilder httpEntityBuilder = MultipartEntityBuilder.create();
                 httpEntityBuilder.setMode(HttpMultipartMode.LEGACY);
+                httpEntityBuilder.setContentType(ContentType.MULTIPART_FORM_DATA);
+                httpEntityBuilder.setCharset(StandardCharsets.UTF_8);
                 for( FormParmeters formParmeter: request.getFormParameters()) {
                     // Create a file to upload.
                     if ( formParmeter.getType().equals(Type.TEXT) )
-                        httpEntityBuilder.addTextBody(formParmeter.getName(), formParmeter.getValue().toString(), ContentType.DEFAULT_TEXT);
+                        httpEntityBuilder.addTextBody(formParmeter.getName(), formParmeter.getValue().toString());
                     else if ( formParmeter.getType().equals(Type.FILE) )
                     {
                         // Create a file entity for file parameters.
                         File fileToUpload = new File(formParmeter.getValue().toString());
-                        httpEntityBuilder.addBinaryBody(formParmeter.getName(),new File(fileToUpload.getPath()),ContentType.APPLICATION_OCTET_STREAM,fileToUpload.getName());
+                        try {
+                            InputStream inputStream = new FileInputStream(fileToUpload);
+                            httpEntityBuilder.addBinaryBody("document_content", inputStream);
+                        }
+                        catch (FileNotFoundException e) {
+                        }
+
                     }
                 }
                 // Set the multipart entity on the request.

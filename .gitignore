@@ -1,15 +1,121 @@
-*.iml
+# Compiled class files
+*.class
 
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# IntelliJ IDEA
+*.iml
 .idea/
 out/
-target/
-docs/
-src/main/java/com/twilio/Twilio.java.bak
-secret.key
-pom.xml.releaseBackup
-release.properties
+!.idea/codeStyles/
+!.idea/runConfigurations/
+
+# Eclipse
 .classpath
 .project
 .settings/
-settings.json
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Security files
+secret.key
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+
+# Documentation
+docs/
+
+# Test results
+*.xml.results
+
+# OpenAPI Generator
 **/.openapi-generator*
+
+# Dependency Check
+dependency-check-report.html
+
+# PMD
+pmd.xml
+
+# SpotBugs
+spotbugsXml.xml
+spotbugs.xml
+
+# JaCoCo
+jacoco.exec
+
+# Legacy ignores
+src/main/java/com/twilio/Twilio.java.bak
+settings.json

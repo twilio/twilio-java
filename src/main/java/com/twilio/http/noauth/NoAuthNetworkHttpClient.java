@@ -40,7 +40,7 @@ public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
         }
 
         @Override
-        public Response makeRequest(Request request) {
+        public Response makeRequest(IRequest request) {
             // This shouldn't be called directly, but just in case
             return executeRequest(buildHttpRequest(request));
         }

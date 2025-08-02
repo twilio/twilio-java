@@ -41,8 +41,18 @@ public class NetworkHttpClient extends BaseNetworkHttpClient {
      * @param request request to make
      * @return Response of the HTTP request
      */
-    public Response makeRequest(final Request request) {
+    public Response makeRequest(final IRequest request) {
         return executeRequest(buildHttpRequest(request));
+    }
+
+    /**
+     * Make a request (overload for Request specifically).
+     *
+     * @param request request to make
+     * @return Response of the HTTP request
+     */
+    public Response makeRequest(final Request request) {
+        return makeRequest((IRequest) request);
     }
 
     /**

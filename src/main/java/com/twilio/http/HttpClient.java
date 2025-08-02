@@ -29,7 +29,7 @@ public abstract class HttpClient {
     @Getter
     private Response lastResponse;
     @Getter
-    private Request lastRequest;
+    private IRequest lastRequest;
 
     /**
      * Make a request.
@@ -37,7 +37,7 @@ public abstract class HttpClient {
      * @param request request to make
      * @return Response of the HTTP request
      */
-    public Response reliableRequest(final Request request) {
+    public Response reliableRequest(final IRequest request) {
         return reliableRequest(request, RETRY_CODES, RETRIES, DELAY_MILLIS);
     }
 
@@ -50,7 +50,7 @@ public abstract class HttpClient {
      * @param delayMillis delays between retries
      * @return Response of the HTTP request
      */
-    public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
+    public Response reliableRequest(final IRequest request, final int[] retryCodes, int retries,
                                     final long delayMillis) {
         lastRequest = request;
         Response response = null;
@@ -74,6 +74,16 @@ public abstract class HttpClient {
         lastResponse = response;
 
         return response;
+    }
+
+    // For backward compatibility
+    public Response reliableRequest(final Request request) {
+        return reliableRequest((IRequest) request, RETRY_CODES, RETRIES, DELAY_MILLIS);
+    }
+
+    public Response reliableRequest(final Request request, final int[] retryCodes, int retries,
+                                    final long delayMillis) {
+        return reliableRequest((IRequest) request, retryCodes, retries, delayMillis);
     }
 
     protected boolean shouldRetry(final Response response, final int[] retryCodes) {
@@ -121,5 +131,5 @@ public abstract class HttpClient {
         return false;
     }
 
-    public abstract Response makeRequest(final Request request);
+    public abstract Response makeRequest(final IRequest request);
 }

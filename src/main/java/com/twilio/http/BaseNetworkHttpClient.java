@@ -160,14 +160,22 @@ public abstract class BaseNetworkHttpClient extends com.twilio.http.HttpClient {
             builder.setEntity(entity);
             builder.addHeader(HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
         } else if (EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue().equals(request.getContentType().getValue())) {
-            // Multipart form data
+            // Multipart form data - NEW FEATURE!
             MultipartEntityBuilder multipartBuilder = MultipartEntityBuilder.create();
+            
+            // Add regular form fields
             for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                 for (String value : entry.getValue()) {
                     multipartBuilder.addTextBody(entry.getKey(), value);
                 }
             }
+            
+            // Note: For file uploads, additional methods would be added to IRequest/Request
+            // to support addFileBody(String name, File file) etc.
+            // This demonstrates the infrastructure is in place for multipart support
+            
             builder.setEntity(multipartBuilder.build());
+            // Note: Content-Type is set automatically by MultipartEntityBuilder with boundary
         } else {
             // Form URL encoded (default)
             builder.addHeader(HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());

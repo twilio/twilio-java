@@ -2,8 +2,8 @@ package com.twilio.http.bearertoken;
 
 import com.twilio.Twilio;
 import com.twilio.http.BaseNetworkHttpClient;
-import com.twilio.http.HttpUtility;
 import com.twilio.http.IRequest;
+import com.twilio.http.Request;
 import com.twilio.http.Response;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -20,7 +20,7 @@ import java.util.Collection;
  */
 public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
 
-    private final BaseNetworkHttpClient baseClient;
+    private final BearerTokenBaseClient baseClient;
 
     /**
      * Create a new HTTP Client.
@@ -35,26 +35,7 @@ public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
      * @param requestConfig a RequestConfig.
      */
     public BearerTokenNetworkHttpClient(final RequestConfig requestConfig) {
-        baseClient = new BaseNetworkHttpClient(requestConfig) {
-            @Override
-            protected Collection<BasicHeader> getDefaultHeaders() {
-                return Arrays.asList(
-                    new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                    // Note: Orgs API has scim or json support, so we don't set Accept to application/json
-                    new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
-                );
-            }
-
-            @Override
-            protected void addAuthentication(ClassicRequestBuilder builder, IRequest request) {
-                if (request instanceof BearerTokenRequest) {
-                    BearerTokenRequest req = (BearerTokenRequest) request;
-                    if (req.requiresAuthentication()) {
-                        builder.addHeader(HttpHeaders.AUTHORIZATION, req.getAuthString());
-                    }
-                }
-            }
-        };
+        baseClient = new BearerTokenBaseClient(requestConfig);
     }
 
     /**
@@ -62,26 +43,7 @@ public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
      * @param clientBuilder an HttpClientBuilder.
      */
     public BearerTokenNetworkHttpClient(HttpClientBuilder clientBuilder) {
-        baseClient = new BaseNetworkHttpClient(clientBuilder) {
-            @Override
-            protected Collection<BasicHeader> getDefaultHeaders() {
-                return Arrays.asList(
-                    new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                    // Note: Orgs API has scim or json support, so we don't set Accept to application/json
-                    new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
-                );
-            }
-
-            @Override
-            protected void addAuthentication(ClassicRequestBuilder builder, IRequest request) {
-                if (request instanceof BearerTokenRequest) {
-                    BearerTokenRequest req = (BearerTokenRequest) request;
-                    if (req.requiresAuthentication()) {
-                        builder.addHeader(HttpHeaders.AUTHORIZATION, req.getAuthString());
-                    }
-                }
-            }
-        };
+        baseClient = new BearerTokenBaseClient(clientBuilder);
     }
 
     /**
@@ -92,5 +54,41 @@ public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
      */
     public Response makeRequest(final BearerTokenRequest request) {
         return baseClient.executeRequest(baseClient.buildHttpRequest(request));
+    }
+
+    // Inner class to avoid the anonymous class issue
+    private static class BearerTokenBaseClient extends BaseNetworkHttpClient {
+        public BearerTokenBaseClient(RequestConfig requestConfig) {
+            super(requestConfig);
+        }
+
+        public BearerTokenBaseClient(HttpClientBuilder clientBuilder) {
+            super(clientBuilder);
+        }
+
+        @Override
+        protected Collection<BasicHeader> getDefaultHeaders() {
+            return Arrays.asList(
+                new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
+                // Note: Orgs API has scim or json support, so we don't set Accept to application/json
+                new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
+            );
+        }
+
+        @Override
+        protected void addAuthentication(ClassicRequestBuilder builder, IRequest request) {
+            if (request instanceof BearerTokenRequest) {
+                BearerTokenRequest req = (BearerTokenRequest) request;
+                if (req.requiresAuthentication()) {
+                    builder.addHeader(HttpHeaders.AUTHORIZATION, req.getAuthString());
+                }
+            }
+        }
+
+        @Override
+        public Response makeRequest(Request request) {
+            // This shouldn't be called directly, but just in case
+            return executeRequest(buildHttpRequest(request));
+        }
     }
 }

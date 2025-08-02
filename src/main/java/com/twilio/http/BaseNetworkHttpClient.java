@@ -113,7 +113,7 @@ public abstract class BaseNetworkHttpClient extends com.twilio.http.HttpClient {
     /**
      * Build the HTTP request based on the request parameters.
      */
-    protected ClassicHttpRequest buildHttpRequest(final IRequest request) {
+    public ClassicHttpRequest buildHttpRequest(final IRequest request) {
         HttpMethod method = request.getMethod();
         ClassicRequestBuilder builder = ClassicRequestBuilder.create(method.toString())
             .setUri(request.constructURL().toString())
@@ -186,7 +186,7 @@ public abstract class BaseNetworkHttpClient extends com.twilio.http.HttpClient {
     /**
      * Execute the HTTP request and return a Response.
      */
-    protected Response executeRequest(ClassicHttpRequest httpRequest) {
+    public Response executeRequest(ClassicHttpRequest httpRequest) {
         try (CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpRequest)) {
             HttpEntity entity = response.getEntity();
             InputStream content = null;

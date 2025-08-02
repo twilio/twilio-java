@@ -2,10 +2,9 @@ package com.twilio.http;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.http.client.RedirectStrategy;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 
 public abstract class HttpClient {
 
@@ -13,12 +12,8 @@ public abstract class HttpClient {
     public static final int SOCKET_TIMEOUT = 30500;
     public static final RequestConfig DEFAULT_REQUEST_CONFIG = RequestConfig
         .custom()
-        .setConnectTimeout(CONNECTION_TIMEOUT)
-        .setSocketTimeout(SOCKET_TIMEOUT)
-        .build();
-    public static final SocketConfig DEFAULT_SOCKET_CONFIG = SocketConfig
-        .custom()
-        .setSoTimeout(SOCKET_TIMEOUT)
+        .setConnectTimeout(Timeout.ofMilliseconds(CONNECTION_TIMEOUT))
+        .setResponseTimeout(Timeout.ofMilliseconds(SOCKET_TIMEOUT))
         .build();
 
     public static final int ANY_500 = -500;
@@ -30,11 +25,6 @@ public abstract class HttpClient {
     public static final int[] RETRY_CODES = new int[] {ANY_500};
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
-
-    // Default redirect strategy to not auto-redirect for any methods (empty string array).
-    @Getter
-    @Setter
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy(new String[0]);
 
     @Getter
     private Response lastResponse;

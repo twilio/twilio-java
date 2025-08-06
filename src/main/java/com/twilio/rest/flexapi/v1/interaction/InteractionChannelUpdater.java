@@ -25,14 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class InteractionChannelUpdater extends Updater<InteractionChannel> {
 
     private String pathInteractionSid;
     private String pathSid;
     private InteractionChannel.UpdateChannelStatus status;
-    private Map<String, Object> routing;
+    private Object routing;
 
     public InteractionChannelUpdater(
         final String pathInteractionSid,
@@ -51,9 +50,7 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
         return this;
     }
 
-    public InteractionChannelUpdater setRouting(
-        final Map<String, Object> routing
-    ) {
+    public InteractionChannelUpdater setRouting(final Object routing) {
         this.routing = routing;
         return this;
     }
@@ -107,7 +104,7 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
             request.addPostParam("Status", status.toString());
         }
         if (routing != null) {
-            request.addPostParam("Routing", Converter.mapToJson(routing));
+            request.addPostParam("Routing", Converter.objectToJson(routing));
         }
     }
 }

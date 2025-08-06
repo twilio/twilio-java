@@ -25,14 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class FlowUpdater extends Updater<Flow> {
 
     private String pathSid;
     private Flow.Status status;
     private String friendlyName;
-    private Map<String, Object> definition;
+    private Object definition;
     private String commitMessage;
 
     public FlowUpdater(final String pathSid, final Flow.Status status) {
@@ -50,7 +49,7 @@ public class FlowUpdater extends Updater<Flow> {
         return this;
     }
 
-    public FlowUpdater setDefinition(final Map<String, Object> definition) {
+    public FlowUpdater setDefinition(final Object definition) {
         this.definition = definition;
         return this;
     }
@@ -104,7 +103,10 @@ public class FlowUpdater extends Updater<Flow> {
             request.addPostParam("FriendlyName", friendlyName);
         }
         if (definition != null) {
-            request.addPostParam("Definition", Converter.mapToJson(definition));
+            request.addPostParam(
+                "Definition",
+                Converter.objectToJson(definition)
+            );
         }
         if (commitMessage != null) {
             request.addPostParam("CommitMessage", commitMessage);

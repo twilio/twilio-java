@@ -26,8 +26,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class VerificationCreator extends Creator<Verification> {
 
@@ -41,8 +39,8 @@ public class VerificationCreator extends Creator<Verification> {
     private String customCode;
     private String amount;
     private String payee;
-    private Map<String, Object> rateLimits;
-    private Map<String, Object> channelConfiguration;
+    private Object rateLimits;
+    private Object channelConfiguration;
     private String appHash;
     private String templateSid;
     private String templateCustomSubstitutions;
@@ -108,15 +106,13 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
-    public VerificationCreator setRateLimits(
-        final Map<String, Object> rateLimits
-    ) {
+    public VerificationCreator setRateLimits(final Object rateLimits) {
         this.rateLimits = rateLimits;
         return this;
     }
 
     public VerificationCreator setChannelConfiguration(
-        final Map<String, Object> channelConfiguration
+        final Object channelConfiguration
     ) {
         this.channelConfiguration = channelConfiguration;
         return this;
@@ -236,12 +232,15 @@ public class VerificationCreator extends Creator<Verification> {
             request.addPostParam("Payee", payee);
         }
         if (rateLimits != null) {
-            request.addPostParam("RateLimits", Converter.mapToJson(rateLimits));
+            request.addPostParam(
+                "RateLimits",
+                Converter.objectToJson(rateLimits)
+            );
         }
         if (channelConfiguration != null) {
             request.addPostParam(
                 "ChannelConfiguration",
-                Converter.mapToJson(channelConfiguration)
+                Converter.objectToJson(channelConfiguration)
             );
         }
         if (appHash != null) {

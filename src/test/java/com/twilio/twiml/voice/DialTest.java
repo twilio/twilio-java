@@ -167,6 +167,14 @@ public class DialTest {
                     .copyParentTo(true)
                     .build());
 
+        builder.whatsApp(new WhatsApp.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(WhatsApp.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
         Dial elem = builder.build();
 
         Assert.assertEquals(
@@ -179,6 +187,7 @@ public class DialTest {
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
                 "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>" +
+                "<WhatsApp method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</WhatsApp>" +
             "</Dial>",
             elem.toXml()
         );
@@ -379,6 +388,14 @@ public class DialTest {
                     .copyParentTo(true)
                     .build());
 
+        builder.whatsApp(new WhatsApp.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(WhatsApp.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
         final Dial elem = builder.build();
 
         Assert.assertEquals(
@@ -390,6 +407,7 @@ public class DialTest {
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
                 "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>" +
+                "<WhatsApp method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</WhatsApp>" +
             "</Dial>").build().toXml(),
             elem.toXml()
         );

@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "10.9.2";
+    public static final String VERSION = "11.0.0-rc.3";
     public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String OS_NAME = System.getProperty("os.name");
     public static final String OS_ARCH = System.getProperty("os.arch");
@@ -37,7 +37,7 @@ public class Twilio {
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile TwilioRestClient restClient;
     private static volatile ExecutorService executorService;
-    
+
     private static CredentialProvider credentialProvider;
 
     private Twilio() {
@@ -85,7 +85,7 @@ public class Twilio {
         if (credentialProvider == null) {
             throw new AuthenticationException("Credential Provider can not be null");
         }
-        
+
         if (!credentialProvider.equals(Twilio.credentialProvider)) {
             Twilio.invalidate();
         }
@@ -315,7 +315,7 @@ public class Twilio {
     private static void invalidateOAuthCreds() {
         Twilio.credentialProvider = null;
     }
-    
+
     private static void invalidateBasicCreds() {
         Twilio.username = null;
         Twilio.password = null;

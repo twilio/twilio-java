@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 public class NoAuthTwilioRestClient {
     @Getter
     private final ObjectMapper objectMapper;
-    
+
     @Getter
     private final String region;
     @Getter
@@ -110,7 +110,7 @@ public class NoAuthTwilioRestClient {
 
         if (logger.isDebugEnabled()) {
             logger.debug("status code: {}", response.getStatusCode());
-            org.apache.http.Header[] responseHeaders = response.getHeaders();
+            org.apache.hc.core5.http.Header[] responseHeaders = response.getHeaders();
             logger.debug("response headers:");
             for (int i = 0; i < responseHeaders.length; i++) {
                 logger.debug("responseHeader: {}", responseHeaders[i]);

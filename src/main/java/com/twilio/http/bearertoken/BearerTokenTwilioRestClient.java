@@ -140,7 +140,7 @@ public class BearerTokenTwilioRestClient {
 
             if (logger.isDebugEnabled()) {
                 logger.debug("status code: {}", statusCode);
-                org.apache.http.Header[] responseHeaders = response.getHeaders();
+                org.apache.hc.core5.http.Header[] responseHeaders = response.getHeaders();
                 logger.debug("response headers:");
                 for (int i = 0; i < responseHeaders.length; i++) {
                     logger.debug("responseHeader: {}", responseHeaders[i]);

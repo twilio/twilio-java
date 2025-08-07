@@ -1,8 +1,8 @@
 package com.twilio.jwt.validation;
 
 import com.twilio.exception.InvalidRequestException;
-import org.apache.http.Header;
-import org.apache.http.message.BasicHeader;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.message.BasicHeader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

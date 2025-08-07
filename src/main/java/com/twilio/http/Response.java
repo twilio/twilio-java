@@ -1,7 +1,7 @@
 package com.twilio.http;
 
 import com.twilio.exception.ApiException;
-import org.apache.http.Header;
+import org.apache.hc.core5.http.Header;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

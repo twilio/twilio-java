@@ -4,7 +4,7 @@ import com.twilio.http.HttpMethod;
 import com.twilio.http.IRequest;
 
 public class NoAuthRequest extends IRequest {
-    
+
     public NoAuthRequest(HttpMethod method, String url) {
         super(method, url);
     }

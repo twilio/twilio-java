@@ -40,7 +40,7 @@ public class StreamMessage extends Resource {
     public static StreamMessageCreator creator(
         final String pathServiceSid,
         final String pathStreamSid,
-        final Map<String, Object> data
+        final Object data
     ) {
         return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
     }

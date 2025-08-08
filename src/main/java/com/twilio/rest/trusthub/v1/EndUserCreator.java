@@ -26,14 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class EndUserCreator extends Creator<EndUser> {
 
     private String friendlyName;
     private String type;
-    private Map<String, Object> attributes;
+    private Object attributes;
 
     public EndUserCreator(final String friendlyName, final String type) {
         this.friendlyName = friendlyName;
@@ -50,7 +48,7 @@ public class EndUserCreator extends Creator<EndUser> {
         return this;
     }
 
-    public EndUserCreator setAttributes(final Map<String, Object> attributes) {
+    public EndUserCreator setAttributes(final Object attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -103,7 +101,10 @@ public class EndUserCreator extends Creator<EndUser> {
             request.addPostParam("Type", type);
         }
         if (attributes != null) {
-            request.addPostParam("Attributes", Converter.mapToJson(attributes));
+            request.addPostParam(
+                "Attributes",
+                Converter.objectToJson(attributes)
+            );
         }
     }
 }

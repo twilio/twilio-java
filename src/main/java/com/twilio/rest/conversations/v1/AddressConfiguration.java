@@ -246,6 +246,26 @@ public class AddressConfiguration extends Resource {
         }
     }
 
+    public enum Method {
+        GET("get"),
+        POST("post");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
+    }
+
     public enum Type {
         SMS("sms"),
         WHATSAPP("whatsapp"),
@@ -269,26 +289,6 @@ public class AddressConfiguration extends Resource {
         @JsonCreator
         public static Type forValue(final String value) {
             return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
         }
     }
 }

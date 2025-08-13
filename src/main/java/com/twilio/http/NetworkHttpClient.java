@@ -204,7 +204,6 @@ public class NetworkHttpClient extends HttpClient {
         try {
             CloseableHttpResponse response = client.execute(httpUriRequestBase);
             HttpEntity entity = response.getEntity();
-            System.out.println(response.getHeaders()[6].getValue());
             return new Response(
                 // Consume the entire HTTP response before returning the stream
                 entity == null ? null : new BufferedHttpEntity(entity).getContent(),
@@ -216,31 +215,4 @@ public class NetworkHttpClient extends HttpClient {
         }
     }
 
-    public static String extractBoundary(String contentType) {
-        if (contentType == null) {
-            return null;
-        }
-        for (String param : contentType.split(";")) {
-            param = param.trim();
-            if (param.startsWith("boundary=")) {
-                return param.substring("boundary=".length());
-            }
-        }
-        return null;
-    }
-
-    // Determine content type based on file extension
-    private static ContentType getContentType(Path filePath) {
-        String fileName = filePath.getFileName().toString().toLowerCase();
-
-        if (fileName.endsWith(".pdf")) {
-            return ContentType.create("application/pdf");
-        } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
-            return ContentType.create("image/jpeg");
-        } else if (fileName.endsWith(".png")) {
-            return ContentType.create("image/png");
-        } else {
-            return ContentType.create("application/octet-stream");
-        }
-    }
 }

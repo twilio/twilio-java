@@ -1,7 +1,6 @@
 package com.twilio.http;
 
 import com.twilio.constant.EnumConstants;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.security.KeyPair;
@@ -18,20 +17,17 @@ import static org.junit.Assert.assertTrue;
 
 public class ValidationClientTest {
     @Test
-    @Ignore
     public void testHttpGet() throws Exception {
         exerciseHttpMethod(HttpMethod.GET);
     }
 
     @Test
-    @Ignore
     public void testHttpPost() throws Exception {
         exerciseHttpMethod(HttpMethod.POST);
         testContentType(HttpMethod.POST);
     }
 
     @Test
-    @Ignore
     public void testHttpPut() throws Exception {
         exerciseHttpMethod(HttpMethod.PUT);
     }

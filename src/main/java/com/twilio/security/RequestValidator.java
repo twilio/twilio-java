@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.net.URLEncodedUtils;
 
 public class RequestValidator {
 
@@ -35,21 +37,19 @@ public class RequestValidator {
 
     public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
         Map<String, String> empty = new HashMap<>();
-//        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8);
-//
-//        NameValuePair bodySHA256 = null;
-//        for (NameValuePair param : params) {
-//            if (param.getName().equals("bodySHA256")) {
-//                bodySHA256 = param;
-//                break;
-//            }
-//        }
+        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8);
 
-//        if (bodySHA256 != null) {
-//            return validate(url, empty, expectedSignature) && validateBody(body, bodySHA256.getValue());
-//        } else {
-//            return false;
-//        }
+        NameValuePair bodySHA256 = null;
+        for (NameValuePair param : params) {
+            if (param.getName().equals("bodySHA256")) {
+                bodySHA256 = param;
+                break;
+            }
+        }
+
+        if (bodySHA256 != null) {
+            return validate(url, empty, expectedSignature) && validateBody(body, bodySHA256.getValue());
+        }
         return false;
     }
 

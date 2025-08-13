@@ -1,11 +1,13 @@
 package com.twilio.http;
 
+import java.nio.file.Path;
 import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.protocol.RedirectStrategy;
+import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.util.Timeout;
 
@@ -147,6 +149,20 @@ public abstract class HttpClient {
             }
         }
         return false;
+    }
+
+    public static ContentType getContentType(Path filePath) {
+        String fileName = filePath.getFileName().toString().toLowerCase();
+
+        if (fileName.endsWith(".pdf")) {
+            return ContentType.create("application/pdf");
+        } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+            return ContentType.create("image/jpeg");
+        } else if (fileName.endsWith(".png")) {
+            return ContentType.create("image/png");
+        } else {
+            return ContentType.create("application/octet-stream");
+        }
     }
 
     public abstract Response makeRequest(final Request request);

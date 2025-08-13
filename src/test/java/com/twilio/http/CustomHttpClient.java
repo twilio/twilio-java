@@ -1,70 +1,77 @@
 package com.twilio.http;
 
 import com.twilio.exception.ApiException;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.StringBody;
+
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPatch;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
+import org.apache.hc.client5.http.entity.mime.StringBody;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.HttpVersion;
+import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
 
 public class CustomHttpClient extends NetworkHttpClient {
 
-//    public CustomHttpClient() {
-//        super();
-//    }
-//
-//    @Override
-//    public Response makeRequest(Request request) {
-//        HttpMethod method = request.getMethod();
-//        RequestBuilder builder = RequestBuilder.create(method.toString())
-//                .setUri(request.constructURL().toString())
-//                .setVersion(HttpVersion.HTTP_1_1)
-//                .setCharset(StandardCharsets.UTF_8);
-//        if (request instanceof Request) {
-//            Request basicRequest = (Request) request;
-//            if (basicRequest.requiresAuthentication()) {
-//                builder.addHeader(HttpHeaders.AUTHORIZATION, basicRequest.getAuthString());
-//            }
-//        }
-//
-//        for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
-//            for (String value : entry.getValue()) {
-//                builder.addHeader(entry.getKey(), value);
-//            }
-//        }
-//        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
-//        for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
-//            for (String value : entry.getValue()) {
-//                multipartEntityBuilder.addPart(entry.getKey(), new StringBody(value, ContentType.TEXT_PLAIN));
-//            }
-//        }
-//        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), true));
-//        builder.setEntity(multipartEntityBuilder.build());
-//        HttpResponse response = null;
-//
-//        try {
-//            response = client.execute(builder.build());
-//            HttpEntity entity = response.getEntity();
-//            return new Response(
-//                    // Consume the entire HTTP response before returning the stream
-//                    entity == null ? null : new BufferedHttpEntity(entity).getContent(),
-//                    response.getStatusLine().getStatusCode(),
-//                    response.getAllHeaders()
-//            );
-//        } catch (IOException e) {
-//            throw new ApiException(e.getMessage(), e);
-//        } finally {
-//            HttpClientUtils.closeQuietly(response);
-//        }
-//    }
+    public CustomHttpClient() {
+        super();
+    }
+
+    @Override
+    public Response makeRequest(Request request) {
+        HttpMethod method = request.getMethod();
+        HttpUriRequestBase httpUriRequestBase = null;
+        switch (request.getMethod().toString().toUpperCase()) {
+            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
+            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
+            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
+            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
+            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
+        }
+        httpUriRequestBase.setVersion(HttpVersion.HTTP_1_1);
+        if (request instanceof Request) {
+            Request basicRequest = (Request) request;
+            if (basicRequest.requiresAuthentication()) {
+                httpUriRequestBase.addHeader(HttpHeaders.AUTHORIZATION, basicRequest.getAuthString());
+            }
+        }
+
+        for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
+            for (String value : entry.getValue()) {
+                httpUriRequestBase.addHeader(entry.getKey(), value);
+            }
+        }
+        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+        for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+            for (String value : entry.getValue()) {
+                multipartEntityBuilder.addPart(entry.getKey(), new StringBody(value, ContentType.TEXT_PLAIN));
+            }
+        }
+        httpUriRequestBase.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), true));
+        httpUriRequestBase.setEntity(multipartEntityBuilder.build());
+        CloseableHttpResponse response = null;
+
+        try {
+            response = client.execute(httpUriRequestBase);
+            HttpEntity entity = response.getEntity();
+            return new Response(
+                    // Consume the entire HTTP response before returning the stream
+                    entity == null ? null : new BufferedHttpEntity(entity).getContent(),
+                    response.getCode(),
+                    response.getHeaders()
+            );
+        } catch (IOException e) {
+            throw new ApiException(e.getMessage(), e);
+        }
+    }
 }

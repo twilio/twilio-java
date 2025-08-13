@@ -58,7 +58,6 @@ public class RequestValidatorTest {
     }
 
     @Test
-    @Ignore
     public void testValidateWithBody() throws URISyntaxException {
         String url = this.url + "&bodySHA256=" + bodyHash;
         String signatureWithHash = "a9nBmqA0ju/hNViExpshrM61xv4=";
@@ -68,7 +67,6 @@ public class RequestValidatorTest {
     }
 
     @Test
-    @Ignore
     public void testValidateWithNoOtherParameters() throws URISyntaxException {
         String url = "https://mycompany.com/myapp.php?bodySHA256=" + bodyHash;
         String signatureWithHash = "y77kIzt2vzLz71DgmJGsen2scGs=";

@@ -11,6 +11,7 @@ import java.security.PrivateKey;
 import java.util.*;
 import java.util.function.Function;
 import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpRequest;
 
 import static io.jsonwebtoken.SignatureAlgorithm.PS256;
@@ -130,21 +131,21 @@ public class ValidationToken extends Jwt {
          ) throws IOException {
         Builder builder = new Builder(accountSid, credentialSid, signingKeySid, privateKey);
 
-//        String method = request.getRequestLine().getMethod();
-//        builder.method(method);
-//        builder.algorithm(algorithm);
-//
-//        String uri = request.getRequestLine().getUri();
-//        if (uri.contains("?")) {
-//            String[] uriParts = uri.split("\\?");
-//            builder.uri(uriParts[0]);
-//            builder.queryString(uriParts[1]);
-//        } else {
-//            builder.uri(uri);
-//        }
-//
-//        builder.headers(request.getAllHeaders());
-//        builder.signedHeaders(signedHeaders);
+        String method = request.getMethod();
+        builder.method(method);
+        builder.algorithm(algorithm);
+
+        String uri = request.getRequestUri();
+        if (uri.contains("?")) {
+            String[] uriParts = uri.split("\\?");
+            builder.uri(uriParts[0]);
+            builder.queryString(uriParts[1]);
+        } else {
+            builder.uri(uri);
+        }
+
+        builder.headers(request.getHeaders());
+        builder.signedHeaders(signedHeaders);
 
         /**
          * If the request encloses an "entity", use it for the body. Note that this is dependent on several factors

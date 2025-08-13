@@ -6,13 +6,11 @@ import com.twilio.exception.ApiException;
 
 import com.twilio.http.IRequest.FormParmeters;
 import com.twilio.http.IRequest.FormParmeters.Type;
-import jakarta.ws.rs.core.MediaType;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,9 +24,6 @@ import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
-import org.apache.hc.client5.http.entity.mime.ContentBody;
-import org.apache.hc.client5.http.entity.mime.FileBody;
-import org.apache.hc.client5.http.entity.mime.HttpMultipartMode;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -44,8 +39,6 @@ import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 
 
 public class NetworkHttpClient extends HttpClient {
@@ -170,36 +163,27 @@ public class NetworkHttpClient extends HttpClient {
                 httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
             } else if (EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue().equals(request.getContentType().getValue())) {
-                httpUriRequestBase.addHeader(
-                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue());
+
                 MultipartEntityBuilder httpEntityBuilder = MultipartEntityBuilder.create();
-                httpEntityBuilder.setMode(HttpMultipartMode.LEGACY);
-                httpEntityBuilder.setContentType(ContentType.MULTIPART_FORM_DATA);
-                httpEntityBuilder.setCharset(StandardCharsets.UTF_8);
                 for( FormParmeters formParmeter: request.getFormParameters()) {
                     // Create a file to upload.
                     if ( formParmeter.getType().equals(Type.TEXT) )
                         httpEntityBuilder.addTextBody(formParmeter.getName(), formParmeter.getValue().toString());
                     else if ( formParmeter.getType().equals(Type.FILE) )
                     {
-                        // Create a file entity for file parameters.
-                        File fileToUpload = new File(formParmeter.getValue().toString());
-                        try {
-                            InputStream inputStream = new FileInputStream(fileToUpload);
-                            httpEntityBuilder.addBinaryBody("document_content", inputStream);
-                        }
-                        catch (FileNotFoundException e) {
-                        }
-
+                        Path path = Paths.get(formParmeter.getValue().toString());
+                        byte[] fileBytes = null;
+                        try{
+                            fileBytes = Files.readAllBytes(path);
+                        } catch (IOException e) {}
+                        String fileName = path.getFileName().toString();
+                        ContentType contentType = getContentType(path);
+                        httpEntityBuilder.addBinaryBody(formParmeter.getName(), fileBytes, contentType, fileName);
                     }
                 }
-                // Set the multipart entity on the request.
                 httpUriRequestBase.setEntity(httpEntityBuilder.build());
             }
             else {
-                httpUriRequestBase.addHeader(
-                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
-                // Create your form parameters
                 List<NameValuePair> formParams = new ArrayList<>();
                 for ( Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                     for (String value : entry.getValue()) {
@@ -220,6 +204,7 @@ public class NetworkHttpClient extends HttpClient {
         try {
             CloseableHttpResponse response = client.execute(httpUriRequestBase);
             HttpEntity entity = response.getEntity();
+            System.out.println(response.getHeaders()[6].getValue());
             return new Response(
                 // Consume the entire HTTP response before returning the stream
                 entity == null ? null : new BufferedHttpEntity(entity).getContent(),
@@ -228,6 +213,34 @@ public class NetworkHttpClient extends HttpClient {
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);
+        }
+    }
+
+    public static String extractBoundary(String contentType) {
+        if (contentType == null) {
+            return null;
+        }
+        for (String param : contentType.split(";")) {
+            param = param.trim();
+            if (param.startsWith("boundary=")) {
+                return param.substring("boundary=".length());
+            }
+        }
+        return null;
+    }
+
+    // Determine content type based on file extension
+    private static ContentType getContentType(Path filePath) {
+        String fileName = filePath.getFileName().toString().toLowerCase();
+
+        if (fileName.endsWith(".pdf")) {
+            return ContentType.create("application/pdf");
+        } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+            return ContentType.create("image/jpeg");
+        } else if (fileName.endsWith(".png")) {
+            return ContentType.create("image/png");
+        } else {
+            return ContentType.create("application/octet-stream");
         }
     }
 }

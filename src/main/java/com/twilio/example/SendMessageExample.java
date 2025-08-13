@@ -7,6 +7,8 @@ import com.twilio.http.IRequest.FormParmeters;
 import com.twilio.http.IRequest.FormParmeters.Type;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
+import com.twilio.rest.trusthub.v3.UploadComplianceDocument;
+import com.twilio.rest.trusthub.v3.UploadComplianceDocumentCreator;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,24 +20,12 @@ public class SendMessageExample {
     public static void main(String[] args) throws FileNotFoundException {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        Request request = new Request(HttpMethod.POST,
-            "trusthub",
-            "/v3/ComplianceRegistrations/:registrationId/UploadComplianceDocument"
-        );
-        request.setAuth(ACCOUNT_SID, AUTH_TOKEN);
-        request.setContentType(ContentType.MULTIPART_FORM_DATA);
-        List<FormParmeters> formParmeters = new ArrayList<>();
-        formParmeters.add(new FormParmeters("document_content", Type.FILE,"/Users/manisingh/Downloads/image_2.png"));
-        formParmeters.add(new FormParmeters("document_requirement_machine_name", Type.TEXT, "[\"business_info\"]"));
-        formParmeters.add(new FormParmeters("document_type", Type.TEXT, "business_info"));
-        request.setFormParameters(formParmeters);
+        UploadComplianceDocumentCreator uploadComplianceDocumentCreator = new UploadComplianceDocumentCreator("tri1.dev-us1.account..registration.");
+        uploadComplianceDocumentCreator.setDocumentContent(new java.io.File("/Users/manisingh/Downloads/png.png"));
+        uploadComplianceDocumentCreator.setDocumentRequirementMachineName("business_info");
+        uploadComplianceDocumentCreator.setDocumentType("business_registration");
 
-
-        System.out.println(request);
-
-        NetworkHttpClient client = new NetworkHttpClient();
-        var response = client.makeRequest(request);
-        System.out.println(response.getContent());
+        uploadComplianceDocumentCreator.create();
 
     }
 

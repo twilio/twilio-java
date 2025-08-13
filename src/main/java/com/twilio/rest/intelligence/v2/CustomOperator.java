@@ -44,7 +44,7 @@ public class CustomOperator extends Resource {
     public static CustomOperatorCreator creator(
         final String friendlyName,
         final String operatorType,
-        final Map<String, Object> config
+        final Object config
     ) {
         return new CustomOperatorCreator(friendlyName, operatorType, config);
     }
@@ -64,7 +64,7 @@ public class CustomOperator extends Resource {
     public static CustomOperatorUpdater updater(
         final String pathSid,
         final String friendlyName,
-        final Map<String, Object> config
+        final Object config
     ) {
         return new CustomOperatorUpdater(pathSid, friendlyName, config);
     }

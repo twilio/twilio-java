@@ -29,23 +29,21 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class BulkConsentsCreator extends Creator<BulkConsents> {
 
-    private List<Map<String, Object>> items;
+    private List<Object> items;
 
-    public BulkConsentsCreator(final List<Map<String, Object>> items) {
+    public BulkConsentsCreator(final List<Object> items) {
         this.items = items;
     }
 
-    public BulkConsentsCreator setItems(final List<Map<String, Object>> items) {
+    public BulkConsentsCreator setItems(final List<Object> items) {
         this.items = items;
         return this;
     }
 
-    public BulkConsentsCreator setItems(final Map<String, Object> items) {
+    public BulkConsentsCreator setItems(final Object items) {
         return setItems(Promoter.listOfOne(items));
     }
 
@@ -89,8 +87,8 @@ public class BulkConsentsCreator extends Creator<BulkConsents> {
 
     private void addPostParams(final Request request) {
         if (items != null) {
-            for (Map<String, Object> prop : items) {
-                request.addPostParam("Items", Converter.mapToJson(prop));
+            for (Object prop : items) {
+                request.addPostParam("Items", Converter.objectToJson(prop));
             }
         }
     }

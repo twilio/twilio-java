@@ -25,19 +25,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class FlowValidateUpdater extends Updater<FlowValidate> {
 
     private String friendlyName;
     private FlowValidate.Status status;
-    private Map<String, Object> definition;
+    private Object definition;
     private String commitMessage;
 
     public FlowValidateUpdater(
         final String friendlyName,
         final FlowValidate.Status status,
-        final Map<String, Object> definition
+        final Object definition
     ) {
         this.friendlyName = friendlyName;
         this.status = status;
@@ -54,9 +53,7 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         return this;
     }
 
-    public FlowValidateUpdater setDefinition(
-        final Map<String, Object> definition
-    ) {
+    public FlowValidateUpdater setDefinition(final Object definition) {
         this.definition = definition;
         return this;
     }
@@ -119,7 +116,10 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
             request.addPostParam("Status", status.toString());
         }
         if (definition != null) {
-            request.addPostParam("Definition", Converter.mapToJson(definition));
+            request.addPostParam(
+                "Definition",
+                Converter.objectToJson(definition)
+            );
         }
         if (commitMessage != null) {
             request.addPostParam("CommitMessage", commitMessage);

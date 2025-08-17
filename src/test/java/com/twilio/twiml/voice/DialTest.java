@@ -10,11 +10,10 @@ package com.twilio.twiml.voice;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * Test class for {@link Dial}
@@ -24,7 +23,7 @@ public class DialTest {
     public void testEmptyElement() {
         Dial elem = new Dial.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial/>",
             elem.toXml()
@@ -35,7 +34,7 @@ public class DialTest {
     public void testEmptyElementUrl() {
         Dial elem = new Dial.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CDial%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CDial%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -61,7 +60,7 @@ public class DialTest {
             .events(Dial.Events.CALL_PROGRESS_EVENT)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
             elem.toXml()
@@ -72,7 +71,7 @@ public class DialTest {
     public void testElementWithExtraAttributes() {
         Dial elem = new Dial.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -177,7 +176,7 @@ public class DialTest {
 
         Dial elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
@@ -201,7 +200,7 @@ public class DialTest {
 
         Dial elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
             "Hey no tags!" +
@@ -221,7 +220,7 @@ public class DialTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
             "before" +
@@ -241,7 +240,7 @@ public class DialTest {
         Dial.Builder builder = new Dial.Builder();
         Dial elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
             "<genericTag>" +
@@ -260,7 +259,7 @@ public class DialTest {
         Dial.Builder builder = new Dial.Builder();
         Dial elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
             "<genericTag key=\"value\">" +
@@ -294,7 +293,7 @@ public class DialTest {
             .events(Dial.Events.CALL_PROGRESS_EVENT)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" events=\"call-progress-event\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
             elem.toXml()
         );
@@ -398,7 +397,7 @@ public class DialTest {
 
         final Dial elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Dial.Builder.fromXml("<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
                 "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
@@ -423,7 +422,7 @@ public class DialTest {
 
         final Dial elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Dial.Builder.fromXml("<Dial>" +
                 "<Client/>" +
                 "<Application/>" +

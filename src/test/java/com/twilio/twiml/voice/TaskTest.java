@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Task}
@@ -18,7 +18,7 @@ public class TaskTest {
     public void testElementWithParams() {
         Task elem = new Task.Builder("body").priority(1).timeout(1).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Task priority=\"1\" timeout=\"1\">body</Task>",
             elem.toXml()
@@ -29,7 +29,7 @@ public class TaskTest {
     public void testXmlAttributesDeserialization() {
         final Task elem = new Task.Builder("body").priority(1).timeout(1).build();
 
-        Assert.assertEquals(
+        assertEquals(
             Task.Builder.fromXml("<Task priority=\"1\" timeout=\"1\">body</Task>").build().toXml(),
             elem.toXml()
         );

@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Parameter}
@@ -19,7 +19,7 @@ public class ParameterTest {
     public void testEmptyElement() {
         Parameter elem = new Parameter.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Parameter/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class ParameterTest {
     public void testEmptyElementUrl() {
         Parameter elem = new Parameter.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CParameter%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CParameter%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         Parameter elem = new Parameter.Builder().name("name").value("value").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Parameter name=\"name\" value=\"value\"/>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class ParameterTest {
     public void testElementWithExtraAttributes() {
         Parameter elem = new Parameter.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Parameter a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -63,7 +63,7 @@ public class ParameterTest {
 
         Parameter elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Parameter>" +
             "Hey no tags!" +
@@ -83,7 +83,7 @@ public class ParameterTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Parameter>" +
             "before" +
@@ -103,7 +103,7 @@ public class ParameterTest {
         Parameter.Builder builder = new Parameter.Builder();
         Parameter elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Parameter>" +
             "<genericTag>" +
@@ -118,7 +118,7 @@ public class ParameterTest {
     public void testXmlAttributesDeserialization() {
         final Parameter elem = new Parameter.Builder().name("name").value("value").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Parameter.Builder.fromXml("<Parameter name=\"name\" value=\"value\"/>").build().toXml(),
             elem.toXml()
         );

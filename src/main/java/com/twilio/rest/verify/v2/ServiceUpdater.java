@@ -47,6 +47,9 @@ public class ServiceUpdater extends Updater<Service> {
     private String defaultTemplateSid;
     private String whatsappMsgServiceSid;
     private String whatsappFrom;
+    private String passkeysRelyingPartyId;
+    private String passkeysRelyingPartyName;
+    private String passkeysRelyingPartyOrigins;
     private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceUpdater(final String pathSid) {
@@ -161,6 +164,27 @@ public class ServiceUpdater extends Updater<Service> {
 
     public ServiceUpdater setWhatsappFrom(final String whatsappFrom) {
         this.whatsappFrom = whatsappFrom;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyId(
+        final String passkeysRelyingPartyId
+    ) {
+        this.passkeysRelyingPartyId = passkeysRelyingPartyId;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyName(
+        final String passkeysRelyingPartyName
+    ) {
+        this.passkeysRelyingPartyName = passkeysRelyingPartyName;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyOrigins(
+        final String passkeysRelyingPartyOrigins
+    ) {
+        this.passkeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
         return this;
     }
 
@@ -281,6 +305,24 @@ public class ServiceUpdater extends Updater<Service> {
         }
         if (whatsappFrom != null) {
             request.addPostParam("Whatsapp.From", whatsappFrom);
+        }
+        if (passkeysRelyingPartyId != null) {
+            request.addPostParam(
+                "Passkeys.RelyingParty.Id",
+                passkeysRelyingPartyId
+            );
+        }
+        if (passkeysRelyingPartyName != null) {
+            request.addPostParam(
+                "Passkeys.RelyingParty.Name",
+                passkeysRelyingPartyName
+            );
+        }
+        if (passkeysRelyingPartyOrigins != null) {
+            request.addPostParam(
+                "Passkeys.RelyingParty.Origins",
+                passkeysRelyingPartyOrigins
+            );
         }
         if (verifyEventSubscriptionEnabled != null) {
             request.addPostParam(

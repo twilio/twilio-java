@@ -320,6 +320,49 @@ public class Trigger extends Resource {
         );
     }
 
+    public enum Recurring {
+        DAILY("daily"),
+        MONTHLY("monthly"),
+        YEARLY("yearly"),
+        ALLTIME("alltime");
+
+        private final String value;
+
+        private Recurring(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Recurring forValue(final String value) {
+            return Promoter.enumFromString(value, Recurring.values());
+        }
+    }
+
+    public enum TriggerField {
+        COUNT("count"),
+        USAGE("usage"),
+        PRICE("price");
+
+        private final String value;
+
+        private TriggerField(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TriggerField forValue(final String value) {
+            return Promoter.enumFromString(value, TriggerField.values());
+        }
+    }
+
     public enum UsageCategory {
         A2P_10DLC_REGISTRATIONFEES_BRANDREGISTRATION(
             "a2p-10dlc-registrationfees-brandregistration"
@@ -420,6 +463,19 @@ public class Trigger extends Resource {
         ),
         CHANNELS_WHATSAPP_INBOUND("channels-whatsapp-inbound"),
         CHANNELS_WHATSAPP_OUTBOUND("channels-whatsapp-outbound"),
+        CHANNELS_WHATSAPP_SERVICE("channels-whatsapp-service"),
+        CHANNELS_WHATSAPP_TEMPLATE_AUTHENTICATION(
+            "channels-whatsapp-template-authentication"
+        ),
+        CHANNELS_WHATSAPP_TEMPLATE_MARKETING(
+            "channels-whatsapp-template-marketing"
+        ),
+        CHANNELS_WHATSAPP_TEMPLATE_SERVICE(
+            "channels-whatsapp-template-service"
+        ),
+        CHANNELS_WHATSAPP_TEMPLATE_UTILITY(
+            "channels-whatsapp-template-utility"
+        ),
         CHAT_VIRTUAL_AGENT("chat-virtual-agent"),
         CONVERSATION_RELAY("conversation-relay"),
         CONVERSATIONS("conversations"),
@@ -828,6 +884,9 @@ public class Trigger extends Resource {
         VERIFY_VOICE_SMS("verify-voice-sms"),
         VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED(
             "verify-whatsapp-conversations-business-initiated"
+        ),
+        VERIFY_WHATSAPP_TEMPLATE_BUSINESS_INITIATED(
+            "verify-whatsapp-template-business-initiated"
         ),
         VIDEO_RECORDINGS("video-recordings"),
         VIDEO_ROOMS_TURN_MEGABYTES("video-rooms-turn-megabytes"),
@@ -1242,49 +1301,6 @@ public class Trigger extends Resource {
         @JsonCreator
         public static UsageCategory forValue(final String value) {
             return Promoter.enumFromString(value, UsageCategory.values());
-        }
-    }
-
-    public enum Recurring {
-        DAILY("daily"),
-        MONTHLY("monthly"),
-        YEARLY("yearly"),
-        ALLTIME("alltime");
-
-        private final String value;
-
-        private Recurring(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Recurring forValue(final String value) {
-            return Promoter.enumFromString(value, Recurring.values());
-        }
-    }
-
-    public enum TriggerField {
-        COUNT("count"),
-        USAGE("usage"),
-        PRICE("price");
-
-        private final String value;
-
-        private TriggerField(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TriggerField forValue(final String value) {
-            return Promoter.enumFromString(value, TriggerField.values());
         }
     }
 }

@@ -50,6 +50,9 @@ public class ServiceUpdater extends Updater<Service> {
     private String passkeysRelyingPartyId;
     private String passkeysRelyingPartyName;
     private String passkeysRelyingPartyOrigins;
+    private String passkeysAuthenticatorAttachment;
+    private String passkeysDiscoverableCredentials;
+    private String passkeysUserVerification;
     private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceUpdater(final String pathSid) {
@@ -188,6 +191,27 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setPasskeysAuthenticatorAttachment(
+        final String passkeysAuthenticatorAttachment
+    ) {
+        this.passkeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysDiscoverableCredentials(
+        final String passkeysDiscoverableCredentials
+    ) {
+        this.passkeysDiscoverableCredentials = passkeysDiscoverableCredentials;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysUserVerification(
+        final String passkeysUserVerification
+    ) {
+        this.passkeysUserVerification = passkeysUserVerification;
+        return this;
+    }
+
     public ServiceUpdater setVerifyEventSubscriptionEnabled(
         final Boolean verifyEventSubscriptionEnabled
     ) {
@@ -322,6 +346,24 @@ public class ServiceUpdater extends Updater<Service> {
             request.addPostParam(
                 "Passkeys.RelyingParty.Origins",
                 passkeysRelyingPartyOrigins
+            );
+        }
+        if (passkeysAuthenticatorAttachment != null) {
+            request.addPostParam(
+                "Passkeys.AuthenticatorAttachment",
+                passkeysAuthenticatorAttachment
+            );
+        }
+        if (passkeysDiscoverableCredentials != null) {
+            request.addPostParam(
+                "Passkeys.DiscoverableCredentials",
+                passkeysDiscoverableCredentials
+            );
+        }
+        if (passkeysUserVerification != null) {
+            request.addPostParam(
+                "Passkeys.UserVerification",
+                passkeysUserVerification
             );
         }
         if (verifyEventSubscriptionEnabled != null) {

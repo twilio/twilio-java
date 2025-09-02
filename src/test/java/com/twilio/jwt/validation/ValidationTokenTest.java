@@ -69,7 +69,7 @@ public class ValidationTokenTest {
 
     @Before
     public void setup() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         headers = new Header[2];
         headers[0] = new BasicHeader("host", "api.twilio.com");
         headers[1] = new BasicHeader("authorization", "foobar");
@@ -152,6 +152,7 @@ public class ValidationTokenTest {
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
         when(request.getHeaders()).thenReturn(headers);
+        when(request.getRequestUri()).thenReturn("/Messages?PageSize=5&Limit=10");
 
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
@@ -159,7 +160,7 @@ public class ValidationTokenTest {
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("712fbbec9dcb4fe58ed8caecf925d2fe10889f5d3f4b48e748157a4a1113697d", claims.get("rqh"));
+        Assert.assertEquals("96d94b3c5b14c8f0e04a708332006c68c5b0c2c6cc25db5d0fb3d017cdf7f4ff", claims.get("rqh"));
     }
 
     @Test
@@ -170,13 +171,14 @@ public class ValidationTokenTest {
         when(entity.getContent()).thenReturn( new ByteArrayInputStream("testbody".getBytes(StandardCharsets.UTF_8)));
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages");
+        when(requestWithEntity.getRequestUri()).thenReturn("/Messages?PageSize=5&Limit=10");
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims = getClaimFromJwtToken(jwt);
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
+        Assert.assertEquals("9871e786e0c77406cc78090b694593c3479a9215890c42981b4f8d5923d9511b", claims.get("rqh"));
     }
 
     @Test
@@ -186,6 +188,7 @@ public class ValidationTokenTest {
         when(requestLine.getMethod()).thenReturn("GET");
         when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
         when(request.getHeaders()).thenReturn(headers);
+        when(request.getRequestUri()).thenReturn("/Messages?PageSize=5&Limit=10");
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims = getClaimFromJwtToken(jwt);
@@ -193,7 +196,7 @@ public class ValidationTokenTest {
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
-        Assert.assertEquals("4b3d2666845a38f00259a5231a08765bb2d12564bc4469fd5b2816204c588967", claims.get("rqh"));
+        Assert.assertEquals("96d94b3c5b14c8f0e04a708332006c68c5b0c2c6cc25db5d0fb3d017cdf7f4ff", claims.get("rqh"));
     }
 
     @Test

@@ -19,6 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
+import com.twilio.exception.ApiException;
+
 public class ValidationClientTest {
     @Test
     public void testHttpGet() throws Exception {
@@ -175,5 +179,30 @@ public class ValidationClientTest {
         // Verify response
         assertEquals(200, response.getStatusCode());
         assertEquals("success", response.getContent());
+    }
+
+    @Test(expected = ApiException.class)
+    public void testIOExceptionHandling() throws Exception {
+        // Set up a key pair for validation
+        final KeyPair keyPair = generateKeyPair();
+        
+        // Create a server that will immediately close the connection
+        final MockWebServer server = new MockWebServer();
+        
+        // Force the server to shut down before making the request
+        server.shutdown();
+        
+        // Create a request to the closed server which will cause IOException
+        final HttpUrl url = server.url("/resource");
+        final ValidationClient client = new ValidationClient(
+            "AC123456789",
+            "CR987654321",
+            "signing-key-123",
+            keyPair.getPrivate()
+        );
+        final Request request = new Request(HttpMethod.GET, url.url().toString());
+        
+        // This should throw an ApiException wrapping the IOException
+        client.makeRequest(request);
     }
 }

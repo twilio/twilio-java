@@ -265,6 +265,65 @@ public class NetworkHttpClientTest {
         // Verify
         assertEquals(201, response.getStatusCode());
         assertEquals("success", response.getContent());
+    }
+
+    @Test
+    public void testPutMethod() throws IOException {
+        // Mock setup for PUT request
+        setup(200, "updated", HttpMethod.PUT, false);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(200, response.getStatusCode());
+        assertEquals("updated", response.getContent());
+    }
+
+    @Test
+    public void testPutMethodWithBody() throws IOException {
+        // Mock setup for PUT request with a JSON body
+        setup(200, "updated", HttpMethod.PUT, false);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.JSON);
+        String jsonBody = "{\"name\":\"New Name\",\"active\":true}";
+        when(mockRequest.getBody()).thenReturn(jsonBody);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(200, response.getStatusCode());
+        assertEquals("updated", response.getContent());
+
+    }
+
+    @Test
+    public void testPatchMethod() throws IOException {
+        // Mock setup for PATCH request
+        setup(200, "patched", HttpMethod.PATCH, false);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(200, response.getStatusCode());
+        assertEquals("patched", response.getContent());
+    }
+
+    @Test
+    public void testPatchMethodWithBody() throws IOException {
+        // Mock setup for PATCH request with a JSON body
+        setup(200, "patched", HttpMethod.PATCH, false);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.JSON);
+        String jsonBody = "{\"status\":\"active\"}";
+        when(mockRequest.getBody()).thenReturn(jsonBody);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(200, response.getStatusCode());
+        assertEquals("patched", response.getContent());
 
     }
 }

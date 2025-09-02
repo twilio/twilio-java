@@ -1,10 +1,14 @@
 package com.twilio.http;
 
 import com.twilio.constant.EnumConstants;
+import com.twilio.exception.ApiException;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.URL;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
 
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
@@ -14,6 +18,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class ValidationClientTest {
     @Test
@@ -30,6 +35,17 @@ public class ValidationClientTest {
     @Test
     public void testHttpPut() throws Exception {
         exerciseHttpMethod(HttpMethod.PUT);
+    }
+
+    @Test
+    public void testHttpPatch() throws Exception {
+        exerciseHttpMethod(HttpMethod.PATCH);
+        testContentType(HttpMethod.PATCH);
+    }
+
+    @Test
+    public void testHttpDelete() throws Exception {
+        exerciseHttpMethod(HttpMethod.DELETE);
     }
 
     private void exerciseHttpMethod(final HttpMethod httpMethod) throws Exception {

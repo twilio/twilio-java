@@ -24,7 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -311,7 +314,7 @@ public class NetworkHttpClientTest {
     }
 
     @Test
-    public void testPatchMethodWithBody() throws IOException {
+    public void testPatchMethodWithJsonBody() throws IOException {
         // Mock setup for PATCH request with a JSON body
         setup(200, "patched", HttpMethod.PATCH, false);
         when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.JSON);
@@ -324,6 +327,28 @@ public class NetworkHttpClientTest {
         // Verify
         assertEquals(200, response.getStatusCode());
         assertEquals("patched", response.getContent());
+    }
+
+
+    @Test
+    public void testFormUrlEncodedMultipleParameters() throws IOException {
+        // Mock setup
+        setup(201, "created", HttpMethod.POST, false);
+
+        // Set up multiple parameters
+        Map<String, List<String>> postParams = new HashMap<>();
+        postParams.put("name", Arrays.asList("John Doe"));
+        postParams.put("email", Arrays.asList("john@example.com"));
+        postParams.put("age", Arrays.asList("30"));
+        postParams.put("tags", Arrays.asList("customer", "premium"));
+        when(mockRequest.getPostParams()).thenReturn(postParams);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify response
+        assertEquals(201, response.getStatusCode());
+        assertEquals("created", response.getContent());
 
     }
 }

@@ -2,26 +2,38 @@ package com.twilio.http;
 
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.http.IRequest.FormParmeters;
+import com.twilio.http.IRequest.FormParmeters.Type;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class NetworkHttpClientTest {
+
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private NetworkHttpClient client;
 
@@ -42,6 +54,9 @@ public class NetworkHttpClientTest {
 
     @Mock
     private HttpEntity mockEntity;
+
+    @Mock
+    private MultipartEntityBuilder mockMultipartEntityBuilder;
 
     @Before
     public void setUp() {
@@ -176,5 +191,80 @@ public class NetworkHttpClientTest {
 
         assertEquals(resp.getStatusCode(), 404);
         assertEquals(resp.getContent(), "womp");
+    }
+
+    @Test
+    public void testMultipartFormDataWithTextOnly() throws IOException {
+        // Mock setup
+        setup(201, "success", HttpMethod.POST, false);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
+
+        // Create test form parameters
+        List<FormParmeters> formParameters = new ArrayList<>();
+        formParameters.add(new FormParmeters("name", Type.TEXT, "John Doe"));
+        formParameters.add(new FormParmeters("email", Type.TEXT, "john@example.com"));
+        when(mockRequest.getFormParameters()).thenReturn(formParameters);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(201, response.getStatusCode());
+        assertEquals("success", response.getContent());
+
+    }
+
+    @Test
+    public void testMultipartFormDataWithFile() throws IOException {
+        // Create a temporary file for testing
+        File testFile = temporaryFolder.newFile("test.jpg");
+        try (FileWriter writer = new FileWriter(testFile)) {
+            writer.write("test image data");
+        }
+
+        // Mock setup
+        setup(201, "success", HttpMethod.POST, false);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
+
+        // Create test form parameters
+        List<FormParmeters> formParameters = new ArrayList<>();
+        formParameters.add(new FormParmeters("file", Type.FILE, testFile.getAbsolutePath()));
+        when(mockRequest.getFormParameters()).thenReturn(formParameters);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(201, response.getStatusCode());
+        assertEquals("success", response.getContent());
+    }
+
+    @Test
+    public void testMultipartFormDataWithMixedContent() throws IOException {
+        // Create a temporary file for testing
+        File testFile = temporaryFolder.newFile("test.pdf");
+        try (FileWriter writer = new FileWriter(testFile)) {
+            writer.write("test pdf data");
+        }
+
+        // Mock setup
+        setup(201, "success", HttpMethod.POST, false);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
+
+        // Create test form parameters with both text and file
+        List<FormParmeters> formParameters = new ArrayList<>();
+        formParameters.add(new FormParmeters("name", Type.TEXT, "John Doe"));
+        formParameters.add(new FormParmeters("file", Type.FILE, testFile.getAbsolutePath()));
+        when(mockRequest.getFormParameters()).thenReturn(formParameters);
+        when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify
+        assertEquals(201, response.getStatusCode());
+        assertEquals("success", response.getContent());
+
     }
 }

@@ -1,14 +1,14 @@
 package com.twilio.http;
 
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.net.URL;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
 
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
@@ -18,7 +18,6 @@ import okhttp3.mockwebserver.RecordedRequest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class ValidationClientTest {
     @Test
@@ -47,6 +46,7 @@ public class ValidationClientTest {
     public void testHttpDelete() throws Exception {
         exerciseHttpMethod(HttpMethod.DELETE);
     }
+
 
     private void exerciseHttpMethod(final HttpMethod httpMethod) throws Exception {
         final KeyPair keyPair = generateKeyPair();
@@ -93,5 +93,87 @@ public class ValidationClientTest {
         final KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048);
         return keyPairGenerator.generateKeyPair();
+    }
+
+    @Test
+    public void testFormUrlEncodedMultipleParameters() throws Exception {
+        // Set up the test environment
+        final KeyPair keyPair = generateKeyPair();
+        final MockWebServer server = new MockWebServer();
+        server.enqueue(new MockResponse().setBody("success"));
+
+        final String path = "/resource";
+        final HttpUrl url = server.url(path);
+        final ValidationClient client = new ValidationClient(
+            "AC123456789",
+            "CR987654321",
+            "signing-key-123",
+            keyPair.getPrivate()
+        );
+
+        // Create the request with form parameters
+        final Request request = new Request(HttpMethod.POST, url.url().toString());
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
+        // Add multiple form parameters, including one with multiple values
+        Map<String, List<String>> postParams = new HashMap<>();
+        postParams.put("name", Arrays.asList("John Doe"));
+        postParams.put("email", Arrays.asList("john.doe@example.com"));
+        postParams.put("phone", Arrays.asList("+12125551234"));
+        postParams.put("tags", Arrays.asList("customer", "premium", "enterprise"));  // Multiple values
+        postParams.put("status", Arrays.asList("active"));
+
+        // Add the parameters to the request
+        for (Map.Entry<String, List<String>> entry : postParams.entrySet()) {
+            for (String value : entry.getValue()) {
+                request.addPostParam(entry.getKey(), value);
+            }
+        }
+
+        // Make the request
+        final Response response = client.makeRequest(request);
+
+        // Verify response
+        assertEquals(200, response.getStatusCode());
+        assertEquals("success", response.getContent());
+    }
+
+    @Test
+    public void testRequestWithMultipleHeaders() throws Exception {
+        // Set up the test environment
+        final KeyPair keyPair = generateKeyPair();
+        final MockWebServer server = new MockWebServer();
+        server.enqueue(new MockResponse().setBody("success"));
+
+        final String path = "/resource";
+        final HttpUrl url = server.url(path);
+        final ValidationClient client = new ValidationClient(
+            "AC123456789",
+            "CR987654321",
+            "signing-key-123",
+            keyPair.getPrivate()
+        );
+
+        // Create the request with custom headers
+        final Request request = new Request(HttpMethod.GET, url.url().toString());
+
+        // Add multiple custom headers
+        request.addHeaderParam("X-Custom-Header", "CustomValue");
+        request.addHeaderParam("Accept-Language", "en-US");
+        request.addHeaderParam("Cache-Control", "no-cache");
+
+        // Add a header with multiple values
+        request.addHeaderParam("Accept", "application/json");
+        request.addHeaderParam("Accept", "application/xml");
+
+        // Add header with special characters
+        request.addHeaderParam("X-Special-Chars", "value with spaces, commas; and special chars");
+
+        // Make the request
+        final Response response = client.makeRequest(request);
+
+        // Verify response
+        assertEquals(200, response.getStatusCode());
+        assertEquals("success", response.getContent());
     }
 }

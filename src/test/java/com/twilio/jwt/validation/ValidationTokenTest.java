@@ -6,6 +6,7 @@ import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
@@ -60,8 +61,8 @@ public class ValidationTokenTest {
     @Mock
     private RequestLine requestLine;
 
-//    @Mock
-//    private HttpEntityEnclosingRequest requestWithEntity;
+    @Mock
+    private HttpPost requestWithEntity;
 
     @Mock
     private HttpEntity entity;
@@ -148,10 +149,9 @@ public class ValidationTokenTest {
 
     @Test
     public void testTokenFromHttpRequest() throws IOException {
-//        when(request.getRequestLine()).thenReturn(requestLine);
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
-//        when(request.getAllHeaders()).thenReturn(headers);
+        when(request.getHeaders()).thenReturn(headers);
 
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
@@ -165,29 +165,27 @@ public class ValidationTokenTest {
     @Test
     public void testTokenFromEntityRequest() throws IOException {
 
-//        when(requestWithEntity.getRequestLine()).thenReturn(requestLine);
-//        when(requestWithEntity.getAllHeaders()).thenReturn(headers);
-//        when(requestWithEntity.getEntity()).thenReturn(entity);
+        when(requestWithEntity.getHeaders()).thenReturn(headers);
+        when(requestWithEntity.getEntity()).thenReturn(entity);
         when(entity.getContent()).thenReturn( new ByteArrayInputStream("testbody".getBytes(StandardCharsets.UTF_8)));
         when(requestLine.getMethod()).thenReturn("POST");
         when(requestLine.getUri()).thenReturn("/Messages");
 
-//        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
-//        Claims claims = getClaimFromJwtToken(jwt);
+        Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
+        Claims claims = getClaimFromJwtToken(jwt);
 
-//        this.validateToken(claims);
-//        Assert.assertEquals("authorization;host", claims.get("hrh"));
-//        Assert.assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
+        this.validateToken(claims);
+        Assert.assertEquals("authorization;host", claims.get("hrh"));
+        Assert.assertEquals("bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a", claims.get("rqh"));
     }
 
     @Test
     public void testTokenFromHttpRequestWithHostPort() throws IOException {
         headers[0] = new BasicHeader("host", "api.twilio.com:443");
 
-//        when(request.getRequestLine()).thenReturn(requestLine);
         when(requestLine.getMethod()).thenReturn("GET");
         when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
-//        when(request.getAllHeaders()).thenReturn(headers);
+        when(request.getHeaders()).thenReturn(headers);
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims = getClaimFromJwtToken(jwt);

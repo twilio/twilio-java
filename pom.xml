@@ -181,13 +181,13 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
+      <version>1.18.24</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.11</version>
+      <version>1.15</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -335,11 +335,11 @@
       <artifactId>gson</artifactId>
       <version>2.10.1</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
     <dependency>
-      <groupId>org.glassfish.jersey.media</groupId>
-      <artifactId>jersey-media-multipart</artifactId>
-      <version>3.1.10</version>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-inline</artifactId>
+      <version>5.2.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
@@ -438,6 +438,13 @@
           <formats>
             <format>xml</format>
           </formats>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
         </configuration>
       </plugin>
       <plugin>

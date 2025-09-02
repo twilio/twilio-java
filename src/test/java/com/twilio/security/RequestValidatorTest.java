@@ -2,7 +2,6 @@ package com.twilio.security;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.net.URISyntaxException;
@@ -43,7 +42,6 @@ public class RequestValidatorTest {
     }
 
     @Test
-    @Ignore
     public void testValidateBody() {
         boolean isValid = validator.validateBody(body, bodyHash);
 

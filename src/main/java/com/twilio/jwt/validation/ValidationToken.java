@@ -13,6 +13,7 @@ import java.util.function.Function;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
 
 import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
@@ -153,10 +154,10 @@ public class ValidationToken extends Jwt {
          *
          * @see org.apache.http.client.methods.RequestBuilder#build
          */
-//        if (request instanceof HttpEntityEnclosingRequest) {
-//            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
-//            builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
-//        }
+        if (request instanceof HttpPost) {
+            HttpEntity entity = ((HttpPost) request).getEntity();
+            builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
+        }
 
         return builder.build();
     }

@@ -349,6 +349,29 @@ public class NetworkHttpClientTest {
         // Verify response
         assertEquals(201, response.getStatusCode());
         assertEquals("created", response.getContent());
+    }
+
+    @Test
+    public void testRequestWithMultipleHeaders() throws IOException {
+        // Mock setup for POST request
+        setup(201, "created", HttpMethod.POST, false);
+
+        // Set up multiple header parameters
+        Map<String, List<String>> headerParams = new HashMap<>();
+        headerParams.put("X-Custom-Header", Arrays.asList("CustomValue"));
+        headerParams.put("Accept-Language", Arrays.asList("en-US"));
+        headerParams.put("Cache-Control", Arrays.asList("no-cache"));
+        headerParams.put("X-Request-ID", Arrays.asList("abc123"));
+        when(mockRequest.getHeaderParams()).thenReturn(headerParams);
+
+
+        // Make the request
+        Response response = client.makeRequest(mockRequest);
+
+        // Verify response
+        assertEquals(201, response.getStatusCode());
+        assertEquals("created", response.getContent());
 
     }
+
 }

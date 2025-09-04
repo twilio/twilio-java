@@ -262,7 +262,8 @@ public class Factor extends Resource {
 
     public enum FactorTypes {
         PUSH("push"),
-        TOTP("totp");
+        TOTP("totp"),
+        PASSKEYS("passkeys");
 
         private final String value;
 

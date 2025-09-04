@@ -27,6 +27,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 import lombok.ToString;
 import lombok.ToString;
@@ -35,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class GetApiKeys extends Resource {
 
-    private static final long serialVersionUID = 35259719636912L;
+    private static final long serialVersionUID = 72145637372666L;
 
     public static GetApiKeysReader reader(final String accountSid) {
         return new GetApiKeysReader(accountSid);
@@ -88,18 +89,21 @@ public class GetApiKeys extends Resource {
     private final String friendlyName;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final List<String> flags;
 
     @JsonCreator
     private GetApiKeys(
         @JsonProperty("sid") final String sid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("flags") final List<String> flags
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.flags = flags;
     }
 
     public final String getSid() {
@@ -118,6 +122,10 @@ public class GetApiKeys extends Resource {
         return this.dateUpdated;
     }
 
+    public final List<String> getFlags() {
+        return this.flags;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -134,12 +142,13 @@ public class GetApiKeys extends Resource {
             Objects.equals(sid, other.sid) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(flags, other.flags)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, dateCreated, dateUpdated);
+        return Objects.hash(sid, friendlyName, dateCreated, dateUpdated, flags);
     }
 }

@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class Step extends Resource {
 
-    private static final long serialVersionUID = 84557375462184L;
+    private static final long serialVersionUID = 119488428044573L;
 
     public static StepFetcher fetcher(
         final String pathFlowSid,
@@ -107,6 +107,7 @@ public class Step extends Resource {
     private final String parentStepSid;
     private final String transitionedFrom;
     private final String transitionedTo;
+    private final String type;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -123,6 +124,7 @@ public class Step extends Resource {
         @JsonProperty("parent_step_sid") final String parentStepSid,
         @JsonProperty("transitioned_from") final String transitionedFrom,
         @JsonProperty("transitioned_to") final String transitionedTo,
+        @JsonProperty("type") final String type,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -137,6 +139,7 @@ public class Step extends Resource {
         this.parentStepSid = parentStepSid;
         this.transitionedFrom = transitionedFrom;
         this.transitionedTo = transitionedTo;
+        this.type = type;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -179,6 +182,10 @@ public class Step extends Resource {
         return this.transitionedTo;
     }
 
+    public final String getType() {
+        return this.type;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
@@ -217,6 +224,7 @@ public class Step extends Resource {
             Objects.equals(parentStepSid, other.parentStepSid) &&
             Objects.equals(transitionedFrom, other.transitionedFrom) &&
             Objects.equals(transitionedTo, other.transitionedTo) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(url, other.url) &&
@@ -236,6 +244,7 @@ public class Step extends Resource {
             parentStepSid,
             transitionedFrom,
             transitionedTo,
+            type,
             dateCreated,
             dateUpdated,
             url,

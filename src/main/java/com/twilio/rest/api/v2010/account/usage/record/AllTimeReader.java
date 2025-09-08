@@ -32,7 +32,7 @@ import java.time.LocalDate;
 public class AllTimeReader extends Reader<AllTime> {
 
     private String pathAccountSid;
-    private AllTime.Category category;
+    private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -44,7 +44,7 @@ public class AllTimeReader extends Reader<AllTime> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AllTimeReader setCategory(final AllTime.Category category) {
+    public AllTimeReader setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -168,7 +168,7 @@ public class AllTimeReader extends Reader<AllTime> {
 
     private void addQueryParams(final Request request) {
         if (category != null) {
-            request.addQueryParam("Category", category.toString());
+            request.addQueryParam("Category", category);
         }
         if (startDate != null) {
             request.addQueryParam(

@@ -32,7 +32,7 @@ public class TriggerReader extends Reader<Trigger> {
     private String pathAccountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
-    private Trigger.UsageCategory usageCategory;
+    private String usageCategory;
     private Long pageSize;
 
     public TriggerReader() {}
@@ -51,9 +51,7 @@ public class TriggerReader extends Reader<Trigger> {
         return this;
     }
 
-    public TriggerReader setUsageCategory(
-        final Trigger.UsageCategory usageCategory
-    ) {
+    public TriggerReader setUsageCategory(final String usageCategory) {
         this.usageCategory = usageCategory;
         return this;
     }
@@ -165,7 +163,7 @@ public class TriggerReader extends Reader<Trigger> {
             request.addQueryParam("TriggerBy", triggerBy.toString());
         }
         if (usageCategory != null) {
-            request.addQueryParam("UsageCategory", usageCategory.toString());
+            request.addQueryParam("UsageCategory", usageCategory);
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

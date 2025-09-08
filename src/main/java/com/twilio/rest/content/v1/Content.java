@@ -345,6 +345,12 @@ public class Content extends Resource {
         @Setter
         private String code;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("webview_size")
+        @Getter
+        @Setter
+        private WebviewSizeType webviewSize;
+
         public static CardAction fromJson(
             String jsonString,
             ObjectMapper mapper
@@ -1151,6 +1157,28 @@ public class Content extends Resource {
                 value,
                 QuickReplyActionType.values()
             );
+        }
+    }
+
+    public enum WebviewSizeType {
+        TALL("TALL"),
+        FULL("FULL"),
+        HALF("HALF"),
+        NONE("NONE");
+
+        private final String value;
+
+        private WebviewSizeType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebviewSizeType forValue(final String value) {
+            return Promoter.enumFromString(value, WebviewSizeType.values());
         }
     }
 

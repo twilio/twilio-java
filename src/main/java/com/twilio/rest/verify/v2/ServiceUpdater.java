@@ -47,6 +47,12 @@ public class ServiceUpdater extends Updater<Service> {
     private String defaultTemplateSid;
     private String whatsappMsgServiceSid;
     private String whatsappFrom;
+    private String passkeysRelyingPartyId;
+    private String passkeysRelyingPartyName;
+    private String passkeysRelyingPartyOrigins;
+    private String passkeysAuthenticatorAttachment;
+    private String passkeysDiscoverableCredentials;
+    private String passkeysUserVerification;
     private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceUpdater(final String pathSid) {
@@ -161,6 +167,48 @@ public class ServiceUpdater extends Updater<Service> {
 
     public ServiceUpdater setWhatsappFrom(final String whatsappFrom) {
         this.whatsappFrom = whatsappFrom;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyId(
+        final String passkeysRelyingPartyId
+    ) {
+        this.passkeysRelyingPartyId = passkeysRelyingPartyId;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyName(
+        final String passkeysRelyingPartyName
+    ) {
+        this.passkeysRelyingPartyName = passkeysRelyingPartyName;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysRelyingPartyOrigins(
+        final String passkeysRelyingPartyOrigins
+    ) {
+        this.passkeysRelyingPartyOrigins = passkeysRelyingPartyOrigins;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysAuthenticatorAttachment(
+        final String passkeysAuthenticatorAttachment
+    ) {
+        this.passkeysAuthenticatorAttachment = passkeysAuthenticatorAttachment;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysDiscoverableCredentials(
+        final String passkeysDiscoverableCredentials
+    ) {
+        this.passkeysDiscoverableCredentials = passkeysDiscoverableCredentials;
+        return this;
+    }
+
+    public ServiceUpdater setPasskeysUserVerification(
+        final String passkeysUserVerification
+    ) {
+        this.passkeysUserVerification = passkeysUserVerification;
         return this;
     }
 
@@ -281,6 +329,42 @@ public class ServiceUpdater extends Updater<Service> {
         }
         if (whatsappFrom != null) {
             request.addPostParam("Whatsapp.From", whatsappFrom);
+        }
+        if (passkeysRelyingPartyId != null) {
+            request.addPostParam(
+                "Passkeys.RelyingParty.Id",
+                passkeysRelyingPartyId
+            );
+        }
+        if (passkeysRelyingPartyName != null) {
+            request.addPostParam(
+                "Passkeys.RelyingParty.Name",
+                passkeysRelyingPartyName
+            );
+        }
+        if (passkeysRelyingPartyOrigins != null) {
+            request.addPostParam(
+                "Passkeys.RelyingParty.Origins",
+                passkeysRelyingPartyOrigins
+            );
+        }
+        if (passkeysAuthenticatorAttachment != null) {
+            request.addPostParam(
+                "Passkeys.AuthenticatorAttachment",
+                passkeysAuthenticatorAttachment
+            );
+        }
+        if (passkeysDiscoverableCredentials != null) {
+            request.addPostParam(
+                "Passkeys.DiscoverableCredentials",
+                passkeysDiscoverableCredentials
+            );
+        }
+        if (passkeysUserVerification != null) {
+            request.addPostParam(
+                "Passkeys.UserVerification",
+                passkeysUserVerification
+            );
         }
         if (verifyEventSubscriptionEnabled != null) {
             request.addPostParam(

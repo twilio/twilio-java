@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.twilio.http.IRequest.FormParameters;
 import com.twilio.http.IRequest.FormParameters.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +18,10 @@ public class IRequestTest {
         IRequest request = new IRequest(HttpMethod.POST, "http://example.com");
         request.addFormParameter("name", Type.TEXT, "John Doe");
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertEquals(1, params.size());
 
-        FormParmeters param = params.get(0);
+        FormParameters param = params.get(0);
         assertEquals("name", param.getName());
         assertEquals(Type.TEXT, param.getType());
         assertEquals("John Doe", param.getValue());
@@ -32,10 +33,10 @@ public class IRequestTest {
         String filePath = "/path/to/file.jpg";
         request.addFormParameter("file", Type.FILE, filePath);
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertEquals(1, params.size());
 
-        FormParmeters param = params.get(0);
+        FormParameters param = params.get(0);
         assertEquals("file", param.getName());
         assertEquals(Type.FILE, param.getType());
         assertEquals(filePath, param.getValue());
@@ -48,7 +49,7 @@ public class IRequestTest {
         request.addFormParameter("email", Type.TEXT, "john@example.com");
         request.addFormParameter("file", Type.FILE, "/path/to/file.jpg");
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertEquals(3, params.size());
 
         // Verify parameters were added in the correct order
@@ -61,13 +62,13 @@ public class IRequestTest {
     public void testSetFormParameters() {
         IRequest request = new IRequest(HttpMethod.POST, "http://example.com");
 
-        List<FormParmeters> paramsList = new ArrayList<>();
-        paramsList.add(new FormParmeters("name", Type.TEXT, "John Doe"));
-        paramsList.add(new FormParmeters("file", Type.FILE, "/path/to/file.jpg"));
+        List<FormParameters> paramsList = new ArrayList<>();
+        paramsList.add(new FormParameters("name", Type.TEXT, "John Doe"));
+        paramsList.add(new FormParameters("file", Type.FILE, "/path/to/file.jpg"));
 
         request.setFormParameters(paramsList);
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertEquals(2, params.size());
 
         assertEquals("name", params.get(0).getName());
@@ -84,12 +85,12 @@ public class IRequestTest {
         IRequest request = new IRequest(HttpMethod.POST, "http://example.com");
         request.addFormParameter("existing", Type.TEXT, "Existing Value");
 
-        List<FormParmeters> additionalParams = new ArrayList<>();
-        additionalParams.add(new FormParmeters("new", Type.TEXT, "New Value"));
+        List<FormParameters> additionalParams = new ArrayList<>();
+        additionalParams.add(new FormParameters("new", Type.TEXT, "New Value"));
 
         request.setFormParameters(additionalParams);
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertEquals(2, params.size());
 
         assertEquals("existing", params.get(0).getName());
@@ -112,7 +113,7 @@ public class IRequestTest {
     public void testFormParametersInitializedInConstructor() {
         IRequest request = new IRequest(HttpMethod.POST, "http://example.com");
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertNotNull("FormParameters should be initialized", params);
         assertTrue("FormParameters should be empty initially", params.isEmpty());
     }
@@ -121,7 +122,7 @@ public class IRequestTest {
     public void testFormParametersDomainConstructor() {
         IRequest request = new IRequest(HttpMethod.POST, "api", "/v1/resource");
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertNotNull("FormParameters should be initialized", params);
         assertTrue("FormParameters should be empty initially", params.isEmpty());
     }
@@ -130,7 +131,7 @@ public class IRequestTest {
     public void testFormParametersRegionConstructor() {
         IRequest request = new IRequest(HttpMethod.POST, "api", "/v1/resource", "us1");
 
-        List<FormParmeters> params = request.getFormParameters();
+        List<FormParameters> params = request.getFormParameters();
         assertNotNull("FormParameters should be initialized", params);
         assertTrue("FormParameters should be empty initially", params.isEmpty());
     }

@@ -4,8 +4,8 @@ import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 
-import com.twilio.http.IRequest.FormParmeters;
-import com.twilio.http.IRequest.FormParmeters.Type;
+import com.twilio.http.IRequest.FormParameters;
+import com.twilio.http.IRequest.FormParameters.Type;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -165,13 +165,13 @@ public class NetworkHttpClient extends HttpClient {
             } else if (EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue().equals(request.getContentType().getValue())) {
 
                 MultipartEntityBuilder httpEntityBuilder = MultipartEntityBuilder.create();
-                for( FormParmeters formParmeter: request.getFormParameters()) {
+                for( FormParameters formParameter: request.getFormParameters()) {
                     // Create a file to upload.
-                    if ( formParmeter.getType().equals(Type.TEXT) )
-                        httpEntityBuilder.addTextBody(formParmeter.getName(), formParmeter.getValue().toString());
-                    else if ( formParmeter.getType().equals(Type.FILE) )
+                    if ( formParameter.getType().equals(Type.TEXT) )
+                        httpEntityBuilder.addTextBody(formParameter.getName(), formParameter.getValue().toString());
+                    else if ( formParameter.getType().equals(Type.FILE) )
                     {
-                        Path path = Paths.get(formParmeter.getValue().toString());
+                        Path path = Paths.get(formParameter.getValue().toString());
                         byte[] fileBytes = null;
                         try{
                             fileBytes = Files.readAllBytes(path);
@@ -181,7 +181,7 @@ public class NetworkHttpClient extends HttpClient {
                         }
                         String fileName = path.getFileName().toString();
                         ContentType contentType = getContentType(path);
-                        httpEntityBuilder.addBinaryBody(formParmeter.getName(), fileBytes, contentType, fileName);
+                        httpEntityBuilder.addBinaryBody(formParameter.getName(), fileBytes, contentType, fileName);
                     }
                 }
                 httpUriRequestBase.setEntity(httpEntityBuilder.build());

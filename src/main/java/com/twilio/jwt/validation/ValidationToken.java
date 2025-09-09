@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.*;
 import java.util.function.Function;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpRequest;
@@ -154,8 +155,8 @@ public class ValidationToken extends Jwt {
          *
          * @see org.apache.http.client.methods.RequestBuilder#build
          */
-        if (request instanceof HttpPost) {
-            HttpEntity entity = ((HttpPost) request).getEntity();
+        if (request instanceof HttpUriRequestBase) {
+            HttpEntity entity = ((HttpUriRequestBase) request).getEntity();
             builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
         }
 

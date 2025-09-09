@@ -830,49 +830,6 @@ public class ChannelsSender extends Resource {
         );
     }
 
-    public enum VerificationMethodEnum {
-        SMS("sms"),
-        VOICE("voice");
-
-        private final String value;
-
-        private VerificationMethodEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VerificationMethodEnum forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                VerificationMethodEnum.values()
-            );
-        }
-    }
-
-    public enum FallbackMethodEnum {
-        POST("POST"),
-        PUT("PUT");
-
-        private final String value;
-
-        private FallbackMethodEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FallbackMethodEnum forValue(final String value) {
-            return Promoter.enumFromString(value, FallbackMethodEnum.values());
-        }
-    }
-
     public enum MessagingV2RcsCountryStatus {
         ONLINE("ONLINE"),
         OFFLINE("OFFLINE"),
@@ -942,6 +899,49 @@ public class ChannelsSender extends Resource {
         @JsonCreator
         public static CallbackMethodEnum forValue(final String value) {
             return Promoter.enumFromString(value, CallbackMethodEnum.values());
+        }
+    }
+
+    public enum FallbackMethodEnum {
+        POST("POST"),
+        PUT("PUT");
+
+        private final String value;
+
+        private FallbackMethodEnum(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FallbackMethodEnum forValue(final String value) {
+            return Promoter.enumFromString(value, FallbackMethodEnum.values());
+        }
+    }
+
+    public enum VerificationMethodEnum {
+        SMS("sms"),
+        VOICE("voice");
+
+        private final String value;
+
+        private VerificationMethodEnum(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VerificationMethodEnum forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                VerificationMethodEnum.values()
+            );
         }
     }
 

@@ -32,7 +32,7 @@ import java.time.LocalDate;
 public class ThisMonthReader extends Reader<ThisMonth> {
 
     private String pathAccountSid;
-    private ThisMonth.Category category;
+    private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -44,7 +44,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public ThisMonthReader setCategory(final ThisMonth.Category category) {
+    public ThisMonthReader setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -168,7 +168,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
 
     private void addQueryParams(final Request request) {
         if (category != null) {
-            request.addQueryParam("Category", category.toString());
+            request.addQueryParam("Category", category);
         }
         if (startDate != null) {
             request.addQueryParam(

@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2025-09-04] Version 11.0.0-rc.6
+--------------------------------
+**Api**
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+
+
 [2025-08-28] Version 11.0.0-rc.5
 --------------------------------
 **Studio**

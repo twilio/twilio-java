@@ -55,6 +55,10 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private Boolean brandedEnabled;
     private Boolean voiceIntegrityEnabled;
     private String brandedBundleSid;
+    private Boolean brandedLogo;
+    private String brandedType;
+    private String brandedUseCase;
+    private String brandedCallReason;
     private String voiceIntegrityBundleSid;
     private String voiceIntegrityUseCase;
     private String businessProfileIdentity;
@@ -212,6 +216,28 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         final String brandedBundleSid
     ) {
         this.brandedBundleSid = brandedBundleSid;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedLogo(final Boolean brandedLogo) {
+        this.brandedLogo = brandedLogo;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedType(final String brandedType) {
+        this.brandedType = brandedType;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedUseCase(final String brandedUseCase) {
+        this.brandedUseCase = brandedUseCase;
+        return this;
+    }
+
+    public CallSummariesReader setBrandedCallReason(
+        final String brandedCallReason
+    ) {
+        this.brandedCallReason = brandedCallReason;
         return this;
     }
 
@@ -440,6 +466,18 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         }
         if (brandedBundleSid != null) {
             request.addQueryParam("BrandedBundleSid", brandedBundleSid);
+        }
+        if (brandedLogo != null) {
+            request.addQueryParam("BrandedLogo", brandedLogo.toString());
+        }
+        if (brandedType != null) {
+            request.addQueryParam("BrandedType", brandedType);
+        }
+        if (brandedUseCase != null) {
+            request.addQueryParam("BrandedUseCase", brandedUseCase);
+        }
+        if (brandedCallReason != null) {
+            request.addQueryParam("BrandedCallReason", brandedCallReason);
         }
         if (voiceIntegrityBundleSid != null) {
             request.addQueryParam(

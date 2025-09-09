@@ -30,8 +30,6 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class ChallengeCreator extends Creator<Challenge> {
 
@@ -40,8 +38,8 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String factorSid;
     private ZonedDateTime expirationDate;
     private String detailsMessage;
-    private List<Map<String, Object>> detailsFields;
-    private Map<String, Object> hiddenDetails;
+    private List<Object> detailsFields;
+    private Object hiddenDetails;
     private String authPayload;
 
     public ChallengeCreator(
@@ -71,22 +69,16 @@ public class ChallengeCreator extends Creator<Challenge> {
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(
-        final List<Map<String, Object>> detailsFields
-    ) {
+    public ChallengeCreator setDetailsFields(final List<Object> detailsFields) {
         this.detailsFields = detailsFields;
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(
-        final Map<String, Object> detailsFields
-    ) {
+    public ChallengeCreator setDetailsFields(final Object detailsFields) {
         return setDetailsFields(Promoter.listOfOne(detailsFields));
     }
 
-    public ChallengeCreator setHiddenDetails(
-        final Map<String, Object> hiddenDetails
-    ) {
+    public ChallengeCreator setHiddenDetails(final Object hiddenDetails) {
         this.hiddenDetails = hiddenDetails;
         return this;
     }
@@ -156,17 +148,17 @@ public class ChallengeCreator extends Creator<Challenge> {
             request.addPostParam("Details.Message", detailsMessage);
         }
         if (detailsFields != null) {
-            for (Map<String, Object> prop : detailsFields) {
+            for (Object prop : detailsFields) {
                 request.addPostParam(
                     "Details.Fields",
-                    Converter.mapToJson(prop)
+                    Converter.objectToJson(prop)
                 );
             }
         }
         if (hiddenDetails != null) {
             request.addPostParam(
                 "HiddenDetails",
-                Converter.mapToJson(hiddenDetails)
+                Converter.objectToJson(hiddenDetails)
             );
         }
         if (authPayload != null) {

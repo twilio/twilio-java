@@ -27,15 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class EngagementCreator extends Creator<Engagement> {
 
     private String pathFlowSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private Map<String, Object> parameters;
+    private Object parameters;
 
     public EngagementCreator(
         final String pathFlowSid,
@@ -65,9 +63,7 @@ public class EngagementCreator extends Creator<Engagement> {
         return setFrom(Promoter.phoneNumberFromString(from));
     }
 
-    public EngagementCreator setParameters(
-        final Map<String, Object> parameters
-    ) {
+    public EngagementCreator setParameters(final Object parameters) {
         this.parameters = parameters;
         return this;
     }
@@ -77,8 +73,8 @@ public class EngagementCreator extends Creator<Engagement> {
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace("{" + "To" + "}", this.to.encode("utf-8"));
-        path = path.replace("{" + "From" + "}", this.from.encode("utf-8"));
+        path = path.replace("{" + "To" + "}", this.to.toString());
+        path = path.replace("{" + "From" + "}", this.from.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -120,7 +116,10 @@ public class EngagementCreator extends Creator<Engagement> {
             request.addPostParam("From", from.toString());
         }
         if (parameters != null) {
-            request.addPostParam("Parameters", Converter.mapToJson(parameters));
+            request.addPostParam(
+                "Parameters",
+                Converter.objectToJson(parameters)
+            );
         }
     }
 }

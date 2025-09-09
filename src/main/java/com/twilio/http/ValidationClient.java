@@ -176,14 +176,7 @@ public class ValidationClient extends HttpClient {
     @Override
     public Response makeRequest(Request request) {
         HttpMethod method = request.getMethod();
-        HttpUriRequestBase httpUriRequestBase = null;
-        switch (request.getMethod().toString().toUpperCase()) {
-            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
-            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
-            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
-            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
-            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
-        }
+        HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
         if (request.requiresAuthentication()) {
             httpUriRequestBase.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());

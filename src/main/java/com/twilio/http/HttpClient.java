@@ -4,6 +4,12 @@ import java.nio.file.Path;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPatch;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.protocol.RedirectStrategy;
@@ -163,6 +169,18 @@ public abstract class HttpClient {
         } else {
             return ContentType.create("application/octet-stream");
         }
+    }
+
+    public static HttpUriRequestBase createHttpUriRequestBase(final Request request) {
+        HttpUriRequestBase httpUriRequestBase = null;
+        switch (request.getMethod().toString().toUpperCase()) {
+            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
+            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
+            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
+            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
+            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
+        }
+        return httpUriRequestBase;
     }
 
     public abstract Response makeRequest(final Request request);

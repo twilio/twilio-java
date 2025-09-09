@@ -156,15 +156,15 @@ public class IRequest {
         this.body = body;
     }
 
-    public List<FormParmeters> getFormParameters() {
+    public List<FormParameters> getFormParameters() {
         return this.formParameters;
     }
 
-    public void addFormParameter(String name, FormParmeters.Type type, Object value) {
-        this.formParameters.add(new FormParmeters(name, type, value));
+    public void addFormParameter(String name, FormParameters.Type type, Object value) {
+        this.formParameters.add(new FormParameters(name, type, value));
     }
 
-    public void setFormParameters(final List<FormParmeters> formParameters) {
+    public void setFormParameters(final List<FormParameters> formParameters) {
         if (formParameters == null) {
             throw new IllegalArgumentException("Form parameters cannot be null");
         }

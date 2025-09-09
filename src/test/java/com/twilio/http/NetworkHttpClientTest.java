@@ -2,8 +2,8 @@ package com.twilio.http;
 
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
-import com.twilio.http.IRequest.FormParmeters;
-import com.twilio.http.IRequest.FormParmeters.Type;
+import com.twilio.http.IRequest.FormParameters;
+import com.twilio.http.IRequest.FormParameters.Type;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -203,9 +203,9 @@ public class NetworkHttpClientTest {
         when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
 
         // Create test form parameters
-        List<FormParmeters> formParameters = new ArrayList<>();
-        formParameters.add(new FormParmeters("name", Type.TEXT, "John Doe"));
-        formParameters.add(new FormParmeters("email", Type.TEXT, "john@example.com"));
+        List<FormParameters> formParameters = new ArrayList<>();
+        formParameters.add(new FormParameters("name", Type.TEXT, "John Doe"));
+        formParameters.add(new FormParameters("email", Type.TEXT, "john@example.com"));
         when(mockRequest.getFormParameters()).thenReturn(formParameters);
 
         // Make the request
@@ -230,8 +230,8 @@ public class NetworkHttpClientTest {
         when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
 
         // Create test form parameters
-        List<FormParmeters> formParameters = new ArrayList<>();
-        formParameters.add(new FormParmeters("file", Type.FILE, testFile.getAbsolutePath()));
+        List<FormParameters> formParameters = new ArrayList<>();
+        formParameters.add(new FormParameters("file", Type.FILE, testFile.getAbsolutePath()));
         when(mockRequest.getFormParameters()).thenReturn(formParameters);
         when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
 
@@ -256,9 +256,9 @@ public class NetworkHttpClientTest {
         when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
 
         // Create test form parameters with both text and file
-        List<FormParmeters> formParameters = new ArrayList<>();
-        formParameters.add(new FormParmeters("name", Type.TEXT, "John Doe"));
-        formParameters.add(new FormParmeters("file", Type.FILE, testFile.getAbsolutePath()));
+        List<FormParameters> formParameters = new ArrayList<>();
+        formParameters.add(new FormParameters("name", Type.TEXT, "John Doe"));
+        formParameters.add(new FormParameters("file", Type.FILE, testFile.getAbsolutePath()));
         when(mockRequest.getFormParameters()).thenReturn(formParameters);
         when(mockRequest.getContentType()).thenReturn(EnumConstants.ContentType.MULTIPART_FORM_DATA);
 

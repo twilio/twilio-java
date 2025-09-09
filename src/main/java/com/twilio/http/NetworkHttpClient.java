@@ -131,14 +131,7 @@ public class NetworkHttpClient extends HttpClient {
     public Response makeRequest(final Request request)  {
 
         HttpMethod method = request.getMethod();
-        HttpUriRequestBase httpUriRequestBase = null;
-        switch (request.getMethod().toString().toUpperCase()) {
-            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
-            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
-            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
-            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
-            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
-        }
+        HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
         httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
 

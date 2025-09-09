@@ -26,4 +26,15 @@ public class EnumConstants {
 
         private final String value;
     }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum ParameterType {
+        QUERY("Query"),
+        HEADER("Header"),
+        URLENCODED("Urlencoded"),
+        JSON("Json");
+
+        private final String value;
+    }
 }

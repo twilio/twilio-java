@@ -68,7 +68,6 @@ public class ClusterTest {
     }
 
     @Test
-    @Ignore
     public void testSendingAText() {
         Message message = Message.creator(
                 new com.twilio.type.PhoneNumber(toNumber), new com.twilio.type.PhoneNumber(fromNumber),
@@ -81,7 +80,6 @@ public class ClusterTest {
     }
 
     @Test
-    @Ignore
     public void testListingNumbers() {
         Page<IncomingPhoneNumber> phoneNumbers = IncomingPhoneNumber.reader().firstPage();
         assertNotNull(phoneNumbers);
@@ -89,7 +87,6 @@ public class ClusterTest {
     }
 
     @Test
-    @Ignore
     public void testListingANumber() {
         IncomingPhoneNumberReader phoneNumberReader =
         IncomingPhoneNumber.reader();
@@ -100,7 +97,6 @@ public class ClusterTest {
     }
 
     @Test
-    @Ignore
     public void testSpecialCharacters() {
         Service service = Service.creator("service|friendly&name").create();
         assertNotNull(service);
@@ -117,7 +113,6 @@ public class ClusterTest {
     }
 
     @Test
-    @Ignore
     public void testListParams() {
         Map<String, Object> sinkConfiguration = new HashMap<>();
         sinkConfiguration.put("destination", "http://example.org/webhook");
@@ -165,7 +160,6 @@ public class ClusterTest {
 
     // Test multipart/form-data
     @Test
-    @Ignore
     public void testMultiPartFormData() {
         Message message = Message.creator(
                         new com.twilio.type.PhoneNumber(toNumber), new com.twilio.type.PhoneNumber(fromNumber),

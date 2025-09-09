@@ -182,7 +182,7 @@ public class SerializerTest {
     @Test
     public void testToStringWithLocalDate() {
         Request request = buildRequest();
-        LocalDate date = LocalDate.of(2025, 07, 1);
+        LocalDate date = LocalDate.of(2025, 7, 1);
         LocalDate dateBefore = null;
         LocalDate dateAfter = null;
 
@@ -194,8 +194,8 @@ public class SerializerTest {
     public void testToStringWithLocalDateRange() {
         Request request = buildRequest();
         LocalDate date = null;
-        LocalDate dateBefore = LocalDate.of(2025, 07, 5);
-        LocalDate dateAfter = LocalDate.of(2025, 07, 1);
+        LocalDate dateBefore = LocalDate.of(2025, 7, 5);
+        LocalDate dateAfter = LocalDate.of(2025, 7, 1);
 
         Serializer.toString(request, "dateKey", date, dateBefore, dateAfter);
         assertEquals("2025-07-01", request.getQueryParams().get("dateKey>").get(0));
@@ -207,7 +207,7 @@ public class SerializerTest {
         Request request = buildRequest();
         LocalDate date = null;
         LocalDate dateBefore = null;
-        LocalDate dateAfter = LocalDate.of(2025, 07, 1);
+        LocalDate dateAfter = LocalDate.of(2025, 7, 1);
 
         Serializer.toString(request, "dateKey", date, dateBefore, dateAfter);
         assertNull(request.getQueryParams().get("dateKey<"));
@@ -218,7 +218,7 @@ public class SerializerTest {
     public void testToStringWithLocalDateRangeAfterNull() {
         Request request = buildRequest();
         LocalDate date = null;
-        LocalDate dateBefore = LocalDate.of(2025, 07, 5);
+        LocalDate dateBefore = LocalDate.of(2025, 7, 5);
         LocalDate dateAfter = null;
 
         Serializer.toString(request, "dateKey", date, dateBefore, dateAfter);

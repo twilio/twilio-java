@@ -1,7 +1,13 @@
 package com.twilio.converter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
 import com.twilio.http.Request;
+import java.io.IOException;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -16,6 +22,29 @@ public class Serializer {
 
         String stringValue = convertToString(value);
         addParamToRequest(request, key, stringValue, parameterType);
+    }
+
+    public static <T> void toString(Request request, ObjectMapper mapper, T value) {
+        if (value == null) return;
+
+        if (mapper == null) {
+            throw new IllegalArgumentException("ObjectMapper is required for JSON serialization");
+        }
+
+        String stringValue = toJson(value, mapper);
+        request.setBody(stringValue);
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
     }
 
     private static <T> String convertToString(T value) {
@@ -38,6 +67,8 @@ public class Serializer {
             case URLENCODED:
                 request.addPostParam(key, value);
                 break;
+            case JSON:
+                request.setBody(value);
             default:
                 throw new IllegalArgumentException("Unsupported ParameterType: " + parameterType);
         }

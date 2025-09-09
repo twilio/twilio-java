@@ -32,7 +32,8 @@ public class EnumConstants {
     public enum ParameterType {
         QUERY("Query"),
         HEADER("Header"),
-        URLENCODED("Urlencoded");
+        URLENCODED("Urlencoded"),
+        JSON("Json");
 
         private final String value;
     }

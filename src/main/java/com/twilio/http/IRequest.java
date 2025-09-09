@@ -32,7 +32,7 @@ public class IRequest {
     protected final Map<String, List<String>> queryParams;
     protected final Map<String, List<String>> postParams;
     protected final Map<String, List<String>> headerParams;
-    protected List<FormParmeters> formParameters;
+    protected List<FormParameters> formParameters;
 
     protected String region;
     protected String edge;
@@ -43,7 +43,7 @@ public class IRequest {
 
     private String body;
 
-    public static class FormParmeters {
+    public static class FormParameters {
         private String name;
         private Type type;
         private Object value;
@@ -52,7 +52,7 @@ public class IRequest {
             TEXT, FILE
         }
 
-        public FormParmeters(String name, Type type, Object value) {
+        public FormParameters(String name, Type type, Object value) {
             this.name = name;
             this.type = type;
             this.value = value;

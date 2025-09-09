@@ -175,7 +175,10 @@ public class NetworkHttpClient extends HttpClient {
                         byte[] fileBytes = null;
                         try{
                             fileBytes = Files.readAllBytes(path);
-                        } catch (IOException e) {}
+                        } catch (IOException e) {
+                            System.err.println("Failed to read file for upload: " + path + ". " + e.getMessage());
+                            throw new ApiException("Failed to read file for upload: " + path, e);
+                        }
                         String fileName = path.getFileName().toString();
                         ContentType contentType = getContentType(path);
                         httpEntityBuilder.addBinaryBody(formParmeter.getName(), fileBytes, contentType, fileName);

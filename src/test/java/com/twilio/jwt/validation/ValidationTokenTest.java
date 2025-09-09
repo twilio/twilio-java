@@ -228,8 +228,8 @@ public class ValidationTokenTest {
     private BasicHttpRequest getBasicRequest() {
         return new BasicHttpRequest(
                 "GET",
-                "",
-                new URIAuthority("/some-url?with=params"),
+                "/some-url?with=params",
+                new URIAuthority("api.twilio.com:443"),
                 ""
         );
     }

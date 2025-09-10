@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class Trunk extends Resource {
 
-    private static final long serialVersionUID = 225938897286327L;
+    private static final long serialVersionUID = 232204827569278L;
 
     public static TrunkCreator creator() {
         return new TrunkCreator();
@@ -117,6 +117,7 @@ public class Trunk extends Resource {
     private final Trunk.TransferCallerId transferCallerId;
     private final Boolean cnamLookupEnabled;
     private final String authType;
+    private final Boolean symmetricRtpEnabled;
     private final List<String> authTypeSet;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -141,6 +142,9 @@ public class Trunk extends Resource {
         ) final Trunk.TransferCallerId transferCallerId,
         @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
         @JsonProperty("auth_type") final String authType,
+        @JsonProperty(
+            "symmetric_rtp_enabled"
+        ) final Boolean symmetricRtpEnabled,
         @JsonProperty("auth_type_set") final List<String> authTypeSet,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
@@ -159,6 +163,7 @@ public class Trunk extends Resource {
         this.transferCallerId = transferCallerId;
         this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
+        this.symmetricRtpEnabled = symmetricRtpEnabled;
         this.authTypeSet = authTypeSet;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -209,6 +214,10 @@ public class Trunk extends Resource {
 
     public final String getAuthType() {
         return this.authType;
+    }
+
+    public final Boolean getSymmetricRtpEnabled() {
+        return this.symmetricRtpEnabled;
     }
 
     public final List<String> getAuthTypeSet() {
@@ -262,6 +271,7 @@ public class Trunk extends Resource {
             Objects.equals(transferCallerId, other.transferCallerId) &&
             Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
             Objects.equals(authType, other.authType) &&
+            Objects.equals(symmetricRtpEnabled, other.symmetricRtpEnabled) &&
             Objects.equals(authTypeSet, other.authTypeSet) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
@@ -285,6 +295,7 @@ public class Trunk extends Resource {
             transferCallerId,
             cnamLookupEnabled,
             authType,
+            symmetricRtpEnabled,
             authTypeSet,
             dateCreated,
             dateUpdated,

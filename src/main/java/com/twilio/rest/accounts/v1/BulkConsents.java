@@ -38,9 +38,7 @@ public class BulkConsents extends Resource {
 
     private static final long serialVersionUID = 126137950684284L;
 
-    public static BulkConsentsCreator creator(
-        final List<Map<String, Object>> items
-    ) {
+    public static BulkConsentsCreator creator(final List<Object> items) {
         return new BulkConsentsCreator(items);
     }
 

@@ -28,14 +28,13 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 public class CompositionHookUpdater extends Updater<CompositionHook> {
 
     private String pathSid;
     private String friendlyName;
     private Boolean enabled;
-    private Map<String, Object> videoLayout;
+    private Object videoLayout;
     private List<String> audioSources;
     private List<String> audioSourcesExcluded;
     private Boolean trim;
@@ -62,9 +61,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         return this;
     }
 
-    public CompositionHookUpdater setVideoLayout(
-        final Map<String, Object> videoLayout
-    ) {
+    public CompositionHookUpdater setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
@@ -183,7 +180,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         if (videoLayout != null) {
             request.addPostParam(
                 "VideoLayout",
-                Converter.mapToJson(videoLayout)
+                Converter.objectToJson(videoLayout)
             );
         }
         if (audioSources != null) {

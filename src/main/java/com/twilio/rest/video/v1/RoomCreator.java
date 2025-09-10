@@ -46,7 +46,7 @@ public class RoomCreator extends Creator<Room> {
     private Boolean transcribeParticipantsOnConnect;
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
-    private Map<String, Object> recordingRules;
+    private Object recordingRules;
     private Map<String, Object> transcriptionsConfiguration;
     private Boolean audioOnly;
     private Integer maxParticipantDuration;
@@ -120,9 +120,7 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
-    public RoomCreator setRecordingRules(
-        final Map<String, Object> recordingRules
-    ) {
+    public RoomCreator setRecordingRules(final Object recordingRules) {
         this.recordingRules = recordingRules;
         return this;
     }
@@ -239,7 +237,7 @@ public class RoomCreator extends Creator<Room> {
         if (recordingRules != null) {
             request.addPostParam(
                 "RecordingRules",
-                Converter.mapToJson(recordingRules)
+                Converter.objectToJson(recordingRules)
             );
         }
         if (transcriptionsConfiguration != null) {

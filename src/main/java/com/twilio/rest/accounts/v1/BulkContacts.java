@@ -38,9 +38,7 @@ public class BulkContacts extends Resource {
 
     private static final long serialVersionUID = 126137950684284L;
 
-    public static BulkContactsCreator creator(
-        final List<Map<String, Object>> items
-    ) {
+    public static BulkContactsCreator creator(final List<Object> items) {
         return new BulkContactsCreator(items);
     }
 

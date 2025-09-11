@@ -171,7 +171,7 @@ public abstract class HttpClient {
         }
     }
 
-    public static HttpUriRequestBase createHttpUriRequestBase(final Request request) {
+    public static HttpUriRequestBase createHttpUriRequestBase(final IRequest request) {
         HttpUriRequestBase httpUriRequestBase = null;
         switch (request.getMethod().toString().toUpperCase()) {
             case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;

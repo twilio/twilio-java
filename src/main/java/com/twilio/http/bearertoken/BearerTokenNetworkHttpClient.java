@@ -8,11 +8,6 @@ import com.twilio.http.HttpUtility;
 import com.twilio.http.Response;
 import java.util.ArrayList;
 import java.util.Map.Entry;
-import org.apache.hc.client5.http.classic.methods.HttpDelete;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpPatch;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
@@ -36,6 +31,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
+import static com.twilio.http.HttpClient.createHttpUriRequestBase;
 
 public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
 
@@ -128,14 +124,7 @@ public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
     public Response makeRequest(final BearerTokenRequest request) {
 
         HttpMethod method = request.getMethod();
-        HttpUriRequestBase httpUriRequestBase = null;
-        switch (request.getMethod().toString().toUpperCase()) {
-            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
-            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
-            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
-            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
-            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
-        }
+        HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
 
         if (request.requiresAuthentication()) {

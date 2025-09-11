@@ -1,5 +1,7 @@
 package com.twilio.http.noauth;
 
+import static com.twilio.http.HttpClient.createHttpUriRequestBase;
+
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
@@ -87,14 +89,7 @@ public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
     @Override
     public Response makeRequest(NoAuthRequest request) {
         HttpMethod method = request.getMethod();
-        HttpUriRequestBase httpUriRequestBase = null;
-        switch (request.getMethod().toString().toUpperCase()) {
-            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
-            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
-            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
-            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
-            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
-        }
+        HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
         httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
 

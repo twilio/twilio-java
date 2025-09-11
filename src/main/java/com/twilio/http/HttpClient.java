@@ -167,7 +167,7 @@ public abstract class HttpClient {
         } else if (fileName.endsWith(".png")) {
             return ContentType.create("image/png");
         } else {
-            return ContentType.create("application/octet-stream");
+            return ContentType.create("application/octet-stream"); // using "application/octet-stream" for generic binary data, often used by browsers for unknown binary files to prompt the user to download them
         }
     }
 

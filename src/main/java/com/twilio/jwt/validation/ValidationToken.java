@@ -4,18 +4,17 @@ import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpRequest;
-import org.apache.http.impl.auth.UnsupportedDigestAlgorithmException;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.*;
 import java.util.function.Function;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
 
 import static io.jsonwebtoken.SignatureAlgorithm.PS256;
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
@@ -134,11 +133,11 @@ public class ValidationToken extends Jwt {
          ) throws IOException {
         Builder builder = new Builder(accountSid, credentialSid, signingKeySid, privateKey);
 
-        String method = request.getRequestLine().getMethod();
+        String method = request.getMethod();
         builder.method(method);
         builder.algorithm(algorithm);
 
-        String uri = request.getRequestLine().getUri();
+        String uri = request.getRequestUri();
         if (uri.contains("?")) {
             String[] uriParts = uri.split("\\?");
             builder.uri(uriParts[0]);
@@ -147,7 +146,7 @@ public class ValidationToken extends Jwt {
             builder.uri(uri);
         }
 
-        builder.headers(request.getAllHeaders());
+        builder.headers(request.getHeaders());
         builder.signedHeaders(signedHeaders);
 
         /**
@@ -156,8 +155,8 @@ public class ValidationToken extends Jwt {
          *
          * @see org.apache.http.client.methods.RequestBuilder#build
          */
-        if (request instanceof HttpEntityEnclosingRequest) {
-            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
+        if (request instanceof HttpUriRequestBase) {
+            HttpEntity entity = ((HttpUriRequestBase) request).getEntity();
             builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
         }
 

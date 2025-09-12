@@ -101,10 +101,10 @@ public class RequestValidatorTest {
     public void testValidateAddsPortHttps() {
         String expectedSignature = "kvajT1Ptam85bY51eRf/AJRuM3w="; // hash of https uri with port 443
         boolean isValid = validator.validate(url, params, expectedSignature);
-        
+
         Assert.assertTrue("Validator did not add port 443 to https url", isValid);
     }
-    
+
     @Test
     public void testValidateAddsPortHttp() {
         String url = this.url.replace("https", "http");

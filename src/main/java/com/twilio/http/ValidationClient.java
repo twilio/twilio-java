@@ -4,18 +4,27 @@ import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHeader;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPatch;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -24,12 +33,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
 
 import static io.jsonwebtoken.SignatureAlgorithm.RS256;
 
 public class ValidationClient extends HttpClient {
 
-    private final org.apache.http.client.HttpClient client;
+    private final CloseableHttpClient client;
 
     /**
      * Create a new ValidationClient.
@@ -158,50 +168,54 @@ public class ValidationClient extends HttpClient {
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(requestConfig)
             .setDefaultHeaders(headers)
-            .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey, algorithm))
+            .addRequestInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey, algorithm))
             .setRedirectStrategy(this.getRedirectStrategy())
             .build();
     }
 
     @Override
     public Response makeRequest(Request request) {
-        RequestBuilder builder = RequestBuilder.create(request.getMethod().toString())
-            .setUri(request.constructURL().toString())
-            .setVersion(HttpVersion.HTTP_1_1)
-            .setCharset(StandardCharsets.UTF_8);
+        HttpMethod method = request.getMethod();
+        HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
         if (request.requiresAuthentication()) {
-            builder.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
+            httpUriRequestBase.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
         }
 
-        HttpMethod method = request.getMethod();
         if (method != HttpMethod.GET) {
             // TODO: It will be removed after one RC Release.
             if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
-                builder.setEntity(entity);
-                builder.addHeader(
+                httpUriRequestBase.setEntity(entity);
+                httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
             } else {
-                builder.addHeader(
+                httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
-                for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                // Create your form parameters
+                List<NameValuePair> formParams = new ArrayList<>();
+                for ( Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                     for (String value : entry.getValue()) {
-                        builder.addParameter(entry.getKey(), value);
+                        formParams.add(new BasicNameValuePair(entry.getKey(), value));
                     }
                 }
+
+                // Build the entity with URL form encoded parameters
+                UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(formParams, StandardCharsets.UTF_8);
+                // Set the entity on the request
+                httpUriRequestBase.setEntity(formEntity);
             }
         }
 
-        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
+        httpUriRequestBase.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
 
         try {
-            HttpResponse response = client.execute(builder.build());
+            CloseableHttpResponse response = client.execute(httpUriRequestBase);
             return new Response(
                 response.getEntity() == null ? null : response.getEntity().getContent(),
-                response.getStatusLine().getStatusCode(),
-                response.getAllHeaders()
+                response.getCode(),
+                response.getHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);

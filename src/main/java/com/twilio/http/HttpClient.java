@@ -1,25 +1,51 @@
 package com.twilio.http;
 
+import java.nio.file.Path;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.http.client.RedirectStrategy;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
 
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPatch;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
+import org.apache.hc.client5.http.protocol.RedirectStrategy;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.util.Timeout;
+
+/**
+ * Abstract class representing an HTTP client.
+ * This class provides methods to make reliable HTTP requests with retry logic and customizable request configurations.
+ */
 public abstract class HttpClient {
 
-    public static final int CONNECTION_TIMEOUT = 10000;
-    public static final int SOCKET_TIMEOUT = 30500;
+    public static final Timeout CONNECTION_TIMEOUT = Timeout.ofMilliseconds(10000); // The default connection timeout is 10 seconds
+    public static final Timeout CONNECT_TIMEOUT = Timeout.ofMilliseconds(30500); // The default socket timeout is 30.5 seconds
+    public static final Timeout CONNECTION_KEEP_ALIVE = Timeout.ofMilliseconds(60000); // The default keep-alive timeout is 60 seconds
+    public static final Timeout SOCKET_TIMEOUT = Timeout.ofMilliseconds(30000); // The default socket timeout is 30 seconds
+    /**
+     * Default request configuration for the HTTP client.
+     * This configuration sets the connection request timeout, socket timeout, and connection keep-alive timeout.
+     */
     public static final RequestConfig DEFAULT_REQUEST_CONFIG = RequestConfig
         .custom()
-        .setConnectTimeout(CONNECTION_TIMEOUT)
-        .setSocketTimeout(SOCKET_TIMEOUT)
+        .setConnectionRequestTimeout(CONNECTION_TIMEOUT)
+        .setConnectTimeout(CONNECT_TIMEOUT)
+        .setConnectionKeepAlive(CONNECTION_KEEP_ALIVE)
         .build();
-    public static final SocketConfig DEFAULT_SOCKET_CONFIG = SocketConfig
-        .custom()
+    /**
+     * Default socket configuration for the HTTP client.
+     * This configuration sets the socket timeout and enables keep-alive.
+     */
+    public static final SocketConfig DEFAULT_SOCKET_CONFIG = SocketConfig.custom()
         .setSoTimeout(SOCKET_TIMEOUT)
+        .setSoKeepAlive(true)
         .build();
+
 
     public static final int ANY_500 = -500;
     public static final int ANY_400 = -400;
@@ -34,7 +60,7 @@ public abstract class HttpClient {
     // Default redirect strategy to not auto-redirect for any methods (empty string array).
     @Getter
     @Setter
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy(new String[0]);
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Getter
     private Response lastResponse;
@@ -129,6 +155,32 @@ public abstract class HttpClient {
             }
         }
         return false;
+    }
+
+    public static ContentType getContentType(Path filePath) {
+        String fileName = filePath.getFileName().toString().toLowerCase();
+
+        if (fileName.endsWith(".pdf")) {
+            return ContentType.create("application/pdf");
+        } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+            return ContentType.create("image/jpeg");
+        } else if (fileName.endsWith(".png")) {
+            return ContentType.create("image/png");
+        } else {
+            return ContentType.create("application/octet-stream"); // using "application/octet-stream" for generic binary data, often used by browsers for unknown binary files to prompt the user to download them
+        }
+    }
+
+    public static HttpUriRequestBase createHttpUriRequestBase(final IRequest request) {
+        HttpUriRequestBase httpUriRequestBase = null;
+        switch (request.getMethod().toString().toUpperCase()) {
+            case "POST": httpUriRequestBase = new HttpPost(request.constructURL().toString()); break;
+            case "PUT": httpUriRequestBase = new HttpPut(request.constructURL().toString()); break;
+            case "PATCH": httpUriRequestBase = new HttpPatch(request.constructURL().toString()); break;
+            case "DELETE": httpUriRequestBase = new HttpDelete(request.constructURL().toString()); break;
+            case "GET": httpUriRequestBase = new HttpGet(request.constructURL().toString()); break;
+        }
+        return httpUriRequestBase;
     }
 
     public abstract Response makeRequest(final Request request);

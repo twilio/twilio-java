@@ -1,4 +1,4 @@
-    class BearerTokenAuthenticationExamples {
+    class OrgsAPIExample {
         public static void main {
 
             private static final String GRANT_TYPE = "grant_type_to_be_used";
@@ -8,8 +8,8 @@
             private static final String ORGANISATION_ID = "id_of_the_organization";
 
             //Getting access token - Method #1
-            Twilio.init(new OrgsClientCredentialProvider(CLIENT_ID, CLIENT_SECRET));
-            storingCredentialsFetchAccountDetails();
+            Twilio.init(new OrgsClientCredentialProvider(CLIENT_SID, CLIENT_SECRET));
+            fetchAccountDetails();
 
 
             //Scenario: 2 If in case one doesn't want to change the existing stored credential
@@ -17,7 +17,7 @@
             // TokenManager tokenManager = new OrgsTokenManager(GRANT_TYPE, CLIENT_SID, CLIENT_SECRET);
             // TokenAuthStrategy tokenAuthStrategy = new TokenAuthStrategy(tokenManager);
             // TwilioRestClient client = new TwilioRestClient.Builder(tokenAuthStrategy).build();
-            // passCustomRestClientFetchAccountDetails(client);
+            // fetchAccountDetailsWithClient(client);
         }
 
         private static void fetchAccountDetails() {
@@ -26,7 +26,7 @@
            System.out.println(accountSid);
         }
 
-        private static void passCustomRestClientFetchAccountDetails(TwilioRestClient client) {
+        private static void fetchAccountDetailsWithClient(TwilioRestClient client) {
            ResourceSet<Account> accountSet = Account.reader(ORGANISATION_ID).read(client);
            String accountSid = accountSet.iterator().next().getAccountSid();
            System.out.println(accountSid);

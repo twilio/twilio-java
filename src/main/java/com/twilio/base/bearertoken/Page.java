@@ -1,4 +1,4 @@
-package com.twilio.base;
+package com.twilio.base.bearertoken;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -169,28 +169,33 @@ public class Page<T> {
 
     private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
         JsonNode meta = root.get("meta");
-        Builder<T> builder = new Builder<T>().url(meta.get("url").asText());
+        Builder<T> builder = new Builder<>();
+        if(meta != null && meta.get("url") != null) {
 
-        JsonNode nextPageNode = meta.get("next_page_url");
-        if (!nextPageNode.isNull()) {
-            builder.nextPageUrl(nextPageNode.asText());
-        }
+            builder = builder.url(meta.get("url").asText());
 
-        JsonNode previousPageNode = meta.get("previous_page_url");
-        if (!previousPageNode.isNull()) {
-            builder.previousPageUrl(previousPageNode.asText());
-        }
 
-        JsonNode firstPageNode = meta.get("first_page_url");
-        if (!firstPageNode.isNull()) {
-            builder.firstPageUrl(firstPageNode.asText());
-        }
+            JsonNode nextPageNode = meta.get("next_page_url");
+            if (!nextPageNode.isNull()) {
+                builder.nextPageUrl(nextPageNode.asText());
+            }
 
-        JsonNode pageSizeNode = meta.get("page_size");
-        if (!pageSizeNode.isNull()) {
-            builder.pageSize(pageSizeNode.asInt());
-        } else {
-            builder.pageSize(results.size());
+            JsonNode previousPageNode = meta.get("previous_page_url");
+            if (!previousPageNode.isNull()) {
+                builder.previousPageUrl(previousPageNode.asText());
+            }
+
+            JsonNode firstPageNode = meta.get("first_page_url");
+            if (!firstPageNode.isNull()) {
+                builder.firstPageUrl(firstPageNode.asText());
+            }
+
+            JsonNode pageSizeNode = meta.get("page_size");
+            if (!pageSizeNode.isNull()) {
+                builder.pageSize(pageSizeNode.asInt());
+            } else {
+                builder.pageSize(results.size());
+            }
         }
 
         return builder.records(results).build();

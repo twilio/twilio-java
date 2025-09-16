@@ -1,30 +1,16 @@
-package com.twilio.http;
+package com.twilio.http.bearertoken;
 
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
-
-import com.twilio.http.IRequest.FormParameters;
-import com.twilio.http.IRequest.FormParameters.Type;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.HttpUtility;
+import com.twilio.http.Response;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map.Entry;
-import org.apache.hc.client5.http.classic.methods.HttpDelete;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpPatch;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
-import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -32,16 +18,22 @@ import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
-import org.apache.hc.core5.http.HttpVersion;
 import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
+import static com.twilio.http.HttpClient.createHttpUriRequestBase;
 
-
-public class NetworkHttpClient extends HttpClient {
+public class BearerTokenNetworkHttpClient extends BearerTokenHttpClient {
 
     protected final CloseableHttpClient client;
 
@@ -50,7 +42,7 @@ public class NetworkHttpClient extends HttpClient {
     /**
      * Create a new HTTP Client.
      */
-    public NetworkHttpClient() {
+    public BearerTokenNetworkHttpClient() {
         this(DEFAULT_REQUEST_CONFIG);
     }
 
@@ -59,7 +51,7 @@ public class NetworkHttpClient extends HttpClient {
      *
      * @param requestConfig a RequestConfig.
      */
-    public NetworkHttpClient(final RequestConfig requestConfig) {
+    public BearerTokenNetworkHttpClient(final RequestConfig requestConfig) {
         this(requestConfig, DEFAULT_SOCKET_CONFIG);
     }
 
@@ -69,11 +61,11 @@ public class NetworkHttpClient extends HttpClient {
      * @param requestConfig a RequestConfig.
      * @param socketConfig  a SocketConfig.
      */
-    public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
+    public BearerTokenNetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
-            new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
-            new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
+                new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
+                //new BasicHeader(HttpHeaders.ACCEPT, "application/json"), Orgs API has scim or json support.
+                new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
@@ -87,7 +79,7 @@ public class NetworkHttpClient extends HttpClient {
 
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setDefaultSocketConfig(socketConfig);
-        /*
+        /**
          *  Example: Lets say client has one server.
          *  There are 4 servers on edge handling client request.
          *  Each request takes on an average 500ms (2 request per second)
@@ -97,26 +89,27 @@ public class NetworkHttpClient extends HttpClient {
         connectionManager.setMaxTotal(100);
 
         client = clientBuilder
-            .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(requestConfig)
-            .setDefaultHeaders(headers)
-            .setRedirectStrategy(this.getRedirectStrategy())
-            .build();
+                .setConnectionManager(connectionManager)
+                .setDefaultRequestConfig(requestConfig)
+                .setDefaultHeaders(headers)
+                .setRedirectStrategy(this.getRedirectStrategy())
+                .build();
     }
 
     /**
      * Create a new HTTP Client using custom configuration.
      * @param clientBuilder an HttpClientBuilder.
      */
-    public NetworkHttpClient(HttpClientBuilder clientBuilder) {
+    public BearerTokenNetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+                //new BasicHeader(HttpHeaders.ACCEPT, "application/json"), Orgs API has scim or json support.
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
         isCustomClient = true;
 
         client = clientBuilder
+            .setDefaultRequestConfig(DEFAULT_REQUEST_CONFIG)
             .setDefaultHeaders(headers)
             .setRedirectStrategy(this.getRedirectStrategy())
             .build();
@@ -128,20 +121,17 @@ public class NetworkHttpClient extends HttpClient {
      * @param request request to make
      * @return Response of the HTTP request
      */
-    public Response makeRequest(final Request request)  {
+    public Response makeRequest(final BearerTokenRequest request) {
 
         HttpMethod method = request.getMethod();
         HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
-        httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
-
-        httpUriRequestBase.setVersion(HttpVersion.HTTP_1_1);
 
         if (request.requiresAuthentication()) {
             httpUriRequestBase.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
         }
 
-        for (Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
+        for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
             for (String value : entry.getValue()) {
                 httpUriRequestBase.addHeader(entry.getKey(), value);
             }
@@ -155,31 +145,10 @@ public class NetworkHttpClient extends HttpClient {
                 httpUriRequestBase.setEntity(entity);
                 httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
-            } else if (EnumConstants.ContentType.MULTIPART_FORM_DATA.getValue().equals(request.getContentType().getValue())) {
-
-                MultipartEntityBuilder httpEntityBuilder = MultipartEntityBuilder.create();
-                for( FormParameters formParameter: request.getFormParameters()) {
-                    // Create a file to upload.
-                    if ( formParameter.getType().equals(Type.TEXT) )
-                        httpEntityBuilder.addTextBody(formParameter.getName(), formParameter.getValue().toString());
-                    else if ( formParameter.getType().equals(Type.FILE) )
-                    {
-                        Path path = Paths.get(formParameter.getValue().toString());
-                        byte[] fileBytes = null;
-                        try{
-                            fileBytes = Files.readAllBytes(path);
-                        } catch (IOException e) {
-                            System.err.println("Failed to read file for upload: " + path + ". " + e.getMessage());
-                            throw new ApiException("Failed to read file for upload: " + path, e);
-                        }
-                        String fileName = path.getFileName().toString();
-                        ContentType contentType = getContentType(path);
-                        httpEntityBuilder.addBinaryBody(formParameter.getName(), fileBytes, contentType, fileName);
-                    }
-                }
-                httpUriRequestBase.setEntity(httpEntityBuilder.build());
-            }
-            else {
+            } else {
+                httpUriRequestBase.addHeader(
+                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
+                // Create your form parameters
                 List<NameValuePair> formParams = new ArrayList<>();
                 for ( Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                     for (String value : entry.getValue()) {
@@ -196,19 +165,17 @@ public class NetworkHttpClient extends HttpClient {
         }
         httpUriRequestBase.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), isCustomClient));
 
-
         try {
             CloseableHttpResponse response = client.execute(httpUriRequestBase);
             HttpEntity entity = response.getEntity();
             return new Response(
-                // Consume the entire HTTP response before returning the stream
-                entity == null ? null : new BufferedHttpEntity(entity).getContent(),
-                response.getCode(),
-                response.getHeaders()
+                    // Consume the entire HTTP response before returning the stream
+                    entity == null ? null : new BufferedHttpEntity(entity).getContent(),
+                    response.getCode(),
+                    response.getHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);
         }
     }
-
 }

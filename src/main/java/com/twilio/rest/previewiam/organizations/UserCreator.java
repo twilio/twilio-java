@@ -15,15 +15,15 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Creator;
+import com.twilio.base.bearertoken.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.http.Request;
+import com.twilio.http.bearertoken.BearerTokenRequest;
+import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserCreator extends Creator<User> {
@@ -45,7 +45,7 @@ public class UserCreator extends Creator<User> {
     }
 
     @Override
-    public User create(final TwilioRestClient client) {
+    public User create(final BearerTokenTwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
         path =
@@ -55,7 +55,7 @@ public class UserCreator extends Creator<User> {
             );
         path = path.replace("{" + "ScimUser" + "}", this.scimUser.toString());
 
-        Request request = new Request(
+        BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.POST,
             Domains.PREVIEWIAM.toString(),
             path
@@ -68,7 +68,7 @@ public class UserCreator extends Creator<User> {
                 "User creation failed: Unable to connect to server"
             );
         } else if (
-            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
@@ -87,8 +87,8 @@ public class UserCreator extends Creator<User> {
     }
 
     private void addPostParams(
-        final Request request,
-        TwilioRestClient client
+        final BearerTokenRequest request,
+        BearerTokenTwilioRestClient client
     ) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (scimUser != null) {

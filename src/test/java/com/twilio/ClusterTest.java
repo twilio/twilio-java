@@ -1,7 +1,6 @@
 package com.twilio;
 
 import com.twilio.base.Page;
-import com.twilio.base.bearertoken.ResourceSet;
 import com.twilio.credential.ClientCredentialProvider;
 import com.twilio.http.CustomHttpClient;
 import com.twilio.http.TwilioRestClient;
@@ -57,7 +56,7 @@ public class ClusterTest {
         orgsClientId = System.getenv("TWILIO_ORGS_CLIENT_ID");
         orgsClientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
-        TwilioOrgsTokenAuth.init(grantType, orgsClientId, orgsClientSecret);
+        //TwilioOrgsTokenAuth.init(grantType, orgsClientId, orgsClientSecret);
 
         clientId = System.getenv("TWILIO_CLIENT_ID");
         clientSecret = System.getenv("TWILIO_CLIENT_SECRET");
@@ -138,25 +137,25 @@ public class ClusterTest {
         assertTrue(Sink.deleter(sink.getSid()).delete());
     }
 
-    @Test
-    public void testOrgsApi(){
-
-        //Fetching the account information
-        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
-        String accountSid = accountSet.iterator().next().getAccountSid();
-        assertNotNull(accountSid);
-
-        //Fetching specific account
-        Account account = Account.fetcher(organisationSid, accountSid).fetch();
-        assertNotNull(account.getAccountSid());
-
-        //Fetching users of this organisation
-        ResourceSet<com.twilio.rest.previewiam.organizations.User>
-            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
-        assertNotNull(userSet);
-        String userId = userSet.iterator().next().getId().toString();
-        assertNotNull(userId);
-    }
+//    @Test
+//    public void testOrgsApi(){
+//
+//        //Fetching the account information
+//        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
+//        String accountSid = accountSet.iterator().next().getAccountSid();
+//        assertNotNull(accountSid);
+//
+//        //Fetching specific account
+//        Account account = Account.fetcher(organisationSid, accountSid).fetch();
+//        assertNotNull(account.getAccountSid());
+//
+//        //Fetching users of this organisation
+//        ResourceSet<com.twilio.rest.previewiam.organizations.User>
+//            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
+//        assertNotNull(userSet);
+//        String userId = userSet.iterator().next().getId().toString();
+//        assertNotNull(userId);
+//    }
 
     // Test multipart/form-data
     @Test

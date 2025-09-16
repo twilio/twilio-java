@@ -1,9 +1,12 @@
 package com.twilio;
 
+import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.base.Page;
-import com.twilio.credential.ClientCredentialProvider;
+import com.twilio.base.ResourceSet;
 import com.twilio.http.CustomHttpClient;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.http.bearertoken.OrgsTokenManager;
+import com.twilio.http.bearertoken.TokenManager;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumberReader;
 import com.twilio.rest.api.v2010.account.Message;
@@ -56,8 +59,7 @@ public class ClusterTest {
         orgsClientId = System.getenv("TWILIO_ORGS_CLIENT_ID");
         orgsClientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
-        //TwilioOrgsTokenAuth.init(grantType, orgsClientId, orgsClientSecret);
-
+        
         clientId = System.getenv("TWILIO_CLIENT_ID");
         clientSecret = System.getenv("TWILIO_CLIENT_SECRET");
         messageSid = System.getenv("TWILIO_MESSAGE_SID");
@@ -137,25 +139,31 @@ public class ClusterTest {
         assertTrue(Sink.deleter(sink.getSid()).delete());
     }
 
-//    @Test
-//    public void testOrgsApi(){
-//
-//        //Fetching the account information
-//        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
-//        String accountSid = accountSet.iterator().next().getAccountSid();
-//        assertNotNull(accountSid);
-//
-//        //Fetching specific account
-//        Account account = Account.fetcher(organisationSid, accountSid).fetch();
-//        assertNotNull(account.getAccountSid());
-//
-//        //Fetching users of this organisation
-//        ResourceSet<com.twilio.rest.previewiam.organizations.User>
-//            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
-//        assertNotNull(userSet);
-//        String userId = userSet.iterator().next().getId().toString();
-//        assertNotNull(userId);
-//    }
+    @Test
+    public void testOrgsApi(){
+        //Twilio.init(new OrgsClientCredentialProvider(orgsClientId, orgsClientSecret));
+
+        TokenManager tokenManager = new OrgsTokenManager("client_credentials", orgsClientId, orgsClientSecret);
+        TokenAuthStrategy tokenAuthStrategy = new TokenAuthStrategy(tokenManager);
+        TwilioRestClient client = new TwilioRestClient.Builder(tokenAuthStrategy)
+                .build();
+
+        //Fetching the account information
+        ResourceSet<Account> accountSet = Account.reader(organisationSid).read(client);
+        String accountSid = accountSet.iterator().next().getAccountSid();
+        assertNotNull(accountSid);
+
+        //Fetching specific account
+        Account account = Account.fetcher(organisationSid, accountSid).fetch();
+        assertNotNull(account.getAccountSid());
+
+        //Fetching users of this organisation
+        ResourceSet<com.twilio.rest.previewiam.organizations.User>
+            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
+        assertNotNull(userSet);
+        String userId = userSet.iterator().next().getId().toString();
+        assertNotNull(userId);
+    }
 
     // Test multipart/form-data
     @Test

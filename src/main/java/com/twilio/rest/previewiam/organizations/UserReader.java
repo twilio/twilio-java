@@ -14,17 +14,17 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.twilio.base.Page;
-import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
+import com.twilio.base.bearertoken.Page;
+import com.twilio.base.bearertoken.Reader;
+import com.twilio.base.bearertoken.ResourceSet;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.Request;
-import com.twilio.http.TwilioRestClient;
+import com.twilio.http.bearertoken.BearerTokenRequest;
+import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserReader extends Reader<User> {
@@ -42,11 +42,11 @@ public class UserReader extends Reader<User> {
     }
 
     @Override
-    public ResourceSet<User> read(final TwilioRestClient client) {
+    public ResourceSet<User> read(final BearerTokenTwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<User> firstPage(final TwilioRestClient client) {
+    public Page<User> firstPage(final BearerTokenTwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users";
         path =
             path.replace(
@@ -54,7 +54,7 @@ public class UserReader extends Reader<User> {
                 this.pathOrganizationSid.toString()
             );
 
-        Request request = new Request(
+        BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.GET,
             Domains.PREVIEWIAM.toString(),
             path
@@ -66,8 +66,8 @@ public class UserReader extends Reader<User> {
     }
 
     private Page<User> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
+        final BearerTokenTwilioRestClient client,
+        final BearerTokenRequest request
     ) {
         Response response = client.request(request);
 
@@ -76,7 +76,7 @@ public class UserReader extends Reader<User> {
                 "User read failed: Unable to connect to server"
             );
         } else if (
-            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
@@ -102,9 +102,9 @@ public class UserReader extends Reader<User> {
     @Override
     public Page<User> previousPage(
         final Page<User> page,
-        final TwilioRestClient client
+        final BearerTokenTwilioRestClient client
     ) {
-        Request request = new Request(
+        BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEWIAM.toString())
         );
@@ -114,9 +114,9 @@ public class UserReader extends Reader<User> {
     @Override
     public Page<User> nextPage(
         final Page<User> page,
-        final TwilioRestClient client
+        final BearerTokenTwilioRestClient client
     ) {
-        Request request = new Request(
+        BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEWIAM.toString())
         );
@@ -126,9 +126,9 @@ public class UserReader extends Reader<User> {
     @Override
     public Page<User> getPage(
         final String targetUrl,
-        final TwilioRestClient client
+        final BearerTokenTwilioRestClient client
     ) {
-        Request request = new Request(
+        BearerTokenRequest request = new BearerTokenRequest(
             HttpMethod.GET,
             targetUrl
         );
@@ -136,7 +136,7 @@ public class UserReader extends Reader<User> {
         return pageForRequest(client, request);
     }
 
-    private void addQueryParams(final Request request) {
+    private void addQueryParams(final BearerTokenRequest request) {
         if (filter != null) {
             request.addQueryParam("filter", filter);
         }

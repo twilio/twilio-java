@@ -154,12 +154,12 @@ public class ClusterTest {
         assertNotNull(accountSid);
 
         //Fetching specific account
-        Account account = Account.fetcher(organisationSid, accountSid).fetch();
+        Account account = Account.fetcher(organisationSid, accountSid).fetch(client);
         assertNotNull(account.getAccountSid());
 
         //Fetching users of this organisation
         ResourceSet<com.twilio.rest.previewiam.organizations.User>
-            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
+            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read(client);
         assertNotNull(userSet);
         String userId = userSet.iterator().next().getId().toString();
         assertNotNull(userId);

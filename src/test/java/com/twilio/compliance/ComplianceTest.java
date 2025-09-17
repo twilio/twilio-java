@@ -6,7 +6,6 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
-import com.tngtech.archunit.core.importer.ImportOptions;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.elements.GivenClasses;
 import com.tngtech.archunit.lang.syntax.elements.GivenClassesConjunction;
@@ -29,15 +28,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ComplianceTest {
-    static final private ImportOptions importOpts = new ImportOptions().with(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS);
-    static final private JavaClasses twilioClasses = new ClassFileImporter(importOpts).importPackages("com.twilio");
+    static final private JavaClasses twilioClasses = new ClassFileImporter()
+            .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
+            .importPackages("com.twilio");
     static final private List<Class> resourceClasses = getResourceClasses(twilioClasses);
     static final private List<Class> variantClasses = new ArrayList<Class>(); // classes that do not follow the generic template
 
     private static DescribedPredicate<JavaClass> areNotInVariantList() {
         return new DescribedPredicate<JavaClass>("classes that follow the same template pattern") {
             @Override
-            public boolean apply(final JavaClass input) {
+            public boolean test(final JavaClass input) {
                 return !variantClasses.contains(input.getName());
             }
         };

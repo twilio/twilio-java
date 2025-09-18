@@ -44,7 +44,7 @@ public class SyncListItem extends Resource {
     public static SyncListItemCreator creator(
         final String pathServiceSid,
         final String pathListSid,
-        final Map<String, Object> data
+        final Object data
     ) {
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }

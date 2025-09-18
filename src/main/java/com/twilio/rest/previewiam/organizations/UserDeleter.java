@@ -14,15 +14,15 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.twilio.base.bearertoken.Deleter;
+import com.twilio.base.Deleter;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.Request;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserDeleter extends Deleter<User> {
@@ -39,7 +39,7 @@ public class UserDeleter extends Deleter<User> {
     }
 
     @Override
-    public boolean delete(final BearerTokenTwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
         path =
@@ -49,7 +49,7 @@ public class UserDeleter extends Deleter<User> {
             );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEWIAM.toString(),
             path
@@ -62,7 +62,7 @@ public class UserDeleter extends Deleter<User> {
                 "User delete failed: Unable to connect to server"
             );
         } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),

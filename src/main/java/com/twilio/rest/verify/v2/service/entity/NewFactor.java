@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class NewFactor extends Resource {
 
-    private static final long serialVersionUID = 115808224888150L;
+    private static final long serialVersionUID = 255981174125852L;
 
     public static NewFactorCreator creator(
         final String pathServiceSid,
@@ -104,6 +104,7 @@ public class NewFactor extends Resource {
     private final String entitySid;
     private final String identity;
     private final Map<String, Object> binding;
+    private final Map<String, Object> options;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
@@ -121,6 +122,7 @@ public class NewFactor extends Resource {
         @JsonProperty("entity_sid") final String entitySid,
         @JsonProperty("identity") final String identity,
         @JsonProperty("binding") final Map<String, Object> binding,
+        @JsonProperty("options") final Map<String, Object> options,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
@@ -136,6 +138,7 @@ public class NewFactor extends Resource {
         this.entitySid = entitySid;
         this.identity = identity;
         this.binding = binding;
+        this.options = options;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
@@ -168,6 +171,10 @@ public class NewFactor extends Resource {
 
     public final Map<String, Object> getBinding() {
         return this.binding;
+    }
+
+    public final Map<String, Object> getOptions() {
+        return this.options;
     }
 
     public final ZonedDateTime getDateCreated() {
@@ -221,6 +228,7 @@ public class NewFactor extends Resource {
             Objects.equals(entitySid, other.entitySid) &&
             Objects.equals(identity, other.identity) &&
             Objects.equals(binding, other.binding) &&
+            Objects.equals(options, other.options) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
@@ -241,6 +249,7 @@ public class NewFactor extends Resource {
             entitySid,
             identity,
             binding,
+            options,
             dateCreated,
             dateUpdated,
             friendlyName,
@@ -250,26 +259,6 @@ public class NewFactor extends Resource {
             metadata,
             url
         );
-    }
-
-    public enum FactorTypes {
-        PUSH("push"),
-        TOTP("totp");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
-        }
     }
 
     public enum FactorStatuses {
@@ -334,6 +323,27 @@ public class NewFactor extends Resource {
                 value,
                 NotificationPlatforms.values()
             );
+        }
+    }
+
+    public enum FactorTypes {
+        PUSH("push"),
+        TOTP("totp"),
+        PASSKEYS("passkeys");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
 }

@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
@@ -37,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class Log extends Resource {
 
-    private static final long serialVersionUID = 129897058125132L;
+    private static final long serialVersionUID = 41290346867159L;
 
     public static LogFetcher fetcher(
         final String pathServiceSid,
@@ -105,7 +104,7 @@ public class Log extends Resource {
     private final String deploymentSid;
     private final String functionSid;
     private final String requestSid;
-    private final Log.Level level;
+    private final String level;
     private final String message;
     private final ZonedDateTime dateCreated;
     private final URI url;
@@ -120,7 +119,7 @@ public class Log extends Resource {
         @JsonProperty("deployment_sid") final String deploymentSid,
         @JsonProperty("function_sid") final String functionSid,
         @JsonProperty("request_sid") final String requestSid,
-        @JsonProperty("level") final Log.Level level,
+        @JsonProperty("level") final String level,
         @JsonProperty("message") final String message,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
@@ -171,7 +170,7 @@ public class Log extends Resource {
         return this.requestSid;
     }
 
-    public final Log.Level getLevel() {
+    public final String getLevel() {
         return this.level;
     }
 
@@ -231,26 +230,5 @@ public class Log extends Resource {
             dateCreated,
             url
         );
-    }
-
-    public enum Level {
-        INFO("info"),
-        WARN("warn"),
-        ERROR("error");
-
-        private final String value;
-
-        private Level(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Level forValue(final String value) {
-            return Promoter.enumFromString(value, Level.values());
-        }
     }
 }

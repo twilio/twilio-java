@@ -32,7 +32,7 @@ import java.time.LocalDate;
 public class YesterdayReader extends Reader<Yesterday> {
 
     private String pathAccountSid;
-    private Yesterday.Category category;
+    private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -44,7 +44,7 @@ public class YesterdayReader extends Reader<Yesterday> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public YesterdayReader setCategory(final Yesterday.Category category) {
+    public YesterdayReader setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -168,7 +168,7 @@ public class YesterdayReader extends Reader<Yesterday> {
 
     private void addQueryParams(final Request request) {
         if (category != null) {
-            request.addQueryParam("Category", category.toString());
+            request.addQueryParam("Category", category);
         }
         if (startDate != null) {
             request.addQueryParam(

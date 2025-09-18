@@ -279,6 +279,34 @@ public class Participant extends Resource {
         );
     }
 
+    public enum TwilioRealm {
+        US1("us1"),
+        US2("us2"),
+        AU1("au1"),
+        BR1("br1"),
+        IE1("ie1"),
+        JP1("jp1"),
+        SG1("sg1"),
+        IN1("in1"),
+        DE1("de1"),
+        GLL("gll");
+
+        private final String value;
+
+        private TwilioRealm(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TwilioRealm forValue(final String value) {
+            return Promoter.enumFromString(value, TwilioRealm.values());
+        }
+    }
+
     public enum RoomStatus {
         IN_PROGRESS("in_progress"),
         CONNECTED("connected"),
@@ -298,46 +326,6 @@ public class Participant extends Resource {
         @JsonCreator
         public static RoomStatus forValue(final String value) {
             return Promoter.enumFromString(value, RoomStatus.values());
-        }
-    }
-
-    public enum TwilioRealm {
-        US1("us1"),
-        US2("us2"),
-        AU1("au1"),
-        BR1("br1"),
-        IE1("ie1"),
-        JP1("jp1"),
-        SG1("sg1"),
-        IN1("in1"),
-        DE1("de1"),
-        GLL("gll"),
-        STAGE_US1("stage_us1"),
-        DEV_US1("dev_us1"),
-        STAGE_AU1("stage_au1"),
-        STAGE_SG1("stage_sg1"),
-        STAGE_BR1("stage_br1"),
-        STAGE_IN1("stage_in1"),
-        STAGE_JP1("stage_jp1"),
-        STAGE_DE1("stage_de1"),
-        STAGE_IE1("stage_ie1"),
-        STAGE_US2("stage_us2"),
-        DEV_US2("dev_us2"),
-        OUTSIDE("outside");
-
-        private final String value;
-
-        private TwilioRealm(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TwilioRealm forValue(final String value) {
-            return Promoter.enumFromString(value, TwilioRealm.values());
         }
     }
 

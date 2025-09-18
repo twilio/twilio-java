@@ -41,7 +41,7 @@ public class InteractionChannelInvite extends Resource {
     public static InteractionChannelInviteCreator creator(
         final String pathInteractionSid,
         final String pathChannelSid,
-        final Map<String, Object> routing
+        final Object routing
     ) {
         return new InteractionChannelInviteCreator(
             pathInteractionSid,

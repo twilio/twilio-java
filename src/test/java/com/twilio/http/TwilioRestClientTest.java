@@ -34,7 +34,7 @@ public class TwilioRestClientTest {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         twilioRestClient = new TwilioRestClient(new TwilioRestClient.Builder("AC123", "AUTH TOKEN").httpClient(httpClient));
     }
 

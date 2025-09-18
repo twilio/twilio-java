@@ -350,6 +350,27 @@ public class Challenge extends Resource {
         }
     }
 
+    public enum FactorTypes {
+        PUSH("push"),
+        TOTP("totp"),
+        PASSKEYS("passkeys");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
     public enum ChallengeStatuses {
         PENDING("pending"),
         EXPIRED("expired"),
@@ -369,26 +390,6 @@ public class Challenge extends Resource {
         @JsonCreator
         public static ChallengeStatuses forValue(final String value) {
             return Promoter.enumFromString(value, ChallengeStatuses.values());
-        }
-    }
-
-    public enum FactorTypes {
-        PUSH("push"),
-        TOTP("totp");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
 }

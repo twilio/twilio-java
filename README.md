@@ -62,7 +62,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio</artifactId>
-  <version>10.X.X</version>
+  <version>11.X.X-rc.x</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -70,7 +70,7 @@ Use the following dependency in your project to grab via Maven:
 or Gradle:
 
 ```groovy
-implementation "com.twilio.sdk:twilio:10.X.X"
+implementation "com.twilio.sdk:twilio:11.X.X-rc.x"
 ```
 
 If you want to compile it yourself, here's how:
@@ -221,8 +221,8 @@ public class Example {
 We are introducing Client Credentials Flow-based OAuth 2.0 authentication. 
 This feature is currently in `beta` and its implementation is subject to change.
 
-- API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/FetchMessageUsingOAuth.md)
-- Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/BearerTokenAuthentication.md)
+- API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/PublicOAuthExample.md)
+- Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
 
 ### Iterate through records
 
@@ -366,3 +366,5 @@ If you've instead found a bug in the library or would like new features added, g
 [apidocs]: https://www.twilio.com/docs/api
 [twiml]: https://www.twilio.com/docs/api/twiml
 [libdocs]: https://twilio.github.io/twilio-java
+
+

@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -41,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class ChannelsSender extends Resource {
 
-    private static final long serialVersionUID = 42075077215889L;
+    private static final long serialVersionUID = 140943943425747L;
 
     @ToString
     public static class MessagingV2ChannelsSenderConfiguration {
@@ -159,20 +158,34 @@ public class ChannelsSender extends Resource {
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("emails")
-        @Getter
-        @Setter
-        private Object emails;
-
-        public String getEmails() {
-            return Converter.objectToJson(emails);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("logo_url")
         @Getter
         @Setter
         private String logoUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("banner_url")
+        @Getter
+        @Setter
+        private String bannerUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("privacy_url")
+        @Getter
+        @Setter
+        private String privacyUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("terms_of_service_url")
+        @Getter
+        @Setter
+        private String termsOfServiceUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("accent_color")
+        @Getter
+        @Setter
+        private String accentColor;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("vertical")
@@ -186,9 +199,17 @@ public class ChannelsSender extends Resource {
         @Setter
         private Object websites;
 
-        public String getWebsites() {
-            return Converter.objectToJson(websites);
-        }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("emails")
+        @Getter
+        @Setter
+        private Object emails;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_numbers")
+        @Getter
+        @Setter
+        private Object phoneNumbers;
 
         public static MessagingV2ChannelsSenderProfile fromJson(
             String jsonString,
@@ -228,7 +249,9 @@ public class ChannelsSender extends Resource {
         @Setter
         private MessagingV2ChannelsSenderProfile profile;
 
-        public MessagingV2ChannelsSenderRequestsCreate() {}
+        public MessagingV2ChannelsSenderRequestsCreate(final String senderId) {
+            this.senderId = senderId;
+        }
 
         public static MessagingV2ChannelsSenderRequestsCreate fromJson(
             String jsonString,
@@ -271,6 +294,182 @@ public class ChannelsSender extends Resource {
             return mapper.readValue(
                 jsonString,
                 MessagingV2ChannelsSenderRequestsUpdate.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileGenericResponseWebsites {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("website")
+        @Getter
+        @Setter
+        private String website;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        public static MessagingV2ChannelsSenderProfileGenericResponseWebsites fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileGenericResponseWebsites.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileGenericResponseEmails {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("email")
+        @Getter
+        @Setter
+        private String email;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        public static MessagingV2ChannelsSenderProfileGenericResponseEmails fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileGenericResponseEmails.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        @Setter
+        private String phoneNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        @Setter
+        private String label;
+
+        public static MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileGenericResponse {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("about")
+        @Getter
+        @Setter
+        private String about;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address")
+        @Getter
+        @Setter
+        private String address;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        @Setter
+        private String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("logo_url")
+        @Getter
+        @Setter
+        private String logoUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("banner_url")
+        @Getter
+        @Setter
+        private String bannerUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("privacy_url")
+        @Getter
+        @Setter
+        private String privacyUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("terms_of_service_url")
+        @Getter
+        @Setter
+        private String termsOfServiceUrl;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("accent_color")
+        @Getter
+        @Setter
+        private String accentColor;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("vertical")
+        @Getter
+        @Setter
+        private String vertical;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("websites")
+        @Getter
+        @Setter
+        private List<
+            MessagingV2ChannelsSenderProfileGenericResponseWebsites
+        > websites;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("emails")
+        @Getter
+        @Setter
+        private List<
+            MessagingV2ChannelsSenderProfileGenericResponseEmails
+        > emails;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_numbers")
+        @Getter
+        @Setter
+        private List<
+            MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers
+        > phoneNumbers;
+
+        public static MessagingV2ChannelsSenderProfileGenericResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2ChannelsSenderProfileGenericResponse.class
             );
         }
     }
@@ -329,6 +528,93 @@ public class ChannelsSender extends Resource {
             return mapper.readValue(
                 jsonString,
                 MessagingV2ChannelsSenderOfflineReasonsItems.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2RcsCarrier {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("status")
+        @Getter
+        @Setter
+        private MessagingV2RcsCarrierStatus status;
+
+        public static MessagingV2RcsCarrier fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2RcsCarrier.class);
+        }
+    }
+
+    @ToString
+    public static class MessagingV2RcsComplianceCountryResponse {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country")
+        @Getter
+        @Setter
+        private String country;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("registration_sid")
+        @Getter
+        @Setter
+        private String registrationSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("status")
+        @Getter
+        @Setter
+        private MessagingV2RcsCountryStatus status;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carriers")
+        @Getter
+        @Setter
+        private List<MessagingV2RcsCarrier> carriers;
+
+        public static MessagingV2RcsComplianceCountryResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2RcsComplianceCountryResponse.class
+            );
+        }
+    }
+
+    @ToString
+    public static class MessagingV2RcsComplianceResponse {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("registration_sid")
+        @Getter
+        @Setter
+        private String registrationSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("countries")
+        @Getter
+        @Setter
+        private List<MessagingV2RcsComplianceCountryResponse> countries;
+
+        public static MessagingV2RcsComplianceResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV2RcsComplianceResponse.class
             );
         }
     }
@@ -417,11 +703,12 @@ public class ChannelsSender extends Resource {
     private final String senderId;
     private final MessagingV2ChannelsSenderConfiguration configuration;
     private final MessagingV2ChannelsSenderWebhook webhook;
-    private final MessagingV2ChannelsSenderProfile profile;
+    private final MessagingV2ChannelsSenderProfileGenericResponse profile;
     private final MessagingV2ChannelsSenderProperties properties;
     private final List<
         MessagingV2ChannelsSenderOfflineReasonsItems
     > offlineReasons;
+    private final MessagingV2RcsComplianceResponse compliance;
     private final URI url;
 
     @JsonCreator
@@ -433,13 +720,18 @@ public class ChannelsSender extends Resource {
             "configuration"
         ) final MessagingV2ChannelsSenderConfiguration configuration,
         @JsonProperty("webhook") final MessagingV2ChannelsSenderWebhook webhook,
-        @JsonProperty("profile") final MessagingV2ChannelsSenderProfile profile,
+        @JsonProperty(
+            "profile"
+        ) final MessagingV2ChannelsSenderProfileGenericResponse profile,
         @JsonProperty(
             "properties"
         ) final MessagingV2ChannelsSenderProperties properties,
         @JsonProperty("offline_reasons") final List<
             MessagingV2ChannelsSenderOfflineReasonsItems
         > offlineReasons,
+        @JsonProperty(
+            "compliance"
+        ) final MessagingV2RcsComplianceResponse compliance,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
@@ -450,6 +742,7 @@ public class ChannelsSender extends Resource {
         this.profile = profile;
         this.properties = properties;
         this.offlineReasons = offlineReasons;
+        this.compliance = compliance;
         this.url = url;
     }
 
@@ -473,7 +766,7 @@ public class ChannelsSender extends Resource {
         return this.webhook;
     }
 
-    public final MessagingV2ChannelsSenderProfile getProfile() {
+    public final MessagingV2ChannelsSenderProfileGenericResponse getProfile() {
         return this.profile;
     }
 
@@ -485,6 +778,10 @@ public class ChannelsSender extends Resource {
         MessagingV2ChannelsSenderOfflineReasonsItems
     > getOfflineReasons() {
         return this.offlineReasons;
+    }
+
+    public final MessagingV2RcsComplianceResponse getCompliance() {
+        return this.compliance;
     }
 
     public final URI getUrl() {
@@ -512,6 +809,7 @@ public class ChannelsSender extends Resource {
             Objects.equals(profile, other.profile) &&
             Objects.equals(properties, other.properties) &&
             Objects.equals(offlineReasons, other.offlineReasons) &&
+            Objects.equals(compliance, other.compliance) &&
             Objects.equals(url, other.url)
         );
     }
@@ -527,8 +825,101 @@ public class ChannelsSender extends Resource {
             profile,
             properties,
             offlineReasons,
+            compliance,
             url
         );
+    }
+
+    public enum MessagingV2RcsCountryStatus {
+        ONLINE("ONLINE"),
+        OFFLINE("OFFLINE"),
+        TWILIO_REVIEW("TWILIO_REVIEW"),
+        PENDING_VERIFICATION("PENDING_VERIFICATION");
+
+        private final String value;
+
+        private MessagingV2RcsCountryStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static MessagingV2RcsCountryStatus forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                MessagingV2RcsCountryStatus.values()
+            );
+        }
+    }
+
+    public enum MessagingV2RcsCarrierStatus {
+        UNKNOWN("UNKNOWN"),
+        UNLAUNCHED("UNLAUNCHED"),
+        CARRIER_REVIEW("CARRIER_REVIEW"),
+        APPROVED("APPROVED"),
+        REJECTED("REJECTED"),
+        SUSPENDED("SUSPENDED");
+
+        private final String value;
+
+        private MessagingV2RcsCarrierStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static MessagingV2RcsCarrierStatus forValue(final String value) {
+            return Promoter.enumFromString(
+                value,
+                MessagingV2RcsCarrierStatus.values()
+            );
+        }
+    }
+
+    public enum CallbackMethodEnum {
+        POST("POST"),
+        PUT("PUT");
+
+        private final String value;
+
+        private CallbackMethodEnum(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallbackMethodEnum forValue(final String value) {
+            return Promoter.enumFromString(value, CallbackMethodEnum.values());
+        }
+    }
+
+    public enum FallbackMethodEnum {
+        POST("POST"),
+        PUT("PUT");
+
+        private final String value;
+
+        private FallbackMethodEnum(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FallbackMethodEnum forValue(final String value) {
+            return Promoter.enumFromString(value, FallbackMethodEnum.values());
+        }
     }
 
     public enum VerificationMethodEnum {
@@ -554,26 +945,6 @@ public class ChannelsSender extends Resource {
         }
     }
 
-    public enum FallbackMethodEnum {
-        POST("POST"),
-        PUT("PUT");
-
-        private final String value;
-
-        private FallbackMethodEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FallbackMethodEnum forValue(final String value) {
-            return Promoter.enumFromString(value, FallbackMethodEnum.values());
-        }
-    }
-
     public enum Status {
         CREATING("CREATING"),
         ONLINE("ONLINE"),
@@ -581,7 +952,8 @@ public class ChannelsSender extends Resource {
         PENDING_VERIFICATION("PENDING_VERIFICATION"),
         VERIFYING("VERIFYING"),
         ONLINE_UPDATING("ONLINE:UPDATING"),
-        STUBBED("STUBBED");
+        TWILIO_REVIEW("TWILIO_REVIEW"),
+        DRAFT("DRAFT");
 
         private final String value;
 
@@ -596,26 +968,6 @@ public class ChannelsSender extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum CallbackMethodEnum {
-        POST("POST"),
-        PUT("PUT");
-
-        private final String value;
-
-        private CallbackMethodEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallbackMethodEnum forValue(final String value) {
-            return Promoter.enumFromString(value, CallbackMethodEnum.values());
         }
     }
 }

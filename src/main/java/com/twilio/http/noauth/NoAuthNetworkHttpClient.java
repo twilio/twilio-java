@@ -1,37 +1,48 @@
 package com.twilio.http.noauth;
 
+import static com.twilio.http.HttpClient.createHttpUriRequestBase;
+
 import com.twilio.Twilio;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.HttpUtility;
-import com.twilio.http.Request;
 import com.twilio.http.Response;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHeader;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPatch;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.HttpVersion;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.http.io.entity.BufferedHttpEntity;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
 
 public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
 
-    protected final org.apache.http.client.HttpClient client;
+    protected final CloseableHttpClient client;
+
     public NoAuthNetworkHttpClient() {
         this(DEFAULT_REQUEST_CONFIG);
     }
@@ -50,7 +61,7 @@ public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
         boolean isGoogleAppEngine = googleAppEngineVersion != null && !googleAppEngineVersion.isEmpty();
 
-        org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+        HttpClientBuilder clientBuilder = HttpClientBuilder.create();
 
         if (!isGoogleAppEngine) {
             clientBuilder.useSystemProperties();
@@ -74,61 +85,55 @@ public class NoAuthNetworkHttpClient extends NoAuthHttpClient {
                 .setRedirectStrategy(this.getRedirectStrategy())
                 .build();
     }
-    
+
     @Override
     public Response makeRequest(NoAuthRequest request) {
         HttpMethod method = request.getMethod();
-        RequestBuilder builder = RequestBuilder.create(method.toString())
-                .setUri(request.constructURL().toString())
-                .setVersion(HttpVersion.HTTP_1_1)
-                .setCharset(StandardCharsets.UTF_8);
+        HttpUriRequestBase httpUriRequestBase = createHttpUriRequestBase(request);
 
-        for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
-            for (String value : entry.getValue()) {
-                builder.addHeader(entry.getKey(), value);
-            }
-        }
+        httpUriRequestBase.setConfig(DEFAULT_REQUEST_CONFIG);
+
+        httpUriRequestBase.setVersion(HttpVersion.HTTP_1_1);
 
         if (method != HttpMethod.GET) {
             // TODO: It will be removed after one RC Release.
             if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
             if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
-                builder.setEntity(entity);
-                builder.addHeader(
-                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
+                httpUriRequestBase.setEntity(entity);
+                httpUriRequestBase.addHeader(
+                    HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
             } else {
-                builder.addHeader(
+                httpUriRequestBase.addHeader(
                         HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
-                for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                // Create your form parameters
+                List<NameValuePair> formParams = new ArrayList<>();
+                for ( Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                     for (String value : entry.getValue()) {
-                        builder.addParameter(entry.getKey(), value);
+                        formParams.add(new BasicNameValuePair(entry.getKey(), value));
                     }
                 }
+
+                // Build the entity with URL form encoded parameters
+                UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(formParams, StandardCharsets.UTF_8);
+                // Set the entity on the request
+                httpUriRequestBase.setEntity(formEntity);
             }
 
         }
-        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
-
-        HttpResponse response = null;
+        httpUriRequestBase.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
 
         try {
-            response = client.execute(builder.build());
+            CloseableHttpResponse response = client.execute(httpUriRequestBase);
             HttpEntity entity = response.getEntity();
             return new Response(
                     // Consume the entire HTTP response before returning the stream
                     entity == null ? null : new BufferedHttpEntity(entity).getContent(),
-                    response.getStatusLine().getStatusCode(),
-                    response.getAllHeaders()
+                    response.getCode(),
+                response.getHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);
-        } finally {
-
-            // Ensure this response is properly closed
-            HttpClientUtils.closeQuietly(response);
-
         }
-
     }
 }

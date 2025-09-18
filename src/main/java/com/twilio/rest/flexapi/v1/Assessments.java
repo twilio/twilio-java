@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class Assessments extends Resource {
 
-    private static final long serialVersionUID = 249351913918322L;
+    private static final long serialVersionUID = 2474918794072L;
 
     public static AssessmentsCreator creator(
         final String categorySid,
@@ -128,9 +128,9 @@ public class Assessments extends Resource {
 
     private final String accountSid;
     private final String assessmentSid;
-    private final BigDecimal offset;
+    private final String offset;
     private final Boolean report;
-    private final BigDecimal weight;
+    private final String weight;
     private final String agentId;
     private final String segmentId;
     private final String userName;
@@ -138,16 +138,16 @@ public class Assessments extends Resource {
     private final String answerText;
     private final String answerId;
     private final Map<String, Object> assessment;
-    private final BigDecimal timestamp;
+    private final String timestamp;
     private final URI url;
 
     @JsonCreator
     private Assessments(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("assessment_sid") final String assessmentSid,
-        @JsonProperty("offset") final BigDecimal offset,
+        @JsonProperty("offset") final String offset,
         @JsonProperty("report") final Boolean report,
-        @JsonProperty("weight") final BigDecimal weight,
+        @JsonProperty("weight") final String weight,
         @JsonProperty("agent_id") final String agentId,
         @JsonProperty("segment_id") final String segmentId,
         @JsonProperty("user_name") final String userName,
@@ -155,7 +155,7 @@ public class Assessments extends Resource {
         @JsonProperty("answer_text") final String answerText,
         @JsonProperty("answer_id") final String answerId,
         @JsonProperty("assessment") final Map<String, Object> assessment,
-        @JsonProperty("timestamp") final BigDecimal timestamp,
+        @JsonProperty("timestamp") final String timestamp,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -182,7 +182,7 @@ public class Assessments extends Resource {
         return this.assessmentSid;
     }
 
-    public final BigDecimal getOffset() {
+    public final String getOffset() {
         return this.offset;
     }
 
@@ -190,7 +190,7 @@ public class Assessments extends Resource {
         return this.report;
     }
 
-    public final BigDecimal getWeight() {
+    public final String getWeight() {
         return this.weight;
     }
 
@@ -222,7 +222,7 @@ public class Assessments extends Resource {
         return this.assessment;
     }
 
-    public final BigDecimal getTimestamp() {
+    public final String getTimestamp() {
         return this.timestamp;
     }
 

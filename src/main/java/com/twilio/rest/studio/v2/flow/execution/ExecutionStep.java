@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class ExecutionStep extends Resource {
 
-    private static final long serialVersionUID = 56382327963536L;
+    private static final long serialVersionUID = 221887175359099L;
 
     public static ExecutionStepFetcher fetcher(
         final String pathFlowSid,
@@ -107,6 +107,7 @@ public class ExecutionStep extends Resource {
     private final Map<String, Object> context;
     private final String transitionedFrom;
     private final String transitionedTo;
+    private final String type;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -123,6 +124,7 @@ public class ExecutionStep extends Resource {
         @JsonProperty("context") final Map<String, Object> context,
         @JsonProperty("transitioned_from") final String transitionedFrom,
         @JsonProperty("transitioned_to") final String transitionedTo,
+        @JsonProperty("type") final String type,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
@@ -137,6 +139,7 @@ public class ExecutionStep extends Resource {
         this.context = context;
         this.transitionedFrom = transitionedFrom;
         this.transitionedTo = transitionedTo;
+        this.type = type;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -179,6 +182,10 @@ public class ExecutionStep extends Resource {
         return this.transitionedTo;
     }
 
+    public final String getType() {
+        return this.type;
+    }
+
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
@@ -217,6 +224,7 @@ public class ExecutionStep extends Resource {
             Objects.equals(context, other.context) &&
             Objects.equals(transitionedFrom, other.transitionedFrom) &&
             Objects.equals(transitionedTo, other.transitionedTo) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(url, other.url) &&
@@ -236,6 +244,7 @@ public class ExecutionStep extends Resource {
             context,
             transitionedFrom,
             transitionedTo,
+            type,
             dateCreated,
             dateUpdated,
             url,

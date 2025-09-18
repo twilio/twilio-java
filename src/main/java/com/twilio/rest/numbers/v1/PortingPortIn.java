@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortIn extends Resource {
 
-    private static final long serialVersionUID = 79710628855525L;
+    private static final long serialVersionUID = 109031413524724L;
 
     public static PortingPortInCreator creator() {
         return new PortingPortInCreator();
@@ -124,6 +124,9 @@ public class PortingPortIn extends Resource {
     private final String portInRequestStatus;
     private final Map<String, Object> losingCarrierInformation;
     private final List<Map<String, Object>> phoneNumbers;
+    private final String bundleSid;
+    private final String portabilityAdvanceCarrier;
+    private final String autoCancelApprovalNumbers;
     private final List<String> documents;
     private final ZonedDateTime dateCreated;
 
@@ -152,6 +155,13 @@ public class PortingPortIn extends Resource {
         @JsonProperty("phone_numbers") final List<
             Map<String, Object>
         > phoneNumbers,
+        @JsonProperty("bundle_sid") final String bundleSid,
+        @JsonProperty(
+            "portability_advance_carrier"
+        ) final String portabilityAdvanceCarrier,
+        @JsonProperty(
+            "auto_cancel_approval_numbers"
+        ) final String autoCancelApprovalNumbers,
         @JsonProperty("documents") final List<String> documents,
         @JsonProperty("date_created") final String dateCreated
     ) {
@@ -166,6 +176,9 @@ public class PortingPortIn extends Resource {
         this.portInRequestStatus = portInRequestStatus;
         this.losingCarrierInformation = losingCarrierInformation;
         this.phoneNumbers = phoneNumbers;
+        this.bundleSid = bundleSid;
+        this.portabilityAdvanceCarrier = portabilityAdvanceCarrier;
+        this.autoCancelApprovalNumbers = autoCancelApprovalNumbers;
         this.documents = documents;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
     }
@@ -210,6 +223,18 @@ public class PortingPortIn extends Resource {
         return this.phoneNumbers;
     }
 
+    public final String getBundleSid() {
+        return this.bundleSid;
+    }
+
+    public final String getPortabilityAdvanceCarrier() {
+        return this.portabilityAdvanceCarrier;
+    }
+
+    public final String getAutoCancelApprovalNumbers() {
+        return this.autoCancelApprovalNumbers;
+    }
+
     public final List<String> getDocuments() {
         return this.documents;
     }
@@ -250,6 +275,15 @@ public class PortingPortIn extends Resource {
                 other.losingCarrierInformation
             ) &&
             Objects.equals(phoneNumbers, other.phoneNumbers) &&
+            Objects.equals(bundleSid, other.bundleSid) &&
+            Objects.equals(
+                portabilityAdvanceCarrier,
+                other.portabilityAdvanceCarrier
+            ) &&
+            Objects.equals(
+                autoCancelApprovalNumbers,
+                other.autoCancelApprovalNumbers
+            ) &&
             Objects.equals(documents, other.documents) &&
             Objects.equals(dateCreated, other.dateCreated)
         );
@@ -268,6 +302,9 @@ public class PortingPortIn extends Resource {
             portInRequestStatus,
             losingCarrierInformation,
             phoneNumbers,
+            bundleSid,
+            portabilityAdvanceCarrier,
+            autoCancelApprovalNumbers,
             documents,
             dateCreated
         );

@@ -26,20 +26,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class FlowCreator extends Creator<Flow> {
 
     private String friendlyName;
     private Flow.Status status;
-    private Map<String, Object> definition;
+    private Object definition;
     private String commitMessage;
 
     public FlowCreator(
         final String friendlyName,
         final Flow.Status status,
-        final Map<String, Object> definition
+        final Object definition
     ) {
         this.friendlyName = friendlyName;
         this.status = status;
@@ -56,7 +54,7 @@ public class FlowCreator extends Creator<Flow> {
         return this;
     }
 
-    public FlowCreator setDefinition(final Map<String, Object> definition) {
+    public FlowCreator setDefinition(final Object definition) {
         this.definition = definition;
         return this;
     }
@@ -116,7 +114,10 @@ public class FlowCreator extends Creator<Flow> {
             request.addPostParam("Status", status.toString());
         }
         if (definition != null) {
-            request.addPostParam("Definition", Converter.mapToJson(definition));
+            request.addPostParam(
+                "Definition",
+                Converter.objectToJson(definition)
+            );
         }
         if (commitMessage != null) {
             request.addPostParam("CommitMessage", commitMessage);

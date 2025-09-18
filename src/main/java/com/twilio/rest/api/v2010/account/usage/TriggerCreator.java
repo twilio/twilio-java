@@ -32,7 +32,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     private URI callbackUrl;
     private String triggerValue;
-    private Trigger.UsageCategory usageCategory;
+    private String usageCategory;
     private String pathAccountSid;
     private HttpMethod callbackMethod;
     private String friendlyName;
@@ -42,7 +42,7 @@ public class TriggerCreator extends Creator<Trigger> {
     public TriggerCreator(
         final URI callbackUrl,
         final String triggerValue,
-        final Trigger.UsageCategory usageCategory
+        final String usageCategory
     ) {
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
@@ -53,7 +53,7 @@ public class TriggerCreator extends Creator<Trigger> {
         final String pathAccountSid,
         final URI callbackUrl,
         final String triggerValue,
-        final Trigger.UsageCategory usageCategory
+        final String usageCategory
     ) {
         this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
@@ -75,9 +75,7 @@ public class TriggerCreator extends Creator<Trigger> {
         return this;
     }
 
-    public TriggerCreator setUsageCategory(
-        final Trigger.UsageCategory usageCategory
-    ) {
+    public TriggerCreator setUsageCategory(final String usageCategory) {
         this.usageCategory = usageCategory;
         return this;
     }
@@ -168,7 +166,7 @@ public class TriggerCreator extends Creator<Trigger> {
             request.addPostParam("TriggerValue", triggerValue);
         }
         if (usageCategory != null) {
-            request.addPostParam("UsageCategory", usageCategory.toString());
+            request.addPostParam("UsageCategory", usageCategory);
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());

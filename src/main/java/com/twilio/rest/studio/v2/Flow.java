@@ -45,7 +45,7 @@ public class Flow extends Resource {
     public static FlowCreator creator(
         final String friendlyName,
         final Flow.Status status,
-        final Map<String, Object> definition
+        final Object definition
     ) {
         return new FlowCreator(friendlyName, status, definition);
     }

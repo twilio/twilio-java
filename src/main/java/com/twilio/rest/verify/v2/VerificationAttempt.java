@@ -246,8 +246,7 @@ public class VerificationAttempt extends Resource {
         CALL("call"),
         EMAIL("email"),
         WHATSAPP("whatsapp"),
-        RBM("rbm"),
-        SNA("sna");
+        RBM("rbm");
 
         private final String value;
 

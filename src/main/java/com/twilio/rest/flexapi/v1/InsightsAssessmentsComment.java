@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class InsightsAssessmentsComment extends Resource {
 
-    private static final long serialVersionUID = 175598645429423L;
+    private static final long serialVersionUID = 119423741777853L;
 
     public static InsightsAssessmentsCommentCreator creator(
         final String categoryId,
@@ -113,14 +113,14 @@ public class InsightsAssessmentsComment extends Resource {
     private final String accountSid;
     private final String assessmentSid;
     private final Map<String, Object> comment;
-    private final BigDecimal offset;
+    private final String offset;
     private final Boolean report;
-    private final BigDecimal weight;
+    private final String weight;
     private final String agentId;
     private final String segmentId;
     private final String userName;
     private final String userEmail;
-    private final BigDecimal timestamp;
+    private final String timestamp;
     private final URI url;
 
     @JsonCreator
@@ -128,14 +128,14 @@ public class InsightsAssessmentsComment extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("assessment_sid") final String assessmentSid,
         @JsonProperty("comment") final Map<String, Object> comment,
-        @JsonProperty("offset") final BigDecimal offset,
+        @JsonProperty("offset") final String offset,
         @JsonProperty("report") final Boolean report,
-        @JsonProperty("weight") final BigDecimal weight,
+        @JsonProperty("weight") final String weight,
         @JsonProperty("agent_id") final String agentId,
         @JsonProperty("segment_id") final String segmentId,
         @JsonProperty("user_name") final String userName,
         @JsonProperty("user_email") final String userEmail,
-        @JsonProperty("timestamp") final BigDecimal timestamp,
+        @JsonProperty("timestamp") final String timestamp,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -164,7 +164,7 @@ public class InsightsAssessmentsComment extends Resource {
         return this.comment;
     }
 
-    public final BigDecimal getOffset() {
+    public final String getOffset() {
         return this.offset;
     }
 
@@ -172,7 +172,7 @@ public class InsightsAssessmentsComment extends Resource {
         return this.report;
     }
 
-    public final BigDecimal getWeight() {
+    public final String getWeight() {
         return this.weight;
     }
 
@@ -192,7 +192,7 @@ public class InsightsAssessmentsComment extends Resource {
         return this.userEmail;
     }
 
-    public final BigDecimal getTimestamp() {
+    public final String getTimestamp() {
         return this.timestamp;
     }
 

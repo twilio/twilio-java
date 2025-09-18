@@ -43,7 +43,7 @@ public class InteractionChannelParticipant extends Resource {
         final String pathInteractionSid,
         final String pathChannelSid,
         final InteractionChannelParticipant.Type type,
-        final Map<String, Object> mediaProperties
+        final Object mediaProperties
     ) {
         return new InteractionChannelParticipantCreator(
             pathInteractionSid,

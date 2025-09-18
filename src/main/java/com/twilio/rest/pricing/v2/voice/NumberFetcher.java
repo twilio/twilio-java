@@ -57,7 +57,7 @@ public class NumberFetcher extends Fetcher<Number> {
         path =
             path.replace(
                 "{" + "DestinationNumber" + "}",
-                this.pathDestinationNumber.encode("utf-8")
+                this.pathDestinationNumber.toString()
             );
 
         Request request = new Request(

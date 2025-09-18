@@ -138,8 +138,8 @@ public class RequestValidator {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(url.getScheme()).append("://");
-            if (url.getUserInfo() != null) {
-                sb.append(url.getUserInfo()).append("@");
+            if (url.getRawUserInfo() != null) {
+                sb.append(url.getRawUserInfo()).append("@");
             }
             sb.append(url.getHost());
             if (newPort != -1) {

@@ -114,7 +114,6 @@ public class RequestValidatorTest {
         Assert.assertTrue("Validator did not add port 80 to http url", isValid);
     }
 
-    // Additional comprehensive test cases for better coverage and debugging
 
     @Test
     public void testValidateWithEmptyParams() {

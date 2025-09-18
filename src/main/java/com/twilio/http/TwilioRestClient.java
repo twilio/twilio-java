@@ -89,10 +89,13 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        if (username != null && password != null) {
-            request.setAuth(username, password);
-        } else if (authStrategy != null) {
-            request.setAuth(authStrategy);
+        // If authStrategy is passed from NoAuth API, no need to set authStrategy (ex TokenCreator). 
+        if (request.getAuthStrategy() == null) {
+            if (username != null && password != null) {
+                request.setAuth(username, password);
+            } else if (authStrategy != null) {
+                request.setAuth(authStrategy);
+            }
         }
 
         if (region != null)

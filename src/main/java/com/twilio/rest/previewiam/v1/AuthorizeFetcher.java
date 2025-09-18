@@ -14,15 +14,15 @@
 
 package com.twilio.rest.previewiam.v1;
 
-import com.twilio.base.noauth.Fetcher;
+import com.twilio.base.Fetcher;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.noauth.NoAuthRequest;
-import com.twilio.http.noauth.NoAuthTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.http.Request;
 import com.twilio.rest.Domains;
 
 public class AuthorizeFetcher extends Fetcher<Authorize> {
@@ -61,10 +61,10 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
     }
 
     @Override
-    public Authorize fetch(final NoAuthTwilioRestClient client) {
+    public Authorize fetch(final TwilioRestClient client) {
         String path = "/v1/authorize";
 
-        NoAuthRequest request = new NoAuthRequest(
+        Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEWIAM.toString(),
             path
@@ -78,7 +78,7 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
                 "Authorize fetch failed: Unable to connect to server"
             );
         } else if (
-            !NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
@@ -99,7 +99,7 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
         );
     }
 
-    private void addQueryParams(final NoAuthRequest request) {
+    private void addQueryParams(final Request request) {
         if (responseType != null) {
             request.addQueryParam("response_type", responseType);
         }

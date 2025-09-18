@@ -14,15 +14,17 @@
 
 package com.twilio.rest.previewiam.v1;
 
-import com.twilio.base.noauth.Creator;
+import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.noauth.NoAuthRequest;
-import com.twilio.http.noauth.NoAuthTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.http.Request;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.http.Request;
 import com.twilio.rest.Domains;
 
 public class TokenCreator extends Creator<Token> {
@@ -82,14 +84,14 @@ public class TokenCreator extends Creator<Token> {
     }
 
     @Override
-    public Token create(final NoAuthTwilioRestClient client) {
+    public Token create(final TwilioRestClient client) {
         String path = "/v1/token";
 
         path =
             path.replace("{" + "grant_type" + "}", this.grantType.toString());
         path = path.replace("{" + "client_id" + "}", this.clientId.toString());
 
-        NoAuthRequest request = new NoAuthRequest(
+        Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEWIAM.toString(),
             path
@@ -102,7 +104,7 @@ public class TokenCreator extends Creator<Token> {
                 "Token creation failed: Unable to connect to server"
             );
         } else if (
-            !NoAuthTwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
@@ -120,7 +122,7 @@ public class TokenCreator extends Creator<Token> {
         return Token.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(final NoAuthRequest request) {
+    private void addPostParams(final Request request) {
         if (grantType != null) {
             request.addPostParam("grant_type", grantType);
         }

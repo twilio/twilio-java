@@ -114,4 +114,30 @@ public class RequestValidatorTest {
         Assert.assertTrue("Validator did not add port 80 to http url", isValid);
     }
 
+    @Test
+    public void testValidatePreservesUrlEncodingInQuery() {
+        // Test case for the specific issue: URLs with encoded characters in query string
+        String urlWithoutPort = "https://someurl.com/somepath?param1=client%3AAnonymous";
+        String urlWithPort = "https://someurl.com:443/somepath?param1=client%3AAnonymous";
+        RequestValidator validator = new RequestValidator("1234567890");
+        
+        // Generate a signature for the URL without port
+        Map<String, String> emptyParams = new HashMap<>();
+        String signature = null;
+        try {
+            java.lang.reflect.Method method = RequestValidator.class.getDeclaredMethod("getValidationSignature", String.class, java.util.Map.class);
+            method.setAccessible(true);
+            signature = (String) method.invoke(validator, urlWithoutPort, emptyParams);
+        } catch (Exception e) {
+            Assert.fail("Could not generate signature: " + e.getMessage());
+        }
+        
+        // Both URLs should validate with the same signature since they should be treated as equivalent
+        boolean validWithoutPort = validator.validate(urlWithoutPort, emptyParams, signature);
+        boolean validWithPort = validator.validate(urlWithPort, emptyParams, signature);
+
+        Assert.assertTrue("URL without port should validate", validWithoutPort);
+        Assert.assertTrue("URL with port should validate (encoding preserved)", validWithPort);
+    }
+
 }

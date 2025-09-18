@@ -14,6 +14,7 @@
 
 package com.twilio.rest.oauth.v1;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Fetcher;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -71,6 +72,7 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
         );
         addQueryParams(request);
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setAuth(NoAuthStrategy.getInstance());
         Response response = client.request(request);
 
         if (response == null) {

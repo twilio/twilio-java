@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.auth_strategy.BasicAuthStrategy;
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.rest.Domains;
 import java.util.Arrays;
 import java.util.Collections;
@@ -122,5 +124,41 @@ public class TwilioRestClientTest {
                 .build();
         twilioRestClientExtension.request(request);
         assertNull(request.getUserAgentExtensions());
+    }
+
+    @Test
+    public void testRequestWithNoAuthStrategy() {
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                URI
+        );
+        request.setAuth(NoAuthStrategy.getInstance());
+        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+                .userAgentExtensions(Collections.emptyList())
+                .httpClient(httpClient)
+                .build();
+        twilioRestClientExtension.request(request);
+        assertNull(twilioRestClientExtension.getAuthStrategy());
+        // AuthStrategy of Request not changing by TwilioRestClient
+        assertEquals(NoAuthStrategy.getInstance(), request.getAuthStrategy());
+    }
+
+    @Test
+    public void testRequestWithNoAuthStrategyWithAuthStrategy() {
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                URI
+        );
+        request.setAuth(NoAuthStrategy.getInstance());
+        twilioRestClientExtension = new TwilioRestClient.Builder(new BasicAuthStrategy(USER_NAME, TOKEN))
+                .userAgentExtensions(Collections.emptyList())
+                .httpClient(httpClient)
+                .build();
+        twilioRestClientExtension.request(request);
+        assertNotNull(twilioRestClientExtension.getAuthStrategy());
+        // AuthStrategy of Request not changing by TwilioRestClient
+        assertEquals(NoAuthStrategy.getInstance(), request.getAuthStrategy());
     }
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.oauth.v1;
 
+import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -94,6 +95,7 @@ public class TokenCreator extends Creator<Token> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setAuth(NoAuthStrategy.getInstance());
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

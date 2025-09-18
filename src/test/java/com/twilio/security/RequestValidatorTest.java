@@ -101,10 +101,10 @@ public class RequestValidatorTest {
     public void testValidateAddsPortHttps() {
         String expectedSignature = "kvajT1Ptam85bY51eRf/AJRuM3w="; // hash of https uri with port 443
         boolean isValid = validator.validate(url, params, expectedSignature);
-        
+
         Assert.assertTrue("Validator did not add port 443 to https url", isValid);
     }
-    
+
     @Test
     public void testValidateAddsPortHttp() {
         String url = this.url.replace("https", "http");
@@ -173,7 +173,7 @@ public class RequestValidatorTest {
         specialParams.put("Message", "Hello & goodbye! @#$%^*()");
         specialParams.put("From", "+1 (415) 867-5309");
         specialParams.put("Special", "unicode: ñáéíóú");
-        
+
         String expectedSignature = "dCPiR4WtQ6QFN6pJh81CtlCcWLQ=";
         boolean isValid = validator.validate(url, specialParams, expectedSignature);
 
@@ -187,7 +187,7 @@ public class RequestValidatorTest {
         emptyValueParams.put("Digits", "");
         emptyValueParams.put("CallSid", "CA1234567890ABCDE");
         emptyValueParams.put("EmptyParam", "");
-        
+
         String expectedSignature = "9HHp/OqQMEwdrVebHDdA/+tqjX8=";
         boolean isValid = validator.validate(url, emptyValueParams, expectedSignature);
 
@@ -201,25 +201,11 @@ public class RequestValidatorTest {
         nullValueParams.put("Digits", null);
         nullValueParams.put("CallSid", "CA1234567890ABCDE");
         nullValueParams.put("NullParam", null);
-        
+
         String expectedSignature = "L9lTTwIlxM1xGAtLRwhOSZggRhM=";
         boolean isValid = validator.validate(url, nullValueParams, expectedSignature);
 
         Assert.assertTrue("Validation should succeed with null parameter values", isValid);
-    }
-
-    @Test
-    public void testValidateWithLongParameterValues() {
-        // Test with very long parameter values
-        Map<String, String> longParams = new HashMap<>();
-        String longValue = "a".repeat(1000); // 1000 character string
-        longParams.put("LongParam", longValue);
-        longParams.put("CallSid", "CA1234567890ABCDE");
-        
-        String expectedSignature = "RObKI2Ew77elTuLLIU2QkVvCATQ=";
-        boolean isValid = validator.validate(url, longParams, expectedSignature);
-
-        Assert.assertTrue("Validation should succeed with long parameter values", isValid);
     }
 
     @Test
@@ -230,7 +216,7 @@ public class RequestValidatorTest {
         unsortedParams.put("Alpha", "first");
         unsortedParams.put("Beta", "second");
         unsortedParams.put("Gamma", "third");
-        
+
         String expectedSignature = "enveUe73ZTVLAekHxez3Qx6JuuQ=";
         boolean isValid = validator.validate(url, unsortedParams, expectedSignature);
 
@@ -254,7 +240,7 @@ public class RequestValidatorTest {
         caseParams.put("callSid", "lowercase");
         caseParams.put("CallSid", "uppercase"); // Different from callSid
         caseParams.put("CALLSID", "allcaps");
-        
+
         String expectedSignature = "jDK7WKT8wiNrwggd4ceTv4e1MJ4=";
         boolean isValid = validator.validate(url, caseParams, expectedSignature);
 

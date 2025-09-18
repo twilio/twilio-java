@@ -287,7 +287,6 @@ public class RequestValidatorTest {
     public void testValidateFailsWithEmptySignature() {
         // Test that validation properly fails with empty signature
         boolean isValid = validator.validate(url, params, "");
-
         Assert.assertFalse("Validation should fail with empty signature", isValid);
     }
 

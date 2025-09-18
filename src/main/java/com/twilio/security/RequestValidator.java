@@ -136,14 +136,25 @@ public class RequestValidator {
 
     private String updatePort(URI url, int newPort) {
         try {
-            return new URI(
-                url.getScheme(),
-                url.getUserInfo(),
-                url.getHost(), 
-                newPort,
-                url.getPath(),
-                url.getQuery(),
-                url.getFragment()).toString();
+            StringBuilder sb = new StringBuilder();
+            sb.append(url.getScheme()).append("://");
+            if (url.getRawUserInfo() != null) {
+                sb.append(url.getRawUserInfo()).append("@");
+            }
+            sb.append(url.getHost());
+            if (newPort != -1) {
+                sb.append(":").append(newPort);
+            }
+            if (url.getRawPath() != null) {
+                sb.append(url.getRawPath());
+            }
+            if (url.getRawQuery() != null) {
+                sb.append("?").append(url.getRawQuery());
+            }
+            if (url.getRawFragment() != null) {
+                sb.append("#").append(url.getRawFragment());
+            }
+            return sb.toString();
         } catch (Exception e) {
             return url.toString();
         }

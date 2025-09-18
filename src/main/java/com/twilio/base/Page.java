@@ -169,8 +169,9 @@ public class Page<T> {
 
     private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
         JsonNode meta = root.get("meta");
-        Builder<T> builder = new Builder<T>().url(meta.get("url").asText());
-
+        Builder<T> builder = new Builder<>();
+        if(meta != null && meta.get("url") != null) {
+            builder = builder.url(meta.get("url").asText());
         JsonNode nextPageNode = meta.get("next_page_url");
         if (!nextPageNode.isNull()) {
             builder.nextPageUrl(nextPageNode.asText());
@@ -191,6 +192,7 @@ public class Page<T> {
             builder.pageSize(pageSizeNode.asInt());
         } else {
             builder.pageSize(results.size());
+        }
         }
 
         return builder.records(results).build();

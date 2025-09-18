@@ -15,15 +15,15 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.bearertoken.Updater;
+import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.Request;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserUpdater extends Updater<User> {
@@ -54,7 +54,7 @@ public class UserUpdater extends Updater<User> {
     }
 
     @Override
-    public User update(final BearerTokenTwilioRestClient client) {
+    public User update(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
         path =
@@ -65,7 +65,7 @@ public class UserUpdater extends Updater<User> {
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
         path = path.replace("{" + "ScimUser" + "}", this.scimUser.toString());
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.PUT,
             Domains.PREVIEWIAM.toString(),
             path
@@ -79,7 +79,7 @@ public class UserUpdater extends Updater<User> {
                 "User update failed: Unable to connect to server"
             );
         } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
+            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
         ) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
@@ -98,8 +98,8 @@ public class UserUpdater extends Updater<User> {
     }
 
     private void addPostParams(
-        final BearerTokenRequest request,
-        BearerTokenTwilioRestClient client
+        final Request request,
+        TwilioRestClient client
     ) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (scimUser != null) {
@@ -107,7 +107,7 @@ public class UserUpdater extends Updater<User> {
         }
     }
 
-    private void addHeaderParams(final BearerTokenRequest request) {
+    private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
             request.addHeaderParam("If-Match", ifMatch);
         }

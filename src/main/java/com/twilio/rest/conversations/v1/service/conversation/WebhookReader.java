@@ -17,7 +17,8 @@ package com.twilio.rest.conversations.v1.service.conversation;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,22 +30,21 @@ import com.twilio.rest.Domains;
 
 public class WebhookReader extends Reader<Webhook> {
 
-    private String pathChatServiceSid;
-    private String pathConversationSid;
+    private String pathchatServiceSid;
+    private String pathconversationSid;
     private Long pageSize;
 
-    public WebhookReader(
-        final String pathChatServiceSid,
-        final String pathConversationSid
-    ) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathConversationSid = pathConversationSid;
+    public WebhookReader(final String pathchatServiceSid, final String pathconversationSid) {
+        this.pathchatServiceSid = pathchatServiceSid;
+        this.pathconversationSid = pathconversationSid;
     }
+
 
     public WebhookReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Webhook> read(final TwilioRestClient client) {
@@ -52,103 +52,69 @@ public class WebhookReader extends Reader<Webhook> {
     }
 
     public Page<Webhook> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks";
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
+
+        String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Webhook> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Webhook> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "webhooks",
-            response.getContent(),
-            Webhook.class,
-            client.getObjectMapper()
-        );
+                "webhooks",
+                response.getContent(),
+                Webhook.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Webhook> previousPage(
-        final Page<Webhook> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
-        );
+    public Page<Webhook> previousPage(final Page<Webhook> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Webhook> nextPage(
-        final Page<Webhook> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
-        );
+    public Page<Webhook> nextPage(final Page<Webhook> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Webhook> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Webhook> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

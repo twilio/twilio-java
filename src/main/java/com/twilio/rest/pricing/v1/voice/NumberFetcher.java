@@ -15,7 +15,6 @@
 package com.twilio.rest.pricing.v1.voice;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,44 +26,41 @@ import com.twilio.rest.Domains;
 
 public class NumberFetcher extends Fetcher<Number> {
 
-    private com.twilio.type.PhoneNumber pathNumber;
+    private com.twilio.type.PhoneNumber pathnumber;
 
-    public NumberFetcher(final com.twilio.type.PhoneNumber pathNumber) {
-        this.pathNumber = pathNumber;
+    public NumberFetcher(final com.twilio.type.PhoneNumber pathnumber) {
+        this.pathnumber = pathnumber;
     }
+
 
     @Override
     public Number fetch(final TwilioRestClient client) {
+
         String path = "/v1/Voice/Numbers/{Number}";
 
-        path = path.replace("{" + "Number" + "}", this.pathNumber.toString());
+        path = path.replace("{" + "Number" + "}", this.pathnumber.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PRICING.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PRICING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Number fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Number fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Number.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

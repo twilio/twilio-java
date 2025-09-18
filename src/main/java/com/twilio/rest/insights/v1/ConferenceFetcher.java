@@ -15,7 +15,6 @@
 package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +26,41 @@ import com.twilio.rest.Domains;
 
 public class ConferenceFetcher extends Fetcher<Conference> {
 
-    private String pathConferenceSid;
+    private String pathconferenceSid;
 
-    public ConferenceFetcher(final String pathConferenceSid) {
-        this.pathConferenceSid = pathConferenceSid;
+    public ConferenceFetcher(final String pathconferenceSid) {
+        this.pathconferenceSid = pathconferenceSid;
     }
+
 
     @Override
     public Conference fetch(final TwilioRestClient client) {
+
         String path = "/v1/Conferences/{ConferenceSid}";
 
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INSIGHTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Conference fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Conference fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Conference.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Conference.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

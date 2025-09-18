@@ -16,7 +16,9 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,128 +27,121 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.util.List;
 
-public class InsightsQuestionnairesUpdater
-    extends Updater<InsightsQuestionnaires> {
-
-    private String pathQuestionnaireSid;
-    private Boolean active;
+public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaires> {
+    private String pathquestionnaireSid;
     private String authorization;
+    private Boolean active;
     private String name;
     private String description;
     private List<String> questionSids;
 
-    public InsightsQuestionnairesUpdater(
-        final String pathQuestionnaireSid,
-        final Boolean active
-    ) {
-        this.pathQuestionnaireSid = pathQuestionnaireSid;
+    public InsightsQuestionnairesUpdater(final String pathquestionnaireSid, final Boolean active) {
+        this.pathquestionnaireSid = pathquestionnaireSid;
         this.active = active;
     }
+
 
     public InsightsQuestionnairesUpdater setActive(final Boolean active) {
         this.active = active;
         return this;
     }
 
-    public InsightsQuestionnairesUpdater setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
 
     public InsightsQuestionnairesUpdater setName(final String name) {
         this.name = name;
         return this;
     }
 
-    public InsightsQuestionnairesUpdater setDescription(
-        final String description
-    ) {
+
+    public InsightsQuestionnairesUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-    public InsightsQuestionnairesUpdater setQuestionSids(
-        final List<String> questionSids
-    ) {
+
+    public InsightsQuestionnairesUpdater setQuestionSids(final List<String> questionSids) {
         this.questionSids = questionSids;
         return this;
     }
 
-    public InsightsQuestionnairesUpdater setQuestionSids(
-        final String questionSids
-    ) {
+    public InsightsQuestionnairesUpdater setQuestionSids(final String questionSids) {
         return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
+    public InsightsQuestionnairesUpdater setAuthorization(final String authorization) {
+        this.authorization = authorization;
+        return this;
+    }
+
+
     @Override
     public InsightsQuestionnaires update(final TwilioRestClient client) {
-        String path =
-            "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path =
-            path.replace(
-                "{" + "QuestionnaireSid" + "}",
-                this.pathQuestionnaireSid.toString()
-            );
-        path = path.replace("{" + "Active" + "}", this.active.toString());
+        String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
+
+        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathquestionnaireSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnaires update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnaires update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnaires.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (active != null) {
-            request.addPostParam("Active", active.toString());
+            Serializer.toString(request, "Active", active, ParameterType.URLENCODED);
         }
+
+
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(request, "Name", name, ParameterType.URLENCODED);
         }
+
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
         }
+
+
         if (questionSids != null) {
-            for (String prop : questionSids) {
-                request.addPostParam("QuestionSids", prop);
+            for (String param : questionSids) {
+                Serializer.toString(request, "QuestionSids", param, ParameterType.URLENCODED);
             }
         }
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
         }
+
     }
 }

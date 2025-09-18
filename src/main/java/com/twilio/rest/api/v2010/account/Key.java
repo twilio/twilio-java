@@ -18,77 +18,90 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Key extends Resource {
 
-    private static final long serialVersionUID = 35259719636912L;
 
-    public static KeyDeleter deleter(final String pathSid) {
-        return new KeyDeleter(pathSid);
+    public static KeyDeleter deleter(final String pathsid) {
+        return new KeyDeleter(
+                pathsid
+        );
     }
 
-    public static KeyDeleter deleter(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new KeyDeleter(pathAccountSid, pathSid);
+
+    public static KeyDeleter deleter(final String pathaccountSid, final String pathsid) {
+        return new KeyDeleter(
+                pathaccountSid, pathsid
+        );
     }
 
-    public static KeyFetcher fetcher(final String pathSid) {
-        return new KeyFetcher(pathSid);
+
+    public static KeyFetcher fetcher(final String pathsid) {
+        return new KeyFetcher(
+                pathsid
+        );
     }
 
-    public static KeyFetcher fetcher(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new KeyFetcher(pathAccountSid, pathSid);
+
+    public static KeyFetcher fetcher(final String pathaccountSid, final String pathsid) {
+        return new KeyFetcher(
+                pathaccountSid, pathsid
+        );
     }
+
 
     public static KeyReader reader() {
-        return new KeyReader();
+        return new KeyReader(
+
+        );
     }
 
-    public static KeyReader reader(final String pathAccountSid) {
-        return new KeyReader(pathAccountSid);
+
+    public static KeyReader reader(final String pathaccountSid) {
+        return new KeyReader(
+                pathaccountSid
+        );
     }
 
-    public static KeyUpdater updater(final String pathSid) {
-        return new KeyUpdater(pathSid);
+
+    public static KeyUpdater updater(final String pathsid) {
+        return new KeyUpdater(
+                pathsid
+        );
     }
 
-    public static KeyUpdater updater(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new KeyUpdater(pathAccountSid, pathSid);
+
+    public static KeyUpdater updater(final String pathaccountSid, final String pathsid) {
+        return new KeyUpdater(
+                pathaccountSid, pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Key object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Key object represented by the provided JSON
      */
-    public static Key fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Key fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Key.class);
@@ -103,14 +116,11 @@ public class Key extends Resource {
      * Converts a JSON InputStream into a Key object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Key object represented by the provided JSON
      */
-    public static Key fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Key fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Key.class);
@@ -121,38 +131,41 @@ public class Key extends Resource {
         }
     }
 
-    private final String sid;
-    private final String friendlyName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String sid;
 
     @JsonCreator
     private Key(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("sid") final String sid
     ) {
-        this.sid = sid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
+        this.sid = sid;
     }
 
     @Override
@@ -166,17 +179,24 @@ public class Key extends Resource {
         }
 
         Key other = (Key) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, dateCreated, dateUpdated);
+        return Objects.hash(
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                sid
+        );
     }
+
+
 }
+

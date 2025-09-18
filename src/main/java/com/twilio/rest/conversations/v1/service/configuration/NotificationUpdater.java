@@ -16,6 +16,8 @@ package com.twilio.rest.conversations.v1.service.configuration;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +28,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class NotificationUpdater extends Updater<Notification> {
-
-    private String pathChatServiceSid;
+    private String pathchatServiceSid;
     private Boolean logEnabled;
     private Boolean newMessageEnabled;
     private String newMessageTemplate;
@@ -42,211 +43,189 @@ public class NotificationUpdater extends Updater<Notification> {
     private Boolean newMessageWithMediaEnabled;
     private String newMessageWithMediaTemplate;
 
-    public NotificationUpdater(final String pathChatServiceSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
+    public NotificationUpdater(final String pathchatServiceSid) {
+        this.pathchatServiceSid = pathchatServiceSid;
     }
+
 
     public NotificationUpdater setLogEnabled(final Boolean logEnabled) {
         this.logEnabled = logEnabled;
         return this;
     }
 
-    public NotificationUpdater setNewMessageEnabled(
-        final Boolean newMessageEnabled
-    ) {
+
+    public NotificationUpdater setNewMessageEnabled(final Boolean newMessageEnabled) {
         this.newMessageEnabled = newMessageEnabled;
         return this;
     }
 
-    public NotificationUpdater setNewMessageTemplate(
-        final String newMessageTemplate
-    ) {
+
+    public NotificationUpdater setNewMessageTemplate(final String newMessageTemplate) {
         this.newMessageTemplate = newMessageTemplate;
         return this;
     }
 
-    public NotificationUpdater setNewMessageSound(
-        final String newMessageSound
-    ) {
+
+    public NotificationUpdater setNewMessageSound(final String newMessageSound) {
         this.newMessageSound = newMessageSound;
         return this;
     }
 
-    public NotificationUpdater setNewMessageBadgeCountEnabled(
-        final Boolean newMessageBadgeCountEnabled
-    ) {
+
+    public NotificationUpdater setNewMessageBadgeCountEnabled(final Boolean newMessageBadgeCountEnabled) {
         this.newMessageBadgeCountEnabled = newMessageBadgeCountEnabled;
         return this;
     }
 
-    public NotificationUpdater setAddedToConversationEnabled(
-        final Boolean addedToConversationEnabled
-    ) {
+
+    public NotificationUpdater setAddedToConversationEnabled(final Boolean addedToConversationEnabled) {
         this.addedToConversationEnabled = addedToConversationEnabled;
         return this;
     }
 
-    public NotificationUpdater setAddedToConversationTemplate(
-        final String addedToConversationTemplate
-    ) {
+
+    public NotificationUpdater setAddedToConversationTemplate(final String addedToConversationTemplate) {
         this.addedToConversationTemplate = addedToConversationTemplate;
         return this;
     }
 
-    public NotificationUpdater setAddedToConversationSound(
-        final String addedToConversationSound
-    ) {
+
+    public NotificationUpdater setAddedToConversationSound(final String addedToConversationSound) {
         this.addedToConversationSound = addedToConversationSound;
         return this;
     }
 
-    public NotificationUpdater setRemovedFromConversationEnabled(
-        final Boolean removedFromConversationEnabled
-    ) {
+
+    public NotificationUpdater setRemovedFromConversationEnabled(final Boolean removedFromConversationEnabled) {
         this.removedFromConversationEnabled = removedFromConversationEnabled;
         return this;
     }
 
-    public NotificationUpdater setRemovedFromConversationTemplate(
-        final String removedFromConversationTemplate
-    ) {
+
+    public NotificationUpdater setRemovedFromConversationTemplate(final String removedFromConversationTemplate) {
         this.removedFromConversationTemplate = removedFromConversationTemplate;
         return this;
     }
 
-    public NotificationUpdater setRemovedFromConversationSound(
-        final String removedFromConversationSound
-    ) {
+
+    public NotificationUpdater setRemovedFromConversationSound(final String removedFromConversationSound) {
         this.removedFromConversationSound = removedFromConversationSound;
         return this;
     }
 
-    public NotificationUpdater setNewMessageWithMediaEnabled(
-        final Boolean newMessageWithMediaEnabled
-    ) {
+
+    public NotificationUpdater setNewMessageWithMediaEnabled(final Boolean newMessageWithMediaEnabled) {
         this.newMessageWithMediaEnabled = newMessageWithMediaEnabled;
         return this;
     }
 
-    public NotificationUpdater setNewMessageWithMediaTemplate(
-        final String newMessageWithMediaTemplate
-    ) {
+
+    public NotificationUpdater setNewMessageWithMediaTemplate(final String newMessageWithMediaTemplate) {
         this.newMessageWithMediaTemplate = newMessageWithMediaTemplate;
         return this;
     }
 
+
     @Override
     public Notification update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+        String path = "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Notification update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Notification update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Notification.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Notification.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (logEnabled != null) {
-            request.addPostParam("LogEnabled", logEnabled.toString());
+            Serializer.toString(request, "LogEnabled", logEnabled, ParameterType.URLENCODED);
         }
+
+
         if (newMessageEnabled != null) {
-            request.addPostParam(
-                "NewMessage.Enabled",
-                newMessageEnabled.toString()
-            );
+            Serializer.toString(request, "NewMessage.Enabled", newMessageEnabled, ParameterType.URLENCODED);
         }
+
+
         if (newMessageTemplate != null) {
-            request.addPostParam("NewMessage.Template", newMessageTemplate);
+            Serializer.toString(request, "NewMessage.Template", newMessageTemplate, ParameterType.URLENCODED);
         }
+
+
         if (newMessageSound != null) {
-            request.addPostParam("NewMessage.Sound", newMessageSound);
+            Serializer.toString(request, "NewMessage.Sound", newMessageSound, ParameterType.URLENCODED);
         }
+
+
         if (newMessageBadgeCountEnabled != null) {
-            request.addPostParam(
-                "NewMessage.BadgeCountEnabled",
-                newMessageBadgeCountEnabled.toString()
-            );
+            Serializer.toString(request, "NewMessage.BadgeCountEnabled", newMessageBadgeCountEnabled, ParameterType.URLENCODED);
         }
+
+
         if (addedToConversationEnabled != null) {
-            request.addPostParam(
-                "AddedToConversation.Enabled",
-                addedToConversationEnabled.toString()
-            );
+            Serializer.toString(request, "AddedToConversation.Enabled", addedToConversationEnabled, ParameterType.URLENCODED);
         }
+
+
         if (addedToConversationTemplate != null) {
-            request.addPostParam(
-                "AddedToConversation.Template",
-                addedToConversationTemplate
-            );
+            Serializer.toString(request, "AddedToConversation.Template", addedToConversationTemplate, ParameterType.URLENCODED);
         }
+
+
         if (addedToConversationSound != null) {
-            request.addPostParam(
-                "AddedToConversation.Sound",
-                addedToConversationSound
-            );
+            Serializer.toString(request, "AddedToConversation.Sound", addedToConversationSound, ParameterType.URLENCODED);
         }
+
+
         if (removedFromConversationEnabled != null) {
-            request.addPostParam(
-                "RemovedFromConversation.Enabled",
-                removedFromConversationEnabled.toString()
-            );
+            Serializer.toString(request, "RemovedFromConversation.Enabled", removedFromConversationEnabled, ParameterType.URLENCODED);
         }
+
+
         if (removedFromConversationTemplate != null) {
-            request.addPostParam(
-                "RemovedFromConversation.Template",
-                removedFromConversationTemplate
-            );
+            Serializer.toString(request, "RemovedFromConversation.Template", removedFromConversationTemplate, ParameterType.URLENCODED);
         }
+
+
         if (removedFromConversationSound != null) {
-            request.addPostParam(
-                "RemovedFromConversation.Sound",
-                removedFromConversationSound
-            );
+            Serializer.toString(request, "RemovedFromConversation.Sound", removedFromConversationSound, ParameterType.URLENCODED);
         }
+
+
         if (newMessageWithMediaEnabled != null) {
-            request.addPostParam(
-                "NewMessage.WithMedia.Enabled",
-                newMessageWithMediaEnabled.toString()
-            );
+            Serializer.toString(request, "NewMessage.WithMedia.Enabled", newMessageWithMediaEnabled, ParameterType.URLENCODED);
         }
+
+
         if (newMessageWithMediaTemplate != null) {
-            request.addPostParam(
-                "NewMessage.WithMedia.Template",
-                newMessageWithMediaTemplate
-            );
+            Serializer.toString(request, "NewMessage.WithMedia.Template", newMessageWithMediaTemplate, ParameterType.URLENCODED);
         }
+
+
     }
 }

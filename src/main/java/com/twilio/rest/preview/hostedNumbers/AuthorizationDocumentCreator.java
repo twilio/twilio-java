@@ -14,9 +14,12 @@
 
 package com.twilio.rest.preview.hostedNumbers;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +28,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+
 import java.util.List;
 
-public class AuthorizationDocumentCreator
-    extends Creator<AuthorizationDocument> {
+public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument> {
 
     private List<String> hostedNumberOrderSids;
     private String addressSid;
@@ -38,13 +40,7 @@ public class AuthorizationDocumentCreator
     private String contactPhoneNumber;
     private List<String> ccEmails;
 
-    public AuthorizationDocumentCreator(
-        final List<String> hostedNumberOrderSids,
-        final String addressSid,
-        final String email,
-        final String contactTitle,
-        final String contactPhoneNumber
-    ) {
+    public AuthorizationDocumentCreator(final List<String> hostedNumberOrderSids, final String addressSid, final String email, final String contactTitle, final String contactPhoneNumber) {
         this.hostedNumberOrderSids = hostedNumberOrderSids;
         this.addressSid = addressSid;
         this.email = email;
@@ -52,19 +48,14 @@ public class AuthorizationDocumentCreator
         this.contactPhoneNumber = contactPhoneNumber;
     }
 
-    public AuthorizationDocumentCreator setHostedNumberOrderSids(
-        final List<String> hostedNumberOrderSids
-    ) {
+
+    public AuthorizationDocumentCreator setHostedNumberOrderSids(final List<String> hostedNumberOrderSids) {
         this.hostedNumberOrderSids = hostedNumberOrderSids;
         return this;
     }
 
-    public AuthorizationDocumentCreator setHostedNumberOrderSids(
-        final String hostedNumberOrderSids
-    ) {
-        return setHostedNumberOrderSids(
-            Promoter.listOfOne(hostedNumberOrderSids)
-        );
+    public AuthorizationDocumentCreator setHostedNumberOrderSids(final String hostedNumberOrderSids) {
+        return setHostedNumberOrderSids(Promoter.listOfOne(hostedNumberOrderSids));
     }
 
     public AuthorizationDocumentCreator setAddressSid(final String addressSid) {
@@ -72,28 +63,26 @@ public class AuthorizationDocumentCreator
         return this;
     }
 
+
     public AuthorizationDocumentCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
 
-    public AuthorizationDocumentCreator setContactTitle(
-        final String contactTitle
-    ) {
+
+    public AuthorizationDocumentCreator setContactTitle(final String contactTitle) {
         this.contactTitle = contactTitle;
         return this;
     }
 
-    public AuthorizationDocumentCreator setContactPhoneNumber(
-        final String contactPhoneNumber
-    ) {
+
+    public AuthorizationDocumentCreator setContactPhoneNumber(final String contactPhoneNumber) {
         this.contactPhoneNumber = contactPhoneNumber;
         return this;
     }
 
-    public AuthorizationDocumentCreator setCcEmails(
-        final List<String> ccEmails
-    ) {
+
+    public AuthorizationDocumentCreator setCcEmails(final List<String> ccEmails) {
         this.ccEmails = ccEmails;
         return this;
     }
@@ -104,81 +93,71 @@ public class AuthorizationDocumentCreator
 
     @Override
     public AuthorizationDocument create(final TwilioRestClient client) {
+
         String path = "/HostedNumbers/AuthorizationDocuments";
 
-        path =
-            path.replace(
-                "{" + "HostedNumberOrderSids" + "}",
-                this.hostedNumberOrderSids.toString()
-            );
-        path =
-            path.replace("{" + "AddressSid" + "}", this.addressSid.toString());
-        path = path.replace("{" + "Email" + "}", this.email.toString());
-        path =
-            path.replace(
-                "{" + "ContactTitle" + "}",
-                this.contactTitle.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ContactPhoneNumber" + "}",
-                this.contactPhoneNumber.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            path
+                HttpMethod.POST,
+                Domains.PREVIEW.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "AuthorizationDocument creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AuthorizationDocument creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AuthorizationDocument.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AuthorizationDocument.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
+
         if (hostedNumberOrderSids != null) {
-            for (String prop : hostedNumberOrderSids) {
-                request.addPostParam("HostedNumberOrderSids", prop);
+            for (String param : hostedNumberOrderSids) {
+                Serializer.toString(request, "HostedNumberOrderSids", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
+            Serializer.toString(request, "AddressSid", addressSid, ParameterType.URLENCODED);
         }
+
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
         }
+
+
         if (contactTitle != null) {
-            request.addPostParam("ContactTitle", contactTitle);
+            Serializer.toString(request, "ContactTitle", contactTitle, ParameterType.URLENCODED);
         }
+
+
         if (contactPhoneNumber != null) {
-            request.addPostParam("ContactPhoneNumber", contactPhoneNumber);
+            Serializer.toString(request, "ContactPhoneNumber", contactPhoneNumber, ParameterType.URLENCODED);
         }
+
+
         if (ccEmails != null) {
-            for (String prop : ccEmails) {
-                request.addPostParam("CcEmails", prop);
+            for (String param : ccEmails) {
+                Serializer.toString(request, "CcEmails", param, ParameterType.URLENCODED);
             }
         }
+
     }
 }

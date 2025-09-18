@@ -18,250 +18,63 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bundle extends Resource {
 
-    private static final long serialVersionUID = 198185819431201L;
 
-    public static BundleCreator creator(
-        final String friendlyName,
-        final String email
-    ) {
-        return new BundleCreator(friendlyName, email);
+    public static BundleCreator creator(final String friendlyName, final String email) {
+        return new BundleCreator(
+                friendlyName, email
+        );
     }
 
-    public static BundleDeleter deleter(final String pathSid) {
-        return new BundleDeleter(pathSid);
+
+    public static BundleDeleter deleter(final String pathsid) {
+        return new BundleDeleter(
+                pathsid
+        );
     }
 
-    public static BundleFetcher fetcher(final String pathSid) {
-        return new BundleFetcher(pathSid);
+
+    public static BundleFetcher fetcher(final String pathsid) {
+        return new BundleFetcher(
+                pathsid
+        );
     }
+
 
     public static BundleReader reader() {
-        return new BundleReader();
-    }
+        return new BundleReader(
 
-    public static BundleUpdater updater(final String pathSid) {
-        return new BundleUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Bundle object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Bundle object represented by the provided JSON
-     */
-    public static Bundle fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Bundle.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Bundle object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Bundle object represented by the provided JSON
-     */
-    public static Bundle fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Bundle.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String regulationSid;
-    private final String friendlyName;
-    private final Bundle.Status status;
-    private final ZonedDateTime validUntil;
-    private final String email;
-    private final URI statusCallback;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-    private final Map<String, String> links;
-
-    @JsonCreator
-    private Bundle(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("regulation_sid") final String regulationSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final Bundle.Status status,
-        @JsonProperty("valid_until") final String validUntil,
-        @JsonProperty("email") final String email,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.regulationSid = regulationSid;
-        this.friendlyName = friendlyName;
-        this.status = status;
-        this.validUntil = DateConverter.iso8601DateTimeFromString(validUntil);
-        this.email = email;
-        this.statusCallback = statusCallback;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRegulationSid() {
-        return this.regulationSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Bundle.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getValidUntil() {
-        return this.validUntil;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Bundle other = (Bundle) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(regulationSid, other.regulationSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(validUntil, other.validUntil) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            regulationSid,
-            friendlyName,
-            status,
-            validUntil,
-            email,
-            statusCallback,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+
+    public static BundleUpdater updater(final String pathsid) {
+        return new BundleUpdater(
+                pathsid
         );
     }
 
-    public enum EndUserType {
-        INDIVIDUAL("individual"),
-        BUSINESS("business");
-
-        private final String value;
-
-        private EndUserType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EndUserType forValue(final String value) {
-            return Promoter.enumFromString(value, EndUserType.values());
-        }
-    }
 
     public enum Status {
         DRAFT("draft"),
@@ -287,6 +100,46 @@ public class Bundle extends Resource {
         }
     }
 
+    public enum SortDirection {
+        ASC("ASC"),
+        DESC("DESC");
+
+        private final String value;
+
+        private SortDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortDirection forValue(final String value) {
+            return Promoter.enumFromString(value, SortDirection.values());
+        }
+    }
+
+    public enum EndUserType {
+        INDIVIDUAL("individual"),
+        BUSINESS("business");
+
+        private final String value;
+
+        private EndUserType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EndUserType forValue(final String value) {
+            return Promoter.enumFromString(value, EndUserType.values());
+        }
+    }
+
     public enum SortBy {
         VALID_UNTIL("valid-until"),
         DATE_UPDATED("date-updated");
@@ -307,23 +160,159 @@ public class Bundle extends Resource {
         }
     }
 
-    public enum SortDirection {
-        ASC("ASC"),
-        DESC("DESC");
 
-        private final String value;
-
-        private SortDirection(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortDirection forValue(final String value) {
-            return Promoter.enumFromString(value, SortDirection.values());
+    /**
+     * Converts a JSON String into a Bundle object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Bundle object represented by the provided JSON
+     */
+    public static Bundle fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Bundle.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    /**
+     * Converts a JSON InputStream into a Bundle object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Bundle object represented by the provided JSON
+     */
+    public static Bundle fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Bundle.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String email;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final Map<String, String> links;
+    @Getter
+    private final String regulationSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final Bundle.Status status;
+    @Getter
+    private final URI statusCallback;
+    @Getter
+    private final URI url;
+    @Getter
+    private final ZonedDateTime validUntil;
+
+    @JsonCreator
+    private Bundle(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("email") final String email,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("regulation_sid") final String regulationSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("status") final Bundle.Status status,
+            @JsonProperty("status_callback") final URI statusCallback,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("valid_until")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime validUntil
+    ) {
+        this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.email = email;
+        this.friendlyName = friendlyName;
+        this.links = links;
+        this.regulationSid = regulationSid;
+        this.sid = sid;
+        this.status = status;
+        this.statusCallback = statusCallback;
+        this.url = url;
+        this.validUntil = validUntil;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Bundle other = (Bundle) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(email, other.email) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(regulationSid, other.regulationSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(statusCallback, other.statusCallback) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(validUntil, other.validUntil)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                email,
+                friendlyName,
+                links,
+                regulationSid,
+                sid,
+                status,
+                statusCallback,
+                url,
+                validUntil
+        );
+    }
+
+
 }
+

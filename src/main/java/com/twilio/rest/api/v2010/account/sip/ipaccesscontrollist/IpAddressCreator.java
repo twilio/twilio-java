@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,121 +30,96 @@ import com.twilio.rest.Domains;
 
 public class IpAddressCreator extends Creator<IpAddress> {
 
-    private String pathIpAccessControlListSid;
+    private String pathaccountSid;
+    private String pathipAccessControlListSid;
     private String friendlyName;
     private String ipAddress;
-    private String pathAccountSid;
     private Integer cidrPrefixLength;
 
-    public IpAddressCreator(
-        final String pathIpAccessControlListSid,
-        final String friendlyName,
-        final String ipAddress
-    ) {
-        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
+    public IpAddressCreator(final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
+        this.pathipAccessControlListSid = pathipAccessControlListSid;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
     }
 
-    public IpAddressCreator(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid,
-        final String friendlyName,
-        final String ipAddress
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
+    public IpAddressCreator(final String pathaccountSid, final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathipAccessControlListSid = pathipAccessControlListSid;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
     }
+
 
     public IpAddressCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public IpAddressCreator setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
         return this;
     }
 
-    public IpAddressCreator setCidrPrefixLength(
-        final Integer cidrPrefixLength
-    ) {
+
+    public IpAddressCreator setCidrPrefixLength(final Integer cidrPrefixLength) {
         this.cidrPrefixLength = cidrPrefixLength;
         return this;
     }
 
+
     @Override
     public IpAddress create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "IpAccessControlListSid" + "}",
-                this.pathIpAccessControlListSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "IpAddress" + "}", this.ipAddress.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "IpAccessControlListSid" + "}", this.pathipAccessControlListSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "IpAddress creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("IpAddress creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return IpAddress.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return IpAddress.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (ipAddress != null) {
-            request.addPostParam("IpAddress", ipAddress);
+            Serializer.toString(request, "IpAddress", ipAddress, ParameterType.URLENCODED);
         }
+
+
         if (cidrPrefixLength != null) {
-            request.addPostParam(
-                "CidrPrefixLength",
-                cidrPrefixLength.toString()
-            );
+            Serializer.toString(request, "CidrPrefixLength", cidrPrefixLength, ParameterType.URLENCODED);
         }
+
+
     }
 }

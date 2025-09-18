@@ -17,7 +17,8 @@ package com.twilio.rest.conversations.v1.user;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,17 +30,19 @@ import com.twilio.rest.Domains;
 
 public class UserConversationReader extends Reader<UserConversation> {
 
-    private String pathUserSid;
+    private String pathuserSid;
     private Long pageSize;
 
-    public UserConversationReader(final String pathUserSid) {
-        this.pathUserSid = pathUserSid;
+    public UserConversationReader(final String pathuserSid) {
+        this.pathuserSid = pathuserSid;
     }
+
 
     public UserConversationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<UserConversation> read(final TwilioRestClient client) {
@@ -47,93 +50,68 @@ public class UserConversationReader extends Reader<UserConversation> {
     }
 
     public Page<UserConversation> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Users/{UserSid}/Conversations";
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+
+        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<UserConversation> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<UserConversation> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserConversation read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserConversation read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "conversations",
-            response.getContent(),
-            UserConversation.class,
-            client.getObjectMapper()
-        );
+                "conversations",
+                response.getContent(),
+                UserConversation.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<UserConversation> previousPage(
-        final Page<UserConversation> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
-        );
+    public Page<UserConversation> previousPage(final Page<UserConversation> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<UserConversation> nextPage(
-        final Page<UserConversation> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
-        );
+    public Page<UserConversation> nextPage(final Page<UserConversation> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<UserConversation> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<UserConversation> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

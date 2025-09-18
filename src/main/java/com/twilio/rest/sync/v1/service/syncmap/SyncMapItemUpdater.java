@@ -16,7 +16,8 @@ package com.twilio.rest.sync.v1.service.syncmap;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,114 +28,118 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapItemUpdater extends Updater<SyncMapItem> {
-
-    private String pathServiceSid;
-    private String pathMapSid;
-    private String pathKey;
+    private String pathserviceSid;
+    private String pathmapSid;
+    private String pathkey;
     private String ifMatch;
     private Object data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
 
-    public SyncMapItemUpdater(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathKey
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathMapSid = pathMapSid;
-        this.pathKey = pathKey;
+    public SyncMapItemUpdater(final String pathserviceSid, final String pathmapSid, final String pathkey) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathmapSid = pathmapSid;
+        this.pathkey = pathkey;
     }
 
-    public SyncMapItemUpdater setIfMatch(final String ifMatch) {
-        this.ifMatch = ifMatch;
-        return this;
-    }
 
     public SyncMapItemUpdater setData(final Object data) {
         this.data = data;
         return this;
     }
 
+
     public SyncMapItemUpdater setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
+
 
     public SyncMapItemUpdater setItemTtl(final Integer itemTtl) {
         this.itemTtl = itemTtl;
         return this;
     }
 
+
     public SyncMapItemUpdater setCollectionTtl(final Integer collectionTtl) {
         this.collectionTtl = collectionTtl;
         return this;
     }
 
+
+    public SyncMapItemUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+
     @Override
     public SyncMapItem update(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
-        path = path.replace("{" + "Key" + "}", this.pathKey.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "MapSid" + "}", this.pathmapSid.toString());
+        path = path.replace("{" + "Key" + "}", this.pathkey.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SYNC.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SYNC.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncMapItem update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncMapItem update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SyncMapItem.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (data != null) {
-            request.addPostParam("Data", Converter.objectToJson(data));
+            Serializer.toString(request, "Data", data, ParameterType.URLENCODED);
         }
+
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
+
         if (itemTtl != null) {
-            request.addPostParam("ItemTtl", itemTtl.toString());
+            Serializer.toString(request, "ItemTtl", itemTtl, ParameterType.URLENCODED);
         }
+
+
         if (collectionTtl != null) {
-            request.addPostParam("CollectionTtl", collectionTtl.toString());
+            Serializer.toString(request, "CollectionTtl", collectionTtl, ParameterType.URLENCODED);
         }
+
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
         }
+
     }
 }

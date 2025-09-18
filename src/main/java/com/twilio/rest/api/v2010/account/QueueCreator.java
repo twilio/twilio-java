@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,73 +30,60 @@ import com.twilio.rest.Domains;
 
 public class QueueCreator extends Creator<Queue> {
 
+    private String pathaccountSid;
     private String friendlyName;
-    private String pathAccountSid;
     private Integer maxSize;
 
     public QueueCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
-    public QueueCreator(
-        final String pathAccountSid,
-        final String friendlyName
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public QueueCreator(final String pathaccountSid, final String friendlyName) {
+        this.pathaccountSid = pathaccountSid;
         this.friendlyName = friendlyName;
     }
+
 
     public QueueCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public QueueCreator setMaxSize(final Integer maxSize) {
         this.maxSize = maxSize;
         return this;
     }
 
+
     @Override
     public Queue create(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Queue creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Queue creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -102,11 +92,16 @@ public class QueueCreator extends Creator<Queue> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (maxSize != null) {
-            request.addPostParam("MaxSize", maxSize.toString());
+            Serializer.toString(request, "MaxSize", maxSize, ParameterType.URLENCODED);
         }
+
+
     }
 }

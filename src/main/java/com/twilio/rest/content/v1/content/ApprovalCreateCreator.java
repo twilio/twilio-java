@@ -28,77 +28,59 @@ import com.twilio.rest.Domains;
 
 public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
-    private String pathContentSid;
+    private String pathcontentSid;
     private ApprovalCreate.ContentApprovalRequest contentApprovalRequest;
 
-    public ApprovalCreateCreator(
-        final String pathContentSid,
-        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
-    ) {
-        this.pathContentSid = pathContentSid;
+    public ApprovalCreateCreator(final String pathcontentSid, final ApprovalCreate.ContentApprovalRequest contentApprovalRequest) {
+        this.pathcontentSid = pathcontentSid;
         this.contentApprovalRequest = contentApprovalRequest;
     }
 
-    public ApprovalCreateCreator setContentApprovalRequest(
-        final ApprovalCreate.ContentApprovalRequest contentApprovalRequest
-    ) {
+
+    public ApprovalCreateCreator setContentApprovalRequest(final ApprovalCreate.ContentApprovalRequest contentApprovalRequest) {
         this.contentApprovalRequest = contentApprovalRequest;
         return this;
     }
 
+
     @Override
     public ApprovalCreate create(final TwilioRestClient client) {
+
         String path = "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp";
 
-        path =
-            path.replace(
-                "{" + "ContentSid" + "}",
-                this.pathContentSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ContentApprovalRequest" + "}",
-                this.contentApprovalRequest.toString()
-            );
+        path = path.replace("{" + "ContentSid" + "}", this.pathcontentSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONTENT.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONTENT.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ApprovalCreate creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ApprovalCreate creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ApprovalCreate.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ApprovalCreate.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (contentApprovalRequest != null) {
-            request.setBody(
-                ApprovalCreate.toJson(contentApprovalRequest, objectMapper)
-            );
+            request.setBody(ApprovalCreate.toJson(contentApprovalRequest, objectMapper));
         }
     }
 }

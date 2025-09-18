@@ -17,7 +17,8 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,29 +30,33 @@ import com.twilio.rest.Domains;
 
 public class SentenceReader extends Reader<Sentence> {
 
-    private String pathTranscriptSid;
+    private String pathtranscriptSid;
     private Boolean redacted;
     private Boolean wordTimestamps;
     private Long pageSize;
 
-    public SentenceReader(final String pathTranscriptSid) {
-        this.pathTranscriptSid = pathTranscriptSid;
+    public SentenceReader(final String pathtranscriptSid) {
+        this.pathtranscriptSid = pathtranscriptSid;
     }
+
 
     public SentenceReader setRedacted(final Boolean redacted) {
         this.redacted = redacted;
         return this;
     }
 
+
     public SentenceReader setWordTimestamps(final Boolean wordTimestamps) {
         this.wordTimestamps = wordTimestamps;
         return this;
     }
 
+
     public SentenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Sentence> read(final TwilioRestClient client) {
@@ -59,103 +64,78 @@ public class SentenceReader extends Reader<Sentence> {
     }
 
     public Page<Sentence> firstPage(final TwilioRestClient client) {
+
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences";
-        path =
-            path.replace(
-                "{" + "TranscriptSid" + "}",
-                this.pathTranscriptSid.toString()
-            );
+
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INTELLIGENCE.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INTELLIGENCE.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Sentence> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Sentence> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Sentence read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Sentence read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "sentences",
-            response.getContent(),
-            Sentence.class,
-            client.getObjectMapper()
-        );
+                "sentences",
+                response.getContent(),
+                Sentence.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Sentence> previousPage(
-        final Page<Sentence> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INTELLIGENCE.toString())
-        );
+    public Page<Sentence> previousPage(final Page<Sentence> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Sentence> nextPage(
-        final Page<Sentence> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.INTELLIGENCE.toString())
-        );
+    public Page<Sentence> nextPage(final Page<Sentence> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Sentence> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Sentence> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
-        }
-        if (wordTimestamps != null) {
-            request.addQueryParam("WordTimestamps", wordTimestamps.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Redacted", redacted, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (wordTimestamps != null) {
+            Serializer.toString(request, "WordTimestamps", wordTimestamps, ParameterType.QUERY);
         }
+
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+        }
+
+
     }
 }

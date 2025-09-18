@@ -30,47 +30,46 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
 
     private Object body;
 
-    public PortingPortInCreator() {}
+    public PortingPortInCreator() {
+    }
+
 
     public PortingPortInCreator setBody(final Object body) {
         this.body = body;
         return this;
     }
 
+
     @Override
     public PortingPortIn create(final TwilioRestClient client) {
+
         String path = "/v1/Porting/PortIn";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.NUMBERS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "PortingPortIn creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PortingPortIn creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return PortingPortIn.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PortingPortIn.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

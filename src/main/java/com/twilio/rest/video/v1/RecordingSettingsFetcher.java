@@ -15,7 +15,6 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,41 +26,37 @@ import com.twilio.rest.Domains;
 
 public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
 
-    public RecordingSettingsFetcher() {}
+
+    public RecordingSettingsFetcher() {
+    }
+
 
     @Override
     public RecordingSettings fetch(final TwilioRestClient client) {
+
         String path = "/v1/RecordingSettings/Default";
 
+
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            path
+                HttpMethod.GET,
+                Domains.VIDEO.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "RecordingSettings fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("RecordingSettings fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return RecordingSettings.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return RecordingSettings.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

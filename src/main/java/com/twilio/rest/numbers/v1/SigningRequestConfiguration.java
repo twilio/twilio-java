@@ -24,44 +24,44 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SigningRequestConfiguration extends Resource {
 
-    private static final long serialVersionUID = 45135348317638L;
 
     public static SigningRequestConfigurationCreator creator() {
-        return new SigningRequestConfigurationCreator();
+        return new SigningRequestConfigurationCreator(
+
+        );
     }
 
+
     public static SigningRequestConfigurationReader reader() {
-        return new SigningRequestConfigurationReader();
+        return new SigningRequestConfigurationReader(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a SigningRequestConfiguration object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SigningRequestConfiguration object represented by the provided JSON
      */
-    public static SigningRequestConfiguration fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SigningRequestConfiguration fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                SigningRequestConfiguration.class
-            );
+            return objectMapper.readValue(json, SigningRequestConfiguration.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -73,20 +73,14 @@ public class SigningRequestConfiguration extends Resource {
      * Converts a JSON InputStream into a SigningRequestConfiguration object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SigningRequestConfiguration object represented by the provided JSON
      */
-    public static SigningRequestConfiguration fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SigningRequestConfiguration fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                SigningRequestConfiguration.class
-            );
+            return objectMapper.readValue(json, SigningRequestConfiguration.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -106,66 +100,43 @@ public class SigningRequestConfiguration extends Resource {
         }
     }
 
-    private final String logoSid;
-    private final String friendlyName;
-    private final String product;
+
+    @Getter
     private final String country;
-    private final String emailSubject;
+    @Getter
     private final String emailMessage;
-    private final String urlRedirection;
+    @Getter
+    private final String emailSubject;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String logoSid;
+    @Getter
+    private final String product;
+    @Getter
     private final URI url;
+    @Getter
+    private final String urlRedirection;
 
     @JsonCreator
     private SigningRequestConfiguration(
-        @JsonProperty("logo_sid") final String logoSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("product") final String product,
-        @JsonProperty("country") final String country,
-        @JsonProperty("email_subject") final String emailSubject,
-        @JsonProperty("email_message") final String emailMessage,
-        @JsonProperty("url_redirection") final String urlRedirection,
-        @JsonProperty("url") final URI url
+            @JsonProperty("country") final String country,
+            @JsonProperty("email_message") final String emailMessage,
+            @JsonProperty("email_subject") final String emailSubject,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("logo_sid") final String logoSid,
+            @JsonProperty("product") final String product,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("url_redirection") final String urlRedirection
     ) {
-        this.logoSid = logoSid;
-        this.friendlyName = friendlyName;
-        this.product = product;
         this.country = country;
-        this.emailSubject = emailSubject;
         this.emailMessage = emailMessage;
-        this.urlRedirection = urlRedirection;
+        this.emailSubject = emailSubject;
+        this.friendlyName = friendlyName;
+        this.logoSid = logoSid;
+        this.product = product;
         this.url = url;
-    }
-
-    public final String getLogoSid() {
-        return this.logoSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getProduct() {
-        return this.product;
-    }
-
-    public final String getCountry() {
-        return this.country;
-    }
-
-    public final String getEmailSubject() {
-        return this.emailSubject;
-    }
-
-    public final String getEmailMessage() {
-        return this.emailMessage;
-    }
-
-    public final String getUrlRedirection() {
-        return this.urlRedirection;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.urlRedirection = urlRedirection;
     }
 
     @Override
@@ -179,30 +150,32 @@ public class SigningRequestConfiguration extends Resource {
         }
 
         SigningRequestConfiguration other = (SigningRequestConfiguration) o;
-
         return (
-            Objects.equals(logoSid, other.logoSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(product, other.product) &&
-            Objects.equals(country, other.country) &&
-            Objects.equals(emailSubject, other.emailSubject) &&
-            Objects.equals(emailMessage, other.emailMessage) &&
-            Objects.equals(urlRedirection, other.urlRedirection) &&
-            Objects.equals(url, other.url)
+                Objects.equals(country, other.country) &&
+                        Objects.equals(emailMessage, other.emailMessage) &&
+                        Objects.equals(emailSubject, other.emailSubject) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(logoSid, other.logoSid) &&
+                        Objects.equals(product, other.product) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(urlRedirection, other.urlRedirection)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            logoSid,
-            friendlyName,
-            product,
-            country,
-            emailSubject,
-            emailMessage,
-            urlRedirection,
-            url
+                country,
+                emailMessage,
+                emailSubject,
+                friendlyName,
+                logoSid,
+                product,
+                url,
+                urlRedirection
         );
     }
+
+
 }
+

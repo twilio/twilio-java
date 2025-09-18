@@ -26,60 +26,56 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SigningRequestConfigurationCreator
-    extends Creator<SigningRequestConfiguration> {
+public class SigningRequestConfigurationCreator extends Creator<SigningRequestConfiguration> {
 
     private Object body;
 
-    public SigningRequestConfigurationCreator() {}
+    public SigningRequestConfigurationCreator() {
+    }
+
 
     public SigningRequestConfigurationCreator setBody(final Object body) {
         this.body = body;
         return this;
     }
 
+
     @Override
     public SigningRequestConfiguration create(final TwilioRestClient client) {
+
         String path = "/v1/SigningRequest/Configuration";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.NUMBERS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "SigningRequestConfiguration creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SigningRequestConfiguration creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SigningRequestConfiguration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SigningRequestConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (body != null) {
-            request.setBody(
-                SigningRequestConfiguration.toJson(body, objectMapper)
-            );
+            request.setBody(SigningRequestConfiguration.toJson(body, objectMapper));
         }
     }
 }

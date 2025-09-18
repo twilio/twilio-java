@@ -18,40 +18,39 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistrationOtp extends Resource {
 
-    private static final long serialVersionUID = 131615733171627L;
 
-    public static BrandRegistrationOtpCreator creator(
-        final String pathBrandRegistrationSid
-    ) {
-        return new BrandRegistrationOtpCreator(pathBrandRegistrationSid);
+    public static BrandRegistrationOtpCreator creator(final String pathbrandRegistrationSid) {
+        return new BrandRegistrationOtpCreator(
+                pathbrandRegistrationSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a BrandRegistrationOtp object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return BrandRegistrationOtp object represented by the provided JSON
      */
-    public static BrandRegistrationOtp fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static BrandRegistrationOtp fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BrandRegistrationOtp.class);
@@ -66,14 +65,11 @@ public class BrandRegistrationOtp extends Resource {
      * Converts a JSON InputStream into a BrandRegistrationOtp object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return BrandRegistrationOtp object represented by the provided JSON
      */
-    public static BrandRegistrationOtp fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static BrandRegistrationOtp fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BrandRegistrationOtp.class);
@@ -84,26 +80,31 @@ public class BrandRegistrationOtp extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
     private final String brandRegistrationSid;
 
     @JsonCreator
     private BrandRegistrationOtp(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "brand_registration_sid"
-        ) final String brandRegistrationSid
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("brand_registration_sid") final String brandRegistrationSid
     ) {
         this.accountSid = accountSid;
         this.brandRegistrationSid = brandRegistrationSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getBrandRegistrationSid() {
-        return this.brandRegistrationSid;
     }
 
     @Override
@@ -117,15 +118,20 @@ public class BrandRegistrationOtp extends Resource {
         }
 
         BrandRegistrationOtp other = (BrandRegistrationOtp) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(brandRegistrationSid, other.brandRegistrationSid)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(brandRegistrationSid, other.brandRegistrationSid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, brandRegistrationSid);
+        return Objects.hash(
+                accountSid,
+                brandRegistrationSid
+        );
     }
+
+
 }
+

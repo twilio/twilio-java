@@ -18,344 +18,64 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 59018314319448L;
 
     public static ServiceCreator creator(final String friendlyName) {
-        return new ServiceCreator(friendlyName);
+        return new ServiceCreator(
+                friendlyName
+        );
     }
 
-    public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(pathSid);
+
+    public static ServiceDeleter deleter(final String pathsid) {
+        return new ServiceDeleter(
+                pathsid
+        );
     }
 
-    public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(pathSid);
+
+    public static ServiceFetcher fetcher(final String pathsid) {
+        return new ServiceFetcher(
+                pathsid
+        );
     }
+
 
     public static ServiceReader reader() {
-        return new ServiceReader();
-    }
+        return new ServiceReader(
 
-    public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Service object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Service object represented by the provided JSON
-     */
-    public static Service fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Service.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Service object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Service object represented by the provided JSON
-     */
-    public static Service fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Service.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String friendlyName;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI inboundRequestUrl;
-    private final HttpMethod inboundMethod;
-    private final URI fallbackUrl;
-    private final HttpMethod fallbackMethod;
-    private final URI statusCallback;
-    private final Boolean stickySender;
-    private final Boolean mmsConverter;
-    private final Boolean smartEncoding;
-    private final Service.ScanMessageContent scanMessageContent;
-    private final Boolean fallbackToLongCode;
-    private final Boolean areaCodeGeomatch;
-    private final Boolean synchronousValidation;
-    private final Integer validityPeriod;
-    private final URI url;
-    private final Map<String, String> links;
-    private final String usecase;
-    private final Boolean usAppToPersonRegistered;
-    private final Boolean useInboundWebhookOnNumber;
-
-    @JsonCreator
-    private Service(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("inbound_request_url") final URI inboundRequestUrl,
-        @JsonProperty("inbound_method") final HttpMethod inboundMethod,
-        @JsonProperty("fallback_url") final URI fallbackUrl,
-        @JsonProperty("fallback_method") final HttpMethod fallbackMethod,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty("sticky_sender") final Boolean stickySender,
-        @JsonProperty("mms_converter") final Boolean mmsConverter,
-        @JsonProperty("smart_encoding") final Boolean smartEncoding,
-        @JsonProperty(
-            "scan_message_content"
-        ) final Service.ScanMessageContent scanMessageContent,
-        @JsonProperty("fallback_to_long_code") final Boolean fallbackToLongCode,
-        @JsonProperty("area_code_geomatch") final Boolean areaCodeGeomatch,
-        @JsonProperty(
-            "synchronous_validation"
-        ) final Boolean synchronousValidation,
-        @JsonProperty("validity_period") final Integer validityPeriod,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("usecase") final String usecase,
-        @JsonProperty(
-            "us_app_to_person_registered"
-        ) final Boolean usAppToPersonRegistered,
-        @JsonProperty(
-            "use_inbound_webhook_on_number"
-        ) final Boolean useInboundWebhookOnNumber
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.inboundRequestUrl = inboundRequestUrl;
-        this.inboundMethod = inboundMethod;
-        this.fallbackUrl = fallbackUrl;
-        this.fallbackMethod = fallbackMethod;
-        this.statusCallback = statusCallback;
-        this.stickySender = stickySender;
-        this.mmsConverter = mmsConverter;
-        this.smartEncoding = smartEncoding;
-        this.scanMessageContent = scanMessageContent;
-        this.fallbackToLongCode = fallbackToLongCode;
-        this.areaCodeGeomatch = areaCodeGeomatch;
-        this.synchronousValidation = synchronousValidation;
-        this.validityPeriod = validityPeriod;
-        this.url = url;
-        this.links = links;
-        this.usecase = usecase;
-        this.usAppToPersonRegistered = usAppToPersonRegistered;
-        this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getInboundRequestUrl() {
-        return this.inboundRequestUrl;
-    }
-
-    public final HttpMethod getInboundMethod() {
-        return this.inboundMethod;
-    }
-
-    public final URI getFallbackUrl() {
-        return this.fallbackUrl;
-    }
-
-    public final HttpMethod getFallbackMethod() {
-        return this.fallbackMethod;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final Boolean getStickySender() {
-        return this.stickySender;
-    }
-
-    public final Boolean getMmsConverter() {
-        return this.mmsConverter;
-    }
-
-    public final Boolean getSmartEncoding() {
-        return this.smartEncoding;
-    }
-
-    public final Service.ScanMessageContent getScanMessageContent() {
-        return this.scanMessageContent;
-    }
-
-    public final Boolean getFallbackToLongCode() {
-        return this.fallbackToLongCode;
-    }
-
-    public final Boolean getAreaCodeGeomatch() {
-        return this.areaCodeGeomatch;
-    }
-
-    public final Boolean getSynchronousValidation() {
-        return this.synchronousValidation;
-    }
-
-    public final Integer getValidityPeriod() {
-        return this.validityPeriod;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final String getUsecase() {
-        return this.usecase;
-    }
-
-    public final Boolean getUsAppToPersonRegistered() {
-        return this.usAppToPersonRegistered;
-    }
-
-    public final Boolean getUseInboundWebhookOnNumber() {
-        return this.useInboundWebhookOnNumber;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Service other = (Service) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(inboundRequestUrl, other.inboundRequestUrl) &&
-            Objects.equals(inboundMethod, other.inboundMethod) &&
-            Objects.equals(fallbackUrl, other.fallbackUrl) &&
-            Objects.equals(fallbackMethod, other.fallbackMethod) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(stickySender, other.stickySender) &&
-            Objects.equals(mmsConverter, other.mmsConverter) &&
-            Objects.equals(smartEncoding, other.smartEncoding) &&
-            Objects.equals(scanMessageContent, other.scanMessageContent) &&
-            Objects.equals(fallbackToLongCode, other.fallbackToLongCode) &&
-            Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) &&
-            Objects.equals(
-                synchronousValidation,
-                other.synchronousValidation
-            ) &&
-            Objects.equals(validityPeriod, other.validityPeriod) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(usecase, other.usecase) &&
-            Objects.equals(
-                usAppToPersonRegistered,
-                other.usAppToPersonRegistered
-            ) &&
-            Objects.equals(
-                useInboundWebhookOnNumber,
-                other.useInboundWebhookOnNumber
-            )
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            friendlyName,
-            dateCreated,
-            dateUpdated,
-            inboundRequestUrl,
-            inboundMethod,
-            fallbackUrl,
-            fallbackMethod,
-            statusCallback,
-            stickySender,
-            mmsConverter,
-            smartEncoding,
-            scanMessageContent,
-            fallbackToLongCode,
-            areaCodeGeomatch,
-            synchronousValidation,
-            validityPeriod,
-            url,
-            links,
-            usecase,
-            usAppToPersonRegistered,
-            useInboundWebhookOnNumber
+
+    public static ServiceUpdater updater(final String pathsid) {
+        return new ServiceUpdater(
+                pathsid
         );
     }
+
 
     public enum ScanMessageContent {
         INHERIT("inherit"),
@@ -377,4 +97,225 @@ public class Service extends Resource {
             return Promoter.enumFromString(value, ScanMessageContent.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Service object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Service.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Service object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Service.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final Boolean areaCodeGeomatch;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final HttpMethod fallbackMethod;
+    @Getter
+    private final Boolean fallbackToLongCode;
+    @Getter
+    private final URI fallbackUrl;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final HttpMethod inboundMethod;
+    @Getter
+    private final URI inboundRequestUrl;
+    @Getter
+    private final Map<String, String> links;
+    @Getter
+    private final Boolean mmsConverter;
+    @Getter
+    private final Service.ScanMessageContent scanMessageContent;
+    @Getter
+    private final String sid;
+    @Getter
+    private final Boolean smartEncoding;
+    @Getter
+    private final URI statusCallback;
+    @Getter
+    private final Boolean stickySender;
+    @Getter
+    private final Boolean synchronousValidation;
+    @Getter
+    private final URI url;
+    @Getter
+    private final Boolean usAppToPersonRegistered;
+    @Getter
+    private final Boolean useInboundWebhookOnNumber;
+    @Getter
+    private final String usecase;
+    @Getter
+    private final Integer validityPeriod;
+
+    @JsonCreator
+    private Service(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("area_code_geomatch") final Boolean areaCodeGeomatch,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("fallback_method") final HttpMethod fallbackMethod,
+            @JsonProperty("fallback_to_long_code") final Boolean fallbackToLongCode,
+            @JsonProperty("fallback_url") final URI fallbackUrl,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("inbound_method") final HttpMethod inboundMethod,
+            @JsonProperty("inbound_request_url") final URI inboundRequestUrl,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("mms_converter") final Boolean mmsConverter,
+            @JsonProperty("scan_message_content") final Service.ScanMessageContent scanMessageContent,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("smart_encoding") final Boolean smartEncoding,
+            @JsonProperty("status_callback") final URI statusCallback,
+            @JsonProperty("sticky_sender") final Boolean stickySender,
+            @JsonProperty("synchronous_validation") final Boolean synchronousValidation,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("us_app_to_person_registered") final Boolean usAppToPersonRegistered,
+            @JsonProperty("use_inbound_webhook_on_number") final Boolean useInboundWebhookOnNumber,
+            @JsonProperty("usecase") final String usecase,
+            @JsonProperty("validity_period") final Integer validityPeriod
+    ) {
+        this.accountSid = accountSid;
+        this.areaCodeGeomatch = areaCodeGeomatch;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.fallbackMethod = fallbackMethod;
+        this.fallbackToLongCode = fallbackToLongCode;
+        this.fallbackUrl = fallbackUrl;
+        this.friendlyName = friendlyName;
+        this.inboundMethod = inboundMethod;
+        this.inboundRequestUrl = inboundRequestUrl;
+        this.links = links;
+        this.mmsConverter = mmsConverter;
+        this.scanMessageContent = scanMessageContent;
+        this.sid = sid;
+        this.smartEncoding = smartEncoding;
+        this.statusCallback = statusCallback;
+        this.stickySender = stickySender;
+        this.synchronousValidation = synchronousValidation;
+        this.url = url;
+        this.usAppToPersonRegistered = usAppToPersonRegistered;
+        this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
+        this.usecase = usecase;
+        this.validityPeriod = validityPeriod;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Service other = (Service) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(fallbackMethod, other.fallbackMethod) &&
+                        Objects.equals(fallbackToLongCode, other.fallbackToLongCode) &&
+                        Objects.equals(fallbackUrl, other.fallbackUrl) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(inboundMethod, other.inboundMethod) &&
+                        Objects.equals(inboundRequestUrl, other.inboundRequestUrl) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(mmsConverter, other.mmsConverter) &&
+                        Objects.equals(scanMessageContent, other.scanMessageContent) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(smartEncoding, other.smartEncoding) &&
+                        Objects.equals(statusCallback, other.statusCallback) &&
+                        Objects.equals(stickySender, other.stickySender) &&
+                        Objects.equals(synchronousValidation, other.synchronousValidation) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(usAppToPersonRegistered, other.usAppToPersonRegistered) &&
+                        Objects.equals(useInboundWebhookOnNumber, other.useInboundWebhookOnNumber) &&
+                        Objects.equals(usecase, other.usecase) &&
+                        Objects.equals(validityPeriod, other.validityPeriod)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                areaCodeGeomatch,
+                dateCreated,
+                dateUpdated,
+                fallbackMethod,
+                fallbackToLongCode,
+                fallbackUrl,
+                friendlyName,
+                inboundMethod,
+                inboundRequestUrl,
+                links,
+                mmsConverter,
+                scanMessageContent,
+                sid,
+                smartEncoding,
+                statusCallback,
+                stickySender,
+                synchronousValidation,
+                url,
+                usAppToPersonRegistered,
+                useInboundWebhookOnNumber,
+                usecase,
+                validityPeriod
+        );
+    }
+
+
 }
+

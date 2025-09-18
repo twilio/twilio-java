@@ -28,74 +28,61 @@ import com.twilio.rest.Domains;
 
 public class LookupOverrideCreator extends Creator<LookupOverride> {
 
-    private String pathField;
-    private String pathPhoneNumber;
+    private String pathfield;
+    private String pathphoneNumber;
     private LookupOverride.OverridesRequest overridesRequest;
 
-    public LookupOverrideCreator(
-        final String pathField,
-        final String pathPhoneNumber
-    ) {
-        this.pathField = pathField;
-        this.pathPhoneNumber = pathPhoneNumber;
+    public LookupOverrideCreator(final String pathfield, final String pathphoneNumber) {
+        this.pathfield = pathfield;
+        this.pathphoneNumber = pathphoneNumber;
     }
 
-    public LookupOverrideCreator setOverridesRequest(
-        final LookupOverride.OverridesRequest overridesRequest
-    ) {
+
+    public LookupOverrideCreator setOverridesRequest(final LookupOverride.OverridesRequest overridesRequest) {
         this.overridesRequest = overridesRequest;
         return this;
     }
 
+
     @Override
     public LookupOverride create(final TwilioRestClient client) {
+
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
-        path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.LOOKUPS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.LOOKUPS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "LookupOverride creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("LookupOverride creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return LookupOverride.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return LookupOverride.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (overridesRequest != null) {
-            request.setBody(
-                LookupOverride.toJson(overridesRequest, objectMapper)
-            );
+            request.setBody(LookupOverride.toJson(overridesRequest, objectMapper));
         }
     }
 }

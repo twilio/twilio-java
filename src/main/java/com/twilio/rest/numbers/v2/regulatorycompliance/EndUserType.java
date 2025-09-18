@@ -18,46 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EndUserType extends Resource {
 
-    private static final long serialVersionUID = 67038001521206L;
 
-    public static EndUserTypeFetcher fetcher(final String pathSid) {
-        return new EndUserTypeFetcher(pathSid);
+    public static EndUserTypeFetcher fetcher(final String pathsid) {
+        return new EndUserTypeFetcher(
+                pathsid
+        );
     }
+
 
     public static EndUserTypeReader reader() {
-        return new EndUserTypeReader();
+        return new EndUserTypeReader(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a EndUserType object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return EndUserType object represented by the provided JSON
      */
-    public static EndUserType fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static EndUserType fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EndUserType.class);
@@ -72,14 +74,11 @@ public class EndUserType extends Resource {
      * Converts a JSON InputStream into a EndUserType object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return EndUserType object represented by the provided JSON
      */
-    public static EndUserType fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static EndUserType fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EndUserType.class);
@@ -90,45 +89,43 @@ public class EndUserType extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final List<Object> fields;
+    @Getter
     private final String friendlyName;
+    @Getter
     private final String machineName;
-    private final List<Map<String, Object>> fields;
+    @Getter
+    private final String sid;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private EndUserType(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("machine_name") final String machineName,
-        @JsonProperty("fields") final List<Map<String, Object>> fields,
-        @JsonProperty("url") final URI url
+            @JsonProperty("fields") final List<Object> fields,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("machine_name") final String machineName,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
+        this.fields = fields;
         this.friendlyName = friendlyName;
         this.machineName = machineName;
-        this.fields = fields;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getMachineName() {
-        return this.machineName;
-    }
-
-    public final List<Map<String, Object>> getFields() {
-        return this.fields;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -142,18 +139,26 @@ public class EndUserType extends Resource {
         }
 
         EndUserType other = (EndUserType) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(machineName, other.machineName) &&
-            Objects.equals(fields, other.fields) &&
-            Objects.equals(url, other.url)
+                Objects.equals(fields, other.fields) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(machineName, other.machineName) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, machineName, fields, url);
+        return Objects.hash(
+                fields,
+                friendlyName,
+                machineName,
+                sid,
+                url
+        );
     }
+
+
 }
+

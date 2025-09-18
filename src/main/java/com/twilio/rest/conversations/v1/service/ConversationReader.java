@@ -17,7 +17,8 @@ package com.twilio.rest.conversations.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,35 +30,40 @@ import com.twilio.rest.Domains;
 
 public class ConversationReader extends Reader<Conversation> {
 
-    private String pathChatServiceSid;
+    private String pathchatServiceSid;
     private String startDate;
     private String endDate;
     private Conversation.State state;
     private Long pageSize;
 
-    public ConversationReader(final String pathChatServiceSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
+    public ConversationReader(final String pathchatServiceSid) {
+        this.pathchatServiceSid = pathchatServiceSid;
     }
+
 
     public ConversationReader setStartDate(final String startDate) {
         this.startDate = startDate;
         return this;
     }
 
+
     public ConversationReader setEndDate(final String endDate) {
         this.endDate = endDate;
         return this;
     }
+
 
     public ConversationReader setState(final Conversation.State state) {
         this.state = state;
         return this;
     }
 
+
     public ConversationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Conversation> read(final TwilioRestClient client) {
@@ -65,106 +71,83 @@ public class ConversationReader extends Reader<Conversation> {
     }
 
     public Page<Conversation> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ChatServiceSid}/Conversations";
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Conversation> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Conversation> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Conversation read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Conversation read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "conversations",
-            response.getContent(),
-            Conversation.class,
-            client.getObjectMapper()
-        );
+                "conversations",
+                response.getContent(),
+                Conversation.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Conversation> previousPage(
-        final Page<Conversation> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
-        );
+    public Page<Conversation> previousPage(final Page<Conversation> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Conversation> nextPage(
-        final Page<Conversation> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
-        );
+    public Page<Conversation> nextPage(final Page<Conversation> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Conversation> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Conversation> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate);
-        }
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate);
-        }
-        if (state != null) {
-            request.addQueryParam("State", state.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (endDate != null) {
+            Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
         }
+
+
+        if (state != null) {
+            Serializer.toString(request, "State", state, ParameterType.QUERY);
+        }
+
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+        }
+
+
     }
 }

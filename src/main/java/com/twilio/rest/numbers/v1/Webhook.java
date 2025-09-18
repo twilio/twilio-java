@@ -18,42 +18,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
-    private static final long serialVersionUID = 270526030240961L;
 
     public static WebhookFetcher fetcher() {
-        return new WebhookFetcher();
+        return new WebhookFetcher(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Webhook object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
      */
-    public static Webhook fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -68,14 +69,11 @@ public class Webhook extends Resource {
      * Converts a JSON InputStream into a Webhook object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
      */
-    public static Webhook fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -86,58 +84,49 @@ public class Webhook extends Resource {
         }
     }
 
-    private final URI url;
-    private final URI portInTargetUrl;
-    private final URI portOutTargetUrl;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final List<String> notificationsOf;
+    @Getter
     private final ZonedDateTime portInTargetDateCreated;
+    @Getter
+    private final URI portInTargetUrl;
+    @Getter
     private final ZonedDateTime portOutTargetDateCreated;
+    @Getter
+    private final URI portOutTargetUrl;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("url") final URI url,
-        @JsonProperty("port_in_target_url") final URI portInTargetUrl,
-        @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
-        @JsonProperty("notifications_of") final List<String> notificationsOf,
-        @JsonProperty(
-            "port_in_target_date_created"
-        ) final String portInTargetDateCreated,
-        @JsonProperty(
-            "port_out_target_date_created"
-        ) final String portOutTargetDateCreated
+            @JsonProperty("notifications_of") final List<String> notificationsOf,
+            @JsonProperty("port_in_target_date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime portInTargetDateCreated,
+            @JsonProperty("port_in_target_url") final URI portInTargetUrl,
+            @JsonProperty("port_out_target_date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime portOutTargetDateCreated,
+            @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
+            @JsonProperty("url") final URI url
     ) {
-        this.url = url;
-        this.portInTargetUrl = portInTargetUrl;
-        this.portOutTargetUrl = portOutTargetUrl;
         this.notificationsOf = notificationsOf;
-        this.portInTargetDateCreated =
-            DateConverter.iso8601DateTimeFromString(portInTargetDateCreated);
-        this.portOutTargetDateCreated =
-            DateConverter.iso8601DateTimeFromString(portOutTargetDateCreated);
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final URI getPortInTargetUrl() {
-        return this.portInTargetUrl;
-    }
-
-    public final URI getPortOutTargetUrl() {
-        return this.portOutTargetUrl;
-    }
-
-    public final List<String> getNotificationsOf() {
-        return this.notificationsOf;
-    }
-
-    public final ZonedDateTime getPortInTargetDateCreated() {
-        return this.portInTargetDateCreated;
-    }
-
-    public final ZonedDateTime getPortOutTargetDateCreated() {
-        return this.portOutTargetDateCreated;
+        this.portInTargetDateCreated = portInTargetDateCreated;
+        this.portInTargetUrl = portInTargetUrl;
+        this.portOutTargetDateCreated = portOutTargetDateCreated;
+        this.portOutTargetUrl = portOutTargetUrl;
+        this.url = url;
     }
 
     @Override
@@ -151,32 +140,28 @@ public class Webhook extends Resource {
         }
 
         Webhook other = (Webhook) o;
-
         return (
-            Objects.equals(url, other.url) &&
-            Objects.equals(portInTargetUrl, other.portInTargetUrl) &&
-            Objects.equals(portOutTargetUrl, other.portOutTargetUrl) &&
-            Objects.equals(notificationsOf, other.notificationsOf) &&
-            Objects.equals(
-                portInTargetDateCreated,
-                other.portInTargetDateCreated
-            ) &&
-            Objects.equals(
-                portOutTargetDateCreated,
-                other.portOutTargetDateCreated
-            )
+                Objects.equals(notificationsOf, other.notificationsOf) &&
+                        Objects.equals(portInTargetDateCreated, other.portInTargetDateCreated) &&
+                        Objects.equals(portInTargetUrl, other.portInTargetUrl) &&
+                        Objects.equals(portOutTargetDateCreated, other.portOutTargetDateCreated) &&
+                        Objects.equals(portOutTargetUrl, other.portOutTargetUrl) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            url,
-            portInTargetUrl,
-            portOutTargetUrl,
-            notificationsOf,
-            portInTargetDateCreated,
-            portOutTargetDateCreated
+                notificationsOf,
+                portInTargetDateCreated,
+                portInTargetUrl,
+                portOutTargetDateCreated,
+                portOutTargetUrl,
+                url
         );
     }
+
+
 }
+

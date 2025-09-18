@@ -16,7 +16,9 @@ package com.twilio.rest.conversations.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,23 +27,20 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.util.List;
 
 public class RoleUpdater extends Updater<Role> {
-
-    private String pathChatServiceSid;
-    private String pathSid;
+    private String pathchatServiceSid;
+    private String pathsid;
     private List<String> permission;
 
-    public RoleUpdater(
-        final String pathChatServiceSid,
-        final String pathSid,
-        final List<String> permission
-    ) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathSid = pathSid;
+    public RoleUpdater(final String pathchatServiceSid, final String pathsid, final List<String> permission) {
+        this.pathchatServiceSid = pathchatServiceSid;
+        this.pathsid = pathsid;
         this.permission = permission;
     }
+
 
     public RoleUpdater setPermission(final List<String> permission) {
         this.permission = permission;
@@ -54,39 +53,32 @@ public class RoleUpdater extends Updater<Role> {
 
     @Override
     public Role update(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ChatServiceSid}/Roles/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace("{" + "Permission" + "}", this.permission.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Role update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Role update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -95,10 +87,13 @@ public class RoleUpdater extends Updater<Role> {
     }
 
     private void addPostParams(final Request request) {
+
+
         if (permission != null) {
-            for (String prop : permission) {
-                request.addPostParam("Permission", prop);
+            for (String param : permission) {
+                Serializer.toString(request, "Permission", param, ParameterType.URLENCODED);
             }
         }
+
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,70 +28,63 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncStreamUpdater extends Updater<SyncStream> {
-
-    private String pathServiceSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathsid;
     private Integer ttl;
 
-    public SyncStreamUpdater(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSid = pathSid;
+    public SyncStreamUpdater(final String pathserviceSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsid = pathsid;
     }
+
 
     public SyncStreamUpdater setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
 
+
     @Override
     public SyncStream update(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Streams/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SYNC.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SYNC.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncStream update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncStream update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SyncStream.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SyncStream.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
+
     }
 }

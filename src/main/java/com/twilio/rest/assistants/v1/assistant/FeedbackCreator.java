@@ -28,78 +28,59 @@ import com.twilio.rest.Domains;
 
 public class FeedbackCreator extends Creator<Feedback> {
 
-    private String pathId;
+    private String pathid;
     private Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest;
 
-    public FeedbackCreator(
-        final String pathId,
-        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
-    ) {
-        this.pathId = pathId;
-        this.assistantsV1ServiceCreateFeedbackRequest =
-            assistantsV1ServiceCreateFeedbackRequest;
+    public FeedbackCreator(final String pathid, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
+        this.pathid = pathid;
+        this.assistantsV1ServiceCreateFeedbackRequest = assistantsV1ServiceCreateFeedbackRequest;
     }
 
-    public FeedbackCreator setAssistantsV1ServiceCreateFeedbackRequest(
-        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
-    ) {
-        this.assistantsV1ServiceCreateFeedbackRequest =
-            assistantsV1ServiceCreateFeedbackRequest;
+
+    public FeedbackCreator setAssistantsV1ServiceCreateFeedbackRequest(final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
+        this.assistantsV1ServiceCreateFeedbackRequest = assistantsV1ServiceCreateFeedbackRequest;
         return this;
     }
 
+
     @Override
     public Feedback create(final TwilioRestClient client) {
+
         String path = "/v1/Assistants/{id}/Feedbacks";
 
-        path = path.replace("{" + "id" + "}", this.pathId.toString());
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceCreateFeedbackRequest" + "}",
-                this.assistantsV1ServiceCreateFeedbackRequest.toString()
-            );
+        path = path.replace("{" + "id" + "}", this.pathid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.ASSISTANTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.ASSISTANTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Feedback creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Feedback creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Feedback.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Feedback.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceCreateFeedbackRequest != null) {
-            request.setBody(
-                Feedback.toJson(
-                    assistantsV1ServiceCreateFeedbackRequest,
-                    objectMapper
-                )
-            );
+            request.setBody(Feedback.toJson(assistantsV1ServiceCreateFeedbackRequest, objectMapper));
         }
     }
 }

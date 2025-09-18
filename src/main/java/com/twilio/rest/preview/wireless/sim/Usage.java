@@ -18,41 +18,40 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Usage extends Resource {
 
-    private static final long serialVersionUID = 23834274390782L;
 
-    public static UsageFetcher fetcher(final String pathSimSid) {
-        return new UsageFetcher(pathSimSid);
+    public static UsageFetcher fetcher(final String pathsimSid) {
+        return new UsageFetcher(
+                pathsimSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Usage object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Usage object represented by the provided JSON
      */
-    public static Usage fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Usage fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Usage.class);
@@ -67,14 +66,11 @@ public class Usage extends Resource {
      * Converts a JSON InputStream into a Usage object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Usage object represented by the provided JSON
      */
-    public static Usage fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Usage fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Usage.class);
@@ -85,73 +81,59 @@ public class Usage extends Resource {
         }
     }
 
-    private final String simSid;
-    private final String simUniqueName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> period;
-    private final Map<String, Object> commandsUsage;
-    private final Map<String, Object> commandsCosts;
-    private final Map<String, Object> dataUsage;
-    private final Map<String, Object> dataCosts;
+    @Getter
+    private final Object commandsCosts;
+    @Getter
+    private final Object commandsUsage;
+    @Getter
+    private final Object dataCosts;
+    @Getter
+    private final Object dataUsage;
+    @Getter
+    private final Object period;
+    @Getter
+    private final String simSid;
+    @Getter
+    private final String simUniqueName;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Usage(
-        @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("sim_unique_name") final String simUniqueName,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("period") final Map<String, Object> period,
-        @JsonProperty("commands_usage") final Map<String, Object> commandsUsage,
-        @JsonProperty("commands_costs") final Map<String, Object> commandsCosts,
-        @JsonProperty("data_usage") final Map<String, Object> dataUsage,
-        @JsonProperty("data_costs") final Map<String, Object> dataCosts,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("commands_costs") final Object commandsCosts,
+            @JsonProperty("commands_usage") final Object commandsUsage,
+            @JsonProperty("data_costs") final Object dataCosts,
+            @JsonProperty("data_usage") final Object dataUsage,
+            @JsonProperty("period") final Object period,
+            @JsonProperty("sim_sid") final String simSid,
+            @JsonProperty("sim_unique_name") final String simUniqueName,
+            @JsonProperty("url") final URI url
     ) {
+        this.accountSid = accountSid;
+        this.commandsCosts = commandsCosts;
+        this.commandsUsage = commandsUsage;
+        this.dataCosts = dataCosts;
+        this.dataUsage = dataUsage;
+        this.period = period;
         this.simSid = simSid;
         this.simUniqueName = simUniqueName;
-        this.accountSid = accountSid;
-        this.period = period;
-        this.commandsUsage = commandsUsage;
-        this.commandsCosts = commandsCosts;
-        this.dataUsage = dataUsage;
-        this.dataCosts = dataCosts;
         this.url = url;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final String getSimUniqueName() {
-        return this.simUniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getPeriod() {
-        return this.period;
-    }
-
-    public final Map<String, Object> getCommandsUsage() {
-        return this.commandsUsage;
-    }
-
-    public final Map<String, Object> getCommandsCosts() {
-        return this.commandsCosts;
-    }
-
-    public final Map<String, Object> getDataUsage() {
-        return this.dataUsage;
-    }
-
-    public final Map<String, Object> getDataCosts() {
-        return this.dataCosts;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -165,32 +147,34 @@ public class Usage extends Resource {
         }
 
         Usage other = (Usage) o;
-
         return (
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(simUniqueName, other.simUniqueName) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(period, other.period) &&
-            Objects.equals(commandsUsage, other.commandsUsage) &&
-            Objects.equals(commandsCosts, other.commandsCosts) &&
-            Objects.equals(dataUsage, other.dataUsage) &&
-            Objects.equals(dataCosts, other.dataCosts) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(commandsCosts, other.commandsCosts) &&
+                        Objects.equals(commandsUsage, other.commandsUsage) &&
+                        Objects.equals(dataCosts, other.dataCosts) &&
+                        Objects.equals(dataUsage, other.dataUsage) &&
+                        Objects.equals(period, other.period) &&
+                        Objects.equals(simSid, other.simSid) &&
+                        Objects.equals(simUniqueName, other.simUniqueName) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            simSid,
-            simUniqueName,
-            accountSid,
-            period,
-            commandsUsage,
-            commandsCosts,
-            dataUsage,
-            dataCosts,
-            url
+                accountSid,
+                commandsCosts,
+                commandsUsage,
+                dataCosts,
+                dataUsage,
+                period,
+                simSid,
+                simUniqueName,
+                url
         );
     }
+
+
 }
+

@@ -16,6 +16,8 @@ package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,68 +28,69 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserUpdater extends Updater<User> {
-
-    private String pathSid;
+    private String pathsid;
     private User.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
     private String attributes;
     private String roleSid;
 
-    public UserUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public UserUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public UserUpdater setXTwilioWebhookEnabled(
-        final User.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
 
     public UserUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public UserUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
+
 
     public UserUpdater setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
+
+    public UserUpdater setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+
     @Override
     public User update(final TwilioRestClient client) {
+
         String path = "/v1/Users/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "User update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("User update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -96,23 +99,29 @@ public class UserUpdater extends Updater<User> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
         }
+
+
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
         }
+
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
         }
+
     }
 }

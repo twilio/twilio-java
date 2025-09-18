@@ -28,69 +28,55 @@ import com.twilio.rest.Domains;
 
 public class InteractionTransferCreator extends Creator<InteractionTransfer> {
 
-    private String pathInteractionSid;
-    private String pathChannelSid;
+    private String pathinteractionSid;
+    private String pathchannelSid;
     private Object body;
 
-    public InteractionTransferCreator(
-        final String pathInteractionSid,
-        final String pathChannelSid
-    ) {
-        this.pathInteractionSid = pathInteractionSid;
-        this.pathChannelSid = pathChannelSid;
+    public InteractionTransferCreator(final String pathinteractionSid, final String pathchannelSid) {
+        this.pathinteractionSid = pathinteractionSid;
+        this.pathchannelSid = pathchannelSid;
     }
+
 
     public InteractionTransferCreator setBody(final Object body) {
         this.body = body;
         return this;
     }
 
+
     @Override
     public InteractionTransfer create(final TwilioRestClient client) {
-        String path =
-            "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers";
 
-        path =
-            path.replace(
-                "{" + "InteractionSid" + "}",
-                this.pathInteractionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers";
+
+        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "InteractionTransfer creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InteractionTransfer creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return InteractionTransfer.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InteractionTransfer.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

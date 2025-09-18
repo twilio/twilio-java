@@ -14,9 +14,12 @@
 
 package com.twilio.rest.conversations.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +28,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.List;
 
-public class ConversationWithParticipantsCreator
-    extends Creator<ConversationWithParticipants> {
+public class ConversationWithParticipantsCreator extends Creator<ConversationWithParticipants> {
 
     private ConversationWithParticipants.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
@@ -46,198 +48,194 @@ public class ConversationWithParticipantsCreator
     private String bindingsEmailName;
     private List<String> participant;
 
-    public ConversationWithParticipantsCreator() {}
-
-    public ConversationWithParticipantsCreator setXTwilioWebhookEnabled(
-        final ConversationWithParticipants.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
+    public ConversationWithParticipantsCreator() {
     }
 
-    public ConversationWithParticipantsCreator setFriendlyName(
-        final String friendlyName
-    ) {
+
+    public ConversationWithParticipantsCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setUniqueName(
-        final String uniqueName
-    ) {
+
+    public ConversationWithParticipantsCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setDateCreated(
-        final ZonedDateTime dateCreated
-    ) {
+
+    public ConversationWithParticipantsCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setDateUpdated(
-        final ZonedDateTime dateUpdated
-    ) {
+
+    public ConversationWithParticipantsCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
+
+    public ConversationWithParticipantsCreator setMessagingServiceSid(final String messagingServiceSid) {
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setAttributes(
-        final String attributes
-    ) {
+
+    public ConversationWithParticipantsCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setState(
-        final ConversationWithParticipants.State state
-    ) {
+
+    public ConversationWithParticipantsCreator setState(final ConversationWithParticipants.State state) {
         this.state = state;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setTimersInactive(
-        final String timersInactive
-    ) {
+
+    public ConversationWithParticipantsCreator setTimersInactive(final String timersInactive) {
         this.timersInactive = timersInactive;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setTimersClosed(
-        final String timersClosed
-    ) {
+
+    public ConversationWithParticipantsCreator setTimersClosed(final String timersClosed) {
         this.timersClosed = timersClosed;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setBindingsEmailAddress(
-        final String bindingsEmailAddress
-    ) {
+
+    public ConversationWithParticipantsCreator setBindingsEmailAddress(final String bindingsEmailAddress) {
         this.bindingsEmailAddress = bindingsEmailAddress;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setBindingsEmailName(
-        final String bindingsEmailName
-    ) {
+
+    public ConversationWithParticipantsCreator setBindingsEmailName(final String bindingsEmailName) {
         this.bindingsEmailName = bindingsEmailName;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setParticipant(
-        final List<String> participant
-    ) {
+
+    public ConversationWithParticipantsCreator setParticipant(final List<String> participant) {
         this.participant = participant;
         return this;
     }
 
-    public ConversationWithParticipantsCreator setParticipant(
-        final String participant
-    ) {
+    public ConversationWithParticipantsCreator setParticipant(final String participant) {
         return setParticipant(Promoter.listOfOne(participant));
     }
 
+    public ConversationWithParticipantsCreator setXTwilioWebhookEnabled(final ConversationWithParticipants.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+
     @Override
     public ConversationWithParticipants create(final TwilioRestClient client) {
+
         String path = "/v1/ConversationWithParticipants";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConversationWithParticipants creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConversationWithParticipants creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ConversationWithParticipants.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ConversationWithParticipants.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
         if (dateCreated != null) {
-            request.addPostParam(
-                "DateCreated",
-                dateCreated.toInstant().toString()
-            );
+            Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
         }
+
+
         if (dateUpdated != null) {
-            request.addPostParam(
-                "DateUpdated",
-                dateUpdated.toInstant().toString()
-            );
+            Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
         }
+
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
         }
+
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
         }
+
+
         if (state != null) {
-            request.addPostParam("State", state.toString());
+            Serializer.toString(request, "State", state, ParameterType.URLENCODED);
         }
+
+
         if (timersInactive != null) {
-            request.addPostParam("Timers.Inactive", timersInactive);
+            Serializer.toString(request, "Timers.Inactive", timersInactive, ParameterType.URLENCODED);
         }
+
+
         if (timersClosed != null) {
-            request.addPostParam("Timers.Closed", timersClosed);
+            Serializer.toString(request, "Timers.Closed", timersClosed, ParameterType.URLENCODED);
         }
+
+
         if (bindingsEmailAddress != null) {
-            request.addPostParam(
-                "Bindings.Email.Address",
-                bindingsEmailAddress
-            );
+            Serializer.toString(request, "Bindings.Email.Address", bindingsEmailAddress, ParameterType.URLENCODED);
         }
+
+
         if (bindingsEmailName != null) {
-            request.addPostParam("Bindings.Email.Name", bindingsEmailName);
+            Serializer.toString(request, "Bindings.Email.Name", bindingsEmailName, ParameterType.URLENCODED);
         }
+
+
         if (participant != null) {
-            for (String prop : participant) {
-                request.addPostParam("Participant", prop);
+            for (String param : participant) {
+                Serializer.toString(request, "Participant", param, ParameterType.URLENCODED);
             }
         }
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
         }
+
     }
 }

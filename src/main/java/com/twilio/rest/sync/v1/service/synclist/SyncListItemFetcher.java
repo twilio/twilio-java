@@ -15,7 +15,6 @@
 package com.twilio.rest.sync.v1.service.synclist;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,61 +26,47 @@ import com.twilio.rest.Domains;
 
 public class SyncListItemFetcher extends Fetcher<SyncListItem> {
 
-    private String pathServiceSid;
-    private String pathListSid;
-    private Integer pathIndex;
+    private String pathserviceSid;
+    private String pathlistSid;
+    private Integer pathindex;
 
-    public SyncListItemFetcher(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathListSid = pathListSid;
-        this.pathIndex = pathIndex;
+    public SyncListItemFetcher(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathlistSid = pathlistSid;
+        this.pathindex = pathindex;
     }
+
 
     @Override
     public SyncListItem fetch(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
-        path = path.replace("{" + "Index" + "}", this.pathIndex.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
+        path = path.replace("{" + "Index" + "}", this.pathindex.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.SYNC.toString(),
-            path
+                HttpMethod.GET,
+                Domains.SYNC.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncListItem fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncListItem fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return SyncListItem.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

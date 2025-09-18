@@ -17,7 +17,8 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,122 +28,90 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ConnectionPolicyTargetReader
-    extends Reader<ConnectionPolicyTarget> {
+public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget> {
 
-    private String pathConnectionPolicySid;
+    private String pathconnectionPolicySid;
     private Long pageSize;
 
-    public ConnectionPolicyTargetReader(final String pathConnectionPolicySid) {
-        this.pathConnectionPolicySid = pathConnectionPolicySid;
+    public ConnectionPolicyTargetReader(final String pathconnectionPolicySid) {
+        this.pathconnectionPolicySid = pathconnectionPolicySid;
     }
+
 
     public ConnectionPolicyTargetReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
+
     @Override
-    public ResourceSet<ConnectionPolicyTarget> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<ConnectionPolicyTarget> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<ConnectionPolicyTarget> firstPage(
-        final TwilioRestClient client
-    ) {
+    public Page<ConnectionPolicyTarget> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
+
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.VOICE.toString(),
-            path
+                HttpMethod.GET,
+                Domains.VOICE.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<ConnectionPolicyTarget> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ConnectionPolicyTarget> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectionPolicyTarget read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectionPolicyTarget read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "targets",
-            response.getContent(),
-            ConnectionPolicyTarget.class,
-            client.getObjectMapper()
-        );
+                "targets",
+                response.getContent(),
+                ConnectionPolicyTarget.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<ConnectionPolicyTarget> previousPage(
-        final Page<ConnectionPolicyTarget> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VOICE.toString())
-        );
+    public Page<ConnectionPolicyTarget> previousPage(final Page<ConnectionPolicyTarget> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ConnectionPolicyTarget> nextPage(
-        final Page<ConnectionPolicyTarget> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.VOICE.toString())
-        );
+    public Page<ConnectionPolicyTarget> nextPage(final Page<ConnectionPolicyTarget> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ConnectionPolicyTarget> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<ConnectionPolicyTarget> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

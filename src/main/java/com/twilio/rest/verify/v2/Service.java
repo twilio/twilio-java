@@ -18,59 +18,71 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 189237551129366L;
 
     public static ServiceCreator creator(final String friendlyName) {
-        return new ServiceCreator(friendlyName);
+        return new ServiceCreator(
+                friendlyName
+        );
     }
 
-    public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(pathSid);
+
+    public static ServiceDeleter deleter(final String pathsid) {
+        return new ServiceDeleter(
+                pathsid
+        );
     }
 
-    public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(pathSid);
+
+    public static ServiceFetcher fetcher(final String pathsid) {
+        return new ServiceFetcher(
+                pathsid
+        );
     }
+
 
     public static ServiceReader reader() {
-        return new ServiceReader();
+        return new ServiceReader(
+
+        );
     }
 
-    public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(pathSid);
+
+    public static ServiceUpdater updater(final String pathsid) {
+        return new ServiceUpdater(
+                pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -85,14 +97,11 @@ public class Service extends Resource {
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -103,161 +112,109 @@ public class Service extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
+    @Getter
     private final Integer codeLength;
-    private final Boolean lookupEnabled;
-    private final Boolean psd2Enabled;
-    private final Boolean skipSmsToLandlines;
-    private final Boolean dtmfInputRequired;
-    private final String ttsName;
-    private final Boolean doNotShareWarningEnabled;
+    @Getter
     private final Boolean customCodeEnabled;
-    private final Map<String, Object> push;
-    private final Map<String, Object> totp;
-    private final String defaultTemplateSid;
-    private final Map<String, Object> whatsapp;
-    private final Map<String, Object> passkeys;
-    private final Boolean verifyEventSubscriptionEnabled;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+    @Getter
+    private final String defaultTemplateSid;
+    @Getter
+    private final Boolean doNotShareWarningEnabled;
+    @Getter
+    private final Boolean dtmfInputRequired;
+    @Getter
+    private final String friendlyName;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final Boolean lookupEnabled;
+    @Getter
+    private final Object passkeys;
+    @Getter
+    private final Boolean psd2Enabled;
+    @Getter
+    private final Object push;
+    @Getter
+    private final String sid;
+    @Getter
+    private final Boolean skipSmsToLandlines;
+    @Getter
+    private final Object totp;
+    @Getter
+    private final String ttsName;
+    @Getter
+    private final URI url;
+    @Getter
+    private final Boolean verifyEventSubscriptionEnabled;
+    @Getter
+    private final Object whatsapp;
 
     @JsonCreator
     private Service(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("code_length") final Integer codeLength,
-        @JsonProperty("lookup_enabled") final Boolean lookupEnabled,
-        @JsonProperty("psd2_enabled") final Boolean psd2Enabled,
-        @JsonProperty("skip_sms_to_landlines") final Boolean skipSmsToLandlines,
-        @JsonProperty("dtmf_input_required") final Boolean dtmfInputRequired,
-        @JsonProperty("tts_name") final String ttsName,
-        @JsonProperty(
-            "do_not_share_warning_enabled"
-        ) final Boolean doNotShareWarningEnabled,
-        @JsonProperty("custom_code_enabled") final Boolean customCodeEnabled,
-        @JsonProperty("push") final Map<String, Object> push,
-        @JsonProperty("totp") final Map<String, Object> totp,
-        @JsonProperty("default_template_sid") final String defaultTemplateSid,
-        @JsonProperty("whatsapp") final Map<String, Object> whatsapp,
-        @JsonProperty("passkeys") final Map<String, Object> passkeys,
-        @JsonProperty(
-            "verify_event_subscription_enabled"
-        ) final Boolean verifyEventSubscriptionEnabled,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("code_length") final Integer codeLength,
+            @JsonProperty("custom_code_enabled") final Boolean customCodeEnabled,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("default_template_sid") final String defaultTemplateSid,
+            @JsonProperty("do_not_share_warning_enabled") final Boolean doNotShareWarningEnabled,
+            @JsonProperty("dtmf_input_required") final Boolean dtmfInputRequired,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("lookup_enabled") final Boolean lookupEnabled,
+            @JsonProperty("passkeys") final Object passkeys,
+            @JsonProperty("psd2_enabled") final Boolean psd2Enabled,
+            @JsonProperty("push") final Object push,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("skip_sms_to_landlines") final Boolean skipSmsToLandlines,
+            @JsonProperty("totp") final Object totp,
+            @JsonProperty("tts_name") final String ttsName,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("verify_event_subscription_enabled") final Boolean verifyEventSubscriptionEnabled,
+            @JsonProperty("whatsapp") final Object whatsapp
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
         this.codeLength = codeLength;
-        this.lookupEnabled = lookupEnabled;
-        this.psd2Enabled = psd2Enabled;
-        this.skipSmsToLandlines = skipSmsToLandlines;
-        this.dtmfInputRequired = dtmfInputRequired;
-        this.ttsName = ttsName;
-        this.doNotShareWarningEnabled = doNotShareWarningEnabled;
         this.customCodeEnabled = customCodeEnabled;
-        this.push = push;
-        this.totp = totp;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.defaultTemplateSid = defaultTemplateSid;
-        this.whatsapp = whatsapp;
-        this.passkeys = passkeys;
-        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.doNotShareWarningEnabled = doNotShareWarningEnabled;
+        this.dtmfInputRequired = dtmfInputRequired;
+        this.friendlyName = friendlyName;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Integer getCodeLength() {
-        return this.codeLength;
-    }
-
-    public final Boolean getLookupEnabled() {
-        return this.lookupEnabled;
-    }
-
-    public final Boolean getPsd2Enabled() {
-        return this.psd2Enabled;
-    }
-
-    public final Boolean getSkipSmsToLandlines() {
-        return this.skipSmsToLandlines;
-    }
-
-    public final Boolean getDtmfInputRequired() {
-        return this.dtmfInputRequired;
-    }
-
-    public final String getTtsName() {
-        return this.ttsName;
-    }
-
-    public final Boolean getDoNotShareWarningEnabled() {
-        return this.doNotShareWarningEnabled;
-    }
-
-    public final Boolean getCustomCodeEnabled() {
-        return this.customCodeEnabled;
-    }
-
-    public final Map<String, Object> getPush() {
-        return this.push;
-    }
-
-    public final Map<String, Object> getTotp() {
-        return this.totp;
-    }
-
-    public final String getDefaultTemplateSid() {
-        return this.defaultTemplateSid;
-    }
-
-    public final Map<String, Object> getWhatsapp() {
-        return this.whatsapp;
-    }
-
-    public final Map<String, Object> getPasskeys() {
-        return this.passkeys;
-    }
-
-    public final Boolean getVerifyEventSubscriptionEnabled() {
-        return this.verifyEventSubscriptionEnabled;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.lookupEnabled = lookupEnabled;
+        this.passkeys = passkeys;
+        this.psd2Enabled = psd2Enabled;
+        this.push = push;
+        this.sid = sid;
+        this.skipSmsToLandlines = skipSmsToLandlines;
+        this.totp = totp;
+        this.ttsName = ttsName;
+        this.url = url;
+        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
+        this.whatsapp = whatsapp;
     }
 
     @Override
@@ -271,62 +228,58 @@ public class Service extends Resource {
         }
 
         Service other = (Service) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(codeLength, other.codeLength) &&
-            Objects.equals(lookupEnabled, other.lookupEnabled) &&
-            Objects.equals(psd2Enabled, other.psd2Enabled) &&
-            Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&
-            Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
-            Objects.equals(ttsName, other.ttsName) &&
-            Objects.equals(
-                doNotShareWarningEnabled,
-                other.doNotShareWarningEnabled
-            ) &&
-            Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
-            Objects.equals(push, other.push) &&
-            Objects.equals(totp, other.totp) &&
-            Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
-            Objects.equals(whatsapp, other.whatsapp) &&
-            Objects.equals(passkeys, other.passkeys) &&
-            Objects.equals(
-                verifyEventSubscriptionEnabled,
-                other.verifyEventSubscriptionEnabled
-            ) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(codeLength, other.codeLength) &&
+                        Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
+                        Objects.equals(doNotShareWarningEnabled, other.doNotShareWarningEnabled) &&
+                        Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(lookupEnabled, other.lookupEnabled) &&
+                        Objects.equals(passkeys, other.passkeys) &&
+                        Objects.equals(psd2Enabled, other.psd2Enabled) &&
+                        Objects.equals(push, other.push) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&
+                        Objects.equals(totp, other.totp) &&
+                        Objects.equals(ttsName, other.ttsName) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(verifyEventSubscriptionEnabled, other.verifyEventSubscriptionEnabled) &&
+                        Objects.equals(whatsapp, other.whatsapp)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            friendlyName,
-            codeLength,
-            lookupEnabled,
-            psd2Enabled,
-            skipSmsToLandlines,
-            dtmfInputRequired,
-            ttsName,
-            doNotShareWarningEnabled,
-            customCodeEnabled,
-            push,
-            totp,
-            defaultTemplateSid,
-            whatsapp,
-            passkeys,
-            verifyEventSubscriptionEnabled,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+                accountSid,
+                codeLength,
+                customCodeEnabled,
+                dateCreated,
+                dateUpdated,
+                defaultTemplateSid,
+                doNotShareWarningEnabled,
+                dtmfInputRequired,
+                friendlyName,
+                links,
+                lookupEnabled,
+                passkeys,
+                psd2Enabled,
+                push,
+                sid,
+                skipSmsToLandlines,
+                totp,
+                ttsName,
+                url,
+                verifyEventSubscriptionEnabled,
+                whatsapp
         );
     }
+
+
 }
+

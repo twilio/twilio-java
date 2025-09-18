@@ -17,7 +17,8 @@ package com.twilio.rest.assistants.v1.knowledge;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,17 +30,19 @@ import com.twilio.rest.Domains;
 
 public class ChunkReader extends Reader<Chunk> {
 
-    private String pathId;
+    private String pathid;
     private Integer pageSize;
 
-    public ChunkReader(final String pathId) {
-        this.pathId = pathId;
+    public ChunkReader(final String pathid) {
+        this.pathid = pathid;
     }
+
 
     public ChunkReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Chunk> read(final TwilioRestClient client) {
@@ -47,93 +50,68 @@ public class ChunkReader extends Reader<Chunk> {
     }
 
     public Page<Chunk> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Knowledge/{id}/Chunks";
-        path = path.replace("{" + "id" + "}", this.pathId.toString());
+
+        path = path.replace("{" + "id" + "}", this.pathid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.ASSISTANTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.ASSISTANTS.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Chunk> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Chunk> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Chunk read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Chunk read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "chunks",
-            response.getContent(),
-            Chunk.class,
-            client.getObjectMapper()
-        );
+                "chunks",
+                response.getContent(),
+                Chunk.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Chunk> previousPage(
-        final Page<Chunk> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.ASSISTANTS.toString())
-        );
+    public Page<Chunk> previousPage(final Page<Chunk> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Chunk> nextPage(
-        final Page<Chunk> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.ASSISTANTS.toString())
-        );
+    public Page<Chunk> nextPage(final Page<Chunk> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Chunk> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Chunk> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

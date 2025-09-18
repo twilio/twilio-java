@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.queue;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,69 +26,53 @@ import com.twilio.rest.Domains;
 
 public class MemberFetcher extends Fetcher<Member> {
 
-    private String pathQueueSid;
-    private String pathCallSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathqueueSid;
+    private String pathcallSid;
 
-    public MemberFetcher(final String pathQueueSid, final String pathCallSid) {
-        this.pathQueueSid = pathQueueSid;
-        this.pathCallSid = pathCallSid;
+    public MemberFetcher(final String pathqueueSid, final String pathcallSid) {
+        this.pathqueueSid = pathqueueSid;
+        this.pathcallSid = pathcallSid;
     }
 
-    public MemberFetcher(
-        final String pathAccountSid,
-        final String pathQueueSid,
-        final String pathCallSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathQueueSid = pathQueueSid;
-        this.pathCallSid = pathCallSid;
+    public MemberFetcher(final String pathaccountSid, final String pathqueueSid, final String pathcallSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathqueueSid = pathqueueSid;
+        this.pathcallSid = pathcallSid;
     }
+
 
     @Override
     public Member fetch(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "QueueSid" + "}", this.pathqueueSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Member fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Member.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -30,41 +30,41 @@ public class QueryCreator extends Creator<Query> {
 
     private Query.LookupRequest1 lookupRequest1;
 
-    public QueryCreator() {}
+    public QueryCreator() {
+    }
 
-    public QueryCreator setLookupRequest1(
-        final Query.LookupRequest1 lookupRequest1
-    ) {
+
+    public QueryCreator setLookupRequest1(final Query.LookupRequest1 lookupRequest1) {
         this.lookupRequest1 = lookupRequest1;
         return this;
     }
 
+
     @Override
     public Query create(final TwilioRestClient client) {
+
         String path = "/v2/batch/query";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.LOOKUPS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.LOOKUPS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Query creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Query creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

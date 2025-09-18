@@ -16,8 +16,9 @@ package com.twilio.rest.video.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 import java.util.List;
 
 public class CompositionHookUpdater extends Updater<CompositionHook> {
-
-    private String pathSid;
+    private String pathsid;
     private String friendlyName;
     private Boolean enabled;
     private Object videoLayout;
@@ -43,32 +44,31 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public CompositionHookUpdater(
-        final String pathSid,
-        final String friendlyName
-    ) {
-        this.pathSid = pathSid;
+    public CompositionHookUpdater(final String pathsid, final String friendlyName) {
+        this.pathsid = pathsid;
         this.friendlyName = friendlyName;
     }
+
 
     public CompositionHookUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public CompositionHookUpdater setEnabled(final Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
+
 
     public CompositionHookUpdater setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
 
-    public CompositionHookUpdater setAudioSources(
-        final List<String> audioSources
-    ) {
+
+    public CompositionHookUpdater setAudioSources(final List<String> audioSources) {
         this.audioSources = audioSources;
         return this;
     }
@@ -77,19 +77,13 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         return setAudioSources(Promoter.listOfOne(audioSources));
     }
 
-    public CompositionHookUpdater setAudioSourcesExcluded(
-        final List<String> audioSourcesExcluded
-    ) {
+    public CompositionHookUpdater setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
     }
 
-    public CompositionHookUpdater setAudioSourcesExcluded(
-        final String audioSourcesExcluded
-    ) {
-        return setAudioSourcesExcluded(
-            Promoter.listOfOne(audioSourcesExcluded)
-        );
+    public CompositionHookUpdater setAudioSourcesExcluded(final String audioSourcesExcluded) {
+        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
     }
 
     public CompositionHookUpdater setTrim(final Boolean trim) {
@@ -97,119 +91,120 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         return this;
     }
 
-    public CompositionHookUpdater setFormat(
-        final CompositionHook.Format format
-    ) {
+
+    public CompositionHookUpdater setFormat(final CompositionHook.Format format) {
         this.format = format;
         return this;
     }
+
 
     public CompositionHookUpdater setResolution(final String resolution) {
         this.resolution = resolution;
         return this;
     }
 
+
     public CompositionHookUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CompositionHookUpdater setStatusCallback(
-        final String statusCallback
-    ) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public CompositionHookUpdater setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public CompositionHookUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
+
     @Override
     public CompositionHook update(final TwilioRestClient client) {
+
         String path = "/v1/CompositionHooks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VIDEO.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VIDEO.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "CompositionHook update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("CompositionHook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return CompositionHook.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return CompositionHook.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
         }
+
+
         if (videoLayout != null) {
-            request.addPostParam(
-                "VideoLayout",
-                Converter.objectToJson(videoLayout)
-            );
+            Serializer.toString(request, "VideoLayout", videoLayout, ParameterType.URLENCODED);
         }
+
+
         if (audioSources != null) {
-            for (String prop : audioSources) {
-                request.addPostParam("AudioSources", prop);
+            for (String param : audioSources) {
+                Serializer.toString(request, "AudioSources", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (audioSourcesExcluded != null) {
-            for (String prop : audioSourcesExcluded) {
-                request.addPostParam("AudioSourcesExcluded", prop);
+            for (String param : audioSourcesExcluded) {
+                Serializer.toString(request, "AudioSourcesExcluded", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (trim != null) {
-            request.addPostParam("Trim", trim.toString());
+            Serializer.toString(request, "Trim", trim, ParameterType.URLENCODED);
         }
+
+
         if (format != null) {
-            request.addPostParam("Format", format.toString());
+            Serializer.toString(request, "Format", format, ParameterType.URLENCODED);
         }
+
+
         if (resolution != null) {
-            request.addPostParam("Resolution", resolution);
+            Serializer.toString(request, "Resolution", resolution, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
     }
 }

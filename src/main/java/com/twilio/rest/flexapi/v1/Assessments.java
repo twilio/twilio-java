@@ -18,82 +18,55 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Assessments extends Resource {
 
-    private static final long serialVersionUID = 2474918794072L;
 
-    public static AssessmentsCreator creator(
-        final String categorySid,
-        final String categoryName,
-        final String segmentId,
-        final String agentId,
-        final BigDecimal offset,
-        final String metricId,
-        final String metricName,
-        final String answerText,
-        final String answerId,
-        final String questionnaireSid
-    ) {
+    public static AssessmentsCreator creator(final String categorySid, final String categoryName, final String segmentId, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireSid) {
         return new AssessmentsCreator(
-            categorySid,
-            categoryName,
-            segmentId,
-            agentId,
-            offset,
-            metricId,
-            metricName,
-            answerText,
-            answerId,
-            questionnaireSid
+                categorySid, categoryName, segmentId, agentId, offset, metricId, metricName, answerText, answerId, questionnaireSid
         );
     }
+
 
     public static AssessmentsReader reader() {
-        return new AssessmentsReader();
-    }
+        return new AssessmentsReader(
 
-    public static AssessmentsUpdater updater(
-        final String pathAssessmentSid,
-        final BigDecimal offset,
-        final String answerText,
-        final String answerId
-    ) {
-        return new AssessmentsUpdater(
-            pathAssessmentSid,
-            offset,
-            answerText,
-            answerId
         );
     }
+
+
+    public static AssessmentsUpdater updater(final String pathassessmentSid, final BigDecimal offset, final String answerText, final String answerId) {
+        return new AssessmentsUpdater(
+                pathassessmentSid, offset, answerText, answerId
+        );
+    }
+
 
     /**
      * Converts a JSON String into a Assessments object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Assessments object represented by the provided JSON
      */
-    public static Assessments fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Assessments fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assessments.class);
@@ -108,14 +81,11 @@ public class Assessments extends Resource {
      * Converts a JSON InputStream into a Assessments object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Assessments object represented by the provided JSON
      */
-    public static Assessments fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Assessments fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assessments.class);
@@ -126,108 +96,79 @@ public class Assessments extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String assessmentSid;
-    private final String offset;
-    private final Boolean report;
-    private final String weight;
+    @Getter
     private final String agentId;
-    private final String segmentId;
-    private final String userName;
-    private final String userEmail;
-    private final String answerText;
+    @Getter
     private final String answerId;
-    private final Map<String, Object> assessment;
+    @Getter
+    private final String answerText;
+    @Getter
+    private final Object assessment;
+    @Getter
+    private final String assessmentSid;
+    @Getter
+    private final String offset;
+    @Getter
+    private final Boolean report;
+    @Getter
+    private final String segmentId;
+    @Getter
     private final String timestamp;
+    @Getter
     private final URI url;
+    @Getter
+    private final String userEmail;
+    @Getter
+    private final String userName;
+    @Getter
+    private final String weight;
 
     @JsonCreator
     private Assessments(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("assessment_sid") final String assessmentSid,
-        @JsonProperty("offset") final String offset,
-        @JsonProperty("report") final Boolean report,
-        @JsonProperty("weight") final String weight,
-        @JsonProperty("agent_id") final String agentId,
-        @JsonProperty("segment_id") final String segmentId,
-        @JsonProperty("user_name") final String userName,
-        @JsonProperty("user_email") final String userEmail,
-        @JsonProperty("answer_text") final String answerText,
-        @JsonProperty("answer_id") final String answerId,
-        @JsonProperty("assessment") final Map<String, Object> assessment,
-        @JsonProperty("timestamp") final String timestamp,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("agent_id") final String agentId,
+            @JsonProperty("answer_id") final String answerId,
+            @JsonProperty("answer_text") final String answerText,
+            @JsonProperty("assessment") final Object assessment,
+            @JsonProperty("assessment_sid") final String assessmentSid,
+            @JsonProperty("offset") final String offset,
+            @JsonProperty("report") final Boolean report,
+            @JsonProperty("segment_id") final String segmentId,
+            @JsonProperty("timestamp") final String timestamp,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("user_email") final String userEmail,
+            @JsonProperty("user_name") final String userName,
+            @JsonProperty("weight") final String weight
     ) {
         this.accountSid = accountSid;
+        this.agentId = agentId;
+        this.answerId = answerId;
+        this.answerText = answerText;
+        this.assessment = assessment;
         this.assessmentSid = assessmentSid;
         this.offset = offset;
         this.report = report;
-        this.weight = weight;
-        this.agentId = agentId;
         this.segmentId = segmentId;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.answerText = answerText;
-        this.answerId = answerId;
-        this.assessment = assessment;
         this.timestamp = timestamp;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getAssessmentSid() {
-        return this.assessmentSid;
-    }
-
-    public final String getOffset() {
-        return this.offset;
-    }
-
-    public final Boolean getReport() {
-        return this.report;
-    }
-
-    public final String getWeight() {
-        return this.weight;
-    }
-
-    public final String getAgentId() {
-        return this.agentId;
-    }
-
-    public final String getSegmentId() {
-        return this.segmentId;
-    }
-
-    public final String getUserName() {
-        return this.userName;
-    }
-
-    public final String getUserEmail() {
-        return this.userEmail;
-    }
-
-    public final String getAnswerText() {
-        return this.answerText;
-    }
-
-    public final String getAnswerId() {
-        return this.answerId;
-    }
-
-    public final Map<String, Object> getAssessment() {
-        return this.assessment;
-    }
-
-    public final String getTimestamp() {
-        return this.timestamp;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.userEmail = userEmail;
+        this.userName = userName;
+        this.weight = weight;
     }
 
     @Override
@@ -241,42 +182,44 @@ public class Assessments extends Resource {
         }
 
         Assessments other = (Assessments) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(assessmentSid, other.assessmentSid) &&
-            Objects.equals(offset, other.offset) &&
-            Objects.equals(report, other.report) &&
-            Objects.equals(weight, other.weight) &&
-            Objects.equals(agentId, other.agentId) &&
-            Objects.equals(segmentId, other.segmentId) &&
-            Objects.equals(userName, other.userName) &&
-            Objects.equals(userEmail, other.userEmail) &&
-            Objects.equals(answerText, other.answerText) &&
-            Objects.equals(answerId, other.answerId) &&
-            Objects.equals(assessment, other.assessment) &&
-            Objects.equals(timestamp, other.timestamp) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(agentId, other.agentId) &&
+                        Objects.equals(answerId, other.answerId) &&
+                        Objects.equals(answerText, other.answerText) &&
+                        Objects.equals(assessment, other.assessment) &&
+                        Objects.equals(assessmentSid, other.assessmentSid) &&
+                        Objects.equals(offset, other.offset) &&
+                        Objects.equals(report, other.report) &&
+                        Objects.equals(segmentId, other.segmentId) &&
+                        Objects.equals(timestamp, other.timestamp) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(userEmail, other.userEmail) &&
+                        Objects.equals(userName, other.userName) &&
+                        Objects.equals(weight, other.weight)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            assessmentSid,
-            offset,
-            report,
-            weight,
-            agentId,
-            segmentId,
-            userName,
-            userEmail,
-            answerText,
-            answerId,
-            assessment,
-            timestamp,
-            url
+                accountSid,
+                agentId,
+                answerId,
+                answerText,
+                assessment,
+                assessmentSid,
+                offset,
+                report,
+                segmentId,
+                timestamp,
+                url,
+                userEmail,
+                userName,
+                weight
         );
     }
+
+
 }
+

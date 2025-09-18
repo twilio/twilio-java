@@ -16,13 +16,14 @@ package com.twilio.rest.oauth.v1;
 
 import com.twilio.auth_strategy.NoAuthStrategy;
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Response;
 import com.twilio.http.Request;
+import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
@@ -34,88 +35,98 @@ public class AuthorizeFetcher extends Fetcher<Authorize> {
     private String scope;
     private String state;
 
-    public AuthorizeFetcher() {}
+    public AuthorizeFetcher() {
+    }
+
 
     public AuthorizeFetcher setResponseType(final String responseType) {
         this.responseType = responseType;
         return this;
     }
 
+
     public AuthorizeFetcher setClientId(final String clientId) {
         this.clientId = clientId;
         return this;
     }
+
 
     public AuthorizeFetcher setRedirectUri(final String redirectUri) {
         this.redirectUri = redirectUri;
         return this;
     }
 
+
     public AuthorizeFetcher setScope(final String scope) {
         this.scope = scope;
         return this;
     }
+
 
     public AuthorizeFetcher setState(final String state) {
         this.state = state;
         return this;
     }
 
+
     @Override
     public Authorize fetch(final TwilioRestClient client) {
+
         String path = "/v1/authorize";
 
+
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.OAUTH.toString(),
-            path
+                HttpMethod.GET,
+                Domains.OAUTH.toString(),
+                path
         );
-        addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         request.setAuth(NoAuthStrategy.getInstance());
+        addQueryParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Authorize fetch failed: Unable to connect to server"
-            );
-        } else if (
-            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+            throw new ApiConnectionException("Authorize fetch failed: Unable to connect to server");
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Authorize.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Authorize.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (responseType != null) {
-            request.addQueryParam("ResponseType", responseType);
+            Serializer.toString(request, "ResponseType", responseType, ParameterType.QUERY);
         }
+
+
         if (clientId != null) {
-            request.addQueryParam("ClientId", clientId);
+            Serializer.toString(request, "ClientId", clientId, ParameterType.QUERY);
         }
+
+
         if (redirectUri != null) {
-            request.addQueryParam("RedirectUri", redirectUri);
+            Serializer.toString(request, "RedirectUri", redirectUri, ParameterType.QUERY);
         }
+
+
         if (scope != null) {
-            request.addQueryParam("Scope", scope);
+            Serializer.toString(request, "Scope", scope, ParameterType.QUERY);
         }
+
+
         if (state != null) {
-            request.addQueryParam("State", state);
+            Serializer.toString(request, "State", state, ParameterType.QUERY);
         }
+
+
     }
 }

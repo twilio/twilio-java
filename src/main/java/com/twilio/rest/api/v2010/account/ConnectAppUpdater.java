@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
-
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathsid;
     private URI authorizeRedirectUrl;
     private String companyName;
     private HttpMethod deauthorizeCallbackMethod;
@@ -41,175 +43,145 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     private URI homepageUrl;
     private List<ConnectApp.Permission> permissions;
 
-    public ConnectAppUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConnectAppUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public ConnectAppUpdater(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public ConnectAppUpdater(final String pathaccountSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathsid = pathsid;
     }
 
-    public ConnectAppUpdater setAuthorizeRedirectUrl(
-        final URI authorizeRedirectUrl
-    ) {
+
+    public ConnectAppUpdater setAuthorizeRedirectUrl(final URI authorizeRedirectUrl) {
         this.authorizeRedirectUrl = authorizeRedirectUrl;
         return this;
     }
 
-    public ConnectAppUpdater setAuthorizeRedirectUrl(
-        final String authorizeRedirectUrl
-    ) {
-        return setAuthorizeRedirectUrl(
-            Promoter.uriFromString(authorizeRedirectUrl)
-        );
-    }
 
     public ConnectAppUpdater setCompanyName(final String companyName) {
         this.companyName = companyName;
         return this;
     }
 
-    public ConnectAppUpdater setDeauthorizeCallbackMethod(
-        final HttpMethod deauthorizeCallbackMethod
-    ) {
+
+    public ConnectAppUpdater setDeauthorizeCallbackMethod(final HttpMethod deauthorizeCallbackMethod) {
         this.deauthorizeCallbackMethod = deauthorizeCallbackMethod;
         return this;
     }
 
-    public ConnectAppUpdater setDeauthorizeCallbackUrl(
-        final URI deauthorizeCallbackUrl
-    ) {
+
+    public ConnectAppUpdater setDeauthorizeCallbackUrl(final URI deauthorizeCallbackUrl) {
         this.deauthorizeCallbackUrl = deauthorizeCallbackUrl;
         return this;
     }
 
-    public ConnectAppUpdater setDeauthorizeCallbackUrl(
-        final String deauthorizeCallbackUrl
-    ) {
-        return setDeauthorizeCallbackUrl(
-            Promoter.uriFromString(deauthorizeCallbackUrl)
-        );
-    }
 
     public ConnectAppUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
 
+
     public ConnectAppUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
+
 
     public ConnectAppUpdater setHomepageUrl(final URI homepageUrl) {
         this.homepageUrl = homepageUrl;
         return this;
     }
 
-    public ConnectAppUpdater setHomepageUrl(final String homepageUrl) {
-        return setHomepageUrl(Promoter.uriFromString(homepageUrl));
-    }
 
-    public ConnectAppUpdater setPermissions(
-        final List<ConnectApp.Permission> permissions
-    ) {
+    public ConnectAppUpdater setPermissions(final List<ConnectApp.Permission> permissions) {
         this.permissions = permissions;
         return this;
     }
 
-    public ConnectAppUpdater setPermissions(
-        final ConnectApp.Permission permissions
-    ) {
+    public ConnectAppUpdater setPermissions(final ConnectApp.Permission permissions) {
         return setPermissions(Promoter.listOfOne(permissions));
     }
 
     @Override
     public ConnectApp update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectApp update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectApp update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ConnectApp.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ConnectApp.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (authorizeRedirectUrl != null) {
-            request.addPostParam(
-                "AuthorizeRedirectUrl",
-                authorizeRedirectUrl.toString()
-            );
+            Serializer.toString(request, "AuthorizeRedirectUrl", authorizeRedirectUrl, ParameterType.URLENCODED);
         }
+
+
         if (companyName != null) {
-            request.addPostParam("CompanyName", companyName);
+            Serializer.toString(request, "CompanyName", companyName, ParameterType.URLENCODED);
         }
+
+
         if (deauthorizeCallbackMethod != null) {
-            request.addPostParam(
-                "DeauthorizeCallbackMethod",
-                deauthorizeCallbackMethod.toString()
-            );
+            Serializer.toString(request, "DeauthorizeCallbackMethod", deauthorizeCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (deauthorizeCallbackUrl != null) {
-            request.addPostParam(
-                "DeauthorizeCallbackUrl",
-                deauthorizeCallbackUrl.toString()
-            );
+            Serializer.toString(request, "DeauthorizeCallbackUrl", deauthorizeCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (homepageUrl != null) {
-            request.addPostParam("HomepageUrl", homepageUrl.toString());
+            Serializer.toString(request, "HomepageUrl", homepageUrl, ParameterType.URLENCODED);
         }
+
+
         if (permissions != null) {
-            for (ConnectApp.Permission prop : permissions) {
-                request.addPostParam("Permissions", prop.toString());
+            for (ConnectApp.Permission param : permissions) {
+                Serializer.toString(request, "Permissions", param, ParameterType.URLENCODED);
             }
         }
+
     }
 }

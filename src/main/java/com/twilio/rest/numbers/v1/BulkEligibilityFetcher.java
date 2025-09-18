@@ -15,7 +15,6 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +26,41 @@ import com.twilio.rest.Domains;
 
 public class BulkEligibilityFetcher extends Fetcher<BulkEligibility> {
 
-    private String pathRequestId;
+    private String pathrequestId;
 
-    public BulkEligibilityFetcher(final String pathRequestId) {
-        this.pathRequestId = pathRequestId;
+    public BulkEligibilityFetcher(final String pathrequestId) {
+        this.pathrequestId = pathrequestId;
     }
+
 
     @Override
     public BulkEligibility fetch(final TwilioRestClient client) {
+
         String path = "/v1/HostedNumber/Eligibility/Bulk/{RequestId}";
 
-        path =
-            path.replace(
-                "{" + "RequestId" + "}",
-                this.pathRequestId.toString()
-            );
+        path = path.replace("{" + "RequestId" + "}", this.pathrequestId.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.NUMBERS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "BulkEligibility fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BulkEligibility fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return BulkEligibility.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return BulkEligibility.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

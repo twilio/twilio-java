@@ -15,7 +15,6 @@
 package com.twilio.rest.ipmessaging.v1.service.channel;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,59 +26,44 @@ import com.twilio.rest.Domains;
 
 public class InviteDeleter extends Deleter<Invite> {
 
-    private String pathServiceSid;
-    private String pathChannelSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathchannelSid;
+    private String pathsid;
 
-    public InviteDeleter(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathChannelSid = pathChannelSid;
-        this.pathSid = pathSid;
+    public InviteDeleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathchannelSid = pathchannelSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.IPMESSAGING.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.IPMESSAGING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Invite delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Invite delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

@@ -18,257 +18,63 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 120259795390146L;
 
     public static ServiceCreator creator(final String uniqueName) {
-        return new ServiceCreator(uniqueName);
+        return new ServiceCreator(
+                uniqueName
+        );
     }
 
-    public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(pathSid);
+
+    public static ServiceDeleter deleter(final String pathsid) {
+        return new ServiceDeleter(
+                pathsid
+        );
     }
 
-    public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(pathSid);
+
+    public static ServiceFetcher fetcher(final String pathsid) {
+        return new ServiceFetcher(
+                pathsid
+        );
     }
+
 
     public static ServiceReader reader() {
-        return new ServiceReader();
-    }
+        return new ServiceReader(
 
-    public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Service object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Service object represented by the provided JSON
-     */
-    public static Service fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Service.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Service object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Service object represented by the provided JSON
-     */
-    public static Service fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Service.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String uniqueName;
-    private final String accountSid;
-    private final String chatInstanceSid;
-    private final URI callbackUrl;
-    private final Integer defaultTtl;
-    private final Service.NumberSelectionBehavior numberSelectionBehavior;
-    private final Service.GeoMatchLevel geoMatchLevel;
-    private final URI interceptCallbackUrl;
-    private final URI outOfSessionCallbackUrl;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-    private final Map<String, String> links;
-
-    @JsonCreator
-    private Service(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("chat_instance_sid") final String chatInstanceSid,
-        @JsonProperty("callback_url") final URI callbackUrl,
-        @JsonProperty("default_ttl") final Integer defaultTtl,
-        @JsonProperty(
-            "number_selection_behavior"
-        ) final Service.NumberSelectionBehavior numberSelectionBehavior,
-        @JsonProperty(
-            "geo_match_level"
-        ) final Service.GeoMatchLevel geoMatchLevel,
-        @JsonProperty("intercept_callback_url") final URI interceptCallbackUrl,
-        @JsonProperty(
-            "out_of_session_callback_url"
-        ) final URI outOfSessionCallbackUrl,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
-    ) {
-        this.sid = sid;
-        this.uniqueName = uniqueName;
-        this.accountSid = accountSid;
-        this.chatInstanceSid = chatInstanceSid;
-        this.callbackUrl = callbackUrl;
-        this.defaultTtl = defaultTtl;
-        this.numberSelectionBehavior = numberSelectionBehavior;
-        this.geoMatchLevel = geoMatchLevel;
-        this.interceptCallbackUrl = interceptCallbackUrl;
-        this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatInstanceSid() {
-        return this.chatInstanceSid;
-    }
-
-    public final URI getCallbackUrl() {
-        return this.callbackUrl;
-    }
-
-    public final Integer getDefaultTtl() {
-        return this.defaultTtl;
-    }
-
-    public final Service.NumberSelectionBehavior getNumberSelectionBehavior() {
-        return this.numberSelectionBehavior;
-    }
-
-    public final Service.GeoMatchLevel getGeoMatchLevel() {
-        return this.geoMatchLevel;
-    }
-
-    public final URI getInterceptCallbackUrl() {
-        return this.interceptCallbackUrl;
-    }
-
-    public final URI getOutOfSessionCallbackUrl() {
-        return this.outOfSessionCallbackUrl;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Service other = (Service) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatInstanceSid, other.chatInstanceSid) &&
-            Objects.equals(callbackUrl, other.callbackUrl) &&
-            Objects.equals(defaultTtl, other.defaultTtl) &&
-            Objects.equals(
-                numberSelectionBehavior,
-                other.numberSelectionBehavior
-            ) &&
-            Objects.equals(geoMatchLevel, other.geoMatchLevel) &&
-            Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) &&
-            Objects.equals(
-                outOfSessionCallbackUrl,
-                other.outOfSessionCallbackUrl
-            ) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            uniqueName,
-            accountSid,
-            chatInstanceSid,
-            callbackUrl,
-            defaultTtl,
-            numberSelectionBehavior,
-            geoMatchLevel,
-            interceptCallbackUrl,
-            outOfSessionCallbackUrl,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+
+    public static ServiceUpdater updater(final String pathsid) {
+        return new ServiceUpdater(
+                pathsid
         );
     }
+
 
     public enum GeoMatchLevel {
         AREA_CODE("area-code"),
@@ -308,10 +114,174 @@ public class Service extends Resource {
 
         @JsonCreator
         public static NumberSelectionBehavior forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                NumberSelectionBehavior.values()
-            );
+            return Promoter.enumFromString(value, NumberSelectionBehavior.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Service object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Service.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Service object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Service.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final URI callbackUrl;
+    @Getter
+    private final String chatInstanceSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final Integer defaultTtl;
+    @Getter
+    private final Service.GeoMatchLevel geoMatchLevel;
+    @Getter
+    private final URI interceptCallbackUrl;
+    @Getter
+    private final Map<String, String> links;
+    @Getter
+    private final Service.NumberSelectionBehavior numberSelectionBehavior;
+    @Getter
+    private final URI outOfSessionCallbackUrl;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String uniqueName;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Service(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("callback_url") final URI callbackUrl,
+            @JsonProperty("chat_instance_sid") final String chatInstanceSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("default_ttl") final Integer defaultTtl,
+            @JsonProperty("geo_match_level") final Service.GeoMatchLevel geoMatchLevel,
+            @JsonProperty("intercept_callback_url") final URI interceptCallbackUrl,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("number_selection_behavior") final Service.NumberSelectionBehavior numberSelectionBehavior,
+            @JsonProperty("out_of_session_callback_url") final URI outOfSessionCallbackUrl,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("unique_name") final String uniqueName,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.callbackUrl = callbackUrl;
+        this.chatInstanceSid = chatInstanceSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.defaultTtl = defaultTtl;
+        this.geoMatchLevel = geoMatchLevel;
+        this.interceptCallbackUrl = interceptCallbackUrl;
+        this.links = links;
+        this.numberSelectionBehavior = numberSelectionBehavior;
+        this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
+        this.sid = sid;
+        this.uniqueName = uniqueName;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Service other = (Service) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(callbackUrl, other.callbackUrl) &&
+                        Objects.equals(chatInstanceSid, other.chatInstanceSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(defaultTtl, other.defaultTtl) &&
+                        Objects.equals(geoMatchLevel, other.geoMatchLevel) &&
+                        Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) &&
+                        Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(uniqueName, other.uniqueName) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                callbackUrl,
+                chatInstanceSid,
+                dateCreated,
+                dateUpdated,
+                defaultTtl,
+                geoMatchLevel,
+                interceptCallbackUrl,
+                links,
+                numberSelectionBehavior,
+                outOfSessionCallbackUrl,
+                sid,
+                uniqueName,
+                url
+        );
+    }
+
+
 }
+

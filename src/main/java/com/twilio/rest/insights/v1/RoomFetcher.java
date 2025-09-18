@@ -15,7 +15,6 @@
 package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,44 +26,41 @@ import com.twilio.rest.Domains;
 
 public class RoomFetcher extends Fetcher<Room> {
 
-    private String pathRoomSid;
+    private String pathroomSid;
 
-    public RoomFetcher(final String pathRoomSid) {
-        this.pathRoomSid = pathRoomSid;
+    public RoomFetcher(final String pathroomSid) {
+        this.pathroomSid = pathroomSid;
     }
+
 
     @Override
     public Room fetch(final TwilioRestClient client) {
+
         String path = "/v1/Video/Rooms/{RoomSid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INSIGHTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Room fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Room fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Room.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

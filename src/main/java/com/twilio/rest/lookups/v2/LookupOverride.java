@@ -22,26 +22,146 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LookupOverride extends Resource {
 
-    private static final long serialVersionUID = 147188354779019L;
 
+    public static LookupOverrideCreator creator(final String pathfield, final String pathphoneNumber) {
+        return new LookupOverrideCreator(
+                pathfield, pathphoneNumber
+        );
+    }
+
+
+    public static LookupOverrideDeleter deleter(final String pathfield, final String pathphoneNumber) {
+        return new LookupOverrideDeleter(
+                pathfield, pathphoneNumber
+        );
+    }
+
+
+    public static LookupOverrideFetcher fetcher(final String pathfield, final String pathphoneNumber) {
+        return new LookupOverrideFetcher(
+                pathfield, pathphoneNumber
+        );
+    }
+
+
+    public static LookupOverrideUpdater updater(final String pathfield, final String pathphoneNumber) {
+        return new LookupOverrideUpdater(
+                pathfield, pathphoneNumber
+        );
+    }
+
+
+    public enum OverriddenLineType {
+        MOBILE("mobile"),
+        LANDLINE("landline"),
+        TOLL_FREE("tollFree"),
+        FIXED_VOIP("fixedVoip"),
+        NON_FIXED_VOIP("nonFixedVoip"),
+        PERSONAL("personal"),
+        PREMIUM("premium"),
+        VOICEMAIL("voicemail"),
+        SHARED_COST("sharedCost"),
+        UAN("uan"),
+        PAGER("pager"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private OverriddenLineType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OverriddenLineType forValue(final String value) {
+            return Promoter.enumFromString(value, OverriddenLineType.values());
+        }
+    }
+
+    public enum LineType {
+        MOBILE("mobile"),
+        LANDLINE("landline"),
+        TOLL_FREE("tollFree"),
+        FIXED_VOIP("fixedVoip"),
+        NON_FIXED_VOIP("nonFixedVoip"),
+        PERSONAL("personal"),
+        PREMIUM("premium"),
+        VOICEMAIL("voicemail"),
+        SHARED_COST("sharedCost"),
+        UAN("uan"),
+        PAGER("pager"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private LineType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static LineType forValue(final String value) {
+            return Promoter.enumFromString(value, LineType.values());
+        }
+    }
+
+    public enum OriginalLineType {
+        MOBILE("mobile"),
+        LANDLINE("landline"),
+        TOLL_FREE("tollFree"),
+        FIXED_VOIP("fixedVoip"),
+        NON_FIXED_VOIP("nonFixedVoip"),
+        PERSONAL("personal"),
+        PREMIUM("premium"),
+        VOICEMAIL("voicemail"),
+        SHARED_COST("sharedCost"),
+        UAN("uan"),
+        PAGER("pager"),
+        UNKNOWN("unknown");
+
+        private final String value;
+
+        private OriginalLineType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OriginalLineType forValue(final String value) {
+            return Promoter.enumFromString(value, OriginalLineType.values());
+        }
+    }
+
+
+    //@JsonDeserialize(builder = OverridesRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class OverridesRequest {
 
@@ -49,7 +169,7 @@ public class LookupOverride extends Resource {
         @JsonProperty("line_type")
         @Getter
         @Setter
-        private LineTypeEnum lineType;
+        private LookupOverride.LineType lineType;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("reason")
@@ -57,55 +177,16 @@ public class LookupOverride extends Resource {
         @Setter
         private String reason;
 
-        public OverridesRequest() {}
-
-        public static OverridesRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, OverridesRequest.class);
-        }
-    }
-
-    public static LookupOverrideCreator creator(
-        final String pathField,
-        final String pathPhoneNumber
-    ) {
-        return new LookupOverrideCreator(pathField, pathPhoneNumber);
-    }
-
-    public static LookupOverrideDeleter deleter(
-        final String pathField,
-        final String pathPhoneNumber
-    ) {
-        return new LookupOverrideDeleter(pathField, pathPhoneNumber);
-    }
-
-    public static LookupOverrideFetcher fetcher(
-        final String pathField,
-        final String pathPhoneNumber
-    ) {
-        return new LookupOverrideFetcher(pathField, pathPhoneNumber);
-    }
-
-    public static LookupOverrideUpdater updater(
-        final String pathField,
-        final String pathPhoneNumber
-    ) {
-        return new LookupOverrideUpdater(pathField, pathPhoneNumber);
     }
 
     /**
      * Converts a JSON String into a LookupOverride object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return LookupOverride object represented by the provided JSON
      */
-    public static LookupOverride fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static LookupOverride fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LookupOverride.class);
@@ -120,14 +201,11 @@ public class LookupOverride extends Resource {
      * Converts a JSON InputStream into a LookupOverride object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return LookupOverride object represented by the provided JSON
      */
-    public static LookupOverride fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static LookupOverride fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LookupOverride.class);
@@ -150,59 +228,36 @@ public class LookupOverride extends Resource {
         }
     }
 
-    private final String phoneNumber;
-    private final LookupOverride.OriginalLineTypeEnum originalLineType;
-    private final LookupOverride.OverriddenLineTypeEnum overriddenLineType;
-    private final String overrideReason;
-    private final ZonedDateTime overrideTimestamp;
+
+    @Getter
+    private final LookupOverride.OriginalLineType originalLineType;
+    @Getter
     private final String overriddenByAccountSid;
+    @Getter
+    private final LookupOverride.OverriddenLineType overriddenLineType;
+    @Getter
+    private final String overrideReason;
+    @Getter
+    private final ZonedDateTime overrideTimestamp;
+    @Getter
+    private final String phoneNumber;
 
     @JsonCreator
     private LookupOverride(
-        @JsonProperty("phone_number") final String phoneNumber,
-        @JsonProperty(
-            "original_line_type"
-        ) final LookupOverride.OriginalLineTypeEnum originalLineType,
-        @JsonProperty(
-            "overridden_line_type"
-        ) final LookupOverride.OverriddenLineTypeEnum overriddenLineType,
-        @JsonProperty("override_reason") final String overrideReason,
-        @JsonProperty("override_timestamp") final String overrideTimestamp,
-        @JsonProperty(
-            "overridden_by_account_sid"
-        ) final String overriddenByAccountSid
+            @JsonProperty("original_line_type") final LookupOverride.OriginalLineType originalLineType,
+            @JsonProperty("overridden_by_account_sid") final String overriddenByAccountSid,
+            @JsonProperty("overridden_line_type") final LookupOverride.OverriddenLineType overriddenLineType,
+            @JsonProperty("override_reason") final String overrideReason,
+            @JsonProperty("override_timestamp")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime overrideTimestamp,
+            @JsonProperty("phone_number") final String phoneNumber
     ) {
-        this.phoneNumber = phoneNumber;
         this.originalLineType = originalLineType;
+        this.overriddenByAccountSid = overriddenByAccountSid;
         this.overriddenLineType = overriddenLineType;
         this.overrideReason = overrideReason;
-        this.overrideTimestamp =
-            DateConverter.iso8601DateTimeFromString(overrideTimestamp);
-        this.overriddenByAccountSid = overriddenByAccountSid;
-    }
-
-    public final String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final LookupOverride.OriginalLineTypeEnum getOriginalLineType() {
-        return this.originalLineType;
-    }
-
-    public final LookupOverride.OverriddenLineTypeEnum getOverriddenLineType() {
-        return this.overriddenLineType;
-    }
-
-    public final String getOverrideReason() {
-        return this.overrideReason;
-    }
-
-    public final ZonedDateTime getOverrideTimestamp() {
-        return this.overrideTimestamp;
-    }
-
-    public final String getOverriddenByAccountSid() {
-        return this.overriddenByAccountSid;
+        this.overrideTimestamp = overrideTimestamp;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -216,122 +271,28 @@ public class LookupOverride extends Resource {
         }
 
         LookupOverride other = (LookupOverride) o;
-
         return (
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(originalLineType, other.originalLineType) &&
-            Objects.equals(overriddenLineType, other.overriddenLineType) &&
-            Objects.equals(overrideReason, other.overrideReason) &&
-            Objects.equals(overrideTimestamp, other.overrideTimestamp) &&
-            Objects.equals(overriddenByAccountSid, other.overriddenByAccountSid)
+                Objects.equals(originalLineType, other.originalLineType) &&
+                        Objects.equals(overriddenByAccountSid, other.overriddenByAccountSid) &&
+                        Objects.equals(overriddenLineType, other.overriddenLineType) &&
+                        Objects.equals(overrideReason, other.overrideReason) &&
+                        Objects.equals(overrideTimestamp, other.overrideTimestamp) &&
+                        Objects.equals(phoneNumber, other.phoneNumber)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            phoneNumber,
-            originalLineType,
-            overriddenLineType,
-            overrideReason,
-            overrideTimestamp,
-            overriddenByAccountSid
+                originalLineType,
+                overriddenByAccountSid,
+                overriddenLineType,
+                overrideReason,
+                overrideTimestamp,
+                phoneNumber
         );
     }
 
-    public enum OverriddenLineTypeEnum {
-        MOBILE("mobile"),
-        LANDLINE("landline"),
-        TOLLFREE("tollFree"),
-        FIXEDVOIP("fixedVoip"),
-        NONFIXEDVOIP("nonFixedVoip"),
-        PERSONAL("personal"),
-        PREMIUM("premium"),
-        VOICEMAIL("voicemail"),
-        SHAREDCOST("sharedCost"),
-        UAN("uan"),
-        PAGER("pager"),
-        UNKNOWN("unknown");
 
-        private final String value;
-
-        private OverriddenLineTypeEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OverriddenLineTypeEnum forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                OverriddenLineTypeEnum.values()
-            );
-        }
-    }
-
-    public enum LineTypeEnum {
-        MOBILE("mobile"),
-        LANDLINE("landline"),
-        TOLLFREE("tollFree"),
-        FIXEDVOIP("fixedVoip"),
-        NONFIXEDVOIP("nonFixedVoip"),
-        PERSONAL("personal"),
-        PREMIUM("premium"),
-        VOICEMAIL("voicemail"),
-        SHAREDCOST("sharedCost"),
-        UAN("uan"),
-        PAGER("pager"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private LineTypeEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static LineTypeEnum forValue(final String value) {
-            return Promoter.enumFromString(value, LineTypeEnum.values());
-        }
-    }
-
-    public enum OriginalLineTypeEnum {
-        MOBILE("mobile"),
-        LANDLINE("landline"),
-        TOLLFREE("tollFree"),
-        FIXEDVOIP("fixedVoip"),
-        NONFIXEDVOIP("nonFixedVoip"),
-        PERSONAL("personal"),
-        PREMIUM("premium"),
-        VOICEMAIL("voicemail"),
-        SHAREDCOST("sharedCost"),
-        UAN("uan"),
-        PAGER("pager"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private OriginalLineTypeEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OriginalLineTypeEnum forValue(final String value) {
-            return Promoter.enumFromString(
-                value,
-                OriginalLineTypeEnum.values()
-            );
-        }
-    }
 }
+

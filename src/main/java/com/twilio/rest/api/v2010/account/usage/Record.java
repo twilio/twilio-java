@@ -18,50 +18,51 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Record extends Resource {
 
-    private static final long serialVersionUID = 158026917970511L;
 
     public static RecordReader reader() {
-        return new RecordReader();
+        return new RecordReader(
+
+        );
     }
 
-    public static RecordReader reader(final String pathAccountSid) {
-        return new RecordReader(pathAccountSid);
+
+    public static RecordReader reader(final String pathaccountSid) {
+        return new RecordReader(
+                pathaccountSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Record object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Record object represented by the provided JSON
      */
-    public static Record fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Record fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Record.class);
@@ -76,14 +77,11 @@ public class Record extends Resource {
      * Converts a JSON InputStream into a Record object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Record object represented by the provided JSON
      */
-    public static Record fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Record fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Record.class);
@@ -94,44 +92,70 @@ public class Record extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
     private final String apiVersion;
+    @Getter
     private final String asOf;
+    @Getter
     private final String category;
+    @Getter
     private final String count;
+    @Getter
     private final String countUnit;
+    @Getter
     private final String description;
+    @Getter
     private final LocalDate endDate;
+    @Getter
     private final BigDecimal price;
+    @Getter
     private final Currency priceUnit;
+    @Getter
     private final LocalDate startDate;
+    @Getter
     private final Map<String, String> subresourceUris;
+    @Getter
     private final String uri;
+    @Getter
     private final String usage;
+    @Getter
     private final String usageUnit;
 
     @JsonCreator
     private Record(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("as_of") final String asOf,
-        @JsonProperty("category") final String category,
-        @JsonProperty("count") final String count,
-        @JsonProperty("count_unit") final String countUnit,
-        @JsonProperty("description") final String description,
-        @JsonProperty("end_date") final String endDate,
-        @JsonProperty("price") final BigDecimal price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("start_date") final String startDate,
-        @JsonProperty("subresource_uris") final Map<
-            String,
-            String
-        > subresourceUris,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("usage") final String usage,
-        @JsonProperty("usage_unit") final String usageUnit
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("api_version") final String apiVersion,
+            @JsonProperty("as_of") final String asOf,
+            @JsonProperty("category") final String category,
+            @JsonProperty("count") final String count,
+            @JsonProperty("count_unit") final String countUnit,
+            @JsonProperty("description") final String description,
+            @JsonProperty("end_date")
+            @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class) final LocalDate endDate,
+            @JsonProperty("price") final BigDecimal price,
+            @JsonProperty("price_unit")
+            @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class) final Currency priceUnit,
+            @JsonProperty("start_date")
+            @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class) final LocalDate startDate,
+            @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
+            @JsonProperty("uri") final String uri,
+            @JsonProperty("usage") final String usage,
+            @JsonProperty("usage_unit") final String usageUnit
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -140,74 +164,14 @@ public class Record extends Resource {
         this.count = count;
         this.countUnit = countUnit;
         this.description = description;
-        this.endDate = DateConverter.localDateFromString(endDate);
+        this.endDate = endDate;
         this.price = price;
         this.priceUnit = priceUnit;
-        this.startDate = DateConverter.localDateFromString(startDate);
+        this.startDate = startDate;
         this.subresourceUris = subresourceUris;
         this.uri = uri;
         this.usage = usage;
         this.usageUnit = usageUnit;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getApiVersion() {
-        return this.apiVersion;
-    }
-
-    public final String getAsOf() {
-        return this.asOf;
-    }
-
-    public final String getCategory() {
-        return this.category;
-    }
-
-    public final String getCount() {
-        return this.count;
-    }
-
-    public final String getCountUnit() {
-        return this.countUnit;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final LocalDate getEndDate() {
-        return this.endDate;
-    }
-
-    public final BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final LocalDate getStartDate() {
-        return this.startDate;
-    }
-
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final String getUsage() {
-        return this.usage;
-    }
-
-    public final String getUsageUnit() {
-        return this.usageUnit;
     }
 
     @Override
@@ -221,44 +185,46 @@ public class Record extends Resource {
         }
 
         Record other = (Record) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(asOf, other.asOf) &&
-            Objects.equals(category, other.category) &&
-            Objects.equals(count, other.count) &&
-            Objects.equals(countUnit, other.countUnit) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(endDate, other.endDate) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(startDate, other.startDate) &&
-            Objects.equals(subresourceUris, other.subresourceUris) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(usage, other.usage) &&
-            Objects.equals(usageUnit, other.usageUnit)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(apiVersion, other.apiVersion) &&
+                        Objects.equals(asOf, other.asOf) &&
+                        Objects.equals(category, other.category) &&
+                        Objects.equals(count, other.count) &&
+                        Objects.equals(countUnit, other.countUnit) &&
+                        Objects.equals(description, other.description) &&
+                        Objects.equals(endDate, other.endDate) &&
+                        Objects.equals(price, other.price) &&
+                        Objects.equals(priceUnit, other.priceUnit) &&
+                        Objects.equals(startDate, other.startDate) &&
+                        Objects.equals(subresourceUris, other.subresourceUris) &&
+                        Objects.equals(uri, other.uri) &&
+                        Objects.equals(usage, other.usage) &&
+                        Objects.equals(usageUnit, other.usageUnit)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            apiVersion,
-            asOf,
-            category,
-            count,
-            countUnit,
-            description,
-            endDate,
-            price,
-            priceUnit,
-            startDate,
-            subresourceUris,
-            uri,
-            usage,
-            usageUnit
+                accountSid,
+                apiVersion,
+                asOf,
+                category,
+                count,
+                countUnit,
+                description,
+                endDate,
+                price,
+                priceUnit,
+                startDate,
+                subresourceUris,
+                uri,
+                usage,
+                usageUnit
         );
     }
+
+
 }
+

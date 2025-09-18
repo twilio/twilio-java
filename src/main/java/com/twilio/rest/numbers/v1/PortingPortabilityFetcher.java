@@ -15,7 +15,8 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,77 +28,71 @@ import com.twilio.rest.Domains;
 
 public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
 
-    private com.twilio.type.PhoneNumber pathPhoneNumber;
+    private com.twilio.type.PhoneNumber pathphoneNumber;
     private String targetAccountSid;
     private String addressSid;
 
-    public PortingPortabilityFetcher(
-        final com.twilio.type.PhoneNumber pathPhoneNumber
-    ) {
-        this.pathPhoneNumber = pathPhoneNumber;
+    public PortingPortabilityFetcher(final com.twilio.type.PhoneNumber pathphoneNumber) {
+        this.pathphoneNumber = pathphoneNumber;
     }
 
-    public PortingPortabilityFetcher setTargetAccountSid(
-        final String targetAccountSid
-    ) {
+
+    public PortingPortabilityFetcher setTargetAccountSid(final String targetAccountSid) {
         this.targetAccountSid = targetAccountSid;
         return this;
     }
+
 
     public PortingPortabilityFetcher setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
 
+
     @Override
     public PortingPortability fetch(final TwilioRestClient client) {
+
         String path = "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}";
 
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.NUMBERS.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "PortingPortability fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PortingPortability fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return PortingPortability.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PortingPortability.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (targetAccountSid != null) {
-            request.addQueryParam("TargetAccountSid", targetAccountSid);
+            Serializer.toString(request, "TargetAccountSid", targetAccountSid, ParameterType.QUERY);
         }
+
+
         if (addressSid != null) {
-            request.addQueryParam("AddressSid", addressSid);
+            Serializer.toString(request, "AddressSid", addressSid, ParameterType.QUERY);
         }
+
+
     }
 }

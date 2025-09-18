@@ -18,64 +18,64 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Environment extends Resource {
 
-    private static final long serialVersionUID = 36784486672291L;
 
-    public static EnvironmentCreator creator(
-        final String pathServiceSid,
-        final String uniqueName
-    ) {
-        return new EnvironmentCreator(pathServiceSid, uniqueName);
+    public static EnvironmentCreator creator(final String pathserviceSid, final String uniqueName) {
+        return new EnvironmentCreator(
+                pathserviceSid, uniqueName
+        );
     }
 
-    public static EnvironmentDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new EnvironmentDeleter(pathServiceSid, pathSid);
+
+    public static EnvironmentDeleter deleter(final String pathserviceSid, final String pathsid) {
+        return new EnvironmentDeleter(
+                pathserviceSid, pathsid
+        );
     }
 
-    public static EnvironmentFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new EnvironmentFetcher(pathServiceSid, pathSid);
+
+    public static EnvironmentFetcher fetcher(final String pathserviceSid, final String pathsid) {
+        return new EnvironmentFetcher(
+                pathserviceSid, pathsid
+        );
     }
 
-    public static EnvironmentReader reader(final String pathServiceSid) {
-        return new EnvironmentReader(pathServiceSid);
+
+    public static EnvironmentReader reader(final String pathserviceSid) {
+        return new EnvironmentReader(
+                pathserviceSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Environment object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Environment object represented by the provided JSON
      */
-    public static Environment fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Environment fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Environment.class);
@@ -90,14 +90,11 @@ public class Environment extends Resource {
      * Converts a JSON InputStream into a Environment object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Environment object represented by the provided JSON
      */
-    public static Environment fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Environment fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Environment.class);
@@ -108,87 +105,69 @@ public class Environment extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
+    @Getter
     private final String buildSid;
-    private final String uniqueName;
-    private final String domainSuffix;
-    private final String domainName;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+    @Getter
+    private final String domainName;
+    @Getter
+    private final String domainSuffix;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String uniqueName;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Environment(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("build_sid") final String buildSid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("domain_suffix") final String domainSuffix,
-        @JsonProperty("domain_name") final String domainName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("build_sid") final String buildSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("domain_name") final String domainName,
+            @JsonProperty("domain_suffix") final String domainSuffix,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("unique_name") final String uniqueName,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
         this.buildSid = buildSid;
-        this.uniqueName = uniqueName;
-        this.domainSuffix = domainSuffix;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.domainName = domainName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.domainSuffix = domainSuffix;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getBuildSid() {
-        return this.buildSid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getDomainSuffix() {
-        return this.domainSuffix;
-    }
-
-    public final String getDomainName() {
-        return this.domainName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.uniqueName = uniqueName;
+        this.url = url;
     }
 
     @Override
@@ -202,36 +181,38 @@ public class Environment extends Resource {
         }
 
         Environment other = (Environment) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(buildSid, other.buildSid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(domainSuffix, other.domainSuffix) &&
-            Objects.equals(domainName, other.domainName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(buildSid, other.buildSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(domainName, other.domainName) &&
+                        Objects.equals(domainSuffix, other.domainSuffix) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(uniqueName, other.uniqueName) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            buildSid,
-            uniqueName,
-            domainSuffix,
-            domainName,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+                accountSid,
+                buildSid,
+                dateCreated,
+                dateUpdated,
+                domainName,
+                domainSuffix,
+                links,
+                serviceSid,
+                sid,
+                uniqueName,
+                url
         );
     }
+
+
 }
+

@@ -16,6 +16,8 @@ package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,69 +28,64 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ExecutionUpdater extends Updater<Execution> {
-
-    private String pathFlowSid;
-    private String pathSid;
+    private String pathflowSid;
+    private String pathsid;
     private Execution.Status status;
 
-    public ExecutionUpdater(
-        final String pathFlowSid,
-        final String pathSid,
-        final Execution.Status status
-    ) {
-        this.pathFlowSid = pathFlowSid;
-        this.pathSid = pathSid;
+    public ExecutionUpdater(final String pathflowSid, final String pathsid, final Execution.Status status) {
+        this.pathflowSid = pathflowSid;
+        this.pathsid = pathsid;
         this.status = status;
     }
+
 
     public ExecutionUpdater setStatus(final Execution.Status status) {
         this.status = status;
         return this;
     }
 
+
     @Override
     public Execution update(final TwilioRestClient client) {
+
         String path = "/v1/Flows/{FlowSid}/Executions/{Sid}";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.STUDIO.toString(),
-            path
+                HttpMethod.POST,
+                Domains.STUDIO.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Execution update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Execution update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Execution.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Execution.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
     }
 }

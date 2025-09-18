@@ -18,58 +18,71 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ByocTrunk extends Resource {
 
-    private static final long serialVersionUID = 49034684015367L;
 
     public static ByocTrunkCreator creator() {
-        return new ByocTrunkCreator();
+        return new ByocTrunkCreator(
+
+        );
     }
 
-    public static ByocTrunkDeleter deleter(final String pathSid) {
-        return new ByocTrunkDeleter(pathSid);
+
+    public static ByocTrunkDeleter deleter(final String pathsid) {
+        return new ByocTrunkDeleter(
+                pathsid
+        );
     }
 
-    public static ByocTrunkFetcher fetcher(final String pathSid) {
-        return new ByocTrunkFetcher(pathSid);
+
+    public static ByocTrunkFetcher fetcher(final String pathsid) {
+        return new ByocTrunkFetcher(
+                pathsid
+        );
     }
+
 
     public static ByocTrunkReader reader() {
-        return new ByocTrunkReader();
+        return new ByocTrunkReader(
+
+        );
     }
 
-    public static ByocTrunkUpdater updater(final String pathSid) {
-        return new ByocTrunkUpdater(pathSid);
+
+    public static ByocTrunkUpdater updater(final String pathsid) {
+        return new ByocTrunkUpdater(
+                pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a ByocTrunk object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ByocTrunk object represented by the provided JSON
      */
-    public static ByocTrunk fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ByocTrunk fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ByocTrunk.class);
@@ -84,14 +97,11 @@ public class ByocTrunk extends Resource {
      * Converts a JSON InputStream into a ByocTrunk object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ByocTrunk object represented by the provided JSON
      */
-    public static ByocTrunk fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ByocTrunk fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ByocTrunk.class);
@@ -102,119 +112,85 @@ public class ByocTrunk extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String sid;
-    private final String friendlyName;
-    private final URI voiceUrl;
-    private final HttpMethod voiceMethod;
-    private final URI voiceFallbackUrl;
-    private final HttpMethod voiceFallbackMethod;
-    private final URI statusCallbackUrl;
-    private final HttpMethod statusCallbackMethod;
+    @Getter
     private final Boolean cnamLookupEnabled;
+    @Getter
     private final String connectionPolicySid;
-    private final String fromDomainSid;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String fromDomainSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final HttpMethod statusCallbackMethod;
+    @Getter
+    private final URI statusCallbackUrl;
+    @Getter
     private final URI url;
+    @Getter
+    private final HttpMethod voiceFallbackMethod;
+    @Getter
+    private final URI voiceFallbackUrl;
+    @Getter
+    private final HttpMethod voiceMethod;
+    @Getter
+    private final URI voiceUrl;
 
     @JsonCreator
     private ByocTrunk(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("voice_url") final URI voiceUrl,
-        @JsonProperty("voice_method") final HttpMethod voiceMethod,
-        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
-        @JsonProperty(
-            "voice_fallback_method"
-        ) final HttpMethod voiceFallbackMethod,
-        @JsonProperty("status_callback_url") final URI statusCallbackUrl,
-        @JsonProperty(
-            "status_callback_method"
-        ) final HttpMethod statusCallbackMethod,
-        @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
-        @JsonProperty("connection_policy_sid") final String connectionPolicySid,
-        @JsonProperty("from_domain_sid") final String fromDomainSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
+            @JsonProperty("connection_policy_sid") final String connectionPolicySid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("from_domain_sid") final String fromDomainSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
+            @JsonProperty("status_callback_url") final URI statusCallbackUrl,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
+            @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
+            @JsonProperty("voice_method") final HttpMethod voiceMethod,
+            @JsonProperty("voice_url") final URI voiceUrl
     ) {
         this.accountSid = accountSid;
-        this.sid = sid;
-        this.friendlyName = friendlyName;
-        this.voiceUrl = voiceUrl;
-        this.voiceMethod = voiceMethod;
-        this.voiceFallbackUrl = voiceFallbackUrl;
-        this.voiceFallbackMethod = voiceFallbackMethod;
-        this.statusCallbackUrl = statusCallbackUrl;
-        this.statusCallbackMethod = statusCallbackMethod;
         this.cnamLookupEnabled = cnamLookupEnabled;
         this.connectionPolicySid = connectionPolicySid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
         this.fromDomainSid = fromDomainSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
+        this.statusCallbackMethod = statusCallbackMethod;
+        this.statusCallbackUrl = statusCallbackUrl;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final URI getVoiceUrl() {
-        return this.voiceUrl;
-    }
-
-    public final HttpMethod getVoiceMethod() {
-        return this.voiceMethod;
-    }
-
-    public final URI getVoiceFallbackUrl() {
-        return this.voiceFallbackUrl;
-    }
-
-    public final HttpMethod getVoiceFallbackMethod() {
-        return this.voiceFallbackMethod;
-    }
-
-    public final URI getStatusCallbackUrl() {
-        return this.statusCallbackUrl;
-    }
-
-    public final HttpMethod getStatusCallbackMethod() {
-        return this.statusCallbackMethod;
-    }
-
-    public final Boolean getCnamLookupEnabled() {
-        return this.cnamLookupEnabled;
-    }
-
-    public final String getConnectionPolicySid() {
-        return this.connectionPolicySid;
-    }
-
-    public final String getFromDomainSid() {
-        return this.fromDomainSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.voiceFallbackMethod = voiceFallbackMethod;
+        this.voiceFallbackUrl = voiceFallbackUrl;
+        this.voiceMethod = voiceMethod;
+        this.voiceUrl = voiceUrl;
     }
 
     @Override
@@ -228,44 +204,46 @@ public class ByocTrunk extends Resource {
         }
 
         ByocTrunk other = (ByocTrunk) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(voiceUrl, other.voiceUrl) &&
-            Objects.equals(voiceMethod, other.voiceMethod) &&
-            Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
-            Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
-            Objects.equals(statusCallbackUrl, other.statusCallbackUrl) &&
-            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-            Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
-            Objects.equals(connectionPolicySid, other.connectionPolicySid) &&
-            Objects.equals(fromDomainSid, other.fromDomainSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
+                        Objects.equals(connectionPolicySid, other.connectionPolicySid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(fromDomainSid, other.fromDomainSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+                        Objects.equals(statusCallbackUrl, other.statusCallbackUrl) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+                        Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+                        Objects.equals(voiceMethod, other.voiceMethod) &&
+                        Objects.equals(voiceUrl, other.voiceUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            sid,
-            friendlyName,
-            voiceUrl,
-            voiceMethod,
-            voiceFallbackUrl,
-            voiceFallbackMethod,
-            statusCallbackUrl,
-            statusCallbackMethod,
-            cnamLookupEnabled,
-            connectionPolicySid,
-            fromDomainSid,
-            dateCreated,
-            dateUpdated,
-            url
+                accountSid,
+                cnamLookupEnabled,
+                connectionPolicySid,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                fromDomainSid,
+                sid,
+                statusCallbackMethod,
+                statusCallbackUrl,
+                url,
+                voiceFallbackMethod,
+                voiceFallbackUrl,
+                voiceMethod,
+                voiceUrl
         );
     }
+
+
 }
+

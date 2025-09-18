@@ -18,219 +18,62 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
-    private static final long serialVersionUID = 201752828404640L;
 
-    public static WebhookCreator creator(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final Webhook.Type type
-    ) {
-        return new WebhookCreator(pathServiceSid, pathChannelSid, type);
-    }
-
-    public static WebhookDeleter deleter(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        return new WebhookDeleter(pathServiceSid, pathChannelSid, pathSid);
-    }
-
-    public static WebhookFetcher fetcher(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        return new WebhookFetcher(pathServiceSid, pathChannelSid, pathSid);
-    }
-
-    public static WebhookReader reader(
-        final String pathServiceSid,
-        final String pathChannelSid
-    ) {
-        return new WebhookReader(pathServiceSid, pathChannelSid);
-    }
-
-    public static WebhookUpdater updater(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        return new WebhookUpdater(pathServiceSid, pathChannelSid, pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Webhook object represented by the provided JSON
-     */
-    public static Webhook fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Webhook.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Webhook object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Webhook object represented by the provided JSON
-     */
-    public static Webhook fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Webhook.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String serviceSid;
-    private final String channelSid;
-    private final String type;
-    private final URI url;
-    private final Map<String, Object> configuration;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-
-    @JsonCreator
-    private Webhook(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("type") final String type,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.type = type;
-        this.url = url;
-        this.configuration = configuration;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Webhook other = (Webhook) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(configuration, other.configuration) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+    public static WebhookCreator creator(final String pathserviceSid, final String pathchannelSid, final Webhook.Type type) {
+        return new WebhookCreator(
+                pathserviceSid, pathchannelSid, type
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            channelSid,
-            type,
-            url,
-            configuration,
-            dateCreated,
-            dateUpdated
+
+    public static WebhookDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        return new WebhookDeleter(
+                pathserviceSid, pathchannelSid, pathsid
         );
     }
+
+
+    public static WebhookFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        return new WebhookFetcher(
+                pathserviceSid, pathchannelSid, pathsid
+        );
+    }
+
+
+    public static WebhookReader reader(final String pathserviceSid, final String pathchannelSid) {
+        return new WebhookReader(
+                pathserviceSid, pathchannelSid
+        );
+    }
+
+
+    public static WebhookUpdater updater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        return new WebhookUpdater(
+                pathserviceSid, pathchannelSid, pathsid
+        );
+    }
+
 
     public enum Type {
         WEBHOOK("webhook"),
@@ -272,4 +115,141 @@ public class Webhook extends Resource {
             return Promoter.enumFromString(value, Method.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Webhook.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Webhook object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Webhook.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final String channelSid;
+    @Getter
+    private final Object configuration;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String type;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Webhook(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("channel_sid") final String channelSid,
+            @JsonProperty("configuration") final Object configuration,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("type") final String type,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.channelSid = channelSid;
+        this.configuration = configuration;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.type = type;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Webhook other = (Webhook) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(channelSid, other.channelSid) &&
+                        Objects.equals(configuration, other.configuration) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(type, other.type) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                channelSid,
+                configuration,
+                dateCreated,
+                dateUpdated,
+                serviceSid,
+                sid,
+                type,
+                url
+        );
+    }
+
+
 }
+

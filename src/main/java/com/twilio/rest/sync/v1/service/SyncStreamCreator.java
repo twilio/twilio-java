@@ -14,8 +14,11 @@
 
 package com.twilio.rest.sync.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,72 +30,72 @@ import com.twilio.rest.Domains;
 
 public class SyncStreamCreator extends Creator<SyncStream> {
 
-    private String pathServiceSid;
+    private String pathserviceSid;
     private String uniqueName;
     private Integer ttl;
 
-    public SyncStreamCreator(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public SyncStreamCreator(final String pathserviceSid) {
+        this.pathserviceSid = pathserviceSid;
     }
+
 
     public SyncStreamCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
+
     public SyncStreamCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
 
+
     @Override
     public SyncStream create(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Streams";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SYNC.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SYNC.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncStream creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncStream creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SyncStream.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SyncStream.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
+
     }
 }

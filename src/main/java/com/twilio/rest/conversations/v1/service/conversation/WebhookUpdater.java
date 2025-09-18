@@ -16,7 +16,9 @@ package com.twilio.rest.conversations.v1.service.conversation;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,117 +27,91 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.util.List;
 
 public class WebhookUpdater extends Updater<Webhook> {
-
-    private String pathChatServiceSid;
-    private String pathConversationSid;
-    private String pathSid;
+    private String pathchatServiceSid;
+    private String pathconversationSid;
+    private String pathsid;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
     private List<String> configurationFilters;
     private List<String> configurationTriggers;
     private String configurationFlowSid;
 
-    public WebhookUpdater(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathConversationSid = pathConversationSid;
-        this.pathSid = pathSid;
+    public WebhookUpdater(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+        this.pathchatServiceSid = pathchatServiceSid;
+        this.pathconversationSid = pathconversationSid;
+        this.pathsid = pathsid;
     }
+
 
     public WebhookUpdater setConfigurationUrl(final String configurationUrl) {
         this.configurationUrl = configurationUrl;
         return this;
     }
 
-    public WebhookUpdater setConfigurationMethod(
-        final Webhook.Method configurationMethod
-    ) {
+
+    public WebhookUpdater setConfigurationMethod(final Webhook.Method configurationMethod) {
         this.configurationMethod = configurationMethod;
         return this;
     }
 
-    public WebhookUpdater setConfigurationFilters(
-        final List<String> configurationFilters
-    ) {
+
+    public WebhookUpdater setConfigurationFilters(final List<String> configurationFilters) {
         this.configurationFilters = configurationFilters;
         return this;
     }
 
-    public WebhookUpdater setConfigurationFilters(
-        final String configurationFilters
-    ) {
-        return setConfigurationFilters(
-            Promoter.listOfOne(configurationFilters)
-        );
+    public WebhookUpdater setConfigurationFilters(final String configurationFilters) {
+        return setConfigurationFilters(Promoter.listOfOne(configurationFilters));
     }
 
-    public WebhookUpdater setConfigurationTriggers(
-        final List<String> configurationTriggers
-    ) {
+    public WebhookUpdater setConfigurationTriggers(final List<String> configurationTriggers) {
         this.configurationTriggers = configurationTriggers;
         return this;
     }
 
-    public WebhookUpdater setConfigurationTriggers(
-        final String configurationTriggers
-    ) {
-        return setConfigurationTriggers(
-            Promoter.listOfOne(configurationTriggers)
-        );
+    public WebhookUpdater setConfigurationTriggers(final String configurationTriggers) {
+        return setConfigurationTriggers(Promoter.listOfOne(configurationTriggers));
     }
 
-    public WebhookUpdater setConfigurationFlowSid(
-        final String configurationFlowSid
-    ) {
+    public WebhookUpdater setConfigurationFlowSid(final String configurationFlowSid) {
         this.configurationFlowSid = configurationFlowSid;
         return this;
     }
 
+
     @Override
     public Webhook update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -144,27 +120,35 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     private void addPostParams(final Request request) {
+
         if (configurationUrl != null) {
-            request.addPostParam("Configuration.Url", configurationUrl);
+            Serializer.toString(request, "Configuration.Url", configurationUrl, ParameterType.URLENCODED);
         }
+
+
         if (configurationMethod != null) {
-            request.addPostParam(
-                "Configuration.Method",
-                configurationMethod.toString()
-            );
+            Serializer.toString(request, "Configuration.Method", configurationMethod, ParameterType.URLENCODED);
         }
+
+
         if (configurationFilters != null) {
-            for (String prop : configurationFilters) {
-                request.addPostParam("Configuration.Filters", prop);
+            for (String param : configurationFilters) {
+                Serializer.toString(request, "Configuration.Filters", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (configurationTriggers != null) {
-            for (String prop : configurationTriggers) {
-                request.addPostParam("Configuration.Triggers", prop);
+            for (String param : configurationTriggers) {
+                Serializer.toString(request, "Configuration.Triggers", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (configurationFlowSid != null) {
-            request.addPostParam("Configuration.FlowSid", configurationFlowSid);
+            Serializer.toString(request, "Configuration.FlowSid", configurationFlowSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

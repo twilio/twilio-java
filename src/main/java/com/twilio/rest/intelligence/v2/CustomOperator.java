@@ -18,237 +18,62 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CustomOperator extends Resource {
 
-    private static final long serialVersionUID = 100488785268469L;
 
-    public static CustomOperatorCreator creator(
-        final String friendlyName,
-        final String operatorType,
-        final Object config
-    ) {
-        return new CustomOperatorCreator(friendlyName, operatorType, config);
+    public static CustomOperatorCreator creator(final String friendlyName, final String operatorType, final Object config) {
+        return new CustomOperatorCreator(
+                friendlyName, operatorType, config
+        );
     }
 
-    public static CustomOperatorDeleter deleter(final String pathSid) {
-        return new CustomOperatorDeleter(pathSid);
+
+    public static CustomOperatorDeleter deleter(final String pathsid) {
+        return new CustomOperatorDeleter(
+                pathsid
+        );
     }
 
-    public static CustomOperatorFetcher fetcher(final String pathSid) {
-        return new CustomOperatorFetcher(pathSid);
+
+    public static CustomOperatorFetcher fetcher(final String pathsid) {
+        return new CustomOperatorFetcher(
+                pathsid
+        );
     }
+
 
     public static CustomOperatorReader reader() {
-        return new CustomOperatorReader();
-    }
+        return new CustomOperatorReader(
 
-    public static CustomOperatorUpdater updater(
-        final String pathSid,
-        final String friendlyName,
-        final Object config
-    ) {
-        return new CustomOperatorUpdater(pathSid, friendlyName, config);
-    }
-
-    /**
-     * Converts a JSON String into a CustomOperator object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return CustomOperator object represented by the provided JSON
-     */
-    public static CustomOperator fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, CustomOperator.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a CustomOperator object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return CustomOperator object represented by the provided JSON
-     */
-    public static CustomOperator fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, CustomOperator.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String accountSid;
-    private final String sid;
-    private final String friendlyName;
-    private final String description;
-    private final String author;
-    private final String operatorType;
-    private final Integer version;
-    private final CustomOperator.Availability availability;
-    private final Map<String, Object> config;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-
-    @JsonCreator
-    private CustomOperator(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("description") final String description,
-        @JsonProperty("author") final String author,
-        @JsonProperty("operator_type") final String operatorType,
-        @JsonProperty("version") final Integer version,
-        @JsonProperty(
-            "availability"
-        ) final CustomOperator.Availability availability,
-        @JsonProperty("config") final Map<String, Object> config,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.sid = sid;
-        this.friendlyName = friendlyName;
-        this.description = description;
-        this.author = author;
-        this.operatorType = operatorType;
-        this.version = version;
-        this.availability = availability;
-        this.config = config;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final String getAuthor() {
-        return this.author;
-    }
-
-    public final String getOperatorType() {
-        return this.operatorType;
-    }
-
-    public final Integer getVersion() {
-        return this.version;
-    }
-
-    public final CustomOperator.Availability getAvailability() {
-        return this.availability;
-    }
-
-    public final Map<String, Object> getConfig() {
-        return this.config;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CustomOperator other = (CustomOperator) o;
-
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(author, other.author) &&
-            Objects.equals(operatorType, other.operatorType) &&
-            Objects.equals(version, other.version) &&
-            Objects.equals(availability, other.availability) &&
-            Objects.equals(config, other.config) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            sid,
-            friendlyName,
-            description,
-            author,
-            operatorType,
-            version,
-            availability,
-            config,
-            dateCreated,
-            dateUpdated,
-            url
+
+    public static CustomOperatorUpdater updater(final String pathsid, final String friendlyName, final Object config) {
+        return new CustomOperatorUpdater(
+                pathsid, friendlyName, config
         );
     }
+
 
     public enum Availability {
         INTERNAL("internal"),
@@ -271,4 +96,159 @@ public class CustomOperator extends Resource {
             return Promoter.enumFromString(value, Availability.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a CustomOperator object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return CustomOperator object represented by the provided JSON
+     */
+    public static CustomOperator fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, CustomOperator.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a CustomOperator object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return CustomOperator object represented by the provided JSON
+     */
+    public static CustomOperator fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, CustomOperator.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final String author;
+    @Getter
+    private final CustomOperator.Availability availability;
+    @Getter
+    private final Object config;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String description;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String operatorType;
+    @Getter
+    private final String sid;
+    @Getter
+    private final URI url;
+    @Getter
+    private final Integer version;
+
+    @JsonCreator
+    private CustomOperator(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("author") final String author,
+            @JsonProperty("availability") final CustomOperator.Availability availability,
+            @JsonProperty("config") final Object config,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("description") final String description,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("operator_type") final String operatorType,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("version") final Integer version
+    ) {
+        this.accountSid = accountSid;
+        this.author = author;
+        this.availability = availability;
+        this.config = config;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.description = description;
+        this.friendlyName = friendlyName;
+        this.operatorType = operatorType;
+        this.sid = sid;
+        this.url = url;
+        this.version = version;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        CustomOperator other = (CustomOperator) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(author, other.author) &&
+                        Objects.equals(availability, other.availability) &&
+                        Objects.equals(config, other.config) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(description, other.description) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(operatorType, other.operatorType) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(version, other.version)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                author,
+                availability,
+                config,
+                dateCreated,
+                dateUpdated,
+                description,
+                friendlyName,
+                operatorType,
+                sid,
+                url,
+                version
+        );
+    }
+
+
 }
+

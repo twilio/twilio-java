@@ -27,52 +27,50 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class BucketUpdater extends Updater<Bucket> {
-
-    private String pathField;
-    private String pathBucket;
+    private String pathfield;
+    private String pathbucket;
     private Bucket.RateLimitRequest rateLimitRequest;
 
-    public BucketUpdater(final String pathField, final String pathBucket) {
-        this.pathField = pathField;
-        this.pathBucket = pathBucket;
+    public BucketUpdater(final String pathfield, final String pathbucket) {
+        this.pathfield = pathfield;
+        this.pathbucket = pathbucket;
     }
 
-    public BucketUpdater setRateLimitRequest(
-        final Bucket.RateLimitRequest rateLimitRequest
-    ) {
+
+    public BucketUpdater setRateLimitRequest(final Bucket.RateLimitRequest rateLimitRequest) {
         this.rateLimitRequest = rateLimitRequest;
         return this;
     }
 
+
     @Override
     public Bucket update(final TwilioRestClient client) {
+
         String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
 
-        path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path = path.replace("{" + "Bucket" + "}", this.pathBucket.toString());
+        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
+        path = path.replace("{" + "Bucket" + "}", this.pathbucket.toString());
+
 
         Request request = new Request(
-            HttpMethod.PUT,
-            Domains.LOOKUPS.toString(),
-            path
+                HttpMethod.PUT,
+                Domains.LOOKUPS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bucket update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bucket update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

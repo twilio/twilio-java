@@ -15,7 +15,6 @@
 package com.twilio.rest.chat.v2.service.user;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,66 +26,47 @@ import com.twilio.rest.Domains;
 
 public class UserChannelFetcher extends Fetcher<UserChannel> {
 
-    private String pathServiceSid;
-    private String pathUserSid;
-    private String pathChannelSid;
+    private String pathserviceSid;
+    private String pathuserSid;
+    private String pathchannelSid;
 
-    public UserChannelFetcher(
-        final String pathServiceSid,
-        final String pathUserSid,
-        final String pathChannelSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathUserSid = pathUserSid;
-        this.pathChannelSid = pathChannelSid;
+    public UserChannelFetcher(final String pathserviceSid, final String pathuserSid, final String pathchannelSid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathuserSid = pathuserSid;
+        this.pathchannelSid = pathchannelSid;
     }
+
 
     @Override
     public UserChannel fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CHAT.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CHAT.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserChannel fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserChannel fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return UserChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UserChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

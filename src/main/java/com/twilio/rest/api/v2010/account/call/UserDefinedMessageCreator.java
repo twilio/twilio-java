@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,96 +30,82 @@ import com.twilio.rest.Domains;
 
 public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
 
-    private String pathCallSid;
+    private String pathaccountSid;
+    private String pathcallSid;
     private String content;
-    private String pathAccountSid;
     private String idempotencyKey;
 
-    public UserDefinedMessageCreator(
-        final String pathCallSid,
-        final String content
-    ) {
-        this.pathCallSid = pathCallSid;
+    public UserDefinedMessageCreator(final String pathcallSid, final String content) {
+        this.pathcallSid = pathcallSid;
         this.content = content;
     }
 
-    public UserDefinedMessageCreator(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final String content
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
+    public UserDefinedMessageCreator(final String pathaccountSid, final String pathcallSid, final String content) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathcallSid = pathcallSid;
         this.content = content;
     }
+
 
     public UserDefinedMessageCreator setContent(final String content) {
         this.content = content;
         return this;
     }
 
-    public UserDefinedMessageCreator setIdempotencyKey(
-        final String idempotencyKey
-    ) {
+
+    public UserDefinedMessageCreator setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         return this;
     }
 
+
     @Override
     public UserDefinedMessage create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Content" + "}", this.content.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserDefinedMessage creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserDefinedMessage creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return UserDefinedMessage.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UserDefinedMessage.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (content != null) {
-            request.addPostParam("Content", content);
+            Serializer.toString(request, "Content", content, ParameterType.URLENCODED);
         }
+
+
         if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
+            Serializer.toString(request, "IdempotencyKey", idempotencyKey, ParameterType.URLENCODED);
         }
+
+
     }
 }

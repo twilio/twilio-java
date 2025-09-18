@@ -18,132 +18,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Form extends Resource {
 
-    private static final long serialVersionUID = 202517967097226L;
 
-    public static FormFetcher fetcher(final Form.FormTypes formType) {
-        return new FormFetcher(formType);
-    }
-
-    /**
-     * Converts a JSON String into a Form object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Form object represented by the provided JSON
-     */
-    public static Form fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Form.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Form object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Form object represented by the provided JSON
-     */
-    public static Form fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Form.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final Form.FormTypes formType;
-    private final Map<String, Object> forms;
-    private final Map<String, Object> formMeta;
-    private final URI url;
-
-    @JsonCreator
-    private Form(
-        @JsonProperty("form_type") final Form.FormTypes formType,
-        @JsonProperty("forms") final Map<String, Object> forms,
-        @JsonProperty("form_meta") final Map<String, Object> formMeta,
-        @JsonProperty("url") final URI url
-    ) {
-        this.formType = formType;
-        this.forms = forms;
-        this.formMeta = formMeta;
-        this.url = url;
-    }
-
-    public final Form.FormTypes getFormType() {
-        return this.formType;
-    }
-
-    public final Map<String, Object> getForms() {
-        return this.forms;
-    }
-
-    public final Map<String, Object> getFormMeta() {
-        return this.formMeta;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Form other = (Form) o;
-
-        return (
-            Objects.equals(formType, other.formType) &&
-            Objects.equals(forms, other.forms) &&
-            Objects.equals(formMeta, other.formMeta) &&
-            Objects.equals(url, other.url)
+    public static FormFetcher fetcher(final Form.FormTypes pathformType) {
+        return new FormFetcher(
+                pathformType
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(formType, forms, formMeta, url);
-    }
 
     public enum FormTypes {
         FORM_PUSH("form-push");
@@ -163,4 +63,109 @@ public class Form extends Resource {
             return Promoter.enumFromString(value, FormTypes.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Form object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Form object represented by the provided JSON
+     */
+    public static Form fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Form.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Form object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Form object represented by the provided JSON
+     */
+    public static Form fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Form.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final Object formMeta;
+    @Getter
+    private final Form.FormTypes formType;
+    @Getter
+    private final Object forms;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Form(
+            @JsonProperty("form_meta") final Object formMeta,
+            @JsonProperty("form_type") final Form.FormTypes formType,
+            @JsonProperty("forms") final Object forms,
+            @JsonProperty("url") final URI url
+    ) {
+        this.formMeta = formMeta;
+        this.formType = formType;
+        this.forms = forms;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Form other = (Form) o;
+        return (
+                Objects.equals(formMeta, other.formMeta) &&
+                        Objects.equals(formType, other.formType) &&
+                        Objects.equals(forms, other.forms) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                formMeta,
+                formType,
+                forms,
+                url
+        );
+    }
+
+
 }
+

@@ -17,7 +17,8 @@ package com.twilio.rest.studio.v1.flow.engagement;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,22 +30,21 @@ import com.twilio.rest.Domains;
 
 public class StepReader extends Reader<Step> {
 
-    private String pathFlowSid;
-    private String pathEngagementSid;
+    private String pathflowSid;
+    private String pathengagementSid;
     private Long pageSize;
 
-    public StepReader(
-        final String pathFlowSid,
-        final String pathEngagementSid
-    ) {
-        this.pathFlowSid = pathFlowSid;
-        this.pathEngagementSid = pathEngagementSid;
+    public StepReader(final String pathflowSid, final String pathengagementSid) {
+        this.pathflowSid = pathflowSid;
+        this.pathengagementSid = pathengagementSid;
     }
+
 
     public StepReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Step> read(final TwilioRestClient client) {
@@ -52,98 +52,69 @@ public class StepReader extends Reader<Step> {
     }
 
     public Page<Step> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps";
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "EngagementSid" + "}",
-                this.pathEngagementSid.toString()
-            );
+
+        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "EngagementSid" + "}", this.pathengagementSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.STUDIO.toString(),
-            path
+                HttpMethod.GET,
+                Domains.STUDIO.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Step> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Step> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Step read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Step read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "steps",
-            response.getContent(),
-            Step.class,
-            client.getObjectMapper()
-        );
+                "steps",
+                response.getContent(),
+                Step.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Step> previousPage(
-        final Page<Step> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.STUDIO.toString())
-        );
+    public Page<Step> previousPage(final Page<Step> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Step> nextPage(
-        final Page<Step> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.STUDIO.toString())
-        );
+    public Page<Step> nextPage(final Page<Step> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Step> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Step> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

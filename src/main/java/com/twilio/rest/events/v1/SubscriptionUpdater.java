@@ -16,6 +16,8 @@ package com.twilio.rest.events.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,60 +28,60 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SubscriptionUpdater extends Updater<Subscription> {
-
-    private String pathSid;
+    private String pathsid;
     private String description;
 
-    public SubscriptionUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public SubscriptionUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public SubscriptionUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
 
+
     @Override
     public Subscription update(final TwilioRestClient client) {
+
         String path = "/v1/Subscriptions/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.EVENTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.EVENTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Subscription update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Subscription update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Subscription.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Subscription.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
         }
+
+
     }
 }

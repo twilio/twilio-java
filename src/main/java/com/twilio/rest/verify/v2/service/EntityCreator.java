@@ -14,8 +14,11 @@
 
 package com.twilio.rest.verify.v2.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,52 +30,48 @@ import com.twilio.rest.Domains;
 
 public class EntityCreator extends Creator<Entity> {
 
-    private String pathServiceSid;
+    private String pathserviceSid;
     private String identity;
 
-    public EntityCreator(final String pathServiceSid, final String identity) {
-        this.pathServiceSid = pathServiceSid;
+    public EntityCreator(final String pathserviceSid, final String identity) {
+        this.pathserviceSid = pathserviceSid;
         this.identity = identity;
     }
+
 
     public EntityCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
 
+
     @Override
     public Entity create(final TwilioRestClient client) {
+
         String path = "/v2/Services/{ServiceSid}/Entities";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VERIFY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Entity creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Entity creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -81,8 +80,11 @@ public class EntityCreator extends Creator<Entity> {
     }
 
     private void addPostParams(final Request request) {
+
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
         }
+
+
     }
 }

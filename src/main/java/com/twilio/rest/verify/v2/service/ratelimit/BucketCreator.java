@@ -14,8 +14,11 @@
 
 package com.twilio.rest.verify.v2.service.ratelimit;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,73 +30,59 @@ import com.twilio.rest.Domains;
 
 public class BucketCreator extends Creator<Bucket> {
 
-    private String pathServiceSid;
-    private String pathRateLimitSid;
+    private String pathserviceSid;
+    private String pathrateLimitSid;
     private Integer max;
     private Integer interval;
 
-    public BucketCreator(
-        final String pathServiceSid,
-        final String pathRateLimitSid,
-        final Integer max,
-        final Integer interval
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathRateLimitSid = pathRateLimitSid;
+    public BucketCreator(final String pathserviceSid, final String pathrateLimitSid, final Integer max, final Integer interval) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathrateLimitSid = pathrateLimitSid;
         this.max = max;
         this.interval = interval;
     }
+
 
     public BucketCreator setMax(final Integer max) {
         this.max = max;
         return this;
     }
 
+
     public BucketCreator setInterval(final Integer interval) {
         this.interval = interval;
         return this;
     }
 
+
     @Override
     public Bucket create(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "RateLimitSid" + "}",
-                this.pathRateLimitSid.toString()
-            );
-        path = path.replace("{" + "Max" + "}", this.max.toString());
-        path = path.replace("{" + "Interval" + "}", this.interval.toString());
+        String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "RateLimitSid" + "}", this.pathrateLimitSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VERIFY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bucket creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bucket creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -102,11 +91,16 @@ public class BucketCreator extends Creator<Bucket> {
     }
 
     private void addPostParams(final Request request) {
+
         if (max != null) {
-            request.addPostParam("Max", max.toString());
+            Serializer.toString(request, "Max", max, ParameterType.URLENCODED);
         }
+
+
         if (interval != null) {
-            request.addPostParam("Interval", interval.toString());
+            Serializer.toString(request, "Interval", interval, ParameterType.URLENCODED);
         }
+
+
     }
 }

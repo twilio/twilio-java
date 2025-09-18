@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account.usage;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,37 +30,43 @@ import com.twilio.rest.Domains;
 
 public class TriggerReader extends Reader<Trigger> {
 
-    private String pathAccountSid;
+    private String pathaccountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
     private String usageCategory;
     private Long pageSize;
 
-    public TriggerReader() {}
-
-    public TriggerReader(final String pathAccountSid) {
-        this.pathAccountSid = pathAccountSid;
+    public TriggerReader() {
     }
+
+    public TriggerReader(final String pathaccountSid) {
+        this.pathaccountSid = pathaccountSid;
+    }
+
 
     public TriggerReader setRecurring(final Trigger.Recurring recurring) {
         this.recurring = recurring;
         return this;
     }
 
+
     public TriggerReader setTriggerBy(final Trigger.TriggerField triggerBy) {
         this.triggerBy = triggerBy;
         return this;
     }
+
 
     public TriggerReader setUsageCategory(final String usageCategory) {
         this.usageCategory = usageCategory;
         return this;
     }
 
+
     public TriggerReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Trigger> read(final TwilioRestClient client) {
@@ -67,110 +74,84 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     public Page<Trigger> firstPage(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Trigger> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Trigger> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trigger read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trigger read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "usage_triggers",
-            response.getContent(),
-            Trigger.class,
-            client.getObjectMapper()
-        );
+                "usage_triggers",
+                response.getContent(),
+                Trigger.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Trigger> previousPage(
-        final Page<Trigger> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Trigger> previousPage(final Page<Trigger> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Trigger> nextPage(
-        final Page<Trigger> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
+    public Page<Trigger> nextPage(final Page<Trigger> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Trigger> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Trigger> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (recurring != null) {
-            request.addQueryParam("Recurring", recurring.toString());
-        }
-        if (triggerBy != null) {
-            request.addQueryParam("TriggerBy", triggerBy.toString());
-        }
-        if (usageCategory != null) {
-            request.addQueryParam("UsageCategory", usageCategory);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Recurring", recurring, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (triggerBy != null) {
+            Serializer.toString(request, "TriggerBy", triggerBy, ParameterType.QUERY);
         }
+
+
+        if (usageCategory != null) {
+            Serializer.toString(request, "UsageCategory", usageCategory, ParameterType.QUERY);
+        }
+
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+        }
+
+
     }
 }

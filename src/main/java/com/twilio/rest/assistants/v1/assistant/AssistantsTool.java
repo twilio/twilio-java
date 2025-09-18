@@ -18,56 +18,55 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssistantsTool extends Resource {
 
-    private static final long serialVersionUID = 65943663776562L;
 
-    public static AssistantsToolCreator creator(
-        final String pathAssistantId,
-        final String pathId
-    ) {
-        return new AssistantsToolCreator(pathAssistantId, pathId);
+    public static AssistantsToolCreator creator(final String pathassistantId, final String pathid) {
+        return new AssistantsToolCreator(
+                pathassistantId, pathid
+        );
     }
 
-    public static AssistantsToolDeleter deleter(
-        final String pathAssistantId,
-        final String pathId
-    ) {
-        return new AssistantsToolDeleter(pathAssistantId, pathId);
+
+    public static AssistantsToolDeleter deleter(final String pathassistantId, final String pathid) {
+        return new AssistantsToolDeleter(
+                pathassistantId, pathid
+        );
     }
 
-    public static AssistantsToolReader reader(final String pathAssistantId) {
-        return new AssistantsToolReader(pathAssistantId);
+
+    public static AssistantsToolReader reader(final String pathassistantId) {
+        return new AssistantsToolReader(
+                pathassistantId
+        );
     }
+
 
     /**
      * Converts a JSON String into a AssistantsTool object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AssistantsTool object represented by the provided JSON
      */
-    public static AssistantsTool fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static AssistantsTool fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssistantsTool.class);
@@ -82,14 +81,11 @@ public class AssistantsTool extends Resource {
      * Converts a JSON InputStream into a AssistantsTool object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AssistantsTool object represented by the provided JSON
      */
-    public static AssistantsTool fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static AssistantsTool fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssistantsTool.class);
@@ -100,33 +96,61 @@ public class AssistantsTool extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String description;
-    private final Boolean enabled;
-    private final String id;
-    private final Map<String, Object> meta;
-    private final String name;
-    private final Boolean requiresAuth;
-    private final String type;
-    private final String url;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String description;
+    @Getter
+    private final Boolean enabled;
+    @Getter
+    private final String id;
+    @Getter
+    private final Object meta;
+    @Getter
+    private final String name;
+    @Getter
+    private final Boolean requiresAuth;
+    @Getter
+    private final String type;
+    @Getter
+    private final String url;
 
     @JsonCreator
     private AssistantsTool(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("description") final String description,
-        @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("id") final String id,
-        @JsonProperty("meta") final Map<String, Object> meta,
-        @JsonProperty("name") final String name,
-        @JsonProperty("requires_auth") final Boolean requiresAuth,
-        @JsonProperty("type") final String type,
-        @JsonProperty("url") final String url,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("description") final String description,
+            @JsonProperty("enabled") final Boolean enabled,
+            @JsonProperty("id") final String id,
+            @JsonProperty("meta") final Object meta,
+            @JsonProperty("name") final String name,
+            @JsonProperty("requires_auth") final Boolean requiresAuth,
+            @JsonProperty("type") final String type,
+            @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
         this.enabled = enabled;
         this.id = id;
@@ -135,52 +159,6 @@ public class AssistantsTool extends Resource {
         this.requiresAuth = requiresAuth;
         this.type = type;
         this.url = url;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final Map<String, Object> getMeta() {
-        return this.meta;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final Boolean getRequiresAuth() {
-        return this.requiresAuth;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getUrl() {
-        return this.url;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -194,36 +172,38 @@ public class AssistantsTool extends Resource {
         }
 
         AssistantsTool other = (AssistantsTool) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(enabled, other.enabled) &&
-            Objects.equals(id, other.id) &&
-            Objects.equals(meta, other.meta) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(requiresAuth, other.requiresAuth) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(description, other.description) &&
+                        Objects.equals(enabled, other.enabled) &&
+                        Objects.equals(id, other.id) &&
+                        Objects.equals(meta, other.meta) &&
+                        Objects.equals(name, other.name) &&
+                        Objects.equals(requiresAuth, other.requiresAuth) &&
+                        Objects.equals(type, other.type) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            description,
-            enabled,
-            id,
-            meta,
-            name,
-            requiresAuth,
-            type,
-            url,
-            dateCreated,
-            dateUpdated
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                description,
+                enabled,
+                id,
+                meta,
+                name,
+                requiresAuth,
+                type,
+                url
         );
     }
+
+
 }
+

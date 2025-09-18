@@ -18,43 +18,40 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPersonUsecase extends Resource {
 
-    private static final long serialVersionUID = 181251380697241L;
 
-    public static UsAppToPersonUsecaseFetcher fetcher(
-        final String pathMessagingServiceSid
-    ) {
-        return new UsAppToPersonUsecaseFetcher(pathMessagingServiceSid);
+    public static UsAppToPersonUsecaseFetcher fetcher(final String pathmessagingServiceSid) {
+        return new UsAppToPersonUsecaseFetcher(
+                pathmessagingServiceSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a UsAppToPersonUsecase object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UsAppToPersonUsecase object represented by the provided JSON
      */
-    public static UsAppToPersonUsecase fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static UsAppToPersonUsecase fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsAppToPersonUsecase.class);
@@ -69,14 +66,11 @@ public class UsAppToPersonUsecase extends Resource {
      * Converts a JSON InputStream into a UsAppToPersonUsecase object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UsAppToPersonUsecase object represented by the provided JSON
      */
-    public static UsAppToPersonUsecase fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static UsAppToPersonUsecase fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsAppToPersonUsecase.class);
@@ -87,19 +81,27 @@ public class UsAppToPersonUsecase extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> usAppToPersonUsecases;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final List<Object> usAppToPersonUsecases;
 
     @JsonCreator
     private UsAppToPersonUsecase(
-        @JsonProperty("us_app_to_person_usecases") final List<
-            Map<String, Object>
-        > usAppToPersonUsecases
+            @JsonProperty("us_app_to_person_usecases") final List<Object> usAppToPersonUsecases
     ) {
         this.usAppToPersonUsecases = usAppToPersonUsecases;
-    }
-
-    public final List<Map<String, Object>> getUsAppToPersonUsecases() {
-        return this.usAppToPersonUsecases;
     }
 
     @Override
@@ -113,15 +115,18 @@ public class UsAppToPersonUsecase extends Resource {
         }
 
         UsAppToPersonUsecase other = (UsAppToPersonUsecase) o;
-
-        return Objects.equals(
-            usAppToPersonUsecases,
-            other.usAppToPersonUsecases
+        return (
+                Objects.equals(usAppToPersonUsecases, other.usAppToPersonUsecases)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(usAppToPersonUsecases);
+        return Objects.hash(
+                usAppToPersonUsecases
+        );
     }
+
+
 }
+

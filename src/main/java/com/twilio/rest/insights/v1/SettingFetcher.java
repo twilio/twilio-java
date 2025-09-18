@@ -15,7 +15,8 @@
 package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,50 +30,53 @@ public class SettingFetcher extends Fetcher<Setting> {
 
     private String subaccountSid;
 
-    public SettingFetcher() {}
+    public SettingFetcher() {
+    }
+
 
     public SettingFetcher setSubaccountSid(final String subaccountSid) {
         this.subaccountSid = subaccountSid;
         return this;
     }
 
+
     @Override
     public Setting fetch(final TwilioRestClient client) {
+
         String path = "/v1/Voice/Settings";
 
+
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INSIGHTS.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Setting fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Setting fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Setting.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (subaccountSid != null) {
-            request.addQueryParam("SubaccountSid", subaccountSid);
+            Serializer.toString(request, "SubaccountSid", subaccountSid, ParameterType.QUERY);
         }
+
+
     }
 }

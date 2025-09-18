@@ -16,7 +16,8 @@ package com.twilio.rest.iam.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,53 +28,54 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ApiKeyUpdater extends Updater<ApiKey> {
-
-    private String pathSid;
+    private String pathsid;
     private String friendlyName;
     private Object policy;
 
-    public ApiKeyUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ApiKeyUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public ApiKeyUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public ApiKeyUpdater setPolicy(final Object policy) {
         this.policy = policy;
         return this;
     }
 
+
     @Override
     public ApiKey update(final TwilioRestClient client) {
+
         String path = "/v1/Keys/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.IAM.toString(),
-            path
+                HttpMethod.POST,
+                Domains.IAM.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ApiKey update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ApiKey update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -82,11 +84,16 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (policy != null) {
-            request.addPostParam("Policy", Converter.objectToJson(policy));
+            Serializer.toString(request, "Policy", policy, ParameterType.URLENCODED);
         }
+
+
     }
 }

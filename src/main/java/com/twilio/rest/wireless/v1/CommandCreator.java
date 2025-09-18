@@ -14,9 +14,11 @@
 
 package com.twilio.rest.wireless.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class CommandCreator extends Creator<Command> {
@@ -42,77 +44,74 @@ public class CommandCreator extends Creator<Command> {
         this.command = command;
     }
 
+
     public CommandCreator setCommand(final String command) {
         this.command = command;
         return this;
     }
+
 
     public CommandCreator setSim(final String sim) {
         this.sim = sim;
         return this;
     }
 
+
     public CommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
         return this;
     }
+
 
     public CommandCreator setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public CommandCreator setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
 
-    public CommandCreator setCommandMode(
-        final Command.CommandMode commandMode
-    ) {
+    public CommandCreator setCommandMode(final Command.CommandMode commandMode) {
         this.commandMode = commandMode;
         return this;
     }
+
 
     public CommandCreator setIncludeSid(final String includeSid) {
         this.includeSid = includeSid;
         return this;
     }
 
-    public CommandCreator setDeliveryReceiptRequested(
-        final Boolean deliveryReceiptRequested
-    ) {
+
+    public CommandCreator setDeliveryReceiptRequested(final Boolean deliveryReceiptRequested) {
         this.deliveryReceiptRequested = deliveryReceiptRequested;
         return this;
     }
 
+
     @Override
     public Command create(final TwilioRestClient client) {
+
         String path = "/v1/Commands";
 
-        path = path.replace("{" + "Command" + "}", this.command.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.WIRELESS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.WIRELESS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Command creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Command creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -121,29 +120,41 @@ public class CommandCreator extends Creator<Command> {
     }
 
     private void addPostParams(final Request request) {
+
         if (command != null) {
-            request.addPostParam("Command", command);
+            Serializer.toString(request, "Command", command, ParameterType.URLENCODED);
         }
+
+
         if (sim != null) {
-            request.addPostParam("Sim", sim);
+            Serializer.toString(request, "Sim", sim, ParameterType.URLENCODED);
         }
+
+
         if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod.toString());
+            Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (commandMode != null) {
-            request.addPostParam("CommandMode", commandMode.toString());
+            Serializer.toString(request, "CommandMode", commandMode, ParameterType.URLENCODED);
         }
+
+
         if (includeSid != null) {
-            request.addPostParam("IncludeSid", includeSid);
+            Serializer.toString(request, "IncludeSid", includeSid, ParameterType.URLENCODED);
         }
+
+
         if (deliveryReceiptRequested != null) {
-            request.addPostParam(
-                "DeliveryReceiptRequested",
-                deliveryReceiptRequested.toString()
-            );
+            Serializer.toString(request, "DeliveryReceiptRequested", deliveryReceiptRequested, ParameterType.URLENCODED);
         }
+
+
     }
 }

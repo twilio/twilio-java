@@ -18,132 +18,104 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAddress extends Resource {
 
-    private static final long serialVersionUID = 125766891149812L;
 
-    public static IpAddressCreator creator(
-        final String pathIpAccessControlListSid,
-        final String friendlyName,
-        final String ipAddress
-    ) {
+    public static IpAddressCreator creator(final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
         return new IpAddressCreator(
-            pathIpAccessControlListSid,
-            friendlyName,
-            ipAddress
+                pathipAccessControlListSid, friendlyName, ipAddress
         );
     }
 
-    public static IpAddressCreator creator(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid,
-        final String friendlyName,
-        final String ipAddress
-    ) {
+
+    public static IpAddressCreator creator(final String pathaccountSid, final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
         return new IpAddressCreator(
-            pathAccountSid,
-            pathIpAccessControlListSid,
-            friendlyName,
-            ipAddress
+                pathaccountSid, pathipAccessControlListSid, friendlyName, ipAddress
         );
     }
 
-    public static IpAddressDeleter deleter(
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
-        return new IpAddressDeleter(pathIpAccessControlListSid, pathSid);
-    }
 
-    public static IpAddressDeleter deleter(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
+    public static IpAddressDeleter deleter(final String pathipAccessControlListSid, final String pathsid) {
         return new IpAddressDeleter(
-            pathAccountSid,
-            pathIpAccessControlListSid,
-            pathSid
+                pathipAccessControlListSid, pathsid
         );
     }
 
-    public static IpAddressFetcher fetcher(
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
-        return new IpAddressFetcher(pathIpAccessControlListSid, pathSid);
+
+    public static IpAddressDeleter deleter(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+        return new IpAddressDeleter(
+                pathaccountSid, pathipAccessControlListSid, pathsid
+        );
     }
 
-    public static IpAddressFetcher fetcher(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
+
+    public static IpAddressFetcher fetcher(final String pathipAccessControlListSid, final String pathsid) {
         return new IpAddressFetcher(
-            pathAccountSid,
-            pathIpAccessControlListSid,
-            pathSid
+                pathipAccessControlListSid, pathsid
         );
     }
 
-    public static IpAddressReader reader(
-        final String pathIpAccessControlListSid
-    ) {
-        return new IpAddressReader(pathIpAccessControlListSid);
+
+    public static IpAddressFetcher fetcher(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+        return new IpAddressFetcher(
+                pathaccountSid, pathipAccessControlListSid, pathsid
+        );
     }
 
-    public static IpAddressReader reader(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid
-    ) {
-        return new IpAddressReader(pathAccountSid, pathIpAccessControlListSid);
+
+    public static IpAddressReader reader(final String pathipAccessControlListSid) {
+        return new IpAddressReader(
+                pathipAccessControlListSid
+        );
     }
 
-    public static IpAddressUpdater updater(
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
-        return new IpAddressUpdater(pathIpAccessControlListSid, pathSid);
+
+    public static IpAddressReader reader(final String pathaccountSid, final String pathipAccessControlListSid) {
+        return new IpAddressReader(
+                pathaccountSid, pathipAccessControlListSid
+        );
     }
 
-    public static IpAddressUpdater updater(
-        final String pathAccountSid,
-        final String pathIpAccessControlListSid,
-        final String pathSid
-    ) {
+
+    public static IpAddressUpdater updater(final String pathipAccessControlListSid, final String pathsid) {
         return new IpAddressUpdater(
-            pathAccountSid,
-            pathIpAccessControlListSid,
-            pathSid
+                pathipAccessControlListSid, pathsid
         );
     }
+
+
+    public static IpAddressUpdater updater(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+        return new IpAddressUpdater(
+                pathaccountSid, pathipAccessControlListSid, pathsid
+        );
+    }
+
 
     /**
      * Converts a JSON String into a IpAddress object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IpAddress object represented by the provided JSON
      */
-    public static IpAddress fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static IpAddress fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpAddress.class);
@@ -158,14 +130,11 @@ public class IpAddress extends Resource {
      * Converts a JSON InputStream into a IpAddress object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IpAddress object represented by the provided JSON
      */
-    public static IpAddress fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static IpAddress fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpAddress.class);
@@ -176,75 +145,61 @@ public class IpAddress extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final String ipAddress;
+    @Getter
     private final Integer cidrPrefixLength;
-    private final String ipAccessControlListSid;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String ipAccessControlListSid;
+    @Getter
+    private final String ipAddress;
+    @Getter
+    private final String sid;
+    @Getter
     private final String uri;
 
     @JsonCreator
     private IpAddress(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("ip_address") final String ipAddress,
-        @JsonProperty("cidr_prefix_length") final Integer cidrPrefixLength,
-        @JsonProperty(
-            "ip_access_control_list_sid"
-        ) final String ipAccessControlListSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("uri") final String uri
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("cidr_prefix_length") final Integer cidrPrefixLength,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("ip_access_control_list_sid") final String ipAccessControlListSid,
+            @JsonProperty("ip_address") final String ipAddress,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("uri") final String uri
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.ipAddress = ipAddress;
         this.cidrPrefixLength = cidrPrefixLength;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
         this.ipAccessControlListSid = ipAccessControlListSid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.ipAddress = ipAddress;
+        this.sid = sid;
         this.uri = uri;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getIpAddress() {
-        return this.ipAddress;
-    }
-
-    public final Integer getCidrPrefixLength() {
-        return this.cidrPrefixLength;
-    }
-
-    public final String getIpAccessControlListSid() {
-        return this.ipAccessControlListSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getUri() {
-        return this.uri;
     }
 
     @Override
@@ -258,35 +213,34 @@ public class IpAddress extends Resource {
         }
 
         IpAddress other = (IpAddress) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(ipAddress, other.ipAddress) &&
-            Objects.equals(cidrPrefixLength, other.cidrPrefixLength) &&
-            Objects.equals(
-                ipAccessControlListSid,
-                other.ipAccessControlListSid
-            ) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(uri, other.uri)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(cidrPrefixLength, other.cidrPrefixLength) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(ipAccessControlListSid, other.ipAccessControlListSid) &&
+                        Objects.equals(ipAddress, other.ipAddress) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            friendlyName,
-            ipAddress,
-            cidrPrefixLength,
-            ipAccessControlListSid,
-            dateCreated,
-            dateUpdated,
-            uri
+                accountSid,
+                cidrPrefixLength,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                ipAccessControlListSid,
+                ipAddress,
+                sid,
+                uri
         );
     }
+
+
 }
+

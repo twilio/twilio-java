@@ -14,8 +14,11 @@
 
 package com.twilio.rest.flexapi.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -34,125 +37,113 @@ public class WebChannelCreator extends Creator<WebChannel> {
     private String chatUniqueName;
     private String preEngagementData;
 
-    public WebChannelCreator(
-        final String flexFlowSid,
-        final String identity,
-        final String customerFriendlyName,
-        final String chatFriendlyName
-    ) {
+    public WebChannelCreator(final String flexFlowSid, final String identity, final String customerFriendlyName, final String chatFriendlyName) {
         this.flexFlowSid = flexFlowSid;
         this.identity = identity;
         this.customerFriendlyName = customerFriendlyName;
         this.chatFriendlyName = chatFriendlyName;
     }
+
 
     public WebChannelCreator setFlexFlowSid(final String flexFlowSid) {
         this.flexFlowSid = flexFlowSid;
         return this;
     }
 
+
     public WebChannelCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
 
-    public WebChannelCreator setCustomerFriendlyName(
-        final String customerFriendlyName
-    ) {
+
+    public WebChannelCreator setCustomerFriendlyName(final String customerFriendlyName) {
         this.customerFriendlyName = customerFriendlyName;
         return this;
     }
 
-    public WebChannelCreator setChatFriendlyName(
-        final String chatFriendlyName
-    ) {
+
+    public WebChannelCreator setChatFriendlyName(final String chatFriendlyName) {
         this.chatFriendlyName = chatFriendlyName;
         return this;
     }
+
 
     public WebChannelCreator setChatUniqueName(final String chatUniqueName) {
         this.chatUniqueName = chatUniqueName;
         return this;
     }
 
-    public WebChannelCreator setPreEngagementData(
-        final String preEngagementData
-    ) {
+
+    public WebChannelCreator setPreEngagementData(final String preEngagementData) {
         this.preEngagementData = preEngagementData;
         return this;
     }
 
+
     @Override
     public WebChannel create(final TwilioRestClient client) {
+
         String path = "/v1/WebChannels";
 
-        path =
-            path.replace(
-                "{" + "FlexFlowSid" + "}",
-                this.flexFlowSid.toString()
-            );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
-        path =
-            path.replace(
-                "{" + "CustomerFriendlyName" + "}",
-                this.customerFriendlyName.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChatFriendlyName" + "}",
-                this.chatFriendlyName.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "WebChannel creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WebChannel creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return WebChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WebChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (flexFlowSid != null) {
-            request.addPostParam("FlexFlowSid", flexFlowSid);
+            Serializer.toString(request, "FlexFlowSid", flexFlowSid, ParameterType.URLENCODED);
         }
+
+
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
         }
+
+
         if (customerFriendlyName != null) {
-            request.addPostParam("CustomerFriendlyName", customerFriendlyName);
+            Serializer.toString(request, "CustomerFriendlyName", customerFriendlyName, ParameterType.URLENCODED);
         }
+
+
         if (chatFriendlyName != null) {
-            request.addPostParam("ChatFriendlyName", chatFriendlyName);
+            Serializer.toString(request, "ChatFriendlyName", chatFriendlyName, ParameterType.URLENCODED);
         }
+
+
         if (chatUniqueName != null) {
-            request.addPostParam("ChatUniqueName", chatUniqueName);
+            Serializer.toString(request, "ChatUniqueName", chatUniqueName, ParameterType.URLENCODED);
         }
+
+
         if (preEngagementData != null) {
-            request.addPostParam("PreEngagementData", preEngagementData);
+            Serializer.toString(request, "PreEngagementData", preEngagementData, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -18,43 +18,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Content extends Resource {
 
-    private static final long serialVersionUID = 58899890984300L;
 
     public static ContentReader reader() {
-        return new ContentReader();
+        return new ContentReader(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Content object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Content object represented by the provided JSON
      */
-    public static Content fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Content fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Content.class);
@@ -69,14 +69,11 @@ public class Content extends Resource {
      * Converts a JSON InputStream into a Content object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Content object represented by the provided JSON
      */
-    public static Content fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Content fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Content.class);
@@ -87,80 +84,65 @@ public class Content extends Resource {
         }
     }
 
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
     private final String friendlyName;
+    @Getter
     private final String language;
-    private final Map<String, Object> variables;
-    private final Map<String, Object> types;
-    private final URI url;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final String sid;
+    @Getter
+    private final Object types;
+    @Getter
+    private final URI url;
+    @Getter
+    private final Object variables;
 
     @JsonCreator
     private Content(
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("language") final String language,
-        @JsonProperty("variables") final Map<String, Object> variables,
-        @JsonProperty("types") final Map<String, Object> types,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("language") final String language,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("types") final Object types,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("variables") final Object variables
     ) {
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.sid = sid;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
         this.language = language;
-        this.variables = variables;
+        this.links = links;
+        this.sid = sid;
         this.types = types;
         this.url = url;
-        this.links = links;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getLanguage() {
-        return this.language;
-    }
-
-    public final Map<String, Object> getVariables() {
-        return this.variables;
-    }
-
-    public final Map<String, Object> getTypes() {
-        return this.types;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.variables = variables;
     }
 
     @Override
@@ -174,34 +156,36 @@ public class Content extends Resource {
         }
 
         Content other = (Content) o;
-
         return (
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(language, other.language) &&
-            Objects.equals(variables, other.variables) &&
-            Objects.equals(types, other.types) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(language, other.language) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(types, other.types) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(variables, other.variables)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            dateCreated,
-            dateUpdated,
-            sid,
-            accountSid,
-            friendlyName,
-            language,
-            variables,
-            types,
-            url,
-            links
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                language,
+                links,
+                sid,
+                types,
+                url,
+                variables
         );
     }
+
+
 }
+

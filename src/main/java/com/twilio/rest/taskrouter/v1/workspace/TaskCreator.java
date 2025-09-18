@@ -14,8 +14,11 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 
 public class TaskCreator extends Creator<Task> {
 
-    private String pathWorkspaceSid;
+    private String pathworkspaceSid;
     private Integer timeout;
     private Integer priority;
     private String taskChannel;
@@ -39,89 +43,92 @@ public class TaskCreator extends Creator<Task> {
     private String ignoreCapacity;
     private String taskQueueSid;
 
-    public TaskCreator(final String pathWorkspaceSid) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
+    public TaskCreator(final String pathworkspaceSid) {
+        this.pathworkspaceSid = pathworkspaceSid;
     }
+
 
     public TaskCreator setTimeout(final Integer timeout) {
         this.timeout = timeout;
         return this;
     }
 
+
     public TaskCreator setPriority(final Integer priority) {
         this.priority = priority;
         return this;
     }
+
 
     public TaskCreator setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
+
     public TaskCreator setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
         return this;
     }
+
 
     public TaskCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
-    public TaskCreator setVirtualStartTime(
-        final ZonedDateTime virtualStartTime
-    ) {
+
+    public TaskCreator setVirtualStartTime(final ZonedDateTime virtualStartTime) {
         this.virtualStartTime = virtualStartTime;
         return this;
     }
+
 
     public TaskCreator setRoutingTarget(final String routingTarget) {
         this.routingTarget = routingTarget;
         return this;
     }
 
+
     public TaskCreator setIgnoreCapacity(final String ignoreCapacity) {
         this.ignoreCapacity = ignoreCapacity;
         return this;
     }
+
 
     public TaskCreator setTaskQueueSid(final String taskQueueSid) {
         this.taskQueueSid = taskQueueSid;
         return this;
     }
 
+
     @Override
     public Task create(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TASKROUTER.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Task creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Task creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -130,35 +137,51 @@ public class TaskCreator extends Creator<Task> {
     }
 
     private void addPostParams(final Request request) {
+
         if (timeout != null) {
-            request.addPostParam("Timeout", timeout.toString());
+            Serializer.toString(request, "Timeout", timeout, ParameterType.URLENCODED);
         }
+
+
         if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
+            Serializer.toString(request, "Priority", priority, ParameterType.URLENCODED);
         }
+
+
         if (taskChannel != null) {
-            request.addPostParam("TaskChannel", taskChannel);
+            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.URLENCODED);
         }
+
+
         if (workflowSid != null) {
-            request.addPostParam("WorkflowSid", workflowSid);
+            Serializer.toString(request, "WorkflowSid", workflowSid, ParameterType.URLENCODED);
         }
+
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
         }
+
+
         if (virtualStartTime != null) {
-            request.addPostParam(
-                "VirtualStartTime",
-                virtualStartTime.toInstant().toString()
-            );
+            Serializer.toString(request, "VirtualStartTime", virtualStartTime, ParameterType.URLENCODED);
         }
+
+
         if (routingTarget != null) {
-            request.addPostParam("RoutingTarget", routingTarget);
+            Serializer.toString(request, "RoutingTarget", routingTarget, ParameterType.URLENCODED);
         }
+
+
         if (ignoreCapacity != null) {
-            request.addPostParam("IgnoreCapacity", ignoreCapacity);
+            Serializer.toString(request, "IgnoreCapacity", ignoreCapacity, ParameterType.URLENCODED);
         }
+
+
         if (taskQueueSid != null) {
-            request.addPostParam("TaskQueueSid", taskQueueSid);
+            Serializer.toString(request, "TaskQueueSid", taskQueueSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

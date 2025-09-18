@@ -14,10 +14,11 @@
 
 package com.twilio.rest.marketplace.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -34,103 +35,89 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     private Object configuration;
     private String uniqueName;
 
-    public InstalledAddOnCreator(
-        final String availableAddOnSid,
-        final Boolean acceptTermsOfService
-    ) {
+    public InstalledAddOnCreator(final String availableAddOnSid, final Boolean acceptTermsOfService) {
         this.availableAddOnSid = availableAddOnSid;
         this.acceptTermsOfService = acceptTermsOfService;
     }
 
-    public InstalledAddOnCreator setAvailableAddOnSid(
-        final String availableAddOnSid
-    ) {
+
+    public InstalledAddOnCreator setAvailableAddOnSid(final String availableAddOnSid) {
         this.availableAddOnSid = availableAddOnSid;
         return this;
     }
 
-    public InstalledAddOnCreator setAcceptTermsOfService(
-        final Boolean acceptTermsOfService
-    ) {
+
+    public InstalledAddOnCreator setAcceptTermsOfService(final Boolean acceptTermsOfService) {
         this.acceptTermsOfService = acceptTermsOfService;
         return this;
     }
+
 
     public InstalledAddOnCreator setConfiguration(final Object configuration) {
         this.configuration = configuration;
         return this;
     }
 
+
     public InstalledAddOnCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
+
     @Override
     public InstalledAddOn create(final TwilioRestClient client) {
+
         String path = "/v1/InstalledAddOns";
 
-        path =
-            path.replace(
-                "{" + "AvailableAddOnSid" + "}",
-                this.availableAddOnSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AcceptTermsOfService" + "}",
-                this.acceptTermsOfService.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MARKETPLACE.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MARKETPLACE.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "InstalledAddOn creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InstalledAddOn creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return InstalledAddOn.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InstalledAddOn.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (availableAddOnSid != null) {
-            request.addPostParam("AvailableAddOnSid", availableAddOnSid);
+            Serializer.toString(request, "AvailableAddOnSid", availableAddOnSid, ParameterType.URLENCODED);
         }
+
+
         if (acceptTermsOfService != null) {
-            request.addPostParam(
-                "AcceptTermsOfService",
-                acceptTermsOfService.toString()
-            );
+            Serializer.toString(request, "AcceptTermsOfService", acceptTermsOfService, ParameterType.URLENCODED);
         }
+
+
         if (configuration != null) {
-            request.addPostParam(
-                "Configuration",
-                Converter.objectToJson(configuration)
-            );
+            Serializer.toString(request, "Configuration", configuration, ParameterType.URLENCODED);
         }
+
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
     }
 }

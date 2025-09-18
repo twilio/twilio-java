@@ -14,9 +14,12 @@
 
 package com.twilio.rest.proxy.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -28,23 +31,23 @@ import com.twilio.rest.Domains;
 
 public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
-    private String pathServiceSid;
+    private String pathserviceSid;
     private String sid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private Boolean isReserved;
 
-    public PhoneNumberCreator(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public PhoneNumberCreator(final String pathserviceSid) {
+        this.pathserviceSid = pathserviceSid;
     }
+
 
     public PhoneNumberCreator setSid(final String sid) {
         this.sid = sid;
         return this;
     }
 
-    public PhoneNumberCreator setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+
+    public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -58,57 +61,57 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         return this;
     }
 
+
     @Override
     public PhoneNumber create(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.PROXY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "PhoneNumber creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PhoneNumber creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return PhoneNumber.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (sid != null) {
-            request.addPostParam("Sid", sid);
+            Serializer.toString(request, "Sid", sid, ParameterType.URLENCODED);
         }
+
+
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.URLENCODED);
         }
+
+
         if (isReserved != null) {
-            request.addPostParam("IsReserved", isReserved.toString());
+            Serializer.toString(request, "IsReserved", isReserved, ParameterType.URLENCODED);
         }
+
+
     }
 }

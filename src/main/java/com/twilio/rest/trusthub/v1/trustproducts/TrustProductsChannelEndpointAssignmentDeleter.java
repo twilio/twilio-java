@@ -15,7 +15,6 @@
 package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,54 +24,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class TrustProductsChannelEndpointAssignmentDeleter
-    extends Deleter<TrustProductsChannelEndpointAssignment> {
+public class TrustProductsChannelEndpointAssignmentDeleter extends Deleter<TrustProductsChannelEndpointAssignment> {
 
-    private String pathTrustProductSid;
-    private String pathSid;
+    private String pathtrustProductSid;
+    private String pathsid;
 
-    public TrustProductsChannelEndpointAssignmentDeleter(
-        final String pathTrustProductSid,
-        final String pathSid
-    ) {
-        this.pathTrustProductSid = pathTrustProductSid;
-        this.pathSid = pathSid;
+    public TrustProductsChannelEndpointAssignmentDeleter(final String pathtrustProductSid, final String pathsid) {
+        this.pathtrustProductSid = pathtrustProductSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
+
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.TRUSTHUB.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.TRUSTHUB.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "TrustProductsChannelEndpointAssignment delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TrustProductsChannelEndpointAssignment delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

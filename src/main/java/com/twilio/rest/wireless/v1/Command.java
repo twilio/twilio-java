@@ -18,246 +18,55 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Command extends Resource {
 
-    private static final long serialVersionUID = 179149511827589L;
 
     public static CommandCreator creator(final String command) {
-        return new CommandCreator(command);
+        return new CommandCreator(
+                command
+        );
     }
 
-    public static CommandDeleter deleter(final String pathSid) {
-        return new CommandDeleter(pathSid);
+
+    public static CommandDeleter deleter(final String pathsid) {
+        return new CommandDeleter(
+                pathsid
+        );
     }
 
-    public static CommandFetcher fetcher(final String pathSid) {
-        return new CommandFetcher(pathSid);
+
+    public static CommandFetcher fetcher(final String pathsid) {
+        return new CommandFetcher(
+                pathsid
+        );
     }
+
 
     public static CommandReader reader() {
-        return new CommandReader();
-    }
+        return new CommandReader(
 
-    /**
-     * Converts a JSON String into a Command object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Command object represented by the provided JSON
-     */
-    public static Command fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Command.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Command object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Command object represented by the provided JSON
-     */
-    public static Command fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Command.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String simSid;
-    private final String command;
-    private final Command.CommandMode commandMode;
-    private final Command.Transport transport;
-    private final Boolean deliveryReceiptRequested;
-    private final Command.Status status;
-    private final Command.Direction direction;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-
-    @JsonCreator
-    private Command(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("command") final String command,
-        @JsonProperty("command_mode") final Command.CommandMode commandMode,
-        @JsonProperty("transport") final Command.Transport transport,
-        @JsonProperty(
-            "delivery_receipt_requested"
-        ) final Boolean deliveryReceiptRequested,
-        @JsonProperty("status") final Command.Status status,
-        @JsonProperty("direction") final Command.Direction direction,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.simSid = simSid;
-        this.command = command;
-        this.commandMode = commandMode;
-        this.transport = transport;
-        this.deliveryReceiptRequested = deliveryReceiptRequested;
-        this.status = status;
-        this.direction = direction;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final String getCommand() {
-        return this.command;
-    }
-
-    public final Command.CommandMode getCommandMode() {
-        return this.commandMode;
-    }
-
-    public final Command.Transport getTransport() {
-        return this.transport;
-    }
-
-    public final Boolean getDeliveryReceiptRequested() {
-        return this.deliveryReceiptRequested;
-    }
-
-    public final Command.Status getStatus() {
-        return this.status;
-    }
-
-    public final Command.Direction getDirection() {
-        return this.direction;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Command other = (Command) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(command, other.command) &&
-            Objects.equals(commandMode, other.commandMode) &&
-            Objects.equals(transport, other.transport) &&
-            Objects.equals(
-                deliveryReceiptRequested,
-                other.deliveryReceiptRequested
-            ) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(direction, other.direction) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            simSid,
-            command,
-            commandMode,
-            transport,
-            deliveryReceiptRequested,
-            status,
-            direction,
-            dateCreated,
-            dateUpdated,
-            url
-        );
-    }
-
-    public enum Direction {
-        FROM_SIM("from_sim"),
-        TO_SIM("to_sim");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
-    }
 
     public enum Status {
         QUEUED("queued"),
@@ -321,4 +130,179 @@ public class Command extends Resource {
             return Promoter.enumFromString(value, Transport.values());
         }
     }
+
+    public enum Direction {
+        FROM_SIM("from_sim"),
+        TO_SIM("to_sim");
+
+        private final String value;
+
+        private Direction(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Direction forValue(final String value) {
+            return Promoter.enumFromString(value, Direction.values());
+        }
+    }
+
+
+    /**
+     * Converts a JSON String into a Command object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Command object represented by the provided JSON
+     */
+    public static Command fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Command.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Command object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Command object represented by the provided JSON
+     */
+    public static Command fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Command.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final String command;
+    @Getter
+    private final Command.CommandMode commandMode;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final Boolean deliveryReceiptRequested;
+    @Getter
+    private final Command.Direction direction;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String simSid;
+    @Getter
+    private final Command.Status status;
+    @Getter
+    private final Command.Transport transport;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Command(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("command") final String command,
+            @JsonProperty("command_mode") final Command.CommandMode commandMode,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("delivery_receipt_requested") final Boolean deliveryReceiptRequested,
+            @JsonProperty("direction") final Command.Direction direction,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("sim_sid") final String simSid,
+            @JsonProperty("status") final Command.Status status,
+            @JsonProperty("transport") final Command.Transport transport,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.command = command;
+        this.commandMode = commandMode;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.deliveryReceiptRequested = deliveryReceiptRequested;
+        this.direction = direction;
+        this.sid = sid;
+        this.simSid = simSid;
+        this.status = status;
+        this.transport = transport;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Command other = (Command) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(command, other.command) &&
+                        Objects.equals(commandMode, other.commandMode) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(deliveryReceiptRequested, other.deliveryReceiptRequested) &&
+                        Objects.equals(direction, other.direction) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(simSid, other.simSid) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(transport, other.transport) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                command,
+                commandMode,
+                dateCreated,
+                dateUpdated,
+                deliveryReceiptRequested,
+                direction,
+                sid,
+                simSid,
+                status,
+                transport,
+                url
+        );
+    }
+
+
 }
+

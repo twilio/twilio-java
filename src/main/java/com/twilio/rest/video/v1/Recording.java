@@ -18,283 +18,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
 
-    private static final long serialVersionUID = 34004868870464L;
 
-    public static RecordingDeleter deleter(final String pathSid) {
-        return new RecordingDeleter(pathSid);
+    public static RecordingDeleter deleter(final String pathsid) {
+        return new RecordingDeleter(
+                pathsid
+        );
     }
 
-    public static RecordingFetcher fetcher(final String pathSid) {
-        return new RecordingFetcher(pathSid);
+
+    public static RecordingFetcher fetcher(final String pathsid) {
+        return new RecordingFetcher(
+                pathsid
+        );
     }
+
 
     public static RecordingReader reader() {
-        return new RecordingReader();
-    }
+        return new RecordingReader(
 
-    /**
-     * Converts a JSON String into a Recording object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Recording.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Recording object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Recording object represented by the provided JSON
-     */
-    public static Recording fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Recording.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String accountSid;
-    private final Recording.Status status;
-    private final ZonedDateTime dateCreated;
-    private final String sid;
-    private final String sourceSid;
-    private final Long size;
-    private final URI url;
-    private final Recording.Type type;
-    private final Integer duration;
-    private final Recording.Format containerFormat;
-    private final Recording.Codec codec;
-    private final Map<String, Object> groupingSids;
-    private final String trackName;
-    private final Long offset;
-    private final URI mediaExternalLocation;
-    private final URI statusCallback;
-    private final HttpMethod statusCallbackMethod;
-    private final Map<String, String> links;
-
-    @JsonCreator
-    private Recording(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Recording.Status status,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("source_sid") final String sourceSid,
-        @JsonProperty("size") final Long size,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("type") final Recording.Type type,
-        @JsonProperty("duration") final Integer duration,
-        @JsonProperty(
-            "container_format"
-        ) final Recording.Format containerFormat,
-        @JsonProperty("codec") final Recording.Codec codec,
-        @JsonProperty("grouping_sids") final Map<String, Object> groupingSids,
-        @JsonProperty("track_name") final String trackName,
-        @JsonProperty("offset") final Long offset,
-        @JsonProperty(
-            "media_external_location"
-        ) final URI mediaExternalLocation,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty(
-            "status_callback_method"
-        ) final HttpMethod statusCallbackMethod,
-        @JsonProperty("links") final Map<String, String> links
-    ) {
-        this.accountSid = accountSid;
-        this.status = status;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.sid = sid;
-        this.sourceSid = sourceSid;
-        this.size = size;
-        this.url = url;
-        this.type = type;
-        this.duration = duration;
-        this.containerFormat = containerFormat;
-        this.codec = codec;
-        this.groupingSids = groupingSids;
-        this.trackName = trackName;
-        this.offset = offset;
-        this.mediaExternalLocation = mediaExternalLocation;
-        this.statusCallback = statusCallback;
-        this.statusCallbackMethod = statusCallbackMethod;
-        this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Recording.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSourceSid() {
-        return this.sourceSid;
-    }
-
-    public final Long getSize() {
-        return this.size;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Recording.Type getType() {
-        return this.type;
-    }
-
-    public final Integer getDuration() {
-        return this.duration;
-    }
-
-    public final Recording.Format getContainerFormat() {
-        return this.containerFormat;
-    }
-
-    public final Recording.Codec getCodec() {
-        return this.codec;
-    }
-
-    public final Map<String, Object> getGroupingSids() {
-        return this.groupingSids;
-    }
-
-    public final String getTrackName() {
-        return this.trackName;
-    }
-
-    public final Long getOffset() {
-        return this.offset;
-    }
-
-    public final URI getMediaExternalLocation() {
-        return this.mediaExternalLocation;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final HttpMethod getStatusCallbackMethod() {
-        return this.statusCallbackMethod;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Recording other = (Recording) o;
-
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sourceSid, other.sourceSid) &&
-            Objects.equals(size, other.size) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(duration, other.duration) &&
-            Objects.equals(containerFormat, other.containerFormat) &&
-            Objects.equals(codec, other.codec) &&
-            Objects.equals(groupingSids, other.groupingSids) &&
-            Objects.equals(trackName, other.trackName) &&
-            Objects.equals(offset, other.offset) &&
-            Objects.equals(
-                mediaExternalLocation,
-                other.mediaExternalLocation
-            ) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-            Objects.equals(links, other.links)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            status,
-            dateCreated,
-            sid,
-            sourceSid,
-            size,
-            url,
-            type,
-            duration,
-            containerFormat,
-            codec,
-            groupingSids,
-            trackName,
-            offset,
-            mediaExternalLocation,
-            statusCallback,
-            statusCallbackMethod,
-            links
-        );
-    }
 
     public enum Status {
         PROCESSING("processing"),
@@ -380,4 +147,194 @@ public class Recording extends Resource {
             return Promoter.enumFromString(value, Format.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Recording object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Recording object represented by the provided JSON
+     */
+    public static Recording fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Recording.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Recording object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Recording object represented by the provided JSON
+     */
+    public static Recording fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Recording.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final Recording.Codec codec;
+    @Getter
+    private final Recording.Format containerFormat;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final Integer duration;
+    @Getter
+    private final Object groupingSids;
+    @Getter
+    private final Map<String, String> links;
+    @Getter
+    private final URI mediaExternalLocation;
+    @Getter
+    private final Long offset;
+    @Getter
+    private final String sid;
+    @Getter
+    private final Long size;
+    @Getter
+    private final String sourceSid;
+    @Getter
+    private final Recording.Status status;
+    @Getter
+    private final URI statusCallback;
+    @Getter
+    private final HttpMethod statusCallbackMethod;
+    @Getter
+    private final String trackName;
+    @Getter
+    private final Recording.Type type;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Recording(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("codec") final Recording.Codec codec,
+            @JsonProperty("container_format") final Recording.Format containerFormat,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("duration") final Integer duration,
+            @JsonProperty("grouping_sids") final Object groupingSids,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("media_external_location") final URI mediaExternalLocation,
+            @JsonProperty("offset") final Long offset,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("size") final Long size,
+            @JsonProperty("source_sid") final String sourceSid,
+            @JsonProperty("status") final Recording.Status status,
+            @JsonProperty("status_callback") final URI statusCallback,
+            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
+            @JsonProperty("track_name") final String trackName,
+            @JsonProperty("type") final Recording.Type type,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.codec = codec;
+        this.containerFormat = containerFormat;
+        this.dateCreated = dateCreated;
+        this.duration = duration;
+        this.groupingSids = groupingSids;
+        this.links = links;
+        this.mediaExternalLocation = mediaExternalLocation;
+        this.offset = offset;
+        this.sid = sid;
+        this.size = size;
+        this.sourceSid = sourceSid;
+        this.status = status;
+        this.statusCallback = statusCallback;
+        this.statusCallbackMethod = statusCallbackMethod;
+        this.trackName = trackName;
+        this.type = type;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Recording other = (Recording) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(codec, other.codec) &&
+                        Objects.equals(containerFormat, other.containerFormat) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(duration, other.duration) &&
+                        Objects.equals(groupingSids, other.groupingSids) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
+                        Objects.equals(offset, other.offset) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(size, other.size) &&
+                        Objects.equals(sourceSid, other.sourceSid) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(statusCallback, other.statusCallback) &&
+                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+                        Objects.equals(trackName, other.trackName) &&
+                        Objects.equals(type, other.type) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                codec,
+                containerFormat,
+                dateCreated,
+                duration,
+                groupingSids,
+                links,
+                mediaExternalLocation,
+                offset,
+                sid,
+                size,
+                sourceSid,
+                status,
+                statusCallback,
+                statusCallbackMethod,
+                trackName,
+                type,
+                url
+        );
+    }
+
+
 }
+

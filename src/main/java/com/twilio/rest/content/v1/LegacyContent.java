@@ -18,43 +18,42 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LegacyContent extends Resource {
 
-    private static final long serialVersionUID = 57833124155343L;
 
     public static LegacyContentReader reader() {
-        return new LegacyContentReader();
+        return new LegacyContentReader(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a LegacyContent object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return LegacyContent object represented by the provided JSON
      */
-    public static LegacyContent fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static LegacyContent fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LegacyContent.class);
@@ -69,14 +68,11 @@ public class LegacyContent extends Resource {
      * Converts a JSON InputStream into a LegacyContent object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return LegacyContent object represented by the provided JSON
      */
-    public static LegacyContent fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static LegacyContent fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, LegacyContent.class);
@@ -87,87 +83,69 @@ public class LegacyContent extends Resource {
         }
     }
 
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
     private final String friendlyName;
+    @Getter
     private final String language;
-    private final Map<String, Object> variables;
-    private final Map<String, Object> types;
-    private final String legacyTemplateName;
+    @Getter
     private final String legacyBody;
+    @Getter
+    private final String legacyTemplateName;
+    @Getter
+    private final String sid;
+    @Getter
+    private final Object types;
+    @Getter
     private final URI url;
+    @Getter
+    private final Object variables;
 
     @JsonCreator
     private LegacyContent(
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("language") final String language,
-        @JsonProperty("variables") final Map<String, Object> variables,
-        @JsonProperty("types") final Map<String, Object> types,
-        @JsonProperty("legacy_template_name") final String legacyTemplateName,
-        @JsonProperty("legacy_body") final String legacyBody,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("language") final String language,
+            @JsonProperty("legacy_body") final String legacyBody,
+            @JsonProperty("legacy_template_name") final String legacyTemplateName,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("types") final Object types,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("variables") final Object variables
     ) {
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.sid = sid;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
         this.language = language;
-        this.variables = variables;
-        this.types = types;
-        this.legacyTemplateName = legacyTemplateName;
         this.legacyBody = legacyBody;
+        this.legacyTemplateName = legacyTemplateName;
+        this.sid = sid;
+        this.types = types;
         this.url = url;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getLanguage() {
-        return this.language;
-    }
-
-    public final Map<String, Object> getVariables() {
-        return this.variables;
-    }
-
-    public final Map<String, Object> getTypes() {
-        return this.types;
-    }
-
-    public final String getLegacyTemplateName() {
-        return this.legacyTemplateName;
-    }
-
-    public final String getLegacyBody() {
-        return this.legacyBody;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.variables = variables;
     }
 
     @Override
@@ -181,36 +159,38 @@ public class LegacyContent extends Resource {
         }
 
         LegacyContent other = (LegacyContent) o;
-
         return (
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(language, other.language) &&
-            Objects.equals(variables, other.variables) &&
-            Objects.equals(types, other.types) &&
-            Objects.equals(legacyTemplateName, other.legacyTemplateName) &&
-            Objects.equals(legacyBody, other.legacyBody) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(language, other.language) &&
+                        Objects.equals(legacyBody, other.legacyBody) &&
+                        Objects.equals(legacyTemplateName, other.legacyTemplateName) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(types, other.types) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(variables, other.variables)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            dateCreated,
-            dateUpdated,
-            sid,
-            accountSid,
-            friendlyName,
-            language,
-            variables,
-            types,
-            legacyTemplateName,
-            legacyBody,
-            url
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                language,
+                legacyBody,
+                legacyTemplateName,
+                sid,
+                types,
+                url,
+                variables
         );
     }
+
+
 }
+

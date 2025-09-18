@@ -18,48 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SchemaVersion extends Resource {
 
-    private static final long serialVersionUID = 232564429627083L;
 
-    public static SchemaVersionFetcher fetcher(
-        final String pathId,
-        final Integer pathSchemaVersion
-    ) {
-        return new SchemaVersionFetcher(pathId, pathSchemaVersion);
+    public static SchemaVersionFetcher fetcher(final String pathid, final Integer pathschemaVersion) {
+        return new SchemaVersionFetcher(
+                pathid, pathschemaVersion
+        );
     }
 
-    public static SchemaVersionReader reader(final String pathId) {
-        return new SchemaVersionReader(pathId);
+
+    public static SchemaVersionReader reader(final String pathid) {
+        return new SchemaVersionReader(
+                pathid
+        );
     }
+
 
     /**
      * Converts a JSON String into a SchemaVersion object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SchemaVersion object represented by the provided JSON
      */
-    public static SchemaVersion fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SchemaVersion fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SchemaVersion.class);
@@ -74,14 +75,11 @@ public class SchemaVersion extends Resource {
      * Converts a JSON InputStream into a SchemaVersion object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SchemaVersion object represented by the provided JSON
      */
-    public static SchemaVersion fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SchemaVersion fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SchemaVersion.class);
@@ -92,45 +90,44 @@ public class SchemaVersion extends Resource {
         }
     }
 
-    private final String id;
-    private final Integer schemaVersion;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final ZonedDateTime dateCreated;
-    private final URI url;
+    @Getter
+    private final String id;
+    @Getter
     private final URI raw;
+    @Getter
+    private final Integer schemaVersion;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private SchemaVersion(
-        @JsonProperty("id") final String id,
-        @JsonProperty("schema_version") final Integer schemaVersion,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("raw") final URI raw
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("id") final String id,
+            @JsonProperty("raw") final URI raw,
+            @JsonProperty("schema_version") final Integer schemaVersion,
+            @JsonProperty("url") final URI url
     ) {
+        this.dateCreated = dateCreated;
         this.id = id;
-        this.schemaVersion = schemaVersion;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.url = url;
         this.raw = raw;
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final Integer getSchemaVersion() {
-        return this.schemaVersion;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final URI getRaw() {
-        return this.raw;
+        this.schemaVersion = schemaVersion;
+        this.url = url;
     }
 
     @Override
@@ -144,18 +141,26 @@ public class SchemaVersion extends Resource {
         }
 
         SchemaVersion other = (SchemaVersion) o;
-
         return (
-            Objects.equals(id, other.id) &&
-            Objects.equals(schemaVersion, other.schemaVersion) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(raw, other.raw)
+                Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(id, other.id) &&
+                        Objects.equals(raw, other.raw) &&
+                        Objects.equals(schemaVersion, other.schemaVersion) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, schemaVersion, dateCreated, url, raw);
+        return Objects.hash(
+                dateCreated,
+                id,
+                raw,
+                schemaVersion,
+                url
+        );
     }
+
+
 }
+

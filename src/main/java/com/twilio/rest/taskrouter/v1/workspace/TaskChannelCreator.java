@@ -14,8 +14,11 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,99 +30,86 @@ import com.twilio.rest.Domains;
 
 public class TaskChannelCreator extends Creator<TaskChannel> {
 
-    private String pathWorkspaceSid;
+    private String pathworkspaceSid;
     private String friendlyName;
     private String uniqueName;
     private Boolean channelOptimizedRouting;
 
-    public TaskChannelCreator(
-        final String pathWorkspaceSid,
-        final String friendlyName,
-        final String uniqueName
-    ) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
+    public TaskChannelCreator(final String pathworkspaceSid, final String friendlyName, final String uniqueName) {
+        this.pathworkspaceSid = pathworkspaceSid;
         this.friendlyName = friendlyName;
         this.uniqueName = uniqueName;
     }
+
 
     public TaskChannelCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public TaskChannelCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-    public TaskChannelCreator setChannelOptimizedRouting(
-        final Boolean channelOptimizedRouting
-    ) {
+
+    public TaskChannelCreator setChannelOptimizedRouting(final Boolean channelOptimizedRouting) {
         this.channelOptimizedRouting = channelOptimizedRouting;
         return this;
     }
 
+
     @Override
     public TaskChannel create(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TASKROUTER.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "TaskChannel creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TaskChannel creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return TaskChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
         if (channelOptimizedRouting != null) {
-            request.addPostParam(
-                "ChannelOptimizedRouting",
-                channelOptimizedRouting.toString()
-            );
+            Serializer.toString(request, "ChannelOptimizedRouting", channelOptimizedRouting, ParameterType.URLENCODED);
         }
+
+
     }
 }

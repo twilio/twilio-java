@@ -21,55 +21,55 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingPortIn extends Resource {
 
-    private static final long serialVersionUID = 109031413524724L;
 
     public static PortingPortInCreator creator() {
-        return new PortingPortInCreator();
+        return new PortingPortInCreator(
+
+        );
     }
 
-    public static PortingPortInDeleter deleter(
-        final String pathPortInRequestSid
-    ) {
-        return new PortingPortInDeleter(pathPortInRequestSid);
+
+    public static PortingPortInDeleter deleter(final String pathportInRequestSid) {
+        return new PortingPortInDeleter(
+                pathportInRequestSid
+        );
     }
 
-    public static PortingPortInFetcher fetcher(
-        final String pathPortInRequestSid
-    ) {
-        return new PortingPortInFetcher(pathPortInRequestSid);
+
+    public static PortingPortInFetcher fetcher(final String pathportInRequestSid) {
+        return new PortingPortInFetcher(
+                pathportInRequestSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a PortingPortIn object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PortingPortIn object represented by the provided JSON
      */
-    public static PortingPortIn fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static PortingPortIn fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortIn.class);
@@ -84,14 +84,11 @@ public class PortingPortIn extends Resource {
      * Converts a JSON InputStream into a PortingPortIn object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PortingPortIn object represented by the provided JSON
      */
-    public static PortingPortIn fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static PortingPortIn fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortIn.class);
@@ -114,133 +111,73 @@ public class PortingPortIn extends Resource {
         }
     }
 
-    private final String portInRequestSid;
-    private final URI url;
+
+    @Getter
     private final String accountSid;
-    private final List<String> notificationEmails;
-    private final LocalDate targetPortInDate;
-    private final String targetPortInTimeRangeStart;
-    private final String targetPortInTimeRangeEnd;
-    private final String portInRequestStatus;
-    private final Map<String, Object> losingCarrierInformation;
-    private final List<Map<String, Object>> phoneNumbers;
-    private final String bundleSid;
-    private final String portabilityAdvanceCarrier;
+    @Getter
     private final String autoCancelApprovalNumbers;
-    private final List<String> documents;
+    @Getter
+    private final String bundleSid;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
+    private final List<String> documents;
+    @Getter
+    private final Object losingCarrierInformation;
+    @Getter
+    private final List<String> notificationEmails;
+    @Getter
+    private final List<Object> phoneNumbers;
+    @Getter
+    private final String portInRequestSid;
+    @Getter
+    private final String portInRequestStatus;
+    @Getter
+    private final String portabilityAdvanceCarrier;
+    @Getter
+    private final LocalDate targetPortInDate;
+    @Getter
+    private final String targetPortInTimeRangeEnd;
+    @Getter
+    private final String targetPortInTimeRangeStart;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private PortingPortIn(
-        @JsonProperty("port_in_request_sid") final String portInRequestSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("notification_emails") final List<
-            String
-        > notificationEmails,
-        @JsonProperty("target_port_in_date") final String targetPortInDate,
-        @JsonProperty(
-            "target_port_in_time_range_start"
-        ) final String targetPortInTimeRangeStart,
-        @JsonProperty(
-            "target_port_in_time_range_end"
-        ) final String targetPortInTimeRangeEnd,
-        @JsonProperty(
-            "port_in_request_status"
-        ) final String portInRequestStatus,
-        @JsonProperty("losing_carrier_information") final Map<
-            String,
-            Object
-        > losingCarrierInformation,
-        @JsonProperty("phone_numbers") final List<
-            Map<String, Object>
-        > phoneNumbers,
-        @JsonProperty("bundle_sid") final String bundleSid,
-        @JsonProperty(
-            "portability_advance_carrier"
-        ) final String portabilityAdvanceCarrier,
-        @JsonProperty(
-            "auto_cancel_approval_numbers"
-        ) final String autoCancelApprovalNumbers,
-        @JsonProperty("documents") final List<String> documents,
-        @JsonProperty("date_created") final String dateCreated
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("auto_cancel_approval_numbers") final String autoCancelApprovalNumbers,
+            @JsonProperty("bundle_sid") final String bundleSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("documents") final List<String> documents,
+            @JsonProperty("losing_carrier_information") final Object losingCarrierInformation,
+            @JsonProperty("notification_emails") final List<String> notificationEmails,
+            @JsonProperty("phone_numbers") final List<Object> phoneNumbers,
+            @JsonProperty("port_in_request_sid") final String portInRequestSid,
+            @JsonProperty("port_in_request_status") final String portInRequestStatus,
+            @JsonProperty("portability_advance_carrier") final String portabilityAdvanceCarrier,
+            @JsonProperty("target_port_in_date")
+            @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class) final LocalDate targetPortInDate,
+            @JsonProperty("target_port_in_time_range_end") final String targetPortInTimeRangeEnd,
+            @JsonProperty("target_port_in_time_range_start") final String targetPortInTimeRangeStart,
+            @JsonProperty("url") final URI url
     ) {
-        this.portInRequestSid = portInRequestSid;
-        this.url = url;
         this.accountSid = accountSid;
-        this.notificationEmails = notificationEmails;
-        this.targetPortInDate =
-            DateConverter.localDateFromString(targetPortInDate);
-        this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
-        this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
-        this.portInRequestStatus = portInRequestStatus;
-        this.losingCarrierInformation = losingCarrierInformation;
-        this.phoneNumbers = phoneNumbers;
-        this.bundleSid = bundleSid;
-        this.portabilityAdvanceCarrier = portabilityAdvanceCarrier;
         this.autoCancelApprovalNumbers = autoCancelApprovalNumbers;
+        this.bundleSid = bundleSid;
+        this.dateCreated = dateCreated;
         this.documents = documents;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-    }
-
-    public final String getPortInRequestSid() {
-        return this.portInRequestSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final List<String> getNotificationEmails() {
-        return this.notificationEmails;
-    }
-
-    public final LocalDate getTargetPortInDate() {
-        return this.targetPortInDate;
-    }
-
-    public final String getTargetPortInTimeRangeStart() {
-        return this.targetPortInTimeRangeStart;
-    }
-
-    public final String getTargetPortInTimeRangeEnd() {
-        return this.targetPortInTimeRangeEnd;
-    }
-
-    public final String getPortInRequestStatus() {
-        return this.portInRequestStatus;
-    }
-
-    public final Map<String, Object> getLosingCarrierInformation() {
-        return this.losingCarrierInformation;
-    }
-
-    public final List<Map<String, Object>> getPhoneNumbers() {
-        return this.phoneNumbers;
-    }
-
-    public final String getBundleSid() {
-        return this.bundleSid;
-    }
-
-    public final String getPortabilityAdvanceCarrier() {
-        return this.portabilityAdvanceCarrier;
-    }
-
-    public final String getAutoCancelApprovalNumbers() {
-        return this.autoCancelApprovalNumbers;
-    }
-
-    public final List<String> getDocuments() {
-        return this.documents;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
+        this.losingCarrierInformation = losingCarrierInformation;
+        this.notificationEmails = notificationEmails;
+        this.phoneNumbers = phoneNumbers;
+        this.portInRequestSid = portInRequestSid;
+        this.portInRequestStatus = portInRequestStatus;
+        this.portabilityAdvanceCarrier = portabilityAdvanceCarrier;
+        this.targetPortInDate = targetPortInDate;
+        this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
+        this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
+        this.url = url;
     }
 
     @Override
@@ -254,59 +191,46 @@ public class PortingPortIn extends Resource {
         }
 
         PortingPortIn other = (PortingPortIn) o;
-
         return (
-            Objects.equals(portInRequestSid, other.portInRequestSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(notificationEmails, other.notificationEmails) &&
-            Objects.equals(targetPortInDate, other.targetPortInDate) &&
-            Objects.equals(
-                targetPortInTimeRangeStart,
-                other.targetPortInTimeRangeStart
-            ) &&
-            Objects.equals(
-                targetPortInTimeRangeEnd,
-                other.targetPortInTimeRangeEnd
-            ) &&
-            Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
-            Objects.equals(
-                losingCarrierInformation,
-                other.losingCarrierInformation
-            ) &&
-            Objects.equals(phoneNumbers, other.phoneNumbers) &&
-            Objects.equals(bundleSid, other.bundleSid) &&
-            Objects.equals(
-                portabilityAdvanceCarrier,
-                other.portabilityAdvanceCarrier
-            ) &&
-            Objects.equals(
-                autoCancelApprovalNumbers,
-                other.autoCancelApprovalNumbers
-            ) &&
-            Objects.equals(documents, other.documents) &&
-            Objects.equals(dateCreated, other.dateCreated)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(autoCancelApprovalNumbers, other.autoCancelApprovalNumbers) &&
+                        Objects.equals(bundleSid, other.bundleSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(documents, other.documents) &&
+                        Objects.equals(losingCarrierInformation, other.losingCarrierInformation) &&
+                        Objects.equals(notificationEmails, other.notificationEmails) &&
+                        Objects.equals(phoneNumbers, other.phoneNumbers) &&
+                        Objects.equals(portInRequestSid, other.portInRequestSid) &&
+                        Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
+                        Objects.equals(portabilityAdvanceCarrier, other.portabilityAdvanceCarrier) &&
+                        Objects.equals(targetPortInDate, other.targetPortInDate) &&
+                        Objects.equals(targetPortInTimeRangeEnd, other.targetPortInTimeRangeEnd) &&
+                        Objects.equals(targetPortInTimeRangeStart, other.targetPortInTimeRangeStart) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            portInRequestSid,
-            url,
-            accountSid,
-            notificationEmails,
-            targetPortInDate,
-            targetPortInTimeRangeStart,
-            targetPortInTimeRangeEnd,
-            portInRequestStatus,
-            losingCarrierInformation,
-            phoneNumbers,
-            bundleSid,
-            portabilityAdvanceCarrier,
-            autoCancelApprovalNumbers,
-            documents,
-            dateCreated
+                accountSid,
+                autoCancelApprovalNumbers,
+                bundleSid,
+                dateCreated,
+                documents,
+                losingCarrierInformation,
+                notificationEmails,
+                phoneNumbers,
+                portInRequestSid,
+                portInRequestStatus,
+                portabilityAdvanceCarrier,
+                targetPortInDate,
+                targetPortInTimeRangeEnd,
+                targetPortInTimeRangeStart,
+                url
         );
     }
+
+
 }
+

@@ -15,68 +15,55 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Response;
 import com.twilio.http.Request;
+import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserFetcher extends Fetcher<User> {
 
-    private String pathOrganizationSid;
-    private String pathUserSid;
+    private String pathorganizationSid;
+    private String pathuserSid;
 
-    public UserFetcher(
-        final String pathOrganizationSid,
-        final String pathUserSid
-    ) {
-        this.pathOrganizationSid = pathOrganizationSid;
-        this.pathUserSid = pathUserSid;
+    public UserFetcher(final String pathorganizationSid, final String pathuserSid) {
+        this.pathorganizationSid = pathorganizationSid;
+        this.pathuserSid = pathuserSid;
     }
+
 
     @Override
     public User fetch(final TwilioRestClient client) {
+
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
-        path =
-            path.replace(
-                "{" + "OrganizationSid" + "}",
-                this.pathOrganizationSid.toString()
-            );
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PREVIEWIAM.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PREVIEWIAM.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "User fetch failed: Unable to connect to server"
-            );
-        } else if (
-            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+            throw new ApiConnectionException("User fetch failed: Unable to connect to server");
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return User.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

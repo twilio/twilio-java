@@ -15,7 +15,8 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,67 +28,59 @@ import com.twilio.rest.Domains;
 
 public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
 
-    private String pathMessagingServiceSid;
+    private String pathmessagingServiceSid;
     private String brandRegistrationSid;
 
-    public UsAppToPersonUsecaseFetcher(final String pathMessagingServiceSid) {
-        this.pathMessagingServiceSid = pathMessagingServiceSid;
+    public UsAppToPersonUsecaseFetcher(final String pathmessagingServiceSid) {
+        this.pathmessagingServiceSid = pathmessagingServiceSid;
     }
 
-    public UsAppToPersonUsecaseFetcher setBrandRegistrationSid(
-        final String brandRegistrationSid
-    ) {
+
+    public UsAppToPersonUsecaseFetcher setBrandRegistrationSid(final String brandRegistrationSid) {
         this.brandRegistrationSid = brandRegistrationSid;
         return this;
     }
 
+
     @Override
     public UsAppToPersonUsecase fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
+        String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases";
+
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.GET,
+                Domains.MESSAGING.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "UsAppToPersonUsecase fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UsAppToPersonUsecase fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return UsAppToPersonUsecase.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UsAppToPersonUsecase.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (brandRegistrationSid != null) {
-            request.addQueryParam("BrandRegistrationSid", brandRegistrationSid);
+            Serializer.toString(request, "BrandRegistrationSid", brandRegistrationSid, ParameterType.QUERY);
         }
+
+
     }
 }

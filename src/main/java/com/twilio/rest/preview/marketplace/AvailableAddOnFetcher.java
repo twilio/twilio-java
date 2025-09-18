@@ -15,7 +15,6 @@
 package com.twilio.rest.preview.marketplace;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,47 +26,41 @@ import com.twilio.rest.Domains;
 
 public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
 
-    private String pathSid;
+    private String pathsid;
 
-    public AvailableAddOnFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public AvailableAddOnFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public AvailableAddOn fetch(final TwilioRestClient client) {
+
         String path = "/marketplace/AvailableAddOns/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PREVIEW.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AvailableAddOn fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AvailableAddOn fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return AvailableAddOn.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AvailableAddOn.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

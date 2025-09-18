@@ -15,7 +15,8 @@
 package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,40 +30,40 @@ public class SafelistDeleter extends Deleter<Safelist> {
 
     private String phoneNumber;
 
-    public SafelistDeleter() {}
+    public SafelistDeleter() {
+    }
+
 
     public SafelistDeleter setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
 
+
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v1/SafeList/Numbers";
 
+
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.ACCOUNTS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.ACCOUNTS.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Safelist delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Safelist delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -70,8 +71,12 @@ public class SafelistDeleter extends Deleter<Safelist> {
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber);
+            Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.QUERY);
         }
+
+
     }
 }

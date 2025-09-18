@@ -15,7 +15,6 @@
 package com.twilio.rest.preview.marketplace.installedaddon;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,61 +24,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class InstalledAddOnExtensionFetcher
-    extends Fetcher<InstalledAddOnExtension> {
+public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtension> {
 
-    private String pathInstalledAddOnSid;
-    private String pathSid;
+    private String pathinstalledAddOnSid;
+    private String pathsid;
 
-    public InstalledAddOnExtensionFetcher(
-        final String pathInstalledAddOnSid,
-        final String pathSid
-    ) {
-        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
-        this.pathSid = pathSid;
+    public InstalledAddOnExtensionFetcher(final String pathinstalledAddOnSid, final String pathsid) {
+        this.pathinstalledAddOnSid = pathinstalledAddOnSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public InstalledAddOnExtension fetch(final TwilioRestClient client) {
-        String path =
-            "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "InstalledAddOnSid" + "}",
-                this.pathInstalledAddOnSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
+
+        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathinstalledAddOnSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PREVIEW.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "InstalledAddOnExtension fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InstalledAddOnExtension fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return InstalledAddOnExtension.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InstalledAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

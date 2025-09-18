@@ -14,8 +14,11 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,81 +30,73 @@ import com.twilio.rest.Domains;
 
 public class ActivityCreator extends Creator<Activity> {
 
-    private String pathWorkspaceSid;
+    private String pathworkspaceSid;
     private String friendlyName;
     private Boolean available;
 
-    public ActivityCreator(
-        final String pathWorkspaceSid,
-        final String friendlyName
-    ) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
+    public ActivityCreator(final String pathworkspaceSid, final String friendlyName) {
+        this.pathworkspaceSid = pathworkspaceSid;
         this.friendlyName = friendlyName;
     }
+
 
     public ActivityCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public ActivityCreator setAvailable(final Boolean available) {
         this.available = available;
         return this;
     }
 
+
     @Override
     public Activity create(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TASKROUTER.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Activity creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Activity creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Activity.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Activity.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (available != null) {
-            request.addPostParam("Available", available.toString());
+            Serializer.toString(request, "Available", available, ParameterType.URLENCODED);
         }
+
+
     }
 }

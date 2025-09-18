@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.recording.addonresult.payload;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,89 +26,57 @@ import com.twilio.rest.Domains;
 
 public class DataFetcher extends Fetcher<Data> {
 
-    private String pathReferenceSid;
-    private String pathAddOnResultSid;
-    private String pathPayloadSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathreferenceSid;
+    private String pathaddOnResultSid;
+    private String pathpayloadSid;
 
-    public DataFetcher(
-        final String pathReferenceSid,
-        final String pathAddOnResultSid,
-        final String pathPayloadSid
-    ) {
-        this.pathReferenceSid = pathReferenceSid;
-        this.pathAddOnResultSid = pathAddOnResultSid;
-        this.pathPayloadSid = pathPayloadSid;
+    public DataFetcher(final String pathreferenceSid, final String pathaddOnResultSid, final String pathpayloadSid) {
+        this.pathreferenceSid = pathreferenceSid;
+        this.pathaddOnResultSid = pathaddOnResultSid;
+        this.pathpayloadSid = pathpayloadSid;
     }
 
-    public DataFetcher(
-        final String pathAccountSid,
-        final String pathReferenceSid,
-        final String pathAddOnResultSid,
-        final String pathPayloadSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathReferenceSid = pathReferenceSid;
-        this.pathAddOnResultSid = pathAddOnResultSid;
-        this.pathPayloadSid = pathPayloadSid;
+    public DataFetcher(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid, final String pathpayloadSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathreferenceSid = pathreferenceSid;
+        this.pathaddOnResultSid = pathaddOnResultSid;
+        this.pathpayloadSid = pathpayloadSid;
     }
+
 
     @Override
     public Data fetch(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ReferenceSid" + "}",
-                this.pathReferenceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AddOnResultSid" + "}",
-                this.pathAddOnResultSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PayloadSid" + "}",
-                this.pathPayloadSid.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ReferenceSid" + "}", this.pathreferenceSid.toString());
+        path = path.replace("{" + "AddOnResultSid" + "}", this.pathaddOnResultSid.toString());
+        path = path.replace("{" + "PayloadSid" + "}", this.pathpayloadSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Data fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Data fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Data.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

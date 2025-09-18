@@ -16,7 +16,8 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,117 +26,88 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class PaymentUpdater extends Updater<Payment> {
-
-    private String pathCallSid;
-    private String pathSid;
+    private String pathaccountSid;
+    private String pathcallSid;
+    private String pathsid;
     private String idempotencyKey;
     private URI statusCallback;
-    private String pathAccountSid;
     private Payment.Capture capture;
     private Payment.Status status;
 
-    public PaymentUpdater(
-        final String pathCallSid,
-        final String pathSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
-        this.pathCallSid = pathCallSid;
-        this.pathSid = pathSid;
+    public PaymentUpdater(final String pathcallSid, final String pathsid, final String idempotencyKey, final URI statusCallback) {
+        this.pathcallSid = pathcallSid;
+        this.pathsid = pathsid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-    public PaymentUpdater(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final String pathSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
-        this.pathSid = pathSid;
+    public PaymentUpdater(final String pathaccountSid, final String pathcallSid, final String pathsid, final String idempotencyKey, final URI statusCallback) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathcallSid = pathcallSid;
+        this.pathsid = pathsid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
+
 
     public PaymentUpdater setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         return this;
     }
 
+
     public PaymentUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public PaymentUpdater setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
     public PaymentUpdater setCapture(final Payment.Capture capture) {
         this.capture = capture;
         return this;
     }
 
+
     public PaymentUpdater setStatus(final Payment.Status status) {
         this.status = status;
         return this;
     }
 
+
     @Override
     public Payment update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "IdempotencyKey" + "}",
-                this.idempotencyKey.toString()
-            );
-        path =
-            path.replace(
-                "{" + "StatusCallback" + "}",
-                this.statusCallback.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Payment update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Payment update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -144,17 +116,26 @@ public class PaymentUpdater extends Updater<Payment> {
     }
 
     private void addPostParams(final Request request) {
+
         if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
+            Serializer.toString(request, "IdempotencyKey", idempotencyKey, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (capture != null) {
-            request.addPostParam("Capture", capture.toString());
+            Serializer.toString(request, "Capture", capture, ParameterType.URLENCODED);
         }
+
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
     }
 }

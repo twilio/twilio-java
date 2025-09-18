@@ -15,7 +15,6 @@
 package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,63 +26,47 @@ import com.twilio.rest.Domains;
 
 public class LogFetcher extends Fetcher<Log> {
 
-    private String pathServiceSid;
-    private String pathEnvironmentSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathenvironmentSid;
+    private String pathsid;
 
-    public LogFetcher(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathEnvironmentSid = pathEnvironmentSid;
-        this.pathSid = pathSid;
+    public LogFetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathenvironmentSid = pathenvironmentSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public Log fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.SERVERLESS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.SERVERLESS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Log fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Log fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Log.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

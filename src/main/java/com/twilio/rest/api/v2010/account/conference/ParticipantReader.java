@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,44 +30,46 @@ import com.twilio.rest.Domains;
 
 public class ParticipantReader extends Reader<Participant> {
 
-    private String pathConferenceSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathconferenceSid;
     private Boolean muted;
     private Boolean hold;
     private Boolean coaching;
     private Long pageSize;
 
-    public ParticipantReader(final String pathConferenceSid) {
-        this.pathConferenceSid = pathConferenceSid;
+    public ParticipantReader(final String pathconferenceSid) {
+        this.pathconferenceSid = pathconferenceSid;
     }
 
-    public ParticipantReader(
-        final String pathAccountSid,
-        final String pathConferenceSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathConferenceSid = pathConferenceSid;
+    public ParticipantReader(final String pathaccountSid, final String pathconferenceSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathconferenceSid = pathconferenceSid;
     }
+
 
     public ParticipantReader setMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
 
+
     public ParticipantReader setHold(final Boolean hold) {
         this.hold = hold;
         return this;
     }
+
 
     public ParticipantReader setCoaching(final Boolean coaching) {
         this.coaching = coaching;
         return this;
     }
 
+
     public ParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Participant> read(final TwilioRestClient client) {
@@ -74,116 +77,85 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     public Page<Participant> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
+
+        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Participant> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Participant> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "participants",
-            response.getContent(),
-            Participant.class,
-            client.getObjectMapper()
-        );
+                "participants",
+                response.getContent(),
+                Participant.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Participant> previousPage(
-        final Page<Participant> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Participant> previousPage(final Page<Participant> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Participant> nextPage(
-        final Page<Participant> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
+    public Page<Participant> nextPage(final Page<Participant> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Participant> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Participant> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (muted != null) {
-            request.addQueryParam("Muted", muted.toString());
-        }
-        if (hold != null) {
-            request.addQueryParam("Hold", hold.toString());
-        }
-        if (coaching != null) {
-            request.addQueryParam("Coaching", coaching.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Muted", muted, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (hold != null) {
+            Serializer.toString(request, "Hold", hold, ParameterType.QUERY);
         }
+
+
+        if (coaching != null) {
+            Serializer.toString(request, "Coaching", coaching, ParameterType.QUERY);
+        }
+
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+        }
+
+
     }
 }

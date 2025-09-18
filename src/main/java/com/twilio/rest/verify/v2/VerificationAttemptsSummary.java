@@ -18,155 +18,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationAttemptsSummary extends Resource {
 
-    private static final long serialVersionUID = 99139871813599L;
 
     public static VerificationAttemptsSummaryFetcher fetcher() {
-        return new VerificationAttemptsSummaryFetcher();
-    }
+        return new VerificationAttemptsSummaryFetcher(
 
-    /**
-     * Converts a JSON String into a VerificationAttemptsSummary object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return VerificationAttemptsSummary object represented by the provided JSON
-     */
-    public static VerificationAttemptsSummary fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(
-                json,
-                VerificationAttemptsSummary.class
-            );
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a VerificationAttemptsSummary object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return VerificationAttemptsSummary object represented by the provided JSON
-     */
-    public static VerificationAttemptsSummary fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(
-                json,
-                VerificationAttemptsSummary.class
-            );
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final Integer totalAttempts;
-    private final Integer totalConverted;
-    private final Integer totalUnconverted;
-    private final String conversionRatePercentage;
-    private final URI url;
-
-    @JsonCreator
-    private VerificationAttemptsSummary(
-        @JsonProperty("total_attempts") final Integer totalAttempts,
-        @JsonProperty("total_converted") final Integer totalConverted,
-        @JsonProperty("total_unconverted") final Integer totalUnconverted,
-        @JsonProperty(
-            "conversion_rate_percentage"
-        ) final String conversionRatePercentage,
-        @JsonProperty("url") final URI url
-    ) {
-        this.totalAttempts = totalAttempts;
-        this.totalConverted = totalConverted;
-        this.totalUnconverted = totalUnconverted;
-        this.conversionRatePercentage = conversionRatePercentage;
-        this.url = url;
-    }
-
-    public final Integer getTotalAttempts() {
-        return this.totalAttempts;
-    }
-
-    public final Integer getTotalConverted() {
-        return this.totalConverted;
-    }
-
-    public final Integer getTotalUnconverted() {
-        return this.totalUnconverted;
-    }
-
-    public final String getConversionRatePercentage() {
-        return this.conversionRatePercentage;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        VerificationAttemptsSummary other = (VerificationAttemptsSummary) o;
-
-        return (
-            Objects.equals(totalAttempts, other.totalAttempts) &&
-            Objects.equals(totalConverted, other.totalConverted) &&
-            Objects.equals(totalUnconverted, other.totalUnconverted) &&
-            Objects.equals(
-                conversionRatePercentage,
-                other.conversionRatePercentage
-            ) &&
-            Objects.equals(url, other.url)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            totalAttempts,
-            totalConverted,
-            totalUnconverted,
-            conversionRatePercentage,
-            url
-        );
-    }
 
     public enum Channels {
         SMS("sms"),
@@ -190,4 +67,115 @@ public class VerificationAttemptsSummary extends Resource {
             return Promoter.enumFromString(value, Channels.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a VerificationAttemptsSummary object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return VerificationAttemptsSummary object represented by the provided JSON
+     */
+    public static VerificationAttemptsSummary fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, VerificationAttemptsSummary.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a VerificationAttemptsSummary object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return VerificationAttemptsSummary object represented by the provided JSON
+     */
+    public static VerificationAttemptsSummary fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, VerificationAttemptsSummary.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String conversionRatePercentage;
+    @Getter
+    private final Integer totalAttempts;
+    @Getter
+    private final Integer totalConverted;
+    @Getter
+    private final Integer totalUnconverted;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private VerificationAttemptsSummary(
+            @JsonProperty("conversion_rate_percentage") final String conversionRatePercentage,
+            @JsonProperty("total_attempts") final Integer totalAttempts,
+            @JsonProperty("total_converted") final Integer totalConverted,
+            @JsonProperty("total_unconverted") final Integer totalUnconverted,
+            @JsonProperty("url") final URI url
+    ) {
+        this.conversionRatePercentage = conversionRatePercentage;
+        this.totalAttempts = totalAttempts;
+        this.totalConverted = totalConverted;
+        this.totalUnconverted = totalUnconverted;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        VerificationAttemptsSummary other = (VerificationAttemptsSummary) o;
+        return (
+                Objects.equals(conversionRatePercentage, other.conversionRatePercentage) &&
+                        Objects.equals(totalAttempts, other.totalAttempts) &&
+                        Objects.equals(totalConverted, other.totalConverted) &&
+                        Objects.equals(totalUnconverted, other.totalUnconverted) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                conversionRatePercentage,
+                totalAttempts,
+                totalConverted,
+                totalUnconverted,
+                url
+        );
+    }
+
+
 }
+

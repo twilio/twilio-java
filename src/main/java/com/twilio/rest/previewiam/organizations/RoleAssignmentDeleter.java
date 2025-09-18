@@ -15,69 +15,52 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Response;
 import com.twilio.http.Request;
+import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RoleAssignmentDeleter extends Deleter<RoleAssignment> {
 
-    private String pathOrganizationSid;
-    private String pathRoleAssignmentSid;
+    private String pathorganizationSid;
+    private String pathroleAssignmentSid;
 
-    public RoleAssignmentDeleter(
-        final String pathOrganizationSid,
-        final String pathRoleAssignmentSid
-    ) {
-        this.pathOrganizationSid = pathOrganizationSid;
-        this.pathRoleAssignmentSid = pathRoleAssignmentSid;
+    public RoleAssignmentDeleter(final String pathorganizationSid, final String pathroleAssignmentSid) {
+        this.pathorganizationSid = pathorganizationSid;
+        this.pathroleAssignmentSid = pathroleAssignmentSid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/Organizations/{OrganizationSid}/RoleAssignments/{RoleAssignmentSid}";
 
-        path =
-            path.replace(
-                "{" + "OrganizationSid" + "}",
-                this.pathOrganizationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "RoleAssignmentSid" + "}",
-                this.pathRoleAssignmentSid.toString()
-            );
+        String path = "/Organizations/{OrganizationSid}/RoleAssignments/{RoleAssignmentSid}";
+
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "RoleAssignmentSid" + "}", this.pathroleAssignmentSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.PREVIEWIAM.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.PREVIEWIAM.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "RoleAssignment delete failed: Unable to connect to server"
-            );
-        } else if (
-            !TwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+            throw new ApiConnectionException("RoleAssignment delete failed: Unable to connect to server");
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

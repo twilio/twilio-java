@@ -18,43 +18,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExternalCampaign extends Resource {
 
-    private static final long serialVersionUID = 211920409391157L;
 
-    public static ExternalCampaignCreator creator(
-        final String campaignId,
-        final String messagingServiceSid
-    ) {
-        return new ExternalCampaignCreator(campaignId, messagingServiceSid);
+    public static ExternalCampaignCreator creator(final String campaignId, final String messagingServiceSid) {
+        return new ExternalCampaignCreator(
+                campaignId, messagingServiceSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a ExternalCampaign object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExternalCampaign object represented by the provided JSON
      */
-    public static ExternalCampaign fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ExternalCampaign fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExternalCampaign.class);
@@ -69,14 +67,11 @@ public class ExternalCampaign extends Resource {
      * Converts a JSON InputStream into a ExternalCampaign object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExternalCampaign object represented by the provided JSON
      */
-    public static ExternalCampaign fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ExternalCampaign fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExternalCampaign.class);
@@ -87,45 +82,44 @@ public class ExternalCampaign extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
     private final String campaignId;
-    private final String messagingServiceSid;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
+    private final String messagingServiceSid;
+    @Getter
+    private final String sid;
 
     @JsonCreator
     private ExternalCampaign(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("campaign_id") final String campaignId,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("date_created") final String dateCreated
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("campaign_id") final String campaignId,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+            @JsonProperty("sid") final String sid
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
         this.campaignId = campaignId;
+        this.dateCreated = dateCreated;
         this.messagingServiceSid = messagingServiceSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCampaignId() {
-        return this.campaignId;
-    }
-
-    public final String getMessagingServiceSid() {
-        return this.messagingServiceSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
+        this.sid = sid;
     }
 
     @Override
@@ -139,24 +133,26 @@ public class ExternalCampaign extends Resource {
         }
 
         ExternalCampaign other = (ExternalCampaign) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(campaignId, other.campaignId) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(dateCreated, other.dateCreated)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(campaignId, other.campaignId) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+                        Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            campaignId,
-            messagingServiceSid,
-            dateCreated
+                accountSid,
+                campaignId,
+                dateCreated,
+                messagingServiceSid,
+                sid
         );
     }
+
+
 }
+

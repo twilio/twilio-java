@@ -18,51 +18,57 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PluginConfiguration extends Resource {
 
-    private static final long serialVersionUID = 179388614074571L;
 
     public static PluginConfigurationCreator creator(final String name) {
-        return new PluginConfigurationCreator(name);
+        return new PluginConfigurationCreator(
+                name
+        );
     }
 
-    public static PluginConfigurationFetcher fetcher(final String pathSid) {
-        return new PluginConfigurationFetcher(pathSid);
+
+    public static PluginConfigurationFetcher fetcher(final String pathsid) {
+        return new PluginConfigurationFetcher(
+                pathsid
+        );
     }
+
 
     public static PluginConfigurationReader reader() {
-        return new PluginConfigurationReader();
+        return new PluginConfigurationReader(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a PluginConfiguration object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PluginConfiguration object represented by the provided JSON
      */
-    public static PluginConfiguration fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static PluginConfiguration fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginConfiguration.class);
@@ -77,14 +83,11 @@ public class PluginConfiguration extends Resource {
      * Converts a JSON InputStream into a PluginConfiguration object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PluginConfiguration object represented by the provided JSON
      */
-    public static PluginConfiguration fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static PluginConfiguration fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PluginConfiguration.class);
@@ -95,66 +98,56 @@ public class PluginConfiguration extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String name;
-    private final String description;
+    @Getter
     private final Boolean archived;
+    @Getter
     private final ZonedDateTime dateCreated;
-    private final URI url;
+    @Getter
+    private final String description;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final String name;
+    @Getter
+    private final String sid;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private PluginConfiguration(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("name") final String name,
-        @JsonProperty("description") final String description,
-        @JsonProperty("archived") final Boolean archived,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("archived") final Boolean archived,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("description") final String description,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("name") final String name,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.name = name;
-        this.description = description;
         this.archived = archived;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.description = description;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Boolean getArchived() {
-        return this.archived;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.name = name;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -168,30 +161,32 @@ public class PluginConfiguration extends Resource {
         }
 
         PluginConfiguration other = (PluginConfiguration) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(archived, other.archived) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(archived, other.archived) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(description, other.description) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(name, other.name) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            name,
-            description,
-            archived,
-            dateCreated,
-            url,
-            links
+                accountSid,
+                archived,
+                dateCreated,
+                description,
+                links,
+                name,
+                sid,
+                url
         );
     }
+
+
 }
+

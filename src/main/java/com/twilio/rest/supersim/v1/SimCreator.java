@@ -14,8 +14,11 @@
 
 package com.twilio.rest.supersim.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,49 +38,44 @@ public class SimCreator extends Creator<Sim> {
         this.registrationCode = registrationCode;
     }
 
+
     public SimCreator setIccid(final String iccid) {
         this.iccid = iccid;
         return this;
     }
+
 
     public SimCreator setRegistrationCode(final String registrationCode) {
         this.registrationCode = registrationCode;
         return this;
     }
 
+
     @Override
     public Sim create(final TwilioRestClient client) {
+
         String path = "/v1/Sims";
 
-        path = path.replace("{" + "Iccid" + "}", this.iccid.toString());
-        path =
-            path.replace(
-                "{" + "RegistrationCode" + "}",
-                this.registrationCode.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SUPERSIM.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SUPERSIM.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Sim creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Sim creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -86,11 +84,16 @@ public class SimCreator extends Creator<Sim> {
     }
 
     private void addPostParams(final Request request) {
+
         if (iccid != null) {
-            request.addPostParam("Iccid", iccid);
+            Serializer.toString(request, "Iccid", iccid, ParameterType.URLENCODED);
         }
+
+
         if (registrationCode != null) {
-            request.addPostParam("RegistrationCode", registrationCode);
+            Serializer.toString(request, "RegistrationCode", registrationCode, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,74 +24,52 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AuthCallsCredentialListMappingDeleter
-    extends Deleter<AuthCallsCredentialListMapping> {
+public class AuthCallsCredentialListMappingDeleter extends Deleter<AuthCallsCredentialListMapping> {
 
-    private String pathDomainSid;
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathdomainSid;
+    private String pathsid;
 
-    public AuthCallsCredentialListMappingDeleter(
-        final String pathDomainSid,
-        final String pathSid
-    ) {
-        this.pathDomainSid = pathDomainSid;
-        this.pathSid = pathSid;
+    public AuthCallsCredentialListMappingDeleter(final String pathdomainSid, final String pathsid) {
+        this.pathdomainSid = pathdomainSid;
+        this.pathsid = pathsid;
     }
 
-    public AuthCallsCredentialListMappingDeleter(
-        final String pathAccountSid,
-        final String pathDomainSid,
-        final String pathSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathDomainSid = pathDomainSid;
-        this.pathSid = pathSid;
+    public AuthCallsCredentialListMappingDeleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathdomainSid = pathdomainSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.API.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AuthCallsCredentialListMapping delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AuthCallsCredentialListMapping delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

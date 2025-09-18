@@ -18,198 +18,46 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannelParticipant extends Resource {
 
-    private static final long serialVersionUID = 13330803139630L;
 
-    public static InteractionChannelParticipantCreator creator(
-        final String pathInteractionSid,
-        final String pathChannelSid,
-        final InteractionChannelParticipant.Type type,
-        final Object mediaProperties
-    ) {
+    public static InteractionChannelParticipantCreator creator(final String pathinteractionSid, final String pathchannelSid, final InteractionChannelParticipant.Type type, final Object mediaProperties) {
         return new InteractionChannelParticipantCreator(
-            pathInteractionSid,
-            pathChannelSid,
-            type,
-            mediaProperties
+                pathinteractionSid, pathchannelSid, type, mediaProperties
         );
     }
 
-    public static InteractionChannelParticipantReader reader(
-        final String pathInteractionSid,
-        final String pathChannelSid
-    ) {
+
+    public static InteractionChannelParticipantReader reader(final String pathinteractionSid, final String pathchannelSid) {
         return new InteractionChannelParticipantReader(
-            pathInteractionSid,
-            pathChannelSid
+                pathinteractionSid, pathchannelSid
         );
     }
 
-    public static InteractionChannelParticipantUpdater updater(
-        final String pathInteractionSid,
-        final String pathChannelSid,
-        final String pathSid,
-        final InteractionChannelParticipant.Status status
-    ) {
+
+    public static InteractionChannelParticipantUpdater updater(final String pathinteractionSid, final String pathchannelSid, final String pathsid, final InteractionChannelParticipant.Status status) {
         return new InteractionChannelParticipantUpdater(
-            pathInteractionSid,
-            pathChannelSid,
-            pathSid,
-            status
+                pathinteractionSid, pathchannelSid, pathsid, status
         );
     }
 
-    /**
-     * Converts a JSON String into a InteractionChannelParticipant object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionChannelParticipant object represented by the provided JSON
-     */
-    public static InteractionChannelParticipant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(
-                json,
-                InteractionChannelParticipant.class
-            );
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a InteractionChannelParticipant object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionChannelParticipant object represented by the provided JSON
-     */
-    public static InteractionChannelParticipant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(
-                json,
-                InteractionChannelParticipant.class
-            );
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final InteractionChannelParticipant.Type type;
-    private final String interactionSid;
-    private final String channelSid;
-    private final URI url;
-    private final Map<String, Object> routingProperties;
-
-    @JsonCreator
-    private InteractionChannelParticipant(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("type") final InteractionChannelParticipant.Type type,
-        @JsonProperty("interaction_sid") final String interactionSid,
-        @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("routing_properties") final Map<
-            String,
-            Object
-        > routingProperties
-    ) {
-        this.sid = sid;
-        this.type = type;
-        this.interactionSid = interactionSid;
-        this.channelSid = channelSid;
-        this.url = url;
-        this.routingProperties = routingProperties;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final InteractionChannelParticipant.Type getType() {
-        return this.type;
-    }
-
-    public final String getInteractionSid() {
-        return this.interactionSid;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getRoutingProperties() {
-        return this.routingProperties;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InteractionChannelParticipant other = (InteractionChannelParticipant) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(interactionSid, other.interactionSid) &&
-            Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(routingProperties, other.routingProperties)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            type,
-            interactionSid,
-            channelSid,
-            url,
-            routingProperties
-        );
-    }
 
     public enum Status {
         CLOSED("closed"),
@@ -253,4 +101,121 @@ public class InteractionChannelParticipant extends Resource {
             return Promoter.enumFromString(value, Type.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a InteractionChannelParticipant object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return InteractionChannelParticipant object represented by the provided JSON
+     */
+    public static InteractionChannelParticipant fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, InteractionChannelParticipant.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a InteractionChannelParticipant object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return InteractionChannelParticipant object represented by the provided JSON
+     */
+    public static InteractionChannelParticipant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, InteractionChannelParticipant.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String channelSid;
+    @Getter
+    private final String interactionSid;
+    @Getter
+    private final Object routingProperties;
+    @Getter
+    private final String sid;
+    @Getter
+    private final InteractionChannelParticipant.Type type;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private InteractionChannelParticipant(
+            @JsonProperty("channel_sid") final String channelSid,
+            @JsonProperty("interaction_sid") final String interactionSid,
+            @JsonProperty("routing_properties") final Object routingProperties,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("type") final InteractionChannelParticipant.Type type,
+            @JsonProperty("url") final URI url
+    ) {
+        this.channelSid = channelSid;
+        this.interactionSid = interactionSid;
+        this.routingProperties = routingProperties;
+        this.sid = sid;
+        this.type = type;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        InteractionChannelParticipant other = (InteractionChannelParticipant) o;
+        return (
+                Objects.equals(channelSid, other.channelSid) &&
+                        Objects.equals(interactionSid, other.interactionSid) &&
+                        Objects.equals(routingProperties, other.routingProperties) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(type, other.type) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                channelSid,
+                interactionSid,
+                routingProperties,
+                sid,
+                type,
+                url
+        );
+    }
+
+
 }
+

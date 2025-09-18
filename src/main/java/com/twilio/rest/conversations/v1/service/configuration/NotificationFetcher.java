@@ -15,7 +15,6 @@
 package com.twilio.rest.conversations.v1.service.configuration;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,52 +26,41 @@ import com.twilio.rest.Domains;
 
 public class NotificationFetcher extends Fetcher<Notification> {
 
-    private String pathChatServiceSid;
+    private String pathchatServiceSid;
 
-    public NotificationFetcher(final String pathChatServiceSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
+    public NotificationFetcher(final String pathchatServiceSid) {
+        this.pathchatServiceSid = pathchatServiceSid;
     }
+
 
     @Override
     public Notification fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
+        String path = "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Notification fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Notification fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Notification.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Notification.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

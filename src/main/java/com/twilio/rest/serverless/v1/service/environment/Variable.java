@@ -18,82 +18,70 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Variable extends Resource {
 
-    private static final long serialVersionUID = 240706939520174L;
 
-    public static VariableCreator creator(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String key,
-        final String value
-    ) {
+    public static VariableCreator creator(final String pathserviceSid, final String pathenvironmentSid, final String key, final String value) {
         return new VariableCreator(
-            pathServiceSid,
-            pathEnvironmentSid,
-            key,
-            value
+                pathserviceSid, pathenvironmentSid, key, value
         );
     }
 
-    public static VariableDeleter deleter(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
-        return new VariableDeleter(pathServiceSid, pathEnvironmentSid, pathSid);
+
+    public static VariableDeleter deleter(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+        return new VariableDeleter(
+                pathserviceSid, pathenvironmentSid, pathsid
+        );
     }
 
-    public static VariableFetcher fetcher(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
-        return new VariableFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
+
+    public static VariableFetcher fetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+        return new VariableFetcher(
+                pathserviceSid, pathenvironmentSid, pathsid
+        );
     }
 
-    public static VariableReader reader(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
-        return new VariableReader(pathServiceSid, pathEnvironmentSid);
+
+    public static VariableReader reader(final String pathserviceSid, final String pathenvironmentSid) {
+        return new VariableReader(
+                pathserviceSid, pathenvironmentSid
+        );
     }
 
-    public static VariableUpdater updater(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
-        return new VariableUpdater(pathServiceSid, pathEnvironmentSid, pathSid);
+
+    public static VariableUpdater updater(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+        return new VariableUpdater(
+                pathserviceSid, pathenvironmentSid, pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Variable object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Variable object represented by the provided JSON
      */
-    public static Variable fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Variable fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Variable.class);
@@ -108,14 +96,11 @@ public class Variable extends Resource {
      * Converts a JSON InputStream into a Variable object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Variable object represented by the provided JSON
      */
-    public static Variable fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Variable fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Variable.class);
@@ -126,73 +111,61 @@ public class Variable extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String environmentSid;
-    private final String key;
-    private final String value;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String environmentSid;
+    @Getter
+    private final String key;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
     private final URI url;
+    @Getter
+    private final String value;
 
     @JsonCreator
     private Variable(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("environment_sid") final String environmentSid,
-        @JsonProperty("key") final String key,
-        @JsonProperty("value") final String value,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("environment_sid") final String environmentSid,
+            @JsonProperty("key") final String key,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("value") final String value
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.environmentSid = environmentSid;
         this.key = key;
-        this.value = value;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getEnvironmentSid() {
-        return this.environmentSid;
-    }
-
-    public final String getKey() {
-        return this.key;
-    }
-
-    public final String getValue() {
-        return this.value;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.value = value;
     }
 
     @Override
@@ -206,32 +179,34 @@ public class Variable extends Resource {
         }
 
         Variable other = (Variable) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(environmentSid, other.environmentSid) &&
-            Objects.equals(key, other.key) &&
-            Objects.equals(value, other.value) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(environmentSid, other.environmentSid) &&
+                        Objects.equals(key, other.key) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(value, other.value)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            environmentSid,
-            key,
-            value,
-            dateCreated,
-            dateUpdated,
-            url
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                environmentSid,
+                key,
+                serviceSid,
+                sid,
+                url,
+                value
         );
     }
+
+
 }
+

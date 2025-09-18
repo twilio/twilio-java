@@ -14,8 +14,8 @@
 
 package com.twilio.rest.assistants.v1.assistant;
 
+
 import com.twilio.base.Creator;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,56 +27,45 @@ import com.twilio.rest.Domains;
 
 public class AssistantsToolCreator extends Creator<AssistantsTool> {
 
-    private String pathAssistantId;
-    private String pathId;
+    private String pathassistantId;
+    private String pathid;
 
-    public AssistantsToolCreator(
-        final String pathAssistantId,
-        final String pathId
-    ) {
-        this.pathAssistantId = pathAssistantId;
-        this.pathId = pathId;
+    public AssistantsToolCreator(final String pathassistantId, final String pathid) {
+        this.pathassistantId = pathassistantId;
+        this.pathid = pathid;
     }
+
 
     @Override
     public AssistantsTool create(final TwilioRestClient client) {
+
         String path = "/v1/Assistants/{assistantId}/Tools/{id}";
 
-        path =
-            path.replace(
-                "{" + "assistantId" + "}",
-                this.pathAssistantId.toString()
-            );
-        path = path.replace("{" + "id" + "}", this.pathId.toString());
+        path = path.replace("{" + "assistantId" + "}", this.pathassistantId.toString());
+        path = path.replace("{" + "id" + "}", this.pathid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.ASSISTANTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.ASSISTANTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "AssistantsTool creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AssistantsTool creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AssistantsTool.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AssistantsTool.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

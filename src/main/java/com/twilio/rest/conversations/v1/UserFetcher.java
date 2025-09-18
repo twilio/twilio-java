@@ -15,7 +15,6 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,44 +26,41 @@ import com.twilio.rest.Domains;
 
 public class UserFetcher extends Fetcher<User> {
 
-    private String pathSid;
+    private String pathsid;
 
-    public UserFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public UserFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public User fetch(final TwilioRestClient client) {
+
         String path = "/v1/Users/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "User fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("User fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return User.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

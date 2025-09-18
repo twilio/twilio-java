@@ -18,84 +18,61 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DocumentPermission extends Resource {
 
-    private static final long serialVersionUID = 90173038651529L;
 
-    public static DocumentPermissionDeleter deleter(
-        final String pathServiceSid,
-        final String pathDocumentSid,
-        final String pathIdentity
-    ) {
+    public static DocumentPermissionDeleter deleter(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
         return new DocumentPermissionDeleter(
-            pathServiceSid,
-            pathDocumentSid,
-            pathIdentity
+                pathserviceSid, pathdocumentSid, pathidentity
         );
     }
 
-    public static DocumentPermissionFetcher fetcher(
-        final String pathServiceSid,
-        final String pathDocumentSid,
-        final String pathIdentity
-    ) {
+
+    public static DocumentPermissionFetcher fetcher(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
         return new DocumentPermissionFetcher(
-            pathServiceSid,
-            pathDocumentSid,
-            pathIdentity
+                pathserviceSid, pathdocumentSid, pathidentity
         );
     }
 
-    public static DocumentPermissionReader reader(
-        final String pathServiceSid,
-        final String pathDocumentSid
-    ) {
-        return new DocumentPermissionReader(pathServiceSid, pathDocumentSid);
+
+    public static DocumentPermissionReader reader(final String pathserviceSid, final String pathdocumentSid) {
+        return new DocumentPermissionReader(
+                pathserviceSid, pathdocumentSid
+        );
     }
 
-    public static DocumentPermissionUpdater updater(
-        final String pathServiceSid,
-        final String pathDocumentSid,
-        final String pathIdentity,
-        final Boolean read,
-        final Boolean write,
-        final Boolean manage
-    ) {
+
+    public static DocumentPermissionUpdater updater(final String pathserviceSid, final String pathdocumentSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new DocumentPermissionUpdater(
-            pathServiceSid,
-            pathDocumentSid,
-            pathIdentity,
-            read,
-            write,
-            manage
+                pathserviceSid, pathdocumentSid, pathidentity, read, write, manage
         );
     }
+
 
     /**
      * Converts a JSON String into a DocumentPermission object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DocumentPermission object represented by the provided JSON
      */
-    public static DocumentPermission fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static DocumentPermission fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DocumentPermission.class);
@@ -110,14 +87,11 @@ public class DocumentPermission extends Resource {
      * Converts a JSON InputStream into a DocumentPermission object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DocumentPermission object represented by the provided JSON
      */
-    public static DocumentPermission fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static DocumentPermission fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DocumentPermission.class);
@@ -128,66 +102,55 @@ public class DocumentPermission extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
+    @Getter
     private final String documentSid;
+    @Getter
     private final String identity;
-    private final Boolean read;
-    private final Boolean write;
+    @Getter
     private final Boolean manage;
+    @Getter
+    private final Boolean read;
+    @Getter
+    private final String serviceSid;
+    @Getter
     private final URI url;
+    @Getter
+    private final Boolean write;
 
     @JsonCreator
     private DocumentPermission(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("document_sid") final String documentSid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("read") final Boolean read,
-        @JsonProperty("write") final Boolean write,
-        @JsonProperty("manage") final Boolean manage,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("document_sid") final String documentSid,
+            @JsonProperty("identity") final String identity,
+            @JsonProperty("manage") final Boolean manage,
+            @JsonProperty("read") final Boolean read,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("write") final Boolean write
     ) {
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
         this.documentSid = documentSid;
         this.identity = identity;
-        this.read = read;
-        this.write = write;
         this.manage = manage;
+        this.read = read;
+        this.serviceSid = serviceSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getDocumentSid() {
-        return this.documentSid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final Boolean getRead() {
-        return this.read;
-    }
-
-    public final Boolean getWrite() {
-        return this.write;
-    }
-
-    public final Boolean getManage() {
-        return this.manage;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.write = write;
     }
 
     @Override
@@ -201,30 +164,32 @@ public class DocumentPermission extends Resource {
         }
 
         DocumentPermission other = (DocumentPermission) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(documentSid, other.documentSid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(read, other.read) &&
-            Objects.equals(write, other.write) &&
-            Objects.equals(manage, other.manage) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(documentSid, other.documentSid) &&
+                        Objects.equals(identity, other.identity) &&
+                        Objects.equals(manage, other.manage) &&
+                        Objects.equals(read, other.read) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(write, other.write)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            serviceSid,
-            documentSid,
-            identity,
-            read,
-            write,
-            manage,
-            url
+                accountSid,
+                documentSid,
+                identity,
+                manage,
+                read,
+                serviceSid,
+                url,
+                write
         );
     }
+
+
 }
+

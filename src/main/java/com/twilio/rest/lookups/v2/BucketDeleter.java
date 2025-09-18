@@ -15,7 +15,6 @@
 package com.twilio.rest.lookups.v2;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,43 +26,41 @@ import com.twilio.rest.Domains;
 
 public class BucketDeleter extends Deleter<Bucket> {
 
-    private String pathField;
-    private String pathBucket;
+    private String pathfield;
+    private String pathbucket;
 
-    public BucketDeleter(final String pathField, final String pathBucket) {
-        this.pathField = pathField;
-        this.pathBucket = pathBucket;
+    public BucketDeleter(final String pathfield, final String pathbucket) {
+        this.pathfield = pathfield;
+        this.pathbucket = pathbucket;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
 
-        path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path = path.replace("{" + "Bucket" + "}", this.pathBucket.toString());
+        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
+        path = path.replace("{" + "Bucket" + "}", this.pathbucket.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.LOOKUPS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.LOOKUPS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bucket delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bucket delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

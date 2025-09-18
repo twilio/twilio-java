@@ -15,7 +15,6 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,44 +26,38 @@ import com.twilio.rest.Domains;
 
 public class PortingPortInDeleter extends Deleter<PortingPortIn> {
 
-    private String pathPortInRequestSid;
+    private String pathportInRequestSid;
 
-    public PortingPortInDeleter(final String pathPortInRequestSid) {
-        this.pathPortInRequestSid = pathPortInRequestSid;
+    public PortingPortInDeleter(final String pathportInRequestSid) {
+        this.pathportInRequestSid = pathportInRequestSid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v1/Porting/PortIn/{PortInRequestSid}";
 
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
+        path = path.replace("{" + "PortInRequestSid" + "}", this.pathportInRequestSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.NUMBERS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "PortingPortIn delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PortingPortIn delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

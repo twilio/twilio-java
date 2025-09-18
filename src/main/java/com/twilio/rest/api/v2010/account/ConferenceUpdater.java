@@ -16,7 +16,8 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,106 +26,96 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class ConferenceUpdater extends Updater<Conference> {
-
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathsid;
     private Conference.UpdateStatus status;
     private URI announceUrl;
     private HttpMethod announceMethod;
 
-    public ConferenceUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConferenceUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public ConferenceUpdater(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public ConferenceUpdater(final String pathaccountSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathsid = pathsid;
     }
+
 
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status) {
         this.status = status;
         return this;
     }
 
+
     public ConferenceUpdater setAnnounceUrl(final URI announceUrl) {
         this.announceUrl = announceUrl;
         return this;
     }
 
-    public ConferenceUpdater setAnnounceUrl(final String announceUrl) {
-        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
-    }
 
-    public ConferenceUpdater setAnnounceMethod(
-        final HttpMethod announceMethod
-    ) {
+    public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod) {
         this.announceMethod = announceMethod;
         return this;
     }
 
+
     @Override
     public Conference update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Conference update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Conference update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Conference.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Conference.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
         if (announceUrl != null) {
-            request.addPostParam("AnnounceUrl", announceUrl.toString());
+            Serializer.toString(request, "AnnounceUrl", announceUrl, ParameterType.URLENCODED);
         }
+
+
         if (announceMethod != null) {
-            request.addPostParam("AnnounceMethod", announceMethod.toString());
+            Serializer.toString(request, "AnnounceMethod", announceMethod, ParameterType.URLENCODED);
         }
+
+
     }
 }

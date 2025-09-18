@@ -15,7 +15,6 @@
 package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,54 +26,44 @@ import com.twilio.rest.Domains;
 
 public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
-    private String pathTrunkSid;
-    private String pathSid;
+    private String pathtrunkSid;
+    private String pathsid;
 
-    public OriginationUrlFetcher(
-        final String pathTrunkSid,
-        final String pathSid
-    ) {
-        this.pathTrunkSid = pathTrunkSid;
-        this.pathSid = pathSid;
+    public OriginationUrlFetcher(final String pathtrunkSid, final String pathsid) {
+        this.pathtrunkSid = pathtrunkSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public OriginationUrl fetch(final TwilioRestClient client) {
+
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TRUNKING.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TRUNKING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "OriginationUrl fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("OriginationUrl fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return OriginationUrl.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return OriginationUrl.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -17,90 +17,29 @@ package com.twilio.rest.numbers.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingWebhookConfigurationDelete extends Resource {
 
-    private static final long serialVersionUID = 0L;
 
-    public static PortingWebhookConfigurationDeleteDeleter deleter(
-        final PortingWebhookConfigurationDelete.WebhookType webhookType
-    ) {
-        return new PortingWebhookConfigurationDeleteDeleter(webhookType);
+    public static PortingWebhookConfigurationDeleteDeleter deleter(final PortingWebhookConfigurationDelete.WebhookType pathwebhookType) {
+        return new PortingWebhookConfigurationDeleteDeleter(
+                pathwebhookType
+        );
     }
 
-    /**
-     * Converts a JSON String into a PortingWebhookConfigurationDelete object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingWebhookConfigurationDelete object represented by the provided JSON
-     */
-    public static PortingWebhookConfigurationDelete fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(
-                json,
-                PortingWebhookConfigurationDelete.class
-            );
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a PortingWebhookConfigurationDelete object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingWebhookConfigurationDelete object represented by the provided JSON
-     */
-    public static PortingWebhookConfigurationDelete fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(
-                json,
-                PortingWebhookConfigurationDelete.class
-            );
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    @JsonCreator
-    private PortingWebhookConfigurationDelete() {}
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj != null && obj.getClass() == this.getClass();
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
 
     public enum WebhookType {
         PORT_IN("PORT_IN"),
@@ -121,4 +60,70 @@ public class PortingWebhookConfigurationDelete extends Resource {
             return Promoter.enumFromString(value, WebhookType.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a PortingWebhookConfigurationDelete object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return PortingWebhookConfigurationDelete object represented by the provided JSON
+     */
+    public static PortingWebhookConfigurationDelete fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, PortingWebhookConfigurationDelete.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a PortingWebhookConfigurationDelete object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return PortingWebhookConfigurationDelete object represented by the provided JSON
+     */
+    public static PortingWebhookConfigurationDelete fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, PortingWebhookConfigurationDelete.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @JsonCreator
+    private PortingWebhookConfigurationDelete() {
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == this.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
 }
+

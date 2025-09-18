@@ -15,7 +15,8 @@
 package com.twilio.rest.preview.wireless.sim;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,66 +28,71 @@ import com.twilio.rest.Domains;
 
 public class UsageFetcher extends Fetcher<Usage> {
 
-    private String pathSimSid;
+    private String pathsimSid;
     private String end;
     private String start;
 
-    public UsageFetcher(final String pathSimSid) {
-        this.pathSimSid = pathSimSid;
+    public UsageFetcher(final String pathsimSid) {
+        this.pathsimSid = pathsimSid;
     }
+
 
     public UsageFetcher setEnd(final String end) {
         this.end = end;
         return this;
     }
 
+
     public UsageFetcher setStart(final String start) {
         this.start = start;
         return this;
     }
 
+
     @Override
     public Usage fetch(final TwilioRestClient client) {
+
         String path = "/wireless/Sims/{SimSid}/Usage";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PREVIEW.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Usage fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Usage fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Usage.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (end != null) {
-            request.addQueryParam("End", end);
+            Serializer.toString(request, "End", end, ParameterType.QUERY);
         }
+
+
         if (start != null) {
-            request.addQueryParam("Start", start);
+            Serializer.toString(request, "Start", start, ParameterType.QUERY);
         }
+
+
     }
 }

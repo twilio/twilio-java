@@ -18,42 +18,39 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueuesStatistics extends Resource {
 
-    private static final long serialVersionUID = 167349245476595L;
 
-    public static TaskQueuesStatisticsReader reader(
-        final String pathWorkspaceSid
-    ) {
-        return new TaskQueuesStatisticsReader(pathWorkspaceSid);
+    public static TaskQueuesStatisticsReader reader(final String pathworkspaceSid) {
+        return new TaskQueuesStatisticsReader(
+                pathworkspaceSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a TaskQueuesStatistics object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueuesStatistics object represented by the provided JSON
      */
-    public static TaskQueuesStatistics fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static TaskQueuesStatistics fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskQueuesStatistics.class);
@@ -68,14 +65,11 @@ public class TaskQueuesStatistics extends Resource {
      * Converts a JSON InputStream into a TaskQueuesStatistics object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueuesStatistics object represented by the provided JSON
      */
-    public static TaskQueuesStatistics fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static TaskQueuesStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskQueuesStatistics.class);
@@ -86,45 +80,43 @@ public class TaskQueuesStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> cumulative;
-    private final Map<String, Object> realtime;
+    @Getter
+    private final Object cumulative;
+    @Getter
+    private final Object realtime;
+    @Getter
     private final String taskQueueSid;
+    @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private TaskQueuesStatistics(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Map<String, Object> cumulative,
-        @JsonProperty("realtime") final Map<String, Object> realtime,
-        @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty("workspace_sid") final String workspaceSid
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("cumulative") final Object cumulative,
+            @JsonProperty("realtime") final Object realtime,
+            @JsonProperty("task_queue_sid") final String taskQueueSid,
+            @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;
         this.taskQueueSid = taskQueueSid;
         this.workspaceSid = workspaceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getCumulative() {
-        return this.cumulative;
-    }
-
-    public final Map<String, Object> getRealtime() {
-        return this.realtime;
-    }
-
-    public final String getTaskQueueSid() {
-        return this.taskQueueSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
     }
 
     @Override
@@ -138,24 +130,26 @@ public class TaskQueuesStatistics extends Resource {
         }
 
         TaskQueuesStatistics other = (TaskQueuesStatistics) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(cumulative, other.cumulative) &&
-            Objects.equals(realtime, other.realtime) &&
-            Objects.equals(taskQueueSid, other.taskQueueSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(cumulative, other.cumulative) &&
+                        Objects.equals(realtime, other.realtime) &&
+                        Objects.equals(taskQueueSid, other.taskQueueSid) &&
+                        Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            cumulative,
-            realtime,
-            taskQueueSid,
-            workspaceSid
+                accountSid,
+                cumulative,
+                realtime,
+                taskQueueSid,
+                workspaceSid
         );
     }
+
+
 }
+

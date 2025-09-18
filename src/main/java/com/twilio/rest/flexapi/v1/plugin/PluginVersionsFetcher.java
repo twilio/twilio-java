@@ -15,7 +15,8 @@
 package com.twilio.rest.flexapi.v1.plugin;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,70 +28,60 @@ import com.twilio.rest.Domains;
 
 public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
 
-    private String pathPluginSid;
-    private String pathSid;
+    private String pathpluginSid;
+    private String pathsid;
     private String flexMetadata;
 
-    public PluginVersionsFetcher(
-        final String pathPluginSid,
-        final String pathSid
-    ) {
-        this.pathPluginSid = pathPluginSid;
-        this.pathSid = pathSid;
+    public PluginVersionsFetcher(final String pathpluginSid, final String pathsid) {
+        this.pathpluginSid = pathpluginSid;
+        this.pathsid = pathsid;
     }
+
 
     public PluginVersionsFetcher setFlexMetadata(final String flexMetadata) {
         this.flexMetadata = flexMetadata;
         return this;
     }
 
+
     @Override
     public PluginVersions fetch(final TwilioRestClient client) {
+
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "PluginSid" + "}",
-                this.pathPluginSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "PluginSid" + "}", this.pathpluginSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.GET,
+                Domains.FLEXAPI.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "PluginVersions fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PluginVersions fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return PluginVersions.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PluginVersions.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addHeaderParams(final Request request) {
+
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
         }
+
     }
 }

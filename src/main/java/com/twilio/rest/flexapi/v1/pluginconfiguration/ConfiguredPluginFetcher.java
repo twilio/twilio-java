@@ -15,7 +15,8 @@
 package com.twilio.rest.flexapi.v1.pluginconfiguration;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,75 +28,60 @@ import com.twilio.rest.Domains;
 
 public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
 
-    private String pathConfigurationSid;
-    private String pathPluginSid;
+    private String pathconfigurationSid;
+    private String pathpluginSid;
     private String flexMetadata;
 
-    public ConfiguredPluginFetcher(
-        final String pathConfigurationSid,
-        final String pathPluginSid
-    ) {
-        this.pathConfigurationSid = pathConfigurationSid;
-        this.pathPluginSid = pathPluginSid;
+    public ConfiguredPluginFetcher(final String pathconfigurationSid, final String pathpluginSid) {
+        this.pathconfigurationSid = pathconfigurationSid;
+        this.pathpluginSid = pathpluginSid;
     }
+
 
     public ConfiguredPluginFetcher setFlexMetadata(final String flexMetadata) {
         this.flexMetadata = flexMetadata;
         return this;
     }
 
+
     @Override
     public ConfiguredPlugin fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}";
 
-        path =
-            path.replace(
-                "{" + "ConfigurationSid" + "}",
-                this.pathConfigurationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PluginSid" + "}",
-                this.pathPluginSid.toString()
-            );
+        String path = "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}";
+
+        path = path.replace("{" + "ConfigurationSid" + "}", this.pathconfigurationSid.toString());
+        path = path.replace("{" + "PluginSid" + "}", this.pathpluginSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.GET,
+                Domains.FLEXAPI.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConfiguredPlugin fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConfiguredPlugin fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return ConfiguredPlugin.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ConfiguredPlugin.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addHeaderParams(final Request request) {
+
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(request, "Flex-Metadata", flexMetadata, ParameterType.HEADER);
         }
+
     }
 }

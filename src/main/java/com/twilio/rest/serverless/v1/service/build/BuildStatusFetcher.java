@@ -15,7 +15,6 @@
 package com.twilio.rest.serverless.v1.service.build;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,57 +26,44 @@ import com.twilio.rest.Domains;
 
 public class BuildStatusFetcher extends Fetcher<BuildStatus> {
 
-    private String pathServiceSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathsid;
 
-    public BuildStatusFetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSid = pathSid;
+    public BuildStatusFetcher(final String pathserviceSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public BuildStatus fetch(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Builds/{Sid}/Status";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.SERVERLESS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.SERVERLESS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "BuildStatus fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BuildStatus fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return BuildStatus.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return BuildStatus.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

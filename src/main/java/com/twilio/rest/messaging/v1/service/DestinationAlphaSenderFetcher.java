@@ -15,7 +15,6 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,60 +24,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class DestinationAlphaSenderFetcher
-    extends Fetcher<DestinationAlphaSender> {
+public class DestinationAlphaSenderFetcher extends Fetcher<DestinationAlphaSender> {
 
-    private String pathServiceSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathsid;
 
-    public DestinationAlphaSenderFetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSid = pathSid;
+    public DestinationAlphaSenderFetcher(final String pathserviceSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public DestinationAlphaSender fetch(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.GET,
+                Domains.MESSAGING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "DestinationAlphaSender fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DestinationAlphaSender fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return DestinationAlphaSender.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DestinationAlphaSender.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

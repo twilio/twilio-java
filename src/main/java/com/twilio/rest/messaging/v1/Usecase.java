@@ -18,41 +18,40 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Usecase extends Resource {
 
-    private static final long serialVersionUID = 232787447190817L;
 
     public static UsecaseFetcher fetcher() {
-        return new UsecaseFetcher();
+        return new UsecaseFetcher(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Usecase object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Usecase object represented by the provided JSON
      */
-    public static Usecase fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Usecase fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Usecase.class);
@@ -67,14 +66,11 @@ public class Usecase extends Resource {
      * Converts a JSON InputStream into a Usecase object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Usecase object represented by the provided JSON
      */
-    public static Usecase fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Usecase fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Usecase.class);
@@ -85,17 +81,27 @@ public class Usecase extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> usecases;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final List<Object> usecases;
 
     @JsonCreator
     private Usecase(
-        @JsonProperty("usecases") final List<Map<String, Object>> usecases
+            @JsonProperty("usecases") final List<Object> usecases
     ) {
         this.usecases = usecases;
-    }
-
-    public final List<Map<String, Object>> getUsecases() {
-        return this.usecases;
     }
 
     @Override
@@ -109,12 +115,18 @@ public class Usecase extends Resource {
         }
 
         Usecase other = (Usecase) o;
-
-        return Objects.equals(usecases, other.usecases);
+        return (
+                Objects.equals(usecases, other.usecases)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(usecases);
+        return Objects.hash(
+                usecases
+        );
     }
+
+
 }
+

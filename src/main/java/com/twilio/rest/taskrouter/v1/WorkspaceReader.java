@@ -17,7 +17,8 @@ package com.twilio.rest.taskrouter.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -32,17 +33,21 @@ public class WorkspaceReader extends Reader<Workspace> {
     private String friendlyName;
     private Long pageSize;
 
-    public WorkspaceReader() {}
+    public WorkspaceReader() {
+    }
+
 
     public WorkspaceReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public WorkspaceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Workspace> read(final TwilioRestClient client) {
@@ -50,95 +55,72 @@ public class WorkspaceReader extends Reader<Workspace> {
     }
 
     public Page<Workspace> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces";
 
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            path
-        );
 
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.TASKROUTER.toString(),
+                path
+        );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Workspace> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Workspace> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Workspace read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Workspace read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "workspaces",
-            response.getContent(),
-            Workspace.class,
-            client.getObjectMapper()
-        );
+                "workspaces",
+                response.getContent(),
+                Workspace.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Workspace> previousPage(
-        final Page<Workspace> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
-        );
+    public Page<Workspace> previousPage(final Page<Workspace> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Workspace> nextPage(
-        final Page<Workspace> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.TASKROUTER.toString())
-        );
+    public Page<Workspace> nextPage(final Page<Workspace> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Workspace> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Workspace> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
+
+
     }
 }

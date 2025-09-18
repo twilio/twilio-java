@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +28,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class MobileCreator extends Creator<Mobile> {
 
+    private String pathaccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
-    private String pathAccountSid;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -59,17 +62,13 @@ public class MobileCreator extends Creator<Mobile> {
         this.phoneNumber = phoneNumber;
     }
 
-    public MobileCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public MobileCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathaccountSid = pathaccountSid;
         this.phoneNumber = phoneNumber;
     }
 
-    public MobileCreator setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+
+    public MobileCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -83,189 +82,161 @@ public class MobileCreator extends Creator<Mobile> {
         return this;
     }
 
+
     public MobileCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
+
 
     public MobileCreator setSmsApplicationSid(final String smsApplicationSid) {
         this.smsApplicationSid = smsApplicationSid;
         return this;
     }
 
-    public MobileCreator setSmsFallbackMethod(
-        final HttpMethod smsFallbackMethod
-    ) {
+
+    public MobileCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
+
 
     public MobileCreator setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public MobileCreator setSmsFallbackUrl(final String smsFallbackUrl) {
-        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
-    }
 
     public MobileCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
 
+
     public MobileCreator setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
     }
 
-    public MobileCreator setSmsUrl(final String smsUrl) {
-        return setSmsUrl(Promoter.uriFromString(smsUrl));
-    }
 
     public MobileCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public MobileCreator setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public MobileCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public MobileCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-    public MobileCreator setVoiceApplicationSid(
-        final String voiceApplicationSid
-    ) {
+
+    public MobileCreator setVoiceApplicationSid(final String voiceApplicationSid) {
         this.voiceApplicationSid = voiceApplicationSid;
         return this;
     }
 
-    public MobileCreator setVoiceCallerIdLookup(
-        final Boolean voiceCallerIdLookup
-    ) {
+
+    public MobileCreator setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup) {
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         return this;
     }
 
-    public MobileCreator setVoiceFallbackMethod(
-        final HttpMethod voiceFallbackMethod
-    ) {
+
+    public MobileCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
+
 
     public MobileCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public MobileCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
-        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
-    }
 
     public MobileCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
 
+
     public MobileCreator setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public MobileCreator setVoiceUrl(final String voiceUrl) {
-        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
-    }
 
     public MobileCreator setIdentitySid(final String identitySid) {
         this.identitySid = identitySid;
         return this;
     }
 
+
     public MobileCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
 
-    public MobileCreator setEmergencyStatus(
-        final Mobile.EmergencyStatus emergencyStatus
-    ) {
+
+    public MobileCreator setEmergencyStatus(final Mobile.EmergencyStatus emergencyStatus) {
         this.emergencyStatus = emergencyStatus;
         return this;
     }
 
-    public MobileCreator setEmergencyAddressSid(
-        final String emergencyAddressSid
-    ) {
+
+    public MobileCreator setEmergencyAddressSid(final String emergencyAddressSid) {
         this.emergencyAddressSid = emergencyAddressSid;
         return this;
     }
+
 
     public MobileCreator setTrunkSid(final String trunkSid) {
         this.trunkSid = trunkSid;
         return this;
     }
 
-    public MobileCreator setVoiceReceiveMode(
-        final Mobile.VoiceReceiveMode voiceReceiveMode
-    ) {
+
+    public MobileCreator setVoiceReceiveMode(final Mobile.VoiceReceiveMode voiceReceiveMode) {
         this.voiceReceiveMode = voiceReceiveMode;
         return this;
     }
+
 
     public MobileCreator setBundleSid(final String bundleSid) {
         this.bundleSid = bundleSid;
         return this;
     }
 
+
     @Override
     public Mobile create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.phoneNumber.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Mobile creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Mobile creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -274,92 +245,121 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     private void addPostParams(final Request request) {
+
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.URLENCODED);
         }
+
+
         if (apiVersion != null) {
-            request.addPostParam("ApiVersion", apiVersion);
+            Serializer.toString(request, "ApiVersion", apiVersion, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (smsApplicationSid != null) {
-            request.addPostParam("SmsApplicationSid", smsApplicationSid);
+            Serializer.toString(request, "SmsApplicationSid", smsApplicationSid, ParameterType.URLENCODED);
         }
+
+
         if (smsFallbackMethod != null) {
-            request.addPostParam(
-                "SmsFallbackMethod",
-                smsFallbackMethod.toString()
-            );
+            Serializer.toString(request, "SmsFallbackMethod", smsFallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (smsFallbackUrl != null) {
-            request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
+            Serializer.toString(request, "SmsFallbackUrl", smsFallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (smsMethod != null) {
-            request.addPostParam("SmsMethod", smsMethod.toString());
+            Serializer.toString(request, "SmsMethod", smsMethod, ParameterType.URLENCODED);
         }
+
+
         if (smsUrl != null) {
-            request.addPostParam("SmsUrl", smsUrl.toString());
+            Serializer.toString(request, "SmsUrl", smsUrl, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (voiceApplicationSid != null) {
-            request.addPostParam("VoiceApplicationSid", voiceApplicationSid);
+            Serializer.toString(request, "VoiceApplicationSid", voiceApplicationSid, ParameterType.URLENCODED);
         }
+
+
         if (voiceCallerIdLookup != null) {
-            request.addPostParam(
-                "VoiceCallerIdLookup",
-                voiceCallerIdLookup.toString()
-            );
+            Serializer.toString(request, "VoiceCallerIdLookup", voiceCallerIdLookup, ParameterType.URLENCODED);
         }
+
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
-                "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
-            );
+            Serializer.toString(request, "VoiceFallbackMethod", voiceFallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
-                "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
-            );
+            Serializer.toString(request, "VoiceFallbackUrl", voiceFallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
+            Serializer.toString(request, "VoiceMethod", voiceMethod, ParameterType.URLENCODED);
         }
+
+
         if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
+            Serializer.toString(request, "VoiceUrl", voiceUrl, ParameterType.URLENCODED);
         }
+
+
         if (identitySid != null) {
-            request.addPostParam("IdentitySid", identitySid);
+            Serializer.toString(request, "IdentitySid", identitySid, ParameterType.URLENCODED);
         }
+
+
         if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
+            Serializer.toString(request, "AddressSid", addressSid, ParameterType.URLENCODED);
         }
+
+
         if (emergencyStatus != null) {
-            request.addPostParam("EmergencyStatus", emergencyStatus.toString());
+            Serializer.toString(request, "EmergencyStatus", emergencyStatus, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressSid != null) {
-            request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
+            Serializer.toString(request, "EmergencyAddressSid", emergencyAddressSid, ParameterType.URLENCODED);
         }
+
+
         if (trunkSid != null) {
-            request.addPostParam("TrunkSid", trunkSid);
+            Serializer.toString(request, "TrunkSid", trunkSid, ParameterType.URLENCODED);
         }
+
+
         if (voiceReceiveMode != null) {
-            request.addPostParam(
-                "VoiceReceiveMode",
-                voiceReceiveMode.toString()
-            );
+            Serializer.toString(request, "VoiceReceiveMode", voiceReceiveMode, ParameterType.URLENCODED);
         }
+
+
         if (bundleSid != null) {
-            request.addPostParam("BundleSid", bundleSid);
+            Serializer.toString(request, "BundleSid", bundleSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

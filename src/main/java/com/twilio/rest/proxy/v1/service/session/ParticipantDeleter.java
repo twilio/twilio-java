@@ -15,7 +15,6 @@
 package com.twilio.rest.proxy.v1.service.session;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,59 +26,44 @@ import com.twilio.rest.Domains;
 
 public class ParticipantDeleter extends Deleter<Participant> {
 
-    private String pathServiceSid;
-    private String pathSessionSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathsessionSid;
+    private String pathsid;
 
-    public ParticipantDeleter(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
-        this.pathSid = pathSid;
+    public ParticipantDeleter(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsessionSid = pathsessionSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.PROXY.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

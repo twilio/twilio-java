@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,105 +28,86 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RecordingUpdater extends Updater<Recording> {
-
-    private String pathConferenceSid;
-    private String pathSid;
+    private String pathaccountSid;
+    private String pathconferenceSid;
+    private String pathsid;
     private Recording.Status status;
-    private String pathAccountSid;
     private String pauseBehavior;
 
-    public RecordingUpdater(
-        final String pathConferenceSid,
-        final String pathSid,
-        final Recording.Status status
-    ) {
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathSid = pathSid;
+    public RecordingUpdater(final String pathconferenceSid, final String pathsid, final Recording.Status status) {
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathsid = pathsid;
         this.status = status;
     }
 
-    public RecordingUpdater(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathSid,
-        final Recording.Status status
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathSid = pathSid;
+    public RecordingUpdater(final String pathaccountSid, final String pathconferenceSid, final String pathsid, final Recording.Status status) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathsid = pathsid;
         this.status = status;
     }
+
 
     public RecordingUpdater setStatus(final Recording.Status status) {
         this.status = status;
         return this;
     }
 
+
     public RecordingUpdater setPauseBehavior(final String pauseBehavior) {
         this.pauseBehavior = pauseBehavior;
         return this;
     }
 
+
     @Override
     public Recording update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Recording update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Recording update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Recording.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
         if (pauseBehavior != null) {
-            request.addPostParam("PauseBehavior", pauseBehavior);
+            Serializer.toString(request, "PauseBehavior", pauseBehavior, ParameterType.URLENCODED);
         }
+
+
     }
 }

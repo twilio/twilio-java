@@ -15,7 +15,6 @@
 package com.twilio.rest.events.v1.schema;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,57 +26,44 @@ import com.twilio.rest.Domains;
 
 public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
 
-    private String pathId;
-    private Integer pathSchemaVersion;
+    private String pathid;
+    private Integer pathschemaVersion;
 
-    public SchemaVersionFetcher(
-        final String pathId,
-        final Integer pathSchemaVersion
-    ) {
-        this.pathId = pathId;
-        this.pathSchemaVersion = pathSchemaVersion;
+    public SchemaVersionFetcher(final String pathid, final Integer pathschemaVersion) {
+        this.pathid = pathid;
+        this.pathschemaVersion = pathschemaVersion;
     }
+
 
     @Override
     public SchemaVersion fetch(final TwilioRestClient client) {
+
         String path = "/v1/Schemas/{Id}/Versions/{SchemaVersion}";
 
-        path = path.replace("{" + "Id" + "}", this.pathId.toString());
-        path =
-            path.replace(
-                "{" + "SchemaVersion" + "}",
-                this.pathSchemaVersion.toString()
-            );
+        path = path.replace("{" + "Id" + "}", this.pathid.toString());
+        path = path.replace("{" + "SchemaVersion" + "}", this.pathschemaVersion.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.EVENTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.EVENTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SchemaVersion fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SchemaVersion fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return SchemaVersion.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SchemaVersion.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

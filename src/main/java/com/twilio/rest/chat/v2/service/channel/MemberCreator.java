@@ -14,8 +14,11 @@
 
 package com.twilio.rest.chat.v2.service.channel;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,14 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 
 public class MemberCreator extends Creator<Member> {
 
-    private String pathServiceSid;
-    private String pathChannelSid;
-    private String identity;
+    private String pathserviceSid;
+    private String pathchannelSid;
     private Member.WebhookEnabledType xTwilioWebhookEnabled;
+    private String identity;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
     private ZonedDateTime lastConsumptionTimestamp;
@@ -39,101 +43,90 @@ public class MemberCreator extends Creator<Member> {
     private ZonedDateTime dateUpdated;
     private String attributes;
 
-    public MemberCreator(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String identity
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathChannelSid = pathChannelSid;
+    public MemberCreator(final String pathserviceSid, final String pathchannelSid, final String identity) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathchannelSid = pathchannelSid;
         this.identity = identity;
     }
+
 
     public MemberCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
 
-    public MemberCreator setXTwilioWebhookEnabled(
-        final Member.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
-    }
 
     public MemberCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
-    public MemberCreator setLastConsumedMessageIndex(
-        final Integer lastConsumedMessageIndex
-    ) {
+
+    public MemberCreator setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         return this;
     }
 
-    public MemberCreator setLastConsumptionTimestamp(
-        final ZonedDateTime lastConsumptionTimestamp
-    ) {
+
+    public MemberCreator setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
+
 
     public MemberCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
+
     public MemberCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
+
 
     public MemberCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
+
+    public MemberCreator setXTwilioWebhookEnabled(final Member.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+
     @Override
     public Member create(final TwilioRestClient client) {
+
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CHAT.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CHAT.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Member creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -142,47 +135,49 @@ public class MemberCreator extends Creator<Member> {
     }
 
     private void addPostParams(final Request request) {
+
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
         }
+
+
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
         }
+
+
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
-                "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
-            );
+            Serializer.toString(request, "LastConsumedMessageIndex", lastConsumedMessageIndex, ParameterType.URLENCODED);
         }
+
+
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam(
-                "LastConsumptionTimestamp",
-                lastConsumptionTimestamp.toInstant().toString()
-            );
+            Serializer.toString(request, "LastConsumptionTimestamp", lastConsumptionTimestamp, ParameterType.URLENCODED);
         }
+
+
         if (dateCreated != null) {
-            request.addPostParam(
-                "DateCreated",
-                dateCreated.toInstant().toString()
-            );
+            Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
         }
+
+
         if (dateUpdated != null) {
-            request.addPostParam(
-                "DateUpdated",
-                dateUpdated.toInstant().toString()
-            );
+            Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
         }
+
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
         }
+
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
         }
+
     }
 }

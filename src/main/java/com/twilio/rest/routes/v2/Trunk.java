@@ -18,45 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trunk extends Resource {
 
-    private static final long serialVersionUID = 71100118275281L;
 
-    public static TrunkFetcher fetcher(final String pathSipTrunkDomain) {
-        return new TrunkFetcher(pathSipTrunkDomain);
+    public static TrunkFetcher fetcher(final String pathsipTrunkDomain) {
+        return new TrunkFetcher(
+                pathsipTrunkDomain
+        );
     }
 
-    public static TrunkUpdater updater(final String pathSipTrunkDomain) {
-        return new TrunkUpdater(pathSipTrunkDomain);
+
+    public static TrunkUpdater updater(final String pathsipTrunkDomain) {
+        return new TrunkUpdater(
+                pathsipTrunkDomain
+        );
     }
+
 
     /**
      * Converts a JSON String into a Trunk object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Trunk object represented by the provided JSON
      */
-    public static Trunk fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Trunk fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Trunk.class);
@@ -71,14 +75,11 @@ public class Trunk extends Resource {
      * Converts a JSON InputStream into a Trunk object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Trunk object represented by the provided JSON
      */
-    public static Trunk fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Trunk fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Trunk.class);
@@ -89,66 +90,57 @@ public class Trunk extends Resource {
         }
     }
 
-    private final String sipTrunkDomain;
-    private final URI url;
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final String voiceRegion;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String sipTrunkDomain;
+    @Getter
+    private final URI url;
+    @Getter
+    private final String voiceRegion;
 
     @JsonCreator
     private Trunk(
-        @JsonProperty("sip_trunk_domain") final String sipTrunkDomain,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("voice_region") final String voiceRegion,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("sip_trunk_domain") final String sipTrunkDomain,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("voice_region") final String voiceRegion
     ) {
+        this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.sid = sid;
         this.sipTrunkDomain = sipTrunkDomain;
         this.url = url;
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
         this.voiceRegion = voiceRegion;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSipTrunkDomain() {
-        return this.sipTrunkDomain;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getVoiceRegion() {
-        return this.voiceRegion;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -162,30 +154,32 @@ public class Trunk extends Resource {
         }
 
         Trunk other = (Trunk) o;
-
         return (
-            Objects.equals(sipTrunkDomain, other.sipTrunkDomain) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(voiceRegion, other.voiceRegion) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(sipTrunkDomain, other.sipTrunkDomain) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(voiceRegion, other.voiceRegion)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sipTrunkDomain,
-            url,
-            sid,
-            accountSid,
-            friendlyName,
-            voiceRegion,
-            dateCreated,
-            dateUpdated
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                sid,
+                sipTrunkDomain,
+                url,
+                voiceRegion
         );
     }
+
+
 }
+

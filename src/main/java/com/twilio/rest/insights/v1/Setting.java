@@ -18,43 +18,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Setting extends Resource {
 
-    private static final long serialVersionUID = 24698393526973L;
 
     public static SettingFetcher fetcher() {
-        return new SettingFetcher();
+        return new SettingFetcher(
+
+        );
     }
 
+
     public static SettingUpdater updater() {
-        return new SettingUpdater();
+        return new SettingUpdater(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Setting object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Setting object represented by the provided JSON
      */
-    public static Setting fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Setting fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Setting.class);
@@ -69,14 +73,11 @@ public class Setting extends Resource {
      * Converts a JSON InputStream into a Setting object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Setting object represented by the provided JSON
      */
-    public static Setting fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Setting fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Setting.class);
@@ -87,38 +88,39 @@ public class Setting extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
     private final Boolean advancedFeatures;
-    private final Boolean voiceTrace;
+    @Getter
     private final URI url;
+    @Getter
+    private final Boolean voiceTrace;
 
     @JsonCreator
     private Setting(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("advanced_features") final Boolean advancedFeatures,
-        @JsonProperty("voice_trace") final Boolean voiceTrace,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("advanced_features") final Boolean advancedFeatures,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("voice_trace") final Boolean voiceTrace
     ) {
         this.accountSid = accountSid;
         this.advancedFeatures = advancedFeatures;
-        this.voiceTrace = voiceTrace;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Boolean getAdvancedFeatures() {
-        return this.advancedFeatures;
-    }
-
-    public final Boolean getVoiceTrace() {
-        return this.voiceTrace;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.voiceTrace = voiceTrace;
     }
 
     @Override
@@ -132,17 +134,24 @@ public class Setting extends Resource {
         }
 
         Setting other = (Setting) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(advancedFeatures, other.advancedFeatures) &&
-            Objects.equals(voiceTrace, other.voiceTrace) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(advancedFeatures, other.advancedFeatures) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(voiceTrace, other.voiceTrace)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, advancedFeatures, voiceTrace, url);
+        return Objects.hash(
+                accountSid,
+                advancedFeatures,
+                url,
+                voiceTrace
+        );
     }
+
+
 }
+

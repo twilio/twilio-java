@@ -18,77 +18,90 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SigningKey extends Resource {
 
-    private static final long serialVersionUID = 35259719636912L;
 
-    public static SigningKeyDeleter deleter(final String pathSid) {
-        return new SigningKeyDeleter(pathSid);
+    public static SigningKeyDeleter deleter(final String pathsid) {
+        return new SigningKeyDeleter(
+                pathsid
+        );
     }
 
-    public static SigningKeyDeleter deleter(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new SigningKeyDeleter(pathAccountSid, pathSid);
+
+    public static SigningKeyDeleter deleter(final String pathaccountSid, final String pathsid) {
+        return new SigningKeyDeleter(
+                pathaccountSid, pathsid
+        );
     }
 
-    public static SigningKeyFetcher fetcher(final String pathSid) {
-        return new SigningKeyFetcher(pathSid);
+
+    public static SigningKeyFetcher fetcher(final String pathsid) {
+        return new SigningKeyFetcher(
+                pathsid
+        );
     }
 
-    public static SigningKeyFetcher fetcher(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new SigningKeyFetcher(pathAccountSid, pathSid);
+
+    public static SigningKeyFetcher fetcher(final String pathaccountSid, final String pathsid) {
+        return new SigningKeyFetcher(
+                pathaccountSid, pathsid
+        );
     }
+
 
     public static SigningKeyReader reader() {
-        return new SigningKeyReader();
+        return new SigningKeyReader(
+
+        );
     }
 
-    public static SigningKeyReader reader(final String pathAccountSid) {
-        return new SigningKeyReader(pathAccountSid);
+
+    public static SigningKeyReader reader(final String pathaccountSid) {
+        return new SigningKeyReader(
+                pathaccountSid
+        );
     }
 
-    public static SigningKeyUpdater updater(final String pathSid) {
-        return new SigningKeyUpdater(pathSid);
+
+    public static SigningKeyUpdater updater(final String pathsid) {
+        return new SigningKeyUpdater(
+                pathsid
+        );
     }
 
-    public static SigningKeyUpdater updater(
-        final String pathAccountSid,
-        final String pathSid
-    ) {
-        return new SigningKeyUpdater(pathAccountSid, pathSid);
+
+    public static SigningKeyUpdater updater(final String pathaccountSid, final String pathsid) {
+        return new SigningKeyUpdater(
+                pathaccountSid, pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a SigningKey object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SigningKey object represented by the provided JSON
      */
-    public static SigningKey fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SigningKey fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SigningKey.class);
@@ -103,14 +116,11 @@ public class SigningKey extends Resource {
      * Converts a JSON InputStream into a SigningKey object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SigningKey object represented by the provided JSON
      */
-    public static SigningKey fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SigningKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SigningKey.class);
@@ -121,38 +131,41 @@ public class SigningKey extends Resource {
         }
     }
 
-    private final String sid;
-    private final String friendlyName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String sid;
 
     @JsonCreator
     private SigningKey(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("sid") final String sid
     ) {
-        this.sid = sid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
+        this.sid = sid;
     }
 
     @Override
@@ -166,17 +179,24 @@ public class SigningKey extends Resource {
         }
 
         SigningKey other = (SigningKey) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, dateCreated, dateUpdated);
+        return Objects.hash(
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                sid
+        );
     }
+
+
 }
+

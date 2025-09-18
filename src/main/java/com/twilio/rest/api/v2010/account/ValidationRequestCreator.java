@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,36 +28,30 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
+    private String pathaccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
-    private String pathAccountSid;
     private String friendlyName;
     private Integer callDelay;
     private String extension;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public ValidationRequestCreator(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+    public ValidationRequestCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public ValidationRequestCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public ValidationRequestCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathaccountSid = pathaccountSid;
         this.phoneNumber = phoneNumber;
     }
 
-    public ValidationRequestCreator setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+
+    public ValidationRequestCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -68,109 +65,97 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
         return this;
     }
 
+
     public ValidationRequestCreator setCallDelay(final Integer callDelay) {
         this.callDelay = callDelay;
         return this;
     }
+
 
     public ValidationRequestCreator setExtension(final String extension) {
         this.extension = extension;
         return this;
     }
 
-    public ValidationRequestCreator setStatusCallback(
-        final URI statusCallback
-    ) {
+
+    public ValidationRequestCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ValidationRequestCreator setStatusCallback(
-        final String statusCallback
-    ) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public ValidationRequestCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public ValidationRequestCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
+
     @Override
     public ValidationRequest create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.phoneNumber.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ValidationRequest creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ValidationRequest creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ValidationRequest.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ValidationRequest.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (callDelay != null) {
-            request.addPostParam("CallDelay", callDelay.toString());
+            Serializer.toString(request, "CallDelay", callDelay, ParameterType.URLENCODED);
         }
+
+
         if (extension != null) {
-            request.addPostParam("Extension", extension);
+            Serializer.toString(request, "Extension", extension, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
     }
 }

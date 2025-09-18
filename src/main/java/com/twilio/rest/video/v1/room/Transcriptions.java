@@ -18,220 +18,55 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcriptions extends Resource {
 
-    private static final long serialVersionUID = 69820289152110L;
 
-    public static TranscriptionsCreator creator(final String pathRoomSid) {
-        return new TranscriptionsCreator(pathRoomSid);
-    }
-
-    public static TranscriptionsFetcher fetcher(
-        final String pathRoomSid,
-        final String pathTtid
-    ) {
-        return new TranscriptionsFetcher(pathRoomSid, pathTtid);
-    }
-
-    public static TranscriptionsReader reader(final String pathRoomSid) {
-        return new TranscriptionsReader(pathRoomSid);
-    }
-
-    public static TranscriptionsUpdater updater(
-        final String pathRoomSid,
-        final String pathTtid
-    ) {
-        return new TranscriptionsUpdater(pathRoomSid, pathTtid);
-    }
-
-    /**
-     * Converts a JSON String into a Transcriptions object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Transcriptions object represented by the provided JSON
-     */
-    public static Transcriptions fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Transcriptions.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Transcriptions object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Transcriptions object represented by the provided JSON
-     */
-    public static Transcriptions fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Transcriptions.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String ttid;
-    private final String accountSid;
-    private final String roomSid;
-    private final Transcriptions.Status status;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final ZonedDateTime startTime;
-    private final ZonedDateTime endTime;
-    private final Integer duration;
-    private final URI url;
-    private final Map<String, Object> configuration;
-
-    @JsonCreator
-    private Transcriptions(
-        @JsonProperty("ttid") final String ttid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("status") final Transcriptions.Status status,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("start_time") final String startTime,
-        @JsonProperty("end_time") final String endTime,
-        @JsonProperty("duration") final Integer duration,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("configuration") final Map<String, Object> configuration
-    ) {
-        this.ttid = ttid;
-        this.accountSid = accountSid;
-        this.roomSid = roomSid;
-        this.status = status;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
-        this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
-        this.duration = duration;
-        this.url = url;
-        this.configuration = configuration;
-    }
-
-    public final String getTtid() {
-        return this.ttid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRoomSid() {
-        return this.roomSid;
-    }
-
-    public final Transcriptions.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getStartTime() {
-        return this.startTime;
-    }
-
-    public final ZonedDateTime getEndTime() {
-        return this.endTime;
-    }
-
-    public final Integer getDuration() {
-        return this.duration;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Transcriptions other = (Transcriptions) o;
-
-        return (
-            Objects.equals(ttid, other.ttid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(roomSid, other.roomSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(startTime, other.startTime) &&
-            Objects.equals(endTime, other.endTime) &&
-            Objects.equals(duration, other.duration) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(configuration, other.configuration)
+    public static TranscriptionsCreator creator(final String pathroomSid) {
+        return new TranscriptionsCreator(
+                pathroomSid
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            ttid,
-            accountSid,
-            roomSid,
-            status,
-            dateCreated,
-            dateUpdated,
-            startTime,
-            endTime,
-            duration,
-            url,
-            configuration
+
+    public static TranscriptionsFetcher fetcher(final String pathroomSid, final String pathttid) {
+        return new TranscriptionsFetcher(
+                pathroomSid, pathttid
         );
     }
+
+
+    public static TranscriptionsReader reader(final String pathroomSid) {
+        return new TranscriptionsReader(
+                pathroomSid
+        );
+    }
+
+
+    public static TranscriptionsUpdater updater(final String pathroomSid, final String pathttid) {
+        return new TranscriptionsUpdater(
+                pathroomSid, pathttid
+        );
+    }
+
 
     public enum Status {
         STARTED("started"),
@@ -253,4 +88,155 @@ public class Transcriptions extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Transcriptions object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Transcriptions object represented by the provided JSON
+     */
+    public static Transcriptions fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Transcriptions.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Transcriptions object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Transcriptions object represented by the provided JSON
+     */
+    public static Transcriptions fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Transcriptions.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final Object configuration;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final Integer duration;
+    @Getter
+    private final ZonedDateTime endTime;
+    @Getter
+    private final String roomSid;
+    @Getter
+    private final ZonedDateTime startTime;
+    @Getter
+    private final Transcriptions.Status status;
+    @Getter
+    private final String ttid;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Transcriptions(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("configuration") final Object configuration,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("duration") final Integer duration,
+            @JsonProperty("end_time")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
+            @JsonProperty("room_sid") final String roomSid,
+            @JsonProperty("start_time")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime startTime,
+            @JsonProperty("status") final Transcriptions.Status status,
+            @JsonProperty("ttid") final String ttid,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.configuration = configuration;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.duration = duration;
+        this.endTime = endTime;
+        this.roomSid = roomSid;
+        this.startTime = startTime;
+        this.status = status;
+        this.ttid = ttid;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Transcriptions other = (Transcriptions) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(configuration, other.configuration) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(duration, other.duration) &&
+                        Objects.equals(endTime, other.endTime) &&
+                        Objects.equals(roomSid, other.roomSid) &&
+                        Objects.equals(startTime, other.startTime) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(ttid, other.ttid) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                configuration,
+                dateCreated,
+                dateUpdated,
+                duration,
+                endTime,
+                roomSid,
+                startTime,
+                status,
+                ttid,
+                url
+        );
+    }
+
+
 }
+

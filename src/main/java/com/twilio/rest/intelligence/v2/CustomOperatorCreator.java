@@ -14,10 +14,11 @@
 
 package com.twilio.rest.intelligence.v2;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,88 +34,79 @@ public class CustomOperatorCreator extends Creator<CustomOperator> {
     private String operatorType;
     private Object config;
 
-    public CustomOperatorCreator(
-        final String friendlyName,
-        final String operatorType,
-        final Object config
-    ) {
+    public CustomOperatorCreator(final String friendlyName, final String operatorType, final Object config) {
         this.friendlyName = friendlyName;
         this.operatorType = operatorType;
         this.config = config;
     }
+
 
     public CustomOperatorCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public CustomOperatorCreator setOperatorType(final String operatorType) {
         this.operatorType = operatorType;
         return this;
     }
+
 
     public CustomOperatorCreator setConfig(final Object config) {
         this.config = config;
         return this;
     }
 
+
     @Override
     public CustomOperator create(final TwilioRestClient client) {
+
         String path = "/v2/Operators/Custom";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path =
-            path.replace(
-                "{" + "OperatorType" + "}",
-                this.operatorType.toString()
-            );
-        path = path.replace("{" + "Config" + "}", this.config.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.INTELLIGENCE.toString(),
-            path
+                HttpMethod.POST,
+                Domains.INTELLIGENCE.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "CustomOperator creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("CustomOperator creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return CustomOperator.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return CustomOperator.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (operatorType != null) {
-            request.addPostParam("OperatorType", operatorType);
+            Serializer.toString(request, "OperatorType", operatorType, ParameterType.URLENCODED);
         }
+
+
         if (config != null) {
-            request.addPostParam("Config", Converter.objectToJson(config));
+            Serializer.toString(request, "Config", config, ParameterType.URLENCODED);
         }
+
+
     }
 }

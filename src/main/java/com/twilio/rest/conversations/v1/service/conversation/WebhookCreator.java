@@ -14,9 +14,12 @@
 
 package com.twilio.rest.conversations.v1.service.conversation;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +28,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+
 import java.util.List;
 
 public class WebhookCreator extends Creator<Webhook> {
 
-    private String pathChatServiceSid;
-    private String pathConversationSid;
+    private String pathchatServiceSid;
+    private String pathconversationSid;
     private Webhook.Target target;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
@@ -40,116 +43,89 @@ public class WebhookCreator extends Creator<Webhook> {
     private String configurationFlowSid;
     private Integer configurationReplayAfter;
 
-    public WebhookCreator(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final Webhook.Target target
-    ) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathConversationSid = pathConversationSid;
+    public WebhookCreator(final String pathchatServiceSid, final String pathconversationSid, final Webhook.Target target) {
+        this.pathchatServiceSid = pathchatServiceSid;
+        this.pathconversationSid = pathconversationSid;
         this.target = target;
     }
+
 
     public WebhookCreator setTarget(final Webhook.Target target) {
         this.target = target;
         return this;
     }
 
+
     public WebhookCreator setConfigurationUrl(final String configurationUrl) {
         this.configurationUrl = configurationUrl;
         return this;
     }
 
-    public WebhookCreator setConfigurationMethod(
-        final Webhook.Method configurationMethod
-    ) {
+
+    public WebhookCreator setConfigurationMethod(final Webhook.Method configurationMethod) {
         this.configurationMethod = configurationMethod;
         return this;
     }
 
-    public WebhookCreator setConfigurationFilters(
-        final List<String> configurationFilters
-    ) {
+
+    public WebhookCreator setConfigurationFilters(final List<String> configurationFilters) {
         this.configurationFilters = configurationFilters;
         return this;
     }
 
-    public WebhookCreator setConfigurationFilters(
-        final String configurationFilters
-    ) {
-        return setConfigurationFilters(
-            Promoter.listOfOne(configurationFilters)
-        );
+    public WebhookCreator setConfigurationFilters(final String configurationFilters) {
+        return setConfigurationFilters(Promoter.listOfOne(configurationFilters));
     }
 
-    public WebhookCreator setConfigurationTriggers(
-        final List<String> configurationTriggers
-    ) {
+    public WebhookCreator setConfigurationTriggers(final List<String> configurationTriggers) {
         this.configurationTriggers = configurationTriggers;
         return this;
     }
 
-    public WebhookCreator setConfigurationTriggers(
-        final String configurationTriggers
-    ) {
-        return setConfigurationTriggers(
-            Promoter.listOfOne(configurationTriggers)
-        );
+    public WebhookCreator setConfigurationTriggers(final String configurationTriggers) {
+        return setConfigurationTriggers(Promoter.listOfOne(configurationTriggers));
     }
 
-    public WebhookCreator setConfigurationFlowSid(
-        final String configurationFlowSid
-    ) {
+    public WebhookCreator setConfigurationFlowSid(final String configurationFlowSid) {
         this.configurationFlowSid = configurationFlowSid;
         return this;
     }
 
-    public WebhookCreator setConfigurationReplayAfter(
-        final Integer configurationReplayAfter
-    ) {
+
+    public WebhookCreator setConfigurationReplayAfter(final Integer configurationReplayAfter) {
         this.configurationReplayAfter = configurationReplayAfter;
         return this;
     }
 
+
     @Override
     public Webhook create(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Target" + "}", this.target.toString());
+        String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -158,36 +134,45 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     private void addPostParams(final Request request) {
+
         if (target != null) {
-            request.addPostParam("Target", target.toString());
+            Serializer.toString(request, "Target", target, ParameterType.URLENCODED);
         }
+
+
         if (configurationUrl != null) {
-            request.addPostParam("Configuration.Url", configurationUrl);
+            Serializer.toString(request, "Configuration.Url", configurationUrl, ParameterType.URLENCODED);
         }
+
+
         if (configurationMethod != null) {
-            request.addPostParam(
-                "Configuration.Method",
-                configurationMethod.toString()
-            );
+            Serializer.toString(request, "Configuration.Method", configurationMethod, ParameterType.URLENCODED);
         }
+
+
         if (configurationFilters != null) {
-            for (String prop : configurationFilters) {
-                request.addPostParam("Configuration.Filters", prop);
+            for (String param : configurationFilters) {
+                Serializer.toString(request, "Configuration.Filters", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (configurationTriggers != null) {
-            for (String prop : configurationTriggers) {
-                request.addPostParam("Configuration.Triggers", prop);
+            for (String param : configurationTriggers) {
+                Serializer.toString(request, "Configuration.Triggers", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (configurationFlowSid != null) {
-            request.addPostParam("Configuration.FlowSid", configurationFlowSid);
+            Serializer.toString(request, "Configuration.FlowSid", configurationFlowSid, ParameterType.URLENCODED);
         }
+
+
         if (configurationReplayAfter != null) {
-            request.addPostParam(
-                "Configuration.ReplayAfter",
-                configurationReplayAfter.toString()
-            );
+            Serializer.toString(request, "Configuration.ReplayAfter", configurationReplayAfter, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -15,7 +15,6 @@
 package com.twilio.rest.video.v1.room.participant;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,58 +26,44 @@ import com.twilio.rest.Domains;
 
 public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
 
-    private String pathRoomSid;
-    private String pathParticipantSid;
+    private String pathroomSid;
+    private String pathparticipantSid;
 
-    public SubscribeRulesFetcher(
-        final String pathRoomSid,
-        final String pathParticipantSid
-    ) {
-        this.pathRoomSid = pathRoomSid;
-        this.pathParticipantSid = pathParticipantSid;
+    public SubscribeRulesFetcher(final String pathroomSid, final String pathparticipantSid) {
+        this.pathroomSid = pathroomSid;
+        this.pathparticipantSid = pathparticipantSid;
     }
+
 
     @Override
     public SubscribeRules fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+        String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
+
+        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            path
+                HttpMethod.GET,
+                Domains.VIDEO.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SubscribeRules fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SubscribeRules fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return SubscribeRules.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SubscribeRules.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

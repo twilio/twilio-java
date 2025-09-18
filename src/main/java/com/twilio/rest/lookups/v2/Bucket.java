@@ -25,20 +25,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.ToString;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bucket extends Resource {
 
-    private static final long serialVersionUID = 277677635778369L;
 
+    public static BucketDeleter deleter(final String pathfield, final String pathbucket) {
+        return new BucketDeleter(
+                pathfield, pathbucket
+        );
+    }
+
+
+    public static BucketFetcher fetcher(final String pathfield, final String pathbucket) {
+        return new BucketFetcher(
+                pathfield, pathbucket
+        );
+    }
+
+
+    public static BucketUpdater updater(final String pathfield, final String pathbucket) {
+        return new BucketUpdater(
+                pathfield, pathbucket
+        );
+    }
+
+
+    //@JsonDeserialize(builder = RateLimitRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RateLimitRequest {
 
@@ -54,48 +76,16 @@ public class Bucket extends Resource {
         @Setter
         private Integer ttl;
 
-        public RateLimitRequest() {}
-
-        public static RateLimitRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, RateLimitRequest.class);
-        }
-    }
-
-    public static BucketDeleter deleter(
-        final String pathField,
-        final String pathBucket
-    ) {
-        return new BucketDeleter(pathField, pathBucket);
-    }
-
-    public static BucketFetcher fetcher(
-        final String pathField,
-        final String pathBucket
-    ) {
-        return new BucketFetcher(pathField, pathBucket);
-    }
-
-    public static BucketUpdater updater(
-        final String pathField,
-        final String pathBucket
-    ) {
-        return new BucketUpdater(pathField, pathBucket);
     }
 
     /**
      * Converts a JSON String into a Bucket object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Bucket object represented by the provided JSON
      */
-    public static Bucket fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Bucket fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Bucket.class);
@@ -110,14 +100,11 @@ public class Bucket extends Resource {
      * Converts a JSON InputStream into a Bucket object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Bucket object represented by the provided JSON
      */
-    public static Bucket fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Bucket fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Bucket.class);
@@ -140,45 +127,31 @@ public class Bucket extends Resource {
         }
     }
 
-    private final String field;
-    private final Integer limit;
+
+    @Getter
     private final String bucket;
+    @Getter
+    private final String field;
+    @Getter
+    private final Integer limit;
+    @Getter
     private final String owner;
+    @Getter
     private final Integer ttl;
 
     @JsonCreator
     private Bucket(
-        @JsonProperty("field") final String field,
-        @JsonProperty("limit") final Integer limit,
-        @JsonProperty("bucket") final String bucket,
-        @JsonProperty("owner") final String owner,
-        @JsonProperty("ttl") final Integer ttl
+            @JsonProperty("bucket") final String bucket,
+            @JsonProperty("field") final String field,
+            @JsonProperty("limit") final Integer limit,
+            @JsonProperty("owner") final String owner,
+            @JsonProperty("ttl") final Integer ttl
     ) {
+        this.bucket = bucket;
         this.field = field;
         this.limit = limit;
-        this.bucket = bucket;
         this.owner = owner;
         this.ttl = ttl;
-    }
-
-    public final String getField() {
-        return this.field;
-    }
-
-    public final Integer getLimit() {
-        return this.limit;
-    }
-
-    public final String getBucket() {
-        return this.bucket;
-    }
-
-    public final String getOwner() {
-        return this.owner;
-    }
-
-    public final Integer getTtl() {
-        return this.ttl;
     }
 
     @Override
@@ -192,18 +165,26 @@ public class Bucket extends Resource {
         }
 
         Bucket other = (Bucket) o;
-
         return (
-            Objects.equals(field, other.field) &&
-            Objects.equals(limit, other.limit) &&
-            Objects.equals(bucket, other.bucket) &&
-            Objects.equals(owner, other.owner) &&
-            Objects.equals(ttl, other.ttl)
+                Objects.equals(bucket, other.bucket) &&
+                        Objects.equals(field, other.field) &&
+                        Objects.equals(limit, other.limit) &&
+                        Objects.equals(owner, other.owner) &&
+                        Objects.equals(ttl, other.ttl)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(field, limit, bucket, owner, ttl);
+        return Objects.hash(
+                bucket,
+                field,
+                limit,
+                owner,
+                ttl
+        );
     }
+
+
 }
+

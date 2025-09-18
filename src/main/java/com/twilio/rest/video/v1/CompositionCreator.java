@@ -14,11 +14,12 @@
 
 package com.twilio.rest.video.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,9 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class CompositionCreator extends Creator<Composition> {
@@ -48,15 +48,18 @@ public class CompositionCreator extends Creator<Composition> {
         this.roomSid = roomSid;
     }
 
+
     public CompositionCreator setRoomSid(final String roomSid) {
         this.roomSid = roomSid;
         return this;
     }
 
+
     public CompositionCreator setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
+
 
     public CompositionCreator setAudioSources(final List<String> audioSources) {
         this.audioSources = audioSources;
@@ -67,19 +70,13 @@ public class CompositionCreator extends Creator<Composition> {
         return setAudioSources(Promoter.listOfOne(audioSources));
     }
 
-    public CompositionCreator setAudioSourcesExcluded(
-        final List<String> audioSourcesExcluded
-    ) {
+    public CompositionCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
     }
 
-    public CompositionCreator setAudioSourcesExcluded(
-        final String audioSourcesExcluded
-    ) {
-        return setAudioSourcesExcluded(
-            Promoter.listOfOne(audioSourcesExcluded)
-        );
+    public CompositionCreator setAudioSourcesExcluded(final String audioSourcesExcluded) {
+        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
     }
 
     public CompositionCreator setResolution(final String resolution) {
@@ -87,107 +84,113 @@ public class CompositionCreator extends Creator<Composition> {
         return this;
     }
 
+
     public CompositionCreator setFormat(final Composition.Format format) {
         this.format = format;
         return this;
     }
+
 
     public CompositionCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CompositionCreator setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public CompositionCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public CompositionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
+
 
     public CompositionCreator setTrim(final Boolean trim) {
         this.trim = trim;
         return this;
     }
 
+
     @Override
     public Composition create(final TwilioRestClient client) {
+
         String path = "/v1/Compositions";
 
-        path = path.replace("{" + "RoomSid" + "}", this.roomSid.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VIDEO.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VIDEO.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Composition creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Composition creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Composition.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Composition.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (roomSid != null) {
-            request.addPostParam("RoomSid", roomSid);
+            Serializer.toString(request, "RoomSid", roomSid, ParameterType.URLENCODED);
         }
+
+
         if (videoLayout != null) {
-            request.addPostParam(
-                "VideoLayout",
-                Converter.objectToJson(videoLayout)
-            );
+            Serializer.toString(request, "VideoLayout", videoLayout, ParameterType.URLENCODED);
         }
+
+
         if (audioSources != null) {
-            for (String prop : audioSources) {
-                request.addPostParam("AudioSources", prop);
+            for (String param : audioSources) {
+                Serializer.toString(request, "AudioSources", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (audioSourcesExcluded != null) {
-            for (String prop : audioSourcesExcluded) {
-                request.addPostParam("AudioSourcesExcluded", prop);
+            for (String param : audioSourcesExcluded) {
+                Serializer.toString(request, "AudioSourcesExcluded", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (resolution != null) {
-            request.addPostParam("Resolution", resolution);
+            Serializer.toString(request, "Resolution", resolution, ParameterType.URLENCODED);
         }
+
+
         if (format != null) {
-            request.addPostParam("Format", format.toString());
+            Serializer.toString(request, "Format", format, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (trim != null) {
-            request.addPostParam("Trim", trim.toString());
+            Serializer.toString(request, "Trim", trim, ParameterType.URLENCODED);
         }
+
+
     }
 }

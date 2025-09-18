@@ -14,8 +14,11 @@
 
 package com.twilio.rest.messaging.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,72 +30,61 @@ import com.twilio.rest.Domains;
 
 public class AlphaSenderCreator extends Creator<AlphaSender> {
 
-    private String pathServiceSid;
+    private String pathserviceSid;
     private String alphaSender;
 
-    public AlphaSenderCreator(
-        final String pathServiceSid,
-        final String alphaSender
-    ) {
-        this.pathServiceSid = pathServiceSid;
+    public AlphaSenderCreator(final String pathserviceSid, final String alphaSender) {
+        this.pathserviceSid = pathserviceSid;
         this.alphaSender = alphaSender;
     }
+
 
     public AlphaSenderCreator setAlphaSender(final String alphaSender) {
         this.alphaSender = alphaSender;
         return this;
     }
 
+
     @Override
     public AlphaSender create(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/AlphaSenders";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AlphaSender" + "}",
-                this.alphaSender.toString()
-            );
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MESSAGING.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "AlphaSender creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AlphaSender creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AlphaSender.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AlphaSender.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (alphaSender != null) {
-            request.addPostParam("AlphaSender", alphaSender);
+            Serializer.toString(request, "AlphaSender", alphaSender, ParameterType.URLENCODED);
         }
+
+
     }
 }

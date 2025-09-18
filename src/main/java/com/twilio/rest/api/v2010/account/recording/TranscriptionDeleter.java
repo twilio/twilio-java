@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.recording;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,71 +26,50 @@ import com.twilio.rest.Domains;
 
 public class TranscriptionDeleter extends Deleter<Transcription> {
 
-    private String pathRecordingSid;
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathrecordingSid;
+    private String pathsid;
 
-    public TranscriptionDeleter(
-        final String pathRecordingSid,
-        final String pathSid
-    ) {
-        this.pathRecordingSid = pathRecordingSid;
-        this.pathSid = pathSid;
+    public TranscriptionDeleter(final String pathrecordingSid, final String pathsid) {
+        this.pathrecordingSid = pathrecordingSid;
+        this.pathsid = pathsid;
     }
 
-    public TranscriptionDeleter(
-        final String pathAccountSid,
-        final String pathRecordingSid,
-        final String pathSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathRecordingSid = pathRecordingSid;
-        this.pathSid = pathSid;
+    public TranscriptionDeleter(final String pathaccountSid, final String pathrecordingSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathrecordingSid = pathrecordingSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "RecordingSid" + "}",
-                this.pathRecordingSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "RecordingSid" + "}", this.pathrecordingSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.API.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Transcription delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Transcription delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

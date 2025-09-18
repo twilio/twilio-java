@@ -30,51 +30,42 @@ public class ContentCreator extends Creator<Content> {
 
     private Content.ContentCreateRequest contentCreateRequest;
 
-    public ContentCreator(
-        final Content.ContentCreateRequest contentCreateRequest
-    ) {
+    public ContentCreator(final Content.ContentCreateRequest contentCreateRequest) {
         this.contentCreateRequest = contentCreateRequest;
     }
 
-    public ContentCreator setContentCreateRequest(
-        final Content.ContentCreateRequest contentCreateRequest
-    ) {
+
+    public ContentCreator setContentCreateRequest(final Content.ContentCreateRequest contentCreateRequest) {
         this.contentCreateRequest = contentCreateRequest;
         return this;
     }
 
+
     @Override
     public Content create(final TwilioRestClient client) {
+
         String path = "/v1/Content";
 
-        path =
-            path.replace(
-                "{" + "ContentCreateRequest" + "}",
-                this.contentCreateRequest.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CONTENT.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CONTENT.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Content creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Content creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

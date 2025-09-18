@@ -14,11 +14,12 @@
 
 package com.twilio.rest.proxy.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,13 +28,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.List;
 
 public class SessionCreator extends Creator<Session> {
 
-    private String pathServiceSid;
+    private String pathserviceSid;
     private String uniqueName;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
@@ -41,34 +42,40 @@ public class SessionCreator extends Creator<Session> {
     private Session.Status status;
     private List<Object> participants;
 
-    public SessionCreator(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public SessionCreator(final String pathserviceSid) {
+        this.pathserviceSid = pathserviceSid;
     }
+
 
     public SessionCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
+
     public SessionCreator setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }
+
 
     public SessionCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
 
+
     public SessionCreator setMode(final Session.Mode mode) {
         this.mode = mode;
         return this;
     }
 
+
     public SessionCreator setStatus(final Session.Status status) {
         this.status = status;
         return this;
     }
+
 
     public SessionCreator setParticipants(final List<Object> participants) {
         this.participants = participants;
@@ -81,36 +88,31 @@ public class SessionCreator extends Creator<Session> {
 
     @Override
     public Session create(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Sessions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.PROXY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Session creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Session creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -119,31 +121,37 @@ public class SessionCreator extends Creator<Session> {
     }
 
     private void addPostParams(final Request request) {
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
         if (dateExpiry != null) {
-            request.addPostParam(
-                "DateExpiry",
-                dateExpiry.toInstant().toString()
-            );
+            Serializer.toString(request, "DateExpiry", dateExpiry, ParameterType.URLENCODED);
         }
+
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
+
         if (mode != null) {
-            request.addPostParam("Mode", mode.toString());
+            Serializer.toString(request, "Mode", mode, ParameterType.URLENCODED);
         }
+
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
         if (participants != null) {
-            for (Object prop : participants) {
-                request.addPostParam(
-                    "Participants",
-                    Converter.objectToJson(prop)
-                );
+            for (Object param : participants) {
+                Serializer.toString(request, "Participants", param, ParameterType.URLENCODED);
             }
         }
+
     }
 }

@@ -25,22 +25,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.ToString;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 131790089402244L;
 
+    public static MessageCreator creator(final String pathid, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
+        return new MessageCreator(
+                pathid, assistantsV1ServiceAssistantSendMessageRequest
+        );
+    }
+
+
+    //@JsonDeserialize(builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceAssistantSendMessageRequest {
+        public AssistantsV1ServiceAssistantSendMessageRequest(final String identity, final String body) {
+            this.identity = identity;
+            this.body = body;
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
@@ -72,46 +84,16 @@ public class Message extends Resource {
         @Setter
         private String mode;
 
-        public AssistantsV1ServiceAssistantSendMessageRequest(
-            final String identity,
-            final String body
-        ) {
-            this.identity = identity;
-            this.body = body;
-        }
-
-        public static AssistantsV1ServiceAssistantSendMessageRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceAssistantSendMessageRequest.class
-            );
-        }
-    }
-
-    public static MessageCreator creator(
-        final String pathId,
-        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
-    ) {
-        return new MessageCreator(
-            pathId,
-            assistantsV1ServiceAssistantSendMessageRequest
-        );
     }
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -126,14 +108,11 @@ public class Message extends Resource {
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -156,59 +135,39 @@ public class Message extends Resource {
         }
     }
 
-    private final String status;
-    private final Boolean flagged;
+
+    @Getter
     private final Boolean aborted;
-    private final String sessionId;
+    @Getter
     private final String accountSid;
+    @Getter
     private final String body;
+    @Getter
     private final String error;
+    @Getter
+    private final Boolean flagged;
+    @Getter
+    private final String sessionId;
+    @Getter
+    private final String status;
 
     @JsonCreator
     private Message(
-        @JsonProperty("status") final String status,
-        @JsonProperty("flagged") final Boolean flagged,
-        @JsonProperty("aborted") final Boolean aborted,
-        @JsonProperty("session_id") final String sessionId,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("body") final String body,
-        @JsonProperty("error") final String error
+            @JsonProperty("aborted") final Boolean aborted,
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("body") final String body,
+            @JsonProperty("error") final String error,
+            @JsonProperty("flagged") final Boolean flagged,
+            @JsonProperty("session_id") final String sessionId,
+            @JsonProperty("status") final String status
     ) {
-        this.status = status;
-        this.flagged = flagged;
         this.aborted = aborted;
-        this.sessionId = sessionId;
         this.accountSid = accountSid;
         this.body = body;
         this.error = error;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final Boolean getFlagged() {
-        return this.flagged;
-    }
-
-    public final Boolean getAborted() {
-        return this.aborted;
-    }
-
-    public final String getSessionId() {
-        return this.sessionId;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getBody() {
-        return this.body;
-    }
-
-    public final String getError() {
-        return this.error;
+        this.flagged = flagged;
+        this.sessionId = sessionId;
+        this.status = status;
     }
 
     @Override
@@ -222,28 +181,30 @@ public class Message extends Resource {
         }
 
         Message other = (Message) o;
-
         return (
-            Objects.equals(status, other.status) &&
-            Objects.equals(flagged, other.flagged) &&
-            Objects.equals(aborted, other.aborted) &&
-            Objects.equals(sessionId, other.sessionId) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(body, other.body) &&
-            Objects.equals(error, other.error)
+                Objects.equals(aborted, other.aborted) &&
+                        Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(body, other.body) &&
+                        Objects.equals(error, other.error) &&
+                        Objects.equals(flagged, other.flagged) &&
+                        Objects.equals(sessionId, other.sessionId) &&
+                        Objects.equals(status, other.status)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            status,
-            flagged,
-            aborted,
-            sessionId,
-            accountSid,
-            body,
-            error
+                aborted,
+                accountSid,
+                body,
+                error,
+                flagged,
+                sessionId,
+                status
         );
     }
+
+
 }
+

@@ -14,8 +14,11 @@
 
 package com.twilio.rest.flexapi.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.math.BigDecimal;
+
 import java.math.BigDecimal;
 
 public class AssessmentsCreator extends Creator<Assessments> {
 
+    private String authorization;
     private String categorySid;
     private String categoryName;
     private String segmentId;
@@ -39,20 +43,8 @@ public class AssessmentsCreator extends Creator<Assessments> {
     private String answerText;
     private String answerId;
     private String questionnaireSid;
-    private String authorization;
 
-    public AssessmentsCreator(
-        final String categorySid,
-        final String categoryName,
-        final String segmentId,
-        final String agentId,
-        final BigDecimal offset,
-        final String metricId,
-        final String metricName,
-        final String answerText,
-        final String answerId,
-        final String questionnaireSid
-    ) {
+    public AssessmentsCreator(final String categorySid, final String categoryName, final String segmentId, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireSid) {
         this.categorySid = categorySid;
         this.categoryName = categoryName;
         this.segmentId = segmentId;
@@ -64,162 +56,166 @@ public class AssessmentsCreator extends Creator<Assessments> {
         this.answerId = answerId;
         this.questionnaireSid = questionnaireSid;
     }
+
 
     public AssessmentsCreator setCategorySid(final String categorySid) {
         this.categorySid = categorySid;
         return this;
     }
 
+
     public AssessmentsCreator setCategoryName(final String categoryName) {
         this.categoryName = categoryName;
         return this;
     }
+
 
     public AssessmentsCreator setSegmentId(final String segmentId) {
         this.segmentId = segmentId;
         return this;
     }
 
+
     public AssessmentsCreator setAgentId(final String agentId) {
         this.agentId = agentId;
         return this;
     }
+
 
     public AssessmentsCreator setOffset(final BigDecimal offset) {
         this.offset = offset;
         return this;
     }
 
+
     public AssessmentsCreator setMetricId(final String metricId) {
         this.metricId = metricId;
         return this;
     }
+
 
     public AssessmentsCreator setMetricName(final String metricName) {
         this.metricName = metricName;
         return this;
     }
 
+
     public AssessmentsCreator setAnswerText(final String answerText) {
         this.answerText = answerText;
         return this;
     }
+
 
     public AssessmentsCreator setAnswerId(final String answerId) {
         this.answerId = answerId;
         return this;
     }
 
-    public AssessmentsCreator setQuestionnaireSid(
-        final String questionnaireSid
-    ) {
+
+    public AssessmentsCreator setQuestionnaireSid(final String questionnaireSid) {
         this.questionnaireSid = questionnaireSid;
         return this;
     }
+
 
     public AssessmentsCreator setAuthorization(final String authorization) {
         this.authorization = authorization;
         return this;
     }
 
+
     @Override
     public Assessments create(final TwilioRestClient client) {
+
         String path = "/v1/Insights/QualityManagement/Assessments";
 
-        path =
-            path.replace(
-                "{" + "CategorySid" + "}",
-                this.categorySid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "CategoryName" + "}",
-                this.categoryName.toString()
-            );
-        path = path.replace("{" + "SegmentId" + "}", this.segmentId.toString());
-        path = path.replace("{" + "AgentId" + "}", this.agentId.toString());
-        path = path.replace("{" + "Offset" + "}", this.offset.toString());
-        path = path.replace("{" + "MetricId" + "}", this.metricId.toString());
-        path =
-            path.replace("{" + "MetricName" + "}", this.metricName.toString());
-        path =
-            path.replace("{" + "AnswerText" + "}", this.answerText.toString());
-        path = path.replace("{" + "AnswerId" + "}", this.answerId.toString());
-        path =
-            path.replace(
-                "{" + "QuestionnaireSid" + "}",
-                this.questionnaireSid.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Assessments creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Assessments creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Assessments.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Assessments.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (categorySid != null) {
-            request.addPostParam("CategorySid", categorySid);
+            Serializer.toString(request, "CategorySid", categorySid, ParameterType.URLENCODED);
         }
+
+
         if (categoryName != null) {
-            request.addPostParam("CategoryName", categoryName);
+            Serializer.toString(request, "CategoryName", categoryName, ParameterType.URLENCODED);
         }
+
+
         if (segmentId != null) {
-            request.addPostParam("SegmentId", segmentId);
+            Serializer.toString(request, "SegmentId", segmentId, ParameterType.URLENCODED);
         }
+
+
         if (agentId != null) {
-            request.addPostParam("AgentId", agentId);
+            Serializer.toString(request, "AgentId", agentId, ParameterType.URLENCODED);
         }
+
+
         if (offset != null) {
-            request.addPostParam("Offset", offset.toString());
+            Serializer.toString(request, "Offset", offset, ParameterType.URLENCODED);
         }
+
+
         if (metricId != null) {
-            request.addPostParam("MetricId", metricId);
+            Serializer.toString(request, "MetricId", metricId, ParameterType.URLENCODED);
         }
+
+
         if (metricName != null) {
-            request.addPostParam("MetricName", metricName);
+            Serializer.toString(request, "MetricName", metricName, ParameterType.URLENCODED);
         }
+
+
         if (answerText != null) {
-            request.addPostParam("AnswerText", answerText);
+            Serializer.toString(request, "AnswerText", answerText, ParameterType.URLENCODED);
         }
+
+
         if (answerId != null) {
-            request.addPostParam("AnswerId", answerId);
+            Serializer.toString(request, "AnswerId", answerId, ParameterType.URLENCODED);
         }
+
+
         if (questionnaireSid != null) {
-            request.addPostParam("QuestionnaireSid", questionnaireSid);
+            Serializer.toString(request, "QuestionnaireSid", questionnaireSid, ParameterType.URLENCODED);
         }
+
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
         }
+
     }
 }

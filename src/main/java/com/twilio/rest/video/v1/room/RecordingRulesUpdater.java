@@ -25,18 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class RecordingRulesUpdater extends Updater<RecordingRules> {
 
     private String pathRoomSid;
-    private Map<String, Object> rules;
+    private Object rules;
 
     public RecordingRulesUpdater(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
-    public RecordingRulesUpdater setRules(final Map<String, Object> rules) {
+    public RecordingRulesUpdater setRules(final Object rules) {
         this.rules = rules;
         return this;
     }
@@ -81,7 +80,7 @@ public class RecordingRulesUpdater extends Updater<RecordingRules> {
 
     private void addPostParams(final Request request) {
         if (rules != null) {
-            request.addPostParam("Rules", Converter.mapToJson(rules));
+            request.addPostParam("Rules", Converter.objectToJson(rules));
         }
     }
 }

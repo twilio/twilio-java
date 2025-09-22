@@ -26,19 +26,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class CustomOperatorCreator extends Creator<CustomOperator> {
 
     private String friendlyName;
     private String operatorType;
-    private Map<String, Object> config;
+    private Object config;
 
     public CustomOperatorCreator(
         final String friendlyName,
         final String operatorType,
-        final Map<String, Object> config
+        final Object config
     ) {
         this.friendlyName = friendlyName;
         this.operatorType = operatorType;
@@ -55,7 +53,7 @@ public class CustomOperatorCreator extends Creator<CustomOperator> {
         return this;
     }
 
-    public CustomOperatorCreator setConfig(final Map<String, Object> config) {
+    public CustomOperatorCreator setConfig(final Object config) {
         this.config = config;
         return this;
     }
@@ -116,7 +114,7 @@ public class CustomOperatorCreator extends Creator<CustomOperator> {
             request.addPostParam("OperatorType", operatorType);
         }
         if (config != null) {
-            request.addPostParam("Config", Converter.mapToJson(config));
+            request.addPostParam("Config", Converter.objectToJson(config));
         }
     }
 }

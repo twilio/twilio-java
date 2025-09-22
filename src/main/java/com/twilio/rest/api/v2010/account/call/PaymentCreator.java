@@ -31,8 +31,6 @@ import java.math.BigDecimal;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 
 public class PaymentCreator extends Creator<Payment> {
 
@@ -46,7 +44,7 @@ public class PaymentCreator extends Creator<Payment> {
     private String description;
     private String input;
     private Integer minPostalCodeLength;
-    private Map<String, Object> parameter;
+    private Object parameter;
     private String paymentConnector;
     private Payment.PaymentMethod paymentMethod;
     private Boolean postalCode;
@@ -125,7 +123,7 @@ public class PaymentCreator extends Creator<Payment> {
         return this;
     }
 
-    public PaymentCreator setParameter(final Map<String, Object> parameter) {
+    public PaymentCreator setParameter(final Object parameter) {
         this.parameter = parameter;
         return this;
     }
@@ -251,7 +249,10 @@ public class PaymentCreator extends Creator<Payment> {
             );
         }
         if (parameter != null) {
-            request.addPostParam("Parameter", Converter.mapToJson(parameter));
+            request.addPostParam(
+                "Parameter",
+                Converter.objectToJson(parameter)
+            );
         }
         if (paymentConnector != null) {
             request.addPostParam("PaymentConnector", paymentConnector);

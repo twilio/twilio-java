@@ -43,7 +43,7 @@ public class Sink extends Resource {
 
     public static SinkCreator creator(
         final String description,
-        final Map<String, Object> sinkConfiguration,
+        final Object sinkConfiguration,
         final Sink.SinkType sinkType
     ) {
         return new SinkCreator(description, sinkConfiguration, sinkType);

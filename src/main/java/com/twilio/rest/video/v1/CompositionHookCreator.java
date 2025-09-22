@@ -31,14 +31,12 @@ import java.net.URI;
 import java.net.URI;
 import java.util.List;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class CompositionHookCreator extends Creator<CompositionHook> {
 
     private String friendlyName;
     private Boolean enabled;
-    private Map<String, Object> videoLayout;
+    private Object videoLayout;
     private List<String> audioSources;
     private List<String> audioSourcesExcluded;
     private String resolution;
@@ -61,9 +59,7 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         return this;
     }
 
-    public CompositionHookCreator setVideoLayout(
-        final Map<String, Object> videoLayout
-    ) {
+    public CompositionHookCreator setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
@@ -181,7 +177,7 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         if (videoLayout != null) {
             request.addPostParam(
                 "VideoLayout",
-                Converter.mapToJson(videoLayout)
+                Converter.objectToJson(videoLayout)
             );
         }
         if (audioSources != null) {

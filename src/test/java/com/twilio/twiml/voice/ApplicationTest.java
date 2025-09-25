@@ -7,14 +7,15 @@
 
 package com.twilio.twiml.voice;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import java.net.URI;
-import java.util.List;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link Application}
@@ -24,7 +25,7 @@ public class ApplicationTest {
     public void testEmptyElement() {
         Application elem = new Application.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application/>",
             elem.toXml()
@@ -35,7 +36,7 @@ public class ApplicationTest {
     public void testEmptyElementUrl() {
         Application elem = new Application.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CApplication%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CApplication%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -50,7 +51,7 @@ public class ApplicationTest {
             .copyParentTo(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>",
             elem.toXml()
@@ -61,7 +62,7 @@ public class ApplicationTest {
     public void testElementWithExtraAttributes() {
         Application elem = new Application.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -78,7 +79,7 @@ public class ApplicationTest {
 
         Application elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application>" +
                 "<ApplicationSid>sid</ApplicationSid>" +
@@ -96,7 +97,7 @@ public class ApplicationTest {
 
         Application elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application>" +
             "Hey no tags!" +
@@ -116,7 +117,7 @@ public class ApplicationTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application>" +
             "before" +
@@ -136,7 +137,7 @@ public class ApplicationTest {
         Application.Builder builder = new Application.Builder();
         Application elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application>" +
             "<genericTag>" +
@@ -155,7 +156,7 @@ public class ApplicationTest {
         Application.Builder builder = new Application.Builder();
         Application elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Application>" +
             "<genericTag key=\"value\">" +
@@ -178,7 +179,7 @@ public class ApplicationTest {
             .copyParentTo(true)
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Application.Builder.fromXml("<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>").build().toXml(),
             elem.toXml()
         );
@@ -194,7 +195,7 @@ public class ApplicationTest {
 
         final Application elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Application.Builder.fromXml("<Application>" +
                 "<ApplicationSid>sid</ApplicationSid>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
@@ -211,7 +212,7 @@ public class ApplicationTest {
 
         final Application elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Application.Builder.fromXml("<Application>" +
                 "<Parameter/>" +
             "</Application>").build().toXml(),

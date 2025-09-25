@@ -7,8 +7,10 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link Autopilot}
@@ -18,7 +20,7 @@ public class AutopilotTest {
     public void testElementWithParams() {
         Autopilot elem = new Autopilot.Builder("name").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Autopilot>name</Autopilot>",
             elem.toXml()
@@ -29,7 +31,7 @@ public class AutopilotTest {
     public void testXmlAttributesDeserialization() {
         final Autopilot elem = new Autopilot.Builder("name").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Autopilot.Builder.fromXml("<Autopilot>name</Autopilot>").build().toXml(),
             elem.toXml()
         );

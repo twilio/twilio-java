@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlLang}
@@ -19,7 +19,7 @@ public class SsmlLangTest {
     public void testEmptyElement() {
         SsmlLang elem = new SsmlLang.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlLangTest {
     public void testEmptyElementUrl() {
         SsmlLang elem = new SsmlLang.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Clang%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Clang%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlLang elem = new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang xml:lang=\"arb\">words</lang>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlLangTest {
     public void testElementWithExtraAttributes() {
         SsmlLang elem = new SsmlLang.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -84,7 +84,7 @@ public class SsmlLangTest {
 
         SsmlLang elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -110,7 +110,7 @@ public class SsmlLangTest {
 
         SsmlLang elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang>" +
             "Hey no tags!" +
@@ -130,7 +130,7 @@ public class SsmlLangTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang>" +
             "before" +
@@ -150,7 +150,7 @@ public class SsmlLangTest {
         SsmlLang.Builder builder = new SsmlLang.Builder();
         SsmlLang elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang>" +
             "<genericTag>" +
@@ -169,7 +169,7 @@ public class SsmlLangTest {
         SsmlLang.Builder builder = new SsmlLang.Builder();
         SsmlLang elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<lang>" +
             "<genericTag key=\"value\">" +
@@ -184,7 +184,7 @@ public class SsmlLangTest {
     public void testXmlAttributesDeserialization() {
         final SsmlLang elem = new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlLang.Builder.fromXml("<lang xml:lang=\"arb\">words</lang>").build().toXml(),
             elem.toXml()
         );
@@ -219,7 +219,7 @@ public class SsmlLangTest {
 
         final SsmlLang elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlLang.Builder.fromXml("<lang>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -256,7 +256,7 @@ public class SsmlLangTest {
 
         final SsmlLang elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlLang.Builder.fromXml("<lang>" +
                 "<break/>" +
                 "<emphasis/>" +

@@ -1,11 +1,12 @@
 package com.twilio.taskrouter;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link Workflow}
@@ -26,7 +27,7 @@ public class WorkflowTest {
         WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget.Builder("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").build();
         Workflow workflow = new Workflow(rules, defaultTarget);
 
-        Assert.assertEquals("{\"task_routing\":{\"filters\":[{\"expression\":\"skill == \\\"HR\\\"\",\"targets\":[{\"queue\":\"WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"priority\":54333,\"timeout\":30}],\"friendlyName\":\"4354\"}],\"default_filter\":{\"queue\":\"WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}}", workflow.toJson());
+        assertEquals("{\"task_routing\":{\"filters\":[{\"expression\":\"skill == \\\"HR\\\"\",\"targets\":[{\"queue\":\"WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"priority\":54333,\"timeout\":30}],\"friendlyName\":\"4354\"}],\"default_filter\":{\"queue\":\"WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}}", workflow.toJson());
     }
 
     @Test
@@ -51,22 +52,22 @@ public class WorkflowTest {
         Workflow workflow = Workflow.fromJson(json);
 
         WorkflowRuleTarget defaultTarget = workflow.getDefaultTarget();
-        Assert.assertEquals("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", defaultTarget.getQueue());
+        assertEquals("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", defaultTarget.getQueue());
 
         List<WorkflowRule> rules = workflow.getWorkflowRules();
-        Assert.assertEquals(1, rules.size());
+        assertEquals(1, rules.size());
 
         WorkflowRule rule = rules.get(0);
-        Assert.assertEquals("skill == \"HR\"", rule.getExpression());
-        Assert.assertEquals("4354", rule.getFriendlyName());
+        assertEquals("skill == \"HR\"", rule.getExpression());
+        assertEquals("4354", rule.getFriendlyName());
 
         List<WorkflowRuleTarget> targets = rule.getWorkflowRuleTargets();
-        Assert.assertEquals(1, targets.size());
+        assertEquals(1, targets.size());
 
         WorkflowRuleTarget target = targets.get(0);
-        Assert.assertEquals("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", target.getQueue());
-        Assert.assertEquals(54333, (int) target.getPriority());
-        Assert.assertEquals(30, (int) target.getTimeout());
+        assertEquals("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", target.getQueue());
+        assertEquals(54333, (int) target.getPriority());
+        assertEquals(30, (int) target.getTimeout());
     }
 
 }

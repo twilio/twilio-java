@@ -7,8 +7,8 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
@@ -18,8 +18,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class NetworkHttpClientTest {
@@ -47,7 +50,7 @@ public class NetworkHttpClientTest {
     @Mock
     private HttpEntity mockEntity;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         MockitoAnnotations.initMocks(this);
@@ -84,11 +87,11 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 200);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(200, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
-    @Test(expected = ApiConnectionException.class)
+    @Test
     public void testMakeRequestIOException() throws IOException {
 
         when(mockBuilder.build()).thenReturn(mockClient);
@@ -98,8 +101,7 @@ public class NetworkHttpClientTest {
         when(mockRequest.getAuthString()).thenReturn("foo:bar");
         when(mockClient.execute(any())).thenThrow(new ApiConnectionException("foo"));
         client = new NetworkHttpClient(mockBuilder);
-        client.makeRequest(mockRequest);
-        fail("ApiConnectionException was expected");
+        assertThrows(ApiConnectionException.class, () -> client.makeRequest(mockRequest));
     }
 
     @Test
@@ -108,8 +110,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 201);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(201, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -120,8 +122,8 @@ public class NetworkHttpClientTest {
         when(mockRequest.getBody()).thenReturn(body);
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 201);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(201, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -159,8 +161,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 204);
-        assertEquals(resp.getContent(), "");
+        assertEquals(204, resp.getStatusCode());
+        assertEquals("", resp.getContent());
     }
 
     @Test
@@ -169,8 +171,8 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 200);
-        assertEquals(resp.getContent(), "frobozz");
+        assertEquals(200, resp.getStatusCode());
+        assertEquals("frobozz", resp.getContent());
     }
 
     @Test
@@ -179,7 +181,7 @@ public class NetworkHttpClientTest {
 
         Response resp = client.makeRequest(mockRequest);
 
-        assertEquals(resp.getStatusCode(), 404);
-        assertEquals(resp.getContent(), "womp");
+        assertEquals(404, resp.getStatusCode());
+        assertEquals("womp", resp.getContent());
     }
 }

@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlS}
@@ -19,7 +19,7 @@ public class SsmlSTest {
     public void testEmptyElement() {
         SsmlS elem = new SsmlS.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlSTest {
     public void testEmptyElementUrl() {
         SsmlS elem = new SsmlS.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cs%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cs%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlS elem = new SsmlS.Builder("words").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s>words</s>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlSTest {
     public void testElementWithExtraAttributes() {
         SsmlS elem = new SsmlS.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -80,7 +80,7 @@ public class SsmlSTest {
 
         SsmlS elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -104,7 +104,7 @@ public class SsmlSTest {
 
         SsmlS elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s>" +
             "Hey no tags!" +
@@ -124,7 +124,7 @@ public class SsmlSTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s>" +
             "before" +
@@ -144,7 +144,7 @@ public class SsmlSTest {
         SsmlS.Builder builder = new SsmlS.Builder();
         SsmlS elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s>" +
             "<genericTag>" +
@@ -163,7 +163,7 @@ public class SsmlSTest {
         SsmlS.Builder builder = new SsmlS.Builder();
         SsmlS elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<s>" +
             "<genericTag key=\"value\">" +
@@ -178,7 +178,7 @@ public class SsmlSTest {
     public void testXmlAttributesDeserialization() {
         final SsmlS elem = new SsmlS.Builder("words").build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlS.Builder.fromXml("<s>words</s>").build().toXml(),
             elem.toXml()
         );
@@ -209,7 +209,7 @@ public class SsmlSTest {
 
         final SsmlS elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlS.Builder.fromXml("<s>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -240,7 +240,7 @@ public class SsmlSTest {
 
         final SsmlS elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlS.Builder.fromXml("<s>" +
                 "<break/>" +
                 "<emphasis/>" +

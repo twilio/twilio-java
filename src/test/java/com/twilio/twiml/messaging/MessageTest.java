@@ -7,12 +7,14 @@
 
 package com.twilio.twiml.messaging;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import java.net.URI;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link Message}
@@ -22,7 +24,7 @@ public class MessageTest {
     public void testEmptyElement() {
         Message elem = new Message.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message/>",
             elem.toXml()
@@ -33,7 +35,7 @@ public class MessageTest {
     public void testEmptyElementUrl() {
         Message elem = new Message.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CMessage%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CMessage%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -46,7 +48,7 @@ public class MessageTest {
             .statusCallback(URI.create("https://example.com"))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message action=\"https://example.com\" from=\"from\" method=\"GET\" statusCallback=\"https://example.com\" to=\"to\">body</Message>",
             elem.toXml()
@@ -57,7 +59,7 @@ public class MessageTest {
     public void testElementWithExtraAttributes() {
         Message elem = new Message.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -74,7 +76,7 @@ public class MessageTest {
 
         Message elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message>" +
                 "<Body>message</Body>" +
@@ -92,7 +94,7 @@ public class MessageTest {
 
         Message elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message>" +
             "Hey no tags!" +
@@ -112,7 +114,7 @@ public class MessageTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message>" +
             "before" +
@@ -132,7 +134,7 @@ public class MessageTest {
         Message.Builder builder = new Message.Builder();
         Message elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message>" +
             "<genericTag>" +
@@ -151,7 +153,7 @@ public class MessageTest {
         Message.Builder builder = new Message.Builder();
         Message elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Message>" +
             "<genericTag key=\"value\">" +
@@ -172,7 +174,7 @@ public class MessageTest {
             .statusCallback(URI.create("https://example.com"))
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Message.Builder.fromXml("<Message action=\"https://example.com\" from=\"from\" method=\"GET\" statusCallback=\"https://example.com\" to=\"to\">body</Message>").build().toXml(),
             elem.toXml()
         );
@@ -188,7 +190,7 @@ public class MessageTest {
 
         final Message elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             Message.Builder.fromXml("<Message>" +
                 "<Body>message</Body>" +
                 "<Media>https://example.com</Media>" +

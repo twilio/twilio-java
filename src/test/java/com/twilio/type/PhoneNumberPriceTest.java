@@ -1,7 +1,7 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
@@ -19,9 +19,9 @@ public class PhoneNumberPriceTest extends TypeTest {
             "}";
 
         PhoneNumberPrice pnp = fromJson(json, PhoneNumberPrice.class);
-        Assert.assertEquals(1.00, pnp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, pnp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(PhoneNumberPrice.Type.MOBILE, pnp.getType());
+        assertEquals(1.00, pnp.getBasePrice(), 0.00);
+        assertEquals(2.00, pnp.getCurrentPrice(), 0.00);
+        assertEquals(PhoneNumberPrice.Type.MOBILE, pnp.getType());
     }
 
     @Test
@@ -33,9 +33,9 @@ public class PhoneNumberPriceTest extends TypeTest {
                 "}";
 
         PhoneNumberPrice pnp = fromJson(json, PhoneNumberPrice.class);
-        Assert.assertEquals(1.00, pnp.getBasePrice(), 0.00);
-        Assert.assertEquals(2.00, pnp.getCurrentPrice(), 0.00);
-        Assert.assertEquals(PhoneNumberPrice.Type.TOLLFREE, pnp.getType());
+        assertEquals(1.00, pnp.getBasePrice(), 0.00);
+        assertEquals(2.00, pnp.getCurrentPrice(), 0.00);
+        assertEquals(PhoneNumberPrice.Type.TOLLFREE, pnp.getType());
     }
 
 }

@@ -1,9 +1,9 @@
 package com.twilio.type;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link IceServer}.
@@ -20,10 +20,10 @@ public class IceServerTest extends TypeTest {
             "}";
 
         IceServer is = fromJson(json, IceServer.class);
-        Assert.assertEquals("https://www.twilio.ca", is.getUrl());
-        Assert.assertEquals("https://www.twilio.ca", is.getUrls());
-        Assert.assertEquals(is.getUrls(), is.getUrl());
-        Assert.assertEquals("apn", is.getCredential());
-        Assert.assertEquals("twilio", is.getUsername());
+        assertEquals("https://www.twilio.ca", is.getUrl());
+        assertEquals("https://www.twilio.ca", is.getUrls());
+        assertEquals(is.getUrls(), is.getUrl());
+        assertEquals("apn", is.getCredential());
+        assertEquals("twilio", is.getUsername());
     }
 }

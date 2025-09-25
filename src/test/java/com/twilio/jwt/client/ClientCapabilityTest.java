@@ -1,5 +1,8 @@
 package com.twilio.jwt.client;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,12 +12,12 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link ClientCapability}.
@@ -50,8 +53,8 @@ public class ClientCapabilityTest {
 
         Claims claims = getClaims(jwt);
 
-        Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
-        Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
+        assertEquals(ACCOUNT_SID, claims.getIssuer());
+        assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
     @Test
@@ -65,10 +68,10 @@ public class ClientCapabilityTest {
 
         Claims claims = getClaims(jwt);
 
-        Assert.assertEquals(ACCOUNT_SID, claims.getIssuer());
-        Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
+        assertEquals(ACCOUNT_SID, claims.getIssuer());
+        assertTrue(claims.getExpiration().getTime() > new Date().getTime());
 
-        Assert.assertEquals(
+        assertEquals(
             "scope:client:incoming?clientName=incomingClient " +
             "scope:stream:subscribe?path=/2010-04-01/Events " +
             "scope:client:outgoing?appSid=AP123",

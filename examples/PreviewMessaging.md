@@ -1,3 +1,4 @@
+```java
 class PreviewMessagingExamples {
     public static void main {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -26,3 +27,4 @@ class PreviewMessagingExamples {
     }
 
 }
+```

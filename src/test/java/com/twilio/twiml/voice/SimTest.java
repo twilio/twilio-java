@@ -7,8 +7,8 @@
 
 package com.twilio.twiml.voice;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Sim}
@@ -18,7 +18,7 @@ public class SimTest {
     public void testElementWithParams() {
         Sim elem = new Sim.Builder("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>",
             elem.toXml()
@@ -29,7 +29,7 @@ public class SimTest {
     public void testXmlAttributesDeserialization() {
         final Sim elem = new Sim.Builder("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").build();
 
-        Assert.assertEquals(
+        assertEquals(
             Sim.Builder.fromXml("<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>").build().toXml(),
             elem.toXml()
         );

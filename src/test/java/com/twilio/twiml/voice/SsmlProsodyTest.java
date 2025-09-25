@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlProsody}
@@ -19,7 +19,7 @@ public class SsmlProsodyTest {
     public void testEmptyElement() {
         SsmlProsody elem = new SsmlProsody.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlProsodyTest {
     public void testEmptyElementUrl() {
         SsmlProsody elem = new SsmlProsody.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cprosody%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cprosody%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlProsody elem = new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlProsodyTest {
     public void testElementWithExtraAttributes() {
         SsmlProsody elem = new SsmlProsody.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -84,7 +84,7 @@ public class SsmlProsodyTest {
 
         SsmlProsody elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody>" +
                 "<break strength=\"none\" time=\"time\"/>" +
@@ -110,7 +110,7 @@ public class SsmlProsodyTest {
 
         SsmlProsody elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody>" +
             "Hey no tags!" +
@@ -130,7 +130,7 @@ public class SsmlProsodyTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody>" +
             "before" +
@@ -150,7 +150,7 @@ public class SsmlProsodyTest {
         SsmlProsody.Builder builder = new SsmlProsody.Builder();
         SsmlProsody elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody>" +
             "<genericTag>" +
@@ -169,7 +169,7 @@ public class SsmlProsodyTest {
         SsmlProsody.Builder builder = new SsmlProsody.Builder();
         SsmlProsody elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<prosody>" +
             "<genericTag key=\"value\">" +
@@ -184,7 +184,7 @@ public class SsmlProsodyTest {
     public void testXmlAttributesDeserialization() {
         final SsmlProsody elem = new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlProsody.Builder.fromXml("<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>").build().toXml(),
             elem.toXml()
         );
@@ -219,7 +219,7 @@ public class SsmlProsodyTest {
 
         final SsmlProsody elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlProsody.Builder.fromXml("<prosody>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
@@ -256,7 +256,7 @@ public class SsmlProsodyTest {
 
         final SsmlProsody elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlProsody.Builder.fromXml("<prosody>" +
                 "<break/>" +
                 "<emphasis/>" +

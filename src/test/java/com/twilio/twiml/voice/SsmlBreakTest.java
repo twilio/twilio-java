@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link SsmlBreak}
@@ -19,7 +19,7 @@ public class SsmlBreakTest {
     public void testEmptyElement() {
         SsmlBreak elem = new SsmlBreak.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<break/>",
             elem.toXml()
@@ -30,14 +30,14 @@ public class SsmlBreakTest {
     public void testEmptyElementUrl() {
         SsmlBreak elem = new SsmlBreak.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cbreak%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3Cbreak%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
         SsmlBreak elem = new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<break strength=\"none\" time=\"time\"/>",
             elem.toXml()
@@ -48,7 +48,7 @@ public class SsmlBreakTest {
     public void testElementWithExtraAttributes() {
         SsmlBreak elem = new SsmlBreak.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<break a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -63,7 +63,7 @@ public class SsmlBreakTest {
 
         SsmlBreak elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<break>" +
             "Hey no tags!" +
@@ -83,7 +83,7 @@ public class SsmlBreakTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<break>" +
             "before" +
@@ -103,7 +103,7 @@ public class SsmlBreakTest {
         SsmlBreak.Builder builder = new SsmlBreak.Builder();
         SsmlBreak elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<break>" +
             "<genericTag>" +
@@ -118,7 +118,7 @@ public class SsmlBreakTest {
     public void testXmlAttributesDeserialization() {
         final SsmlBreak elem = new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build();
 
-        Assert.assertEquals(
+        assertEquals(
             SsmlBreak.Builder.fromXml("<break strength=\"none\" time=\"time\"/>").build().toXml(),
             elem.toXml()
         );

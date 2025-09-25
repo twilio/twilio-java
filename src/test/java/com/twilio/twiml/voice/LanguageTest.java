@@ -8,8 +8,8 @@
 package com.twilio.twiml.voice;
 
 import com.twilio.twiml.GenericNode;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link Language}
@@ -19,7 +19,7 @@ public class LanguageTest {
     public void testEmptyElement() {
         Language elem = new Language.Builder().build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Language/>",
             elem.toXml()
@@ -30,7 +30,7 @@ public class LanguageTest {
     public void testEmptyElementUrl() {
         Language elem = new Language.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CLanguage%2F%3E", elem.toUrl());
+        assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CLanguage%2F%3E", elem.toUrl());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class LanguageTest {
             .speechModel("speech_model")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>",
             elem.toXml()
@@ -54,7 +54,7 @@ public class LanguageTest {
     public void testElementWithExtraAttributes() {
         Language elem = new Language.Builder().option("foo", "bar").option("a", "b").build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Language a=\"b\" foo=\"bar\"/>",
             elem.toXml()
@@ -69,7 +69,7 @@ public class LanguageTest {
 
         Language elem = builder.build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Language>" +
             "Hey no tags!" +
@@ -89,7 +89,7 @@ public class LanguageTest {
         builder.addChild(child.build());
         builder.addText("after");
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Language>" +
             "before" +
@@ -109,7 +109,7 @@ public class LanguageTest {
         Language.Builder builder = new Language.Builder();
         Language elem = builder.addChild(node).build();
 
-        Assert.assertEquals(
+        assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Language>" +
             "<genericTag>" +
@@ -130,7 +130,7 @@ public class LanguageTest {
             .speechModel("speech_model")
             .build();
 
-        Assert.assertEquals(
+        assertEquals(
             Language.Builder.fromXml("<Language code=\"code\" speechModel=\"speech_model\" transcriptionProvider=\"transcription_provider\" ttsProvider=\"tts_provider\" voice=\"voice\"/>").build().toXml(),
             elem.toXml()
         );

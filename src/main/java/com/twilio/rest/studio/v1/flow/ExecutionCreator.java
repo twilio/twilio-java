@@ -77,8 +77,8 @@ public class ExecutionCreator extends Creator<Execution> {
         String path = "/v1/Flows/{FlowSid}/Executions";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace("{" + "To" + "}", this.to.encode("utf-8"));
-        path = path.replace("{" + "From" + "}", this.from.encode("utf-8"));
+        path = path.replace("{" + "To" + "}", this.to.toString());
+        path = path.replace("{" + "From" + "}", this.from.toString());
 
         Request request = new Request(
             HttpMethod.POST,

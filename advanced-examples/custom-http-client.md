@@ -81,10 +81,10 @@ Now that we understand how all the components fit together, we can create our ow
 import com.twilio.http.HttpClient;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.TwilioRestClient;
-import org.apache.http.HttpHost;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.HttpHost;
 
 public class ProxiedTwilioClientCreator {
 
@@ -120,8 +120,7 @@ public class ProxiedTwilioClientCreator {
   private void createHttpClient() {
     RequestConfig config = RequestConfig
       .custom()
-      .setConnectTimeout(10000)
-      .setSocketTimeout(30500)
+      .setConnectTimeout(Timeout.ofMilliseconds(10000))
       .build();
 
     PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();

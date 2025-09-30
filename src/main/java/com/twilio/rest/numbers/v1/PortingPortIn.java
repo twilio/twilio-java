@@ -16,28 +16,42 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -1064,6 +1078,8 @@ public class PortingPortIn extends Resource {
     @Getter
     private final List<String> notificationEmails;
     @Getter
+    private final String orderCancellationReason;
+    @Getter
     private final List<NumbersV1PortingPortInPhoneNumberResult> phoneNumbers;
     @Getter
     private final String portInRequestSid;
@@ -1090,6 +1106,7 @@ public class PortingPortIn extends Resource {
             @JsonProperty("documents") final List<String> documents,
             @JsonProperty("losing_carrier_information") final NumbersV1PortingLosingCarrierInformation losingCarrierInformation,
             @JsonProperty("notification_emails") final List<String> notificationEmails,
+            @JsonProperty("order_cancellation_reason") final String orderCancellationReason,
             @JsonProperty("phone_numbers") final List<NumbersV1PortingPortInPhoneNumberResult> phoneNumbers,
             @JsonProperty("port_in_request_sid") final String portInRequestSid,
             @JsonProperty("port_in_request_status") final String portInRequestStatus,
@@ -1107,6 +1124,7 @@ public class PortingPortIn extends Resource {
         this.documents = documents;
         this.losingCarrierInformation = losingCarrierInformation;
         this.notificationEmails = notificationEmails;
+        this.orderCancellationReason = orderCancellationReason;
         this.phoneNumbers = phoneNumbers;
         this.portInRequestSid = portInRequestSid;
         this.portInRequestStatus = portInRequestStatus;
@@ -1136,6 +1154,7 @@ public class PortingPortIn extends Resource {
                         Objects.equals(documents, other.documents) &&
                         Objects.equals(losingCarrierInformation, other.losingCarrierInformation) &&
                         Objects.equals(notificationEmails, other.notificationEmails) &&
+                        Objects.equals(orderCancellationReason, other.orderCancellationReason) &&
                         Objects.equals(phoneNumbers, other.phoneNumbers) &&
                         Objects.equals(portInRequestSid, other.portInRequestSid) &&
                         Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
@@ -1157,6 +1176,7 @@ public class PortingPortIn extends Resource {
                 documents,
                 losingCarrierInformation,
                 notificationEmails,
+                orderCancellationReason,
                 phoneNumbers,
                 portInRequestSid,
                 portInRequestStatus,

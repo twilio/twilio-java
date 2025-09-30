@@ -28,6 +28,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerProfilesEntityAssignments> {
 
     private String pathCustomerProfileSid;

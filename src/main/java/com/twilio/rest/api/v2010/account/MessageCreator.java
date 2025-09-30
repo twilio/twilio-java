@@ -29,10 +29,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class MessageCreator extends Creator<Message> {
 

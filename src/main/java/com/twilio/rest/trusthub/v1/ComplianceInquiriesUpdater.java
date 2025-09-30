@@ -27,6 +27,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
     private String pathCustomerId;
     private String primaryProfileSid;

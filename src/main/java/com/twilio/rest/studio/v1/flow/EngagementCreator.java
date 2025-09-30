@@ -29,6 +29,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class EngagementCreator extends Creator<Engagement> {
 
     private String pathFlowSid;

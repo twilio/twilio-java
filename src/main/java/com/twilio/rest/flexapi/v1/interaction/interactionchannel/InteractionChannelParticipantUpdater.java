@@ -27,6 +27,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InteractionChannelParticipantUpdater extends Updater<InteractionChannelParticipant> {
     private String pathInteractionSid;
     private String pathChannelSid;

@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,24 +27,27 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class NewFactorUpdater extends Updater<NewFactor> {
-    private String pathServiceSid;
-    private NewFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest;
 
-    public NewFactorUpdater(final String pathServiceSid, final NewFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest) {
+import com.twilio.type.*;
+
+public class NewVerifyFactorUpdater extends Updater<NewVerifyFactor> {
+    private String pathServiceSid;
+    private NewVerifyFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest;
+
+    public NewVerifyFactorUpdater(final String pathServiceSid, final NewVerifyFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest) {
         this.pathServiceSid = pathServiceSid;
         this.verifyPasskeysFactorRequest = verifyPasskeysFactorRequest;
     }
 
 
-    public NewFactorUpdater setVerifyPasskeysFactorRequest(final NewFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest) {
+    public NewVerifyFactorUpdater setVerifyPasskeysFactorRequest(final NewVerifyFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest) {
         this.verifyPasskeysFactorRequest = verifyPasskeysFactorRequest;
         return this;
     }
 
 
     @Override
-    public NewFactor update(final TwilioRestClient client) {
+    public NewVerifyFactor update(final TwilioRestClient client) {
 
         String path = "/v2/Services/{ServiceSid}/Passkeys/VerifyFactor";
 
@@ -61,7 +65,7 @@ public class NewFactorUpdater extends Updater<NewFactor> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("NewFactor update failed: Unable to connect to server");
+            throw new ApiConnectionException("NewVerifyFactor update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                     response.getStream(),
@@ -73,13 +77,13 @@ public class NewFactorUpdater extends Updater<NewFactor> {
             throw new ApiException(restException);
         }
 
-        return NewFactor.fromJson(response.getStream(), client.getObjectMapper());
+        return NewVerifyFactor.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (verifyPasskeysFactorRequest != null) {
-            request.setBody(NewFactor.toJson(verifyPasskeysFactorRequest, objectMapper));
+            request.setBody(NewVerifyFactor.toJson(verifyPasskeysFactorRequest, objectMapper));
         }
     }
 }

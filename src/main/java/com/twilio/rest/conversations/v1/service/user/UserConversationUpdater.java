@@ -27,7 +27,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class UserConversationUpdater extends Updater<UserConversation> {
     private String pathChatServiceSid;

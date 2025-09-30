@@ -27,6 +27,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class FunctionUpdater extends Updater<Function> {
     private String pathServiceSid;
     private String pathSid;

@@ -27,6 +27,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RateLimitUpdater extends Updater<RateLimit> {
     private String pathServiceSid;
     private String pathSid;

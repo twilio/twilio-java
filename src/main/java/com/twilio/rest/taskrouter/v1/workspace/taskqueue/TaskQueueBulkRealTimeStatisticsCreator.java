@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -25,6 +26,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
+import com.twilio.type.*;
 
 public class TaskQueueBulkRealTimeStatisticsCreator extends Creator<TaskQueueBulkRealTimeStatistics> {
 

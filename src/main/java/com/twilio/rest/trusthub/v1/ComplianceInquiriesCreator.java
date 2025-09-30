@@ -28,6 +28,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ComplianceInquiriesCreator extends Creator<ComplianceInquiries> {
 
     private String primaryProfileSid;

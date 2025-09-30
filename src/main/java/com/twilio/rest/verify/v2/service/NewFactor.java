@@ -16,27 +16,41 @@ package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -46,13 +60,6 @@ public class NewFactor extends Resource {
     public static NewFactorCreator creator(final String pathServiceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
         return new NewFactorCreator(
                 pathServiceSid, createNewPasskeysFactorRequest
-        );
-    }
-
-
-    public static NewFactorUpdater updater(final String pathServiceSid, final NewFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest) {
-        return new NewFactorUpdater(
-                pathServiceSid, verifyPasskeysFactorRequest
         );
     }
 
@@ -77,25 +84,6 @@ public class NewFactor extends Resource {
         }
     }
 
-    public enum Type {
-        PUBLIC_KEY("public-key");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-    }
-
     public enum AuthenticatorAttachment {
         PLATFORM("platform"),
         CROSS_PLATFORM("cross-platform"),
@@ -114,30 +102,6 @@ public class NewFactor extends Resource {
         @JsonCreator
         public static AuthenticatorAttachment forValue(final String value) {
             return Promoter.enumFromString(value, AuthenticatorAttachment.values());
-        }
-    }
-
-    public enum Transports {
-        USB("usb"),
-        NFC("nfc"),
-        BLE("ble"),
-        SMART_CARD("smart-card"),
-        INTERNAL("internal"),
-        HYBRID("hybrid");
-
-        private final String value;
-
-        private Transports(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Transports forValue(final String value) {
-            return Promoter.enumFromString(value, Transports.values());
         }
     }
 
@@ -202,116 +166,6 @@ public class NewFactor extends Resource {
         public static DiscoverableCredentials forValue(final String value) {
             return Promoter.enumFromString(value, DiscoverableCredentials.values());
         }
-    }
-
-
-    @JsonDeserialize(builder = VerifyPasskeysFactorRequest.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class VerifyPasskeysFactorRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        private final String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("rawId")
-        @Getter
-        private final String rawId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("authenticatorAttachment")
-        @Getter
-        private final NewFactor.AuthenticatorAttachment authenticatorAttachment;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final NewFactor.Type type;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("response")
-        @Getter
-        private final VerifyPasskeysFactorRequestResponse response;
-
-
-        private VerifyPasskeysFactorRequest(Builder builder) {
-            this.id = builder.id;
-            this.rawId = builder.rawId;
-            this.authenticatorAttachment = builder.authenticatorAttachment;
-            this.type = builder.type;
-            this.response = builder.response;
-        }
-
-        public static Builder builder(final VerifyPasskeysFactorRequestResponse response) {
-            return new Builder(response);
-        }
-
-        public static VerifyPasskeysFactorRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, VerifyPasskeysFactorRequest.class);
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-            @JsonProperty("id")
-            private String id;
-
-            @JsonProperty("rawId")
-            private String rawId;
-
-            @JsonProperty("authenticatorAttachment")
-            private NewFactor.AuthenticatorAttachment authenticatorAttachment;
-
-            @JsonProperty("type")
-            private NewFactor.Type type;
-
-            @JsonProperty("response")
-            private VerifyPasskeysFactorRequestResponse response;
-
-
-            @JsonCreator
-            public Builder(@JsonProperty("response") final VerifyPasskeysFactorRequestResponse response) {
-                this.response = response;
-            }
-
-
-            public VerifyPasskeysFactorRequest build() {
-                return new VerifyPasskeysFactorRequest(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            VerifyPasskeysFactorRequest other = (VerifyPasskeysFactorRequest) o;
-            return (
-                    Objects.equals(id, other.id) &&
-                            Objects.equals(rawId, other.rawId) &&
-                            Objects.equals(authenticatorAttachment, other.authenticatorAttachment) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(response, other.response)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(
-                    id,
-                    rawId,
-                    authenticatorAttachment,
-                    type,
-                    response
-            );
-        }
-
     }
 
 
@@ -412,109 +266,6 @@ public class NewFactor extends Resource {
                     id,
                     name,
                     origins
-            );
-        }
-
-    }
-
-
-    @JsonDeserialize(builder = VerifyPasskeysFactorRequestResponse.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class VerifyPasskeysFactorRequestResponse {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("attestationObject")
-        @Getter
-        private final String attestationObject;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("clientDataJSON")
-        @Getter
-        private final String clientDataJSON;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("transports")
-        @Getter
-        private final List<NewFactor.Transports> transports;
-
-
-        private VerifyPasskeysFactorRequestResponse(Builder builder) {
-            this.attestationObject = builder.attestationObject;
-            this.clientDataJSON = builder.clientDataJSON;
-            this.transports = builder.transports;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static VerifyPasskeysFactorRequestResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, VerifyPasskeysFactorRequestResponse.class);
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-            @JsonProperty("attestationObject")
-            private String attestationObject;
-
-            @JsonProperty("clientDataJSON")
-            private String clientDataJSON;
-
-            @JsonProperty("transports")
-            private List<NewFactor.Transports> transports;
-
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("attestationObject")
-            public Builder attestationObject(String attestationObject) {
-                this.attestationObject = attestationObject;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("clientDataJSON")
-            public Builder clientDataJSON(String clientDataJSON) {
-                this.clientDataJSON = clientDataJSON;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("transports")
-            public Builder transports(List<NewFactor.Transports> transports) {
-                this.transports = transports;
-                return this;
-            }
-
-            public VerifyPasskeysFactorRequestResponse build() {
-                return new VerifyPasskeysFactorRequestResponse(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            VerifyPasskeysFactorRequestResponse other = (VerifyPasskeysFactorRequestResponse) o;
-            return (
-                    Objects.equals(attestationObject, other.attestationObject) &&
-                            Objects.equals(clientDataJSON, other.clientDataJSON) &&
-                            Objects.equals(transports, other.transports)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(
-                    attestationObject,
-                    clientDataJSON,
-                    transports
             );
         }
 

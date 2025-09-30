@@ -28,7 +28,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.math.BigDecimal;
+
+import com.twilio.type.*;
 
 public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmentsComment> {
 

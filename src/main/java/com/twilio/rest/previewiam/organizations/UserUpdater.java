@@ -15,6 +15,7 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +28,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
+import com.twilio.type.*;
 
 public class UserUpdater extends Updater<User> {
     private String pathOrganizationSid;

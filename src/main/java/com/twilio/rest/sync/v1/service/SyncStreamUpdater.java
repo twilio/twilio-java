@@ -27,6 +27,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SyncStreamUpdater extends Updater<SyncStream> {
     private String pathServiceSid;
     private String pathSid;

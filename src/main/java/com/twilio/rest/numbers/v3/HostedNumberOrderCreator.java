@@ -29,8 +29,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 

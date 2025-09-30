@@ -27,6 +27,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class NotificationUpdater extends Updater<Notification> {
     private String pathChatServiceSid;
     private Boolean logEnabled;

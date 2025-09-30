@@ -24,6 +24,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RateLimitDeleter extends Deleter<RateLimit> {
 
     private String pathServiceSid;

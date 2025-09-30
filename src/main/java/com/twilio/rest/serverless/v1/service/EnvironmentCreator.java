@@ -28,6 +28,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class EnvironmentCreator extends Creator<Environment> {
 
     private String pathServiceSid;

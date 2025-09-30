@@ -29,8 +29,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.Currency;
+
+import com.twilio.type.*;
 
 public class PaymentCreator extends Creator<Payment> {
 

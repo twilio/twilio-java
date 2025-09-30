@@ -26,6 +26,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PluginArchiveUpdater extends Updater<PluginArchive> {
     private String pathSid;
     private String flexMetadata;

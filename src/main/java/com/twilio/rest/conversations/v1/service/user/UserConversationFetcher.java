@@ -24,6 +24,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UserConversationFetcher extends Fetcher<UserConversation> {
 
     private String pathChatServiceSid;

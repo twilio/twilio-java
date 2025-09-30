@@ -24,6 +24,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PortingWebhookConfigurationDeleteDeleter extends Deleter<PortingWebhookConfigurationDelete> {
 
     private PortingWebhookConfigurationDelete.WebhookType pathWebhookType;

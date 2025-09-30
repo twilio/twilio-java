@@ -94,7 +94,7 @@ jobs:
       - name: Create GitHub Release
         uses: sendgrid/dx-automator/actions/release@main
         with:
-          footer: '**[Maven](https://central.sonatype.com/artifact/com.twilio.sdk/twilio/${version})**'
+          footer: '**[Maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio/${version})**'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

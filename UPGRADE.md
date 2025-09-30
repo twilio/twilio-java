@@ -3,6 +3,7 @@
 _`MAJOR` version bumps will have upgrade notes posted here._
 
 [2025-09-30] 10.x.x to 11.x.x
+-----------------------------
 ### Overview
 ##### Twilio Java Helper Library’s major version 11.0.0 is now available. 11.0.0 version contains breaking changes
 
@@ -19,13 +20,15 @@ Who are impacted:
 Users calling the Organisation API. Refer Examples
 Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
 
-###### 4. Bug Fix: Using Object Datatype for open api spec anyType fields
+###### 4. Bug Fix: Using Object data type for [anyType](https://swagger.io/docs/specification/v3_0/data-models/data-types/#any-type) fields in open-api specifications
 Who are impacted:
-There are APIs which have property/parameter without type defined in open api spec.
-Previous datatype Map<String,Object>, Changed Datatype Object
+Properties/Parameters defined as [anyType](https://swagger.io/docs/specification/v3_0/data-models/data-types/#any-type) in open-api specifications will be represented using `Object` now.
+Previous data type: `Map<String,Object>`
+New data type: `Object`
 
 
 [2024-02-08] 9.x.x to 10.x.x
+-----------------------------
 ### Overview
 
 ##### Twilio Java Helper Library’s major version 10.0.0 is now available. We ensured that you can upgrade to Java helper Library 10.0.0 version without any breaking changes of existing apis

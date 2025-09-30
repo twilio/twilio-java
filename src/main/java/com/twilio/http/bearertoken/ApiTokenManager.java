@@ -1,8 +1,8 @@
 package com.twilio.http.bearertoken;
 
 import com.twilio.annotations.Beta;
-import com.twilio.rest.iam.v1.Token;
-import com.twilio.rest.iam.v1.TokenCreator;
+import com.twilio.rest.oauth.v2.Token;
+import com.twilio.rest.oauth.v2.TokenCreator;
 
 import java.util.Objects;
 

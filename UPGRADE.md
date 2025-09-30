@@ -2,6 +2,29 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
+[2025-09-30] 10.x.x to 11.x.x
+### Overview
+##### Twilio Java Helper Library’s major version 11.0.0 is now available. 11.0.0 version contains breaking changes
+
+###### Breaking Changes
+####### NetworkHttpClient upgraded from HttpClient4 → HttpClient5
+Who are impacted: 
+Users who override NetworkHttpClient.
+
+####### Bug Fix: Enum suffix removed (StatusEnum → Status)
+This was a bug in Account resource in Organisation API
+
+####### Organisation API — Organisation API init authentication mechanism has been changed.
+Who are impacted:
+Users calling the Organisation API. Refer Examples
+Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
+
+####### Bug Fix: Using Object Datatype for OAS anyType fields
+Who are impacted:
+There are APIs which have property/parameter without type defined in open api spec.
+Previous datatype Map<String,Object>, Changed Datatype Object
+
+
 [2024-02-08] 9.x.x to 10.x.x
 ### Overview
 

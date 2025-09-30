@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
 
-    private String pathconferenceSid;
+    private String pathConferenceSid;
     private String participantSid;
     private String label;
     private String events;
     private Long pageSize;
 
-    public ConferenceParticipantReader(final String pathconferenceSid) {
-        this.pathconferenceSid = pathconferenceSid;
+    public ConferenceParticipantReader(final String pathConferenceSid) {
+        this.pathConferenceSid = pathConferenceSid;
     }
 
 
@@ -74,7 +74,7 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
 
         String path = "/v1/Conferences/{ConferenceSid}/Participants";
 
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -30,16 +30,16 @@ import com.twilio.rest.Domains;
 
 public class SyncMapItemReader extends Reader<SyncMapItem> {
 
-    private String pathserviceSid;
-    private String pathmapSid;
+    private String pathServiceSid;
+    private String pathMapSid;
     private SyncMapItem.QueryResultOrder order;
     private String from;
     private SyncMapItem.QueryFromBoundType bounds;
     private Long pageSize;
 
-    public SyncMapItemReader(final String pathserviceSid, final String pathmapSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathmapSid = pathmapSid;
+    public SyncMapItemReader(final String pathServiceSid, final String pathMapSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
     }
 
 
@@ -76,8 +76,8 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "MapSid" + "}", this.pathmapSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

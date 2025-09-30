@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class NewFactorCreator extends Creator<NewFactor> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest;
 
-    public NewFactorCreator(final String pathserviceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
-        this.pathserviceSid = pathserviceSid;
+    public NewFactorCreator(final String pathServiceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
+        this.pathServiceSid = pathServiceSid;
         this.createNewPasskeysFactorRequest = createNewPasskeysFactorRequest;
     }
 
@@ -48,7 +48,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
         String path = "/v2/Services/{ServiceSid}/Passkeys/Factors";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

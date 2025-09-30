@@ -39,9 +39,9 @@ import java.util.Objects;
 public class DomainConfigMessagingService extends Resource {
 
 
-    public static DomainConfigMessagingServiceFetcher fetcher(final String pathmessagingServiceSid) {
+    public static DomainConfigMessagingServiceFetcher fetcher(final String pathMessagingServiceSid) {
         return new DomainConfigMessagingServiceFetcher(
-                pathmessagingServiceSid
+                pathMessagingServiceSid
         );
     }
 

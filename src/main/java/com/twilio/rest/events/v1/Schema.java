@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Schema extends Resource {
 
 
-    public static SchemaFetcher fetcher(final String pathid) {
+    public static SchemaFetcher fetcher(final String pathId) {
         return new SchemaFetcher(
-                pathid
+                pathId
         );
     }
 

@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
 
-    private String pathid;
-    private Integer pathschemaVersion;
+    private String pathId;
+    private Integer pathSchemaVersion;
 
-    public SchemaVersionFetcher(final String pathid, final Integer pathschemaVersion) {
-        this.pathid = pathid;
-        this.pathschemaVersion = pathschemaVersion;
+    public SchemaVersionFetcher(final String pathId, final Integer pathSchemaVersion) {
+        this.pathId = pathId;
+        this.pathSchemaVersion = pathSchemaVersion;
     }
 
 
@@ -40,8 +40,8 @@ public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
 
         String path = "/v1/Schemas/{Id}/Versions/{SchemaVersion}";
 
-        path = path.replace("{" + "Id" + "}", this.pathid.toString());
-        path = path.replace("{" + "SchemaVersion" + "}", this.pathschemaVersion.toString());
+        path = path.replace("{" + "Id" + "}", this.pathId.toString());
+        path = path.replace("{" + "SchemaVersion" + "}", this.pathSchemaVersion.toString());
 
 
         Request request = new Request(

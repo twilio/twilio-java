@@ -47,16 +47,16 @@ public class FlexFlow extends Resource {
     }
 
 
-    public static FlexFlowDeleter deleter(final String pathsid) {
+    public static FlexFlowDeleter deleter(final String pathSid) {
         return new FlexFlowDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static FlexFlowFetcher fetcher(final String pathsid) {
+    public static FlexFlowFetcher fetcher(final String pathSid) {
         return new FlexFlowFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class FlexFlow extends Resource {
     }
 
 
-    public static FlexFlowUpdater updater(final String pathsid) {
+    public static FlexFlowUpdater updater(final String pathSid) {
         return new FlexFlowUpdater(
-                pathsid
+                pathSid
         );
     }
 

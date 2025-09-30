@@ -30,18 +30,18 @@ import com.twilio.rest.Domains;
 
 public class IpAccessControlListMappingCreator extends Creator<IpAccessControlListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
+    private String pathAccountSid;
+    private String pathDomainSid;
     private String ipAccessControlListSid;
 
-    public IpAccessControlListMappingCreator(final String pathdomainSid, final String ipAccessControlListSid) {
-        this.pathdomainSid = pathdomainSid;
+    public IpAccessControlListMappingCreator(final String pathDomainSid, final String ipAccessControlListSid) {
+        this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
-    public IpAccessControlListMappingCreator(final String pathaccountSid, final String pathdomainSid, final String ipAccessControlListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
+    public IpAccessControlListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String ipAccessControlListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
@@ -57,9 +57,9 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

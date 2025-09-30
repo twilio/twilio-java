@@ -40,16 +40,16 @@ import java.util.Objects;
 public class RecordingRules extends Resource {
 
 
-    public static RecordingRulesFetcher fetcher(final String pathroomSid) {
+    public static RecordingRulesFetcher fetcher(final String pathRoomSid) {
         return new RecordingRulesFetcher(
-                pathroomSid
+                pathRoomSid
         );
     }
 
 
-    public static RecordingRulesUpdater updater(final String pathroomSid) {
+    public static RecordingRulesUpdater updater(final String pathRoomSid) {
         return new RecordingRulesUpdater(
-                pathroomSid
+                pathRoomSid
         );
     }
 

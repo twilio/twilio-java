@@ -44,9 +44,9 @@ public class InsightsQuestionnairesQuestion extends Resource {
     }
 
 
-    public static InsightsQuestionnairesQuestionDeleter deleter(final String pathquestionSid) {
+    public static InsightsQuestionnairesQuestionDeleter deleter(final String pathQuestionSid) {
         return new InsightsQuestionnairesQuestionDeleter(
-                pathquestionSid
+                pathQuestionSid
         );
     }
 
@@ -58,9 +58,9 @@ public class InsightsQuestionnairesQuestion extends Resource {
     }
 
 
-    public static InsightsQuestionnairesQuestionUpdater updater(final String pathquestionSid, final Boolean allowNa) {
+    public static InsightsQuestionnairesQuestionUpdater updater(final String pathQuestionSid, final Boolean allowNa) {
         return new InsightsQuestionnairesQuestionUpdater(
-                pathquestionSid, allowNa
+                pathQuestionSid, allowNa
         );
     }
 

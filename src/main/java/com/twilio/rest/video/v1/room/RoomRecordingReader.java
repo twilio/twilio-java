@@ -32,15 +32,15 @@ import java.time.ZonedDateTime;
 
 public class RoomRecordingReader extends Reader<RoomRecording> {
 
-    private String pathroomSid;
+    private String pathRoomSid;
     private RoomRecording.Status status;
     private String sourceSid;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private Long pageSize;
 
-    public RoomRecordingReader(final String pathroomSid) {
-        this.pathroomSid = pathroomSid;
+    public RoomRecordingReader(final String pathRoomSid) {
+        this.pathRoomSid = pathRoomSid;
     }
 
 
@@ -83,7 +83,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
         String path = "/v1/Rooms/{RoomSid}/Recordings";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

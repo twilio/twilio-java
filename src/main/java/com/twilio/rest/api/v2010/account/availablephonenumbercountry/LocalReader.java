@@ -31,8 +31,8 @@ import com.twilio.rest.Domains;
 
 public class LocalReader extends Reader<Local> {
 
-    private String pathaccountSid;
-    private String pathcountryCode;
+    private String pathAccountSid;
+    private String pathCountryCode;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -53,13 +53,13 @@ public class LocalReader extends Reader<Local> {
     private Boolean faxEnabled;
     private Long pageSize;
 
-    public LocalReader(final String pathcountryCode) {
-        this.pathcountryCode = pathcountryCode;
+    public LocalReader(final String pathCountryCode) {
+        this.pathCountryCode = pathCountryCode;
     }
 
-    public LocalReader(final String pathaccountSid, final String pathcountryCode) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcountryCode = pathcountryCode;
+    public LocalReader(final String pathAccountSid, final String pathCountryCode) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
 
@@ -189,9 +189,9 @@ public class LocalReader extends Reader<Local> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CountryCode" + "}", this.pathcountryCode.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CountryCode" + "}", this.pathCountryCode.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

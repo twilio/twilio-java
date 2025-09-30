@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class DeploymentFetcher extends Fetcher<Deployment> {
 
-    private String pathserviceSid;
-    private String pathenvironmentSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
+    private String pathSid;
 
-    public DeploymentFetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathenvironmentSid = pathenvironmentSid;
-        this.pathsid = pathsid;
+    public DeploymentFetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
 
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

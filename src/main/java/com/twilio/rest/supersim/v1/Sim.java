@@ -48,9 +48,9 @@ public class Sim extends Resource {
     }
 
 
-    public static SimFetcher fetcher(final String pathsid) {
+    public static SimFetcher fetcher(final String pathSid) {
         return new SimFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -62,9 +62,9 @@ public class Sim extends Resource {
     }
 
 
-    public static SimUpdater updater(final String pathsid) {
+    public static SimUpdater updater(final String pathSid) {
         return new SimUpdater(
-                pathsid
+                pathSid
         );
     }
 

@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Trunk extends Resource {
 
 
-    public static TrunkFetcher fetcher(final String pathsipTrunkDomain) {
+    public static TrunkFetcher fetcher(final String pathSipTrunkDomain) {
         return new TrunkFetcher(
-                pathsipTrunkDomain
+                pathSipTrunkDomain
         );
     }
 
 
-    public static TrunkUpdater updater(final String pathsipTrunkDomain) {
+    public static TrunkUpdater updater(final String pathSipTrunkDomain) {
         return new TrunkUpdater(
-                pathsipTrunkDomain
+                pathSipTrunkDomain
         );
     }
 

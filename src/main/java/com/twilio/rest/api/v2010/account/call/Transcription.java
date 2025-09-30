@@ -39,30 +39,30 @@ import java.util.Objects;
 public class Transcription extends Resource {
 
 
-    public static TranscriptionCreator creator(final String pathcallSid) {
+    public static TranscriptionCreator creator(final String pathCallSid) {
         return new TranscriptionCreator(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static TranscriptionCreator creator(final String pathaccountSid, final String pathcallSid) {
+    public static TranscriptionCreator creator(final String pathAccountSid, final String pathCallSid) {
         return new TranscriptionCreator(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 
 
-    public static TranscriptionUpdater updater(final String pathcallSid, final String pathsid, final Transcription.UpdateStatus status) {
+    public static TranscriptionUpdater updater(final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
         return new TranscriptionUpdater(
-                pathcallSid, pathsid, status
+                pathCallSid, pathSid, status
         );
     }
 
 
-    public static TranscriptionUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Transcription.UpdateStatus status) {
+    public static TranscriptionUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
         return new TranscriptionUpdater(
-                pathaccountSid, pathcallSid, pathsid, status
+                pathAccountSid, pathCallSid, pathSid, status
         );
     }
 

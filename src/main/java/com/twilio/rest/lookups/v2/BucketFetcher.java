@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class BucketFetcher extends Fetcher<Bucket> {
 
-    private String pathfield;
-    private String pathbucket;
+    private String pathField;
+    private String pathBucket;
 
-    public BucketFetcher(final String pathfield, final String pathbucket) {
-        this.pathfield = pathfield;
-        this.pathbucket = pathbucket;
+    public BucketFetcher(final String pathField, final String pathBucket) {
+        this.pathField = pathField;
+        this.pathBucket = pathBucket;
     }
 
 
@@ -40,8 +40,8 @@ public class BucketFetcher extends Fetcher<Bucket> {
 
         String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
 
-        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
-        path = path.replace("{" + "Bucket" + "}", this.pathbucket.toString());
+        path = path.replace("{" + "Field" + "}", this.pathField.toString());
+        path = path.replace("{" + "Bucket" + "}", this.pathBucket.toString());
 
 
         Request request = new Request(

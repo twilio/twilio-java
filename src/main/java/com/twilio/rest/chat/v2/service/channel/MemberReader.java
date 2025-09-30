@@ -33,14 +33,14 @@ import java.util.List;
 
 public class MemberReader extends Reader<Member> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private List<String> identity;
     private Long pageSize;
 
-    public MemberReader(final String pathserviceSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public MemberReader(final String pathServiceSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -68,8 +68,8 @@ public class MemberReader extends Reader<Member> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

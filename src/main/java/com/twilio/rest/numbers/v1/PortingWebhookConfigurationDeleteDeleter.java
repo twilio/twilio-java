@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class PortingWebhookConfigurationDeleteDeleter extends Deleter<PortingWebhookConfigurationDelete> {
 
-    private PortingWebhookConfigurationDelete.WebhookType pathwebhookType;
+    private PortingWebhookConfigurationDelete.WebhookType pathWebhookType;
 
-    public PortingWebhookConfigurationDeleteDeleter(final PortingWebhookConfigurationDelete.WebhookType pathwebhookType) {
-        this.pathwebhookType = pathwebhookType;
+    public PortingWebhookConfigurationDeleteDeleter(final PortingWebhookConfigurationDelete.WebhookType pathWebhookType) {
+        this.pathWebhookType = pathWebhookType;
     }
 
 
@@ -38,7 +38,7 @@ public class PortingWebhookConfigurationDeleteDeleter extends Deleter<PortingWeb
 
         String path = "/v1/Porting/Configuration/Webhook/{WebhookType}";
 
-        path = path.replace("{" + "WebhookType" + "}", this.pathwebhookType.toString());
+        path = path.replace("{" + "WebhookType" + "}", this.pathWebhookType.toString());
 
 
         Request request = new Request(

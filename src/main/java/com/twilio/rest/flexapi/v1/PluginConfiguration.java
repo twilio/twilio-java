@@ -47,9 +47,9 @@ public class PluginConfiguration extends Resource {
     }
 
 
-    public static PluginConfigurationFetcher fetcher(final String pathsid) {
+    public static PluginConfigurationFetcher fetcher(final String pathSid) {
         return new PluginConfigurationFetcher(
-                pathsid
+                pathSid
         );
     }
 

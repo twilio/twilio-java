@@ -38,72 +38,72 @@ import java.util.Objects;
 public class Credential extends Resource {
 
 
-    public static CredentialCreator creator(final String pathcredentialListSid, final String username, final String password) {
+    public static CredentialCreator creator(final String pathCredentialListSid, final String username, final String password) {
         return new CredentialCreator(
-                pathcredentialListSid, username, password
+                pathCredentialListSid, username, password
         );
     }
 
 
-    public static CredentialCreator creator(final String pathaccountSid, final String pathcredentialListSid, final String username, final String password) {
+    public static CredentialCreator creator(final String pathAccountSid, final String pathCredentialListSid, final String username, final String password) {
         return new CredentialCreator(
-                pathaccountSid, pathcredentialListSid, username, password
+                pathAccountSid, pathCredentialListSid, username, password
         );
     }
 
 
-    public static CredentialDeleter deleter(final String pathcredentialListSid, final String pathsid) {
+    public static CredentialDeleter deleter(final String pathCredentialListSid, final String pathSid) {
         return new CredentialDeleter(
-                pathcredentialListSid, pathsid
+                pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialDeleter deleter(final String pathaccountSid, final String pathcredentialListSid, final String pathsid) {
+    public static CredentialDeleter deleter(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
         return new CredentialDeleter(
-                pathaccountSid, pathcredentialListSid, pathsid
+                pathAccountSid, pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialFetcher fetcher(final String pathcredentialListSid, final String pathsid) {
+    public static CredentialFetcher fetcher(final String pathCredentialListSid, final String pathSid) {
         return new CredentialFetcher(
-                pathcredentialListSid, pathsid
+                pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialFetcher fetcher(final String pathaccountSid, final String pathcredentialListSid, final String pathsid) {
+    public static CredentialFetcher fetcher(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
         return new CredentialFetcher(
-                pathaccountSid, pathcredentialListSid, pathsid
+                pathAccountSid, pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialReader reader(final String pathcredentialListSid) {
+    public static CredentialReader reader(final String pathCredentialListSid) {
         return new CredentialReader(
-                pathcredentialListSid
+                pathCredentialListSid
         );
     }
 
 
-    public static CredentialReader reader(final String pathaccountSid, final String pathcredentialListSid) {
+    public static CredentialReader reader(final String pathAccountSid, final String pathCredentialListSid) {
         return new CredentialReader(
-                pathaccountSid, pathcredentialListSid
+                pathAccountSid, pathCredentialListSid
         );
     }
 
 
-    public static CredentialUpdater updater(final String pathcredentialListSid, final String pathsid) {
+    public static CredentialUpdater updater(final String pathCredentialListSid, final String pathSid) {
         return new CredentialUpdater(
-                pathcredentialListSid, pathsid
+                pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialUpdater updater(final String pathaccountSid, final String pathcredentialListSid, final String pathsid) {
+    public static CredentialUpdater updater(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
         return new CredentialUpdater(
-                pathaccountSid, pathcredentialListSid, pathsid
+                pathAccountSid, pathCredentialListSid, pathSid
         );
     }
 

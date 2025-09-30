@@ -40,16 +40,16 @@ import java.util.Objects;
 public class BundleCopy extends Resource {
 
 
-    public static BundleCopyCreator creator(final String pathbundleSid) {
+    public static BundleCopyCreator creator(final String pathBundleSid) {
         return new BundleCopyCreator(
-                pathbundleSid
+                pathBundleSid
         );
     }
 
 
-    public static BundleCopyReader reader(final String pathbundleSid) {
+    public static BundleCopyReader reader(final String pathBundleSid) {
         return new BundleCopyReader(
-                pathbundleSid
+                pathBundleSid
         );
     }
 

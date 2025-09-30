@@ -48,16 +48,16 @@ public class Role extends Resource {
     }
 
 
-    public static RoleDeleter deleter(final String pathsid) {
+    public static RoleDeleter deleter(final String pathSid) {
         return new RoleDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RoleFetcher fetcher(final String pathsid) {
+    public static RoleFetcher fetcher(final String pathSid) {
         return new RoleFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class Role extends Resource {
     }
 
 
-    public static RoleUpdater updater(final String pathsid, final List<String> permission) {
+    public static RoleUpdater updater(final String pathSid, final List<String> permission) {
         return new RoleUpdater(
-                pathsid, permission
+                pathSid, permission
         );
     }
 

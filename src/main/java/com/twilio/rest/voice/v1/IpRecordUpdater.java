@@ -28,11 +28,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class IpRecordUpdater extends Updater<IpRecord> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
 
-    public IpRecordUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public IpRecordUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -47,7 +47,7 @@ public class IpRecordUpdater extends Updater<IpRecord> {
 
         String path = "/v1/IpRecords/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

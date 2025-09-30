@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 
 public class UserConversationUpdater extends Updater<UserConversation> {
-    private String pathchatServiceSid;
-    private String pathuserSid;
-    private String pathconversationSid;
+    private String pathChatServiceSid;
+    private String pathUserSid;
+    private String pathConversationSid;
     private UserConversation.NotificationLevel notificationLevel;
     private ZonedDateTime lastReadTimestamp;
     private Integer lastReadMessageIndex;
 
-    public UserConversationUpdater(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathuserSid = pathuserSid;
-        this.pathconversationSid = pathconversationSid;
+    public UserConversationUpdater(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -67,9 +67,9 @@ public class UserConversationUpdater extends Updater<UserConversation> {
 
         String path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

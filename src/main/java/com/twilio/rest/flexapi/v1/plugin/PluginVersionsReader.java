@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class PluginVersionsReader extends Reader<PluginVersions> {
 
-    private String pathpluginSid;
+    private String pathPluginSid;
     private Long pageSize;
     private String flexMetadata;
 
-    public PluginVersionsReader(final String pathpluginSid) {
-        this.pathpluginSid = pathpluginSid;
+    public PluginVersionsReader(final String pathPluginSid) {
+        this.pathPluginSid = pathPluginSid;
     }
 
 
@@ -60,7 +60,7 @@ public class PluginVersionsReader extends Reader<PluginVersions> {
 
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
 
-        path = path.replace("{" + "PluginSid" + "}", this.pathpluginSid.toString());
+        path = path.replace("{" + "PluginSid" + "}", this.pathPluginSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

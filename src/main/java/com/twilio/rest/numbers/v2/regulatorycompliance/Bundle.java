@@ -48,16 +48,16 @@ public class Bundle extends Resource {
     }
 
 
-    public static BundleDeleter deleter(final String pathsid) {
+    public static BundleDeleter deleter(final String pathSid) {
         return new BundleDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static BundleFetcher fetcher(final String pathsid) {
+    public static BundleFetcher fetcher(final String pathSid) {
         return new BundleFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class Bundle extends Resource {
     }
 
 
-    public static BundleUpdater updater(final String pathsid) {
+    public static BundleUpdater updater(final String pathSid) {
         return new BundleUpdater(
-                pathsid
+                pathSid
         );
     }
 

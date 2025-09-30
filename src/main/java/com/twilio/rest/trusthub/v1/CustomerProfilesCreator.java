@@ -18,6 +18,7 @@ package com.twilio.rest.trusthub.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -67,6 +68,9 @@ public class CustomerProfilesCreator extends Creator<CustomerProfiles> {
         return this;
     }
 
+    public CustomerProfilesCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     @Override
     public CustomerProfiles create(final TwilioRestClient client) {

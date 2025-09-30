@@ -36,7 +36,7 @@ import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private URI statusCallback;
     private String applicationSid;
@@ -68,8 +68,8 @@ public class MessageCreator extends Creator<Message> {
         this.body = body;
     }
 
-    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
-        this.pathaccountSid = pathaccountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.body = body;
@@ -81,8 +81,8 @@ public class MessageCreator extends Creator<Message> {
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
-        this.pathaccountSid = pathaccountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
@@ -94,8 +94,8 @@ public class MessageCreator extends Creator<Message> {
         this.body = body;
     }
 
-    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
-        this.pathaccountSid = pathaccountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
@@ -107,8 +107,8 @@ public class MessageCreator extends Creator<Message> {
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
-        this.pathaccountSid = pathaccountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
@@ -129,6 +129,9 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
+    public MessageCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public MessageCreator setApplicationSid(final String applicationSid) {
         this.applicationSid = applicationSid;
@@ -265,6 +268,10 @@ public class MessageCreator extends Creator<Message> {
         return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
+    public MessageCreator setMediaUrl(final String mediaUrl) {
+        return setMediaUrl(Promoter.uriFromString(mediaUrl));
+    }
+
     public MessageCreator setContentSid(final String contentSid) {
         this.contentSid = contentSid;
         return this;
@@ -276,8 +283,8 @@ public class MessageCreator extends Creator<Message> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

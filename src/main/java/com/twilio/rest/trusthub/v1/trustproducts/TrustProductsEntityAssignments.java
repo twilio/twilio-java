@@ -39,30 +39,30 @@ import java.util.Objects;
 public class TrustProductsEntityAssignments extends Resource {
 
 
-    public static TrustProductsEntityAssignmentsCreator creator(final String pathtrustProductSid, final String objectSid) {
+    public static TrustProductsEntityAssignmentsCreator creator(final String pathTrustProductSid, final String objectSid) {
         return new TrustProductsEntityAssignmentsCreator(
-                pathtrustProductSid, objectSid
+                pathTrustProductSid, objectSid
         );
     }
 
 
-    public static TrustProductsEntityAssignmentsDeleter deleter(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsEntityAssignmentsDeleter deleter(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEntityAssignmentsDeleter(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsEntityAssignmentsFetcher fetcher(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsEntityAssignmentsFetcher fetcher(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEntityAssignmentsFetcher(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsEntityAssignmentsReader reader(final String pathtrustProductSid) {
+    public static TrustProductsEntityAssignmentsReader reader(final String pathTrustProductSid) {
         return new TrustProductsEntityAssignmentsReader(
-                pathtrustProductSid
+                pathTrustProductSid
         );
     }
 

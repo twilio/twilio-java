@@ -37,16 +37,16 @@ import java.util.Objects;
 public class Data extends Resource {
 
 
-    public static DataFetcher fetcher(final String pathreferenceSid, final String pathaddOnResultSid, final String pathpayloadSid) {
+    public static DataFetcher fetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathPayloadSid) {
         return new DataFetcher(
-                pathreferenceSid, pathaddOnResultSid, pathpayloadSid
+                pathReferenceSid, pathAddOnResultSid, pathPayloadSid
         );
     }
 
 
-    public static DataFetcher fetcher(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid, final String pathpayloadSid) {
+    public static DataFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathPayloadSid) {
         return new DataFetcher(
-                pathaccountSid, pathreferenceSid, pathaddOnResultSid, pathpayloadSid
+                pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathPayloadSid
         );
     }
 

@@ -37,16 +37,16 @@ import java.util.Objects;
 public class Day extends Resource {
 
 
-    public static DayFetcher fetcher(final String pathresourceType, final String pathday) {
+    public static DayFetcher fetcher(final String pathResourceType, final String pathDay) {
         return new DayFetcher(
-                pathresourceType, pathday
+                pathResourceType, pathDay
         );
     }
 
 
-    public static DayReader reader(final String pathresourceType) {
+    public static DayReader reader(final String pathResourceType) {
         return new DayReader(
-                pathresourceType
+                pathResourceType
         );
     }
 

@@ -38,58 +38,58 @@ import java.util.Objects;
 public class AuthCallsCredentialListMapping extends Resource {
 
 
-    public static AuthCallsCredentialListMappingCreator creator(final String pathdomainSid, final String credentialListSid) {
+    public static AuthCallsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
         return new AuthCallsCredentialListMappingCreator(
-                pathdomainSid, credentialListSid
+                pathDomainSid, credentialListSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
+    public static AuthCallsCredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
         return new AuthCallsCredentialListMappingCreator(
-                pathaccountSid, pathdomainSid, credentialListSid
+                pathAccountSid, pathDomainSid, credentialListSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new AuthCallsCredentialListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthCallsCredentialListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new AuthCallsCredentialListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthCallsCredentialListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingReader reader(final String pathdomainSid) {
+    public static AuthCallsCredentialListMappingReader reader(final String pathDomainSid) {
         return new AuthCallsCredentialListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static AuthCallsCredentialListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new AuthCallsCredentialListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

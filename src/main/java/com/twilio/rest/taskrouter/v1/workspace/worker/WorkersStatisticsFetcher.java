@@ -30,7 +30,7 @@ import java.time.ZonedDateTime;
 
 public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private Integer minutes;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
@@ -39,8 +39,8 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     private String friendlyName;
     private String taskChannel;
 
-    public WorkersStatisticsFetcher(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkersStatisticsFetcher(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -91,7 +91,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/Statistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

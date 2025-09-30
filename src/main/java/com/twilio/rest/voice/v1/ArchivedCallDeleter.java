@@ -28,12 +28,12 @@ import java.time.LocalDate;
 
 public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
 
-    private LocalDate pathdate;
-    private String pathsid;
+    private LocalDate pathDate;
+    private String pathSid;
 
-    public ArchivedCallDeleter(final LocalDate pathdate, final String pathsid) {
-        this.pathdate = pathdate;
-        this.pathsid = pathsid;
+    public ArchivedCallDeleter(final LocalDate pathDate, final String pathSid) {
+        this.pathDate = pathDate;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,8 +42,8 @@ public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
 
         String path = "/v1/Archives/{Date}/Calls/{Sid}";
 
-        path = path.replace("{" + "Date" + "}", this.pathdate.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Date" + "}", this.pathDate.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

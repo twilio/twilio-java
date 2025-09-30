@@ -30,16 +30,16 @@ import com.twilio.rest.Domains;
 
 public class SyncListItemReader extends Reader<SyncListItem> {
 
-    private String pathserviceSid;
-    private String pathlistSid;
+    private String pathServiceSid;
+    private String pathListSid;
     private SyncListItem.QueryResultOrder order;
     private String from;
     private SyncListItem.QueryFromBoundType bounds;
     private Long pageSize;
 
-    public SyncListItemReader(final String pathserviceSid, final String pathlistSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathlistSid = pathlistSid;
+    public SyncListItemReader(final String pathServiceSid, final String pathListSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
     }
 
 
@@ -76,8 +76,8 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

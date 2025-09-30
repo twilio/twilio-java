@@ -23,12 +23,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -52,16 +52,16 @@ public class Content extends Resource {
     }
 
 
-    public static ContentDeleter deleter(final String pathsid) {
+    public static ContentDeleter deleter(final String pathSid) {
         return new ContentDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ContentFetcher fetcher(final String pathsid) {
+    public static ContentFetcher fetcher(final String pathSid) {
         return new ContentFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -201,48 +201,138 @@ public class Content extends Resource {
     }
 
 
-    //@JsonDeserialize(builder = FlowsPage.Builder.class)
+    @JsonDeserialize(builder = FlowsPage.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FlowsPage {
-        public FlowsPage(final String id, final List<FlowsPageComponent> layout) {
-            this.id = id;
-            this.layout = layout;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("next_page_id")
         @Getter
-        @Setter
-        private String nextPageId;
+        private final String nextPageId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("subtitle")
         @Getter
-        @Setter
-        private String subtitle;
+        private final String subtitle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("layout")
         @Getter
-        @Setter
-        private List<FlowsPageComponent> layout;
+        private final List<FlowsPageComponent> layout;
+
+
+        private FlowsPage(Builder builder) {
+            this.id = builder.id;
+            this.nextPageId = builder.nextPageId;
+            this.title = builder.title;
+            this.subtitle = builder.subtitle;
+            this.layout = builder.layout;
+        }
+
+        public static Builder builder(final String id, final List<FlowsPageComponent> layout) {
+            return new Builder(id, layout);
+        }
+
+        public static FlowsPage fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, FlowsPage.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("next_page_id")
+            private String nextPageId;
+
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("subtitle")
+            private String subtitle;
+
+            @JsonProperty("layout")
+            private List<FlowsPageComponent> layout;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("id") final String id, @JsonProperty("layout") final List<FlowsPageComponent> layout) {
+                this.id = id;
+                this.layout = layout;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("next_page_id")
+            public Builder nextPageId(String nextPageId) {
+                this.nextPageId = nextPageId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            public Builder title(String title) {
+                this.title = title;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("subtitle")
+            public Builder subtitle(String subtitle) {
+                this.subtitle = subtitle;
+                return this;
+            }
+
+            public FlowsPage build() {
+                return new FlowsPage(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            FlowsPage other = (FlowsPage) o;
+            return (
+                    Objects.equals(id, other.id) &&
+                            Objects.equals(nextPageId, other.nextPageId) &&
+                            Objects.equals(title, other.title) &&
+                            Objects.equals(subtitle, other.subtitle) &&
+                            Objects.equals(layout, other.layout)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    id,
+                    nextPageId,
+                    title,
+                    subtitle,
+                    layout
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = Types.Builder.class)
+
+    @JsonDeserialize(builder = Types.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class Types {
@@ -250,367 +340,1210 @@ public class Content extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/text")
         @Getter
-        @Setter
-        private TwilioText twilioText;
+        private final TwilioText twilioText;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/media")
         @Getter
-        @Setter
-        private TwilioMedia twilioMedia;
+        private final TwilioMedia twilioMedia;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/location")
         @Getter
-        @Setter
-        private TwilioLocation twilioLocation;
+        private final TwilioLocation twilioLocation;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/list-picker")
         @Getter
-        @Setter
-        private TwilioListPicker twilioListPicker;
+        private final TwilioListPicker twilioListPicker;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/call-to-action")
         @Getter
-        @Setter
-        private TwilioCallToAction twilioCallToAction;
+        private final TwilioCallToAction twilioCallToAction;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/quick-reply")
         @Getter
-        @Setter
-        private TwilioQuickReply twilioQuickReply;
+        private final TwilioQuickReply twilioQuickReply;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/card")
         @Getter
-        @Setter
-        private TwilioCard twilioCard;
+        private final TwilioCard twilioCard;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/catalog")
         @Getter
-        @Setter
-        private TwilioCatalog twilioCatalog;
+        private final TwilioCatalog twilioCatalog;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/carousel")
         @Getter
-        @Setter
-        private TwilioCarousel twilioCarousel;
+        private final TwilioCarousel twilioCarousel;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/flows")
         @Getter
-        @Setter
-        private TwilioFlows twilioFlows;
+        private final TwilioFlows twilioFlows;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("twilio/schedule")
         @Getter
-        @Setter
-        private TwilioSchedule twilioSchedule;
+        private final TwilioSchedule twilioSchedule;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/card")
         @Getter
-        @Setter
-        private WhatsappCard whatsappCard;
+        private final WhatsappCard whatsappCard;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/authentication")
         @Getter
-        @Setter
-        private WhatsappAuthentication whatsappAuthentication;
+        private final WhatsappAuthentication whatsappAuthentication;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("whatsapp/flows")
         @Getter
-        @Setter
-        private WhatsappFlows whatsappFlows;
+        private final WhatsappFlows whatsappFlows;
+
+
+        private Types(Builder builder) {
+            this.twilioText = builder.twilioText;
+            this.twilioMedia = builder.twilioMedia;
+            this.twilioLocation = builder.twilioLocation;
+            this.twilioListPicker = builder.twilioListPicker;
+            this.twilioCallToAction = builder.twilioCallToAction;
+            this.twilioQuickReply = builder.twilioQuickReply;
+            this.twilioCard = builder.twilioCard;
+            this.twilioCatalog = builder.twilioCatalog;
+            this.twilioCarousel = builder.twilioCarousel;
+            this.twilioFlows = builder.twilioFlows;
+            this.twilioSchedule = builder.twilioSchedule;
+            this.whatsappCard = builder.whatsappCard;
+            this.whatsappAuthentication = builder.whatsappAuthentication;
+            this.whatsappFlows = builder.whatsappFlows;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static Types fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, Types.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("twilio/text")
+            private TwilioText twilioText;
+
+            @JsonProperty("twilio/media")
+            private TwilioMedia twilioMedia;
+
+            @JsonProperty("twilio/location")
+            private TwilioLocation twilioLocation;
+
+            @JsonProperty("twilio/list-picker")
+            private TwilioListPicker twilioListPicker;
+
+            @JsonProperty("twilio/call-to-action")
+            private TwilioCallToAction twilioCallToAction;
+
+            @JsonProperty("twilio/quick-reply")
+            private TwilioQuickReply twilioQuickReply;
+
+            @JsonProperty("twilio/card")
+            private TwilioCard twilioCard;
+
+            @JsonProperty("twilio/catalog")
+            private TwilioCatalog twilioCatalog;
+
+            @JsonProperty("twilio/carousel")
+            private TwilioCarousel twilioCarousel;
+
+            @JsonProperty("twilio/flows")
+            private TwilioFlows twilioFlows;
+
+            @JsonProperty("twilio/schedule")
+            private TwilioSchedule twilioSchedule;
+
+            @JsonProperty("whatsapp/card")
+            private WhatsappCard whatsappCard;
+
+            @JsonProperty("whatsapp/authentication")
+            private WhatsappAuthentication whatsappAuthentication;
+
+            @JsonProperty("whatsapp/flows")
+            private WhatsappFlows whatsappFlows;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/text")
+            public Builder twilioText(TwilioText twilioText) {
+                this.twilioText = twilioText;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/media")
+            public Builder twilioMedia(TwilioMedia twilioMedia) {
+                this.twilioMedia = twilioMedia;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/location")
+            public Builder twilioLocation(TwilioLocation twilioLocation) {
+                this.twilioLocation = twilioLocation;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/list-picker")
+            public Builder twilioListPicker(TwilioListPicker twilioListPicker) {
+                this.twilioListPicker = twilioListPicker;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/call-to-action")
+            public Builder twilioCallToAction(TwilioCallToAction twilioCallToAction) {
+                this.twilioCallToAction = twilioCallToAction;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/quick-reply")
+            public Builder twilioQuickReply(TwilioQuickReply twilioQuickReply) {
+                this.twilioQuickReply = twilioQuickReply;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/card")
+            public Builder twilioCard(TwilioCard twilioCard) {
+                this.twilioCard = twilioCard;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/catalog")
+            public Builder twilioCatalog(TwilioCatalog twilioCatalog) {
+                this.twilioCatalog = twilioCatalog;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/carousel")
+            public Builder twilioCarousel(TwilioCarousel twilioCarousel) {
+                this.twilioCarousel = twilioCarousel;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/flows")
+            public Builder twilioFlows(TwilioFlows twilioFlows) {
+                this.twilioFlows = twilioFlows;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio/schedule")
+            public Builder twilioSchedule(TwilioSchedule twilioSchedule) {
+                this.twilioSchedule = twilioSchedule;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("whatsapp/card")
+            public Builder whatsappCard(WhatsappCard whatsappCard) {
+                this.whatsappCard = whatsappCard;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("whatsapp/authentication")
+            public Builder whatsappAuthentication(WhatsappAuthentication whatsappAuthentication) {
+                this.whatsappAuthentication = whatsappAuthentication;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("whatsapp/flows")
+            public Builder whatsappFlows(WhatsappFlows whatsappFlows) {
+                this.whatsappFlows = whatsappFlows;
+                return this;
+            }
+
+            public Types build() {
+                return new Types(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            Types other = (Types) o;
+            return (
+                    Objects.equals(twilioText, other.twilioText) &&
+                            Objects.equals(twilioMedia, other.twilioMedia) &&
+                            Objects.equals(twilioLocation, other.twilioLocation) &&
+                            Objects.equals(twilioListPicker, other.twilioListPicker) &&
+                            Objects.equals(twilioCallToAction, other.twilioCallToAction) &&
+                            Objects.equals(twilioQuickReply, other.twilioQuickReply) &&
+                            Objects.equals(twilioCard, other.twilioCard) &&
+                            Objects.equals(twilioCatalog, other.twilioCatalog) &&
+                            Objects.equals(twilioCarousel, other.twilioCarousel) &&
+                            Objects.equals(twilioFlows, other.twilioFlows) &&
+                            Objects.equals(twilioSchedule, other.twilioSchedule) &&
+                            Objects.equals(whatsappCard, other.whatsappCard) &&
+                            Objects.equals(whatsappAuthentication, other.whatsappAuthentication) &&
+                            Objects.equals(whatsappFlows, other.whatsappFlows)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    twilioText,
+                    twilioMedia,
+                    twilioLocation,
+                    twilioListPicker,
+                    twilioCallToAction,
+                    twilioQuickReply,
+                    twilioCard,
+                    twilioCatalog,
+                    twilioCarousel,
+                    twilioFlows,
+                    twilioSchedule,
+                    whatsappCard,
+                    whatsappAuthentication,
+                    whatsappFlows
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CallToActionAction.Builder.class)
+
+    @JsonDeserialize(builder = CallToActionAction.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CallToActionAction {
-        public CallToActionAction(final Content.CallToActionActionType type, final String title) {
-            this.type = type;
-            this.title = title;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private Content.CallToActionActionType type;
+        private final Content.CallToActionActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
         @Getter
-        @Setter
-        private String url;
+        private final String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone")
         @Getter
-        @Setter
-        private String phone;
+        private final String phone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("code")
         @Getter
-        @Setter
-        private String code;
+        private final String code;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
+
+
+        private CallToActionAction(Builder builder) {
+            this.type = builder.type;
+            this.title = builder.title;
+            this.url = builder.url;
+            this.phone = builder.phone;
+            this.code = builder.code;
+            this.id = builder.id;
+        }
+
+        public static Builder builder(final Content.CallToActionActionType type, final String title) {
+            return new Builder(type, title);
+        }
+
+        public static CallToActionAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CallToActionAction.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("type")
+            private Content.CallToActionActionType type;
+
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("url")
+            private String url;
+
+            @JsonProperty("phone")
+            private String phone;
+
+            @JsonProperty("code")
+            private String code;
+
+            @JsonProperty("id")
+            private String id;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("type") final Content.CallToActionActionType type, @JsonProperty("title") final String title) {
+                this.type = type;
+                this.title = title;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            public Builder url(String url) {
+                this.url = url;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone")
+            public Builder phone(String phone) {
+                this.phone = phone;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("code")
+            public Builder code(String code) {
+                this.code = code;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            public CallToActionAction build() {
+                return new CallToActionAction(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CallToActionAction other = (CallToActionAction) o;
+            return (
+                    Objects.equals(type, other.type) &&
+                            Objects.equals(title, other.title) &&
+                            Objects.equals(url, other.url) &&
+                            Objects.equals(phone, other.phone) &&
+                            Objects.equals(code, other.code) &&
+                            Objects.equals(id, other.id)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    type,
+                    title,
+                    url,
+                    phone,
+                    code,
+                    id
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CarouselAction.Builder.class)
+
+    @JsonDeserialize(builder = CarouselAction.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CarouselAction {
-        public CarouselAction(final Content.CarouselActionType type, final String title) {
-            this.type = type;
-            this.title = title;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private Content.CarouselActionType type;
+        private final Content.CarouselActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
         @Getter
-        @Setter
-        private String url;
+        private final String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone")
         @Getter
-        @Setter
-        private String phone;
+        private final String phone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
+
+
+        private CarouselAction(Builder builder) {
+            this.type = builder.type;
+            this.title = builder.title;
+            this.url = builder.url;
+            this.phone = builder.phone;
+            this.id = builder.id;
+        }
+
+        public static Builder builder(final Content.CarouselActionType type, final String title) {
+            return new Builder(type, title);
+        }
+
+        public static CarouselAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CarouselAction.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("type")
+            private Content.CarouselActionType type;
+
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("url")
+            private String url;
+
+            @JsonProperty("phone")
+            private String phone;
+
+            @JsonProperty("id")
+            private String id;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("type") final Content.CarouselActionType type, @JsonProperty("title") final String title) {
+                this.type = type;
+                this.title = title;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            public Builder url(String url) {
+                this.url = url;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone")
+            public Builder phone(String phone) {
+                this.phone = phone;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            public CarouselAction build() {
+                return new CarouselAction(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CarouselAction other = (CarouselAction) o;
+            return (
+                    Objects.equals(type, other.type) &&
+                            Objects.equals(title, other.title) &&
+                            Objects.equals(url, other.url) &&
+                            Objects.equals(phone, other.phone) &&
+                            Objects.equals(id, other.id)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    type,
+                    title,
+                    url,
+                    phone,
+                    id
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = WhatsappCard.Builder.class)
+
+    @JsonDeserialize(builder = WhatsappCard.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class WhatsappCard {
-        public WhatsappCard(final String body) {
-            this.body = body;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("footer")
         @Getter
-        @Setter
-        private String footer;
+        private final String footer;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media")
         @Getter
-        @Setter
-        private List<String> media;
+        private final List<String> media;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("header_text")
         @Getter
-        @Setter
-        private String headerText;
+        private final String headerText;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("actions")
         @Getter
-        @Setter
-        private List<CardAction> actions;
+        private final List<CardAction> actions;
+
+
+        private WhatsappCard(Builder builder) {
+            this.body = builder.body;
+            this.footer = builder.footer;
+            this.media = builder.media;
+            this.headerText = builder.headerText;
+            this.actions = builder.actions;
+        }
+
+        public static Builder builder(final String body) {
+            return new Builder(body);
+        }
+
+        public static WhatsappCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, WhatsappCard.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("footer")
+            private String footer;
+
+            @JsonProperty("media")
+            private List<String> media;
+
+            @JsonProperty("header_text")
+            private String headerText;
+
+            @JsonProperty("actions")
+            private List<CardAction> actions;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body) {
+                this.body = body;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("footer")
+            public Builder footer(String footer) {
+                this.footer = footer;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media")
+            public Builder media(List<String> media) {
+                this.media = media;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("header_text")
+            public Builder headerText(String headerText) {
+                this.headerText = headerText;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            public Builder actions(List<CardAction> actions) {
+                this.actions = actions;
+                return this;
+            }
+
+            public WhatsappCard build() {
+                return new WhatsappCard(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            WhatsappCard other = (WhatsappCard) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(footer, other.footer) &&
+                            Objects.equals(media, other.media) &&
+                            Objects.equals(headerText, other.headerText) &&
+                            Objects.equals(actions, other.actions)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    footer,
+                    media,
+                    headerText,
+                    actions
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = WhatsappAuthentication.Builder.class)
+
+    @JsonDeserialize(builder = WhatsappAuthentication.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class WhatsappAuthentication {
-        public WhatsappAuthentication(final List<AuthenticationAction> actions) {
-            this.actions = actions;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("add_security_recommendation")
         @Getter
-        @Setter
-        private Boolean addSecurityRecommendation;
+        private final Boolean addSecurityRecommendation;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("code_expiration_minutes")
         @Getter
-        @Setter
-        private BigDecimal codeExpirationMinutes;
+        private final BigDecimal codeExpirationMinutes;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("actions")
         @Getter
-        @Setter
-        private List<AuthenticationAction> actions;
+        private final List<AuthenticationAction> actions;
+
+
+        private WhatsappAuthentication(Builder builder) {
+            this.addSecurityRecommendation = builder.addSecurityRecommendation;
+            this.codeExpirationMinutes = builder.codeExpirationMinutes;
+            this.actions = builder.actions;
+        }
+
+        public static Builder builder(final List<AuthenticationAction> actions) {
+            return new Builder(actions);
+        }
+
+        public static WhatsappAuthentication fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, WhatsappAuthentication.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("add_security_recommendation")
+            private Boolean addSecurityRecommendation;
+
+            @JsonProperty("code_expiration_minutes")
+            private BigDecimal codeExpirationMinutes;
+
+            @JsonProperty("actions")
+            private List<AuthenticationAction> actions;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("actions") final List<AuthenticationAction> actions) {
+                this.actions = actions;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("add_security_recommendation")
+            public Builder addSecurityRecommendation(Boolean addSecurityRecommendation) {
+                this.addSecurityRecommendation = addSecurityRecommendation;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("code_expiration_minutes")
+            public Builder codeExpirationMinutes(BigDecimal codeExpirationMinutes) {
+                this.codeExpirationMinutes = codeExpirationMinutes;
+                return this;
+            }
+
+            public WhatsappAuthentication build() {
+                return new WhatsappAuthentication(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            WhatsappAuthentication other = (WhatsappAuthentication) o;
+            return (
+                    Objects.equals(addSecurityRecommendation, other.addSecurityRecommendation) &&
+                            Objects.equals(codeExpirationMinutes, other.codeExpirationMinutes) &&
+                            Objects.equals(actions, other.actions)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    addSecurityRecommendation,
+                    codeExpirationMinutes,
+                    actions
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = QuickReplyAction.Builder.class)
+
+    @JsonDeserialize(builder = QuickReplyAction.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class QuickReplyAction {
-        public QuickReplyAction(final Content.QuickReplyActionType type, final String title) {
-            this.type = type;
-            this.title = title;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private Content.QuickReplyActionType type;
+        private final Content.QuickReplyActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
+
+
+        private QuickReplyAction(Builder builder) {
+            this.type = builder.type;
+            this.title = builder.title;
+            this.id = builder.id;
+        }
+
+        public static Builder builder(final Content.QuickReplyActionType type, final String title) {
+            return new Builder(type, title);
+        }
+
+        public static QuickReplyAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, QuickReplyAction.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("type")
+            private Content.QuickReplyActionType type;
+
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("id")
+            private String id;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("type") final Content.QuickReplyActionType type, @JsonProperty("title") final String title) {
+                this.type = type;
+                this.title = title;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            public QuickReplyAction build() {
+                return new QuickReplyAction(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            QuickReplyAction other = (QuickReplyAction) o;
+            return (
+                    Objects.equals(type, other.type) &&
+                            Objects.equals(title, other.title) &&
+                            Objects.equals(id, other.id)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    type,
+                    title,
+                    id
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioCard.Builder.class)
+
+    @JsonDeserialize(builder = TwilioCard.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCard {
-        public TwilioCard(final String title) {
-            this.title = title;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("subtitle")
         @Getter
-        @Setter
-        private String subtitle;
+        private final String subtitle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media")
         @Getter
-        @Setter
-        private List<String> media;
+        private final List<String> media;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("actions")
         @Getter
-        @Setter
-        private List<CardAction> actions;
+        private final List<CardAction> actions;
+
+
+        private TwilioCard(Builder builder) {
+            this.title = builder.title;
+            this.subtitle = builder.subtitle;
+            this.media = builder.media;
+            this.actions = builder.actions;
+        }
+
+        public static Builder builder(final String title) {
+            return new Builder(title);
+        }
+
+        public static TwilioCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioCard.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("subtitle")
+            private String subtitle;
+
+            @JsonProperty("media")
+            private List<String> media;
+
+            @JsonProperty("actions")
+            private List<CardAction> actions;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("title") final String title) {
+                this.title = title;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("subtitle")
+            public Builder subtitle(String subtitle) {
+                this.subtitle = subtitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media")
+            public Builder media(List<String> media) {
+                this.media = media;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            public Builder actions(List<CardAction> actions) {
+                this.actions = actions;
+                return this;
+            }
+
+            public TwilioCard build() {
+                return new TwilioCard(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioCard other = (TwilioCard) o;
+            return (
+                    Objects.equals(title, other.title) &&
+                            Objects.equals(subtitle, other.subtitle) &&
+                            Objects.equals(media, other.media) &&
+                            Objects.equals(actions, other.actions)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    title,
+                    subtitle,
+                    media,
+                    actions
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = AuthenticationAction.Builder.class)
+
+    @JsonDeserialize(builder = AuthenticationAction.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AuthenticationAction {
-        public AuthenticationAction(final Content.AuthenticationActionType type, final String copyCodeText) {
-            this.type = type;
-            this.copyCodeText = copyCodeText;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private Content.AuthenticationActionType type;
+        private final Content.AuthenticationActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("copy_code_text")
         @Getter
-        @Setter
-        private String copyCodeText;
+        private final String copyCodeText;
+
+
+        private AuthenticationAction(Builder builder) {
+            this.type = builder.type;
+            this.copyCodeText = builder.copyCodeText;
+        }
+
+        public static Builder builder(final Content.AuthenticationActionType type, final String copyCodeText) {
+            return new Builder(type, copyCodeText);
+        }
+
+        public static AuthenticationAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AuthenticationAction.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("type")
+            private Content.AuthenticationActionType type;
+
+            @JsonProperty("copy_code_text")
+            private String copyCodeText;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("type") final Content.AuthenticationActionType type, @JsonProperty("copy_code_text") final String copyCodeText) {
+                this.type = type;
+                this.copyCodeText = copyCodeText;
+            }
+
+
+            public AuthenticationAction build() {
+                return new AuthenticationAction(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AuthenticationAction other = (AuthenticationAction) o;
+            return (
+                    Objects.equals(type, other.type) &&
+                            Objects.equals(copyCodeText, other.copyCodeText)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    type,
+                    copyCodeText
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = ContentCreateRequest.Builder.class)
+
+    @JsonDeserialize(builder = ContentCreateRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentCreateRequest {
-        public ContentCreateRequest(final String language, final Types types) {
-            this.language = language;
-            this.types = types;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("friendly_name")
         @Getter
-        @Setter
-        private String friendlyName;
+        private final String friendlyName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("variables")
         @Getter
-        @Setter
-        private Map<String, String> variables;
+        private final Map<String, String> variables;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("language")
         @Getter
-        @Setter
-        private String language;
+        private final String language;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("types")
         @Getter
-        @Setter
-        private Types types;
+        private final Types types;
+
+
+        private ContentCreateRequest(Builder builder) {
+            this.friendlyName = builder.friendlyName;
+            this.variables = builder.variables;
+            this.language = builder.language;
+            this.types = builder.types;
+        }
+
+        public static Builder builder(final String language, final Types types) {
+            return new Builder(language, types);
+        }
+
+        public static ContentCreateRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ContentCreateRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
+            @JsonProperty("variables")
+            private Map<String, String> variables;
+
+            @JsonProperty("language")
+            private String language;
+
+            @JsonProperty("types")
+            private Types types;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("language") final String language, @JsonProperty("types") final Types types) {
+                this.language = language;
+                this.types = types;
+            }
+
+
+            public ContentCreateRequest build() {
+                return new ContentCreateRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ContentCreateRequest other = (ContentCreateRequest) o;
+            return (
+                    Objects.equals(friendlyName, other.friendlyName) &&
+                            Objects.equals(variables, other.variables) &&
+                            Objects.equals(language, other.language) &&
+                            Objects.equals(types, other.types)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    friendlyName,
+                    variables,
+                    language,
+                    types
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioCallToAction.Builder.class)
+
+    @JsonDeserialize(builder = TwilioCallToAction.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCallToAction {
@@ -618,289 +1551,939 @@ public class Content extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("actions")
         @Getter
-        @Setter
-        private List<CallToActionAction> actions;
+        private final List<CallToActionAction> actions;
+
+
+        private TwilioCallToAction(Builder builder) {
+            this.body = builder.body;
+            this.actions = builder.actions;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static TwilioCallToAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioCallToAction.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("actions")
+            private List<CallToActionAction> actions;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            public Builder body(String body) {
+                this.body = body;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            public Builder actions(List<CallToActionAction> actions) {
+                this.actions = actions;
+                return this;
+            }
+
+            public TwilioCallToAction build() {
+                return new TwilioCallToAction(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioCallToAction other = (TwilioCallToAction) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(actions, other.actions)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    actions
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioQuickReply.Builder.class)
+
+    @JsonDeserialize(builder = TwilioQuickReply.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioQuickReply {
-        public TwilioQuickReply(final String body, final List<QuickReplyAction> actions) {
-            this.body = body;
-            this.actions = actions;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("actions")
         @Getter
-        @Setter
-        private List<QuickReplyAction> actions;
+        private final List<QuickReplyAction> actions;
+
+
+        private TwilioQuickReply(Builder builder) {
+            this.body = builder.body;
+            this.actions = builder.actions;
+        }
+
+        public static Builder builder(final String body, final List<QuickReplyAction> actions) {
+            return new Builder(body, actions);
+        }
+
+        public static TwilioQuickReply fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioQuickReply.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("actions")
+            private List<QuickReplyAction> actions;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body, @JsonProperty("actions") final List<QuickReplyAction> actions) {
+                this.body = body;
+                this.actions = actions;
+            }
+
+
+            public TwilioQuickReply build() {
+                return new TwilioQuickReply(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioQuickReply other = (TwilioQuickReply) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(actions, other.actions)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    actions
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioMedia.Builder.class)
+
+    @JsonDeserialize(builder = TwilioMedia.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioMedia {
-        public TwilioMedia(final List<String> media) {
-            this.media = media;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media")
         @Getter
-        @Setter
-        private List<String> media;
+        private final List<String> media;
+
+
+        private TwilioMedia(Builder builder) {
+            this.body = builder.body;
+            this.media = builder.media;
+        }
+
+        public static Builder builder(final List<String> media) {
+            return new Builder(media);
+        }
+
+        public static TwilioMedia fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioMedia.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("media")
+            private List<String> media;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("media") final List<String> media) {
+                this.media = media;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            public Builder body(String body) {
+                this.body = body;
+                return this;
+            }
+
+            public TwilioMedia build() {
+                return new TwilioMedia(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioMedia other = (TwilioMedia) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(media, other.media)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    media
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioFlows.Builder.class)
+
+    @JsonDeserialize(builder = TwilioFlows.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioFlows {
-        public TwilioFlows(final String body, final String buttonText, final String subtitle, final String mediaUrl, final List<FlowsPage> pages, final String type) {
-            this.body = body;
-            this.buttonText = buttonText;
-            this.subtitle = subtitle;
-            this.mediaUrl = mediaUrl;
-            this.pages = pages;
-            this.type = type;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("button_text")
         @Getter
-        @Setter
-        private String buttonText;
+        private final String buttonText;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("subtitle")
         @Getter
-        @Setter
-        private String subtitle;
+        private final String subtitle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media_url")
         @Getter
-        @Setter
-        private String mediaUrl;
+        private final String mediaUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("pages")
         @Getter
-        @Setter
-        private List<FlowsPage> pages;
+        private final List<FlowsPage> pages;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private String type;
+        private final String type;
+
+
+        private TwilioFlows(Builder builder) {
+            this.body = builder.body;
+            this.buttonText = builder.buttonText;
+            this.subtitle = builder.subtitle;
+            this.mediaUrl = builder.mediaUrl;
+            this.pages = builder.pages;
+            this.type = builder.type;
+        }
+
+        public static Builder builder(final String body, final String buttonText, final String subtitle, final String mediaUrl, final List<FlowsPage> pages, final String type) {
+            return new Builder(body, buttonText, subtitle, mediaUrl, pages, type);
+        }
+
+        public static TwilioFlows fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioFlows.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("button_text")
+            private String buttonText;
+
+            @JsonProperty("subtitle")
+            private String subtitle;
+
+            @JsonProperty("media_url")
+            private String mediaUrl;
+
+            @JsonProperty("pages")
+            private List<FlowsPage> pages;
+
+            @JsonProperty("type")
+            private String type;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body, @JsonProperty("button_text") final String buttonText, @JsonProperty("subtitle") final String subtitle, @JsonProperty("media_url") final String mediaUrl, @JsonProperty("pages") final List<FlowsPage> pages, @JsonProperty("type") final String type) {
+                this.body = body;
+                this.buttonText = buttonText;
+                this.subtitle = subtitle;
+                this.mediaUrl = mediaUrl;
+                this.pages = pages;
+                this.type = type;
+            }
+
+
+            public TwilioFlows build() {
+                return new TwilioFlows(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioFlows other = (TwilioFlows) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(buttonText, other.buttonText) &&
+                            Objects.equals(subtitle, other.subtitle) &&
+                            Objects.equals(mediaUrl, other.mediaUrl) &&
+                            Objects.equals(pages, other.pages) &&
+                            Objects.equals(type, other.type)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    buttonText,
+                    subtitle,
+                    mediaUrl,
+                    pages,
+                    type
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = FlowsPageComponent.Builder.class)
+
+    @JsonDeserialize(builder = FlowsPageComponent.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class FlowsPageComponent {
-        public FlowsPageComponent(final String label, final String type) {
-            this.label = label;
-            this.type = type;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("label")
         @Getter
-        @Setter
-        private String label;
+        private final String label;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private String type;
+        private final String type;
+
+
+        private FlowsPageComponent(Builder builder) {
+            this.label = builder.label;
+            this.type = builder.type;
+        }
+
+        public static Builder builder(final String label, final String type) {
+            return new Builder(label, type);
+        }
+
+        public static FlowsPageComponent fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, FlowsPageComponent.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("label")
+            private String label;
+
+            @JsonProperty("type")
+            private String type;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("label") final String label, @JsonProperty("type") final String type) {
+                this.label = label;
+                this.type = type;
+            }
+
+
+            public FlowsPageComponent build() {
+                return new FlowsPageComponent(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            FlowsPageComponent other = (FlowsPageComponent) o;
+            return (
+                    Objects.equals(label, other.label) &&
+                            Objects.equals(type, other.type)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    label,
+                    type
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = WhatsappFlows.Builder.class)
+
+    @JsonDeserialize(builder = WhatsappFlows.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class WhatsappFlows {
-        public WhatsappFlows(final String body, final String buttonText, final String flowId) {
-            this.body = body;
-            this.buttonText = buttonText;
-            this.flowId = flowId;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("button_text")
         @Getter
-        @Setter
-        private String buttonText;
+        private final String buttonText;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("subtitle")
         @Getter
-        @Setter
-        private String subtitle;
+        private final String subtitle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media_url")
         @Getter
-        @Setter
-        private String mediaUrl;
+        private final String mediaUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("flow_id")
         @Getter
-        @Setter
-        private String flowId;
+        private final String flowId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("flow_token")
         @Getter
-        @Setter
-        private String flowToken;
+        private final String flowToken;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("flow_first_page_id")
         @Getter
-        @Setter
-        private String flowFirstPageId;
+        private final String flowFirstPageId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("is_flow_first_page_endpoint")
         @Getter
-        @Setter
-        private Boolean isFlowFirstPageEndpoint;
+        private final Boolean isFlowFirstPageEndpoint;
+
+
+        private WhatsappFlows(Builder builder) {
+            this.body = builder.body;
+            this.buttonText = builder.buttonText;
+            this.subtitle = builder.subtitle;
+            this.mediaUrl = builder.mediaUrl;
+            this.flowId = builder.flowId;
+            this.flowToken = builder.flowToken;
+            this.flowFirstPageId = builder.flowFirstPageId;
+            this.isFlowFirstPageEndpoint = builder.isFlowFirstPageEndpoint;
+        }
+
+        public static Builder builder(final String body, final String buttonText, final String flowId) {
+            return new Builder(body, buttonText, flowId);
+        }
+
+        public static WhatsappFlows fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, WhatsappFlows.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("button_text")
+            private String buttonText;
+
+            @JsonProperty("subtitle")
+            private String subtitle;
+
+            @JsonProperty("media_url")
+            private String mediaUrl;
+
+            @JsonProperty("flow_id")
+            private String flowId;
+
+            @JsonProperty("flow_token")
+            private String flowToken;
+
+            @JsonProperty("flow_first_page_id")
+            private String flowFirstPageId;
+
+            @JsonProperty("is_flow_first_page_endpoint")
+            private Boolean isFlowFirstPageEndpoint;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body, @JsonProperty("button_text") final String buttonText, @JsonProperty("flow_id") final String flowId) {
+                this.body = body;
+                this.buttonText = buttonText;
+                this.flowId = flowId;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("subtitle")
+            public Builder subtitle(String subtitle) {
+                this.subtitle = subtitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media_url")
+            public Builder mediaUrl(String mediaUrl) {
+                this.mediaUrl = mediaUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("flow_token")
+            public Builder flowToken(String flowToken) {
+                this.flowToken = flowToken;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("flow_first_page_id")
+            public Builder flowFirstPageId(String flowFirstPageId) {
+                this.flowFirstPageId = flowFirstPageId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("is_flow_first_page_endpoint")
+            public Builder isFlowFirstPageEndpoint(Boolean isFlowFirstPageEndpoint) {
+                this.isFlowFirstPageEndpoint = isFlowFirstPageEndpoint;
+                return this;
+            }
+
+            public WhatsappFlows build() {
+                return new WhatsappFlows(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            WhatsappFlows other = (WhatsappFlows) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(buttonText, other.buttonText) &&
+                            Objects.equals(subtitle, other.subtitle) &&
+                            Objects.equals(mediaUrl, other.mediaUrl) &&
+                            Objects.equals(flowId, other.flowId) &&
+                            Objects.equals(flowToken, other.flowToken) &&
+                            Objects.equals(flowFirstPageId, other.flowFirstPageId) &&
+                            Objects.equals(isFlowFirstPageEndpoint, other.isFlowFirstPageEndpoint)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    buttonText,
+                    subtitle,
+                    mediaUrl,
+                    flowId,
+                    flowToken,
+                    flowFirstPageId,
+                    isFlowFirstPageEndpoint
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioListPicker.Builder.class)
+
+    @JsonDeserialize(builder = TwilioListPicker.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioListPicker {
-        public TwilioListPicker(final String body, final String button, final List<ListItem> items) {
-            this.body = body;
-            this.button = button;
-            this.items = items;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("button")
         @Getter
-        @Setter
-        private String button;
+        private final String button;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("items")
         @Getter
-        @Setter
-        private List<ListItem> items;
+        private final List<ListItem> items;
+
+
+        private TwilioListPicker(Builder builder) {
+            this.body = builder.body;
+            this.button = builder.button;
+            this.items = builder.items;
+        }
+
+        public static Builder builder(final String body, final String button, final List<ListItem> items) {
+            return new Builder(body, button, items);
+        }
+
+        public static TwilioListPicker fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioListPicker.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("button")
+            private String button;
+
+            @JsonProperty("items")
+            private List<ListItem> items;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body, @JsonProperty("button") final String button, @JsonProperty("items") final List<ListItem> items) {
+                this.body = body;
+                this.button = button;
+                this.items = items;
+            }
+
+
+            public TwilioListPicker build() {
+                return new TwilioListPicker(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioListPicker other = (TwilioListPicker) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(button, other.button) &&
+                            Objects.equals(items, other.items)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    button,
+                    items
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioCatalog.Builder.class)
+
+    @JsonDeserialize(builder = TwilioCatalog.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCatalog {
-        public TwilioCatalog(final String body) {
-            this.body = body;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("subtitle")
         @Getter
-        @Setter
-        private String subtitle;
+        private final String subtitle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("items")
         @Getter
-        @Setter
-        private List<CatalogItem> items;
+        private final List<CatalogItem> items;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("dynamic_items")
         @Getter
-        @Setter
-        private String dynamicItems;
+        private final String dynamicItems;
+
+
+        private TwilioCatalog(Builder builder) {
+            this.title = builder.title;
+            this.body = builder.body;
+            this.subtitle = builder.subtitle;
+            this.id = builder.id;
+            this.items = builder.items;
+            this.dynamicItems = builder.dynamicItems;
+        }
+
+        public static Builder builder(final String body) {
+            return new Builder(body);
+        }
+
+        public static TwilioCatalog fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioCatalog.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("subtitle")
+            private String subtitle;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("items")
+            private List<CatalogItem> items;
+
+            @JsonProperty("dynamic_items")
+            private String dynamicItems;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body) {
+                this.body = body;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            public Builder title(String title) {
+                this.title = title;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("subtitle")
+            public Builder subtitle(String subtitle) {
+                this.subtitle = subtitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("items")
+            public Builder items(List<CatalogItem> items) {
+                this.items = items;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("dynamic_items")
+            public Builder dynamicItems(String dynamicItems) {
+                this.dynamicItems = dynamicItems;
+                return this;
+            }
+
+            public TwilioCatalog build() {
+                return new TwilioCatalog(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioCatalog other = (TwilioCatalog) o;
+            return (
+                    Objects.equals(title, other.title) &&
+                            Objects.equals(body, other.body) &&
+                            Objects.equals(subtitle, other.subtitle) &&
+                            Objects.equals(id, other.id) &&
+                            Objects.equals(items, other.items) &&
+                            Objects.equals(dynamicItems, other.dynamicItems)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    title,
+                    body,
+                    subtitle,
+                    id,
+                    items,
+                    dynamicItems
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioText.Builder.class)
+
+    @JsonDeserialize(builder = TwilioText.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioText {
-        public TwilioText(final String body) {
-            this.body = body;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
+
+
+        private TwilioText(Builder builder) {
+            this.body = builder.body;
+        }
+
+        public static Builder builder(final String body) {
+            return new Builder(body);
+        }
+
+        public static TwilioText fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioText.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body) {
+                this.body = body;
+            }
+
+
+            public TwilioText build() {
+                return new TwilioText(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioText other = (TwilioText) o;
+            return (
+                    Objects.equals(body, other.body)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CatalogItem.Builder.class)
+
+    @JsonDeserialize(builder = CatalogItem.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CatalogItem {
@@ -908,148 +2491,491 @@ public class Content extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("section_title")
         @Getter
-        @Setter
-        private String sectionTitle;
+        private final String sectionTitle;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media_url")
         @Getter
-        @Setter
-        private String mediaUrl;
+        private final String mediaUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("price")
         @Getter
-        @Setter
-        private BigDecimal price;
+        private final BigDecimal price;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
         @Getter
-        @Setter
-        private String description;
+        private final String description;
+
+
+        private CatalogItem(Builder builder) {
+            this.id = builder.id;
+            this.sectionTitle = builder.sectionTitle;
+            this.name = builder.name;
+            this.mediaUrl = builder.mediaUrl;
+            this.price = builder.price;
+            this.description = builder.description;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CatalogItem fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CatalogItem.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("section_title")
+            private String sectionTitle;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("media_url")
+            private String mediaUrl;
+
+            @JsonProperty("price")
+            private BigDecimal price;
+
+            @JsonProperty("description")
+            private String description;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("section_title")
+            public Builder sectionTitle(String sectionTitle) {
+                this.sectionTitle = sectionTitle;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media_url")
+            public Builder mediaUrl(String mediaUrl) {
+                this.mediaUrl = mediaUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("price")
+            public Builder price(BigDecimal price) {
+                this.price = price;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            public CatalogItem build() {
+                return new CatalogItem(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CatalogItem other = (CatalogItem) o;
+            return (
+                    Objects.equals(id, other.id) &&
+                            Objects.equals(sectionTitle, other.sectionTitle) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(mediaUrl, other.mediaUrl) &&
+                            Objects.equals(price, other.price) &&
+                            Objects.equals(description, other.description)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    id,
+                    sectionTitle,
+                    name,
+                    mediaUrl,
+                    price,
+                    description
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioSchedule.Builder.class)
+
+    @JsonDeserialize(builder = TwilioSchedule.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioSchedule {
-        public TwilioSchedule(final String id, final String title, final String timeSlots) {
-            this.id = id;
-            this.title = title;
-            this.timeSlots = timeSlots;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("timeSlots")
         @Getter
-        @Setter
-        private String timeSlots;
+        private final String timeSlots;
+
+
+        private TwilioSchedule(Builder builder) {
+            this.id = builder.id;
+            this.title = builder.title;
+            this.timeSlots = builder.timeSlots;
+        }
+
+        public static Builder builder(final String id, final String title, final String timeSlots) {
+            return new Builder(id, title, timeSlots);
+        }
+
+        public static TwilioSchedule fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioSchedule.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("timeSlots")
+            private String timeSlots;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("id") final String id, @JsonProperty("title") final String title, @JsonProperty("timeSlots") final String timeSlots) {
+                this.id = id;
+                this.title = title;
+                this.timeSlots = timeSlots;
+            }
+
+
+            public TwilioSchedule build() {
+                return new TwilioSchedule(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioSchedule other = (TwilioSchedule) o;
+            return (
+                    Objects.equals(id, other.id) &&
+                            Objects.equals(title, other.title) &&
+                            Objects.equals(timeSlots, other.timeSlots)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    id,
+                    title,
+                    timeSlots
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioCarousel.Builder.class)
+
+    @JsonDeserialize(builder = TwilioCarousel.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioCarousel {
-        public TwilioCarousel(final String body, final List<CarouselCard> cards) {
-            this.body = body;
-            this.cards = cards;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("cards")
         @Getter
-        @Setter
-        private List<CarouselCard> cards;
+        private final List<CarouselCard> cards;
+
+
+        private TwilioCarousel(Builder builder) {
+            this.body = builder.body;
+            this.cards = builder.cards;
+        }
+
+        public static Builder builder(final String body, final List<CarouselCard> cards) {
+            return new Builder(body, cards);
+        }
+
+        public static TwilioCarousel fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioCarousel.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("cards")
+            private List<CarouselCard> cards;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("body") final String body, @JsonProperty("cards") final List<CarouselCard> cards) {
+                this.body = body;
+                this.cards = cards;
+            }
+
+
+            public TwilioCarousel build() {
+                return new TwilioCarousel(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioCarousel other = (TwilioCarousel) o;
+            return (
+                    Objects.equals(body, other.body) &&
+                            Objects.equals(cards, other.cards)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    body,
+                    cards
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CardAction.Builder.class)
+
+    @JsonDeserialize(builder = CardAction.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CardAction {
-        public CardAction(final Content.CardActionType type, final String title) {
-            this.type = type;
-            this.title = title;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private Content.CardActionType type;
+        private final Content.CardActionType type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
         @Getter
-        @Setter
-        private String url;
+        private final String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone")
         @Getter
-        @Setter
-        private String phone;
+        private final String phone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("code")
         @Getter
-        @Setter
-        private String code;
+        private final String code;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("webview_size")
         @Getter
-        @Setter
-        private Content.WebviewSizeType webviewSize;
+        private final Content.WebviewSizeType webviewSize;
+
+
+        private CardAction(Builder builder) {
+            this.type = builder.type;
+            this.title = builder.title;
+            this.url = builder.url;
+            this.phone = builder.phone;
+            this.id = builder.id;
+            this.code = builder.code;
+            this.webviewSize = builder.webviewSize;
+        }
+
+        public static Builder builder(final Content.CardActionType type, final String title) {
+            return new Builder(type, title);
+        }
+
+        public static CardAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CardAction.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("type")
+            private Content.CardActionType type;
+
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("url")
+            private String url;
+
+            @JsonProperty("phone")
+            private String phone;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("code")
+            private String code;
+
+            @JsonProperty("webview_size")
+            private Content.WebviewSizeType webviewSize;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("type") final Content.CardActionType type, @JsonProperty("title") final String title) {
+                this.type = type;
+                this.title = title;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            public Builder url(String url) {
+                this.url = url;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone")
+            public Builder phone(String phone) {
+                this.phone = phone;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("code")
+            public Builder code(String code) {
+                this.code = code;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("webview_size")
+            public Builder webviewSize(Content.WebviewSizeType webviewSize) {
+                this.webviewSize = webviewSize;
+                return this;
+            }
+
+            public CardAction build() {
+                return new CardAction(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CardAction other = (CardAction) o;
+            return (
+                    Objects.equals(type, other.type) &&
+                            Objects.equals(title, other.title) &&
+                            Objects.equals(url, other.url) &&
+                            Objects.equals(phone, other.phone) &&
+                            Objects.equals(id, other.id) &&
+                            Objects.equals(code, other.code) &&
+                            Objects.equals(webviewSize, other.webviewSize)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    type,
+                    title,
+                    url,
+                    phone,
+                    id,
+                    code,
+                    webviewSize
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CarouselCard.Builder.class)
+
+    @JsonDeserialize(builder = CarouselCard.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CarouselCard {
@@ -1057,98 +2983,344 @@ public class Content extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("title")
         @Getter
-        @Setter
-        private String title;
+        private final String title;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("media")
         @Getter
-        @Setter
-        private String media;
+        private final String media;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("actions")
         @Getter
-        @Setter
-        private List<CarouselAction> actions;
+        private final List<CarouselAction> actions;
+
+
+        private CarouselCard(Builder builder) {
+            this.title = builder.title;
+            this.body = builder.body;
+            this.media = builder.media;
+            this.actions = builder.actions;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CarouselCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CarouselCard.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("title")
+            private String title;
+
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("media")
+            private String media;
+
+            @JsonProperty("actions")
+            private List<CarouselAction> actions;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            public Builder title(String title) {
+                this.title = title;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            public Builder body(String body) {
+                this.body = body;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media")
+            public Builder media(String media) {
+                this.media = media;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            public Builder actions(List<CarouselAction> actions) {
+                this.actions = actions;
+                return this;
+            }
+
+            public CarouselCard build() {
+                return new CarouselCard(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CarouselCard other = (CarouselCard) o;
+            return (
+                    Objects.equals(title, other.title) &&
+                            Objects.equals(body, other.body) &&
+                            Objects.equals(media, other.media) &&
+                            Objects.equals(actions, other.actions)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    title,
+                    body,
+                    media,
+                    actions
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = TwilioLocation.Builder.class)
+
+    @JsonDeserialize(builder = TwilioLocation.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class TwilioLocation {
-        public TwilioLocation(final BigDecimal latitude, final BigDecimal longitude) {
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("latitude")
         @Getter
-        @Setter
-        private BigDecimal latitude;
+        private final BigDecimal latitude;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("longitude")
         @Getter
-        @Setter
-        private BigDecimal longitude;
+        private final BigDecimal longitude;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("label")
         @Getter
-        @Setter
-        private String label;
+        private final String label;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("address")
         @Getter
-        @Setter
-        private String address;
+        private final String address;
+
+
+        private TwilioLocation(Builder builder) {
+            this.latitude = builder.latitude;
+            this.longitude = builder.longitude;
+            this.label = builder.label;
+            this.id = builder.id;
+            this.address = builder.address;
+        }
+
+        public static Builder builder(final BigDecimal latitude, final BigDecimal longitude) {
+            return new Builder(latitude, longitude);
+        }
+
+        public static TwilioLocation fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, TwilioLocation.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("latitude")
+            private BigDecimal latitude;
+
+            @JsonProperty("longitude")
+            private BigDecimal longitude;
+
+            @JsonProperty("label")
+            private String label;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("address")
+            private String address;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("latitude") final BigDecimal latitude, @JsonProperty("longitude") final BigDecimal longitude) {
+                this.latitude = latitude;
+                this.longitude = longitude;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("label")
+            public Builder label(String label) {
+                this.label = label;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("address")
+            public Builder address(String address) {
+                this.address = address;
+                return this;
+            }
+
+            public TwilioLocation build() {
+                return new TwilioLocation(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            TwilioLocation other = (TwilioLocation) o;
+            return (
+                    Objects.equals(latitude, other.latitude) &&
+                            Objects.equals(longitude, other.longitude) &&
+                            Objects.equals(label, other.label) &&
+                            Objects.equals(id, other.id) &&
+                            Objects.equals(address, other.address)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    latitude,
+                    longitude,
+                    label,
+                    id,
+                    address
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = ListItem.Builder.class)
+
+    @JsonDeserialize(builder = ListItem.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ListItem {
-        public ListItem(final String id, final String item) {
-            this.id = id;
-            this.item = item;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("item")
         @Getter
-        @Setter
-        private String item;
+        private final String item;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
         @Getter
-        @Setter
-        private String description;
+        private final String description;
+
+
+        private ListItem(Builder builder) {
+            this.id = builder.id;
+            this.item = builder.item;
+            this.description = builder.description;
+        }
+
+        public static Builder builder(final String id, final String item) {
+            return new Builder(id, item);
+        }
+
+        public static ListItem fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ListItem.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("item")
+            private String item;
+
+            @JsonProperty("description")
+            private String description;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("id") final String id, @JsonProperty("item") final String item) {
+                this.id = id;
+                this.item = item;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            public ListItem build() {
+                return new ListItem(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ListItem other = (ListItem) o;
+            return (
+                    Objects.equals(id, other.id) &&
+                            Objects.equals(item, other.item) &&
+                            Objects.equals(description, other.description)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    id,
+                    item,
+                    description
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a Content object using the provided ObjectMapper.

@@ -39,30 +39,30 @@ import java.util.Objects;
 public class Invite extends Resource {
 
 
-    public static InviteCreator creator(final String pathserviceSid, final String pathchannelSid, final String identity) {
+    public static InviteCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity) {
         return new InviteCreator(
-                pathserviceSid, pathchannelSid, identity
+                pathServiceSid, pathChannelSid, identity
         );
     }
 
 
-    public static InviteDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static InviteDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new InviteDeleter(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static InviteFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static InviteFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new InviteFetcher(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static InviteReader reader(final String pathserviceSid, final String pathchannelSid) {
+    public static InviteReader reader(final String pathServiceSid, final String pathChannelSid) {
         return new InviteReader(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 

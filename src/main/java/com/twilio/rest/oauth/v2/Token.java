@@ -36,9 +36,9 @@ import java.util.Objects;
 public class Token extends Resource {
 
 
-    public static TokenCreator creator(final String grantType, final String clientId) {
+    public static TokenCreator creator() {
         return new TokenCreator(
-                grantType, clientId
+
         );
     }
 

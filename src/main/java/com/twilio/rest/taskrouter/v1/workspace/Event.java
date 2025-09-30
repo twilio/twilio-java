@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Event extends Resource {
 
 
-    public static EventFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static EventFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new EventFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static EventReader reader(final String pathworkspaceSid) {
+    public static EventReader reader(final String pathWorkspaceSid) {
         return new EventReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 

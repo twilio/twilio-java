@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class RateLimitCreator extends Creator<RateLimit> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private String description;
 
-    public RateLimitCreator(final String pathserviceSid, final String uniqueName) {
-        this.pathserviceSid = pathserviceSid;
+    public RateLimitCreator(final String pathServiceSid, final String uniqueName) {
+        this.pathServiceSid = pathServiceSid;
         this.uniqueName = uniqueName;
     }
 
@@ -57,7 +57,7 @@ public class RateLimitCreator extends Creator<RateLimit> {
 
         String path = "/v2/Services/{ServiceSid}/RateLimits";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

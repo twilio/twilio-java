@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Channel extends Resource {
 
 
-    public static ChannelUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static ChannelUpdater updater(final String pathServiceSid, final String pathSid) {
         return new ChannelUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

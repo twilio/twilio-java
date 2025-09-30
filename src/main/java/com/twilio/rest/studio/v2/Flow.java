@@ -49,16 +49,16 @@ public class Flow extends Resource {
     }
 
 
-    public static FlowDeleter deleter(final String pathsid) {
+    public static FlowDeleter deleter(final String pathSid) {
         return new FlowDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static FlowFetcher fetcher(final String pathsid) {
+    public static FlowFetcher fetcher(final String pathSid) {
         return new FlowFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -70,9 +70,9 @@ public class Flow extends Resource {
     }
 
 
-    public static FlowUpdater updater(final String pathsid, final Flow.Status status) {
+    public static FlowUpdater updater(final String pathSid, final Flow.Status status) {
         return new FlowUpdater(
-                pathsid, status
+                pathSid, status
         );
     }
 

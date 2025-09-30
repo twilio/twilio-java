@@ -47,9 +47,9 @@ public class BulkEligibility extends Resource {
     }
 
 
-    public static BulkEligibilityFetcher fetcher(final String pathrequestId) {
+    public static BulkEligibilityFetcher fetcher(final String pathRequestId) {
         return new BulkEligibilityFetcher(
-                pathrequestId
+                pathRequestId
         );
     }
 

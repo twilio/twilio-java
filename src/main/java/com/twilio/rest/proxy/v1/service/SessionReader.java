@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class SessionReader extends Reader<Session> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public SessionReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public SessionReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class SessionReader extends Reader<Session> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

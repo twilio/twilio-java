@@ -38,16 +38,16 @@ import java.util.Objects;
 public class TollFree extends Resource {
 
 
-    public static TollFreeReader reader(final String pathcountryCode) {
+    public static TollFreeReader reader(final String pathCountryCode) {
         return new TollFreeReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static TollFreeReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static TollFreeReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new TollFreeReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

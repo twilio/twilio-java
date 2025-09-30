@@ -33,7 +33,7 @@ import java.net.URI;
 
 public class MobileCreator extends Creator<Mobile> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -62,8 +62,8 @@ public class MobileCreator extends Creator<Mobile> {
         this.phoneNumber = phoneNumber;
     }
 
-    public MobileCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.pathaccountSid = pathaccountSid;
+    public MobileCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -106,6 +106,9 @@ public class MobileCreator extends Creator<Mobile> {
         return this;
     }
 
+    public MobileCreator setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public MobileCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -118,12 +121,18 @@ public class MobileCreator extends Creator<Mobile> {
         return this;
     }
 
+    public MobileCreator setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public MobileCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
+    public MobileCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public MobileCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -154,6 +163,9 @@ public class MobileCreator extends Creator<Mobile> {
         return this;
     }
 
+    public MobileCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public MobileCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -166,6 +178,9 @@ public class MobileCreator extends Creator<Mobile> {
         return this;
     }
 
+    public MobileCreator setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public MobileCreator setIdentitySid(final String identitySid) {
         this.identitySid = identitySid;
@@ -214,8 +229,8 @@ public class MobileCreator extends Creator<Mobile> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

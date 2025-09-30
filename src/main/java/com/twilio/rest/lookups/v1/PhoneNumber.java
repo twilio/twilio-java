@@ -37,9 +37,9 @@ import java.util.Objects;
 public class PhoneNumber extends Resource {
 
 
-    public static PhoneNumberFetcher fetcher(final String pathphoneNumber) {
+    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 

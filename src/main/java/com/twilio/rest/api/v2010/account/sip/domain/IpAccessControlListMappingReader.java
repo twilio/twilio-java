@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class IpAccessControlListMappingReader extends Reader<IpAccessControlListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
+    private String pathAccountSid;
+    private String pathDomainSid;
     private Long pageSize;
 
-    public IpAccessControlListMappingReader(final String pathdomainSid) {
-        this.pathdomainSid = pathdomainSid;
+    public IpAccessControlListMappingReader(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
-    public IpAccessControlListMappingReader(final String pathaccountSid, final String pathdomainSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
+    public IpAccessControlListMappingReader(final String pathAccountSid, final String pathDomainSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
     }
 
 
@@ -59,9 +59,9 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

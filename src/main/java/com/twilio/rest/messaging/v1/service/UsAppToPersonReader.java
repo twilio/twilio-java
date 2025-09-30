@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
     private Long pageSize;
 
-    public UsAppToPersonReader(final String pathmessagingServiceSid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public UsAppToPersonReader(final String pathMessagingServiceSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

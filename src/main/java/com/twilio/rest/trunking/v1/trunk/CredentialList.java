@@ -39,30 +39,30 @@ import java.util.Objects;
 public class CredentialList extends Resource {
 
 
-    public static CredentialListCreator creator(final String pathtrunkSid, final String credentialListSid) {
+    public static CredentialListCreator creator(final String pathTrunkSid, final String credentialListSid) {
         return new CredentialListCreator(
-                pathtrunkSid, credentialListSid
+                pathTrunkSid, credentialListSid
         );
     }
 
 
-    public static CredentialListDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static CredentialListDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new CredentialListDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static CredentialListFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static CredentialListFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new CredentialListFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static CredentialListReader reader(final String pathtrunkSid) {
+    public static CredentialListReader reader(final String pathTrunkSid) {
         return new CredentialListReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

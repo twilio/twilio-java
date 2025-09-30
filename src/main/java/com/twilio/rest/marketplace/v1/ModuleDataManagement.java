@@ -37,16 +37,16 @@ import java.util.Objects;
 public class ModuleDataManagement extends Resource {
 
 
-    public static ModuleDataManagementFetcher fetcher(final String pathsid) {
+    public static ModuleDataManagementFetcher fetcher(final String pathSid) {
         return new ModuleDataManagementFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ModuleDataManagementUpdater updater(final String pathsid) {
+    public static ModuleDataManagementUpdater updater(final String pathSid) {
         return new ModuleDataManagementUpdater(
-                pathsid
+                pathSid
         );
     }
 

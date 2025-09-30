@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Execution extends Resource {
 
 
-    public static ExecutionCreator creator(final String pathflowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
+    public static ExecutionCreator creator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
         return new ExecutionCreator(
-                pathflowSid, to, from
+                pathFlowSid, to, from
         );
     }
 
 
-    public static ExecutionDeleter deleter(final String pathflowSid, final String pathsid) {
+    public static ExecutionDeleter deleter(final String pathFlowSid, final String pathSid) {
         return new ExecutionDeleter(
-                pathflowSid, pathsid
+                pathFlowSid, pathSid
         );
     }
 
 
-    public static ExecutionFetcher fetcher(final String pathflowSid, final String pathsid) {
+    public static ExecutionFetcher fetcher(final String pathFlowSid, final String pathSid) {
         return new ExecutionFetcher(
-                pathflowSid, pathsid
+                pathFlowSid, pathSid
         );
     }
 
 
-    public static ExecutionReader reader(final String pathflowSid) {
+    public static ExecutionReader reader(final String pathFlowSid) {
         return new ExecutionReader(
-                pathflowSid
+                pathFlowSid
         );
     }
 
 
-    public static ExecutionUpdater updater(final String pathflowSid, final String pathsid, final Execution.Status status) {
+    public static ExecutionUpdater updater(final String pathFlowSid, final String pathSid, final Execution.Status status) {
         return new ExecutionUpdater(
-                pathflowSid, pathsid, status
+                pathFlowSid, pathSid, status
         );
     }
 

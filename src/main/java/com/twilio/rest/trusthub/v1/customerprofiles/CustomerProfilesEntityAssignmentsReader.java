@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class CustomerProfilesEntityAssignmentsReader extends Reader<CustomerProfilesEntityAssignments> {
 
-    private String pathcustomerProfileSid;
+    private String pathCustomerProfileSid;
     private String objectType;
     private Long pageSize;
 
-    public CustomerProfilesEntityAssignmentsReader(final String pathcustomerProfileSid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
+    public CustomerProfilesEntityAssignmentsReader(final String pathCustomerProfileSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
 
@@ -60,7 +60,7 @@ public class CustomerProfilesEntityAssignmentsReader extends Reader<CustomerProf
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

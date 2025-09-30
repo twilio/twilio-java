@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class UserFetcher extends Fetcher<User> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public UserFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public UserFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class UserFetcher extends Fetcher<User> {
 
         String path = "/v1/Users/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

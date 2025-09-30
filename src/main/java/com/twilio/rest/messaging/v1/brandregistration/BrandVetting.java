@@ -40,23 +40,23 @@ import java.util.Objects;
 public class BrandVetting extends Resource {
 
 
-    public static BrandVettingCreator creator(final String pathbrandSid, final BrandVetting.VettingProvider vettingProvider) {
+    public static BrandVettingCreator creator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider) {
         return new BrandVettingCreator(
-                pathbrandSid, vettingProvider
+                pathBrandSid, vettingProvider
         );
     }
 
 
-    public static BrandVettingFetcher fetcher(final String pathbrandSid, final String pathbrandVettingSid) {
+    public static BrandVettingFetcher fetcher(final String pathBrandSid, final String pathBrandVettingSid) {
         return new BrandVettingFetcher(
-                pathbrandSid, pathbrandVettingSid
+                pathBrandSid, pathBrandVettingSid
         );
     }
 
 
-    public static BrandVettingReader reader(final String pathbrandSid) {
+    public static BrandVettingReader reader(final String pathBrandSid) {
         return new BrandVettingReader(
-                pathbrandSid
+                pathBrandSid
         );
     }
 

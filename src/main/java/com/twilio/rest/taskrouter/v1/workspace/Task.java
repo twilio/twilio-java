@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Task extends Resource {
 
 
-    public static TaskCreator creator(final String pathworkspaceSid) {
+    public static TaskCreator creator(final String pathWorkspaceSid) {
         return new TaskCreator(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static TaskDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static TaskDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new TaskDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static TaskFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new TaskFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskReader reader(final String pathworkspaceSid) {
+    public static TaskReader reader(final String pathWorkspaceSid) {
         return new TaskReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static TaskUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static TaskUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new TaskUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

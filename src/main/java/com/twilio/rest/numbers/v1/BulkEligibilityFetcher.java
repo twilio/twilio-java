@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class BulkEligibilityFetcher extends Fetcher<BulkEligibility> {
 
-    private String pathrequestId;
+    private String pathRequestId;
 
-    public BulkEligibilityFetcher(final String pathrequestId) {
-        this.pathrequestId = pathrequestId;
+    public BulkEligibilityFetcher(final String pathRequestId) {
+        this.pathRequestId = pathRequestId;
     }
 
 
@@ -38,7 +38,7 @@ public class BulkEligibilityFetcher extends Fetcher<BulkEligibility> {
 
         String path = "/v1/HostedNumber/Eligibility/Bulk/{RequestId}";
 
-        path = path.replace("{" + "RequestId" + "}", this.pathrequestId.toString());
+        path = path.replace("{" + "RequestId" + "}", this.pathRequestId.toString());
 
 
         Request request = new Request(

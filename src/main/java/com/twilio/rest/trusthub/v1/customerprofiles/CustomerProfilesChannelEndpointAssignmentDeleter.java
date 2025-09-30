@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class CustomerProfilesChannelEndpointAssignmentDeleter extends Deleter<CustomerProfilesChannelEndpointAssignment> {
 
-    private String pathcustomerProfileSid;
-    private String pathsid;
+    private String pathCustomerProfileSid;
+    private String pathSid;
 
-    public CustomerProfilesChannelEndpointAssignmentDeleter(final String pathcustomerProfileSid, final String pathsid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
-        this.pathsid = pathsid;
+    public CustomerProfilesChannelEndpointAssignmentDeleter(final String pathCustomerProfileSid, final String pathSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class CustomerProfilesChannelEndpointAssignmentDeleter extends Deleter<Cu
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

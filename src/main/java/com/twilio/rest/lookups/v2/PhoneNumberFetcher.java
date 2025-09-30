@@ -28,7 +28,7 @@ import com.twilio.rest.Domains;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private String pathphoneNumber;
+    private String pathPhoneNumber;
     private String fields;
     private String countryCode;
     private String firstName;
@@ -45,8 +45,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private String verificationSid;
     private String partnerSubId;
 
-    public PhoneNumberFetcher(final String pathphoneNumber) {
-        this.pathphoneNumber = pathphoneNumber;
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -145,7 +145,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
 
 
         Request request = new Request(

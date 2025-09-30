@@ -47,16 +47,16 @@ public class AddressConfiguration extends Resource {
     }
 
 
-    public static AddressConfigurationDeleter deleter(final String pathsid) {
+    public static AddressConfigurationDeleter deleter(final String pathSid) {
         return new AddressConfigurationDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressConfigurationFetcher fetcher(final String pathsid) {
+    public static AddressConfigurationFetcher fetcher(final String pathSid) {
         return new AddressConfigurationFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class AddressConfiguration extends Resource {
     }
 
 
-    public static AddressConfigurationUpdater updater(final String pathsid) {
+    public static AddressConfigurationUpdater updater(final String pathSid) {
         return new AddressConfigurationUpdater(
-                pathsid
+                pathSid
         );
     }
 

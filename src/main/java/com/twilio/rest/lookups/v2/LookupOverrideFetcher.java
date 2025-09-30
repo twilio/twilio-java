@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class LookupOverrideFetcher extends Fetcher<LookupOverride> {
 
-    private String pathfield;
-    private String pathphoneNumber;
+    private String pathField;
+    private String pathPhoneNumber;
 
-    public LookupOverrideFetcher(final String pathfield, final String pathphoneNumber) {
-        this.pathfield = pathfield;
-        this.pathphoneNumber = pathphoneNumber;
+    public LookupOverrideFetcher(final String pathField, final String pathPhoneNumber) {
+        this.pathField = pathField;
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -40,8 +40,8 @@ public class LookupOverrideFetcher extends Fetcher<LookupOverride> {
 
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
-        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+        path = path.replace("{" + "Field" + "}", this.pathField.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
 
 
         Request request = new Request(

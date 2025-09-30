@@ -38,9 +38,9 @@ import java.util.Objects;
 public class PortingPortability extends Resource {
 
 
-    public static PortingPortabilityFetcher fetcher(final com.twilio.type.PhoneNumber pathphoneNumber) {
+    public static PortingPortabilityFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
         return new PortingPortabilityFetcher(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 

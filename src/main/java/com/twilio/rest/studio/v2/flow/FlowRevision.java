@@ -41,16 +41,16 @@ import java.util.Objects;
 public class FlowRevision extends Resource {
 
 
-    public static FlowRevisionFetcher fetcher(final String pathsid, final String pathrevision) {
+    public static FlowRevisionFetcher fetcher(final String pathSid, final String pathRevision) {
         return new FlowRevisionFetcher(
-                pathsid, pathrevision
+                pathSid, pathRevision
         );
     }
 
 
-    public static FlowRevisionReader reader(final String pathsid) {
+    public static FlowRevisionReader reader(final String pathSid) {
         return new FlowRevisionReader(
-                pathsid
+                pathSid
         );
     }
 

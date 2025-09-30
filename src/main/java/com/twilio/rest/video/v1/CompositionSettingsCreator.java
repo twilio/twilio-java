@@ -18,6 +18,7 @@ package com.twilio.rest.video.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -67,6 +68,9 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
         return this;
     }
 
+    public CompositionSettingsCreator setAwsS3Url(final String awsS3Url) {
+        return setAwsS3Url(Promoter.uriFromString(awsS3Url));
+    }
 
     public CompositionSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled) {
         this.awsStorageEnabled = awsStorageEnabled;

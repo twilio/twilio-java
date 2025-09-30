@@ -40,16 +40,16 @@ import java.util.Objects;
 public class SubscribeRules extends Resource {
 
 
-    public static SubscribeRulesFetcher fetcher(final String pathroomSid, final String pathparticipantSid) {
+    public static SubscribeRulesFetcher fetcher(final String pathRoomSid, final String pathParticipantSid) {
         return new SubscribeRulesFetcher(
-                pathroomSid, pathparticipantSid
+                pathRoomSid, pathParticipantSid
         );
     }
 
 
-    public static SubscribeRulesUpdater updater(final String pathroomSid, final String pathparticipantSid) {
+    public static SubscribeRulesUpdater updater(final String pathRoomSid, final String pathParticipantSid) {
         return new SubscribeRulesUpdater(
-                pathroomSid, pathparticipantSid
+                pathRoomSid, pathParticipantSid
         );
     }
 

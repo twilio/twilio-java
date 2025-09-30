@@ -34,23 +34,23 @@ import java.util.List;
 
 public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
-    private String pathparticipantSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathParticipantSid;
     private String body;
     private List<URI> mediaUrl;
 
-    public MessageInteractionCreator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String body) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
-        this.pathparticipantSid = pathparticipantSid;
+    public MessageInteractionCreator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String body) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
         this.body = body;
     }
 
-    public MessageInteractionCreator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final List<URI> mediaUrl) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
-        this.pathparticipantSid = pathparticipantSid;
+    public MessageInteractionCreator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final List<URI> mediaUrl) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
         this.mediaUrl = mediaUrl;
     }
 
@@ -70,14 +70,18 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
         return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
+    public MessageInteractionCreator setMediaUrl(final String mediaUrl) {
+        return setMediaUrl(Promoter.uriFromString(mediaUrl));
+    }
+
     @Override
     public MessageInteraction create(final TwilioRestClient client) {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
 
 
         Request request = new Request(

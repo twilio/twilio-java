@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEntityAssignments> {
 
-    private String pathtrustProductSid;
+    private String pathTrustProductSid;
     private String objectType;
     private Long pageSize;
 
-    public TrustProductsEntityAssignmentsReader(final String pathtrustProductSid) {
-        this.pathtrustProductSid = pathtrustProductSid;
+    public TrustProductsEntityAssignmentsReader(final String pathTrustProductSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
     }
 
 
@@ -60,7 +60,7 @@ public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEn
 
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

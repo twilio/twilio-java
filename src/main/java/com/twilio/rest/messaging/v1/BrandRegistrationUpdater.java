@@ -25,10 +25,10 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class BrandRegistrationUpdater extends Updater<BrandRegistration> {
-    private String pathsid;
+    private String pathSid;
 
-    public BrandRegistrationUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public BrandRegistrationUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -37,7 +37,7 @@ public class BrandRegistrationUpdater extends Updater<BrandRegistration> {
 
         String path = "/v1/a2p/BrandRegistrations/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

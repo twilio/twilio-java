@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class TrustProductsEntityAssignmentsCreator extends Creator<TrustProductsEntityAssignments> {
 
-    private String pathtrustProductSid;
+    private String pathTrustProductSid;
     private String objectSid;
 
-    public TrustProductsEntityAssignmentsCreator(final String pathtrustProductSid, final String objectSid) {
-        this.pathtrustProductSid = pathtrustProductSid;
+    public TrustProductsEntityAssignmentsCreator(final String pathTrustProductSid, final String objectSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
         this.objectSid = objectSid;
     }
 
@@ -50,7 +50,7 @@ public class TrustProductsEntityAssignmentsCreator extends Creator<TrustProducts
 
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
 
 
         Request request = new Request(

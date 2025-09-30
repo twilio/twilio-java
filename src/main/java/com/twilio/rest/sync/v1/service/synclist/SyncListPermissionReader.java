@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class SyncListPermissionReader extends Reader<SyncListPermission> {
 
-    private String pathserviceSid;
-    private String pathlistSid;
+    private String pathServiceSid;
+    private String pathListSid;
     private Long pageSize;
 
-    public SyncListPermissionReader(final String pathserviceSid, final String pathlistSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathlistSid = pathlistSid;
+    public SyncListPermissionReader(final String pathServiceSid, final String pathListSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
     }
 
 
@@ -55,8 +55,8 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class TrustProductsDeleter extends Deleter<TrustProducts> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public TrustProductsDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public TrustProductsDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class TrustProductsDeleter extends Deleter<TrustProducts> {
 
         String path = "/v1/TrustProducts/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

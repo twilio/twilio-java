@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaires> {
 
-    private String pathquestionnaireSid;
+    private String pathQuestionnaireSid;
     private String authorization;
 
-    public InsightsQuestionnairesFetcher(final String pathquestionnaireSid) {
-        this.pathquestionnaireSid = pathquestionnaireSid;
+    public InsightsQuestionnairesFetcher(final String pathQuestionnaireSid) {
+        this.pathQuestionnaireSid = pathQuestionnaireSid;
     }
 
 
@@ -47,7 +47,7 @@ public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaire
 
         String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathquestionnaireSid.toString());
+        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathQuestionnaireSid.toString());
 
 
         Request request = new Request(

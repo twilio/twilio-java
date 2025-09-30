@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class NumberFetcher extends Fetcher<Number> {
 
-    private com.twilio.type.PhoneNumber pathnumber;
+    private com.twilio.type.PhoneNumber pathNumber;
 
-    public NumberFetcher(final com.twilio.type.PhoneNumber pathnumber) {
-        this.pathnumber = pathnumber;
+    public NumberFetcher(final com.twilio.type.PhoneNumber pathNumber) {
+        this.pathNumber = pathNumber;
     }
 
 
@@ -38,7 +38,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
         String path = "/v1/Voice/Numbers/{Number}";
 
-        path = path.replace("{" + "Number" + "}", this.pathnumber.toString());
+        path = path.replace("{" + "Number" + "}", this.pathNumber.toString());
 
 
         Request request = new Request(

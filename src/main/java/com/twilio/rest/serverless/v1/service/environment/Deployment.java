@@ -39,23 +39,23 @@ import java.util.Objects;
 public class Deployment extends Resource {
 
 
-    public static DeploymentCreator creator(final String pathserviceSid, final String pathenvironmentSid) {
+    public static DeploymentCreator creator(final String pathServiceSid, final String pathEnvironmentSid) {
         return new DeploymentCreator(
-                pathserviceSid, pathenvironmentSid
+                pathServiceSid, pathEnvironmentSid
         );
     }
 
 
-    public static DeploymentFetcher fetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+    public static DeploymentFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
         return new DeploymentFetcher(
-                pathserviceSid, pathenvironmentSid, pathsid
+                pathServiceSid, pathEnvironmentSid, pathSid
         );
     }
 
 
-    public static DeploymentReader reader(final String pathserviceSid, final String pathenvironmentSid) {
+    public static DeploymentReader reader(final String pathServiceSid, final String pathEnvironmentSid) {
         return new DeploymentReader(
-                pathserviceSid, pathenvironmentSid
+                pathServiceSid, pathEnvironmentSid
         );
     }
 

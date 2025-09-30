@@ -103,6 +103,9 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         return this;
     }
 
+    public CompositionHookCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CompositionHookCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;

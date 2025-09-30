@@ -38,9 +38,9 @@ import java.util.Objects;
 public class TaskQueueBulkRealTimeStatistics extends Resource {
 
 
-    public static TaskQueueBulkRealTimeStatisticsCreator creator(final String pathworkspaceSid) {
+    public static TaskQueueBulkRealTimeStatisticsCreator creator(final String pathWorkspaceSid) {
         return new TaskQueueBulkRealTimeStatisticsCreator(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 

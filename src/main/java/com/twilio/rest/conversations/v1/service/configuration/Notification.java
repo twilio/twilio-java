@@ -37,16 +37,16 @@ import java.util.Objects;
 public class Notification extends Resource {
 
 
-    public static NotificationFetcher fetcher(final String pathchatServiceSid) {
+    public static NotificationFetcher fetcher(final String pathChatServiceSid) {
         return new NotificationFetcher(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static NotificationUpdater updater(final String pathchatServiceSid) {
+    public static NotificationUpdater updater(final String pathChatServiceSid) {
         return new NotificationUpdater(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 

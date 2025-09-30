@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class SchemaFetcher extends Fetcher<Schema> {
 
-    private String pathid;
+    private String pathId;
 
-    public SchemaFetcher(final String pathid) {
-        this.pathid = pathid;
+    public SchemaFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -38,7 +38,7 @@ public class SchemaFetcher extends Fetcher<Schema> {
 
         String path = "/v1/Schemas/{Id}";
 
-        path = path.replace("{" + "Id" + "}", this.pathid.toString());
+        path = path.replace("{" + "Id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

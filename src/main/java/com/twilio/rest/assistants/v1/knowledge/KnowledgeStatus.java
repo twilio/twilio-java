@@ -38,9 +38,9 @@ import java.util.Objects;
 public class KnowledgeStatus extends Resource {
 
 
-    public static KnowledgeStatusFetcher fetcher(final String pathid) {
+    public static KnowledgeStatusFetcher fetcher(final String pathId) {
         return new KnowledgeStatusFetcher(
-                pathid
+                pathId
         );
     }
 

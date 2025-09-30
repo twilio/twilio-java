@@ -38,16 +38,16 @@ import java.util.Objects;
 public class SharedCost extends Resource {
 
 
-    public static SharedCostReader reader(final String pathcountryCode) {
+    public static SharedCostReader reader(final String pathCountryCode) {
         return new SharedCostReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static SharedCostReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static SharedCostReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new SharedCostReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

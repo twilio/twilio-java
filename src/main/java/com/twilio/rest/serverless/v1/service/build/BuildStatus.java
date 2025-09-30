@@ -38,9 +38,9 @@ import java.util.Objects;
 public class BuildStatus extends Resource {
 
 
-    public static BuildStatusFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static BuildStatusFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new BuildStatusFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

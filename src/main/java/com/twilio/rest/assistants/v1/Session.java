@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Session extends Resource {
 
 
-    public static SessionFetcher fetcher(final String pathid) {
+    public static SessionFetcher fetcher(final String pathId) {
         return new SessionFetcher(
-                pathid
+                pathId
         );
     }
 

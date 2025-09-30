@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class AssetCreator extends Creator<Asset> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String friendlyName;
 
-    public AssetCreator(final String pathserviceSid, final String friendlyName) {
-        this.pathserviceSid = pathserviceSid;
+    public AssetCreator(final String pathServiceSid, final String friendlyName) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -50,7 +50,7 @@ public class AssetCreator extends Creator<Asset> {
 
         String path = "/v1/Services/{ServiceSid}/Assets";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

@@ -48,9 +48,9 @@ public class LastMonth extends Resource {
     }
 
 
-    public static LastMonthReader reader(final String pathaccountSid) {
+    public static LastMonthReader reader(final String pathAccountSid) {
         return new LastMonthReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

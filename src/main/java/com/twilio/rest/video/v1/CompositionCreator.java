@@ -96,6 +96,9 @@ public class CompositionCreator extends Creator<Composition> {
         return this;
     }
 
+    public CompositionCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CompositionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;

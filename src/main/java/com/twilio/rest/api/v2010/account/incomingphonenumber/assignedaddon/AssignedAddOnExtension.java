@@ -36,30 +36,30 @@ import java.util.Objects;
 public class AssignedAddOnExtension extends Resource {
 
 
-    public static AssignedAddOnExtensionFetcher fetcher(final String pathresourceSid, final String pathassignedAddOnSid, final String pathsid) {
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid) {
         return new AssignedAddOnExtensionFetcher(
-                pathresourceSid, pathassignedAddOnSid, pathsid
+                pathResourceSid, pathAssignedAddOnSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnExtensionFetcher fetcher(final String pathaccountSid, final String pathresourceSid, final String pathassignedAddOnSid, final String pathsid) {
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid) {
         return new AssignedAddOnExtensionFetcher(
-                pathaccountSid, pathresourceSid, pathassignedAddOnSid, pathsid
+                pathAccountSid, pathResourceSid, pathAssignedAddOnSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnExtensionReader reader(final String pathresourceSid, final String pathassignedAddOnSid) {
+    public static AssignedAddOnExtensionReader reader(final String pathResourceSid, final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(
-                pathresourceSid, pathassignedAddOnSid
+                pathResourceSid, pathAssignedAddOnSid
         );
     }
 
 
-    public static AssignedAddOnExtensionReader reader(final String pathaccountSid, final String pathresourceSid, final String pathassignedAddOnSid) {
+    public static AssignedAddOnExtensionReader reader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(
-                pathaccountSid, pathresourceSid, pathassignedAddOnSid
+                pathAccountSid, pathResourceSid, pathAssignedAddOnSid
         );
     }
 

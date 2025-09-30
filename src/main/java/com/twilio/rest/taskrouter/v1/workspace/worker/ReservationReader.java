@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class ReservationReader extends Reader<Reservation> {
 
-    private String pathworkspaceSid;
-    private String pathworkerSid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
     private Reservation.Status reservationStatus;
     private Long pageSize;
 
-    public ReservationReader(final String pathworkspaceSid, final String pathworkerSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkerSid = pathworkerSid;
+    public ReservationReader(final String pathWorkspaceSid, final String pathWorkerSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
     }
 
 
@@ -62,8 +62,8 @@ public class ReservationReader extends Reader<Reservation> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkerSid" + "}", this.pathworkerSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkerSid" + "}", this.pathWorkerSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

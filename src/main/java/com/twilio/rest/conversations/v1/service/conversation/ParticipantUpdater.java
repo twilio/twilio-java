@@ -30,9 +30,9 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 
 public class ParticipantUpdater extends Updater<Participant> {
-    private String pathchatServiceSid;
-    private String pathconversationSid;
-    private String pathsid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathSid;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
@@ -44,10 +44,10 @@ public class ParticipantUpdater extends Updater<Participant> {
     private Integer lastReadMessageIndex;
     private String lastReadTimestamp;
 
-    public ParticipantUpdater(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathconversationSid = pathconversationSid;
-        this.pathsid = pathsid;
+    public ParticipantUpdater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -116,9 +116,9 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

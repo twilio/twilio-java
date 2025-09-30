@@ -48,37 +48,37 @@ public class Trigger extends Resource {
     }
 
 
-    public static TriggerCreator creator(final String pathaccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
+    public static TriggerCreator creator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
         return new TriggerCreator(
-                pathaccountSid, callbackUrl, triggerValue, usageCategory
+                pathAccountSid, callbackUrl, triggerValue, usageCategory
         );
     }
 
 
-    public static TriggerDeleter deleter(final String pathsid) {
+    public static TriggerDeleter deleter(final String pathSid) {
         return new TriggerDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TriggerDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static TriggerDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new TriggerDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static TriggerFetcher fetcher(final String pathsid) {
+    public static TriggerFetcher fetcher(final String pathSid) {
         return new TriggerFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TriggerFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static TriggerFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new TriggerFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -90,23 +90,23 @@ public class Trigger extends Resource {
     }
 
 
-    public static TriggerReader reader(final String pathaccountSid) {
+    public static TriggerReader reader(final String pathAccountSid) {
         return new TriggerReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static TriggerUpdater updater(final String pathsid) {
+    public static TriggerUpdater updater(final String pathSid) {
         return new TriggerUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TriggerUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static TriggerUpdater updater(final String pathAccountSid, final String pathSid) {
         return new TriggerUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

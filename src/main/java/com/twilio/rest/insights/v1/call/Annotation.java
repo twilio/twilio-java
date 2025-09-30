@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Annotation extends Resource {
 
 
-    public static AnnotationFetcher fetcher(final String pathcallSid) {
+    public static AnnotationFetcher fetcher(final String pathCallSid) {
         return new AnnotationFetcher(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static AnnotationUpdater updater(final String pathcallSid) {
+    public static AnnotationUpdater updater(final String pathCallSid) {
         return new AnnotationUpdater(
-                pathcallSid
+                pathCallSid
         );
     }
 

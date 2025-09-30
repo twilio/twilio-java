@@ -33,14 +33,14 @@ import java.util.List;
 
 public class UserBindingReader extends Reader<UserBinding> {
 
-    private String pathserviceSid;
-    private String pathuserSid;
+    private String pathServiceSid;
+    private String pathUserSid;
     private List<UserBinding.BindingType> bindingType;
     private Long pageSize;
 
-    public UserBindingReader(final String pathserviceSid, final String pathuserSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathuserSid = pathuserSid;
+    public UserBindingReader(final String pathServiceSid, final String pathUserSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
     }
 
 
@@ -68,8 +68,8 @@ public class UserBindingReader extends Reader<UserBinding> {
 
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

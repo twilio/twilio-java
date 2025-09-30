@@ -45,16 +45,16 @@ public class Interaction extends Resource {
     }
 
 
-    public static InteractionFetcher fetcher(final String pathsid) {
+    public static InteractionFetcher fetcher(final String pathSid) {
         return new InteractionFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static InteractionUpdater updater(final String pathsid) {
+    public static InteractionUpdater updater(final String pathSid) {
         return new InteractionUpdater(
-                pathsid
+                pathSid
         );
     }
 

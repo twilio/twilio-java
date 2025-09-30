@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtension> {
 
-    private String pathavailableAddOnSid;
+    private String pathAvailableAddOnSid;
     private Integer pageSize;
 
-    public AvailableAddOnExtensionReader(final String pathavailableAddOnSid) {
-        this.pathavailableAddOnSid = pathavailableAddOnSid;
+    public AvailableAddOnExtensionReader(final String pathAvailableAddOnSid) {
+        this.pathAvailableAddOnSid = pathAvailableAddOnSid;
     }
 
 
@@ -53,7 +53,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
         String path = "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions";
 
-        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathavailableAddOnSid.toString());
+        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathAvailableAddOnSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

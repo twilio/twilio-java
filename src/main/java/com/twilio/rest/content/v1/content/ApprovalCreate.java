@@ -22,11 +22,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -38,35 +39,90 @@ import java.util.Objects;
 public class ApprovalCreate extends Resource {
 
 
-    public static ApprovalCreateCreator creator(final String pathcontentSid, final ApprovalCreate.ContentApprovalRequest contentApprovalRequest) {
+    public static ApprovalCreateCreator creator(final String pathContentSid, final ApprovalCreate.ContentApprovalRequest contentApprovalRequest) {
         return new ApprovalCreateCreator(
-                pathcontentSid, contentApprovalRequest
+                pathContentSid, contentApprovalRequest
         );
     }
 
 
-    //@JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
+    @JsonDeserialize(builder = ContentApprovalRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ContentApprovalRequest {
-        public ContentApprovalRequest(final String name, final String category) {
-            this.name = name;
-            this.category = category;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("category")
         @Getter
-        @Setter
-        private String category;
+        private final String category;
+
+
+        private ContentApprovalRequest(Builder builder) {
+            this.name = builder.name;
+            this.category = builder.category;
+        }
+
+        public static Builder builder(final String name, final String category) {
+            return new Builder(name, category);
+        }
+
+        public static ContentApprovalRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ContentApprovalRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("category")
+            private String category;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("name") final String name, @JsonProperty("category") final String category) {
+                this.name = name;
+                this.category = category;
+            }
+
+
+            public ContentApprovalRequest build() {
+                return new ContentApprovalRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ContentApprovalRequest other = (ContentApprovalRequest) o;
+            return (
+                    Objects.equals(name, other.name) &&
+                            Objects.equals(category, other.category)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    name,
+                    category
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a ApprovalCreate object using the provided ObjectMapper.

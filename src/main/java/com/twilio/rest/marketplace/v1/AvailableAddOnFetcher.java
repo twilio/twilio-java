@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public AvailableAddOnFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public AvailableAddOnFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
 
         String path = "/v1/AvailableAddOns/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -54,9 +54,9 @@ public class Account extends Resource {
     }
 
 
-    public static AccountFetcher fetcher(final String pathsid) {
+    public static AccountFetcher fetcher(final String pathSid) {
         return new AccountFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -75,9 +75,9 @@ public class Account extends Resource {
     }
 
 
-    public static AccountUpdater updater(final String pathsid) {
+    public static AccountUpdater updater(final String pathSid) {
         return new AccountUpdater(
-                pathsid
+                pathSid
         );
     }
 

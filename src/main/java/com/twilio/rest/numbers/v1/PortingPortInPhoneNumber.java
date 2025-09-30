@@ -39,16 +39,16 @@ import java.util.Objects;
 public class PortingPortInPhoneNumber extends Resource {
 
 
-    public static PortingPortInPhoneNumberDeleter deleter(final String pathportInRequestSid, final String pathphoneNumberSid) {
+    public static PortingPortInPhoneNumberDeleter deleter(final String pathPortInRequestSid, final String pathPhoneNumberSid) {
         return new PortingPortInPhoneNumberDeleter(
-                pathportInRequestSid, pathphoneNumberSid
+                pathPortInRequestSid, pathPhoneNumberSid
         );
     }
 
 
-    public static PortingPortInPhoneNumberFetcher fetcher(final String pathportInRequestSid, final String pathphoneNumberSid) {
+    public static PortingPortInPhoneNumberFetcher fetcher(final String pathPortInRequestSid, final String pathPhoneNumberSid) {
         return new PortingPortInPhoneNumberFetcher(
-                pathportInRequestSid, pathphoneNumberSid
+                pathPortInRequestSid, pathPhoneNumberSid
         );
     }
 

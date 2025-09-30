@@ -39,9 +39,9 @@ import java.util.Objects;
 public class PhoneNumber extends Resource {
 
 
-    public static PhoneNumberFetcher fetcher(final String pathphoneNumber) {
+    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 
@@ -178,7 +178,7 @@ public class PhoneNumber extends Resource {
     @Getter
     private final Boolean valid;
     @Getter
-    private final List<PhoneNumber.PhoneNumberValidationError> validationErrors;
+    private final List<PhoneNumber.ValidationError> validationErrors;
 
     @JsonCreator
     private PhoneNumber(
@@ -198,7 +198,7 @@ public class PhoneNumber extends Resource {
             @JsonProperty("sms_pumping_risk") final Object smsPumpingRisk,
             @JsonProperty("url") final URI url,
             @JsonProperty("valid") final Boolean valid,
-            @JsonProperty("validation_errors") final List<PhoneNumber.PhoneNumberValidationError> validationErrors
+            @JsonProperty("validation_errors") final List<PhoneNumber.ValidationError> validationErrors
     ) {
         this.callForwarding = callForwarding;
         this.callerName = callerName;

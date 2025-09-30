@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class ContentDeleter extends Deleter<Content> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public ContentDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public ContentDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class ContentDeleter extends Deleter<Content> {
 
         String path = "/v1/Content/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -18,6 +18,7 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -76,6 +77,9 @@ public class FleetCreator extends Creator<Fleet> {
         return this;
     }
 
+    public FleetCreator setIpCommandsUrl(final String ipCommandsUrl) {
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
+    }
 
     public FleetCreator setIpCommandsMethod(final HttpMethod ipCommandsMethod) {
         this.ipCommandsMethod = ipCommandsMethod;
@@ -94,6 +98,9 @@ public class FleetCreator extends Creator<Fleet> {
         return this;
     }
 
+    public FleetCreator setSmsCommandsUrl(final String smsCommandsUrl) {
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+    }
 
     public FleetCreator setSmsCommandsMethod(final HttpMethod smsCommandsMethod) {
         this.smsCommandsMethod = smsCommandsMethod;

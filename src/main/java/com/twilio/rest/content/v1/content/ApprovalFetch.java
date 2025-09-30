@@ -37,9 +37,9 @@ import java.util.Objects;
 public class ApprovalFetch extends Resource {
 
 
-    public static ApprovalFetchFetcher fetcher(final String pathsid) {
+    public static ApprovalFetchFetcher fetcher(final String pathSid) {
         return new ApprovalFetchFetcher(
-                pathsid
+                pathSid
         );
     }
 

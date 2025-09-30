@@ -47,16 +47,16 @@ public class WebChannel extends Resource {
     }
 
 
-    public static WebChannelDeleter deleter(final String pathsid) {
+    public static WebChannelDeleter deleter(final String pathSid) {
         return new WebChannelDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static WebChannelFetcher fetcher(final String pathsid) {
+    public static WebChannelFetcher fetcher(final String pathSid) {
         return new WebChannelFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class WebChannel extends Resource {
     }
 
 
-    public static WebChannelUpdater updater(final String pathsid) {
+    public static WebChannelUpdater updater(final String pathSid) {
         return new WebChannelUpdater(
-                pathsid
+                pathSid
         );
     }
 

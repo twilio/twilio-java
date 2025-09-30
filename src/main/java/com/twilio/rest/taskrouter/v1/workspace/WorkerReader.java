@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 
 public class WorkerReader extends Reader<Worker> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String activityName;
     private String activitySid;
     private String available;
@@ -41,8 +41,8 @@ public class WorkerReader extends Reader<Worker> {
     private String ordering;
     private Long pageSize;
 
-    public WorkerReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkerReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -109,7 +109,7 @@ public class WorkerReader extends Reader<Worker> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

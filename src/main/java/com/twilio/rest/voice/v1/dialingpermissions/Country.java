@@ -39,9 +39,9 @@ import java.util.Objects;
 public class Country extends Resource {
 
 
-    public static CountryFetcher fetcher(final String pathisoCode) {
+    public static CountryFetcher fetcher(final String pathIsoCode) {
         return new CountryFetcher(
-                pathisoCode
+                pathIsoCode
         );
     }
 

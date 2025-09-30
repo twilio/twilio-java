@@ -32,7 +32,7 @@ import java.time.LocalDate;
 
 public class NotificationReader extends Reader<Notification> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private Integer log;
     private LocalDate messageDate;
     private LocalDate messageDateBefore;
@@ -42,8 +42,8 @@ public class NotificationReader extends Reader<Notification> {
     public NotificationReader() {
     }
 
-    public NotificationReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public NotificationReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -86,8 +86,8 @@ public class NotificationReader extends Reader<Notification> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Notifications.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

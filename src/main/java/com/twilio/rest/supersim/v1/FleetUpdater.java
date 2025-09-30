@@ -17,6 +17,7 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class FleetUpdater extends Updater<Fleet> {
-    private String pathsid;
+    private String pathSid;
     private String uniqueName;
     private String networkAccessProfile;
     private URI ipCommandsUrl;
@@ -39,8 +40,8 @@ public class FleetUpdater extends Updater<Fleet> {
     private HttpMethod smsCommandsMethod;
     private Integer dataLimit;
 
-    public FleetUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public FleetUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -61,6 +62,9 @@ public class FleetUpdater extends Updater<Fleet> {
         return this;
     }
 
+    public FleetUpdater setIpCommandsUrl(final String ipCommandsUrl) {
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
+    }
 
     public FleetUpdater setIpCommandsMethod(final HttpMethod ipCommandsMethod) {
         this.ipCommandsMethod = ipCommandsMethod;
@@ -73,6 +77,9 @@ public class FleetUpdater extends Updater<Fleet> {
         return this;
     }
 
+    public FleetUpdater setSmsCommandsUrl(final String smsCommandsUrl) {
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+    }
 
     public FleetUpdater setSmsCommandsMethod(final HttpMethod smsCommandsMethod) {
         this.smsCommandsMethod = smsCommandsMethod;
@@ -91,7 +98,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
         String path = "/v1/Fleets/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

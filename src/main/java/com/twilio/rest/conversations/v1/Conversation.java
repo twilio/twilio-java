@@ -48,16 +48,16 @@ public class Conversation extends Resource {
     }
 
 
-    public static ConversationDeleter deleter(final String pathsid) {
+    public static ConversationDeleter deleter(final String pathSid) {
         return new ConversationDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConversationFetcher fetcher(final String pathsid) {
+    public static ConversationFetcher fetcher(final String pathSid) {
         return new ConversationFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class Conversation extends Resource {
     }
 
 
-    public static ConversationUpdater updater(final String pathsid) {
+    public static ConversationUpdater updater(final String pathSid) {
         return new ConversationUpdater(
-                pathsid
+                pathSid
         );
     }
 

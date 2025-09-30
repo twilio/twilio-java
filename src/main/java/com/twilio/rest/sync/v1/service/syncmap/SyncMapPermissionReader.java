@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
-    private String pathserviceSid;
-    private String pathmapSid;
+    private String pathServiceSid;
+    private String pathMapSid;
     private Long pageSize;
 
-    public SyncMapPermissionReader(final String pathserviceSid, final String pathmapSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathmapSid = pathmapSid;
+    public SyncMapPermissionReader(final String pathServiceSid, final String pathMapSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
     }
 
 
@@ -55,8 +55,8 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "MapSid" + "}", this.pathmapSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

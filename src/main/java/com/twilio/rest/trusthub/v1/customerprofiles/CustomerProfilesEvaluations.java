@@ -41,23 +41,23 @@ import java.util.Objects;
 public class CustomerProfilesEvaluations extends Resource {
 
 
-    public static CustomerProfilesEvaluationsCreator creator(final String pathcustomerProfileSid, final String policySid) {
+    public static CustomerProfilesEvaluationsCreator creator(final String pathCustomerProfileSid, final String policySid) {
         return new CustomerProfilesEvaluationsCreator(
-                pathcustomerProfileSid, policySid
+                pathCustomerProfileSid, policySid
         );
     }
 
 
-    public static CustomerProfilesEvaluationsFetcher fetcher(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesEvaluationsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesEvaluationsFetcher(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesEvaluationsReader reader(final String pathcustomerProfileSid) {
+    public static CustomerProfilesEvaluationsReader reader(final String pathCustomerProfileSid) {
         return new CustomerProfilesEvaluationsReader(
-                pathcustomerProfileSid
+                pathCustomerProfileSid
         );
     }
 

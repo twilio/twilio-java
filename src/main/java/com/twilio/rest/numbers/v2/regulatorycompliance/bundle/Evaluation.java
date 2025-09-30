@@ -41,23 +41,23 @@ import java.util.Objects;
 public class Evaluation extends Resource {
 
 
-    public static EvaluationCreator creator(final String pathbundleSid) {
+    public static EvaluationCreator creator(final String pathBundleSid) {
         return new EvaluationCreator(
-                pathbundleSid
+                pathBundleSid
         );
     }
 
 
-    public static EvaluationFetcher fetcher(final String pathbundleSid, final String pathsid) {
+    public static EvaluationFetcher fetcher(final String pathBundleSid, final String pathSid) {
         return new EvaluationFetcher(
-                pathbundleSid, pathsid
+                pathBundleSid, pathSid
         );
     }
 
 
-    public static EvaluationReader reader(final String pathbundleSid) {
+    public static EvaluationReader reader(final String pathBundleSid) {
         return new EvaluationReader(
-                pathbundleSid
+                pathBundleSid
         );
     }
 

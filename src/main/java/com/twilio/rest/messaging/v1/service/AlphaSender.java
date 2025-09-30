@@ -40,30 +40,30 @@ import java.util.Objects;
 public class AlphaSender extends Resource {
 
 
-    public static AlphaSenderCreator creator(final String pathserviceSid, final String alphaSender) {
+    public static AlphaSenderCreator creator(final String pathServiceSid, final String alphaSender) {
         return new AlphaSenderCreator(
-                pathserviceSid, alphaSender
+                pathServiceSid, alphaSender
         );
     }
 
 
-    public static AlphaSenderDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static AlphaSenderDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new AlphaSenderDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static AlphaSenderFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static AlphaSenderFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new AlphaSenderFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static AlphaSenderReader reader(final String pathserviceSid) {
+    public static AlphaSenderReader reader(final String pathServiceSid) {
         return new AlphaSenderReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

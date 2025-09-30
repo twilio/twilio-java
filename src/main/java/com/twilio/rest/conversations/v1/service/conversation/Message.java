@@ -42,37 +42,37 @@ import java.util.Objects;
 public class Message extends Resource {
 
 
-    public static MessageCreator creator(final String pathchatServiceSid, final String pathconversationSid) {
+    public static MessageCreator creator(final String pathChatServiceSid, final String pathConversationSid) {
         return new MessageCreator(
-                pathchatServiceSid, pathconversationSid
+                pathChatServiceSid, pathConversationSid
         );
     }
 
 
-    public static MessageDeleter deleter(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+    public static MessageDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         return new MessageDeleter(
-                pathchatServiceSid, pathconversationSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathSid
         );
     }
 
 
-    public static MessageFetcher fetcher(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+    public static MessageFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         return new MessageFetcher(
-                pathchatServiceSid, pathconversationSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathSid
         );
     }
 
 
-    public static MessageReader reader(final String pathchatServiceSid, final String pathconversationSid) {
+    public static MessageReader reader(final String pathChatServiceSid, final String pathConversationSid) {
         return new MessageReader(
-                pathchatServiceSid, pathconversationSid
+                pathChatServiceSid, pathConversationSid
         );
     }
 
 
-    public static MessageUpdater updater(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+    public static MessageUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         return new MessageUpdater(
-                pathchatServiceSid, pathconversationSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathSid
         );
     }
 

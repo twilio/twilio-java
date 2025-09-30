@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 public class EvaluationCreator extends Creator<Evaluation> {
 
-    private String pathbundleSid;
+    private String pathBundleSid;
 
-    public EvaluationCreator(final String pathbundleSid) {
-        this.pathbundleSid = pathbundleSid;
+    public EvaluationCreator(final String pathBundleSid) {
+        this.pathBundleSid = pathBundleSid;
     }
 
 
@@ -39,7 +39,7 @@ public class EvaluationCreator extends Creator<Evaluation> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
 
 
         Request request = new Request(

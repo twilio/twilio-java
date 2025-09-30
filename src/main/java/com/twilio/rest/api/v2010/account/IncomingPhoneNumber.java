@@ -49,9 +49,9 @@ public class IncomingPhoneNumber extends Resource {
     }
 
 
-    public static IncomingPhoneNumberCreator creator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
         return new IncomingPhoneNumberCreator(
-                pathaccountSid, phoneNumber
+                pathAccountSid, phoneNumber
         );
     }
 
@@ -63,37 +63,37 @@ public class IncomingPhoneNumber extends Resource {
     }
 
 
-    public static IncomingPhoneNumberCreator creator(final String pathaccountSid, final String areaCode) {
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, final String areaCode) {
         return new IncomingPhoneNumberCreator(
-                pathaccountSid, areaCode
+                pathAccountSid, areaCode
         );
     }
 
 
-    public static IncomingPhoneNumberDeleter deleter(final String pathsid) {
+    public static IncomingPhoneNumberDeleter deleter(final String pathSid) {
         return new IncomingPhoneNumberDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static IncomingPhoneNumberDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new IncomingPhoneNumberDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static IncomingPhoneNumberFetcher fetcher(final String pathsid) {
+    public static IncomingPhoneNumberFetcher fetcher(final String pathSid) {
         return new IncomingPhoneNumberFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static IncomingPhoneNumberFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new IncomingPhoneNumberFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -105,23 +105,23 @@ public class IncomingPhoneNumber extends Resource {
     }
 
 
-    public static IncomingPhoneNumberReader reader(final String pathaccountSid) {
+    public static IncomingPhoneNumberReader reader(final String pathAccountSid) {
         return new IncomingPhoneNumberReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static IncomingPhoneNumberUpdater updater(final String pathsid) {
+    public static IncomingPhoneNumberUpdater updater(final String pathSid) {
         return new IncomingPhoneNumberUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static IncomingPhoneNumberUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static IncomingPhoneNumberUpdater updater(final String pathAccountSid, final String pathSid) {
         return new IncomingPhoneNumberUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

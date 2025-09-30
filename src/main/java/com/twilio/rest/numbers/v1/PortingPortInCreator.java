@@ -28,14 +28,15 @@ import com.twilio.rest.Domains;
 
 public class PortingPortInCreator extends Creator<PortingPortIn> {
 
-    private Object body;
+    private PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate;
 
-    public PortingPortInCreator() {
+    public PortingPortInCreator(final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate) {
+        this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
     }
 
 
-    public PortingPortInCreator setBody(final Object body) {
-        this.body = body;
+    public PortingPortInCreator setNumbersV1PortingPortInCreate(final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate) {
+        this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
         return this;
     }
 
@@ -74,8 +75,8 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (body != null) {
-            request.setBody(PortingPortIn.toJson(body, objectMapper));
+        if (numbersV1PortingPortInCreate != null) {
+            request.setBody(PortingPortIn.toJson(numbersV1PortingPortInCreate, objectMapper));
         }
     }
 }

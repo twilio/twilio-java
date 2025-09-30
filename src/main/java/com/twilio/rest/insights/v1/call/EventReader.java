@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class EventReader extends Reader<Event> {
 
-    private String pathcallSid;
+    private String pathCallSid;
     private Event.TwilioEdge edge;
     private Long pageSize;
 
-    public EventReader(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public EventReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -60,7 +60,7 @@ public class EventReader extends Reader<Event> {
 
         String path = "/v1/Voice/{CallSid}/Events";
 
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

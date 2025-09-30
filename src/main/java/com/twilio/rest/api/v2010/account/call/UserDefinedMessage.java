@@ -38,16 +38,16 @@ import java.util.Objects;
 public class UserDefinedMessage extends Resource {
 
 
-    public static UserDefinedMessageCreator creator(final String pathcallSid, final String content) {
+    public static UserDefinedMessageCreator creator(final String pathCallSid, final String content) {
         return new UserDefinedMessageCreator(
-                pathcallSid, content
+                pathCallSid, content
         );
     }
 
 
-    public static UserDefinedMessageCreator creator(final String pathaccountSid, final String pathcallSid, final String content) {
+    public static UserDefinedMessageCreator creator(final String pathAccountSid, final String pathCallSid, final String content) {
         return new UserDefinedMessageCreator(
-                pathaccountSid, pathcallSid, content
+                pathAccountSid, pathCallSid, content
         );
     }
 

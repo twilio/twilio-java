@@ -38,16 +38,16 @@ import java.util.Objects;
 public class National extends Resource {
 
 
-    public static NationalReader reader(final String pathcountryCode) {
+    public static NationalReader reader(final String pathCountryCode) {
         return new NationalReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static NationalReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static NationalReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new NationalReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

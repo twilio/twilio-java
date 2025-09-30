@@ -33,7 +33,7 @@ import java.util.List;
 
 public class WebhookCreator extends Creator<Webhook> {
 
-    private String pathconversationSid;
+    private String pathConversationSid;
     private Webhook.Target target;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
@@ -42,8 +42,8 @@ public class WebhookCreator extends Creator<Webhook> {
     private String configurationFlowSid;
     private Integer configurationReplayAfter;
 
-    public WebhookCreator(final String pathconversationSid, final Webhook.Target target) {
-        this.pathconversationSid = pathconversationSid;
+    public WebhookCreator(final String pathConversationSid, final Webhook.Target target) {
+        this.pathConversationSid = pathConversationSid;
         this.target = target;
     }
 
@@ -101,7 +101,7 @@ public class WebhookCreator extends Creator<Webhook> {
 
         String path = "/v1/Conversations/{ConversationSid}/Webhooks";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

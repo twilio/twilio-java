@@ -49,9 +49,9 @@ public class AuthorizationDocument extends Resource {
     }
 
 
-    public static AuthorizationDocumentFetcher fetcher(final String pathsid) {
+    public static AuthorizationDocumentFetcher fetcher(final String pathSid) {
         return new AuthorizationDocumentFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -63,9 +63,9 @@ public class AuthorizationDocument extends Resource {
     }
 
 
-    public static AuthorizationDocumentUpdater updater(final String pathsid) {
+    public static AuthorizationDocumentUpdater updater(final String pathSid) {
         return new AuthorizationDocumentUpdater(
-                pathsid
+                pathSid
         );
     }
 

@@ -40,16 +40,16 @@ import java.util.Objects;
 public class SubscribedTrack extends Resource {
 
 
-    public static SubscribedTrackFetcher fetcher(final String pathroomSid, final String pathparticipantSid, final String pathsid) {
+    public static SubscribedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid) {
         return new SubscribedTrackFetcher(
-                pathroomSid, pathparticipantSid, pathsid
+                pathRoomSid, pathParticipantSid, pathSid
         );
     }
 
 
-    public static SubscribedTrackReader reader(final String pathroomSid, final String pathparticipantSid) {
+    public static SubscribedTrackReader reader(final String pathRoomSid, final String pathParticipantSid) {
         return new SubscribedTrackReader(
-                pathroomSid, pathparticipantSid
+                pathRoomSid, pathParticipantSid
         );
     }
 

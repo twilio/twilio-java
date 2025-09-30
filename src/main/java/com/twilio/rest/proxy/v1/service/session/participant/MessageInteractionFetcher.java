@@ -26,16 +26,16 @@ import com.twilio.rest.Domains;
 
 public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
-    private String pathparticipantSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathParticipantSid;
+    private String pathSid;
 
-    public MessageInteractionFetcher(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
-        this.pathparticipantSid = pathparticipantSid;
-        this.pathsid = pathsid;
+    public MessageInteractionFetcher(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -44,10 +44,10 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

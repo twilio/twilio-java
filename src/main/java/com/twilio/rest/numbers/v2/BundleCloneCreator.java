@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class BundleCloneCreator extends Creator<BundleClone> {
 
-    private String pathbundleSid;
+    private String pathBundleSid;
     private String targetAccountSid;
     private Boolean moveToDraft;
     private String friendlyName;
 
-    public BundleCloneCreator(final String pathbundleSid, final String targetAccountSid) {
-        this.pathbundleSid = pathbundleSid;
+    public BundleCloneCreator(final String pathBundleSid, final String targetAccountSid) {
+        this.pathBundleSid = pathBundleSid;
         this.targetAccountSid = targetAccountSid;
     }
 
@@ -64,7 +64,7 @@ public class BundleCloneCreator extends Creator<BundleClone> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
 
 
         Request request = new Request(

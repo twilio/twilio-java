@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
 
-    private String pathroomSid;
-    private String pathparticipantSid;
-    private String pathsid;
+    private String pathRoomSid;
+    private String pathParticipantSid;
+    private String pathSid;
 
-    public SubscribedTrackFetcher(final String pathroomSid, final String pathparticipantSid, final String pathsid) {
-        this.pathroomSid = pathroomSid;
-        this.pathparticipantSid = pathparticipantSid;
-        this.pathsid = pathsid;
+    public SubscribedTrackFetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

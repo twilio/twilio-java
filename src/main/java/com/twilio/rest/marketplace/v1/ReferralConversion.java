@@ -22,11 +22,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class ReferralConversion extends Resource {
     }
 
 
-    //@JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
+    @JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateReferralConversionRequest {
@@ -53,10 +54,57 @@ public class ReferralConversion extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("referral_account_sid")
         @Getter
-        @Setter
-        private String referralAccountSid;
+        private final String referralAccountSid;
+
+
+        private CreateReferralConversionRequest(Builder builder) {
+            this.referralAccountSid = builder.referralAccountSid;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateReferralConversionRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CreateReferralConversionRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("referral_account_sid")
+            private String referralAccountSid;
+
+
+            public CreateReferralConversionRequest build() {
+                return new CreateReferralConversionRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateReferralConversionRequest other = (CreateReferralConversionRequest) o;
+            return (
+                    Objects.equals(referralAccountSid, other.referralAccountSid)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    referralAccountSid
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a ReferralConversion object using the provided ObjectMapper.

@@ -39,37 +39,37 @@ import java.util.Objects;
 public class Member extends Resource {
 
 
-    public static MemberCreator creator(final String pathserviceSid, final String pathchannelSid, final String identity) {
+    public static MemberCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity) {
         return new MemberCreator(
-                pathserviceSid, pathchannelSid, identity
+                pathServiceSid, pathChannelSid, identity
         );
     }
 
 
-    public static MemberDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MemberDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MemberDeleter(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static MemberFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MemberFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MemberFetcher(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static MemberReader reader(final String pathserviceSid, final String pathchannelSid) {
+    public static MemberReader reader(final String pathServiceSid, final String pathChannelSid) {
         return new MemberReader(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 
 
-    public static MemberUpdater updater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MemberUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MemberUpdater(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 

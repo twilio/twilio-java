@@ -115,6 +115,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return this;
     }
 
+    public HostedNumberOrderCreator setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public HostedNumberOrderCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -127,6 +130,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return this;
     }
 
+    public HostedNumberOrderCreator setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public HostedNumberOrderCreator setSmsCapability(final Boolean smsCapability) {
         this.smsCapability = smsCapability;
@@ -145,6 +151,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return this;
     }
 
+    public HostedNumberOrderCreator setStatusCallbackUrl(final String statusCallbackUrl) {
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
+    }
 
     public HostedNumberOrderCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;

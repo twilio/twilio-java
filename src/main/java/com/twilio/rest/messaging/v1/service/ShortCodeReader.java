@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class ShortCodeReader extends Reader<ShortCode> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public ShortCodeReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public ShortCodeReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
         String path = "/v1/Services/{ServiceSid}/ShortCodes";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

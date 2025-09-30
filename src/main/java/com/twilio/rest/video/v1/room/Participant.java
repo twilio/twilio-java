@@ -41,23 +41,23 @@ import java.util.Objects;
 public class Participant extends Resource {
 
 
-    public static ParticipantFetcher fetcher(final String pathroomSid, final String pathsid) {
+    public static ParticipantFetcher fetcher(final String pathRoomSid, final String pathSid) {
         return new ParticipantFetcher(
-                pathroomSid, pathsid
+                pathRoomSid, pathSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathroomSid) {
+    public static ParticipantReader reader(final String pathRoomSid) {
         return new ParticipantReader(
-                pathroomSid
+                pathRoomSid
         );
     }
 
 
-    public static ParticipantUpdater updater(final String pathroomSid, final String pathsid) {
+    public static ParticipantUpdater updater(final String pathRoomSid, final String pathSid) {
         return new ParticipantUpdater(
-                pathroomSid, pathsid
+                pathRoomSid, pathSid
         );
     }
 

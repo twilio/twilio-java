@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class CredentialListReader extends Reader<CredentialList> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private Long pageSize;
 
-    public CredentialListReader(final String pathtrunkSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public CredentialListReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
 
@@ -53,7 +53,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

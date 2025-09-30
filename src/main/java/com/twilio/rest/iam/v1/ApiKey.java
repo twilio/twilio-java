@@ -38,23 +38,23 @@ import java.util.Objects;
 public class ApiKey extends Resource {
 
 
-    public static ApiKeyDeleter deleter(final String pathsid) {
+    public static ApiKeyDeleter deleter(final String pathSid) {
         return new ApiKeyDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ApiKeyFetcher fetcher(final String pathsid) {
+    public static ApiKeyFetcher fetcher(final String pathSid) {
         return new ApiKeyFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ApiKeyUpdater updater(final String pathsid) {
+    public static ApiKeyUpdater updater(final String pathSid) {
         return new ApiKeyUpdater(
-                pathsid
+                pathSid
         );
     }
 

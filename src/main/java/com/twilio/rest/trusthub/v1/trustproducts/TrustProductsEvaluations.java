@@ -41,23 +41,23 @@ import java.util.Objects;
 public class TrustProductsEvaluations extends Resource {
 
 
-    public static TrustProductsEvaluationsCreator creator(final String pathtrustProductSid, final String policySid) {
+    public static TrustProductsEvaluationsCreator creator(final String pathTrustProductSid, final String policySid) {
         return new TrustProductsEvaluationsCreator(
-                pathtrustProductSid, policySid
+                pathTrustProductSid, policySid
         );
     }
 
 
-    public static TrustProductsEvaluationsFetcher fetcher(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsEvaluationsFetcher fetcher(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEvaluationsFetcher(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsEvaluationsReader reader(final String pathtrustProductSid) {
+    public static TrustProductsEvaluationsReader reader(final String pathTrustProductSid) {
         return new TrustProductsEvaluationsReader(
-                pathtrustProductSid
+                pathTrustProductSid
         );
     }
 

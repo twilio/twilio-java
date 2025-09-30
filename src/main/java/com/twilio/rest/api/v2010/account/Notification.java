@@ -40,16 +40,16 @@ import java.util.Objects;
 public class Notification extends Resource {
 
 
-    public static NotificationFetcher fetcher(final String pathsid) {
+    public static NotificationFetcher fetcher(final String pathSid) {
         return new NotificationFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static NotificationFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static NotificationFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new NotificationFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -61,9 +61,9 @@ public class Notification extends Resource {
     }
 
 
-    public static NotificationReader reader(final String pathaccountSid) {
+    public static NotificationReader reader(final String pathAccountSid) {
         return new NotificationReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

@@ -33,12 +33,12 @@ import java.util.List;
 
 public class ChannelReader extends Reader<Channel> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private List<Channel.ChannelType> type;
     private Long pageSize;
 
-    public ChannelReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public ChannelReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -66,7 +66,7 @@ public class ChannelReader extends Reader<Channel> {
 
         String path = "/v1/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

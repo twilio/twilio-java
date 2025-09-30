@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class OperatorResultReader extends Reader<OperatorResult> {
 
-    private String pathtranscriptSid;
+    private String pathTranscriptSid;
     private Boolean redacted;
     private Long pageSize;
 
-    public OperatorResultReader(final String pathtranscriptSid) {
-        this.pathtranscriptSid = pathtranscriptSid;
+    public OperatorResultReader(final String pathTranscriptSid) {
+        this.pathTranscriptSid = pathTranscriptSid;
     }
 
 
@@ -60,7 +60,7 @@ public class OperatorResultReader extends Reader<OperatorResult> {
 
         String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults";
 
-        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathTranscriptSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

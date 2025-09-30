@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class TaskChannelReader extends Reader<TaskChannel> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private Long pageSize;
 
-    public TaskChannelReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskChannelReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

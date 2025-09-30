@@ -37,9 +37,9 @@ import java.util.Objects;
 public class EncryptedSentences extends Resource {
 
 
-    public static EncryptedSentencesFetcher fetcher(final String pathtranscriptSid) {
+    public static EncryptedSentencesFetcher fetcher(final String pathTranscriptSid) {
         return new EncryptedSentencesFetcher(
-                pathtranscriptSid
+                pathTranscriptSid
         );
     }
 

@@ -39,58 +39,58 @@ import java.util.Objects;
 public class AssignedAddOn extends Resource {
 
 
-    public static AssignedAddOnCreator creator(final String pathresourceSid, final String installedAddOnSid) {
+    public static AssignedAddOnCreator creator(final String pathResourceSid, final String installedAddOnSid) {
         return new AssignedAddOnCreator(
-                pathresourceSid, installedAddOnSid
+                pathResourceSid, installedAddOnSid
         );
     }
 
 
-    public static AssignedAddOnCreator creator(final String pathaccountSid, final String pathresourceSid, final String installedAddOnSid) {
+    public static AssignedAddOnCreator creator(final String pathAccountSid, final String pathResourceSid, final String installedAddOnSid) {
         return new AssignedAddOnCreator(
-                pathaccountSid, pathresourceSid, installedAddOnSid
+                pathAccountSid, pathResourceSid, installedAddOnSid
         );
     }
 
 
-    public static AssignedAddOnDeleter deleter(final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnDeleter deleter(final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnDeleter(
-                pathresourceSid, pathsid
+                pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnDeleter deleter(final String pathaccountSid, final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnDeleter deleter(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnDeleter(
-                pathaccountSid, pathresourceSid, pathsid
+                pathAccountSid, pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnFetcher fetcher(final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnFetcher(
-                pathresourceSid, pathsid
+                pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnFetcher fetcher(final String pathaccountSid, final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnFetcher(
-                pathaccountSid, pathresourceSid, pathsid
+                pathAccountSid, pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnReader reader(final String pathresourceSid) {
+    public static AssignedAddOnReader reader(final String pathResourceSid) {
         return new AssignedAddOnReader(
-                pathresourceSid
+                pathResourceSid
         );
     }
 
 
-    public static AssignedAddOnReader reader(final String pathaccountSid, final String pathresourceSid) {
+    public static AssignedAddOnReader reader(final String pathAccountSid, final String pathResourceSid) {
         return new AssignedAddOnReader(
-                pathaccountSid, pathresourceSid
+                pathAccountSid, pathResourceSid
         );
     }
 

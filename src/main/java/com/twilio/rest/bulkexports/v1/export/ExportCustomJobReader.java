@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class ExportCustomJobReader extends Reader<ExportCustomJob> {
 
-    private String pathresourceType;
+    private String pathResourceType;
     private Long pageSize;
 
-    public ExportCustomJobReader(final String pathresourceType) {
-        this.pathresourceType = pathresourceType;
+    public ExportCustomJobReader(final String pathResourceType) {
+        this.pathResourceType = pathResourceType;
     }
 
 
@@ -53,7 +53,7 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
 
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class FlexUserFetcher extends Fetcher<FlexUser> {
 
-    private String pathinstanceSid;
-    private String pathflexUserSid;
+    private String pathInstanceSid;
+    private String pathFlexUserSid;
 
-    public FlexUserFetcher(final String pathinstanceSid, final String pathflexUserSid) {
-        this.pathinstanceSid = pathinstanceSid;
-        this.pathflexUserSid = pathflexUserSid;
+    public FlexUserFetcher(final String pathInstanceSid, final String pathFlexUserSid) {
+        this.pathInstanceSid = pathInstanceSid;
+        this.pathFlexUserSid = pathFlexUserSid;
     }
 
 
@@ -40,8 +40,8 @@ public class FlexUserFetcher extends Fetcher<FlexUser> {
 
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
-        path = path.replace("{" + "InstanceSid" + "}", this.pathinstanceSid.toString());
-        path = path.replace("{" + "FlexUserSid" + "}", this.pathflexUserSid.toString());
+        path = path.replace("{" + "InstanceSid" + "}", this.pathInstanceSid.toString());
+        path = path.replace("{" + "FlexUserSid" + "}", this.pathFlexUserSid.toString());
 
 
         Request request = new Request(

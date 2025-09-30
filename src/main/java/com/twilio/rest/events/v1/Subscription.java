@@ -48,16 +48,16 @@ public class Subscription extends Resource {
     }
 
 
-    public static SubscriptionDeleter deleter(final String pathsid) {
+    public static SubscriptionDeleter deleter(final String pathSid) {
         return new SubscriptionDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SubscriptionFetcher fetcher(final String pathsid) {
+    public static SubscriptionFetcher fetcher(final String pathSid) {
         return new SubscriptionFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class Subscription extends Resource {
     }
 
 
-    public static SubscriptionUpdater updater(final String pathsid) {
+    public static SubscriptionUpdater updater(final String pathSid) {
         return new SubscriptionUpdater(
-                pathsid
+                pathSid
         );
     }
 

@@ -39,37 +39,37 @@ import java.util.Objects;
 public class OriginationUrl extends Resource {
 
 
-    public static OriginationUrlCreator creator(final String pathtrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
+    public static OriginationUrlCreator creator(final String pathTrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
         return new OriginationUrlCreator(
-                pathtrunkSid, weight, priority, enabled, friendlyName, sipUrl
+                pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl
         );
     }
 
 
-    public static OriginationUrlDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static OriginationUrlDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new OriginationUrlDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static OriginationUrlFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static OriginationUrlFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new OriginationUrlFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static OriginationUrlReader reader(final String pathtrunkSid) {
+    public static OriginationUrlReader reader(final String pathTrunkSid) {
         return new OriginationUrlReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 
 
-    public static OriginationUrlUpdater updater(final String pathtrunkSid, final String pathsid) {
+    public static OriginationUrlUpdater updater(final String pathTrunkSid, final String pathSid) {
         return new OriginationUrlUpdater(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 

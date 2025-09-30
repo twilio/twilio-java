@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class DeploymentCreator extends Creator<Deployment> {
 
-    private String pathserviceSid;
-    private String pathenvironmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private String buildSid;
     private Boolean isPlugin;
 
-    public DeploymentCreator(final String pathserviceSid, final String pathenvironmentSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathenvironmentSid = pathenvironmentSid;
+    public DeploymentCreator(final String pathServiceSid, final String pathEnvironmentSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
 
@@ -58,8 +58,8 @@ public class DeploymentCreator extends Creator<Deployment> {
 
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
 
 
         Request request = new Request(

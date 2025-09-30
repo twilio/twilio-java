@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Webhook extends Resource {
 
 
-    public static WebhookFetcher fetcher(final String pathchatServiceSid) {
+    public static WebhookFetcher fetcher(final String pathChatServiceSid) {
         return new WebhookFetcher(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static WebhookUpdater updater(final String pathchatServiceSid) {
+    public static WebhookUpdater updater(final String pathChatServiceSid) {
         return new WebhookUpdater(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 

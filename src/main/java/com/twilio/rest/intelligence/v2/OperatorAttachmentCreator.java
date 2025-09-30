@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 public class OperatorAttachmentCreator extends Creator<OperatorAttachment> {
 
-    private String pathserviceSid;
-    private String pathoperatorSid;
+    private String pathServiceSid;
+    private String pathOperatorSid;
 
-    public OperatorAttachmentCreator(final String pathserviceSid, final String pathoperatorSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathoperatorSid = pathoperatorSid;
+    public OperatorAttachmentCreator(final String pathServiceSid, final String pathOperatorSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathOperatorSid = pathOperatorSid;
     }
 
 
@@ -41,8 +41,8 @@ public class OperatorAttachmentCreator extends Creator<OperatorAttachment> {
 
         String path = "/v2/Services/{ServiceSid}/Operators/{OperatorSid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "OperatorSid" + "}", this.pathoperatorSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "OperatorSid" + "}", this.pathOperatorSid.toString());
 
 
         Request request = new Request(

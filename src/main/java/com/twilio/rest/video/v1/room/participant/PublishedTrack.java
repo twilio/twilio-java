@@ -40,16 +40,16 @@ import java.util.Objects;
 public class PublishedTrack extends Resource {
 
 
-    public static PublishedTrackFetcher fetcher(final String pathroomSid, final String pathparticipantSid, final String pathsid) {
+    public static PublishedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid) {
         return new PublishedTrackFetcher(
-                pathroomSid, pathparticipantSid, pathsid
+                pathRoomSid, pathParticipantSid, pathSid
         );
     }
 
 
-    public static PublishedTrackReader reader(final String pathroomSid, final String pathparticipantSid) {
+    public static PublishedTrackReader reader(final String pathRoomSid, final String pathParticipantSid) {
         return new PublishedTrackReader(
-                pathroomSid, pathparticipantSid
+                pathRoomSid, pathParticipantSid
         );
     }
 

@@ -47,37 +47,37 @@ public class Application extends Resource {
     }
 
 
-    public static ApplicationCreator creator(final String pathaccountSid) {
+    public static ApplicationCreator creator(final String pathAccountSid) {
         return new ApplicationCreator(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static ApplicationDeleter deleter(final String pathsid) {
+    public static ApplicationDeleter deleter(final String pathSid) {
         return new ApplicationDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ApplicationDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static ApplicationDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new ApplicationDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static ApplicationFetcher fetcher(final String pathsid) {
+    public static ApplicationFetcher fetcher(final String pathSid) {
         return new ApplicationFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ApplicationFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static ApplicationFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new ApplicationFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -89,23 +89,23 @@ public class Application extends Resource {
     }
 
 
-    public static ApplicationReader reader(final String pathaccountSid) {
+    public static ApplicationReader reader(final String pathAccountSid) {
         return new ApplicationReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static ApplicationUpdater updater(final String pathsid) {
+    public static ApplicationUpdater updater(final String pathSid) {
         return new ApplicationUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ApplicationUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static ApplicationUpdater updater(final String pathAccountSid, final String pathSid) {
         return new ApplicationUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

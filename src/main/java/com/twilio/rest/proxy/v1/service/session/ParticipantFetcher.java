@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class ParticipantFetcher extends Fetcher<Participant> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathSid;
 
-    public ParticipantFetcher(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
-        this.pathsid = pathsid;
+    public ParticipantFetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

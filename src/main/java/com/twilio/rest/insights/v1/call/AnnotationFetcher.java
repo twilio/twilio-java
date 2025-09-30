@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class AnnotationFetcher extends Fetcher<Annotation> {
 
-    private String pathcallSid;
+    private String pathCallSid;
 
-    public AnnotationFetcher(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public AnnotationFetcher(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -38,7 +38,7 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
 
         String path = "/v1/Voice/{CallSid}/Annotation";
 
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

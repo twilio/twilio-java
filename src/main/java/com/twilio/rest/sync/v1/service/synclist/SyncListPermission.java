@@ -37,30 +37,30 @@ import java.util.Objects;
 public class SyncListPermission extends Resource {
 
 
-    public static SyncListPermissionDeleter deleter(final String pathserviceSid, final String pathlistSid, final String pathidentity) {
+    public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
         return new SyncListPermissionDeleter(
-                pathserviceSid, pathlistSid, pathidentity
+                pathServiceSid, pathListSid, pathIdentity
         );
     }
 
 
-    public static SyncListPermissionFetcher fetcher(final String pathserviceSid, final String pathlistSid, final String pathidentity) {
+    public static SyncListPermissionFetcher fetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
         return new SyncListPermissionFetcher(
-                pathserviceSid, pathlistSid, pathidentity
+                pathServiceSid, pathListSid, pathIdentity
         );
     }
 
 
-    public static SyncListPermissionReader reader(final String pathserviceSid, final String pathlistSid) {
+    public static SyncListPermissionReader reader(final String pathServiceSid, final String pathListSid) {
         return new SyncListPermissionReader(
-                pathserviceSid, pathlistSid
+                pathServiceSid, pathListSid
         );
     }
 
 
-    public static SyncListPermissionUpdater updater(final String pathserviceSid, final String pathlistSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static SyncListPermissionUpdater updater(final String pathServiceSid, final String pathListSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new SyncListPermissionUpdater(
-                pathserviceSid, pathlistSid, pathidentity, read, write, manage
+                pathServiceSid, pathListSid, pathIdentity, read, write, manage
         );
     }
 

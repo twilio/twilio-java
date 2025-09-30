@@ -40,16 +40,16 @@ import java.util.Objects;
 public class Conference extends Resource {
 
 
-    public static ConferenceFetcher fetcher(final String pathsid) {
+    public static ConferenceFetcher fetcher(final String pathSid) {
         return new ConferenceFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConferenceFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static ConferenceFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new ConferenceFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -61,23 +61,23 @@ public class Conference extends Resource {
     }
 
 
-    public static ConferenceReader reader(final String pathaccountSid) {
+    public static ConferenceReader reader(final String pathAccountSid) {
         return new ConferenceReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static ConferenceUpdater updater(final String pathsid) {
+    public static ConferenceUpdater updater(final String pathSid) {
         return new ConferenceUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConferenceUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static ConferenceUpdater updater(final String pathAccountSid, final String pathSid) {
         return new ConferenceUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

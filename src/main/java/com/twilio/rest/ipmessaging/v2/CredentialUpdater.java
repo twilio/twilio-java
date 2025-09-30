@@ -28,7 +28,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialUpdater extends Updater<Credential> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private String certificate;
     private String privateKey;
@@ -36,8 +36,8 @@ public class CredentialUpdater extends Updater<Credential> {
     private String apiKey;
     private String secret;
 
-    public CredentialUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public CredentialUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -82,7 +82,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
         String path = "/v2/Credentials/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

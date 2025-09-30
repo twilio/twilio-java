@@ -41,30 +41,30 @@ import java.util.Objects;
 public class Engagement extends Resource {
 
 
-    public static EngagementCreator creator(final String pathflowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
+    public static EngagementCreator creator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
         return new EngagementCreator(
-                pathflowSid, to, from
+                pathFlowSid, to, from
         );
     }
 
 
-    public static EngagementDeleter deleter(final String pathflowSid, final String pathsid) {
+    public static EngagementDeleter deleter(final String pathFlowSid, final String pathSid) {
         return new EngagementDeleter(
-                pathflowSid, pathsid
+                pathFlowSid, pathSid
         );
     }
 
 
-    public static EngagementFetcher fetcher(final String pathflowSid, final String pathsid) {
+    public static EngagementFetcher fetcher(final String pathFlowSid, final String pathSid) {
         return new EngagementFetcher(
-                pathflowSid, pathsid
+                pathFlowSid, pathSid
         );
     }
 
 
-    public static EngagementReader reader(final String pathflowSid) {
+    public static EngagementReader reader(final String pathFlowSid) {
         return new EngagementReader(
-                pathflowSid
+                pathFlowSid
         );
     }
 

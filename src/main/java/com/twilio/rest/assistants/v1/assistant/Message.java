@@ -22,11 +22,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -38,53 +39,123 @@ import java.util.Objects;
 public class Message extends Resource {
 
 
-    public static MessageCreator creator(final String pathid, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
+    public static MessageCreator creator(final String pathId, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
         return new MessageCreator(
-                pathid, assistantsV1ServiceAssistantSendMessageRequest
+                pathId, assistantsV1ServiceAssistantSendMessageRequest
         );
     }
 
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class)
+    @JsonDeserialize(builder = AssistantsV1ServiceAssistantSendMessageRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceAssistantSendMessageRequest {
-        public AssistantsV1ServiceAssistantSendMessageRequest(final String identity, final String body) {
-            this.identity = identity;
-            this.body = body;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
         @Getter
-        @Setter
-        private String identity;
+        private final String identity;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("session_id")
         @Getter
-        @Setter
-        private String sessionId;
+        private final String sessionId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("body")
         @Getter
-        @Setter
-        private String body;
+        private final String body;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("webhook")
         @Getter
-        @Setter
-        private String webhook;
+        private final String webhook;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mode")
         @Getter
-        @Setter
-        private String mode;
+        private final String mode;
+
+
+        private AssistantsV1ServiceAssistantSendMessageRequest(Builder builder) {
+            this.identity = builder.identity;
+            this.sessionId = builder.sessionId;
+            this.body = builder.body;
+            this.webhook = builder.webhook;
+            this.mode = builder.mode;
+        }
+
+        public static Builder builder(final String identity, final String body) {
+            return new Builder(identity, body);
+        }
+
+        public static AssistantsV1ServiceAssistantSendMessageRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceAssistantSendMessageRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("identity")
+            private String identity;
+
+            @JsonProperty("session_id")
+            private String sessionId;
+
+            @JsonProperty("body")
+            private String body;
+
+            @JsonProperty("webhook")
+            private String webhook;
+
+            @JsonProperty("mode")
+            private String mode;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("identity") final String identity, @JsonProperty("body") final String body) {
+                this.identity = identity;
+                this.body = body;
+            }
+
+
+            public AssistantsV1ServiceAssistantSendMessageRequest build() {
+                return new AssistantsV1ServiceAssistantSendMessageRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceAssistantSendMessageRequest other = (AssistantsV1ServiceAssistantSendMessageRequest) o;
+            return (
+                    Objects.equals(identity, other.identity) &&
+                            Objects.equals(sessionId, other.sessionId) &&
+                            Objects.equals(body, other.body) &&
+                            Objects.equals(webhook, other.webhook) &&
+                            Objects.equals(mode, other.mode)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    identity,
+                    sessionId,
+                    body,
+                    webhook,
+                    mode
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.

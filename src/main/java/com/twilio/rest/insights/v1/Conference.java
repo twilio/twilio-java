@@ -42,9 +42,9 @@ import java.util.Objects;
 public class Conference extends Resource {
 
 
-    public static ConferenceFetcher fetcher(final String pathconferenceSid) {
+    public static ConferenceFetcher fetcher(final String pathConferenceSid) {
         return new ConferenceFetcher(
-                pathconferenceSid
+                pathConferenceSid
         );
     }
 
@@ -55,36 +55,6 @@ public class Conference extends Resource {
         );
     }
 
-
-    public enum ConferenceConferenceTag {
-        INVALID_REQUESTED_REGION("invalid_requested_region"),
-        DUPLICATE_IDENTITY("duplicate_identity"),
-        START_FAILURE("start_failure"),
-        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
-        QUALITY_WARNINGS("quality_warnings"),
-        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
-        HIGH_PACKET_LOSS("high_packet_loss"),
-        HIGH_JITTER("high_jitter"),
-        HIGH_LATENCY("high_latency"),
-        LOW_MOS("low_mos"),
-        DETECTED_SILENCE("detected_silence"),
-        NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
-
-        private final String value;
-
-        private ConferenceConferenceTag(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceConferenceTag forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceConferenceTag.values());
-        }
-    }
 
     public enum ConferenceStatus {
         IN_PROGRESS("in_progress"),
@@ -218,36 +188,6 @@ public class Conference extends Resource {
         }
     }
 
-    public enum ConferenceConferenceConferenceTag {
-        INVALID_REQUESTED_REGION("invalid_requested_region"),
-        DUPLICATE_IDENTITY("duplicate_identity"),
-        START_FAILURE("start_failure"),
-        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
-        QUALITY_WARNINGS("quality_warnings"),
-        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
-        HIGH_PACKET_LOSS("high_packet_loss"),
-        HIGH_JITTER("high_jitter"),
-        HIGH_LATENCY("high_latency"),
-        LOW_MOS("low_mos"),
-        DETECTED_SILENCE("detected_silence"),
-        NO_CONCURRENT_PARTICIPANTS("no_concurrent_participants");
-
-        private final String value;
-
-        private ConferenceConferenceConferenceTag(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceConferenceConferenceTag forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceConferenceConferenceTag.values());
-        }
-    }
-
     public enum ProcessingState {
         COMPLETE("complete"),
         IN_PROGRESS("in_progress"),
@@ -361,7 +301,7 @@ public class Conference extends Resource {
     @Getter
     private final Object tagInfo;
     @Getter
-    private final List<Conference.ConferenceConferenceConferenceTag> tags;
+    private final List<Conference.Tag> tags;
     @Getter
     private final Integer uniqueParticipants;
     @Getter
@@ -392,7 +332,7 @@ public class Conference extends Resource {
             @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime startTime,
             @JsonProperty("status") final Conference.ConferenceStatus status,
             @JsonProperty("tag_info") final Object tagInfo,
-            @JsonProperty("tags") final List<Conference.ConferenceConferenceConferenceTag> tags,
+            @JsonProperty("tags") final List<Conference.Tag> tags,
             @JsonProperty("unique_participants") final Integer uniqueParticipants,
             @JsonProperty("url") final URI url
     ) {

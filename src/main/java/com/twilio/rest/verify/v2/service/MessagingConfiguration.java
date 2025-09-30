@@ -39,37 +39,37 @@ import java.util.Objects;
 public class MessagingConfiguration extends Resource {
 
 
-    public static MessagingConfigurationCreator creator(final String pathserviceSid, final String country, final String messagingServiceSid) {
+    public static MessagingConfigurationCreator creator(final String pathServiceSid, final String country, final String messagingServiceSid) {
         return new MessagingConfigurationCreator(
-                pathserviceSid, country, messagingServiceSid
+                pathServiceSid, country, messagingServiceSid
         );
     }
 
 
-    public static MessagingConfigurationDeleter deleter(final String pathserviceSid, final String pathcountry) {
+    public static MessagingConfigurationDeleter deleter(final String pathServiceSid, final String pathCountry) {
         return new MessagingConfigurationDeleter(
-                pathserviceSid, pathcountry
+                pathServiceSid, pathCountry
         );
     }
 
 
-    public static MessagingConfigurationFetcher fetcher(final String pathserviceSid, final String pathcountry) {
+    public static MessagingConfigurationFetcher fetcher(final String pathServiceSid, final String pathCountry) {
         return new MessagingConfigurationFetcher(
-                pathserviceSid, pathcountry
+                pathServiceSid, pathCountry
         );
     }
 
 
-    public static MessagingConfigurationReader reader(final String pathserviceSid) {
+    public static MessagingConfigurationReader reader(final String pathServiceSid) {
         return new MessagingConfigurationReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static MessagingConfigurationUpdater updater(final String pathserviceSid, final String pathcountry, final String messagingServiceSid) {
+    public static MessagingConfigurationUpdater updater(final String pathServiceSid, final String pathCountry, final String messagingServiceSid) {
         return new MessagingConfigurationUpdater(
-                pathserviceSid, pathcountry, messagingServiceSid
+                pathServiceSid, pathCountry, messagingServiceSid
         );
     }
 

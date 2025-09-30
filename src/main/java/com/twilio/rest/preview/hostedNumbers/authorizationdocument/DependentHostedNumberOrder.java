@@ -41,9 +41,9 @@ import java.util.Objects;
 public class DependentHostedNumberOrder extends Resource {
 
 
-    public static DependentHostedNumberOrderReader reader(final String pathsigningDocumentSid) {
+    public static DependentHostedNumberOrderReader reader(final String pathSigningDocumentSid) {
         return new DependentHostedNumberOrderReader(
-                pathsigningDocumentSid
+                pathSigningDocumentSid
         );
     }
 

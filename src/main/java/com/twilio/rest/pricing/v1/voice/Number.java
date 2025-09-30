@@ -41,9 +41,9 @@ import java.util.Objects;
 public class Number extends Resource {
 
 
-    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathnumber) {
+    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathNumber) {
         return new NumberFetcher(
-                pathnumber
+                pathNumber
         );
     }
 

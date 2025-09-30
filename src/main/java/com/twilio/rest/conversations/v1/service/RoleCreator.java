@@ -33,13 +33,13 @@ import java.util.List;
 
 public class RoleCreator extends Creator<Role> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
     private String friendlyName;
     private Role.RoleType type;
     private List<String> permission;
 
-    public RoleCreator(final String pathchatServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public RoleCreator(final String pathChatServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
+        this.pathChatServiceSid = pathChatServiceSid;
         this.friendlyName = friendlyName;
         this.type = type;
         this.permission = permission;
@@ -72,7 +72,7 @@ public class RoleCreator extends Creator<Role> {
 
         String path = "/v1/Services/{ChatServiceSid}/Roles";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
 
         Request request = new Request(

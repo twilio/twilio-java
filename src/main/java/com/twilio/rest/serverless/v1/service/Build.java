@@ -42,30 +42,30 @@ import java.util.Objects;
 public class Build extends Resource {
 
 
-    public static BuildCreator creator(final String pathserviceSid) {
+    public static BuildCreator creator(final String pathServiceSid) {
         return new BuildCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static BuildDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static BuildDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new BuildDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static BuildFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static BuildFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new BuildFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static BuildReader reader(final String pathserviceSid) {
+    public static BuildReader reader(final String pathServiceSid) {
         return new BuildReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

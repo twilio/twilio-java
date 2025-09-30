@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class InsightsQuestionnairesDeleter extends Deleter<InsightsQuestionnaires> {
 
-    private String pathquestionnaireSid;
+    private String pathQuestionnaireSid;
     private String authorization;
 
-    public InsightsQuestionnairesDeleter(final String pathquestionnaireSid) {
-        this.pathquestionnaireSid = pathquestionnaireSid;
+    public InsightsQuestionnairesDeleter(final String pathQuestionnaireSid) {
+        this.pathQuestionnaireSid = pathQuestionnaireSid;
     }
 
 
@@ -47,7 +47,7 @@ public class InsightsQuestionnairesDeleter extends Deleter<InsightsQuestionnaire
 
         String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathquestionnaireSid.toString());
+        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathQuestionnaireSid.toString());
 
 
         Request request = new Request(

@@ -38,23 +38,23 @@ import java.util.Objects;
 public class AssistantsTool extends Resource {
 
 
-    public static AssistantsToolCreator creator(final String pathassistantId, final String pathid) {
+    public static AssistantsToolCreator creator(final String pathAssistantId, final String pathId) {
         return new AssistantsToolCreator(
-                pathassistantId, pathid
+                pathAssistantId, pathId
         );
     }
 
 
-    public static AssistantsToolDeleter deleter(final String pathassistantId, final String pathid) {
+    public static AssistantsToolDeleter deleter(final String pathAssistantId, final String pathId) {
         return new AssistantsToolDeleter(
-                pathassistantId, pathid
+                pathAssistantId, pathId
         );
     }
 
 
-    public static AssistantsToolReader reader(final String pathassistantId) {
+    public static AssistantsToolReader reader(final String pathAssistantId) {
         return new AssistantsToolReader(
-                pathassistantId
+                pathAssistantId
         );
     }
 

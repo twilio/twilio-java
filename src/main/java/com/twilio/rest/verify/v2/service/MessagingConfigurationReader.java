@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class MessagingConfigurationReader extends Reader<MessagingConfiguration> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public MessagingConfigurationReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public MessagingConfigurationReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
 
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

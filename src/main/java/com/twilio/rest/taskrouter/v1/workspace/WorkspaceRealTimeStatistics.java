@@ -38,9 +38,9 @@ import java.util.Objects;
 public class WorkspaceRealTimeStatistics extends Resource {
 
 
-    public static WorkspaceRealTimeStatisticsFetcher fetcher(final String pathworkspaceSid) {
+    public static WorkspaceRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
         return new WorkspaceRealTimeStatisticsFetcher(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 

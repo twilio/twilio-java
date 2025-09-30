@@ -46,16 +46,16 @@ public class SourceIpMapping extends Resource {
     }
 
 
-    public static SourceIpMappingDeleter deleter(final String pathsid) {
+    public static SourceIpMappingDeleter deleter(final String pathSid) {
         return new SourceIpMappingDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SourceIpMappingFetcher fetcher(final String pathsid) {
+    public static SourceIpMappingFetcher fetcher(final String pathSid) {
         return new SourceIpMappingFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -67,9 +67,9 @@ public class SourceIpMapping extends Resource {
     }
 
 
-    public static SourceIpMappingUpdater updater(final String pathsid, final String sipDomainSid) {
+    public static SourceIpMappingUpdater updater(final String pathSid, final String sipDomainSid) {
         return new SourceIpMappingUpdater(
-                pathsid, sipDomainSid
+                pathSid, sipDomainSid
         );
     }
 

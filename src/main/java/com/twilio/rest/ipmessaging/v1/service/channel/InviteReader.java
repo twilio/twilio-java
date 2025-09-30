@@ -33,14 +33,14 @@ import java.util.List;
 
 public class InviteReader extends Reader<Invite> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private List<String> identity;
     private Long pageSize;
 
-    public InviteReader(final String pathserviceSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public InviteReader(final String pathServiceSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -68,8 +68,8 @@ public class InviteReader extends Reader<Invite> {
 
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

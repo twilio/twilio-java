@@ -37,16 +37,16 @@ import java.util.Objects;
 public class ExportConfiguration extends Resource {
 
 
-    public static ExportConfigurationFetcher fetcher(final String pathresourceType) {
+    public static ExportConfigurationFetcher fetcher(final String pathResourceType) {
         return new ExportConfigurationFetcher(
-                pathresourceType
+                pathResourceType
         );
     }
 
 
-    public static ExportConfigurationUpdater updater(final String pathresourceType) {
+    public static ExportConfigurationUpdater updater(final String pathResourceType) {
         return new ExportConfigurationUpdater(
-                pathresourceType
+                pathResourceType
         );
     }
 

@@ -28,15 +28,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AccountUpdater extends Updater<Account> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private Account.Status status;
 
     public AccountUpdater() {
     }
 
-    public AccountUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public AccountUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -57,8 +57,8 @@ public class AccountUpdater extends Updater<Account> {
 
         String path = "/2010-04-01/Accounts/{Sid}.json";
 
-        this.pathsid = this.pathsid == null ? client.getAccountSid() : this.pathsid;
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathSid = this.pathSid == null ? client.getAccountSid() : this.pathSid;
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

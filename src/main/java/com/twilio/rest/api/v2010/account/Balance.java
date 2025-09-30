@@ -43,9 +43,9 @@ public class Balance extends Resource {
     }
 
 
-    public static BalanceFetcher fetcher(final String pathaccountSid) {
+    public static BalanceFetcher fetcher(final String pathAccountSid) {
         return new BalanceFetcher(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

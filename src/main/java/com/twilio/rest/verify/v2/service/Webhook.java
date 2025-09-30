@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Webhook extends Resource {
 
 
-    public static WebhookCreator creator(final String pathserviceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
+    public static WebhookCreator creator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
         return new WebhookCreator(
-                pathserviceSid, friendlyName, eventTypes, webhookUrl
+                pathServiceSid, friendlyName, eventTypes, webhookUrl
         );
     }
 
 
-    public static WebhookDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static WebhookDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new WebhookDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static WebhookFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new WebhookFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static WebhookReader reader(final String pathserviceSid) {
+    public static WebhookReader reader(final String pathServiceSid) {
         return new WebhookReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static WebhookUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static WebhookUpdater updater(final String pathServiceSid, final String pathSid) {
         return new WebhookUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

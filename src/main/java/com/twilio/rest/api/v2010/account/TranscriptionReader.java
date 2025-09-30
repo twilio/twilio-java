@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class TranscriptionReader extends Reader<Transcription> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private Long pageSize;
 
     public TranscriptionReader() {
     }
 
-    public TranscriptionReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public TranscriptionReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -56,8 +56,8 @@ public class TranscriptionReader extends Reader<Transcription> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

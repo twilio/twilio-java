@@ -40,9 +40,7 @@ public class TokenCreator extends Creator<Token> {
     private String refreshToken;
     private String scope;
 
-    public TokenCreator(final String grantType, final String clientId) {
-        this.grantType = grantType;
-        this.clientId = clientId;
+    public TokenCreator() {
     }
 
 

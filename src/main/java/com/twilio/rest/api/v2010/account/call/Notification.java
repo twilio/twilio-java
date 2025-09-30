@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Notification extends Resource {
 
 
-    public static NotificationFetcher fetcher(final String pathcallSid, final String pathsid) {
+    public static NotificationFetcher fetcher(final String pathCallSid, final String pathSid) {
         return new NotificationFetcher(
-                pathcallSid, pathsid
+                pathCallSid, pathSid
         );
     }
 
 
-    public static NotificationFetcher fetcher(final String pathaccountSid, final String pathcallSid, final String pathsid) {
+    public static NotificationFetcher fetcher(final String pathAccountSid, final String pathCallSid, final String pathSid) {
         return new NotificationFetcher(
-                pathaccountSid, pathcallSid, pathsid
+                pathAccountSid, pathCallSid, pathSid
         );
     }
 
 
-    public static NotificationReader reader(final String pathcallSid) {
+    public static NotificationReader reader(final String pathCallSid) {
         return new NotificationReader(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static NotificationReader reader(final String pathaccountSid, final String pathcallSid) {
+    public static NotificationReader reader(final String pathAccountSid, final String pathCallSid) {
         return new NotificationReader(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 

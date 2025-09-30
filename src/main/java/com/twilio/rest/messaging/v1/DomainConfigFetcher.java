@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class DomainConfigFetcher extends Fetcher<DomainConfig> {
 
-    private String pathdomainSid;
+    private String pathDomainSid;
 
-    public DomainConfigFetcher(final String pathdomainSid) {
-        this.pathdomainSid = pathdomainSid;
+    public DomainConfigFetcher(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
 
@@ -38,7 +38,7 @@ public class DomainConfigFetcher extends Fetcher<DomainConfig> {
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

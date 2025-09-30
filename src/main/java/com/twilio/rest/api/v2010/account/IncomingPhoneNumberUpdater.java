@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,8 +31,8 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private String accountSid;
     private String apiVersion;
     private String friendlyName;
@@ -56,13 +57,13 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private String addressSid;
     private String bundleSid;
 
-    public IncomingPhoneNumberUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public IncomingPhoneNumberUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public IncomingPhoneNumberUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public IncomingPhoneNumberUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -101,6 +102,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public IncomingPhoneNumberUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -113,12 +117,18 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberUpdater setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public IncomingPhoneNumberUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
+    public IncomingPhoneNumberUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public IncomingPhoneNumberUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -149,6 +159,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public IncomingPhoneNumberUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -161,6 +174,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberUpdater setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public IncomingPhoneNumberUpdater setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
         this.emergencyStatus = emergencyStatus;
@@ -209,9 +225,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

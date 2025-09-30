@@ -48,16 +48,16 @@ public class RatePlan extends Resource {
     }
 
 
-    public static RatePlanDeleter deleter(final String pathsid) {
+    public static RatePlanDeleter deleter(final String pathSid) {
         return new RatePlanDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RatePlanFetcher fetcher(final String pathsid) {
+    public static RatePlanFetcher fetcher(final String pathSid) {
         return new RatePlanFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class RatePlan extends Resource {
     }
 
 
-    public static RatePlanUpdater updater(final String pathsid) {
+    public static RatePlanUpdater updater(final String pathSid) {
         return new RatePlanUpdater(
-                pathsid
+                pathSid
         );
     }
 

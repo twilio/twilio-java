@@ -30,18 +30,18 @@ import com.twilio.rest.Domains;
 
 public class AuthCallsCredentialListMappingCreator extends Creator<AuthCallsCredentialListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
+    private String pathAccountSid;
+    private String pathDomainSid;
     private String credentialListSid;
 
-    public AuthCallsCredentialListMappingCreator(final String pathdomainSid, final String credentialListSid) {
-        this.pathdomainSid = pathdomainSid;
+    public AuthCallsCredentialListMappingCreator(final String pathDomainSid, final String credentialListSid) {
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
-    public AuthCallsCredentialListMappingCreator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
+    public AuthCallsCredentialListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -57,9 +57,9 @@ public class AuthCallsCredentialListMappingCreator extends Creator<AuthCallsCred
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

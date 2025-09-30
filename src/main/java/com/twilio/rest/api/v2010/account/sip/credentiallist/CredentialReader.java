@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class CredentialReader extends Reader<Credential> {
 
-    private String pathaccountSid;
-    private String pathcredentialListSid;
+    private String pathAccountSid;
+    private String pathCredentialListSid;
     private Long pageSize;
 
-    public CredentialReader(final String pathcredentialListSid) {
-        this.pathcredentialListSid = pathcredentialListSid;
+    public CredentialReader(final String pathCredentialListSid) {
+        this.pathCredentialListSid = pathCredentialListSid;
     }
 
-    public CredentialReader(final String pathaccountSid, final String pathcredentialListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcredentialListSid = pathcredentialListSid;
+    public CredentialReader(final String pathAccountSid, final String pathCredentialListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCredentialListSid = pathCredentialListSid;
     }
 
 
@@ -59,9 +59,9 @@ public class CredentialReader extends Reader<Credential> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CredentialListSid" + "}", this.pathcredentialListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CredentialListSid" + "}", this.pathCredentialListSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

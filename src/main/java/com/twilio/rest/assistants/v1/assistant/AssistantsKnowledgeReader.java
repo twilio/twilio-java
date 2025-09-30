@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class AssistantsKnowledgeReader extends Reader<AssistantsKnowledge> {
 
-    private String pathassistantId;
+    private String pathAssistantId;
     private Integer pageSize;
 
-    public AssistantsKnowledgeReader(final String pathassistantId) {
-        this.pathassistantId = pathassistantId;
+    public AssistantsKnowledgeReader(final String pathAssistantId) {
+        this.pathAssistantId = pathAssistantId;
     }
 
 
@@ -53,7 +53,7 @@ public class AssistantsKnowledgeReader extends Reader<AssistantsKnowledge> {
 
         String path = "/v1/Assistants/{assistantId}/Knowledge";
 
-        path = path.replace("{" + "assistantId" + "}", this.pathassistantId.toString());
+        path = path.replace("{" + "assistantId" + "}", this.pathAssistantId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

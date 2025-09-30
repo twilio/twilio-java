@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class MessageReader extends Reader<Message> {
 
-    private String pathchatServiceSid;
-    private String pathconversationSid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
     private Message.OrderType order;
     private Long pageSize;
 
-    public MessageReader(final String pathchatServiceSid, final String pathconversationSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathconversationSid = pathconversationSid;
+    public MessageReader(final String pathChatServiceSid, final String pathConversationSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -62,8 +62,8 @@ public class MessageReader extends Reader<Message> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

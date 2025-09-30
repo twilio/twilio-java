@@ -27,11 +27,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PluginArchiveUpdater extends Updater<PluginArchive> {
-    private String pathsid;
+    private String pathSid;
     private String flexMetadata;
 
-    public PluginArchiveUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public PluginArchiveUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -46,7 +46,7 @@ public class PluginArchiveUpdater extends Updater<PluginArchive> {
 
         String path = "/v1/PluginService/Plugins/{Sid}/Archive";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

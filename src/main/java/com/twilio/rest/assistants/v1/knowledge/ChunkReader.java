@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class ChunkReader extends Reader<Chunk> {
 
-    private String pathid;
+    private String pathId;
     private Integer pageSize;
 
-    public ChunkReader(final String pathid) {
-        this.pathid = pathid;
+    public ChunkReader(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -53,7 +53,7 @@ public class ChunkReader extends Reader<Chunk> {
 
         String path = "/v1/Knowledge/{id}/Chunks";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

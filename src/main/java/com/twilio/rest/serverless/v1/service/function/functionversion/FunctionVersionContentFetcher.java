@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionContent> {
 
-    private String pathserviceSid;
-    private String pathfunctionSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathFunctionSid;
+    private String pathSid;
 
-    public FunctionVersionContentFetcher(final String pathserviceSid, final String pathfunctionSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathfunctionSid = pathfunctionSid;
-        this.pathsid = pathsid;
+    public FunctionVersionContentFetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathFunctionSid = pathFunctionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionConten
 
         String path = "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "FunctionSid" + "}", this.pathfunctionSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "FunctionSid" + "}", this.pathFunctionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

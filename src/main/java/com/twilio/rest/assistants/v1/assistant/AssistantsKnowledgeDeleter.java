@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class AssistantsKnowledgeDeleter extends Deleter<AssistantsKnowledge> {
 
-    private String pathassistantId;
-    private String pathid;
+    private String pathAssistantId;
+    private String pathId;
 
-    public AssistantsKnowledgeDeleter(final String pathassistantId, final String pathid) {
-        this.pathassistantId = pathassistantId;
-        this.pathid = pathid;
+    public AssistantsKnowledgeDeleter(final String pathAssistantId, final String pathId) {
+        this.pathAssistantId = pathAssistantId;
+        this.pathId = pathId;
     }
 
 
@@ -40,8 +40,8 @@ public class AssistantsKnowledgeDeleter extends Deleter<AssistantsKnowledge> {
 
         String path = "/v1/Assistants/{assistantId}/Knowledge/{id}";
 
-        path = path.replace("{" + "assistantId" + "}", this.pathassistantId.toString());
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "assistantId" + "}", this.pathAssistantId.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

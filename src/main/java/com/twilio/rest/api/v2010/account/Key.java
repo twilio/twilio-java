@@ -38,30 +38,30 @@ import java.util.Objects;
 public class Key extends Resource {
 
 
-    public static KeyDeleter deleter(final String pathsid) {
+    public static KeyDeleter deleter(final String pathSid) {
         return new KeyDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static KeyDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static KeyDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new KeyDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static KeyFetcher fetcher(final String pathsid) {
+    public static KeyFetcher fetcher(final String pathSid) {
         return new KeyFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static KeyFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static KeyFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new KeyFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -73,23 +73,23 @@ public class Key extends Resource {
     }
 
 
-    public static KeyReader reader(final String pathaccountSid) {
+    public static KeyReader reader(final String pathAccountSid) {
         return new KeyReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static KeyUpdater updater(final String pathsid) {
+    public static KeyUpdater updater(final String pathSid) {
         return new KeyUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static KeyUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static KeyUpdater updater(final String pathAccountSid, final String pathSid) {
         return new KeyUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

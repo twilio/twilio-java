@@ -48,9 +48,9 @@ public class Fleet extends Resource {
     }
 
 
-    public static FleetFetcher fetcher(final String pathsid) {
+    public static FleetFetcher fetcher(final String pathSid) {
         return new FleetFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -62,9 +62,9 @@ public class Fleet extends Resource {
     }
 
 
-    public static FleetUpdater updater(final String pathsid) {
+    public static FleetUpdater updater(final String pathSid) {
         return new FleetUpdater(
-                pathsid
+                pathSid
         );
     }
 

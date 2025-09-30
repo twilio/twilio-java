@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class PrebuiltOperatorFetcher extends Fetcher<PrebuiltOperator> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public PrebuiltOperatorFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public PrebuiltOperatorFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class PrebuiltOperatorFetcher extends Fetcher<PrebuiltOperator> {
 
         String path = "/v2/Operators/PreBuilt/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

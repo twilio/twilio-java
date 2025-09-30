@@ -38,16 +38,16 @@ import java.util.Objects;
 public class Configuration extends Resource {
 
 
-    public static ConfigurationFetcher fetcher(final String pathchatServiceSid) {
+    public static ConfigurationFetcher fetcher(final String pathChatServiceSid) {
         return new ConfigurationFetcher(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static ConfigurationUpdater updater(final String pathchatServiceSid) {
+    public static ConfigurationUpdater updater(final String pathChatServiceSid) {
         return new ConfigurationUpdater(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 

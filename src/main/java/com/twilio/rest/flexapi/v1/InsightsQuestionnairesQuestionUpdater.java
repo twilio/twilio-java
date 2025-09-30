@@ -28,7 +28,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuestionnairesQuestion> {
-    private String pathquestionSid;
+    private String pathQuestionSid;
     private String authorization;
     private Boolean allowNa;
     private String categorySid;
@@ -36,8 +36,8 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
     private String description;
     private String answerSetId;
 
-    public InsightsQuestionnairesQuestionUpdater(final String pathquestionSid, final Boolean allowNa) {
-        this.pathquestionSid = pathquestionSid;
+    public InsightsQuestionnairesQuestionUpdater(final String pathQuestionSid, final Boolean allowNa) {
+        this.pathQuestionSid = pathQuestionSid;
         this.allowNa = allowNa;
     }
 
@@ -83,7 +83,7 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
 
         String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path = path.replace("{" + "QuestionSid" + "}", this.pathquestionSid.toString());
+        path = path.replace("{" + "QuestionSid" + "}", this.pathQuestionSid.toString());
 
 
         Request request = new Request(

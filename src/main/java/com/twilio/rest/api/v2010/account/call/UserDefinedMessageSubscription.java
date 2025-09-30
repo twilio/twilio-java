@@ -39,30 +39,30 @@ import java.util.Objects;
 public class UserDefinedMessageSubscription extends Resource {
 
 
-    public static UserDefinedMessageSubscriptionCreator creator(final String pathcallSid, final URI callback) {
+    public static UserDefinedMessageSubscriptionCreator creator(final String pathCallSid, final URI callback) {
         return new UserDefinedMessageSubscriptionCreator(
-                pathcallSid, callback
+                pathCallSid, callback
         );
     }
 
 
-    public static UserDefinedMessageSubscriptionCreator creator(final String pathaccountSid, final String pathcallSid, final URI callback) {
+    public static UserDefinedMessageSubscriptionCreator creator(final String pathAccountSid, final String pathCallSid, final URI callback) {
         return new UserDefinedMessageSubscriptionCreator(
-                pathaccountSid, pathcallSid, callback
+                pathAccountSid, pathCallSid, callback
         );
     }
 
 
-    public static UserDefinedMessageSubscriptionDeleter deleter(final String pathcallSid, final String pathsid) {
+    public static UserDefinedMessageSubscriptionDeleter deleter(final String pathCallSid, final String pathSid) {
         return new UserDefinedMessageSubscriptionDeleter(
-                pathcallSid, pathsid
+                pathCallSid, pathSid
         );
     }
 
 
-    public static UserDefinedMessageSubscriptionDeleter deleter(final String pathaccountSid, final String pathcallSid, final String pathsid) {
+    public static UserDefinedMessageSubscriptionDeleter deleter(final String pathAccountSid, final String pathCallSid, final String pathSid) {
         return new UserDefinedMessageSubscriptionDeleter(
-                pathaccountSid, pathcallSid, pathsid
+                pathAccountSid, pathCallSid, pathSid
         );
     }
 

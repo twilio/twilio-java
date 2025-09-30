@@ -40,37 +40,37 @@ import java.util.Objects;
 public class SyncStream extends Resource {
 
 
-    public static SyncStreamCreator creator(final String pathserviceSid) {
+    public static SyncStreamCreator creator(final String pathServiceSid) {
         return new SyncStreamCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncStreamDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SyncStreamDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SyncStreamDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncStreamFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SyncStreamFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SyncStreamFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncStreamReader reader(final String pathserviceSid) {
+    public static SyncStreamReader reader(final String pathServiceSid) {
         return new SyncStreamReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncStreamUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SyncStreamUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SyncStreamUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

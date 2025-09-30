@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class FeedbackCreator extends Creator<Feedback> {
 
-    private String pathid;
+    private String pathId;
     private Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest;
 
-    public FeedbackCreator(final String pathid, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
-        this.pathid = pathid;
+    public FeedbackCreator(final String pathId, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
+        this.pathId = pathId;
         this.assistantsV1ServiceCreateFeedbackRequest = assistantsV1ServiceCreateFeedbackRequest;
     }
 
@@ -48,7 +48,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
         String path = "/v1/Assistants/{id}/Feedbacks";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

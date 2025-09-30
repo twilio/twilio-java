@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account.call;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -33,8 +34,8 @@ import java.net.URI;
 
 public class PaymentCreator extends Creator<Payment> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private String idempotencyKey;
     private URI statusCallback;
     private Payment.BankAccountType bankAccountType;
@@ -52,15 +53,15 @@ public class PaymentCreator extends Creator<Payment> {
     private Payment.TokenType tokenType;
     private String validCardTypes;
 
-    public PaymentCreator(final String pathcallSid, final String idempotencyKey, final URI statusCallback) {
-        this.pathcallSid = pathcallSid;
+    public PaymentCreator(final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+        this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-    public PaymentCreator(final String pathaccountSid, final String pathcallSid, final String idempotencyKey, final URI statusCallback) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public PaymentCreator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
@@ -77,6 +78,9 @@ public class PaymentCreator extends Creator<Payment> {
         return this;
     }
 
+    public PaymentCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public PaymentCreator setBankAccountType(final Payment.BankAccountType bankAccountType) {
         this.bankAccountType = bankAccountType;
@@ -167,9 +171,9 @@ public class PaymentCreator extends Creator<Payment> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

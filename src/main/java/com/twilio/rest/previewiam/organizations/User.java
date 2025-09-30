@@ -23,11 +23,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -41,118 +41,218 @@ import java.util.Objects;
 public class User extends Resource {
 
 
-    public static UserCreator creator(final String pathorganizationSid, final User.ScimUser scimUser) {
+    public static UserCreator creator(final String pathOrganizationSid, final User.ScimUser scimUser) {
         return new UserCreator(
-                pathorganizationSid, scimUser
+                pathOrganizationSid, scimUser
         );
     }
 
 
-    public static UserDeleter deleter(final String pathorganizationSid, final String pathuserSid) {
+    public static UserDeleter deleter(final String pathOrganizationSid, final String pathUserSid) {
         return new UserDeleter(
-                pathorganizationSid, pathuserSid
+                pathOrganizationSid, pathUserSid
         );
     }
 
 
-    public static UserFetcher fetcher(final String pathorganizationSid, final String pathuserSid) {
+    public static UserFetcher fetcher(final String pathOrganizationSid, final String pathUserSid) {
         return new UserFetcher(
-                pathorganizationSid, pathuserSid
+                pathOrganizationSid, pathUserSid
         );
     }
 
 
-    public static UserReader reader(final String pathorganizationSid) {
+    public static UserReader reader(final String pathOrganizationSid) {
         return new UserReader(
-                pathorganizationSid
+                pathOrganizationSid
         );
     }
 
 
-    public static UserUpdater updater(final String pathorganizationSid, final String pathuserSid, final User.ScimUser scimUser) {
+    public static UserUpdater updater(final String pathOrganizationSid, final String pathUserSid, final User.ScimUser scimUser) {
         return new UserUpdater(
-                pathorganizationSid, pathuserSid, scimUser
+                pathOrganizationSid, pathUserSid, scimUser
         );
     }
 
 
-    //@JsonDeserialize(builder = ScimUser.Builder.class)
+    @JsonDeserialize(builder = ScimUser.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimUser {
-        public ScimUser(final String userName) {
-            this.userName = userName;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("externalId")
         @Getter
-        @Setter
-        private String externalId;
+        private final String externalId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("userName")
         @Getter
-        @Setter
-        private String userName;
+        private final String userName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("displayName")
         @Getter
-        @Setter
-        private String displayName;
+        private final String displayName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private ScimName name;
+        private final ScimName name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("emails")
         @Getter
-        @Setter
-        private List<ScimEmailAddress> emails;
+        private final List<ScimEmailAddress> emails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("active")
         @Getter
-        @Setter
-        private Boolean active;
+        private final Boolean active;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("locale")
         @Getter
-        @Setter
-        private String locale;
+        private final String locale;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("timezone")
         @Getter
-        @Setter
-        private String timezone;
+        private final String timezone;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("schemas")
         @Getter
-        @Setter
-        private List<String> schemas;
+        private final List<String> schemas;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("meta")
         @Getter
-        @Setter
-        private ScimMeta meta;
+        private final ScimMeta meta;
+
+
+        private ScimUser(Builder builder) {
+            this.id = builder.id;
+            this.externalId = builder.externalId;
+            this.userName = builder.userName;
+            this.displayName = builder.displayName;
+            this.name = builder.name;
+            this.emails = builder.emails;
+            this.active = builder.active;
+            this.locale = builder.locale;
+            this.timezone = builder.timezone;
+            this.schemas = builder.schemas;
+            this.meta = builder.meta;
+        }
+
+        public static Builder builder(final String userName) {
+            return new Builder(userName);
+        }
+
+        public static ScimUser fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ScimUser.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("externalId")
+            private String externalId;
+
+            @JsonProperty("userName")
+            private String userName;
+
+            @JsonProperty("displayName")
+            private String displayName;
+
+            @JsonProperty("name")
+            private ScimName name;
+
+            @JsonProperty("emails")
+            private List<ScimEmailAddress> emails;
+
+            @JsonProperty("active")
+            private Boolean active;
+
+            @JsonProperty("locale")
+            private String locale;
+
+            @JsonProperty("timezone")
+            private String timezone;
+
+            @JsonProperty("schemas")
+            private List<String> schemas;
+
+            @JsonProperty("meta")
+            private ScimMeta meta;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("userName") final String userName) {
+                this.userName = userName;
+            }
+
+
+            public ScimUser build() {
+                return new ScimUser(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ScimUser other = (ScimUser) o;
+            return (
+                    Objects.equals(id, other.id) &&
+                            Objects.equals(externalId, other.externalId) &&
+                            Objects.equals(userName, other.userName) &&
+                            Objects.equals(displayName, other.displayName) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(emails, other.emails) &&
+                            Objects.equals(active, other.active) &&
+                            Objects.equals(locale, other.locale) &&
+                            Objects.equals(timezone, other.timezone) &&
+                            Objects.equals(schemas, other.schemas) &&
+                            Objects.equals(meta, other.meta)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    id,
+                    externalId,
+                    userName,
+                    displayName,
+                    name,
+                    emails,
+                    active,
+                    locale,
+                    timezone,
+                    schemas,
+                    meta
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = ScimEmailAddress.Builder.class)
+
+    @JsonDeserialize(builder = ScimEmailAddress.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimEmailAddress {
@@ -160,24 +260,102 @@ public class User extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("primary")
         @Getter
-        @Setter
-        private Boolean primary;
+        private final Boolean primary;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("value")
         @Getter
-        @Setter
-        private String value;
+        private final String value;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private String type;
+        private final String type;
+
+
+        private ScimEmailAddress(Builder builder) {
+            this.primary = builder.primary;
+            this.value = builder.value;
+            this.type = builder.type;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ScimEmailAddress fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ScimEmailAddress.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("primary")
+            private Boolean primary;
+
+            @JsonProperty("value")
+            private String value;
+
+            @JsonProperty("type")
+            private String type;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("primary")
+            public Builder primary(Boolean primary) {
+                this.primary = primary;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("value")
+            public Builder value(String value) {
+                this.value = value;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(String type) {
+                this.type = type;
+                return this;
+            }
+
+            public ScimEmailAddress build() {
+                return new ScimEmailAddress(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ScimEmailAddress other = (ScimEmailAddress) o;
+            return (
+                    Objects.equals(primary, other.primary) &&
+                            Objects.equals(value, other.value) &&
+                            Objects.equals(type, other.type)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    primary,
+                    value,
+                    type
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = ScimMeta.Builder.class)
+
+    @JsonDeserialize(builder = ScimMeta.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimMeta {
@@ -185,32 +363,126 @@ public class User extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("resourceType")
         @Getter
-        @Setter
-        private String resourceType;
+        private final String resourceType;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("created")
         @Getter
-        @Setter
-        private ZonedDateTime created;
+        private final ZonedDateTime created;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("lastModified")
         @Getter
-        @Setter
-        private ZonedDateTime lastModified;
+        private final ZonedDateTime lastModified;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("version")
         @Getter
-        @Setter
-        private String version;
+        private final String version;
+
+
+        private ScimMeta(Builder builder) {
+            this.resourceType = builder.resourceType;
+            this.created = builder.created;
+            this.lastModified = builder.lastModified;
+            this.version = builder.version;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ScimMeta fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ScimMeta.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("resourceType")
+            private String resourceType;
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonProperty("created")
+            private ZonedDateTime created;
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonProperty("lastModified")
+            private ZonedDateTime lastModified;
+
+            @JsonProperty("version")
+            private String version;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("resourceType")
+            public Builder resourceType(String resourceType) {
+                this.resourceType = resourceType;
+                return this;
+            }
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("created")
+            public Builder created(ZonedDateTime created) {
+                this.created = created;
+                return this;
+            }
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("lastModified")
+            public Builder lastModified(ZonedDateTime lastModified) {
+                this.lastModified = lastModified;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("version")
+            public Builder version(String version) {
+                this.version = version;
+                return this;
+            }
+
+            public ScimMeta build() {
+                return new ScimMeta(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ScimMeta other = (ScimMeta) o;
+            return (
+                    Objects.equals(resourceType, other.resourceType) &&
+                            Objects.equals(created, other.created) &&
+                            Objects.equals(lastModified, other.lastModified) &&
+                            Objects.equals(version, other.version)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    resourceType,
+                    created,
+                    lastModified,
+                    version
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = ScimName.Builder.class)
+
+    @JsonDeserialize(builder = ScimName.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class ScimName {
@@ -218,16 +490,82 @@ public class User extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("givenName")
         @Getter
-        @Setter
-        private String givenName;
+        private final String givenName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("familyName")
         @Getter
-        @Setter
-        private String familyName;
+        private final String familyName;
+
+
+        private ScimName(Builder builder) {
+            this.givenName = builder.givenName;
+            this.familyName = builder.familyName;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static ScimName fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, ScimName.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("givenName")
+            private String givenName;
+
+            @JsonProperty("familyName")
+            private String familyName;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("givenName")
+            public Builder givenName(String givenName) {
+                this.givenName = givenName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("familyName")
+            public Builder familyName(String familyName) {
+                this.familyName = familyName;
+                return this;
+            }
+
+            public ScimName build() {
+                return new ScimName(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            ScimName other = (ScimName) o;
+            return (
+                    Objects.equals(givenName, other.givenName) &&
+                            Objects.equals(familyName, other.familyName)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    givenName,
+                    familyName
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a User object using the provided ObjectMapper.

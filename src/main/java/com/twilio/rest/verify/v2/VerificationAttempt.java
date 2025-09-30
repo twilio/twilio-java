@@ -40,9 +40,9 @@ import java.util.Objects;
 public class VerificationAttempt extends Resource {
 
 
-    public static VerificationAttemptFetcher fetcher(final String pathsid) {
+    public static VerificationAttemptFetcher fetcher(final String pathSid) {
         return new VerificationAttemptFetcher(
-                pathsid
+                pathSid
         );
     }
 

@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class FeedbackReader extends Reader<Feedback> {
 
-    private String pathid;
+    private String pathId;
     private Integer pageSize;
 
-    public FeedbackReader(final String pathid) {
-        this.pathid = pathid;
+    public FeedbackReader(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -53,7 +53,7 @@ public class FeedbackReader extends Reader<Feedback> {
 
         String path = "/v1/Assistants/{id}/Feedbacks";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

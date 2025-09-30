@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class WorkerChannelReader extends Reader<WorkerChannel> {
 
-    private String pathworkspaceSid;
-    private String pathworkerSid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
     private Long pageSize;
 
-    public WorkerChannelReader(final String pathworkspaceSid, final String pathworkerSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkerSid = pathworkerSid;
+    public WorkerChannelReader(final String pathWorkspaceSid, final String pathWorkerSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
     }
 
 
@@ -55,8 +55,8 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkerSid" + "}", this.pathworkerSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkerSid" + "}", this.pathWorkerSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

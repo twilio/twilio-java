@@ -30,17 +30,17 @@ import java.time.ZonedDateTime;
 
 public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumulativeStatistics> {
 
-    private String pathworkspaceSid;
-    private String pathtaskQueueSid;
+    private String pathWorkspaceSid;
+    private String pathTaskQueueSid;
     private ZonedDateTime endDate;
     private Integer minutes;
     private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public TaskQueueCumulativeStatisticsFetcher(final String pathworkspaceSid, final String pathtaskQueueSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathtaskQueueSid = pathtaskQueueSid;
+    public TaskQueueCumulativeStatisticsFetcher(final String pathWorkspaceSid, final String pathTaskQueueSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskQueueSid = pathTaskQueueSid;
     }
 
 
@@ -79,8 +79,8 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "TaskQueueSid" + "}", this.pathtaskQueueSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "TaskQueueSid" + "}", this.pathTaskQueueSid.toString());
 
 
         Request request = new Request(

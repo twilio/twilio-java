@@ -31,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private Boolean autoCreationEnabled;
     private AddressConfiguration.AutoCreationType autoCreationType;
@@ -42,8 +42,8 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
     private String autoCreationStudioFlowSid;
     private Integer autoCreationStudioRetryCount;
 
-    public AddressConfigurationUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public AddressConfigurationUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -109,7 +109,7 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
 
         String path = "/v1/Configuration/Addresses/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

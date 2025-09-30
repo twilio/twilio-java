@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
 
-    private String pathinstalledAddOnSid;
+    private String pathInstalledAddOnSid;
     private InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage;
 
-    public InstalledAddOnUsageCreator(final String pathinstalledAddOnSid, final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage) {
-        this.pathinstalledAddOnSid = pathinstalledAddOnSid;
+    public InstalledAddOnUsageCreator(final String pathInstalledAddOnSid, final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage) {
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
         this.marketplaceV1InstalledAddOnInstalledAddOnUsage = marketplaceV1InstalledAddOnInstalledAddOnUsage;
     }
 
@@ -48,7 +48,7 @@ public class InstalledAddOnUsageCreator extends Creator<InstalledAddOnUsage> {
 
         String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage";
 
-        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathinstalledAddOnSid.toString());
+        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathInstalledAddOnSid.toString());
 
 
         Request request = new Request(

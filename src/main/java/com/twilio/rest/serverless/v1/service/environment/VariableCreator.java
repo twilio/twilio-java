@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class VariableCreator extends Creator<Variable> {
 
-    private String pathserviceSid;
-    private String pathenvironmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private String key;
     private String value;
 
-    public VariableCreator(final String pathserviceSid, final String pathenvironmentSid, final String key, final String value) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathenvironmentSid = pathenvironmentSid;
+    public VariableCreator(final String pathServiceSid, final String pathEnvironmentSid, final String key, final String value) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
         this.key = key;
         this.value = value;
     }
@@ -60,8 +60,8 @@ public class VariableCreator extends Creator<Variable> {
 
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
 
 
         Request request = new Request(

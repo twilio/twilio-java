@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private String phoneNumberSid;
 
-    public PhoneNumberCreator(final String pathtrunkSid, final String phoneNumberSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public PhoneNumberCreator(final String pathTrunkSid, final String phoneNumberSid) {
+        this.pathTrunkSid = pathTrunkSid;
         this.phoneNumberSid = phoneNumberSid;
     }
 
@@ -50,7 +50,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
 
         Request request = new Request(

@@ -40,16 +40,16 @@ import java.util.Objects;
 public class Step extends Resource {
 
 
-    public static StepFetcher fetcher(final String pathflowSid, final String pathengagementSid, final String pathsid) {
+    public static StepFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid) {
         return new StepFetcher(
-                pathflowSid, pathengagementSid, pathsid
+                pathFlowSid, pathEngagementSid, pathSid
         );
     }
 
 
-    public static StepReader reader(final String pathflowSid, final String pathengagementSid) {
+    public static StepReader reader(final String pathFlowSid, final String pathEngagementSid) {
         return new StepReader(
-                pathflowSid, pathengagementSid
+                pathFlowSid, pathEngagementSid
         );
     }
 

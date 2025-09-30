@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Environment extends Resource {
 
 
-    public static EnvironmentCreator creator(final String pathserviceSid, final String uniqueName) {
+    public static EnvironmentCreator creator(final String pathServiceSid, final String uniqueName) {
         return new EnvironmentCreator(
-                pathserviceSid, uniqueName
+                pathServiceSid, uniqueName
         );
     }
 
 
-    public static EnvironmentDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static EnvironmentDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new EnvironmentDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static EnvironmentFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static EnvironmentFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new EnvironmentFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static EnvironmentReader reader(final String pathserviceSid) {
+    public static EnvironmentReader reader(final String pathServiceSid) {
         return new EnvironmentReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

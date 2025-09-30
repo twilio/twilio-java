@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class SentenceReader extends Reader<Sentence> {
 
-    private String pathtranscriptSid;
+    private String pathTranscriptSid;
     private Boolean redacted;
     private Boolean wordTimestamps;
     private Long pageSize;
 
-    public SentenceReader(final String pathtranscriptSid) {
-        this.pathtranscriptSid = pathtranscriptSid;
+    public SentenceReader(final String pathTranscriptSid) {
+        this.pathTranscriptSid = pathTranscriptSid;
     }
 
 
@@ -67,7 +67,7 @@ public class SentenceReader extends Reader<Sentence> {
 
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences";
 
-        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathTranscriptSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

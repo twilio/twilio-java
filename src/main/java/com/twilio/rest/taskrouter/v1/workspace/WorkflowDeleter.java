@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class WorkflowDeleter extends Deleter<Workflow> {
 
-    private String pathworkspaceSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathSid;
 
-    public WorkflowDeleter(final String pathworkspaceSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathsid = pathsid;
+    public WorkflowDeleter(final String pathWorkspaceSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class WorkflowDeleter extends Deleter<Workflow> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

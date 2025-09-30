@@ -52,9 +52,9 @@ public class Assessments extends Resource {
     }
 
 
-    public static AssessmentsUpdater updater(final String pathassessmentSid, final BigDecimal offset, final String answerText, final String answerId) {
+    public static AssessmentsUpdater updater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId) {
         return new AssessmentsUpdater(
-                pathassessmentSid, offset, answerText, answerId
+                pathAssessmentSid, offset, answerText, answerId
         );
     }
 

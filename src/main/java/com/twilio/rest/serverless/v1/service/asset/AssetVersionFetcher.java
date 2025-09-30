@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class AssetVersionFetcher extends Fetcher<AssetVersion> {
 
-    private String pathserviceSid;
-    private String pathassetSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathAssetSid;
+    private String pathSid;
 
-    public AssetVersionFetcher(final String pathserviceSid, final String pathassetSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathassetSid = pathassetSid;
-        this.pathsid = pathsid;
+    public AssetVersionFetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathAssetSid = pathAssetSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
 
         String path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "AssetSid" + "}", this.pathassetSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "AssetSid" + "}", this.pathAssetSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

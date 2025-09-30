@@ -33,7 +33,7 @@ import java.util.List;
 
 public class TaskReader extends Reader<Task> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private Integer priority;
     private List<String> assignmentStatus;
     private String workflowSid;
@@ -46,8 +46,8 @@ public class TaskReader extends Reader<Task> {
     private Boolean hasAddons;
     private Long pageSize;
 
-    public TaskReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -129,7 +129,7 @@ public class TaskReader extends Reader<Task> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

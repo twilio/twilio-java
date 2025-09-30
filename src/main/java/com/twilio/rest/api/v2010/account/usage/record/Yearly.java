@@ -48,9 +48,9 @@ public class Yearly extends Resource {
     }
 
 
-    public static YearlyReader reader(final String pathaccountSid) {
+    public static YearlyReader reader(final String pathAccountSid) {
         return new YearlyReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

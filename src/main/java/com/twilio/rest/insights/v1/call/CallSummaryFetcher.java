@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
-    private String pathcallSid;
+    private String pathCallSid;
     private CallSummary.ProcessingState processingState;
 
-    public CallSummaryFetcher(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public CallSummaryFetcher(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -47,7 +47,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
         String path = "/v1/Voice/{CallSid}/Summary";
 
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

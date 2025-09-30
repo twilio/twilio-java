@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account.call;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,25 +31,25 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class PaymentUpdater extends Updater<Payment> {
-    private String pathaccountSid;
-    private String pathcallSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathCallSid;
+    private String pathSid;
     private String idempotencyKey;
     private URI statusCallback;
     private Payment.Capture capture;
     private Payment.Status status;
 
-    public PaymentUpdater(final String pathcallSid, final String pathsid, final String idempotencyKey, final URI statusCallback) {
-        this.pathcallSid = pathcallSid;
-        this.pathsid = pathsid;
+    public PaymentUpdater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-    public PaymentUpdater(final String pathaccountSid, final String pathcallSid, final String pathsid, final String idempotencyKey, final URI statusCallback) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
-        this.pathsid = pathsid;
+    public PaymentUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
@@ -65,6 +66,9 @@ public class PaymentUpdater extends Updater<Payment> {
         return this;
     }
 
+    public PaymentUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public PaymentUpdater setCapture(final Payment.Capture capture) {
         this.capture = capture;
@@ -83,10 +87,10 @@ public class PaymentUpdater extends Updater<Payment> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

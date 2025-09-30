@@ -45,37 +45,37 @@ public class Address extends Resource {
     }
 
 
-    public static AddressCreator creator(final String pathaccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+    public static AddressCreator creator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         return new AddressCreator(
-                pathaccountSid, customerName, street, city, region, postalCode, isoCountry
+                pathAccountSid, customerName, street, city, region, postalCode, isoCountry
         );
     }
 
 
-    public static AddressDeleter deleter(final String pathsid) {
+    public static AddressDeleter deleter(final String pathSid) {
         return new AddressDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static AddressDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new AddressDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static AddressFetcher fetcher(final String pathsid) {
+    public static AddressFetcher fetcher(final String pathSid) {
         return new AddressFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static AddressFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new AddressFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -87,23 +87,23 @@ public class Address extends Resource {
     }
 
 
-    public static AddressReader reader(final String pathaccountSid) {
+    public static AddressReader reader(final String pathAccountSid) {
         return new AddressReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static AddressUpdater updater(final String pathsid) {
+    public static AddressUpdater updater(final String pathSid) {
         return new AddressUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static AddressUpdater updater(final String pathAccountSid, final String pathSid) {
         return new AddressUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

@@ -39,37 +39,37 @@ import java.util.Objects;
 public class Variable extends Resource {
 
 
-    public static VariableCreator creator(final String pathserviceSid, final String pathenvironmentSid, final String key, final String value) {
+    public static VariableCreator creator(final String pathServiceSid, final String pathEnvironmentSid, final String key, final String value) {
         return new VariableCreator(
-                pathserviceSid, pathenvironmentSid, key, value
+                pathServiceSid, pathEnvironmentSid, key, value
         );
     }
 
 
-    public static VariableDeleter deleter(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+    public static VariableDeleter deleter(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
         return new VariableDeleter(
-                pathserviceSid, pathenvironmentSid, pathsid
+                pathServiceSid, pathEnvironmentSid, pathSid
         );
     }
 
 
-    public static VariableFetcher fetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+    public static VariableFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
         return new VariableFetcher(
-                pathserviceSid, pathenvironmentSid, pathsid
+                pathServiceSid, pathEnvironmentSid, pathSid
         );
     }
 
 
-    public static VariableReader reader(final String pathserviceSid, final String pathenvironmentSid) {
+    public static VariableReader reader(final String pathServiceSid, final String pathEnvironmentSid) {
         return new VariableReader(
-                pathserviceSid, pathenvironmentSid
+                pathServiceSid, pathEnvironmentSid
         );
     }
 
 
-    public static VariableUpdater updater(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+    public static VariableUpdater updater(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
         return new VariableUpdater(
-                pathserviceSid, pathenvironmentSid, pathsid
+                pathServiceSid, pathEnvironmentSid, pathSid
         );
     }
 

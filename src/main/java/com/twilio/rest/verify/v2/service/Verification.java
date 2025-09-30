@@ -41,23 +41,23 @@ import java.util.Objects;
 public class Verification extends Resource {
 
 
-    public static VerificationCreator creator(final String pathserviceSid, final String to, final String channel) {
+    public static VerificationCreator creator(final String pathServiceSid, final String to, final String channel) {
         return new VerificationCreator(
-                pathserviceSid, to, channel
+                pathServiceSid, to, channel
         );
     }
 
 
-    public static VerificationFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static VerificationFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new VerificationFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static VerificationUpdater updater(final String pathserviceSid, final String pathsid, final Verification.Status status) {
+    public static VerificationUpdater updater(final String pathServiceSid, final String pathSid, final Verification.Status status) {
         return new VerificationUpdater(
-                pathserviceSid, pathsid, status
+                pathServiceSid, pathSid, status
         );
     }
 

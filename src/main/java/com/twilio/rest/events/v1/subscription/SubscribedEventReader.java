@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
-    private String pathsubscriptionSid;
+    private String pathSubscriptionSid;
     private Long pageSize;
 
-    public SubscribedEventReader(final String pathsubscriptionSid) {
-        this.pathsubscriptionSid = pathsubscriptionSid;
+    public SubscribedEventReader(final String pathSubscriptionSid) {
+        this.pathSubscriptionSid = pathSubscriptionSid;
     }
 
 
@@ -53,7 +53,7 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path = path.replace("{" + "SubscriptionSid" + "}", this.pathsubscriptionSid.toString());
+        path = path.replace("{" + "SubscriptionSid" + "}", this.pathSubscriptionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

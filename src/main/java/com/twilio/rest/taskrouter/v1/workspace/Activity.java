@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Activity extends Resource {
 
 
-    public static ActivityCreator creator(final String pathworkspaceSid, final String friendlyName) {
+    public static ActivityCreator creator(final String pathWorkspaceSid, final String friendlyName) {
         return new ActivityCreator(
-                pathworkspaceSid, friendlyName
+                pathWorkspaceSid, friendlyName
         );
     }
 
 
-    public static ActivityDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static ActivityDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new ActivityDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static ActivityFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static ActivityFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new ActivityFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static ActivityReader reader(final String pathworkspaceSid) {
+    public static ActivityReader reader(final String pathWorkspaceSid) {
         return new ActivityReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static ActivityUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static ActivityUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new ActivityUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

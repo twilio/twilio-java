@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class CustomerProfilesChannelEndpointAssignmentReader extends Reader<CustomerProfilesChannelEndpointAssignment> {
 
-    private String pathcustomerProfileSid;
+    private String pathCustomerProfileSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
     private Long pageSize;
 
-    public CustomerProfilesChannelEndpointAssignmentReader(final String pathcustomerProfileSid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
+    public CustomerProfilesChannelEndpointAssignmentReader(final String pathCustomerProfileSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
 
@@ -67,7 +67,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader extends Reader<Cust
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

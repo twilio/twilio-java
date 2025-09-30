@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Feedback extends Resource {
 
 
-    public static FeedbackCreator creator(final String pathmessageSid) {
+    public static FeedbackCreator creator(final String pathMessageSid) {
         return new FeedbackCreator(
-                pathmessageSid
+                pathMessageSid
         );
     }
 
 
-    public static FeedbackCreator creator(final String pathaccountSid, final String pathmessageSid) {
+    public static FeedbackCreator creator(final String pathAccountSid, final String pathMessageSid) {
         return new FeedbackCreator(
-                pathaccountSid, pathmessageSid
+                pathAccountSid, pathMessageSid
         );
     }
 

@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account.call;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -32,8 +33,8 @@ import java.net.URI;
 
 public class StreamCreator extends Creator<Stream> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private URI url;
     private String name;
     private Stream.Track track;
@@ -238,14 +239,14 @@ public class StreamCreator extends Creator<Stream> {
     private String parameter99Name;
     private String parameter99Value;
 
-    public StreamCreator(final String pathcallSid, final URI url) {
-        this.pathcallSid = pathcallSid;
+    public StreamCreator(final String pathCallSid, final URI url) {
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
 
-    public StreamCreator(final String pathaccountSid, final String pathcallSid, final URI url) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public StreamCreator(final String pathAccountSid, final String pathCallSid, final URI url) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
 
@@ -255,6 +256,9 @@ public class StreamCreator extends Creator<Stream> {
         return this;
     }
 
+    public StreamCreator setUrl(final String url) {
+        return setUrl(Promoter.uriFromString(url));
+    }
 
     public StreamCreator setName(final String name) {
         this.name = name;
@@ -273,6 +277,9 @@ public class StreamCreator extends Creator<Stream> {
         return this;
     }
 
+    public StreamCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public StreamCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -1473,9 +1480,9 @@ public class StreamCreator extends Creator<Stream> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

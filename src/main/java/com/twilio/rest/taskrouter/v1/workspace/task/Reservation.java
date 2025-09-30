@@ -41,23 +41,23 @@ import java.util.Objects;
 public class Reservation extends Resource {
 
 
-    public static ReservationFetcher fetcher(final String pathworkspaceSid, final String pathtaskSid, final String pathsid) {
+    public static ReservationFetcher fetcher(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid) {
         return new ReservationFetcher(
-                pathworkspaceSid, pathtaskSid, pathsid
+                pathWorkspaceSid, pathTaskSid, pathSid
         );
     }
 
 
-    public static ReservationReader reader(final String pathworkspaceSid, final String pathtaskSid) {
+    public static ReservationReader reader(final String pathWorkspaceSid, final String pathTaskSid) {
         return new ReservationReader(
-                pathworkspaceSid, pathtaskSid
+                pathWorkspaceSid, pathTaskSid
         );
     }
 
 
-    public static ReservationUpdater updater(final String pathworkspaceSid, final String pathtaskSid, final String pathsid) {
+    public static ReservationUpdater updater(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid) {
         return new ReservationUpdater(
-                pathworkspaceSid, pathtaskSid, pathsid
+                pathWorkspaceSid, pathTaskSid, pathSid
         );
     }
 

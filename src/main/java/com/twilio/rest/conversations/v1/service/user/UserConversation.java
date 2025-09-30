@@ -41,30 +41,30 @@ import java.util.Objects;
 public class UserConversation extends Resource {
 
 
-    public static UserConversationDeleter deleter(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationDeleter deleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         return new UserConversationDeleter(
-                pathchatServiceSid, pathuserSid, pathconversationSid
+                pathChatServiceSid, pathUserSid, pathConversationSid
         );
     }
 
 
-    public static UserConversationFetcher fetcher(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationFetcher fetcher(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         return new UserConversationFetcher(
-                pathchatServiceSid, pathuserSid, pathconversationSid
+                pathChatServiceSid, pathUserSid, pathConversationSid
         );
     }
 
 
-    public static UserConversationReader reader(final String pathchatServiceSid, final String pathuserSid) {
+    public static UserConversationReader reader(final String pathChatServiceSid, final String pathUserSid) {
         return new UserConversationReader(
-                pathchatServiceSid, pathuserSid
+                pathChatServiceSid, pathUserSid
         );
     }
 
 
-    public static UserConversationUpdater updater(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationUpdater updater(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         return new UserConversationUpdater(
-                pathchatServiceSid, pathuserSid, pathconversationSid
+                pathChatServiceSid, pathUserSid, pathConversationSid
         );
     }
 

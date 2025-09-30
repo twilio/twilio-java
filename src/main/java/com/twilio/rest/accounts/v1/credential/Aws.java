@@ -46,16 +46,16 @@ public class Aws extends Resource {
     }
 
 
-    public static AwsDeleter deleter(final String pathsid) {
+    public static AwsDeleter deleter(final String pathSid) {
         return new AwsDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AwsFetcher fetcher(final String pathsid) {
+    public static AwsFetcher fetcher(final String pathSid) {
         return new AwsFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -67,9 +67,9 @@ public class Aws extends Resource {
     }
 
 
-    public static AwsUpdater updater(final String pathsid) {
+    public static AwsUpdater updater(final String pathSid) {
         return new AwsUpdater(
-                pathsid
+                pathSid
         );
     }
 

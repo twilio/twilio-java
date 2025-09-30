@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class TranscriptFetcher extends Fetcher<Transcript> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public TranscriptFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public TranscriptFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
 
         String path = "/v2/Transcripts/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -39,9 +39,9 @@ import java.util.Objects;
 public class BillingPeriod extends Resource {
 
 
-    public static BillingPeriodReader reader(final String pathsimSid) {
+    public static BillingPeriodReader reader(final String pathSimSid) {
         return new BillingPeriodReader(
-                pathsimSid
+                pathSimSid
         );
     }
 

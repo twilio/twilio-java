@@ -40,16 +40,16 @@ import java.util.Objects;
 public class ExecutionStep extends Resource {
 
 
-    public static ExecutionStepFetcher fetcher(final String pathflowSid, final String pathexecutionSid, final String pathsid) {
+    public static ExecutionStepFetcher fetcher(final String pathFlowSid, final String pathExecutionSid, final String pathSid) {
         return new ExecutionStepFetcher(
-                pathflowSid, pathexecutionSid, pathsid
+                pathFlowSid, pathExecutionSid, pathSid
         );
     }
 
 
-    public static ExecutionStepReader reader(final String pathflowSid, final String pathexecutionSid) {
+    public static ExecutionStepReader reader(final String pathFlowSid, final String pathExecutionSid) {
         return new ExecutionStepReader(
-                pathflowSid, pathexecutionSid
+                pathFlowSid, pathExecutionSid
         );
     }
 

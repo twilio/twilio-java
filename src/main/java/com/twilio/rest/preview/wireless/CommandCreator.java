@@ -18,6 +18,7 @@ package com.twilio.rest.preview.wireless;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -74,6 +75,9 @@ public class CommandCreator extends Creator<Command> {
         return this;
     }
 
+    public CommandCreator setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public CommandCreator setCommandMode(final String commandMode) {
         this.commandMode = commandMode;

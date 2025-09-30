@@ -40,58 +40,58 @@ import java.util.Objects;
 public class Recording extends Resource {
 
 
-    public static RecordingDeleter deleter(final String pathconferenceSid, final String pathsid) {
+    public static RecordingDeleter deleter(final String pathConferenceSid, final String pathSid) {
         return new RecordingDeleter(
-                pathconferenceSid, pathsid
+                pathConferenceSid, pathSid
         );
     }
 
 
-    public static RecordingDeleter deleter(final String pathaccountSid, final String pathconferenceSid, final String pathsid) {
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid) {
         return new RecordingDeleter(
-                pathaccountSid, pathconferenceSid, pathsid
+                pathAccountSid, pathConferenceSid, pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathconferenceSid, final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathConferenceSid, final String pathSid) {
         return new RecordingFetcher(
-                pathconferenceSid, pathsid
+                pathConferenceSid, pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathaccountSid, final String pathconferenceSid, final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathSid) {
         return new RecordingFetcher(
-                pathaccountSid, pathconferenceSid, pathsid
+                pathAccountSid, pathConferenceSid, pathSid
         );
     }
 
 
-    public static RecordingReader reader(final String pathconferenceSid) {
+    public static RecordingReader reader(final String pathConferenceSid) {
         return new RecordingReader(
-                pathconferenceSid
+                pathConferenceSid
         );
     }
 
 
-    public static RecordingReader reader(final String pathaccountSid, final String pathconferenceSid) {
+    public static RecordingReader reader(final String pathAccountSid, final String pathConferenceSid) {
         return new RecordingReader(
-                pathaccountSid, pathconferenceSid
+                pathAccountSid, pathConferenceSid
         );
     }
 
 
-    public static RecordingUpdater updater(final String pathconferenceSid, final String pathsid, final Recording.Status status) {
+    public static RecordingUpdater updater(final String pathConferenceSid, final String pathSid, final Recording.Status status) {
         return new RecordingUpdater(
-                pathconferenceSid, pathsid, status
+                pathConferenceSid, pathSid, status
         );
     }
 
 
-    public static RecordingUpdater updater(final String pathaccountSid, final String pathconferenceSid, final String pathsid, final Recording.Status status) {
+    public static RecordingUpdater updater(final String pathAccountSid, final String pathConferenceSid, final String pathSid, final Recording.Status status) {
         return new RecordingUpdater(
-                pathaccountSid, pathconferenceSid, pathsid, status
+                pathAccountSid, pathConferenceSid, pathSid, status
         );
     }
 

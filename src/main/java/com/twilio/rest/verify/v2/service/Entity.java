@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Entity extends Resource {
 
 
-    public static EntityCreator creator(final String pathserviceSid, final String identity) {
+    public static EntityCreator creator(final String pathServiceSid, final String identity) {
         return new EntityCreator(
-                pathserviceSid, identity
+                pathServiceSid, identity
         );
     }
 
 
-    public static EntityDeleter deleter(final String pathserviceSid, final String pathidentity) {
+    public static EntityDeleter deleter(final String pathServiceSid, final String pathIdentity) {
         return new EntityDeleter(
-                pathserviceSid, pathidentity
+                pathServiceSid, pathIdentity
         );
     }
 
 
-    public static EntityFetcher fetcher(final String pathserviceSid, final String pathidentity) {
+    public static EntityFetcher fetcher(final String pathServiceSid, final String pathIdentity) {
         return new EntityFetcher(
-                pathserviceSid, pathidentity
+                pathServiceSid, pathIdentity
         );
     }
 
 
-    public static EntityReader reader(final String pathserviceSid) {
+    public static EntityReader reader(final String pathServiceSid) {
         return new EntityReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

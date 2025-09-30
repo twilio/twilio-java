@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
-    private String pathserviceSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSid;
 
-    public ShortCodeFetcher(final String pathserviceSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsid = pathsid;
+    public ShortCodeFetcher(final String pathServiceSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
         String path = "/v1/Services/{ServiceSid}/ShortCodes/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

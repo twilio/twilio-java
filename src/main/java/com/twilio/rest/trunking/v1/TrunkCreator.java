@@ -18,6 +18,7 @@ package com.twilio.rest.trunking.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -62,6 +63,9 @@ public class TrunkCreator extends Creator<Trunk> {
         return this;
     }
 
+    public TrunkCreator setDisasterRecoveryUrl(final String disasterRecoveryUrl) {
+        return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
+    }
 
     public TrunkCreator setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod) {
         this.disasterRecoveryMethod = disasterRecoveryMethod;

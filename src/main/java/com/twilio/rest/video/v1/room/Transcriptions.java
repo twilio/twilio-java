@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Transcriptions extends Resource {
 
 
-    public static TranscriptionsCreator creator(final String pathroomSid) {
+    public static TranscriptionsCreator creator(final String pathRoomSid) {
         return new TranscriptionsCreator(
-                pathroomSid
+                pathRoomSid
         );
     }
 
 
-    public static TranscriptionsFetcher fetcher(final String pathroomSid, final String pathttid) {
+    public static TranscriptionsFetcher fetcher(final String pathRoomSid, final String pathTtid) {
         return new TranscriptionsFetcher(
-                pathroomSid, pathttid
+                pathRoomSid, pathTtid
         );
     }
 
 
-    public static TranscriptionsReader reader(final String pathroomSid) {
+    public static TranscriptionsReader reader(final String pathRoomSid) {
         return new TranscriptionsReader(
-                pathroomSid
+                pathRoomSid
         );
     }
 
 
-    public static TranscriptionsUpdater updater(final String pathroomSid, final String pathttid) {
+    public static TranscriptionsUpdater updater(final String pathRoomSid, final String pathTtid) {
         return new TranscriptionsUpdater(
-                pathroomSid, pathttid
+                pathRoomSid, pathTtid
         );
     }
 

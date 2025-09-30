@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
-    private String pathaccountSid;
-    private String pathaddressSid;
+    private String pathAccountSid;
+    private String pathAddressSid;
     private Long pageSize;
 
-    public DependentPhoneNumberReader(final String pathaddressSid) {
-        this.pathaddressSid = pathaddressSid;
+    public DependentPhoneNumberReader(final String pathAddressSid) {
+        this.pathAddressSid = pathAddressSid;
     }
 
-    public DependentPhoneNumberReader(final String pathaccountSid, final String pathaddressSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathaddressSid = pathaddressSid;
+    public DependentPhoneNumberReader(final String pathAccountSid, final String pathAddressSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathAddressSid = pathAddressSid;
     }
 
 
@@ -59,9 +59,9 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "AddressSid" + "}", this.pathaddressSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "AddressSid" + "}", this.pathAddressSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

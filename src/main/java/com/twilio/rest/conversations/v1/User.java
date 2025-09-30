@@ -48,16 +48,16 @@ public class User extends Resource {
     }
 
 
-    public static UserDeleter deleter(final String pathsid) {
+    public static UserDeleter deleter(final String pathSid) {
         return new UserDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static UserFetcher fetcher(final String pathsid) {
+    public static UserFetcher fetcher(final String pathSid) {
         return new UserFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class User extends Resource {
     }
 
 
-    public static UserUpdater updater(final String pathsid) {
+    public static UserUpdater updater(final String pathSid) {
         return new UserUpdater(
-                pathsid
+                pathSid
         );
     }
 

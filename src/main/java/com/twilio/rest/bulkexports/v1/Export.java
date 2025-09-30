@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Export extends Resource {
 
 
-    public static ExportFetcher fetcher(final String pathresourceType) {
+    public static ExportFetcher fetcher(final String pathResourceType) {
         return new ExportFetcher(
-                pathresourceType
+                pathResourceType
         );
     }
 

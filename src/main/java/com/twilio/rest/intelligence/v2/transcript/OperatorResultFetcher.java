@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 public class OperatorResultFetcher extends Fetcher<OperatorResult> {
 
-    private String pathtranscriptSid;
-    private String pathoperatorSid;
+    private String pathTranscriptSid;
+    private String pathOperatorSid;
     private Boolean redacted;
 
-    public OperatorResultFetcher(final String pathtranscriptSid, final String pathoperatorSid) {
-        this.pathtranscriptSid = pathtranscriptSid;
-        this.pathoperatorSid = pathoperatorSid;
+    public OperatorResultFetcher(final String pathTranscriptSid, final String pathOperatorSid) {
+        this.pathTranscriptSid = pathTranscriptSid;
+        this.pathOperatorSid = pathOperatorSid;
     }
 
 
@@ -49,8 +49,8 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
 
         String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}";
 
-        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
-        path = path.replace("{" + "OperatorSid" + "}", this.pathoperatorSid.toString());
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathTranscriptSid.toString());
+        path = path.replace("{" + "OperatorSid" + "}", this.pathOperatorSid.toString());
 
 
         Request request = new Request(

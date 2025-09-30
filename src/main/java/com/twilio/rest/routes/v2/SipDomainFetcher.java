@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class SipDomainFetcher extends Fetcher<SipDomain> {
 
-    private String pathsipDomain;
+    private String pathSipDomain;
 
-    public SipDomainFetcher(final String pathsipDomain) {
-        this.pathsipDomain = pathsipDomain;
+    public SipDomainFetcher(final String pathSipDomain) {
+        this.pathSipDomain = pathSipDomain;
     }
 
 
@@ -38,7 +38,7 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
 
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path = path.replace("{" + "SipDomain" + "}", this.pathsipDomain.toString());
+        path = path.replace("{" + "SipDomain" + "}", this.pathSipDomain.toString());
 
 
         Request request = new Request(

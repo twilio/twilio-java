@@ -40,30 +40,30 @@ import java.util.Objects;
 public class ShortCode extends Resource {
 
 
-    public static ShortCodeCreator creator(final String pathserviceSid, final String shortCodeSid) {
+    public static ShortCodeCreator creator(final String pathServiceSid, final String shortCodeSid) {
         return new ShortCodeCreator(
-                pathserviceSid, shortCodeSid
+                pathServiceSid, shortCodeSid
         );
     }
 
 
-    public static ShortCodeDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static ShortCodeDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new ShortCodeDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static ShortCodeFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new ShortCodeFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static ShortCodeReader reader(final String pathserviceSid) {
+    public static ShortCodeReader reader(final String pathServiceSid) {
         return new ShortCodeReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

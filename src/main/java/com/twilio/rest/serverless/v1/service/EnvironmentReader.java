@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class EnvironmentReader extends Reader<Environment> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public EnvironmentReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public EnvironmentReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
         String path = "/v1/Services/{ServiceSid}/Environments";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

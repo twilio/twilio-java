@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class NetworkFetcher extends Fetcher<Network> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public NetworkFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public NetworkFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class NetworkFetcher extends Fetcher<Network> {
 
         String path = "/v1/Networks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

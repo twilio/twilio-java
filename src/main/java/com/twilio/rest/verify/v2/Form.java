@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Form extends Resource {
 
 
-    public static FormFetcher fetcher(final Form.FormTypes pathformType) {
+    public static FormFetcher fetcher(final Form.FormTypes pathFormType) {
         return new FormFetcher(
-                pathformType
+                pathFormType
         );
     }
 

@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class RoleReader extends Reader<Role> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
     private Long pageSize;
 
-    public RoleReader(final String pathchatServiceSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public RoleReader(final String pathChatServiceSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class RoleReader extends Reader<Role> {
 
         String path = "/v1/Services/{ChatServiceSid}/Roles";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

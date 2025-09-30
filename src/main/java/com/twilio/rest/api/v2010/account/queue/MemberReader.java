@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class MemberReader extends Reader<Member> {
 
-    private String pathaccountSid;
-    private String pathqueueSid;
+    private String pathAccountSid;
+    private String pathQueueSid;
     private Long pageSize;
 
-    public MemberReader(final String pathqueueSid) {
-        this.pathqueueSid = pathqueueSid;
+    public MemberReader(final String pathQueueSid) {
+        this.pathQueueSid = pathQueueSid;
     }
 
-    public MemberReader(final String pathaccountSid, final String pathqueueSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathqueueSid = pathqueueSid;
+    public MemberReader(final String pathAccountSid, final String pathQueueSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
     }
 
 
@@ -59,9 +59,9 @@ public class MemberReader extends Reader<Member> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "QueueSid" + "}", this.pathqueueSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

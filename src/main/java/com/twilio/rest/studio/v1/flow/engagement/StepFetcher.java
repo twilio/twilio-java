@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class StepFetcher extends Fetcher<Step> {
 
-    private String pathflowSid;
-    private String pathengagementSid;
-    private String pathsid;
+    private String pathFlowSid;
+    private String pathEngagementSid;
+    private String pathSid;
 
-    public StepFetcher(final String pathflowSid, final String pathengagementSid, final String pathsid) {
-        this.pathflowSid = pathflowSid;
-        this.pathengagementSid = pathengagementSid;
-        this.pathsid = pathsid;
+    public StepFetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathEngagementSid = pathEngagementSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class StepFetcher extends Fetcher<Step> {
 
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "EngagementSid" + "}", this.pathengagementSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "EngagementSid" + "}", this.pathEngagementSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -18,6 +18,7 @@ package com.twilio.rest.messaging.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -65,6 +66,9 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
+    public ServiceCreator setInboundRequestUrl(final String inboundRequestUrl) {
+        return setInboundRequestUrl(Promoter.uriFromString(inboundRequestUrl));
+    }
 
     public ServiceCreator setInboundMethod(final HttpMethod inboundMethod) {
         this.inboundMethod = inboundMethod;
@@ -77,6 +81,9 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
+    public ServiceCreator setFallbackUrl(final String fallbackUrl) {
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
+    }
 
     public ServiceCreator setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
@@ -89,6 +96,9 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
+    public ServiceCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public ServiceCreator setStickySender(final Boolean stickySender) {
         this.stickySender = stickySender;

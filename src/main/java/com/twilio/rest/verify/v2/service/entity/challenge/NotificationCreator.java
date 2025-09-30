@@ -30,15 +30,15 @@ import com.twilio.rest.Domains;
 
 public class NotificationCreator extends Creator<Notification> {
 
-    private String pathserviceSid;
-    private String pathidentity;
-    private String pathchallengeSid;
+    private String pathServiceSid;
+    private String pathIdentity;
+    private String pathChallengeSid;
     private Integer ttl;
 
-    public NotificationCreator(final String pathserviceSid, final String pathidentity, final String pathchallengeSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
-        this.pathchallengeSid = pathchallengeSid;
+    public NotificationCreator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
+        this.pathChallengeSid = pathChallengeSid;
     }
 
 
@@ -53,9 +53,9 @@ public class NotificationCreator extends Creator<Notification> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
-        path = path.replace("{" + "ChallengeSid" + "}", this.pathchallengeSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace("{" + "ChallengeSid" + "}", this.pathChallengeSid.toString());
 
 
         Request request = new Request(

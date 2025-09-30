@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTimeStatistics> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String taskChannel;
 
-    public WorkspaceRealTimeStatisticsFetcher(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkspaceRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -47,7 +47,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
         String path = "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

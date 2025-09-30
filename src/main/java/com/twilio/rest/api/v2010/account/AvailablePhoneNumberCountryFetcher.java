@@ -26,16 +26,16 @@ import com.twilio.rest.Domains;
 
 public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNumberCountry> {
 
-    private String pathaccountSid;
-    private String pathcountryCode;
+    private String pathAccountSid;
+    private String pathCountryCode;
 
-    public AvailablePhoneNumberCountryFetcher(final String pathcountryCode) {
-        this.pathcountryCode = pathcountryCode;
+    public AvailablePhoneNumberCountryFetcher(final String pathCountryCode) {
+        this.pathCountryCode = pathCountryCode;
     }
 
-    public AvailablePhoneNumberCountryFetcher(final String pathaccountSid, final String pathcountryCode) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcountryCode = pathcountryCode;
+    public AvailablePhoneNumberCountryFetcher(final String pathAccountSid, final String pathCountryCode) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
 
@@ -44,9 +44,9 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
 
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CountryCode" + "}", this.pathcountryCode.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CountryCode" + "}", this.pathCountryCode.toString());
 
 
         Request request = new Request(

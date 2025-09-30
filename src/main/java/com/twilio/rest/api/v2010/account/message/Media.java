@@ -38,44 +38,44 @@ import java.util.Objects;
 public class Media extends Resource {
 
 
-    public static MediaDeleter deleter(final String pathmessageSid, final String pathsid) {
+    public static MediaDeleter deleter(final String pathMessageSid, final String pathSid) {
         return new MediaDeleter(
-                pathmessageSid, pathsid
+                pathMessageSid, pathSid
         );
     }
 
 
-    public static MediaDeleter deleter(final String pathaccountSid, final String pathmessageSid, final String pathsid) {
+    public static MediaDeleter deleter(final String pathAccountSid, final String pathMessageSid, final String pathSid) {
         return new MediaDeleter(
-                pathaccountSid, pathmessageSid, pathsid
+                pathAccountSid, pathMessageSid, pathSid
         );
     }
 
 
-    public static MediaFetcher fetcher(final String pathmessageSid, final String pathsid) {
+    public static MediaFetcher fetcher(final String pathMessageSid, final String pathSid) {
         return new MediaFetcher(
-                pathmessageSid, pathsid
+                pathMessageSid, pathSid
         );
     }
 
 
-    public static MediaFetcher fetcher(final String pathaccountSid, final String pathmessageSid, final String pathsid) {
+    public static MediaFetcher fetcher(final String pathAccountSid, final String pathMessageSid, final String pathSid) {
         return new MediaFetcher(
-                pathaccountSid, pathmessageSid, pathsid
+                pathAccountSid, pathMessageSid, pathSid
         );
     }
 
 
-    public static MediaReader reader(final String pathmessageSid) {
+    public static MediaReader reader(final String pathMessageSid) {
         return new MediaReader(
-                pathmessageSid
+                pathMessageSid
         );
     }
 
 
-    public static MediaReader reader(final String pathaccountSid, final String pathmessageSid) {
+    public static MediaReader reader(final String pathAccountSid, final String pathMessageSid) {
         return new MediaReader(
-                pathaccountSid, pathmessageSid
+                pathAccountSid, pathMessageSid
         );
     }
 

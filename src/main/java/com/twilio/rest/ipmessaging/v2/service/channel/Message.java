@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Message extends Resource {
 
 
-    public static MessageCreator creator(final String pathserviceSid, final String pathchannelSid) {
+    public static MessageCreator creator(final String pathServiceSid, final String pathChannelSid) {
         return new MessageCreator(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 
 
-    public static MessageDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MessageDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MessageDeleter(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static MessageFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MessageFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MessageFetcher(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static MessageReader reader(final String pathserviceSid, final String pathchannelSid) {
+    public static MessageReader reader(final String pathServiceSid, final String pathChannelSid) {
         return new MessageReader(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 
 
-    public static MessageUpdater updater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MessageUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MessageUpdater(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 

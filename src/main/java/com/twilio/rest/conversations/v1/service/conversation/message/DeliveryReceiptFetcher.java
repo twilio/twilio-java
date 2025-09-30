@@ -26,16 +26,16 @@ import com.twilio.rest.Domains;
 
 public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
 
-    private String pathchatServiceSid;
-    private String pathconversationSid;
-    private String pathmessageSid;
-    private String pathsid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathMessageSid;
+    private String pathSid;
 
-    public DeliveryReceiptFetcher(final String pathchatServiceSid, final String pathconversationSid, final String pathmessageSid, final String pathsid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathconversationSid = pathconversationSid;
-        this.pathmessageSid = pathmessageSid;
-        this.pathsid = pathsid;
+    public DeliveryReceiptFetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid, final String pathSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -44,10 +44,10 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "MessageSid" + "}", this.pathmessageSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "MessageSid" + "}", this.pathMessageSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

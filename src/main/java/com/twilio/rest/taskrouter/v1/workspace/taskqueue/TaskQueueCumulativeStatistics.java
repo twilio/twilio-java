@@ -39,9 +39,9 @@ import java.util.Objects;
 public class TaskQueueCumulativeStatistics extends Resource {
 
 
-    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathworkspaceSid, final String pathtaskQueueSid) {
+    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid) {
         return new TaskQueueCumulativeStatisticsFetcher(
-                pathworkspaceSid, pathtaskQueueSid
+                pathWorkspaceSid, pathTaskQueueSid
         );
     }
 

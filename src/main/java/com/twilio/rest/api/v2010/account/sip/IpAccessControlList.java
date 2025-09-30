@@ -46,37 +46,37 @@ public class IpAccessControlList extends Resource {
     }
 
 
-    public static IpAccessControlListCreator creator(final String pathaccountSid, final String friendlyName) {
+    public static IpAccessControlListCreator creator(final String pathAccountSid, final String friendlyName) {
         return new IpAccessControlListCreator(
-                pathaccountSid, friendlyName
+                pathAccountSid, friendlyName
         );
     }
 
 
-    public static IpAccessControlListDeleter deleter(final String pathsid) {
+    public static IpAccessControlListDeleter deleter(final String pathSid) {
         return new IpAccessControlListDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static IpAccessControlListDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static IpAccessControlListDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new IpAccessControlListDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListFetcher fetcher(final String pathsid) {
+    public static IpAccessControlListFetcher fetcher(final String pathSid) {
         return new IpAccessControlListFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static IpAccessControlListFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new IpAccessControlListFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -88,23 +88,23 @@ public class IpAccessControlList extends Resource {
     }
 
 
-    public static IpAccessControlListReader reader(final String pathaccountSid) {
+    public static IpAccessControlListReader reader(final String pathAccountSid) {
         return new IpAccessControlListReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static IpAccessControlListUpdater updater(final String pathsid, final String friendlyName) {
+    public static IpAccessControlListUpdater updater(final String pathSid, final String friendlyName) {
         return new IpAccessControlListUpdater(
-                pathsid, friendlyName
+                pathSid, friendlyName
         );
     }
 
 
-    public static IpAccessControlListUpdater updater(final String pathaccountSid, final String pathsid, final String friendlyName) {
+    public static IpAccessControlListUpdater updater(final String pathAccountSid, final String pathSid, final String friendlyName) {
         return new IpAccessControlListUpdater(
-                pathaccountSid, pathsid, friendlyName
+                pathAccountSid, pathSid, friendlyName
         );
     }
 

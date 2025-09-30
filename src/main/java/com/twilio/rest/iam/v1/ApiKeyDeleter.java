@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class ApiKeyDeleter extends Deleter<ApiKey> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public ApiKeyDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public ApiKeyDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class ApiKeyDeleter extends Deleter<ApiKey> {
 
         String path = "/v1/Keys/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

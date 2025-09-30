@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Participant extends Resource {
 
 
-    public static ParticipantCreator creator(final String pathserviceSid, final String pathsessionSid, final String identifier) {
+    public static ParticipantCreator creator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
         return new ParticipantCreator(
-                pathserviceSid, pathsessionSid, identifier
+                pathServiceSid, pathSessionSid, identifier
         );
     }
 
 
-    public static ParticipantDeleter deleter(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+    public static ParticipantDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
         return new ParticipantDeleter(
-                pathserviceSid, pathsessionSid, pathsid
+                pathServiceSid, pathSessionSid, pathSid
         );
     }
 
 
-    public static ParticipantFetcher fetcher(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+    public static ParticipantFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
         return new ParticipantFetcher(
-                pathserviceSid, pathsessionSid, pathsid
+                pathServiceSid, pathSessionSid, pathSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathserviceSid, final String pathsessionSid) {
+    public static ParticipantReader reader(final String pathServiceSid, final String pathSessionSid) {
         return new ParticipantReader(
-                pathserviceSid, pathsessionSid
+                pathServiceSid, pathSessionSid
         );
     }
 

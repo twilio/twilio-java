@@ -37,9 +37,9 @@ import java.util.Objects;
 public class EngagementContext extends Resource {
 
 
-    public static EngagementContextFetcher fetcher(final String pathflowSid, final String pathengagementSid) {
+    public static EngagementContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid) {
         return new EngagementContextFetcher(
-                pathflowSid, pathengagementSid
+                pathFlowSid, pathEngagementSid
         );
     }
 

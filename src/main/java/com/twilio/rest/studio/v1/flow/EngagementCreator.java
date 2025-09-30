@@ -31,13 +31,13 @@ import com.twilio.rest.Domains;
 
 public class EngagementCreator extends Creator<Engagement> {
 
-    private String pathflowSid;
+    private String pathFlowSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private Object parameters;
 
-    public EngagementCreator(final String pathflowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
-        this.pathflowSid = pathflowSid;
+    public EngagementCreator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
+        this.pathFlowSid = pathFlowSid;
         this.to = to;
         this.from = from;
     }
@@ -72,7 +72,7 @@ public class EngagementCreator extends Creator<Engagement> {
 
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
 
         Request request = new Request(

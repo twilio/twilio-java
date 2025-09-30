@@ -39,30 +39,30 @@ import java.util.Objects;
 public class Siprec extends Resource {
 
 
-    public static SiprecCreator creator(final String pathcallSid) {
+    public static SiprecCreator creator(final String pathCallSid) {
         return new SiprecCreator(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static SiprecCreator creator(final String pathaccountSid, final String pathcallSid) {
+    public static SiprecCreator creator(final String pathAccountSid, final String pathCallSid) {
         return new SiprecCreator(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 
 
-    public static SiprecUpdater updater(final String pathcallSid, final String pathsid, final Siprec.UpdateStatus status) {
+    public static SiprecUpdater updater(final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status) {
         return new SiprecUpdater(
-                pathcallSid, pathsid, status
+                pathCallSid, pathSid, status
         );
     }
 
 
-    public static SiprecUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Siprec.UpdateStatus status) {
+    public static SiprecUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status) {
         return new SiprecUpdater(
-                pathaccountSid, pathcallSid, pathsid, status
+                pathAccountSid, pathCallSid, pathSid, status
         );
     }
 

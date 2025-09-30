@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Payment extends Resource {
 
 
-    public static PaymentCreator creator(final String pathcallSid, final String idempotencyKey, final URI statusCallback) {
+    public static PaymentCreator creator(final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentCreator(
-                pathcallSid, idempotencyKey, statusCallback
+                pathCallSid, idempotencyKey, statusCallback
         );
     }
 
 
-    public static PaymentCreator creator(final String pathaccountSid, final String pathcallSid, final String idempotencyKey, final URI statusCallback) {
+    public static PaymentCreator creator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentCreator(
-                pathaccountSid, pathcallSid, idempotencyKey, statusCallback
+                pathAccountSid, pathCallSid, idempotencyKey, statusCallback
         );
     }
 
 
-    public static PaymentUpdater updater(final String pathcallSid, final String pathsid, final String idempotencyKey, final URI statusCallback) {
+    public static PaymentUpdater updater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentUpdater(
-                pathcallSid, pathsid, idempotencyKey, statusCallback
+                pathCallSid, pathSid, idempotencyKey, statusCallback
         );
     }
 
 
-    public static PaymentUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final String idempotencyKey, final URI statusCallback) {
+    public static PaymentUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback) {
         return new PaymentUpdater(
-                pathaccountSid, pathcallSid, pathsid, idempotencyKey, statusCallback
+                pathAccountSid, pathCallSid, pathSid, idempotencyKey, statusCallback
         );
     }
 

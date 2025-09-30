@@ -46,9 +46,9 @@ public class Command extends Resource {
     }
 
 
-    public static CommandFetcher fetcher(final String pathsid) {
+    public static CommandFetcher fetcher(final String pathSid) {
         return new CommandFetcher(
-                pathsid
+                pathSid
         );
     }
 

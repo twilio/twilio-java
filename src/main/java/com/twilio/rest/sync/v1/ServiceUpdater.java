@@ -17,6 +17,7 @@ package com.twilio.rest.sync.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
-    private String pathsid;
+    private String pathSid;
     private URI webhookUrl;
     private String friendlyName;
     private Boolean reachabilityWebhooksEnabled;
@@ -39,8 +40,8 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer reachabilityDebouncingWindow;
     private Boolean webhooksFromRestEnabled;
 
-    public ServiceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -49,6 +50,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhookUrl(final String webhookUrl) {
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
+    }
 
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -91,7 +95,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

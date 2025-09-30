@@ -37,9 +37,9 @@ import java.util.Objects;
 public class FunctionVersionContent extends Resource {
 
 
-    public static FunctionVersionContentFetcher fetcher(final String pathserviceSid, final String pathfunctionSid, final String pathsid) {
+    public static FunctionVersionContentFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid) {
         return new FunctionVersionContentFetcher(
-                pathserviceSid, pathfunctionSid, pathsid
+                pathServiceSid, pathFunctionSid, pathSid
         );
     }
 

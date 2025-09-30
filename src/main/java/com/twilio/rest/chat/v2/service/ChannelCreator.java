@@ -32,7 +32,7 @@ import java.time.ZonedDateTime;
 
 public class ChannelCreator extends Creator<Channel> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
     private String uniqueName;
@@ -42,8 +42,8 @@ public class ChannelCreator extends Creator<Channel> {
     private ZonedDateTime dateUpdated;
     private String createdBy;
 
-    public ChannelCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public ChannelCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -100,7 +100,7 @@ public class ChannelCreator extends Creator<Channel> {
 
         String path = "/v2/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

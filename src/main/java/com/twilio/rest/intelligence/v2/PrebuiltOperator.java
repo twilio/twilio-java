@@ -40,9 +40,9 @@ import java.util.Objects;
 public class PrebuiltOperator extends Resource {
 
 
-    public static PrebuiltOperatorFetcher fetcher(final String pathsid) {
+    public static PrebuiltOperatorFetcher fetcher(final String pathSid) {
         return new PrebuiltOperatorFetcher(
-                pathsid
+                pathSid
         );
     }
 

@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class KnowledgeStatusFetcher extends Fetcher<KnowledgeStatus> {
 
-    private String pathid;
+    private String pathId;
 
-    public KnowledgeStatusFetcher(final String pathid) {
-        this.pathid = pathid;
+    public KnowledgeStatusFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -38,7 +38,7 @@ public class KnowledgeStatusFetcher extends Fetcher<KnowledgeStatus> {
 
         String path = "/v1/Knowledge/{id}/Status";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

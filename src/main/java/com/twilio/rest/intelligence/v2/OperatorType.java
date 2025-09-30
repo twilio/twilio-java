@@ -41,9 +41,9 @@ import java.util.Objects;
 public class OperatorType extends Resource {
 
 
-    public static OperatorTypeFetcher fetcher(final String pathsid) {
+    public static OperatorTypeFetcher fetcher(final String pathSid) {
         return new OperatorTypeFetcher(
-                pathsid
+                pathSid
         );
     }
 

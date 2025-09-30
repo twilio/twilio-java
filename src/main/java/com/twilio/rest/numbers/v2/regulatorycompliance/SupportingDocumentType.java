@@ -38,9 +38,9 @@ import java.util.Objects;
 public class SupportingDocumentType extends Resource {
 
 
-    public static SupportingDocumentTypeFetcher fetcher(final String pathsid) {
+    public static SupportingDocumentTypeFetcher fetcher(final String pathSid) {
         return new SupportingDocumentTypeFetcher(
-                pathsid
+                pathSid
         );
     }
 

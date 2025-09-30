@@ -17,6 +17,7 @@ package com.twilio.rest.wireless.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class SimUpdater extends Updater<Sim> {
-    private String pathsid;
+    private String pathSid;
     private String uniqueName;
     private HttpMethod callbackMethod;
     private URI callbackUrl;
@@ -50,8 +51,8 @@ public class SimUpdater extends Updater<Sim> {
     private Sim.ResetStatus resetStatus;
     private String accountSid;
 
-    public SimUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public SimUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -72,6 +73,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public SimUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -102,6 +106,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setCommandsCallbackUrl(final String commandsCallbackUrl) {
+        return setCommandsCallbackUrl(Promoter.uriFromString(commandsCallbackUrl));
+    }
 
     public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
@@ -114,6 +121,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public SimUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -126,6 +136,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -138,6 +151,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public SimUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -150,6 +166,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public SimUpdater setResetStatus(final Sim.ResetStatus resetStatus) {
         this.resetStatus = resetStatus;
@@ -168,7 +187,7 @@ public class SimUpdater extends Updater<Sim> {
 
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

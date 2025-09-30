@@ -38,16 +38,16 @@ import java.util.Objects;
 public class Local extends Resource {
 
 
-    public static LocalReader reader(final String pathcountryCode) {
+    public static LocalReader reader(final String pathCountryCode) {
         return new LocalReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static LocalReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static LocalReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new LocalReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

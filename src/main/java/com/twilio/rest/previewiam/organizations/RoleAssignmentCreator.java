@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class RoleAssignmentCreator extends Creator<RoleAssignment> {
 
-    private String pathorganizationSid;
+    private String pathOrganizationSid;
     private RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest;
 
-    public RoleAssignmentCreator(final String pathorganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
-        this.pathorganizationSid = pathorganizationSid;
+    public RoleAssignmentCreator(final String pathOrganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
+        this.pathOrganizationSid = pathOrganizationSid;
         this.publicApiCreateRoleAssignmentRequest = publicApiCreateRoleAssignmentRequest;
     }
 
@@ -48,7 +48,7 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
 
         String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
 
 
         Request request = new Request(

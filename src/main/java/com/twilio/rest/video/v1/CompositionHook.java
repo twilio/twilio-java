@@ -49,16 +49,16 @@ public class CompositionHook extends Resource {
     }
 
 
-    public static CompositionHookDeleter deleter(final String pathsid) {
+    public static CompositionHookDeleter deleter(final String pathSid) {
         return new CompositionHookDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CompositionHookFetcher fetcher(final String pathsid) {
+    public static CompositionHookFetcher fetcher(final String pathSid) {
         return new CompositionHookFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -70,9 +70,9 @@ public class CompositionHook extends Resource {
     }
 
 
-    public static CompositionHookUpdater updater(final String pathsid, final String friendlyName) {
+    public static CompositionHookUpdater updater(final String pathSid, final String friendlyName) {
         return new CompositionHookUpdater(
-                pathsid, friendlyName
+                pathSid, friendlyName
         );
     }
 

@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class LinkshorteningMessagingServiceDeleter extends Deleter<LinkshorteningMessagingService> {
 
-    private String pathdomainSid;
-    private String pathmessagingServiceSid;
+    private String pathDomainSid;
+    private String pathMessagingServiceSid;
 
-    public LinkshorteningMessagingServiceDeleter(final String pathdomainSid, final String pathmessagingServiceSid) {
-        this.pathdomainSid = pathdomainSid;
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public LinkshorteningMessagingServiceDeleter(final String pathDomainSid, final String pathMessagingServiceSid) {
+        this.pathDomainSid = pathDomainSid;
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -40,8 +40,8 @@ public class LinkshorteningMessagingServiceDeleter extends Deleter<Linkshortenin
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
 
         Request request = new Request(

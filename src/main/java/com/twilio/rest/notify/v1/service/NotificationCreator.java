@@ -33,7 +33,7 @@ import java.util.List;
 
 public class NotificationCreator extends Creator<Notification> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String body;
     private Notification.Priority priority;
     private Integer ttl;
@@ -53,8 +53,8 @@ public class NotificationCreator extends Creator<Notification> {
     private List<String> identity;
     private List<String> tag;
 
-    public NotificationCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public NotificationCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -183,7 +183,7 @@ public class NotificationCreator extends Creator<Notification> {
 
         String path = "/v1/Services/{ServiceSid}/Notifications";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

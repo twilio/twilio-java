@@ -38,30 +38,30 @@ import java.util.Objects;
 public class NetworkAccessProfileNetwork extends Resource {
 
 
-    public static NetworkAccessProfileNetworkCreator creator(final String pathnetworkAccessProfileSid, final String network) {
+    public static NetworkAccessProfileNetworkCreator creator(final String pathNetworkAccessProfileSid, final String network) {
         return new NetworkAccessProfileNetworkCreator(
-                pathnetworkAccessProfileSid, network
+                pathNetworkAccessProfileSid, network
         );
     }
 
 
-    public static NetworkAccessProfileNetworkDeleter deleter(final String pathnetworkAccessProfileSid, final String pathsid) {
+    public static NetworkAccessProfileNetworkDeleter deleter(final String pathNetworkAccessProfileSid, final String pathSid) {
         return new NetworkAccessProfileNetworkDeleter(
-                pathnetworkAccessProfileSid, pathsid
+                pathNetworkAccessProfileSid, pathSid
         );
     }
 
 
-    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathnetworkAccessProfileSid, final String pathsid) {
+    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathNetworkAccessProfileSid, final String pathSid) {
         return new NetworkAccessProfileNetworkFetcher(
-                pathnetworkAccessProfileSid, pathsid
+                pathNetworkAccessProfileSid, pathSid
         );
     }
 
 
-    public static NetworkAccessProfileNetworkReader reader(final String pathnetworkAccessProfileSid) {
+    public static NetworkAccessProfileNetworkReader reader(final String pathNetworkAccessProfileSid) {
         return new NetworkAccessProfileNetworkReader(
-                pathnetworkAccessProfileSid
+                pathNetworkAccessProfileSid
         );
     }
 

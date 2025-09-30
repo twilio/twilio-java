@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class MessageFetcher extends Fetcher<Message> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathChannelSid;
+    private String pathSid;
 
-    public MessageFetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
-        this.pathsid = pathsid;
+    public MessageFetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class MessageFetcher extends Fetcher<Message> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

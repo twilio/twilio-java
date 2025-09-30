@@ -26,19 +26,19 @@ import com.twilio.rest.Domains;
 
 public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
-    private String pathaccountSid;
-    private String pathresourceSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathResourceSid;
+    private String pathSid;
 
-    public AssignedAddOnFetcher(final String pathresourceSid, final String pathsid) {
-        this.pathresourceSid = pathresourceSid;
-        this.pathsid = pathsid;
+    public AssignedAddOnFetcher(final String pathResourceSid, final String pathSid) {
+        this.pathResourceSid = pathResourceSid;
+        this.pathSid = pathSid;
     }
 
-    public AssignedAddOnFetcher(final String pathaccountSid, final String pathresourceSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathresourceSid = pathresourceSid;
-        this.pathsid = pathsid;
+    public AssignedAddOnFetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +47,10 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ResourceSid" + "}", this.pathresourceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ResourceSid" + "}", this.pathResourceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

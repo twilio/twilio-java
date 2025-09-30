@@ -30,20 +30,20 @@ import com.twilio.rest.Domains;
 
 public class PayloadReader extends Reader<Payload> {
 
-    private String pathaccountSid;
-    private String pathreferenceSid;
-    private String pathaddOnResultSid;
+    private String pathAccountSid;
+    private String pathReferenceSid;
+    private String pathAddOnResultSid;
     private Long pageSize;
 
-    public PayloadReader(final String pathreferenceSid, final String pathaddOnResultSid) {
-        this.pathreferenceSid = pathreferenceSid;
-        this.pathaddOnResultSid = pathaddOnResultSid;
+    public PayloadReader(final String pathReferenceSid, final String pathAddOnResultSid) {
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathAddOnResultSid = pathAddOnResultSid;
     }
 
-    public PayloadReader(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathreferenceSid = pathreferenceSid;
-        this.pathaddOnResultSid = pathaddOnResultSid;
+    public PayloadReader(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathAddOnResultSid = pathAddOnResultSid;
     }
 
 
@@ -62,10 +62,10 @@ public class PayloadReader extends Reader<Payload> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ReferenceSid" + "}", this.pathreferenceSid.toString());
-        path = path.replace("{" + "AddOnResultSid" + "}", this.pathaddOnResultSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ReferenceSid" + "}", this.pathReferenceSid.toString());
+        path = path.replace("{" + "AddOnResultSid" + "}", this.pathAddOnResultSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

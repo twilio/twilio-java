@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 public class UsageFetcher extends Fetcher<Usage> {
 
-    private String pathsimSid;
+    private String pathSimSid;
     private String end;
     private String start;
 
-    public UsageFetcher(final String pathsimSid) {
-        this.pathsimSid = pathsimSid;
+    public UsageFetcher(final String pathSimSid) {
+        this.pathSimSid = pathSimSid;
     }
 
 
@@ -54,7 +54,7 @@ public class UsageFetcher extends Fetcher<Usage> {
 
         String path = "/wireless/Sims/{SimSid}/Usage";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
 
         Request request = new Request(

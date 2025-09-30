@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget> {
 
-    private String pathconnectionPolicySid;
+    private String pathConnectionPolicySid;
     private Long pageSize;
 
-    public ConnectionPolicyTargetReader(final String pathconnectionPolicySid) {
-        this.pathconnectionPolicySid = pathconnectionPolicySid;
+    public ConnectionPolicyTargetReader(final String pathConnectionPolicySid) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
     }
 
 
@@ -53,7 +53,7 @@ public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget>
 
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathConnectionPolicySid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

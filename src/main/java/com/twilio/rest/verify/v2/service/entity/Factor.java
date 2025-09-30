@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Factor extends Resource {
 
 
-    public static FactorDeleter deleter(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new FactorDeleter(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 
 
-    public static FactorFetcher fetcher(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static FactorFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new FactorFetcher(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 
 
-    public static FactorReader reader(final String pathserviceSid, final String pathidentity) {
+    public static FactorReader reader(final String pathServiceSid, final String pathIdentity) {
         return new FactorReader(
-                pathserviceSid, pathidentity
+                pathServiceSid, pathIdentity
         );
     }
 
 
-    public static FactorUpdater updater(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static FactorUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new FactorUpdater(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 

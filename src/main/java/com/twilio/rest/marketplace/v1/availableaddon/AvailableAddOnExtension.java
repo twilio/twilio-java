@@ -37,16 +37,16 @@ import java.util.Objects;
 public class AvailableAddOnExtension extends Resource {
 
 
-    public static AvailableAddOnExtensionFetcher fetcher(final String pathavailableAddOnSid, final String pathsid) {
+    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid, final String pathSid) {
         return new AvailableAddOnExtensionFetcher(
-                pathavailableAddOnSid, pathsid
+                pathAvailableAddOnSid, pathSid
         );
     }
 
 
-    public static AvailableAddOnExtensionReader reader(final String pathavailableAddOnSid) {
+    public static AvailableAddOnExtensionReader reader(final String pathAvailableAddOnSid) {
         return new AvailableAddOnExtensionReader(
-                pathavailableAddOnSid
+                pathAvailableAddOnSid
         );
     }
 

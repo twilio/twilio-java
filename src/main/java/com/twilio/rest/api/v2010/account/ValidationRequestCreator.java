@@ -33,7 +33,7 @@ import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer callDelay;
@@ -45,8 +45,8 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
         this.phoneNumber = phoneNumber;
     }
 
-    public ValidationRequestCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.pathaccountSid = pathaccountSid;
+    public ValidationRequestCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -83,6 +83,9 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
         return this;
     }
 
+    public ValidationRequestCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public ValidationRequestCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -95,8 +98,8 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

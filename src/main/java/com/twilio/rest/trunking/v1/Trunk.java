@@ -50,16 +50,16 @@ public class Trunk extends Resource {
     }
 
 
-    public static TrunkDeleter deleter(final String pathsid) {
+    public static TrunkDeleter deleter(final String pathSid) {
         return new TrunkDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TrunkFetcher fetcher(final String pathsid) {
+    public static TrunkFetcher fetcher(final String pathSid) {
         return new TrunkFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -71,9 +71,9 @@ public class Trunk extends Resource {
     }
 
 
-    public static TrunkUpdater updater(final String pathsid) {
+    public static TrunkUpdater updater(final String pathSid) {
         return new TrunkUpdater(
-                pathsid
+                pathSid
         );
     }
 

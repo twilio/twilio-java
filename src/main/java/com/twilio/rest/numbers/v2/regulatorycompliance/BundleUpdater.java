@@ -17,6 +17,7 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,14 +31,14 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class BundleUpdater extends Updater<Bundle> {
-    private String pathsid;
+    private String pathSid;
     private Bundle.Status status;
     private URI statusCallback;
     private String friendlyName;
     private String email;
 
-    public BundleUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public BundleUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -52,6 +53,9 @@ public class BundleUpdater extends Updater<Bundle> {
         return this;
     }
 
+    public BundleUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public BundleUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -70,7 +74,7 @@ public class BundleUpdater extends Updater<Bundle> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

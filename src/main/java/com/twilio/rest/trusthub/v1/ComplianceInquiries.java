@@ -44,9 +44,9 @@ public class ComplianceInquiries extends Resource {
     }
 
 
-    public static ComplianceInquiriesUpdater updater(final String pathcustomerId, final String primaryProfileSid) {
+    public static ComplianceInquiriesUpdater updater(final String pathCustomerId, final String primaryProfileSid) {
         return new ComplianceInquiriesUpdater(
-                pathcustomerId, primaryProfileSid
+                pathCustomerId, primaryProfileSid
         );
     }
 

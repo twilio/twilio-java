@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class EnvironmentCreator extends Creator<Environment> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private String domainSuffix;
 
-    public EnvironmentCreator(final String pathserviceSid, final String uniqueName) {
-        this.pathserviceSid = pathserviceSid;
+    public EnvironmentCreator(final String pathServiceSid, final String uniqueName) {
+        this.pathServiceSid = pathServiceSid;
         this.uniqueName = uniqueName;
     }
 
@@ -57,7 +57,7 @@ public class EnvironmentCreator extends Creator<Environment> {
 
         String path = "/v1/Services/{ServiceSid}/Environments";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

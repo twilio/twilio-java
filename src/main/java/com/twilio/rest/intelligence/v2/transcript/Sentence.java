@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Sentence extends Resource {
 
 
-    public static SentenceReader reader(final String pathtranscriptSid) {
+    public static SentenceReader reader(final String pathTranscriptSid) {
         return new SentenceReader(
-                pathtranscriptSid
+                pathTranscriptSid
         );
     }
 

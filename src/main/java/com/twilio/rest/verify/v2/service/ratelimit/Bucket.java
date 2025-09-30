@@ -39,37 +39,37 @@ import java.util.Objects;
 public class Bucket extends Resource {
 
 
-    public static BucketCreator creator(final String pathserviceSid, final String pathrateLimitSid, final Integer max, final Integer interval) {
+    public static BucketCreator creator(final String pathServiceSid, final String pathRateLimitSid, final Integer max, final Integer interval) {
         return new BucketCreator(
-                pathserviceSid, pathrateLimitSid, max, interval
+                pathServiceSid, pathRateLimitSid, max, interval
         );
     }
 
 
-    public static BucketDeleter deleter(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+    public static BucketDeleter deleter(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
         return new BucketDeleter(
-                pathserviceSid, pathrateLimitSid, pathsid
+                pathServiceSid, pathRateLimitSid, pathSid
         );
     }
 
 
-    public static BucketFetcher fetcher(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+    public static BucketFetcher fetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
         return new BucketFetcher(
-                pathserviceSid, pathrateLimitSid, pathsid
+                pathServiceSid, pathRateLimitSid, pathSid
         );
     }
 
 
-    public static BucketReader reader(final String pathserviceSid, final String pathrateLimitSid) {
+    public static BucketReader reader(final String pathServiceSid, final String pathRateLimitSid) {
         return new BucketReader(
-                pathserviceSid, pathrateLimitSid
+                pathServiceSid, pathRateLimitSid
         );
     }
 
 
-    public static BucketUpdater updater(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+    public static BucketUpdater updater(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
         return new BucketUpdater(
-                pathserviceSid, pathrateLimitSid, pathsid
+                pathServiceSid, pathRateLimitSid, pathSid
         );
     }
 

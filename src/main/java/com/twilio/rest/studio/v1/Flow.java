@@ -41,16 +41,16 @@ import java.util.Objects;
 public class Flow extends Resource {
 
 
-    public static FlowDeleter deleter(final String pathsid) {
+    public static FlowDeleter deleter(final String pathSid) {
         return new FlowDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static FlowFetcher fetcher(final String pathsid) {
+    public static FlowFetcher fetcher(final String pathSid) {
         return new FlowFetcher(
-                pathsid
+                pathSid
         );
     }
 

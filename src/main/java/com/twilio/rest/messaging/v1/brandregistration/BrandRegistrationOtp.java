@@ -36,9 +36,9 @@ import java.util.Objects;
 public class BrandRegistrationOtp extends Resource {
 
 
-    public static BrandRegistrationOtpCreator creator(final String pathbrandRegistrationSid) {
+    public static BrandRegistrationOtpCreator creator(final String pathBrandRegistrationSid) {
         return new BrandRegistrationOtpCreator(
-                pathbrandRegistrationSid
+                pathBrandRegistrationSid
         );
     }
 

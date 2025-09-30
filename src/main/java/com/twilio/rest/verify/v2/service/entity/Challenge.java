@@ -41,30 +41,30 @@ import java.util.Objects;
 public class Challenge extends Resource {
 
 
-    public static ChallengeCreator creator(final String pathserviceSid, final String pathidentity, final String factorSid) {
+    public static ChallengeCreator creator(final String pathServiceSid, final String pathIdentity, final String factorSid) {
         return new ChallengeCreator(
-                pathserviceSid, pathidentity, factorSid
+                pathServiceSid, pathIdentity, factorSid
         );
     }
 
 
-    public static ChallengeFetcher fetcher(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static ChallengeFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new ChallengeFetcher(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 
 
-    public static ChallengeReader reader(final String pathserviceSid, final String pathidentity) {
+    public static ChallengeReader reader(final String pathServiceSid, final String pathIdentity) {
         return new ChallengeReader(
-                pathserviceSid, pathidentity
+                pathServiceSid, pathIdentity
         );
     }
 
 
-    public static ChallengeUpdater updater(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static ChallengeUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new ChallengeUpdater(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 

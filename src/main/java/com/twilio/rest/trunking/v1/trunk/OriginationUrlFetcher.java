@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
-    private String pathtrunkSid;
-    private String pathsid;
+    private String pathTrunkSid;
+    private String pathSid;
 
-    public OriginationUrlFetcher(final String pathtrunkSid, final String pathsid) {
-        this.pathtrunkSid = pathtrunkSid;
-        this.pathsid = pathsid;
+    public OriginationUrlFetcher(final String pathTrunkSid, final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

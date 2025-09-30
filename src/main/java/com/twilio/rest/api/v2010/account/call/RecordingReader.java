@@ -32,20 +32,20 @@ import java.time.LocalDate;
 
 public class RecordingReader extends Reader<Recording> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private LocalDate dateCreated;
     private LocalDate dateCreatedBefore;
     private LocalDate dateCreatedAfter;
     private Long pageSize;
 
-    public RecordingReader(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public RecordingReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
-    public RecordingReader(final String pathaccountSid, final String pathcallSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public RecordingReader(final String pathAccountSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -82,9 +82,9 @@ public class RecordingReader extends Reader<Recording> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

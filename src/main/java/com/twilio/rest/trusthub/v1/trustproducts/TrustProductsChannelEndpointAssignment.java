@@ -39,30 +39,30 @@ import java.util.Objects;
 public class TrustProductsChannelEndpointAssignment extends Resource {
 
 
-    public static TrustProductsChannelEndpointAssignmentCreator creator(final String pathtrustProductSid, final String channelEndpointType, final String channelEndpointSid) {
+    public static TrustProductsChannelEndpointAssignmentCreator creator(final String pathTrustProductSid, final String channelEndpointType, final String channelEndpointSid) {
         return new TrustProductsChannelEndpointAssignmentCreator(
-                pathtrustProductSid, channelEndpointType, channelEndpointSid
+                pathTrustProductSid, channelEndpointType, channelEndpointSid
         );
     }
 
 
-    public static TrustProductsChannelEndpointAssignmentDeleter deleter(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsChannelEndpointAssignmentDeleter deleter(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsChannelEndpointAssignmentDeleter(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsChannelEndpointAssignmentFetcher fetcher(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsChannelEndpointAssignmentFetcher fetcher(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsChannelEndpointAssignmentFetcher(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsChannelEndpointAssignmentReader reader(final String pathtrustProductSid) {
+    public static TrustProductsChannelEndpointAssignmentReader reader(final String pathTrustProductSid) {
         return new TrustProductsChannelEndpointAssignmentReader(
-                pathtrustProductSid
+                pathTrustProductSid
         );
     }
 

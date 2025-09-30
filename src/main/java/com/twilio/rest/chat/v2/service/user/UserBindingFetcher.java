@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class UserBindingFetcher extends Fetcher<UserBinding> {
 
-    private String pathserviceSid;
-    private String pathuserSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathUserSid;
+    private String pathSid;
 
-    public UserBindingFetcher(final String pathserviceSid, final String pathuserSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathuserSid = pathuserSid;
-        this.pathsid = pathsid;
+    public UserBindingFetcher(final String pathServiceSid, final String pathUserSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
 
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

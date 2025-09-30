@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Chunk extends Resource {
 
 
-    public static ChunkReader reader(final String pathid) {
+    public static ChunkReader reader(final String pathId) {
         return new ChunkReader(
-                pathid
+                pathId
         );
     }
 

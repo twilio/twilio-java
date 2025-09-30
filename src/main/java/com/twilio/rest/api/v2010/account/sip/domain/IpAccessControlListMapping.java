@@ -38,58 +38,58 @@ import java.util.Objects;
 public class IpAccessControlListMapping extends Resource {
 
 
-    public static IpAccessControlListMappingCreator creator(final String pathdomainSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListMappingCreator creator(final String pathDomainSid, final String ipAccessControlListSid) {
         return new IpAccessControlListMappingCreator(
-                pathdomainSid, ipAccessControlListSid
+                pathDomainSid, ipAccessControlListSid
         );
     }
 
 
-    public static IpAccessControlListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String ipAccessControlListSid) {
         return new IpAccessControlListMappingCreator(
-                pathaccountSid, pathdomainSid, ipAccessControlListSid
+                pathAccountSid, pathDomainSid, ipAccessControlListSid
         );
     }
 
 
-    public static IpAccessControlListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingReader reader(final String pathdomainSid) {
+    public static IpAccessControlListMappingReader reader(final String pathDomainSid) {
         return new IpAccessControlListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static IpAccessControlListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static IpAccessControlListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new IpAccessControlListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

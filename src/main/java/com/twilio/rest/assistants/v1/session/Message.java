@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Message extends Resource {
 
 
-    public static MessageReader reader(final String pathsessionId) {
+    public static MessageReader reader(final String pathSessionId) {
         return new MessageReader(
-                pathsessionId
+                pathSessionId
         );
     }
 

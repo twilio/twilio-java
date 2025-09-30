@@ -40,37 +40,37 @@ import java.util.Objects;
 public class SyncMapItem extends Resource {
 
 
-    public static SyncMapItemCreator creator(final String pathserviceSid, final String pathmapSid, final String key, final Object data) {
+    public static SyncMapItemCreator creator(final String pathServiceSid, final String pathMapSid, final String key, final Object data) {
         return new SyncMapItemCreator(
-                pathserviceSid, pathmapSid, key, data
+                pathServiceSid, pathMapSid, key, data
         );
     }
 
 
-    public static SyncMapItemDeleter deleter(final String pathserviceSid, final String pathmapSid, final String pathkey) {
+    public static SyncMapItemDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathKey) {
         return new SyncMapItemDeleter(
-                pathserviceSid, pathmapSid, pathkey
+                pathServiceSid, pathMapSid, pathKey
         );
     }
 
 
-    public static SyncMapItemFetcher fetcher(final String pathserviceSid, final String pathmapSid, final String pathkey) {
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathKey) {
         return new SyncMapItemFetcher(
-                pathserviceSid, pathmapSid, pathkey
+                pathServiceSid, pathMapSid, pathKey
         );
     }
 
 
-    public static SyncMapItemReader reader(final String pathserviceSid, final String pathmapSid) {
+    public static SyncMapItemReader reader(final String pathServiceSid, final String pathMapSid) {
         return new SyncMapItemReader(
-                pathserviceSid, pathmapSid
+                pathServiceSid, pathMapSid
         );
     }
 
 
-    public static SyncMapItemUpdater updater(final String pathserviceSid, final String pathmapSid, final String pathkey) {
+    public static SyncMapItemUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathKey) {
         return new SyncMapItemUpdater(
-                pathserviceSid, pathmapSid, pathkey
+                pathServiceSid, pathMapSid, pathKey
         );
     }
 

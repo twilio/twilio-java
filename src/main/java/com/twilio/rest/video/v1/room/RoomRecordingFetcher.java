@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
 
-    private String pathroomSid;
-    private String pathsid;
+    private String pathRoomSid;
+    private String pathSid;
 
-    public RoomRecordingFetcher(final String pathroomSid, final String pathsid) {
-        this.pathroomSid = pathroomSid;
-        this.pathsid = pathsid;
+    public RoomRecordingFetcher(final String pathRoomSid, final String pathSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
 
         String path = "/v1/Rooms/{RoomSid}/Recordings/{Sid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

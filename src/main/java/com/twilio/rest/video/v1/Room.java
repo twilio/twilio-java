@@ -50,9 +50,9 @@ public class Room extends Resource {
     }
 
 
-    public static RoomFetcher fetcher(final String pathsid) {
+    public static RoomFetcher fetcher(final String pathSid) {
         return new RoomFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -64,9 +64,9 @@ public class Room extends Resource {
     }
 
 
-    public static RoomUpdater updater(final String pathsid, final Room.RoomStatus status) {
+    public static RoomUpdater updater(final String pathSid, final Room.RoomStatus status) {
         return new RoomUpdater(
-                pathsid, status
+                pathSid, status
         );
     }
 
@@ -134,106 +134,6 @@ public class Room extends Resource {
         }
     }
 
-    public enum RoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomRoomRoomVideoCodec.values());
-        }
-    }
-
     public enum VideoCodec {
         VP8("VP8"),
         H264("H264");
@@ -251,26 +151,6 @@ public class Room extends Resource {
         @JsonCreator
         public static VideoCodec forValue(final String value) {
             return Promoter.enumFromString(value, VideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomRoomRoomRoomVideoCodec.values());
         }
     }
 
@@ -372,7 +252,7 @@ public class Room extends Resource {
     @Getter
     private final URI url;
     @Getter
-    private final List<Room.RoomRoomRoomRoomRoomRoomRoomVideoCodec> videoCodecs;
+    private final List<Room.VideoCodec> videoCodecs;
 
     @JsonCreator
     private Room(
@@ -402,7 +282,7 @@ public class Room extends Resource {
             @JsonProperty("unique_name") final String uniqueName,
             @JsonProperty("unused_room_timeout") final Integer unusedRoomTimeout,
             @JsonProperty("url") final URI url,
-            @JsonProperty("video_codecs") final List<Room.RoomRoomRoomRoomRoomRoomRoomVideoCodec> videoCodecs
+            @JsonProperty("video_codecs") final List<Room.VideoCodec> videoCodecs
     ) {
         this.accountSid = accountSid;
         this.audioOnly = audioOnly;

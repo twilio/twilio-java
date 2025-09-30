@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Notification extends Resource {
 
 
-    public static NotificationCreator creator(final String pathserviceSid, final String pathidentity, final String pathchallengeSid) {
+    public static NotificationCreator creator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid) {
         return new NotificationCreator(
-                pathserviceSid, pathidentity, pathchallengeSid
+                pathServiceSid, pathIdentity, pathChallengeSid
         );
     }
 

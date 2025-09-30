@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class TranscriptionsCreator extends Creator<Transcriptions> {
 
-    private String pathroomSid;
+    private String pathRoomSid;
     private Object configuration;
 
-    public TranscriptionsCreator(final String pathroomSid) {
-        this.pathroomSid = pathroomSid;
+    public TranscriptionsCreator(final String pathRoomSid) {
+        this.pathRoomSid = pathRoomSid;
     }
 
 
@@ -49,7 +49,7 @@ public class TranscriptionsCreator extends Creator<Transcriptions> {
 
         String path = "/v1/Rooms/{RoomSid}/Transcriptions";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
 
         Request request = new Request(

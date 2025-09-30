@@ -32,7 +32,7 @@ import java.time.ZonedDateTime;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private String friendlyName;
     private Integer minutes;
@@ -41,8 +41,8 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private String splitByWaitTime;
     private Long pageSize;
 
-    public TaskQueuesStatisticsReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskQueuesStatisticsReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -97,7 +97,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

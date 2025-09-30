@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Session extends Resource {
 
 
-    public static SessionCreator creator(final String pathserviceSid) {
+    public static SessionCreator creator(final String pathServiceSid) {
         return new SessionCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SessionDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SessionDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SessionDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SessionFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SessionFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SessionFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SessionReader reader(final String pathserviceSid) {
+    public static SessionReader reader(final String pathServiceSid) {
         return new SessionReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SessionUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SessionUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SessionUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

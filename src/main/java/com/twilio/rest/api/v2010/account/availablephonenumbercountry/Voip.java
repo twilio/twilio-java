@@ -38,16 +38,16 @@ import java.util.Objects;
 public class Voip extends Resource {
 
 
-    public static VoipReader reader(final String pathcountryCode) {
+    public static VoipReader reader(final String pathCountryCode) {
         return new VoipReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static VoipReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static VoipReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new VoipReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

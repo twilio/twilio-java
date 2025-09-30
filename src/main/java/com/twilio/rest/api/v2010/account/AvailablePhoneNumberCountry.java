@@ -38,16 +38,16 @@ import java.util.Objects;
 public class AvailablePhoneNumberCountry extends Resource {
 
 
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathcountryCode) {
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode) {
         return new AvailablePhoneNumberCountryFetcher(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathaccountSid, final String pathcountryCode) {
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathAccountSid, final String pathCountryCode) {
         return new AvailablePhoneNumberCountryFetcher(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 
@@ -59,9 +59,9 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
 
-    public static AvailablePhoneNumberCountryReader reader(final String pathaccountSid) {
+    public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid) {
         return new AvailablePhoneNumberCountryReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

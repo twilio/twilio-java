@@ -38,30 +38,30 @@ import java.util.Objects;
 public class OutgoingCallerId extends Resource {
 
 
-    public static OutgoingCallerIdDeleter deleter(final String pathsid) {
+    public static OutgoingCallerIdDeleter deleter(final String pathSid) {
         return new OutgoingCallerIdDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static OutgoingCallerIdDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new OutgoingCallerIdDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static OutgoingCallerIdFetcher fetcher(final String pathsid) {
+    public static OutgoingCallerIdFetcher fetcher(final String pathSid) {
         return new OutgoingCallerIdFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static OutgoingCallerIdFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static OutgoingCallerIdFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new OutgoingCallerIdFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -73,23 +73,23 @@ public class OutgoingCallerId extends Resource {
     }
 
 
-    public static OutgoingCallerIdReader reader(final String pathaccountSid) {
+    public static OutgoingCallerIdReader reader(final String pathAccountSid) {
         return new OutgoingCallerIdReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static OutgoingCallerIdUpdater updater(final String pathsid) {
+    public static OutgoingCallerIdUpdater updater(final String pathSid) {
         return new OutgoingCallerIdUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static OutgoingCallerIdUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static OutgoingCallerIdUpdater updater(final String pathAccountSid, final String pathSid) {
         return new OutgoingCallerIdUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

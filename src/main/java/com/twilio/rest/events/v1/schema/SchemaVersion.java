@@ -39,16 +39,16 @@ import java.util.Objects;
 public class SchemaVersion extends Resource {
 
 
-    public static SchemaVersionFetcher fetcher(final String pathid, final Integer pathschemaVersion) {
+    public static SchemaVersionFetcher fetcher(final String pathId, final Integer pathSchemaVersion) {
         return new SchemaVersionFetcher(
-                pathid, pathschemaVersion
+                pathId, pathSchemaVersion
         );
     }
 
 
-    public static SchemaVersionReader reader(final String pathid) {
+    public static SchemaVersionReader reader(final String pathId) {
         return new SchemaVersionReader(
-                pathid
+                pathId
         );
     }
 

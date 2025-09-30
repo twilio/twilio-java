@@ -37,16 +37,16 @@ import java.util.Objects;
 public class LinkshorteningMessagingService extends Resource {
 
 
-    public static LinkshorteningMessagingServiceCreator creator(final String pathdomainSid, final String pathmessagingServiceSid) {
+    public static LinkshorteningMessagingServiceCreator creator(final String pathDomainSid, final String pathMessagingServiceSid) {
         return new LinkshorteningMessagingServiceCreator(
-                pathdomainSid, pathmessagingServiceSid
+                pathDomainSid, pathMessagingServiceSid
         );
     }
 
 
-    public static LinkshorteningMessagingServiceDeleter deleter(final String pathdomainSid, final String pathmessagingServiceSid) {
+    public static LinkshorteningMessagingServiceDeleter deleter(final String pathDomainSid, final String pathMessagingServiceSid) {
         return new LinkshorteningMessagingServiceDeleter(
-                pathdomainSid, pathmessagingServiceSid
+                pathDomainSid, pathMessagingServiceSid
         );
     }
 

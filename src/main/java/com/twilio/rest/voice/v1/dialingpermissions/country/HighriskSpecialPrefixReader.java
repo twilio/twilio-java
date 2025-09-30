@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
-    private String pathisoCode;
+    private String pathIsoCode;
     private Long pageSize;
 
-    public HighriskSpecialPrefixReader(final String pathisoCode) {
-        this.pathisoCode = pathisoCode;
+    public HighriskSpecialPrefixReader(final String pathIsoCode) {
+        this.pathIsoCode = pathIsoCode;
     }
 
 
@@ -53,7 +53,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
         String path = "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes";
 
-        path = path.replace("{" + "IsoCode" + "}", this.pathisoCode.toString());
+        path = path.replace("{" + "IsoCode" + "}", this.pathIsoCode.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

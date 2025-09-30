@@ -41,23 +41,23 @@ import java.util.Objects;
 public class RoomRecording extends Resource {
 
 
-    public static RoomRecordingDeleter deleter(final String pathroomSid, final String pathsid) {
+    public static RoomRecordingDeleter deleter(final String pathRoomSid, final String pathSid) {
         return new RoomRecordingDeleter(
-                pathroomSid, pathsid
+                pathRoomSid, pathSid
         );
     }
 
 
-    public static RoomRecordingFetcher fetcher(final String pathroomSid, final String pathsid) {
+    public static RoomRecordingFetcher fetcher(final String pathRoomSid, final String pathSid) {
         return new RoomRecordingFetcher(
-                pathroomSid, pathsid
+                pathRoomSid, pathSid
         );
     }
 
 
-    public static RoomRecordingReader reader(final String pathroomSid) {
+    public static RoomRecordingReader reader(final String pathRoomSid) {
         return new RoomRecordingReader(
-                pathroomSid
+                pathRoomSid
         );
     }
 

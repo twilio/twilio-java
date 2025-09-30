@@ -26,19 +26,19 @@ import com.twilio.rest.Domains;
 
 public class MemberFetcher extends Fetcher<Member> {
 
-    private String pathaccountSid;
-    private String pathqueueSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathQueueSid;
+    private String pathCallSid;
 
-    public MemberFetcher(final String pathqueueSid, final String pathcallSid) {
-        this.pathqueueSid = pathqueueSid;
-        this.pathcallSid = pathcallSid;
+    public MemberFetcher(final String pathQueueSid, final String pathCallSid) {
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
     }
 
-    public MemberFetcher(final String pathaccountSid, final String pathqueueSid, final String pathcallSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathqueueSid = pathqueueSid;
-        this.pathcallSid = pathcallSid;
+    public MemberFetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -47,10 +47,10 @@ public class MemberFetcher extends Fetcher<Member> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "QueueSid" + "}", this.pathqueueSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

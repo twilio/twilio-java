@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class SyncStreamReader extends Reader<SyncStream> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public SyncStreamReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public SyncStreamReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
         String path = "/v1/Services/{ServiceSid}/Streams";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

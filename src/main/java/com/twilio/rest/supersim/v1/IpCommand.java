@@ -47,9 +47,9 @@ public class IpCommand extends Resource {
     }
 
 
-    public static IpCommandFetcher fetcher(final String pathsid) {
+    public static IpCommandFetcher fetcher(final String pathSid) {
         return new IpCommandFetcher(
-                pathsid
+                pathSid
         );
     }
 

@@ -29,14 +29,14 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class UserUpdater extends Updater<User> {
-    private String pathorganizationSid;
-    private String pathuserSid;
+    private String pathOrganizationSid;
+    private String pathUserSid;
     private String ifMatch;
     private User.ScimUser scimUser;
 
-    public UserUpdater(final String pathorganizationSid, final String pathuserSid, final User.ScimUser scimUser) {
-        this.pathorganizationSid = pathorganizationSid;
-        this.pathuserSid = pathuserSid;
+    public UserUpdater(final String pathOrganizationSid, final String pathUserSid, final User.ScimUser scimUser) {
+        this.pathOrganizationSid = pathOrganizationSid;
+        this.pathUserSid = pathUserSid;
         this.scimUser = scimUser;
     }
 
@@ -58,8 +58,8 @@ public class UserUpdater extends Updater<User> {
 
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
 
         Request request = new Request(

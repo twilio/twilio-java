@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Call extends Resource {
 
 
-    public static CallFetcher fetcher(final String pathsid) {
+    public static CallFetcher fetcher(final String pathSid) {
         return new CallFetcher(
-                pathsid
+                pathSid
         );
     }
 

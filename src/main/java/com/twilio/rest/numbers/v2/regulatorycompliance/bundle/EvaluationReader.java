@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class EvaluationReader extends Reader<Evaluation> {
 
-    private String pathbundleSid;
+    private String pathBundleSid;
     private Long pageSize;
 
-    public EvaluationReader(final String pathbundleSid) {
-        this.pathbundleSid = pathbundleSid;
+    public EvaluationReader(final String pathBundleSid) {
+        this.pathBundleSid = pathBundleSid;
     }
 
 
@@ -53,7 +53,7 @@ public class EvaluationReader extends Reader<Evaluation> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

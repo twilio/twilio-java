@@ -31,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
-    private String pathsid;
+    private String pathSid;
     private String businessName;
     private String businessWebsite;
     private String notificationEmail;
@@ -54,8 +54,8 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private com.twilio.type.PhoneNumber businessContactPhone;
     private String editReason;
 
-    public TollfreeVerificationUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public TollfreeVerificationUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -199,7 +199,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
 
         String path = "/v1/Tollfree/Verifications/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

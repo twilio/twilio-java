@@ -32,14 +32,14 @@ import java.time.ZonedDateTime;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
 
-    private String pathsimSid;
+    private String pathSimSid;
     private ZonedDateTime end;
     private ZonedDateTime start;
     private UsageRecord.Granularity granularity;
     private Long pageSize;
 
-    public UsageRecordReader(final String pathsimSid) {
-        this.pathsimSid = pathsimSid;
+    public UsageRecordReader(final String pathSimSid) {
+        this.pathSimSid = pathSimSid;
     }
 
 
@@ -76,7 +76,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
         String path = "/v1/Sims/{SimSid}/UsageRecords";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

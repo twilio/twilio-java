@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class LinkshorteningMessagingServiceDomainAssociationFetcher extends Fetcher<LinkshorteningMessagingServiceDomainAssociation> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
 
-    public LinkshorteningMessagingServiceDomainAssociationFetcher(final String pathmessagingServiceSid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public LinkshorteningMessagingServiceDomainAssociationFetcher(final String pathMessagingServiceSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -38,7 +38,7 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher extends Fetc
 
         String path = "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
 
         Request request = new Request(

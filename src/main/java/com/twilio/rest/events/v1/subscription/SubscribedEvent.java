@@ -37,37 +37,37 @@ import java.util.Objects;
 public class SubscribedEvent extends Resource {
 
 
-    public static SubscribedEventCreator creator(final String pathsubscriptionSid, final String type) {
+    public static SubscribedEventCreator creator(final String pathSubscriptionSid, final String type) {
         return new SubscribedEventCreator(
-                pathsubscriptionSid, type
+                pathSubscriptionSid, type
         );
     }
 
 
-    public static SubscribedEventDeleter deleter(final String pathsubscriptionSid, final String pathtype) {
+    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid, final String pathType) {
         return new SubscribedEventDeleter(
-                pathsubscriptionSid, pathtype
+                pathSubscriptionSid, pathType
         );
     }
 
 
-    public static SubscribedEventFetcher fetcher(final String pathsubscriptionSid, final String pathtype) {
+    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid, final String pathType) {
         return new SubscribedEventFetcher(
-                pathsubscriptionSid, pathtype
+                pathSubscriptionSid, pathType
         );
     }
 
 
-    public static SubscribedEventReader reader(final String pathsubscriptionSid) {
+    public static SubscribedEventReader reader(final String pathSubscriptionSid) {
         return new SubscribedEventReader(
-                pathsubscriptionSid
+                pathSubscriptionSid
         );
     }
 
 
-    public static SubscribedEventUpdater updater(final String pathsubscriptionSid, final String pathtype) {
+    public static SubscribedEventUpdater updater(final String pathSubscriptionSid, final String pathType) {
         return new SubscribedEventUpdater(
-                pathsubscriptionSid, pathtype
+                pathSubscriptionSid, pathType
         );
     }
 

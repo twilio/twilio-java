@@ -26,16 +26,16 @@ import com.twilio.rest.Domains;
 
 public class CallFetcher extends Fetcher<Call> {
 
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
 
-    public CallFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public CallFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public CallFetcher(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public CallFetcher(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -44,9 +44,9 @@ public class CallFetcher extends Fetcher<Call> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

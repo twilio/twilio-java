@@ -47,16 +47,16 @@ public class ConnectionPolicy extends Resource {
     }
 
 
-    public static ConnectionPolicyDeleter deleter(final String pathsid) {
+    public static ConnectionPolicyDeleter deleter(final String pathSid) {
         return new ConnectionPolicyDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConnectionPolicyFetcher fetcher(final String pathsid) {
+    public static ConnectionPolicyFetcher fetcher(final String pathSid) {
         return new ConnectionPolicyFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class ConnectionPolicy extends Resource {
     }
 
 
-    public static ConnectionPolicyUpdater updater(final String pathsid) {
+    public static ConnectionPolicyUpdater updater(final String pathSid) {
         return new ConnectionPolicyUpdater(
-                pathsid
+                pathSid
         );
     }
 

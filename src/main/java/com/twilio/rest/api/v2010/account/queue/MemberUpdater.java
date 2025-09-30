@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account.queue;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,22 +31,22 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class MemberUpdater extends Updater<Member> {
-    private String pathaccountSid;
-    private String pathqueueSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathQueueSid;
+    private String pathCallSid;
     private URI url;
     private HttpMethod method;
 
-    public MemberUpdater(final String pathqueueSid, final String pathcallSid, final URI url) {
-        this.pathqueueSid = pathqueueSid;
-        this.pathcallSid = pathcallSid;
+    public MemberUpdater(final String pathQueueSid, final String pathCallSid, final URI url) {
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
 
-    public MemberUpdater(final String pathaccountSid, final String pathqueueSid, final String pathcallSid, final URI url) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathqueueSid = pathqueueSid;
-        this.pathcallSid = pathcallSid;
+    public MemberUpdater(final String pathAccountSid, final String pathQueueSid, final String pathCallSid, final URI url) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
 
@@ -55,6 +56,9 @@ public class MemberUpdater extends Updater<Member> {
         return this;
     }
 
+    public MemberUpdater setUrl(final String url) {
+        return setUrl(Promoter.uriFromString(url));
+    }
 
     public MemberUpdater setMethod(final HttpMethod method) {
         this.method = method;
@@ -67,10 +71,10 @@ public class MemberUpdater extends Updater<Member> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "QueueSid" + "}", this.pathqueueSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

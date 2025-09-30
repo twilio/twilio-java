@@ -39,23 +39,23 @@ import java.util.Objects;
 public class WorkerChannel extends Resource {
 
 
-    public static WorkerChannelFetcher fetcher(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
+    public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
         return new WorkerChannelFetcher(
-                pathworkspaceSid, pathworkerSid, pathsid
+                pathWorkspaceSid, pathWorkerSid, pathSid
         );
     }
 
 
-    public static WorkerChannelReader reader(final String pathworkspaceSid, final String pathworkerSid) {
+    public static WorkerChannelReader reader(final String pathWorkspaceSid, final String pathWorkerSid) {
         return new WorkerChannelReader(
-                pathworkspaceSid, pathworkerSid
+                pathWorkspaceSid, pathWorkerSid
         );
     }
 
 
-    public static WorkerChannelUpdater updater(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
+    public static WorkerChannelUpdater updater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
         return new WorkerChannelUpdater(
-                pathworkspaceSid, pathworkerSid, pathsid
+                pathWorkspaceSid, pathWorkerSid, pathSid
         );
     }
 

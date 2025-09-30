@@ -39,9 +39,9 @@ import java.util.Objects;
 public class PluginConfigurationArchive extends Resource {
 
 
-    public static PluginConfigurationArchiveUpdater updater(final String pathsid) {
+    public static PluginConfigurationArchiveUpdater updater(final String pathSid) {
         return new PluginConfigurationArchiveUpdater(
-                pathsid
+                pathSid
         );
     }
 

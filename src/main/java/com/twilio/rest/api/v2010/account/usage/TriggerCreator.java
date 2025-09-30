@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account.usage;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -32,7 +33,7 @@ import java.net.URI;
 
 public class TriggerCreator extends Creator<Trigger> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private URI callbackUrl;
     private String triggerValue;
     private String usageCategory;
@@ -47,8 +48,8 @@ public class TriggerCreator extends Creator<Trigger> {
         this.usageCategory = usageCategory;
     }
 
-    public TriggerCreator(final String pathaccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
-        this.pathaccountSid = pathaccountSid;
+    public TriggerCreator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
+        this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
         this.usageCategory = usageCategory;
@@ -60,6 +61,9 @@ public class TriggerCreator extends Creator<Trigger> {
         return this;
     }
 
+    public TriggerCreator setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public TriggerCreator setTriggerValue(final String triggerValue) {
         this.triggerValue = triggerValue;
@@ -102,8 +106,8 @@ public class TriggerCreator extends Creator<Trigger> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

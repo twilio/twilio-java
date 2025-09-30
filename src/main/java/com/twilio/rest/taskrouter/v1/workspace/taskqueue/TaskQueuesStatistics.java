@@ -36,9 +36,9 @@ import java.util.Objects;
 public class TaskQueuesStatistics extends Resource {
 
 
-    public static TaskQueuesStatisticsReader reader(final String pathworkspaceSid) {
+    public static TaskQueuesStatisticsReader reader(final String pathWorkspaceSid) {
         return new TaskQueuesStatisticsReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 

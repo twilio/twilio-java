@@ -18,6 +18,7 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -75,6 +76,9 @@ public class IpCommandCreator extends Creator<IpCommand> {
         return this;
     }
 
+    public IpCommandCreator setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public IpCommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;

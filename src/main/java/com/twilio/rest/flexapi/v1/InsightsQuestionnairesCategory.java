@@ -44,9 +44,9 @@ public class InsightsQuestionnairesCategory extends Resource {
     }
 
 
-    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathcategorySid) {
+    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathCategorySid) {
         return new InsightsQuestionnairesCategoryDeleter(
-                pathcategorySid
+                pathCategorySid
         );
     }
 
@@ -58,9 +58,9 @@ public class InsightsQuestionnairesCategory extends Resource {
     }
 
 
-    public static InsightsQuestionnairesCategoryUpdater updater(final String pathcategorySid, final String name) {
+    public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategorySid, final String name) {
         return new InsightsQuestionnairesCategoryUpdater(
-                pathcategorySid, name
+                pathCategorySid, name
         );
     }
 

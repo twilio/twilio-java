@@ -42,37 +42,37 @@ import java.util.Objects;
 public class Message extends Resource {
 
 
-    public static MessageCreator creator(final String pathconversationSid) {
+    public static MessageCreator creator(final String pathConversationSid) {
         return new MessageCreator(
-                pathconversationSid
+                pathConversationSid
         );
     }
 
 
-    public static MessageDeleter deleter(final String pathconversationSid, final String pathsid) {
+    public static MessageDeleter deleter(final String pathConversationSid, final String pathSid) {
         return new MessageDeleter(
-                pathconversationSid, pathsid
+                pathConversationSid, pathSid
         );
     }
 
 
-    public static MessageFetcher fetcher(final String pathconversationSid, final String pathsid) {
+    public static MessageFetcher fetcher(final String pathConversationSid, final String pathSid) {
         return new MessageFetcher(
-                pathconversationSid, pathsid
+                pathConversationSid, pathSid
         );
     }
 
 
-    public static MessageReader reader(final String pathconversationSid) {
+    public static MessageReader reader(final String pathConversationSid) {
         return new MessageReader(
-                pathconversationSid
+                pathConversationSid
         );
     }
 
 
-    public static MessageUpdater updater(final String pathconversationSid, final String pathsid) {
+    public static MessageUpdater updater(final String pathConversationSid, final String pathSid) {
         return new MessageUpdater(
-                pathconversationSid, pathsid
+                pathConversationSid, pathSid
         );
     }
 

@@ -17,6 +17,7 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class FlexFlowUpdater extends Updater<FlexFlow> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private String chatServiceSid;
     private FlexFlow.ChannelType channelType;
@@ -49,8 +50,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     private Boolean janitorEnabled;
     private Integer integrationRetryCount;
 
-    public FlexFlowUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public FlexFlowUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -101,6 +102,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
         return this;
     }
 
+    public FlexFlowUpdater setIntegrationUrl(final String integrationUrl) {
+        return setIntegrationUrl(Promoter.uriFromString(integrationUrl));
+    }
 
     public FlexFlowUpdater setIntegrationWorkspaceSid(final String integrationWorkspaceSid) {
         this.integrationWorkspaceSid = integrationWorkspaceSid;
@@ -161,7 +165,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
         String path = "/v1/FlexFlows/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

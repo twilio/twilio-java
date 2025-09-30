@@ -37,9 +37,9 @@ import java.util.Objects;
 public class Policies extends Resource {
 
 
-    public static PoliciesFetcher fetcher(final String pathsid) {
+    public static PoliciesFetcher fetcher(final String pathSid) {
         return new PoliciesFetcher(
-                pathsid
+                pathSid
         );
     }
 

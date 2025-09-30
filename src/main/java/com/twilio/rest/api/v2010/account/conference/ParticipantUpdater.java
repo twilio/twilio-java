@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,9 +31,9 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ParticipantUpdater extends Updater<Participant> {
-    private String pathaccountSid;
-    private String pathconferenceSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathConferenceSid;
+    private String pathCallSid;
     private Boolean muted;
     private Boolean hold;
     private URI holdUrl;
@@ -46,15 +47,15 @@ public class ParticipantUpdater extends Updater<Participant> {
     private Boolean coaching;
     private String callSidToCoach;
 
-    public ParticipantUpdater(final String pathconferenceSid, final String pathcallSid) {
-        this.pathconferenceSid = pathconferenceSid;
-        this.pathcallSid = pathcallSid;
+    public ParticipantUpdater(final String pathConferenceSid, final String pathCallSid) {
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathCallSid = pathCallSid;
     }
 
-    public ParticipantUpdater(final String pathaccountSid, final String pathconferenceSid, final String pathcallSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathconferenceSid = pathconferenceSid;
-        this.pathcallSid = pathcallSid;
+    public ParticipantUpdater(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -75,6 +76,9 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
+    public ParticipantUpdater setHoldUrl(final String holdUrl) {
+        return setHoldUrl(Promoter.uriFromString(holdUrl));
+    }
 
     public ParticipantUpdater setHoldMethod(final HttpMethod holdMethod) {
         this.holdMethod = holdMethod;
@@ -87,6 +91,9 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
+    public ParticipantUpdater setAnnounceUrl(final String announceUrl) {
+        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
+    }
 
     public ParticipantUpdater setAnnounceMethod(final HttpMethod announceMethod) {
         this.announceMethod = announceMethod;
@@ -99,6 +106,9 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
+    public ParticipantUpdater setWaitUrl(final String waitUrl) {
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
+    }
 
     public ParticipantUpdater setWaitMethod(final HttpMethod waitMethod) {
         this.waitMethod = waitMethod;
@@ -135,10 +145,10 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

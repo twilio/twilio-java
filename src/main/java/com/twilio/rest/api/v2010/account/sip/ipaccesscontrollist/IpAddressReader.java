@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class IpAddressReader extends Reader<IpAddress> {
 
-    private String pathaccountSid;
-    private String pathipAccessControlListSid;
+    private String pathAccountSid;
+    private String pathIpAccessControlListSid;
     private Long pageSize;
 
-    public IpAddressReader(final String pathipAccessControlListSid) {
-        this.pathipAccessControlListSid = pathipAccessControlListSid;
+    public IpAddressReader(final String pathIpAccessControlListSid) {
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
-    public IpAddressReader(final String pathaccountSid, final String pathipAccessControlListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathipAccessControlListSid = pathipAccessControlListSid;
+    public IpAddressReader(final String pathAccountSid, final String pathIpAccessControlListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
 
@@ -59,9 +59,9 @@ public class IpAddressReader extends Reader<IpAddress> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "IpAccessControlListSid" + "}", this.pathipAccessControlListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "IpAccessControlListSid" + "}", this.pathIpAccessControlListSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

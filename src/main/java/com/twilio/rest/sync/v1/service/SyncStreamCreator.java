@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class SyncStreamCreator extends Creator<SyncStream> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private Integer ttl;
 
-    public SyncStreamCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public SyncStreamCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -56,7 +56,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
 
         String path = "/v1/Services/{ServiceSid}/Streams";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

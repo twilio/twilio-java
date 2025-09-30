@@ -46,16 +46,16 @@ public class IpRecord extends Resource {
     }
 
 
-    public static IpRecordDeleter deleter(final String pathsid) {
+    public static IpRecordDeleter deleter(final String pathSid) {
         return new IpRecordDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static IpRecordFetcher fetcher(final String pathsid) {
+    public static IpRecordFetcher fetcher(final String pathSid) {
         return new IpRecordFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -67,9 +67,9 @@ public class IpRecord extends Resource {
     }
 
 
-    public static IpRecordUpdater updater(final String pathsid) {
+    public static IpRecordUpdater updater(final String pathSid) {
         return new IpRecordUpdater(
-                pathsid
+                pathSid
         );
     }
 

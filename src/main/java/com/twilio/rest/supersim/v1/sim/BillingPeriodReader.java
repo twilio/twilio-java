@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class BillingPeriodReader extends Reader<BillingPeriod> {
 
-    private String pathsimSid;
+    private String pathSimSid;
     private Long pageSize;
 
-    public BillingPeriodReader(final String pathsimSid) {
-        this.pathsimSid = pathsimSid;
+    public BillingPeriodReader(final String pathSimSid) {
+        this.pathSimSid = pathSimSid;
     }
 
 
@@ -53,7 +53,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
 
         String path = "/v1/Sims/{SimSid}/BillingPeriods";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

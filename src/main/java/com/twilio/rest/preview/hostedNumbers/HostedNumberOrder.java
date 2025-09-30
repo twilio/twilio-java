@@ -49,16 +49,16 @@ public class HostedNumberOrder extends Resource {
     }
 
 
-    public static HostedNumberOrderDeleter deleter(final String pathsid) {
+    public static HostedNumberOrderDeleter deleter(final String pathSid) {
         return new HostedNumberOrderDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static HostedNumberOrderFetcher fetcher(final String pathsid) {
+    public static HostedNumberOrderFetcher fetcher(final String pathSid) {
         return new HostedNumberOrderFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -70,9 +70,9 @@ public class HostedNumberOrder extends Resource {
     }
 
 
-    public static HostedNumberOrderUpdater updater(final String pathsid) {
+    public static HostedNumberOrderUpdater updater(final String pathSid) {
         return new HostedNumberOrderUpdater(
-                pathsid
+                pathSid
         );
     }
 

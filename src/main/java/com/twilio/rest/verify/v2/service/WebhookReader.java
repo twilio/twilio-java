@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class WebhookReader extends Reader<Webhook> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public WebhookReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public WebhookReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class WebhookReader extends Reader<Webhook> {
 
         String path = "/v2/Services/{ServiceSid}/Webhooks";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

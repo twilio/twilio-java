@@ -32,7 +32,7 @@ import java.time.LocalDate;
 
 public class AllTimeReader extends Reader<AllTime> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -42,8 +42,8 @@ public class AllTimeReader extends Reader<AllTime> {
     public AllTimeReader() {
     }
 
-    public AllTimeReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public AllTimeReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -86,8 +86,8 @@ public class AllTimeReader extends Reader<AllTime> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

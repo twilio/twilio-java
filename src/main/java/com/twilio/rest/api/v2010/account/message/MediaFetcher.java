@@ -26,19 +26,19 @@ import com.twilio.rest.Domains;
 
 public class MediaFetcher extends Fetcher<Media> {
 
-    private String pathaccountSid;
-    private String pathmessageSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathMessageSid;
+    private String pathSid;
 
-    public MediaFetcher(final String pathmessageSid, final String pathsid) {
-        this.pathmessageSid = pathmessageSid;
-        this.pathsid = pathsid;
+    public MediaFetcher(final String pathMessageSid, final String pathSid) {
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
-    public MediaFetcher(final String pathaccountSid, final String pathmessageSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathmessageSid = pathmessageSid;
-        this.pathsid = pathsid;
+    public MediaFetcher(final String pathAccountSid, final String pathMessageSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +47,10 @@ public class MediaFetcher extends Fetcher<Media> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "MessageSid" + "}", this.pathmessageSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "MessageSid" + "}", this.pathMessageSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

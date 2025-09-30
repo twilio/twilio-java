@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class SinkValidateCreator extends Creator<SinkValidate> {
 
-    private String pathsid;
+    private String pathSid;
     private String testId;
 
-    public SinkValidateCreator(final String pathsid, final String testId) {
-        this.pathsid = pathsid;
+    public SinkValidateCreator(final String pathSid, final String testId) {
+        this.pathSid = pathSid;
         this.testId = testId;
     }
 
@@ -50,7 +50,7 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
 
         String path = "/v1/Sinks/{Sid}/Validate";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

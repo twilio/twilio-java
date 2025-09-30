@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class TrustProductsEvaluationsReader extends Reader<TrustProductsEvaluations> {
 
-    private String pathtrustProductSid;
+    private String pathTrustProductSid;
     private Long pageSize;
 
-    public TrustProductsEvaluationsReader(final String pathtrustProductSid) {
-        this.pathtrustProductSid = pathtrustProductSid;
+    public TrustProductsEvaluationsReader(final String pathTrustProductSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
     }
 
 
@@ -53,7 +53,7 @@ public class TrustProductsEvaluationsReader extends Reader<TrustProductsEvaluati
 
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

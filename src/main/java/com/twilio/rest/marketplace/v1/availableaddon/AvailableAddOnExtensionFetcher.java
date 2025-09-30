@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtension> {
 
-    private String pathavailableAddOnSid;
-    private String pathsid;
+    private String pathAvailableAddOnSid;
+    private String pathSid;
 
-    public AvailableAddOnExtensionFetcher(final String pathavailableAddOnSid, final String pathsid) {
-        this.pathavailableAddOnSid = pathavailableAddOnSid;
-        this.pathsid = pathsid;
+    public AvailableAddOnExtensionFetcher(final String pathAvailableAddOnSid, final String pathSid) {
+        this.pathAvailableAddOnSid = pathAvailableAddOnSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
 
         String path = "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}";
 
-        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathavailableAddOnSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathAvailableAddOnSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

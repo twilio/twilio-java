@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Account extends Resource {
 
 
-    public static AccountFetcher fetcher(final String pathorganizationSid, final String pathaccountSid) {
+    public static AccountFetcher fetcher(final String pathOrganizationSid, final String pathAccountSid) {
         return new AccountFetcher(
-                pathorganizationSid, pathaccountSid
+                pathOrganizationSid, pathAccountSid
         );
     }
 
 
-    public static AccountReader reader(final String pathorganizationSid) {
+    public static AccountReader reader(final String pathOrganizationSid) {
         return new AccountReader(
-                pathorganizationSid
+                pathOrganizationSid
         );
     }
 

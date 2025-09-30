@@ -47,16 +47,16 @@ public class CustomOperator extends Resource {
     }
 
 
-    public static CustomOperatorDeleter deleter(final String pathsid) {
+    public static CustomOperatorDeleter deleter(final String pathSid) {
         return new CustomOperatorDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CustomOperatorFetcher fetcher(final String pathsid) {
+    public static CustomOperatorFetcher fetcher(final String pathSid) {
         return new CustomOperatorFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class CustomOperator extends Resource {
     }
 
 
-    public static CustomOperatorUpdater updater(final String pathsid, final String friendlyName, final Object config) {
+    public static CustomOperatorUpdater updater(final String pathSid, final String friendlyName, final Object config) {
         return new CustomOperatorUpdater(
-                pathsid, friendlyName, config
+                pathSid, friendlyName, config
         );
     }
 

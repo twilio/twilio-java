@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class SchemaVersionReader extends Reader<SchemaVersion> {
 
-    private String pathid;
+    private String pathId;
     private Long pageSize;
 
-    public SchemaVersionReader(final String pathid) {
-        this.pathid = pathid;
+    public SchemaVersionReader(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -53,7 +53,7 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
 
         String path = "/v1/Schemas/{Id}/Versions";
 
-        path = path.replace("{" + "Id" + "}", this.pathid.toString());
+        path = path.replace("{" + "Id" + "}", this.pathId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

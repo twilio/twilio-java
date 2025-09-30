@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private Long pageSize;
 
-    public IpAccessControlListReader(final String pathtrunkSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public IpAccessControlListReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
 
@@ -53,7 +53,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

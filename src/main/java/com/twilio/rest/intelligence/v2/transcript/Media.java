@@ -37,9 +37,9 @@ import java.util.Objects;
 public class Media extends Resource {
 
 
-    public static MediaFetcher fetcher(final String pathsid) {
+    public static MediaFetcher fetcher(final String pathSid) {
         return new MediaFetcher(
-                pathsid
+                pathSid
         );
     }
 

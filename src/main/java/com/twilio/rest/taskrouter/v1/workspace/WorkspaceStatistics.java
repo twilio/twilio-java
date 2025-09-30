@@ -37,9 +37,9 @@ import java.util.Objects;
 public class WorkspaceStatistics extends Resource {
 
 
-    public static WorkspaceStatisticsFetcher fetcher(final String pathworkspaceSid) {
+    public static WorkspaceStatisticsFetcher fetcher(final String pathWorkspaceSid) {
         return new WorkspaceStatisticsFetcher(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 

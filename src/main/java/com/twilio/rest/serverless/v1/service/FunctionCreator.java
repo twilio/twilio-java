@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class FunctionCreator extends Creator<Function> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String friendlyName;
 
-    public FunctionCreator(final String pathserviceSid, final String friendlyName) {
-        this.pathserviceSid = pathserviceSid;
+    public FunctionCreator(final String pathServiceSid, final String friendlyName) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -50,7 +50,7 @@ public class FunctionCreator extends Creator<Function> {
 
         String path = "/v1/Services/{ServiceSid}/Functions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

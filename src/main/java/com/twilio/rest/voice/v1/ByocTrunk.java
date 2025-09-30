@@ -47,16 +47,16 @@ public class ByocTrunk extends Resource {
     }
 
 
-    public static ByocTrunkDeleter deleter(final String pathsid) {
+    public static ByocTrunkDeleter deleter(final String pathSid) {
         return new ByocTrunkDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ByocTrunkFetcher fetcher(final String pathsid) {
+    public static ByocTrunkFetcher fetcher(final String pathSid) {
         return new ByocTrunkFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class ByocTrunk extends Resource {
     }
 
 
-    public static ByocTrunkUpdater updater(final String pathsid) {
+    public static ByocTrunkUpdater updater(final String pathSid) {
         return new ByocTrunkUpdater(
-                pathsid
+                pathSid
         );
     }
 

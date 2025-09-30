@@ -40,23 +40,23 @@ import java.util.Objects;
 public class InteractionTransfer extends Resource {
 
 
-    public static InteractionTransferCreator creator(final String pathinteractionSid, final String pathchannelSid) {
+    public static InteractionTransferCreator creator(final String pathInteractionSid, final String pathChannelSid) {
         return new InteractionTransferCreator(
-                pathinteractionSid, pathchannelSid
+                pathInteractionSid, pathChannelSid
         );
     }
 
 
-    public static InteractionTransferFetcher fetcher(final String pathinteractionSid, final String pathchannelSid, final String pathsid) {
+    public static InteractionTransferFetcher fetcher(final String pathInteractionSid, final String pathChannelSid, final String pathSid) {
         return new InteractionTransferFetcher(
-                pathinteractionSid, pathchannelSid, pathsid
+                pathInteractionSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static InteractionTransferUpdater updater(final String pathinteractionSid, final String pathchannelSid, final String pathsid) {
+    public static InteractionTransferUpdater updater(final String pathInteractionSid, final String pathChannelSid, final String pathSid) {
         return new InteractionTransferUpdater(
-                pathinteractionSid, pathchannelSid, pathsid
+                pathInteractionSid, pathChannelSid, pathSid
         );
     }
 

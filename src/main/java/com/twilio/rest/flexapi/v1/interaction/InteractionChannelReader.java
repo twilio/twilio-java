@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class InteractionChannelReader extends Reader<InteractionChannel> {
 
-    private String pathinteractionSid;
+    private String pathInteractionSid;
     private Long pageSize;
 
-    public InteractionChannelReader(final String pathinteractionSid) {
-        this.pathinteractionSid = pathinteractionSid;
+    public InteractionChannelReader(final String pathInteractionSid) {
+        this.pathInteractionSid = pathInteractionSid;
     }
 
 
@@ -53,7 +53,7 @@ public class InteractionChannelReader extends Reader<InteractionChannel> {
 
         String path = "/v1/Interactions/{InteractionSid}/Channels";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

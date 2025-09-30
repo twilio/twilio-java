@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class DocumentReader extends Reader<Document> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public DocumentReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public DocumentReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class DocumentReader extends Reader<Document> {
 
         String path = "/v1/Services/{ServiceSid}/Documents";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

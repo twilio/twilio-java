@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class CustomerProfilesEvaluationsReader extends Reader<CustomerProfilesEvaluations> {
 
-    private String pathcustomerProfileSid;
+    private String pathCustomerProfileSid;
     private Long pageSize;
 
-    public CustomerProfilesEvaluationsReader(final String pathcustomerProfileSid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
+    public CustomerProfilesEvaluationsReader(final String pathCustomerProfileSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
 
@@ -53,7 +53,7 @@ public class CustomerProfilesEvaluationsReader extends Reader<CustomerProfilesEv
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

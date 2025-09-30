@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumberCountry> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private Long pageSize;
 
     public AvailablePhoneNumberCountryReader() {
     }
 
-    public AvailablePhoneNumberCountryReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public AvailablePhoneNumberCountryReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -56,8 +56,8 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

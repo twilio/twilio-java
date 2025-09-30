@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class EntityDeleter extends Deleter<Entity> {
 
-    private String pathserviceSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathIdentity;
 
-    public EntityDeleter(final String pathserviceSid, final String pathidentity) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
+    public EntityDeleter(final String pathServiceSid, final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -40,8 +40,8 @@ public class EntityDeleter extends Deleter<Entity> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

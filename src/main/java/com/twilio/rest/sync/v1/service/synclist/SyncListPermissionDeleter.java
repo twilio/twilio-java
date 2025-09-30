@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
 
-    private String pathserviceSid;
-    private String pathlistSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathListSid;
+    private String pathIdentity;
 
-    public SyncListPermissionDeleter(final String pathserviceSid, final String pathlistSid, final String pathidentity) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathlistSid = pathlistSid;
-        this.pathidentity = pathidentity;
+    public SyncListPermissionDeleter(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -42,9 +42,9 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

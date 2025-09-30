@@ -28,11 +28,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
-    private String pathsid;
+    private String pathSid;
     private String sipDomainSid;
 
-    public SourceIpMappingUpdater(final String pathsid, final String sipDomainSid) {
-        this.pathsid = pathsid;
+    public SourceIpMappingUpdater(final String pathSid, final String sipDomainSid) {
+        this.pathSid = pathSid;
         this.sipDomainSid = sipDomainSid;
     }
 
@@ -48,7 +48,7 @@ public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
 
         String path = "/v1/SourceIpMappings/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

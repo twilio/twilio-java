@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class UserCreator extends Creator<User> {
 
-    private String pathorganizationSid;
+    private String pathOrganizationSid;
     private User.ScimUser scimUser;
 
-    public UserCreator(final String pathorganizationSid, final User.ScimUser scimUser) {
-        this.pathorganizationSid = pathorganizationSid;
+    public UserCreator(final String pathOrganizationSid, final User.ScimUser scimUser) {
+        this.pathOrganizationSid = pathOrganizationSid;
         this.scimUser = scimUser;
     }
 
@@ -48,7 +48,7 @@ public class UserCreator extends Creator<User> {
 
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
 
 
         Request request = new Request(

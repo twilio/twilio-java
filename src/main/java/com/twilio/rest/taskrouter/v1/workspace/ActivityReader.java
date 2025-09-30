@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class ActivityReader extends Reader<Activity> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String available;
     private Long pageSize;
 
-    public ActivityReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public ActivityReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -67,7 +67,7 @@ public class ActivityReader extends Reader<Activity> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Anonymize extends Resource {
 
 
-    public static AnonymizeUpdater updater(final String pathroomSid, final String pathsid) {
+    public static AnonymizeUpdater updater(final String pathRoomSid, final String pathSid) {
         return new AnonymizeUpdater(
-                pathroomSid, pathsid
+                pathRoomSid, pathSid
         );
     }
 

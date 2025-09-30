@@ -28,17 +28,17 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
-    private String pathserviceSid;
-    private String pathmapSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathMapSid;
+    private String pathIdentity;
     private Boolean read;
     private Boolean write;
     private Boolean manage;
 
-    public SyncMapPermissionUpdater(final String pathserviceSid, final String pathmapSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathmapSid = pathmapSid;
-        this.pathidentity = pathidentity;
+    public SyncMapPermissionUpdater(final String pathServiceSid, final String pathMapSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -68,9 +68,9 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "MapSid" + "}", this.pathmapSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

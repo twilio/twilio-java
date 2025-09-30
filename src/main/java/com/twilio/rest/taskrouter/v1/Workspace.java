@@ -48,16 +48,16 @@ public class Workspace extends Resource {
     }
 
 
-    public static WorkspaceDeleter deleter(final String pathsid) {
+    public static WorkspaceDeleter deleter(final String pathSid) {
         return new WorkspaceDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static WorkspaceFetcher fetcher(final String pathsid) {
+    public static WorkspaceFetcher fetcher(final String pathSid) {
         return new WorkspaceFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class Workspace extends Resource {
     }
 
 
-    public static WorkspaceUpdater updater(final String pathsid) {
+    public static WorkspaceUpdater updater(final String pathSid) {
         return new WorkspaceUpdater(
-                pathsid
+                pathSid
         );
     }
 

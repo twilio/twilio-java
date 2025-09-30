@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
 
-    private String pathsubscriptionSid;
-    private String pathtype;
+    private String pathSubscriptionSid;
+    private String pathType;
 
-    public SubscribedEventDeleter(final String pathsubscriptionSid, final String pathtype) {
-        this.pathsubscriptionSid = pathsubscriptionSid;
-        this.pathtype = pathtype;
+    public SubscribedEventDeleter(final String pathSubscriptionSid, final String pathType) {
+        this.pathSubscriptionSid = pathSubscriptionSid;
+        this.pathType = pathType;
     }
 
 
@@ -40,8 +40,8 @@ public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
 
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        path = path.replace("{" + "SubscriptionSid" + "}", this.pathsubscriptionSid.toString());
-        path = path.replace("{" + "Type" + "}", this.pathtype.toString());
+        path = path.replace("{" + "SubscriptionSid" + "}", this.pathSubscriptionSid.toString());
+        path = path.replace("{" + "Type" + "}", this.pathType.toString());
 
 
         Request request = new Request(

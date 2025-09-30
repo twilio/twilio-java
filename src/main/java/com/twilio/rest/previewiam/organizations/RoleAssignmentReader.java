@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class RoleAssignmentReader extends Reader<RoleAssignment> {
 
-    private String pathorganizationSid;
+    private String pathOrganizationSid;
     private Integer pageSize;
     private String identity;
     private String scope;
 
-    public RoleAssignmentReader(final String pathorganizationSid) {
-        this.pathorganizationSid = pathorganizationSid;
+    public RoleAssignmentReader(final String pathOrganizationSid) {
+        this.pathOrganizationSid = pathOrganizationSid;
     }
 
 
@@ -67,7 +67,7 @@ public class RoleAssignmentReader extends Reader<RoleAssignment> {
 
         String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

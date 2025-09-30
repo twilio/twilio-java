@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Asset extends Resource {
 
 
-    public static AssetCreator creator(final String pathserviceSid, final String friendlyName) {
+    public static AssetCreator creator(final String pathServiceSid, final String friendlyName) {
         return new AssetCreator(
-                pathserviceSid, friendlyName
+                pathServiceSid, friendlyName
         );
     }
 
 
-    public static AssetDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static AssetDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new AssetDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static AssetFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static AssetFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new AssetFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static AssetReader reader(final String pathserviceSid) {
+    public static AssetReader reader(final String pathServiceSid) {
         return new AssetReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static AssetUpdater updater(final String pathserviceSid, final String pathsid, final String friendlyName) {
+    public static AssetUpdater updater(final String pathServiceSid, final String pathSid, final String friendlyName) {
         return new AssetUpdater(
-                pathserviceSid, pathsid, friendlyName
+                pathServiceSid, pathSid, friendlyName
         );
     }
 

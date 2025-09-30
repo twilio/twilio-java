@@ -42,30 +42,30 @@ import java.util.Objects;
 public class PhoneNumber extends Resource {
 
 
-    public static PhoneNumberCreator creator(final String pathtrunkSid, final String phoneNumberSid) {
+    public static PhoneNumberCreator creator(final String pathTrunkSid, final String phoneNumberSid) {
         return new PhoneNumberCreator(
-                pathtrunkSid, phoneNumberSid
+                pathTrunkSid, phoneNumberSid
         );
     }
 
 
-    public static PhoneNumberDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static PhoneNumberDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new PhoneNumberDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static PhoneNumberFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static PhoneNumberFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new PhoneNumberFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static PhoneNumberReader reader(final String pathtrunkSid) {
+    public static PhoneNumberReader reader(final String pathTrunkSid) {
         return new PhoneNumberReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

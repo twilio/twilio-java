@@ -41,16 +41,16 @@ import java.util.Objects;
 public class Participant extends Resource {
 
 
-    public static ParticipantFetcher fetcher(final String pathroomSid, final String pathparticipantSid) {
+    public static ParticipantFetcher fetcher(final String pathRoomSid, final String pathParticipantSid) {
         return new ParticipantFetcher(
-                pathroomSid, pathparticipantSid
+                pathRoomSid, pathParticipantSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathroomSid) {
+    public static ParticipantReader reader(final String pathRoomSid) {
         return new ParticipantReader(
-                pathroomSid
+                pathRoomSid
         );
     }
 
@@ -74,28 +74,6 @@ public class Participant extends Resource {
         @JsonCreator
         public static Codec forValue(final String value) {
             return Promoter.enumFromString(value, Codec.values());
-        }
-    }
-
-    public enum ParticipantParticipantCodec {
-        VP8("VP8"),
-        H264("H264"),
-        VP9("VP9"),
-        OPUS("opus");
-
-        private final String value;
-
-        private ParticipantParticipantCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ParticipantParticipantCodec forValue(final String value) {
-            return Promoter.enumFromString(value, ParticipantParticipantCodec.values());
         }
     }
 
@@ -146,28 +124,6 @@ public class Participant extends Resource {
         @JsonCreator
         public static TwilioRealm forValue(final String value) {
             return Promoter.enumFromString(value, TwilioRealm.values());
-        }
-    }
-
-    public enum ParticipantParticipantParticipantCodec {
-        VP8("VP8"),
-        H264("H264"),
-        VP9("VP9"),
-        OPUS("opus");
-
-        private final String value;
-
-        private ParticipantParticipantParticipantCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ParticipantParticipantParticipantCodec forValue(final String value) {
-            return Promoter.enumFromString(value, ParticipantParticipantParticipantCodec.values());
         }
     }
 
@@ -274,7 +230,7 @@ public class Participant extends Resource {
     @Getter
     private final String accountSid;
     @Getter
-    private final List<Participant.ParticipantParticipantParticipantCodec> codecs;
+    private final List<Participant.Codec> codecs;
     @Getter
     private final Long durationSec;
     @Getter
@@ -309,7 +265,7 @@ public class Participant extends Resource {
     @JsonCreator
     private Participant(
             @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("codecs") final List<Participant.ParticipantParticipantParticipantCodec> codecs,
+            @JsonProperty("codecs") final List<Participant.Codec> codecs,
             @JsonProperty("duration_sec") final Long durationSec,
             @JsonProperty("edge_location") final Participant.EdgeLocation edgeLocation,
             @JsonProperty("end_reason") final String endReason,

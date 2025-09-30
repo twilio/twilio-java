@@ -39,23 +39,23 @@ import java.util.Objects;
 public class DomainCerts extends Resource {
 
 
-    public static DomainCertsDeleter deleter(final String pathdomainSid) {
+    public static DomainCertsDeleter deleter(final String pathDomainSid) {
         return new DomainCertsDeleter(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static DomainCertsFetcher fetcher(final String pathdomainSid) {
+    public static DomainCertsFetcher fetcher(final String pathDomainSid) {
         return new DomainCertsFetcher(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static DomainCertsUpdater updater(final String pathdomainSid, final String tlsCert) {
+    public static DomainCertsUpdater updater(final String pathDomainSid, final String tlsCert) {
         return new DomainCertsUpdater(
-                pathdomainSid, tlsCert
+                pathDomainSid, tlsCert
         );
     }
 

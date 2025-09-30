@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerProfilesEntityAssignments> {
 
-    private String pathcustomerProfileSid;
+    private String pathCustomerProfileSid;
     private String objectSid;
 
-    public CustomerProfilesEntityAssignmentsCreator(final String pathcustomerProfileSid, final String objectSid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
+    public CustomerProfilesEntityAssignmentsCreator(final String pathCustomerProfileSid, final String objectSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.objectSid = objectSid;
     }
 
@@ -50,7 +50,7 @@ public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerPr
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
 
 
         Request request = new Request(

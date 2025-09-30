@@ -46,37 +46,37 @@ public class CredentialList extends Resource {
     }
 
 
-    public static CredentialListCreator creator(final String pathaccountSid, final String friendlyName) {
+    public static CredentialListCreator creator(final String pathAccountSid, final String friendlyName) {
         return new CredentialListCreator(
-                pathaccountSid, friendlyName
+                pathAccountSid, friendlyName
         );
     }
 
 
-    public static CredentialListDeleter deleter(final String pathsid) {
+    public static CredentialListDeleter deleter(final String pathSid) {
         return new CredentialListDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CredentialListDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static CredentialListDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new CredentialListDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static CredentialListFetcher fetcher(final String pathsid) {
+    public static CredentialListFetcher fetcher(final String pathSid) {
         return new CredentialListFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CredentialListFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static CredentialListFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new CredentialListFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -88,23 +88,23 @@ public class CredentialList extends Resource {
     }
 
 
-    public static CredentialListReader reader(final String pathaccountSid) {
+    public static CredentialListReader reader(final String pathAccountSid) {
         return new CredentialListReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static CredentialListUpdater updater(final String pathsid, final String friendlyName) {
+    public static CredentialListUpdater updater(final String pathSid, final String friendlyName) {
         return new CredentialListUpdater(
-                pathsid, friendlyName
+                pathSid, friendlyName
         );
     }
 
 
-    public static CredentialListUpdater updater(final String pathaccountSid, final String pathsid, final String friendlyName) {
+    public static CredentialListUpdater updater(final String pathAccountSid, final String pathSid, final String friendlyName) {
         return new CredentialListUpdater(
-                pathaccountSid, pathsid, friendlyName
+                pathAccountSid, pathSid, friendlyName
         );
     }
 

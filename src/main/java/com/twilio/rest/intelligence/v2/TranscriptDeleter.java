@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class TranscriptDeleter extends Deleter<Transcript> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public TranscriptDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public TranscriptDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class TranscriptDeleter extends Deleter<Transcript> {
 
         String path = "/v2/Transcripts/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

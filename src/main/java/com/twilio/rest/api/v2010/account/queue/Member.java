@@ -39,44 +39,44 @@ import java.util.Objects;
 public class Member extends Resource {
 
 
-    public static MemberFetcher fetcher(final String pathqueueSid, final String pathcallSid) {
+    public static MemberFetcher fetcher(final String pathQueueSid, final String pathCallSid) {
         return new MemberFetcher(
-                pathqueueSid, pathcallSid
+                pathQueueSid, pathCallSid
         );
     }
 
 
-    public static MemberFetcher fetcher(final String pathaccountSid, final String pathqueueSid, final String pathcallSid) {
+    public static MemberFetcher fetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid) {
         return new MemberFetcher(
-                pathaccountSid, pathqueueSid, pathcallSid
+                pathAccountSid, pathQueueSid, pathCallSid
         );
     }
 
 
-    public static MemberReader reader(final String pathqueueSid) {
+    public static MemberReader reader(final String pathQueueSid) {
         return new MemberReader(
-                pathqueueSid
+                pathQueueSid
         );
     }
 
 
-    public static MemberReader reader(final String pathaccountSid, final String pathqueueSid) {
+    public static MemberReader reader(final String pathAccountSid, final String pathQueueSid) {
         return new MemberReader(
-                pathaccountSid, pathqueueSid
+                pathAccountSid, pathQueueSid
         );
     }
 
 
-    public static MemberUpdater updater(final String pathqueueSid, final String pathcallSid, final URI url) {
+    public static MemberUpdater updater(final String pathQueueSid, final String pathCallSid, final URI url) {
         return new MemberUpdater(
-                pathqueueSid, pathcallSid, url
+                pathQueueSid, pathCallSid, url
         );
     }
 
 
-    public static MemberUpdater updater(final String pathaccountSid, final String pathqueueSid, final String pathcallSid, final URI url) {
+    public static MemberUpdater updater(final String pathAccountSid, final String pathQueueSid, final String pathCallSid, final URI url) {
         return new MemberUpdater(
-                pathaccountSid, pathqueueSid, pathcallSid, url
+                pathAccountSid, pathQueueSid, pathCallSid, url
         );
     }
 

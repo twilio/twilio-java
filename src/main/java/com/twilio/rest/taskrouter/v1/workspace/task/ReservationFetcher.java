@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class ReservationFetcher extends Fetcher<Reservation> {
 
-    private String pathworkspaceSid;
-    private String pathtaskSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathTaskSid;
+    private String pathSid;
 
-    public ReservationFetcher(final String pathworkspaceSid, final String pathtaskSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathtaskSid = pathtaskSid;
-        this.pathsid = pathsid;
+    public ReservationFetcher(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskSid = pathTaskSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class ReservationFetcher extends Fetcher<Reservation> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "TaskSid" + "}", this.pathtaskSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

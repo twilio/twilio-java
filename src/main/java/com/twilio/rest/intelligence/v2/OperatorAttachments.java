@@ -38,9 +38,9 @@ import java.util.Objects;
 public class OperatorAttachments extends Resource {
 
 
-    public static OperatorAttachmentsFetcher fetcher(final String pathserviceSid) {
+    public static OperatorAttachmentsFetcher fetcher(final String pathServiceSid) {
         return new OperatorAttachmentsFetcher(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class EventFetcher extends Fetcher<Event> {
 
-    private String pathworkspaceSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathSid;
 
-    public EventFetcher(final String pathworkspaceSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathsid = pathsid;
+    public EventFetcher(final String pathWorkspaceSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class EventFetcher extends Fetcher<Event> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

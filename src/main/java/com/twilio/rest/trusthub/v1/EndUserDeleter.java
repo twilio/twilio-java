@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class EndUserDeleter extends Deleter<EndUser> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public EndUserDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public EndUserDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class EndUserDeleter extends Deleter<EndUser> {
 
         String path = "/v1/EndUsers/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

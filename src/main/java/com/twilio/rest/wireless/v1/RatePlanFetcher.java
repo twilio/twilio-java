@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class RatePlanFetcher extends Fetcher<RatePlan> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public RatePlanFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public RatePlanFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
 
         String path = "/v1/RatePlans/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

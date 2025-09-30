@@ -30,18 +30,18 @@ import com.twilio.rest.Domains;
 
 public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthRegistrationsCredentialListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
+    private String pathAccountSid;
+    private String pathDomainSid;
     private String credentialListSid;
 
-    public AuthRegistrationsCredentialListMappingCreator(final String pathdomainSid, final String credentialListSid) {
-        this.pathdomainSid = pathdomainSid;
+    public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid, final String credentialListSid) {
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
-    public AuthRegistrationsCredentialListMappingCreator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
+    public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -57,9 +57,9 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

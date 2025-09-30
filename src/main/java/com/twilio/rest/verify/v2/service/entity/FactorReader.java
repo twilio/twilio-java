@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class FactorReader extends Reader<Factor> {
 
-    private String pathserviceSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private Long pageSize;
 
-    public FactorReader(final String pathserviceSid, final String pathidentity) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
+    public FactorReader(final String pathServiceSid, final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -55,8 +55,8 @@ public class FactorReader extends Reader<Factor> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

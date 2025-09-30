@@ -28,16 +28,16 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class BucketUpdater extends Updater<Bucket> {
-    private String pathserviceSid;
-    private String pathrateLimitSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
+    private String pathSid;
     private Integer max;
     private Integer interval;
 
-    public BucketUpdater(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathrateLimitSid = pathrateLimitSid;
-        this.pathsid = pathsid;
+    public BucketUpdater(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -58,9 +58,9 @@ public class BucketUpdater extends Updater<Bucket> {
 
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "RateLimitSid" + "}", this.pathrateLimitSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "RateLimitSid" + "}", this.pathRateLimitSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

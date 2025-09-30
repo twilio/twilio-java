@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class WorkflowReader extends Reader<Workflow> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private Long pageSize;
 
-    public WorkflowReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkflowReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -60,7 +60,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

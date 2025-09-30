@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class BundleDeleter extends Deleter<Bundle> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public BundleDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public BundleDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class BundleDeleter extends Deleter<Bundle> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

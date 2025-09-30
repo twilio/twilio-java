@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class EventTypeFetcher extends Fetcher<EventType> {
 
-    private String pathtype;
+    private String pathType;
 
-    public EventTypeFetcher(final String pathtype) {
-        this.pathtype = pathtype;
+    public EventTypeFetcher(final String pathType) {
+        this.pathType = pathType;
     }
 
 
@@ -38,7 +38,7 @@ public class EventTypeFetcher extends Fetcher<EventType> {
 
         String path = "/v1/Types/{Type}";
 
-        path = path.replace("{" + "Type" + "}", this.pathtype.toString());
+        path = path.replace("{" + "Type" + "}", this.pathType.toString());
 
 
         Request request = new Request(

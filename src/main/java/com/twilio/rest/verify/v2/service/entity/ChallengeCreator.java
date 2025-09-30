@@ -34,8 +34,8 @@ import java.util.List;
 
 public class ChallengeCreator extends Creator<Challenge> {
 
-    private String pathserviceSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private String factorSid;
     private ZonedDateTime expirationDate;
     private String detailsMessage;
@@ -43,9 +43,9 @@ public class ChallengeCreator extends Creator<Challenge> {
     private Object hiddenDetails;
     private String authPayload;
 
-    public ChallengeCreator(final String pathserviceSid, final String pathidentity, final String factorSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
+    public ChallengeCreator(final String pathServiceSid, final String pathIdentity, final String factorSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
         this.factorSid = factorSid;
     }
 
@@ -94,8 +94,8 @@ public class ChallengeCreator extends Creator<Challenge> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

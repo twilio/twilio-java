@@ -39,16 +39,16 @@ import java.util.Objects;
 public class ConfiguredPlugin extends Resource {
 
 
-    public static ConfiguredPluginFetcher fetcher(final String pathconfigurationSid, final String pathpluginSid) {
+    public static ConfiguredPluginFetcher fetcher(final String pathConfigurationSid, final String pathPluginSid) {
         return new ConfiguredPluginFetcher(
-                pathconfigurationSid, pathpluginSid
+                pathConfigurationSid, pathPluginSid
         );
     }
 
 
-    public static ConfiguredPluginReader reader(final String pathconfigurationSid) {
+    public static ConfiguredPluginReader reader(final String pathConfigurationSid) {
         return new ConfiguredPluginReader(
-                pathconfigurationSid
+                pathConfigurationSid
         );
     }
 

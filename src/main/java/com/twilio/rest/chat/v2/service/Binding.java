@@ -42,23 +42,23 @@ import java.util.Objects;
 public class Binding extends Resource {
 
 
-    public static BindingDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static BindingDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new BindingDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static BindingFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new BindingFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static BindingReader reader(final String pathserviceSid) {
+    public static BindingReader reader(final String pathServiceSid) {
         return new BindingReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

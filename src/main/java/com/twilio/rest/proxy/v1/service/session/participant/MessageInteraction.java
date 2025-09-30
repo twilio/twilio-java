@@ -41,30 +41,30 @@ import java.util.Objects;
 public class MessageInteraction extends Resource {
 
 
-    public static MessageInteractionCreator creator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String body) {
+    public static MessageInteractionCreator creator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String body) {
         return new MessageInteractionCreator(
-                pathserviceSid, pathsessionSid, pathparticipantSid, body
+                pathServiceSid, pathSessionSid, pathParticipantSid, body
         );
     }
 
 
-    public static MessageInteractionCreator creator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final List<URI> mediaUrl) {
+    public static MessageInteractionCreator creator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final List<URI> mediaUrl) {
         return new MessageInteractionCreator(
-                pathserviceSid, pathsessionSid, pathparticipantSid, mediaUrl
+                pathServiceSid, pathSessionSid, pathParticipantSid, mediaUrl
         );
     }
 
 
-    public static MessageInteractionFetcher fetcher(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String pathsid) {
+    public static MessageInteractionFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String pathSid) {
         return new MessageInteractionFetcher(
-                pathserviceSid, pathsessionSid, pathparticipantSid, pathsid
+                pathServiceSid, pathSessionSid, pathParticipantSid, pathSid
         );
     }
 
 
-    public static MessageInteractionReader reader(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid) {
+    public static MessageInteractionReader reader(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid) {
         return new MessageInteractionReader(
-                pathserviceSid, pathsessionSid, pathparticipantSid
+                pathServiceSid, pathSessionSid, pathParticipantSid
         );
     }
 

@@ -41,37 +41,37 @@ import java.util.Objects;
 public class User extends Resource {
 
 
-    public static UserCreator creator(final String pathserviceSid, final String identity) {
+    public static UserCreator creator(final String pathServiceSid, final String identity) {
         return new UserCreator(
-                pathserviceSid, identity
+                pathServiceSid, identity
         );
     }
 
 
-    public static UserDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static UserDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new UserDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static UserFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static UserFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new UserFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static UserReader reader(final String pathserviceSid) {
+    public static UserReader reader(final String pathServiceSid) {
         return new UserReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static UserUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static UserUpdater updater(final String pathServiceSid, final String pathSid) {
         return new UserUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

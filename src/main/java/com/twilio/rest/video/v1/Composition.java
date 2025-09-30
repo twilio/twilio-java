@@ -50,16 +50,16 @@ public class Composition extends Resource {
     }
 
 
-    public static CompositionDeleter deleter(final String pathsid) {
+    public static CompositionDeleter deleter(final String pathSid) {
         return new CompositionDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CompositionFetcher fetcher(final String pathsid) {
+    public static CompositionFetcher fetcher(final String pathSid) {
         return new CompositionFetcher(
-                pathsid
+                pathSid
         );
     }
 

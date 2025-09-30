@@ -32,7 +32,7 @@ import java.time.ZonedDateTime;
 
 public class ParticipantCreator extends Creator<Participant> {
 
-    private String pathconversationSid;
+    private String pathConversationSid;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
     private String identity;
     private String messagingBindingAddress;
@@ -43,8 +43,8 @@ public class ParticipantCreator extends Creator<Participant> {
     private String messagingBindingProjectedAddress;
     private String roleSid;
 
-    public ParticipantCreator(final String pathconversationSid) {
-        this.pathconversationSid = pathconversationSid;
+    public ParticipantCreator(final String pathConversationSid) {
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -107,7 +107,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
         String path = "/v1/Conversations/{ConversationSid}/Participants";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

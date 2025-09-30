@@ -38,72 +38,72 @@ import java.util.Objects;
 public class IpAddress extends Resource {
 
 
-    public static IpAddressCreator creator(final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
+    public static IpAddressCreator creator(final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress) {
         return new IpAddressCreator(
-                pathipAccessControlListSid, friendlyName, ipAddress
+                pathIpAccessControlListSid, friendlyName, ipAddress
         );
     }
 
 
-    public static IpAddressCreator creator(final String pathaccountSid, final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
+    public static IpAddressCreator creator(final String pathAccountSid, final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress) {
         return new IpAddressCreator(
-                pathaccountSid, pathipAccessControlListSid, friendlyName, ipAddress
+                pathAccountSid, pathIpAccessControlListSid, friendlyName, ipAddress
         );
     }
 
 
-    public static IpAddressDeleter deleter(final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressDeleter deleter(final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressDeleter(
-                pathipAccessControlListSid, pathsid
+                pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressDeleter deleter(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressDeleter deleter(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressDeleter(
-                pathaccountSid, pathipAccessControlListSid, pathsid
+                pathAccountSid, pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressFetcher fetcher(final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressFetcher(
-                pathipAccessControlListSid, pathsid
+                pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressFetcher fetcher(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressFetcher fetcher(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressFetcher(
-                pathaccountSid, pathipAccessControlListSid, pathsid
+                pathAccountSid, pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressReader reader(final String pathipAccessControlListSid) {
+    public static IpAddressReader reader(final String pathIpAccessControlListSid) {
         return new IpAddressReader(
-                pathipAccessControlListSid
+                pathIpAccessControlListSid
         );
     }
 
 
-    public static IpAddressReader reader(final String pathaccountSid, final String pathipAccessControlListSid) {
+    public static IpAddressReader reader(final String pathAccountSid, final String pathIpAccessControlListSid) {
         return new IpAddressReader(
-                pathaccountSid, pathipAccessControlListSid
+                pathAccountSid, pathIpAccessControlListSid
         );
     }
 
 
-    public static IpAddressUpdater updater(final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressUpdater updater(final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressUpdater(
-                pathipAccessControlListSid, pathsid
+                pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressUpdater updater(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressUpdater updater(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressUpdater(
-                pathaccountSid, pathipAccessControlListSid, pathsid
+                pathAccountSid, pathIpAccessControlListSid, pathSid
         );
     }
 

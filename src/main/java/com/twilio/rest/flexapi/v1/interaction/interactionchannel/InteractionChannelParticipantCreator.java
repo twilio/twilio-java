@@ -30,15 +30,15 @@ import com.twilio.rest.Domains;
 
 public class InteractionChannelParticipantCreator extends Creator<InteractionChannelParticipant> {
 
-    private String pathinteractionSid;
-    private String pathchannelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private InteractionChannelParticipant.Type type;
     private Object mediaProperties;
     private Object routingProperties;
 
-    public InteractionChannelParticipantCreator(final String pathinteractionSid, final String pathchannelSid, final InteractionChannelParticipant.Type type, final Object mediaProperties) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathchannelSid = pathchannelSid;
+    public InteractionChannelParticipantCreator(final String pathInteractionSid, final String pathChannelSid, final InteractionChannelParticipant.Type type, final Object mediaProperties) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
         this.type = type;
         this.mediaProperties = mediaProperties;
     }
@@ -67,8 +67,8 @@ public class InteractionChannelParticipantCreator extends Creator<InteractionCha
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

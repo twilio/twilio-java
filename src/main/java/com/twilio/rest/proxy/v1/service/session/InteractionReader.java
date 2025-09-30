@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class InteractionReader extends Reader<Interaction> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private Long pageSize;
 
-    public InteractionReader(final String pathserviceSid, final String pathsessionSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
+    public InteractionReader(final String pathServiceSid, final String pathSessionSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
     }
 
 
@@ -55,8 +55,8 @@ public class InteractionReader extends Reader<Interaction> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

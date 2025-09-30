@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Document extends Resource {
 
 
-    public static DocumentCreator creator(final String pathserviceSid) {
+    public static DocumentCreator creator(final String pathServiceSid) {
         return new DocumentCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static DocumentDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static DocumentDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new DocumentDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static DocumentFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static DocumentFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new DocumentFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static DocumentReader reader(final String pathserviceSid) {
+    public static DocumentReader reader(final String pathServiceSid) {
         return new DocumentReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static DocumentUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static DocumentUpdater updater(final String pathServiceSid, final String pathSid) {
         return new DocumentUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

@@ -39,9 +39,9 @@ import java.util.Objects;
 public class RequestManagedCert extends Resource {
 
 
-    public static RequestManagedCertUpdater updater(final String pathdomainSid) {
+    public static RequestManagedCertUpdater updater(final String pathDomainSid) {
         return new RequestManagedCertUpdater(
-                pathdomainSid
+                pathDomainSid
         );
     }
 

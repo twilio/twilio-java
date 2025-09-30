@@ -30,18 +30,18 @@ import com.twilio.rest.Domains;
 
 public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
-    private String pathaccountSid;
-    private String pathresourceSid;
+    private String pathAccountSid;
+    private String pathResourceSid;
     private String installedAddOnSid;
 
-    public AssignedAddOnCreator(final String pathresourceSid, final String installedAddOnSid) {
-        this.pathresourceSid = pathresourceSid;
+    public AssignedAddOnCreator(final String pathResourceSid, final String installedAddOnSid) {
+        this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
     }
 
-    public AssignedAddOnCreator(final String pathaccountSid, final String pathresourceSid, final String installedAddOnSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathresourceSid = pathresourceSid;
+    public AssignedAddOnCreator(final String pathAccountSid, final String pathResourceSid, final String installedAddOnSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
     }
 
@@ -57,9 +57,9 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ResourceSid" + "}", this.pathresourceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ResourceSid" + "}", this.pathResourceSid.toString());
 
 
         Request request = new Request(

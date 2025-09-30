@@ -39,16 +39,16 @@ import java.util.Objects;
 public class Log extends Resource {
 
 
-    public static LogFetcher fetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+    public static LogFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
         return new LogFetcher(
-                pathserviceSid, pathenvironmentSid, pathsid
+                pathServiceSid, pathEnvironmentSid, pathSid
         );
     }
 
 
-    public static LogReader reader(final String pathserviceSid, final String pathenvironmentSid) {
+    public static LogReader reader(final String pathServiceSid, final String pathEnvironmentSid) {
         return new LogReader(
-                pathserviceSid, pathenvironmentSid
+                pathServiceSid, pathEnvironmentSid
         );
     }
 

@@ -26,13 +26,13 @@ import com.twilio.rest.Domains;
 
 public class BalanceFetcher extends Fetcher<Balance> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
 
     public BalanceFetcher() {
     }
 
-    public BalanceFetcher(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public BalanceFetcher(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -41,8 +41,8 @@ public class BalanceFetcher extends Fetcher<Balance> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Balance.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class MessageFetcher extends Fetcher<Message> {
 
-    private String pathconversationSid;
-    private String pathsid;
+    private String pathConversationSid;
+    private String pathSid;
 
-    public MessageFetcher(final String pathconversationSid, final String pathsid) {
-        this.pathconversationSid = pathconversationSid;
-        this.pathsid = pathsid;
+    public MessageFetcher(final String pathConversationSid, final String pathSid) {
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class MessageFetcher extends Fetcher<Message> {
 
         String path = "/v1/Conversations/{ConversationSid}/Messages/{Sid}";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

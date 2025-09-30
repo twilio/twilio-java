@@ -40,9 +40,9 @@ import java.util.Objects;
 public class VerificationCheck extends Resource {
 
 
-    public static VerificationCheckCreator creator(final String pathserviceSid) {
+    public static VerificationCheckCreator creator(final String pathServiceSid) {
         return new VerificationCheckCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class DocumentCreator extends Creator<Document> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private Object data;
     private Integer ttl;
 
-    public DocumentCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public DocumentCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -63,7 +63,7 @@ public class DocumentCreator extends Creator<Document> {
 
         String path = "/v1/Services/{ServiceSid}/Documents";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

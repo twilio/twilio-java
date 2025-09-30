@@ -47,9 +47,9 @@ public class Plugin extends Resource {
     }
 
 
-    public static PluginFetcher fetcher(final String pathsid) {
+    public static PluginFetcher fetcher(final String pathSid) {
         return new PluginFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -61,9 +61,9 @@ public class Plugin extends Resource {
     }
 
 
-    public static PluginUpdater updater(final String pathsid) {
+    public static PluginUpdater updater(final String pathSid) {
         return new PluginUpdater(
-                pathsid
+                pathSid
         );
     }
 

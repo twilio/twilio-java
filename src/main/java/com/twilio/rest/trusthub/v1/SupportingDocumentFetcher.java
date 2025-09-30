@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public SupportingDocumentFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public SupportingDocumentFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
 
         String path = "/v1/SupportingDocuments/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

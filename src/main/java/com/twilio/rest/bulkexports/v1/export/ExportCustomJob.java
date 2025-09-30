@@ -37,16 +37,16 @@ import java.util.Objects;
 public class ExportCustomJob extends Resource {
 
 
-    public static ExportCustomJobCreator creator(final String pathresourceType, final String startDay, final String endDay, final String friendlyName) {
+    public static ExportCustomJobCreator creator(final String pathResourceType, final String startDay, final String endDay, final String friendlyName) {
         return new ExportCustomJobCreator(
-                pathresourceType, startDay, endDay, friendlyName
+                pathResourceType, startDay, endDay, friendlyName
         );
     }
 
 
-    public static ExportCustomJobReader reader(final String pathresourceType) {
+    public static ExportCustomJobReader reader(final String pathResourceType) {
         return new ExportCustomJobReader(
-                pathresourceType
+                pathResourceType
         );
     }
 

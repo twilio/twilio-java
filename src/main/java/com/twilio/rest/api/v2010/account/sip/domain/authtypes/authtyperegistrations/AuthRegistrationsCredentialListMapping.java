@@ -38,58 +38,58 @@ import java.util.Objects;
 public class AuthRegistrationsCredentialListMapping extends Resource {
 
 
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathdomainSid, final String credentialListSid) {
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
         return new AuthRegistrationsCredentialListMappingCreator(
-                pathdomainSid, credentialListSid
+                pathDomainSid, credentialListSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
         return new AuthRegistrationsCredentialListMappingCreator(
-                pathaccountSid, pathdomainSid, credentialListSid
+                pathAccountSid, pathDomainSid, credentialListSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingReader reader(final String pathdomainSid) {
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathDomainSid) {
         return new AuthRegistrationsCredentialListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new AuthRegistrationsCredentialListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

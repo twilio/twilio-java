@@ -40,9 +40,9 @@ import java.util.Objects;
 public class NewFactor extends Resource {
 
 
-    public static NewFactorCreator creator(final String pathserviceSid, final String pathidentity, final String friendlyName, final NewFactor.FactorTypes factorType) {
+    public static NewFactorCreator creator(final String pathServiceSid, final String pathIdentity, final String friendlyName, final NewFactor.FactorTypes factorType) {
         return new NewFactorCreator(
-                pathserviceSid, pathidentity, friendlyName, factorType
+                pathServiceSid, pathIdentity, friendlyName, factorType
         );
     }
 

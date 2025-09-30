@@ -48,9 +48,9 @@ public class BulkHostedNumberOrder extends Resource {
     }
 
 
-    public static BulkHostedNumberOrderFetcher fetcher(final String pathbulkHostingSid) {
+    public static BulkHostedNumberOrderFetcher fetcher(final String pathBulkHostingSid) {
         return new BulkHostedNumberOrderFetcher(
-                pathbulkHostingSid
+                pathBulkHostingSid
         );
     }
 

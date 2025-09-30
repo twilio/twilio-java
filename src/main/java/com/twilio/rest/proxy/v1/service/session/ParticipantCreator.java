@@ -30,16 +30,16 @@ import com.twilio.rest.Domains;
 
 public class ParticipantCreator extends Creator<Participant> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private String identifier;
     private String friendlyName;
     private String proxyIdentifier;
     private String proxyIdentifierSid;
 
-    public ParticipantCreator(final String pathserviceSid, final String pathsessionSid, final String identifier) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
+    public ParticipantCreator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
         this.identifier = identifier;
     }
 
@@ -73,8 +73,8 @@ public class ParticipantCreator extends Creator<Participant> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
 
 
         Request request = new Request(

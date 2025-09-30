@@ -36,9 +36,9 @@ import java.util.Objects;
 public class SinkValidate extends Resource {
 
 
-    public static SinkValidateCreator creator(final String pathsid, final String testId) {
+    public static SinkValidateCreator creator(final String pathSid, final String testId) {
         return new SinkValidateCreator(
-                pathsid, testId
+                pathSid, testId
         );
     }
 

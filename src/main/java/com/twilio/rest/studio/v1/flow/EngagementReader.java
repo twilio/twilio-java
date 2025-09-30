@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class EngagementReader extends Reader<Engagement> {
 
-    private String pathflowSid;
+    private String pathFlowSid;
     private Long pageSize;
 
-    public EngagementReader(final String pathflowSid) {
-        this.pathflowSid = pathflowSid;
+    public EngagementReader(final String pathFlowSid) {
+        this.pathFlowSid = pathFlowSid;
     }
 
 
@@ -53,7 +53,7 @@ public class EngagementReader extends Reader<Engagement> {
 
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

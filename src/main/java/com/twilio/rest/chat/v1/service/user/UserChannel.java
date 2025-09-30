@@ -38,9 +38,9 @@ import java.util.Objects;
 public class UserChannel extends Resource {
 
 
-    public static UserChannelReader reader(final String pathserviceSid, final String pathuserSid) {
+    public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid) {
         return new UserChannelReader(
-                pathserviceSid, pathuserSid
+                pathServiceSid, pathUserSid
         );
     }
 

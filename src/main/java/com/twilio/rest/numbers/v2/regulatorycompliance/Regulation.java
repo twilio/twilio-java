@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Regulation extends Resource {
 
 
-    public static RegulationFetcher fetcher(final String pathsid) {
+    public static RegulationFetcher fetcher(final String pathSid) {
         return new RegulationFetcher(
-                pathsid
+                pathSid
         );
     }
 

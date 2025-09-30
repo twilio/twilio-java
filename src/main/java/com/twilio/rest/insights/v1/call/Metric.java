@@ -37,9 +37,9 @@ import java.util.Objects;
 public class Metric extends Resource {
 
 
-    public static MetricReader reader(final String pathcallSid) {
+    public static MetricReader reader(final String pathCallSid) {
         return new MetricReader(
-                pathcallSid
+                pathCallSid
         );
     }
 

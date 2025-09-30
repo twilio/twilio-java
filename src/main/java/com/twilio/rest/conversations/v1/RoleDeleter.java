@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class RoleDeleter extends Deleter<Role> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public RoleDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public RoleDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class RoleDeleter extends Deleter<Role> {
 
         String path = "/v1/Roles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

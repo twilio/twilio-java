@@ -47,16 +47,16 @@ public class EndUser extends Resource {
     }
 
 
-    public static EndUserDeleter deleter(final String pathsid) {
+    public static EndUserDeleter deleter(final String pathSid) {
         return new EndUserDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static EndUserFetcher fetcher(final String pathsid) {
+    public static EndUserFetcher fetcher(final String pathSid) {
         return new EndUserFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class EndUser extends Resource {
     }
 
 
-    public static EndUserUpdater updater(final String pathsid) {
+    public static EndUserUpdater updater(final String pathSid) {
         return new EndUserUpdater(
-                pathsid
+                pathSid
         );
     }
 

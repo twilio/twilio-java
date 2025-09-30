@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class CountryFetcher extends Fetcher<Country> {
 
-    private String pathisoCode;
+    private String pathIsoCode;
 
-    public CountryFetcher(final String pathisoCode) {
-        this.pathisoCode = pathisoCode;
+    public CountryFetcher(final String pathIsoCode) {
+        this.pathIsoCode = pathIsoCode;
     }
 
 
@@ -38,7 +38,7 @@ public class CountryFetcher extends Fetcher<Country> {
 
         String path = "/v1/DialingPermissions/Countries/{IsoCode}";
 
-        path = path.replace("{" + "IsoCode" + "}", this.pathisoCode.toString());
+        path = path.replace("{" + "IsoCode" + "}", this.pathIsoCode.toString());
 
 
         Request request = new Request(

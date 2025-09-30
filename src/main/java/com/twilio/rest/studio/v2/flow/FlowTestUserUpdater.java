@@ -31,11 +31,11 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class FlowTestUserUpdater extends Updater<FlowTestUser> {
-    private String pathsid;
+    private String pathSid;
     private List<String> testUsers;
 
-    public FlowTestUserUpdater(final String pathsid, final List<String> testUsers) {
-        this.pathsid = pathsid;
+    public FlowTestUserUpdater(final String pathSid, final List<String> testUsers) {
+        this.pathSid = pathSid;
         this.testUsers = testUsers;
     }
 
@@ -54,7 +54,7 @@ public class FlowTestUserUpdater extends Updater<FlowTestUser> {
 
         String path = "/v2/Flows/{Sid}/TestUsers";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

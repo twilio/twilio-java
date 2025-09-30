@@ -37,9 +37,9 @@ import java.util.Objects;
 public class StepContext extends Resource {
 
 
-    public static StepContextFetcher fetcher(final String pathflowSid, final String pathengagementSid, final String pathstepSid) {
+    public static StepContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathStepSid) {
         return new StepContextFetcher(
-                pathflowSid, pathengagementSid, pathstepSid
+                pathFlowSid, pathEngagementSid, pathStepSid
         );
     }
 

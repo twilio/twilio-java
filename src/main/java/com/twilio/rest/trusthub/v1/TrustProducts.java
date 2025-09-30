@@ -49,16 +49,16 @@ public class TrustProducts extends Resource {
     }
 
 
-    public static TrustProductsDeleter deleter(final String pathsid) {
+    public static TrustProductsDeleter deleter(final String pathSid) {
         return new TrustProductsDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TrustProductsFetcher fetcher(final String pathsid) {
+    public static TrustProductsFetcher fetcher(final String pathSid) {
         return new TrustProductsFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -70,9 +70,9 @@ public class TrustProducts extends Resource {
     }
 
 
-    public static TrustProductsUpdater updater(final String pathsid) {
+    public static TrustProductsUpdater updater(final String pathSid) {
         return new TrustProductsUpdater(
-                pathsid
+                pathSid
         );
     }
 

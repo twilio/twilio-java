@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 
 public class TaskQueueCreator extends Creator<TaskQueue> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String targetWorkers;
     private Integer maxReservedWorkers;
@@ -38,8 +38,8 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     private String reservationActivitySid;
     private String assignmentActivitySid;
 
-    public TaskQueueCreator(final String pathworkspaceSid, final String friendlyName) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskQueueCreator(final String pathWorkspaceSid, final String friendlyName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -85,7 +85,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

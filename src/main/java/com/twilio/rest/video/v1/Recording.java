@@ -42,16 +42,16 @@ import java.util.Objects;
 public class Recording extends Resource {
 
 
-    public static RecordingDeleter deleter(final String pathsid) {
+    public static RecordingDeleter deleter(final String pathSid) {
         return new RecordingDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathSid) {
         return new RecordingFetcher(
-                pathsid
+                pathSid
         );
     }
 

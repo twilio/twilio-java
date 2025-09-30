@@ -41,9 +41,9 @@ import java.util.Objects;
 public class CallSummary extends Resource {
 
 
-    public static CallSummaryFetcher fetcher(final String pathcallSid) {
+    public static CallSummaryFetcher fetcher(final String pathCallSid) {
         return new CallSummaryFetcher(
-                pathcallSid
+                pathCallSid
         );
     }
 

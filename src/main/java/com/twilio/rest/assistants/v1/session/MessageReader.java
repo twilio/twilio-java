@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class MessageReader extends Reader<Message> {
 
-    private String pathsessionId;
+    private String pathSessionId;
     private Integer pageSize;
 
-    public MessageReader(final String pathsessionId) {
-        this.pathsessionId = pathsessionId;
+    public MessageReader(final String pathSessionId) {
+        this.pathSessionId = pathSessionId;
     }
 
 
@@ -53,7 +53,7 @@ public class MessageReader extends Reader<Message> {
 
         String path = "/v1/Sessions/{sessionId}/Messages";
 
-        path = path.replace("{" + "sessionId" + "}", this.pathsessionId.toString());
+        path = path.replace("{" + "sessionId" + "}", this.pathSessionId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

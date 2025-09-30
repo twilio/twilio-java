@@ -41,9 +41,9 @@ import java.util.Objects;
 public class ConversationWithParticipants extends Resource {
 
 
-    public static ConversationWithParticipantsCreator creator(final String pathchatServiceSid) {
+    public static ConversationWithParticipantsCreator creator(final String pathChatServiceSid) {
         return new ConversationWithParticipantsCreator(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 

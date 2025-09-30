@@ -48,9 +48,9 @@ public class Record extends Resource {
     }
 
 
-    public static RecordReader reader(final String pathaccountSid) {
+    public static RecordReader reader(final String pathAccountSid) {
         return new RecordReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

@@ -27,15 +27,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InteractionTransferUpdater extends Updater<InteractionTransfer> {
-    private String pathinteractionSid;
-    private String pathchannelSid;
-    private String pathsid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
+    private String pathSid;
     private Object body;
 
-    public InteractionTransferUpdater(final String pathinteractionSid, final String pathchannelSid, final String pathsid) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathchannelSid = pathchannelSid;
-        this.pathsid = pathsid;
+    public InteractionTransferUpdater(final String pathInteractionSid, final String pathChannelSid, final String pathSid) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -50,9 +50,9 @@ public class InteractionTransferUpdater extends Updater<InteractionTransfer> {
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

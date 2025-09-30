@@ -41,23 +41,23 @@ import java.util.Objects;
 public class UserBinding extends Resource {
 
 
-    public static UserBindingDeleter deleter(final String pathserviceSid, final String pathuserSid, final String pathsid) {
+    public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid) {
         return new UserBindingDeleter(
-                pathserviceSid, pathuserSid, pathsid
+                pathServiceSid, pathUserSid, pathSid
         );
     }
 
 
-    public static UserBindingFetcher fetcher(final String pathserviceSid, final String pathuserSid, final String pathsid) {
+    public static UserBindingFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathSid) {
         return new UserBindingFetcher(
-                pathserviceSid, pathuserSid, pathsid
+                pathServiceSid, pathUserSid, pathSid
         );
     }
 
 
-    public static UserBindingReader reader(final String pathserviceSid, final String pathuserSid) {
+    public static UserBindingReader reader(final String pathServiceSid, final String pathUserSid) {
         return new UserBindingReader(
-                pathserviceSid, pathuserSid
+                pathServiceSid, pathUserSid
         );
     }
 

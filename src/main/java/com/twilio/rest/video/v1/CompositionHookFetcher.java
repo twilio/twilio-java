@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class CompositionHookFetcher extends Fetcher<CompositionHook> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public CompositionHookFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public CompositionHookFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
 
         String path = "/v1/CompositionHooks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

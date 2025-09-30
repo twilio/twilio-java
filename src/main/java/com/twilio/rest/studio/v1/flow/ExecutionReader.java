@@ -32,13 +32,13 @@ import java.time.ZonedDateTime;
 
 public class ExecutionReader extends Reader<Execution> {
 
-    private String pathflowSid;
+    private String pathFlowSid;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
     private Long pageSize;
 
-    public ExecutionReader(final String pathflowSid) {
-        this.pathflowSid = pathflowSid;
+    public ExecutionReader(final String pathFlowSid) {
+        this.pathFlowSid = pathFlowSid;
     }
 
 
@@ -69,7 +69,7 @@ public class ExecutionReader extends Reader<Execution> {
 
         String path = "/v1/Flows/{FlowSid}/Executions";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

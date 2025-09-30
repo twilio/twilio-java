@@ -36,9 +36,9 @@ import java.util.Objects;
 public class StreamMessage extends Resource {
 
 
-    public static StreamMessageCreator creator(final String pathserviceSid, final String pathstreamSid, final Object data) {
+    public static StreamMessageCreator creator(final String pathServiceSid, final String pathStreamSid, final Object data) {
         return new StreamMessageCreator(
-                pathserviceSid, pathstreamSid, data
+                pathServiceSid, pathStreamSid, data
         );
     }
 

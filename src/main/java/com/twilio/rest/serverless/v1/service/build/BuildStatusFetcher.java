@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class BuildStatusFetcher extends Fetcher<BuildStatus> {
 
-    private String pathserviceSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSid;
 
-    public BuildStatusFetcher(final String pathserviceSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsid = pathsid;
+    public BuildStatusFetcher(final String pathServiceSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class BuildStatusFetcher extends Fetcher<BuildStatus> {
 
         String path = "/v1/Services/{ServiceSid}/Builds/{Sid}/Status";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

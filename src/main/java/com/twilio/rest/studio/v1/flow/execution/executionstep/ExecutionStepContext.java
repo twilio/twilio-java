@@ -37,9 +37,9 @@ import java.util.Objects;
 public class ExecutionStepContext extends Resource {
 
 
-    public static ExecutionStepContextFetcher fetcher(final String pathflowSid, final String pathexecutionSid, final String pathstepSid) {
+    public static ExecutionStepContextFetcher fetcher(final String pathFlowSid, final String pathExecutionSid, final String pathStepSid) {
         return new ExecutionStepContextFetcher(
-                pathflowSid, pathexecutionSid, pathstepSid
+                pathFlowSid, pathExecutionSid, pathStepSid
         );
     }
 

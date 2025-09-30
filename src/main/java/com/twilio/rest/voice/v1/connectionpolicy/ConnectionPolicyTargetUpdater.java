@@ -17,6 +17,7 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,17 +31,17 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarget> {
-    private String pathconnectionPolicySid;
-    private String pathsid;
+    private String pathConnectionPolicySid;
+    private String pathSid;
     private String friendlyName;
     private URI target;
     private Integer priority;
     private Integer weight;
     private Boolean enabled;
 
-    public ConnectionPolicyTargetUpdater(final String pathconnectionPolicySid, final String pathsid) {
-        this.pathconnectionPolicySid = pathconnectionPolicySid;
-        this.pathsid = pathsid;
+    public ConnectionPolicyTargetUpdater(final String pathConnectionPolicySid, final String pathSid) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
+        this.pathSid = pathSid;
     }
 
 
@@ -55,6 +56,9 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
         return this;
     }
 
+    public ConnectionPolicyTargetUpdater setTarget(final String target) {
+        return setTarget(Promoter.uriFromString(target));
+    }
 
     public ConnectionPolicyTargetUpdater setPriority(final Integer priority) {
         this.priority = priority;
@@ -79,8 +83,8 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
 
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathConnectionPolicySid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

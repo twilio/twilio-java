@@ -39,16 +39,16 @@ import java.util.Objects;
 public class SipDomain extends Resource {
 
 
-    public static SipDomainFetcher fetcher(final String pathsipDomain) {
+    public static SipDomainFetcher fetcher(final String pathSipDomain) {
         return new SipDomainFetcher(
-                pathsipDomain
+                pathSipDomain
         );
     }
 
 
-    public static SipDomainUpdater updater(final String pathsipDomain) {
+    public static SipDomainUpdater updater(final String pathSipDomain) {
         return new SipDomainUpdater(
-                pathsipDomain
+                pathSipDomain
         );
     }
 

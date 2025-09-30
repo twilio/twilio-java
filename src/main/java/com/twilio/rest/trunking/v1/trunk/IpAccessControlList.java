@@ -39,30 +39,30 @@ import java.util.Objects;
 public class IpAccessControlList extends Resource {
 
 
-    public static IpAccessControlListCreator creator(final String pathtrunkSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListCreator creator(final String pathTrunkSid, final String ipAccessControlListSid) {
         return new IpAccessControlListCreator(
-                pathtrunkSid, ipAccessControlListSid
+                pathTrunkSid, ipAccessControlListSid
         );
     }
 
 
-    public static IpAccessControlListDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static IpAccessControlListDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new IpAccessControlListDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new IpAccessControlListFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListReader reader(final String pathtrunkSid) {
+    public static IpAccessControlListReader reader(final String pathTrunkSid) {
         return new IpAccessControlListReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

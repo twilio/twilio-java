@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Workflow extends Resource {
 
 
-    public static WorkflowCreator creator(final String pathworkspaceSid, final String friendlyName, final String configuration) {
+    public static WorkflowCreator creator(final String pathWorkspaceSid, final String friendlyName, final String configuration) {
         return new WorkflowCreator(
-                pathworkspaceSid, friendlyName, configuration
+                pathWorkspaceSid, friendlyName, configuration
         );
     }
 
 
-    public static WorkflowDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static WorkflowDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new WorkflowDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static WorkflowFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new WorkflowFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static WorkflowReader reader(final String pathworkspaceSid) {
+    public static WorkflowReader reader(final String pathWorkspaceSid) {
         return new WorkflowReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static WorkflowUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static WorkflowUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new WorkflowUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

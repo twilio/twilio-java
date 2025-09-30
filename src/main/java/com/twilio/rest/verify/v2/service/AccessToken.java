@@ -40,16 +40,16 @@ import java.util.Objects;
 public class AccessToken extends Resource {
 
 
-    public static AccessTokenCreator creator(final String pathserviceSid, final String identity, final AccessToken.FactorTypes factorType) {
+    public static AccessTokenCreator creator(final String pathServiceSid, final String identity, final AccessToken.FactorTypes factorType) {
         return new AccessTokenCreator(
-                pathserviceSid, identity, factorType
+                pathServiceSid, identity, factorType
         );
     }
 
 
-    public static AccessTokenFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static AccessTokenFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new AccessTokenFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

@@ -39,9 +39,9 @@ import java.util.Objects;
 public class WorkflowCumulativeStatistics extends Resource {
 
 
-    public static WorkflowCumulativeStatisticsFetcher fetcher(final String pathworkspaceSid, final String pathworkflowSid) {
+    public static WorkflowCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid) {
         return new WorkflowCumulativeStatisticsFetcher(
-                pathworkspaceSid, pathworkflowSid
+                pathWorkspaceSid, pathWorkflowSid
         );
     }
 

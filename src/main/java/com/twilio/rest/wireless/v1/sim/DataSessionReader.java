@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class DataSessionReader extends Reader<DataSession> {
 
-    private String pathsimSid;
+    private String pathSimSid;
     private Long pageSize;
 
-    public DataSessionReader(final String pathsimSid) {
-        this.pathsimSid = pathsimSid;
+    public DataSessionReader(final String pathSimSid) {
+        this.pathSimSid = pathSimSid;
     }
 
 
@@ -53,7 +53,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
         String path = "/v1/Sims/{SimSid}/DataSessions";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

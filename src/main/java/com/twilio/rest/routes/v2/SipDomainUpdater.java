@@ -28,12 +28,12 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SipDomainUpdater extends Updater<SipDomain> {
-    private String pathsipDomain;
+    private String pathSipDomain;
     private String voiceRegion;
     private String friendlyName;
 
-    public SipDomainUpdater(final String pathsipDomain) {
-        this.pathsipDomain = pathsipDomain;
+    public SipDomainUpdater(final String pathSipDomain) {
+        this.pathSipDomain = pathSipDomain;
     }
 
 
@@ -54,7 +54,7 @@ public class SipDomainUpdater extends Updater<SipDomain> {
 
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path = path.replace("{" + "SipDomain" + "}", this.pathsipDomain.toString());
+        path = path.replace("{" + "SipDomain" + "}", this.pathSipDomain.toString());
 
 
         Request request = new Request(

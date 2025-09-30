@@ -38,16 +38,16 @@ import java.util.Objects;
 public class FlowTestUser extends Resource {
 
 
-    public static FlowTestUserFetcher fetcher(final String pathsid) {
+    public static FlowTestUserFetcher fetcher(final String pathSid) {
         return new FlowTestUserFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static FlowTestUserUpdater updater(final String pathsid, final List<String> testUsers) {
+    public static FlowTestUserUpdater updater(final String pathSid, final List<String> testUsers) {
         return new FlowTestUserUpdater(
-                pathsid, testUsers
+                pathSid, testUsers
         );
     }
 

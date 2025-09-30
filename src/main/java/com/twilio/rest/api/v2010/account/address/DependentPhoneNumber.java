@@ -41,16 +41,16 @@ import java.util.Objects;
 public class DependentPhoneNumber extends Resource {
 
 
-    public static DependentPhoneNumberReader reader(final String pathaddressSid) {
+    public static DependentPhoneNumberReader reader(final String pathAddressSid) {
         return new DependentPhoneNumberReader(
-                pathaddressSid
+                pathAddressSid
         );
     }
 
 
-    public static DependentPhoneNumberReader reader(final String pathaccountSid, final String pathaddressSid) {
+    public static DependentPhoneNumberReader reader(final String pathAccountSid, final String pathAddressSid) {
         return new DependentPhoneNumberReader(
-                pathaccountSid, pathaddressSid
+                pathAccountSid, pathAddressSid
         );
     }
 

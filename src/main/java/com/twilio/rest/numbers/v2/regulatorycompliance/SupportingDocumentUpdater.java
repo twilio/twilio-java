@@ -28,12 +28,12 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private Object attributes;
 
-    public SupportingDocumentUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public SupportingDocumentUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -54,7 +54,7 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
 
         String path = "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

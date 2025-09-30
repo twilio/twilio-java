@@ -28,7 +28,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ServiceUpdater extends Updater<Service> {
-    private String pathsid;
+    private String pathSid;
     private String ifMatch;
     private Boolean autoTranscribe;
     private Boolean dataLogging;
@@ -40,8 +40,8 @@ public class ServiceUpdater extends Updater<Service> {
     private Service.HttpMethod webhookHttpMethod;
     private String encryptionCredentialSid;
 
-    public ServiceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -110,7 +110,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         String path = "/v2/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

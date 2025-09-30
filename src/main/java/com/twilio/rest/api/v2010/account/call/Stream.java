@@ -40,30 +40,30 @@ import java.util.Objects;
 public class Stream extends Resource {
 
 
-    public static StreamCreator creator(final String pathcallSid, final URI url) {
+    public static StreamCreator creator(final String pathCallSid, final URI url) {
         return new StreamCreator(
-                pathcallSid, url
+                pathCallSid, url
         );
     }
 
 
-    public static StreamCreator creator(final String pathaccountSid, final String pathcallSid, final URI url) {
+    public static StreamCreator creator(final String pathAccountSid, final String pathCallSid, final URI url) {
         return new StreamCreator(
-                pathaccountSid, pathcallSid, url
+                pathAccountSid, pathCallSid, url
         );
     }
 
 
-    public static StreamUpdater updater(final String pathcallSid, final String pathsid, final Stream.UpdateStatus status) {
+    public static StreamUpdater updater(final String pathCallSid, final String pathSid, final Stream.UpdateStatus status) {
         return new StreamUpdater(
-                pathcallSid, pathsid, status
+                pathCallSid, pathSid, status
         );
     }
 
 
-    public static StreamUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Stream.UpdateStatus status) {
+    public static StreamUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Stream.UpdateStatus status) {
         return new StreamUpdater(
-                pathaccountSid, pathcallSid, pathsid, status
+                pathAccountSid, pathCallSid, pathSid, status
         );
     }
 

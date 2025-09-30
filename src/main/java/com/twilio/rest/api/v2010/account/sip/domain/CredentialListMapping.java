@@ -38,58 +38,58 @@ import java.util.Objects;
 public class CredentialListMapping extends Resource {
 
 
-    public static CredentialListMappingCreator creator(final String pathdomainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
         return new CredentialListMappingCreator(
-                pathdomainSid, credentialListSid
+                pathDomainSid, credentialListSid
         );
     }
 
 
-    public static CredentialListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
         return new CredentialListMappingCreator(
-                pathaccountSid, pathdomainSid, credentialListSid
+                pathAccountSid, pathDomainSid, credentialListSid
         );
     }
 
 
-    public static CredentialListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingReader reader(final String pathdomainSid) {
+    public static CredentialListMappingReader reader(final String pathDomainSid) {
         return new CredentialListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static CredentialListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static CredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new CredentialListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class FlowRevisionReader extends Reader<FlowRevision> {
 
-    private String pathsid;
+    private String pathSid;
     private Long pageSize;
 
-    public FlowRevisionReader(final String pathsid) {
-        this.pathsid = pathsid;
+    public FlowRevisionReader(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -53,7 +53,7 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
 
         String path = "/v2/Flows/{Sid}/Revisions";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

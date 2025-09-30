@@ -39,30 +39,30 @@ import java.util.Objects;
 public class ChannelSender extends Resource {
 
 
-    public static ChannelSenderCreator creator(final String pathmessagingServiceSid, final String sid) {
+    public static ChannelSenderCreator creator(final String pathMessagingServiceSid, final String sid) {
         return new ChannelSenderCreator(
-                pathmessagingServiceSid, sid
+                pathMessagingServiceSid, sid
         );
     }
 
 
-    public static ChannelSenderDeleter deleter(final String pathmessagingServiceSid, final String pathsid) {
+    public static ChannelSenderDeleter deleter(final String pathMessagingServiceSid, final String pathSid) {
         return new ChannelSenderDeleter(
-                pathmessagingServiceSid, pathsid
+                pathMessagingServiceSid, pathSid
         );
     }
 
 
-    public static ChannelSenderFetcher fetcher(final String pathmessagingServiceSid, final String pathsid) {
+    public static ChannelSenderFetcher fetcher(final String pathMessagingServiceSid, final String pathSid) {
         return new ChannelSenderFetcher(
-                pathmessagingServiceSid, pathsid
+                pathMessagingServiceSid, pathSid
         );
     }
 
 
-    public static ChannelSenderReader reader(final String pathmessagingServiceSid) {
+    public static ChannelSenderReader reader(final String pathMessagingServiceSid) {
         return new ChannelSenderReader(
-                pathmessagingServiceSid
+                pathMessagingServiceSid
         );
     }
 

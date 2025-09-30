@@ -28,17 +28,17 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
-    private String pathserviceSid;
-    private String pathdocumentSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathDocumentSid;
+    private String pathIdentity;
     private Boolean read;
     private Boolean write;
     private Boolean manage;
 
-    public DocumentPermissionUpdater(final String pathserviceSid, final String pathdocumentSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathdocumentSid = pathdocumentSid;
-        this.pathidentity = pathidentity;
+    public DocumentPermissionUpdater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -68,9 +68,9 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "DocumentSid" + "}", this.pathdocumentSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "DocumentSid" + "}", this.pathDocumentSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

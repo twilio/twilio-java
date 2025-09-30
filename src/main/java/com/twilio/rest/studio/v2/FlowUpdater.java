@@ -28,14 +28,14 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class FlowUpdater extends Updater<Flow> {
-    private String pathsid;
+    private String pathSid;
     private Flow.Status status;
     private String friendlyName;
     private Object definition;
     private String commitMessage;
 
-    public FlowUpdater(final String pathsid, final Flow.Status status) {
-        this.pathsid = pathsid;
+    public FlowUpdater(final String pathSid, final Flow.Status status) {
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -69,7 +69,7 @@ public class FlowUpdater extends Updater<Flow> {
 
         String path = "/v2/Flows/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -28,12 +28,12 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
-    private String pathsid;
+    private String pathSid;
     private Object configuration;
     private String uniqueName;
 
-    public InstalledAddOnUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public InstalledAddOnUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -54,7 +54,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
         String path = "/v1/InstalledAddOns/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

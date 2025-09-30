@@ -39,44 +39,44 @@ import java.util.Objects;
 public class Payload extends Resource {
 
 
-    public static PayloadDeleter deleter(final String pathreferenceSid, final String pathaddOnResultSid, final String pathsid) {
+    public static PayloadDeleter deleter(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid) {
         return new PayloadDeleter(
-                pathreferenceSid, pathaddOnResultSid, pathsid
+                pathReferenceSid, pathAddOnResultSid, pathSid
         );
     }
 
 
-    public static PayloadDeleter deleter(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid, final String pathsid) {
+    public static PayloadDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid) {
         return new PayloadDeleter(
-                pathaccountSid, pathreferenceSid, pathaddOnResultSid, pathsid
+                pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid
         );
     }
 
 
-    public static PayloadFetcher fetcher(final String pathreferenceSid, final String pathaddOnResultSid, final String pathsid) {
+    public static PayloadFetcher fetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid) {
         return new PayloadFetcher(
-                pathreferenceSid, pathaddOnResultSid, pathsid
+                pathReferenceSid, pathAddOnResultSid, pathSid
         );
     }
 
 
-    public static PayloadFetcher fetcher(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid, final String pathsid) {
+    public static PayloadFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid) {
         return new PayloadFetcher(
-                pathaccountSid, pathreferenceSid, pathaddOnResultSid, pathsid
+                pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid
         );
     }
 
 
-    public static PayloadReader reader(final String pathreferenceSid, final String pathaddOnResultSid) {
+    public static PayloadReader reader(final String pathReferenceSid, final String pathAddOnResultSid) {
         return new PayloadReader(
-                pathreferenceSid, pathaddOnResultSid
+                pathReferenceSid, pathAddOnResultSid
         );
     }
 
 
-    public static PayloadReader reader(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid) {
+    public static PayloadReader reader(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid) {
         return new PayloadReader(
-                pathaccountSid, pathreferenceSid, pathaddOnResultSid
+                pathAccountSid, pathReferenceSid, pathAddOnResultSid
         );
     }
 

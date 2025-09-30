@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public FlowTestUserFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public FlowTestUserFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
 
         String path = "/v2/Flows/{Sid}/TestUsers";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -22,12 +22,13 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -48,16 +49,16 @@ public class ChannelsSender extends Resource {
     }
 
 
-    public static ChannelsSenderDeleter deleter(final String pathsid) {
+    public static ChannelsSenderDeleter deleter(final String pathSid) {
         return new ChannelsSenderDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ChannelsSenderFetcher fetcher(final String pathsid) {
+    public static ChannelsSenderFetcher fetcher(final String pathSid) {
         return new ChannelsSenderFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +70,9 @@ public class ChannelsSender extends Resource {
     }
 
 
-    public static ChannelsSenderUpdater updater(final String pathsid) {
+    public static ChannelsSenderUpdater updater(final String pathSid) {
         return new ChannelsSenderUpdater(
-                pathsid
+                pathSid
         );
     }
 
@@ -210,7 +211,92 @@ public class ChannelsSender extends Resource {
     }
 
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderProfile.Builder.class)
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponseWebsites.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileGenericResponseWebsites {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("website")
+        @Getter
+        private final String website;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        private final String label;
+
+
+        private MessagingV2ChannelsSenderProfileGenericResponseWebsites(Builder builder) {
+            this.website = builder.website;
+            this.label = builder.label;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderProfileGenericResponseWebsites fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderProfileGenericResponseWebsites.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("website")
+            private String website;
+
+            @JsonProperty("label")
+            private String label;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("website")
+            public Builder website(String website) {
+                this.website = website;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("label")
+            public Builder label(String label) {
+                this.label = label;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderProfileGenericResponseWebsites build() {
+                return new MessagingV2ChannelsSenderProfileGenericResponseWebsites(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderProfileGenericResponseWebsites other = (MessagingV2ChannelsSenderProfileGenericResponseWebsites) o;
+            return (
+                    Objects.equals(website, other.website) &&
+                            Objects.equals(label, other.label)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    website,
+                    label
+            );
+        }
+
+    }
+
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderProfile.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfile {
@@ -218,126 +304,360 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("about")
         @Getter
-        @Setter
-        private String about;
+        private final String about;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("address")
         @Getter
-        @Setter
-        private String address;
+        private final String address;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
         @Getter
-        @Setter
-        private String description;
+        private final String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("logo_url")
         @Getter
-        @Setter
-        private String logoUrl;
+        private final String logoUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("banner_url")
         @Getter
-        @Setter
-        private String bannerUrl;
+        private final String bannerUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("privacy_url")
         @Getter
-        @Setter
-        private String privacyUrl;
+        private final String privacyUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("terms_of_service_url")
         @Getter
-        @Setter
-        private String termsOfServiceUrl;
+        private final String termsOfServiceUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("accent_color")
         @Getter
-        @Setter
-        private String accentColor;
+        private final String accentColor;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("vertical")
         @Getter
-        @Setter
-        private String vertical;
+        private final String vertical;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("websites")
         @Getter
-        @Setter
-        private Object websites;
+        private final Object websites;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("emails")
         @Getter
-        @Setter
-        private Object emails;
+        private final Object emails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone_numbers")
         @Getter
-        @Setter
-        private Object phoneNumbers;
+        private final Object phoneNumbers;
+
+
+        private MessagingV2ChannelsSenderProfile(Builder builder) {
+            this.name = builder.name;
+            this.about = builder.about;
+            this.address = builder.address;
+            this.description = builder.description;
+            this.logoUrl = builder.logoUrl;
+            this.bannerUrl = builder.bannerUrl;
+            this.privacyUrl = builder.privacyUrl;
+            this.termsOfServiceUrl = builder.termsOfServiceUrl;
+            this.accentColor = builder.accentColor;
+            this.vertical = builder.vertical;
+            this.websites = builder.websites;
+            this.emails = builder.emails;
+            this.phoneNumbers = builder.phoneNumbers;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderProfile fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderProfile.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("about")
+            private String about;
+
+            @JsonProperty("address")
+            private String address;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("logo_url")
+            private String logoUrl;
+
+            @JsonProperty("banner_url")
+            private String bannerUrl;
+
+            @JsonProperty("privacy_url")
+            private String privacyUrl;
+
+            @JsonProperty("terms_of_service_url")
+            private String termsOfServiceUrl;
+
+            @JsonProperty("accent_color")
+            private String accentColor;
+
+            @JsonProperty("vertical")
+            private String vertical;
+
+            @JsonProperty("websites")
+            private Object websites;
+
+            @JsonProperty("emails")
+            private Object emails;
+
+            @JsonProperty("phone_numbers")
+            private Object phoneNumbers;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("about")
+            public Builder about(String about) {
+                this.about = about;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("address")
+            public Builder address(String address) {
+                this.address = address;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("logo_url")
+            public Builder logoUrl(String logoUrl) {
+                this.logoUrl = logoUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("banner_url")
+            public Builder bannerUrl(String bannerUrl) {
+                this.bannerUrl = bannerUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("privacy_url")
+            public Builder privacyUrl(String privacyUrl) {
+                this.privacyUrl = privacyUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("terms_of_service_url")
+            public Builder termsOfServiceUrl(String termsOfServiceUrl) {
+                this.termsOfServiceUrl = termsOfServiceUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("accent_color")
+            public Builder accentColor(String accentColor) {
+                this.accentColor = accentColor;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("vertical")
+            public Builder vertical(String vertical) {
+                this.vertical = vertical;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("websites")
+            public Builder websites(Object websites) {
+                this.websites = websites;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("emails")
+            public Builder emails(Object emails) {
+                this.emails = emails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone_numbers")
+            public Builder phoneNumbers(Object phoneNumbers) {
+                this.phoneNumbers = phoneNumbers;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderProfile build() {
+                return new MessagingV2ChannelsSenderProfile(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderProfile other = (MessagingV2ChannelsSenderProfile) o;
+            return (
+                    Objects.equals(name, other.name) &&
+                            Objects.equals(about, other.about) &&
+                            Objects.equals(address, other.address) &&
+                            Objects.equals(description, other.description) &&
+                            Objects.equals(logoUrl, other.logoUrl) &&
+                            Objects.equals(bannerUrl, other.bannerUrl) &&
+                            Objects.equals(privacyUrl, other.privacyUrl) &&
+                            Objects.equals(termsOfServiceUrl, other.termsOfServiceUrl) &&
+                            Objects.equals(accentColor, other.accentColor) &&
+                            Objects.equals(vertical, other.vertical) &&
+                            Objects.equals(websites, other.websites) &&
+                            Objects.equals(emails, other.emails) &&
+                            Objects.equals(phoneNumbers, other.phoneNumbers)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    name,
+                    about,
+                    address,
+                    description,
+                    logoUrl,
+                    bannerUrl,
+                    privacyUrl,
+                    termsOfServiceUrl,
+                    accentColor,
+                    vertical,
+                    websites,
+                    emails,
+                    phoneNumbers
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponseWebsitesInner.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class MessagingV2ChannelsSenderProfileGenericResponseWebsitesInner {
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("website")
-        @Getter
-        @Setter
-        private String website;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("label")
-        @Getter
-        @Setter
-        private String label;
-
-    }
-
-    //@JsonDeserialize(builder = MessagingV2RcsComplianceResponse.Builder.class)
+    @JsonDeserialize(builder = MessagingV2RcsComplianceResponse.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2RcsComplianceResponse {
-        public MessagingV2RcsComplianceResponse(final String registrationSid, final List<MessagingV2RcsComplianceCountryResponse> countries) {
-            this.registrationSid = registrationSid;
-            this.countries = countries;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("registration_sid")
         @Getter
-        @Setter
-        private String registrationSid;
+        private final String registrationSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("countries")
         @Getter
-        @Setter
-        private List<MessagingV2RcsComplianceCountryResponse> countries;
+        private final List<MessagingV2RcsComplianceCountryResponse> countries;
+
+
+        private MessagingV2RcsComplianceResponse(Builder builder) {
+            this.registrationSid = builder.registrationSid;
+            this.countries = builder.countries;
+        }
+
+        public static Builder builder(final String registrationSid, final List<MessagingV2RcsComplianceCountryResponse> countries) {
+            return new Builder(registrationSid, countries);
+        }
+
+        public static MessagingV2RcsComplianceResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2RcsComplianceResponse.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("registration_sid")
+            private String registrationSid;
+
+            @JsonProperty("countries")
+            private List<MessagingV2RcsComplianceCountryResponse> countries;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("registration_sid") final String registrationSid, @JsonProperty("countries") final List<MessagingV2RcsComplianceCountryResponse> countries) {
+                this.registrationSid = registrationSid;
+                this.countries = countries;
+            }
+
+
+            public MessagingV2RcsComplianceResponse build() {
+                return new MessagingV2RcsComplianceResponse(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2RcsComplianceResponse other = (MessagingV2RcsComplianceResponse) o;
+            return (
+                    Objects.equals(registrationSid, other.registrationSid) &&
+                            Objects.equals(countries, other.countries)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    registrationSid,
+                    countries
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2RcsCarrier.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2RcsCarrier.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2RcsCarrier {
@@ -345,71 +665,268 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status")
         @Getter
-        @Setter
-        private ChannelsSender.MessagingVRcsCarrierStatus status;
+        private final ChannelsSender.MessagingVRcsCarrierStatus status;
+
+
+        private MessagingV2RcsCarrier(Builder builder) {
+            this.name = builder.name;
+            this.status = builder.status;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2RcsCarrier fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2RcsCarrier.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("status")
+            private ChannelsSender.MessagingVRcsCarrierStatus status;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("status")
+            public Builder status(ChannelsSender.MessagingVRcsCarrierStatus status) {
+                this.status = status;
+                return this;
+            }
+
+            public MessagingV2RcsCarrier build() {
+                return new MessagingV2RcsCarrier(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2RcsCarrier other = (MessagingV2RcsCarrier) o;
+            return (
+                    Objects.equals(name, other.name) &&
+                            Objects.equals(status, other.status)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    name,
+                    status
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderRequestsCreate.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderRequestsCreate.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderRequestsCreate {
-        public MessagingV2ChannelsSenderRequestsCreate(final String senderId) {
-            this.senderId = senderId;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("sender_id")
         @Getter
-        @Setter
-        private String senderId;
+        private final String senderId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("configuration")
         @Getter
-        @Setter
-        private MessagingV2ChannelsSenderConfiguration configuration;
+        private final MessagingV2ChannelsSenderConfiguration configuration;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("webhook")
         @Getter
-        @Setter
-        private MessagingV2ChannelsSenderWebhook webhook;
+        private final MessagingV2ChannelsSenderWebhook webhook;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("profile")
         @Getter
-        @Setter
-        private MessagingV2ChannelsSenderProfile profile;
+        private final MessagingV2ChannelsSenderProfile profile;
+
+
+        private MessagingV2ChannelsSenderRequestsCreate(Builder builder) {
+            this.senderId = builder.senderId;
+            this.configuration = builder.configuration;
+            this.webhook = builder.webhook;
+            this.profile = builder.profile;
+        }
+
+        public static Builder builder(final String senderId) {
+            return new Builder(senderId);
+        }
+
+        public static MessagingV2ChannelsSenderRequestsCreate fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderRequestsCreate.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("sender_id")
+            private String senderId;
+
+            @JsonProperty("configuration")
+            private MessagingV2ChannelsSenderConfiguration configuration;
+
+            @JsonProperty("webhook")
+            private MessagingV2ChannelsSenderWebhook webhook;
+
+            @JsonProperty("profile")
+            private MessagingV2ChannelsSenderProfile profile;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("sender_id") final String senderId) {
+                this.senderId = senderId;
+            }
+
+
+            public MessagingV2ChannelsSenderRequestsCreate build() {
+                return new MessagingV2ChannelsSenderRequestsCreate(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderRequestsCreate other = (MessagingV2ChannelsSenderRequestsCreate) o;
+            return (
+                    Objects.equals(senderId, other.senderId) &&
+                            Objects.equals(configuration, other.configuration) &&
+                            Objects.equals(webhook, other.webhook) &&
+                            Objects.equals(profile, other.profile)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    senderId,
+                    configuration,
+                    webhook,
+                    profile
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbersInner.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponseEmails.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    public static class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbersInner {
+    public static class MessagingV2ChannelsSenderProfileGenericResponseEmails {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("phone_number")
+        @JsonProperty("email")
         @Getter
-        @Setter
-        private String phoneNumber;
+        private final String email;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("label")
         @Getter
-        @Setter
-        private String label;
+        private final String label;
+
+
+        private MessagingV2ChannelsSenderProfileGenericResponseEmails(Builder builder) {
+            this.email = builder.email;
+            this.label = builder.label;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderProfileGenericResponseEmails fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderProfileGenericResponseEmails.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("email")
+            private String email;
+
+            @JsonProperty("label")
+            private String label;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("email")
+            public Builder email(String email) {
+                this.email = email;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("label")
+            public Builder label(String label) {
+                this.label = label;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderProfileGenericResponseEmails build() {
+                return new MessagingV2ChannelsSenderProfileGenericResponseEmails(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderProfileGenericResponseEmails other = (MessagingV2ChannelsSenderProfileGenericResponseEmails) o;
+            return (
+                    Objects.equals(email, other.email) &&
+                            Objects.equals(label, other.label)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    email,
+                    label
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderProperties.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderProperties.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProperties {
@@ -417,18 +934,84 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quality_rating")
         @Getter
-        @Setter
-        private String qualityRating;
+        private final String qualityRating;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("messaging_limit")
         @Getter
-        @Setter
-        private String messagingLimit;
+        private final String messagingLimit;
+
+
+        private MessagingV2ChannelsSenderProperties(Builder builder) {
+            this.qualityRating = builder.qualityRating;
+            this.messagingLimit = builder.messagingLimit;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderProperties fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderProperties.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("quality_rating")
+            private String qualityRating;
+
+            @JsonProperty("messaging_limit")
+            private String messagingLimit;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("quality_rating")
+            public Builder qualityRating(String qualityRating) {
+                this.qualityRating = qualityRating;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("messaging_limit")
+            public Builder messagingLimit(String messagingLimit) {
+                this.messagingLimit = messagingLimit;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderProperties build() {
+                return new MessagingV2ChannelsSenderProperties(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderProperties other = (MessagingV2ChannelsSenderProperties) o;
+            return (
+                    Objects.equals(qualityRating, other.qualityRating) &&
+                            Objects.equals(messagingLimit, other.messagingLimit)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    qualityRating,
+                    messagingLimit
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderOfflineReasonsItems.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderOfflineReasonsItems.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderOfflineReasonsItems {
@@ -436,43 +1019,102 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("code")
         @Getter
-        @Setter
-        private String code;
+        private final String code;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("message")
         @Getter
-        @Setter
-        private String message;
+        private final String message;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("more_info")
         @Getter
-        @Setter
-        private URI moreInfo;
+        private final URI moreInfo;
+
+
+        private MessagingV2ChannelsSenderOfflineReasonsItems(Builder builder) {
+            this.code = builder.code;
+            this.message = builder.message;
+            this.moreInfo = builder.moreInfo;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderOfflineReasonsItems fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderOfflineReasonsItems.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("code")
+            private String code;
+
+            @JsonProperty("message")
+            private String message;
+
+            @JsonProperty("more_info")
+            private URI moreInfo;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("code")
+            public Builder code(String code) {
+                this.code = code;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("message")
+            public Builder message(String message) {
+                this.message = message;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("more_info")
+            public Builder moreInfo(URI moreInfo) {
+                this.moreInfo = moreInfo;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderOfflineReasonsItems build() {
+                return new MessagingV2ChannelsSenderOfflineReasonsItems(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderOfflineReasonsItems other = (MessagingV2ChannelsSenderOfflineReasonsItems) o;
+            return (
+                    Objects.equals(code, other.code) &&
+                            Objects.equals(message, other.message) &&
+                            Objects.equals(moreInfo, other.moreInfo)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    code,
+                    message,
+                    moreInfo
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponseEmailsInner.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class MessagingV2ChannelsSenderProfileGenericResponseEmailsInner {
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("email")
-        @Getter
-        @Setter
-        private String email;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("label")
-        @Getter
-        @Setter
-        private String label;
-
-    }
-
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderRequestsUpdate.Builder.class)
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderRequestsUpdate.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderRequestsUpdate {
@@ -480,60 +1122,273 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("configuration")
         @Getter
-        @Setter
-        private MessagingV2ChannelsSenderConfiguration configuration;
+        private final MessagingV2ChannelsSenderConfiguration configuration;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("webhook")
         @Getter
-        @Setter
-        private MessagingV2ChannelsSenderWebhook webhook;
+        private final MessagingV2ChannelsSenderWebhook webhook;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("profile")
         @Getter
-        @Setter
-        private MessagingV2ChannelsSenderProfile profile;
+        private final MessagingV2ChannelsSenderProfile profile;
+
+
+        private MessagingV2ChannelsSenderRequestsUpdate(Builder builder) {
+            this.configuration = builder.configuration;
+            this.webhook = builder.webhook;
+            this.profile = builder.profile;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderRequestsUpdate fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderRequestsUpdate.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("configuration")
+            private MessagingV2ChannelsSenderConfiguration configuration;
+
+            @JsonProperty("webhook")
+            private MessagingV2ChannelsSenderWebhook webhook;
+
+            @JsonProperty("profile")
+            private MessagingV2ChannelsSenderProfile profile;
+
+
+            public MessagingV2ChannelsSenderRequestsUpdate build() {
+                return new MessagingV2ChannelsSenderRequestsUpdate(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderRequestsUpdate other = (MessagingV2ChannelsSenderRequestsUpdate) o;
+            return (
+                    Objects.equals(configuration, other.configuration) &&
+                            Objects.equals(webhook, other.webhook) &&
+                            Objects.equals(profile, other.profile)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    configuration,
+                    webhook,
+                    profile
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2RcsComplianceCountryResponse.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        private final String phoneNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("label")
+        @Getter
+        private final String label;
+
+
+        private MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(Builder builder) {
+            this.phoneNumber = builder.phoneNumber;
+            this.label = builder.label;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("phone_number")
+            private String phoneNumber;
+
+            @JsonProperty("label")
+            private String label;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone_number")
+            public Builder phoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("label")
+            public Builder label(String label) {
+                this.label = label;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers build() {
+                return new MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers other = (MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers) o;
+            return (
+                    Objects.equals(phoneNumber, other.phoneNumber) &&
+                            Objects.equals(label, other.label)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    phoneNumber,
+                    label
+            );
+        }
+
+    }
+
+
+    @JsonDeserialize(builder = MessagingV2RcsComplianceCountryResponse.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2RcsComplianceCountryResponse {
-        public MessagingV2RcsComplianceCountryResponse(final String country, final String registrationSid, final ChannelsSender.MessagingVRcsCountryStatus status) {
-            this.country = country;
-            this.registrationSid = registrationSid;
-            this.status = status;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("country")
         @Getter
-        @Setter
-        private String country;
+        private final String country;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("registration_sid")
         @Getter
-        @Setter
-        private String registrationSid;
+        private final String registrationSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status")
         @Getter
-        @Setter
-        private ChannelsSender.MessagingVRcsCountryStatus status;
+        private final ChannelsSender.MessagingVRcsCountryStatus status;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("carriers")
         @Getter
-        @Setter
-        private List<MessagingV2RcsCarrier> carriers;
+        private final List<MessagingV2RcsCarrier> carriers;
+
+
+        private MessagingV2RcsComplianceCountryResponse(Builder builder) {
+            this.country = builder.country;
+            this.registrationSid = builder.registrationSid;
+            this.status = builder.status;
+            this.carriers = builder.carriers;
+        }
+
+        public static Builder builder(final String country, final String registrationSid, final ChannelsSender.MessagingVRcsCountryStatus status) {
+            return new Builder(country, registrationSid, status);
+        }
+
+        public static MessagingV2RcsComplianceCountryResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2RcsComplianceCountryResponse.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("country")
+            private String country;
+
+            @JsonProperty("registration_sid")
+            private String registrationSid;
+
+            @JsonProperty("status")
+            private ChannelsSender.MessagingVRcsCountryStatus status;
+
+            @JsonProperty("carriers")
+            private List<MessagingV2RcsCarrier> carriers;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("country") final String country, @JsonProperty("registration_sid") final String registrationSid, @JsonProperty("status") final ChannelsSender.MessagingVRcsCountryStatus status) {
+                this.country = country;
+                this.registrationSid = registrationSid;
+                this.status = status;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("carriers")
+            public Builder carriers(List<MessagingV2RcsCarrier> carriers) {
+                this.carriers = carriers;
+                return this;
+            }
+
+            public MessagingV2RcsComplianceCountryResponse build() {
+                return new MessagingV2RcsComplianceCountryResponse(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2RcsComplianceCountryResponse other = (MessagingV2RcsComplianceCountryResponse) o;
+            return (
+                    Objects.equals(country, other.country) &&
+                            Objects.equals(registrationSid, other.registrationSid) &&
+                            Objects.equals(status, other.status) &&
+                            Objects.equals(carriers, other.carriers)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    country,
+                    registrationSid,
+                    status,
+                    carriers
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderWebhook.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderWebhook.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderWebhook {
@@ -541,42 +1396,156 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("callback_url")
         @Getter
-        @Setter
-        private String callbackUrl;
+        private final String callbackUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("callback_method")
         @Getter
-        @Setter
-        private ChannelsSender.CallbackMethod callbackMethod;
+        private final ChannelsSender.CallbackMethod callbackMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("fallback_url")
         @Getter
-        @Setter
-        private String fallbackUrl;
+        private final String fallbackUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("fallback_method")
         @Getter
-        @Setter
-        private ChannelsSender.FallbackMethod fallbackMethod;
+        private final ChannelsSender.FallbackMethod fallbackMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status_callback_url")
         @Getter
-        @Setter
-        private String statusCallbackUrl;
+        private final String statusCallbackUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status_callback_method")
         @Getter
-        @Setter
-        private String statusCallbackMethod;
+        private final String statusCallbackMethod;
+
+
+        private MessagingV2ChannelsSenderWebhook(Builder builder) {
+            this.callbackUrl = builder.callbackUrl;
+            this.callbackMethod = builder.callbackMethod;
+            this.fallbackUrl = builder.fallbackUrl;
+            this.fallbackMethod = builder.fallbackMethod;
+            this.statusCallbackUrl = builder.statusCallbackUrl;
+            this.statusCallbackMethod = builder.statusCallbackMethod;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderWebhook fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderWebhook.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("callback_url")
+            private String callbackUrl;
+
+            @JsonProperty("callback_method")
+            private ChannelsSender.CallbackMethod callbackMethod;
+
+            @JsonProperty("fallback_url")
+            private String fallbackUrl;
+
+            @JsonProperty("fallback_method")
+            private ChannelsSender.FallbackMethod fallbackMethod;
+
+            @JsonProperty("status_callback_url")
+            private String statusCallbackUrl;
+
+            @JsonProperty("status_callback_method")
+            private String statusCallbackMethod;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("callback_url")
+            public Builder callbackUrl(String callbackUrl) {
+                this.callbackUrl = callbackUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("callback_method")
+            public Builder callbackMethod(ChannelsSender.CallbackMethod callbackMethod) {
+                this.callbackMethod = callbackMethod;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("fallback_url")
+            public Builder fallbackUrl(String fallbackUrl) {
+                this.fallbackUrl = fallbackUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("fallback_method")
+            public Builder fallbackMethod(ChannelsSender.FallbackMethod fallbackMethod) {
+                this.fallbackMethod = fallbackMethod;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("status_callback_url")
+            public Builder statusCallbackUrl(String statusCallbackUrl) {
+                this.statusCallbackUrl = statusCallbackUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("status_callback_method")
+            public Builder statusCallbackMethod(String statusCallbackMethod) {
+                this.statusCallbackMethod = statusCallbackMethod;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderWebhook build() {
+                return new MessagingV2ChannelsSenderWebhook(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderWebhook other = (MessagingV2ChannelsSenderWebhook) o;
+            return (
+                    Objects.equals(callbackUrl, other.callbackUrl) &&
+                            Objects.equals(callbackMethod, other.callbackMethod) &&
+                            Objects.equals(fallbackUrl, other.fallbackUrl) &&
+                            Objects.equals(fallbackMethod, other.fallbackMethod) &&
+                            Objects.equals(statusCallbackUrl, other.statusCallbackUrl) &&
+                            Objects.equals(statusCallbackMethod, other.statusCallbackMethod)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    callbackUrl,
+                    callbackMethod,
+                    fallbackUrl,
+                    fallbackMethod,
+                    statusCallbackUrl,
+                    statusCallbackMethod
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponse.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderProfileGenericResponse.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderProfileGenericResponse {
@@ -584,84 +1553,282 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("about")
         @Getter
-        @Setter
-        private String about;
+        private final String about;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("address")
         @Getter
-        @Setter
-        private String address;
+        private final String address;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
         @Getter
-        @Setter
-        private String description;
+        private final String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("logo_url")
         @Getter
-        @Setter
-        private String logoUrl;
+        private final String logoUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("banner_url")
         @Getter
-        @Setter
-        private String bannerUrl;
+        private final String bannerUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("privacy_url")
         @Getter
-        @Setter
-        private String privacyUrl;
+        private final String privacyUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("terms_of_service_url")
         @Getter
-        @Setter
-        private String termsOfServiceUrl;
+        private final String termsOfServiceUrl;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("accent_color")
         @Getter
-        @Setter
-        private String accentColor;
+        private final String accentColor;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("vertical")
         @Getter
-        @Setter
-        private String vertical;
+        private final String vertical;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("websites")
         @Getter
-        @Setter
-        private List<MessagingV2ChannelsSenderProfileGenericResponseWebsitesInner> websites;
+        private final List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("emails")
         @Getter
-        @Setter
-        private List<MessagingV2ChannelsSenderProfileGenericResponseEmailsInner> emails;
+        private final List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone_numbers")
         @Getter
-        @Setter
-        private List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbersInner> phoneNumbers;
+        private final List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers;
+
+
+        private MessagingV2ChannelsSenderProfileGenericResponse(Builder builder) {
+            this.name = builder.name;
+            this.about = builder.about;
+            this.address = builder.address;
+            this.description = builder.description;
+            this.logoUrl = builder.logoUrl;
+            this.bannerUrl = builder.bannerUrl;
+            this.privacyUrl = builder.privacyUrl;
+            this.termsOfServiceUrl = builder.termsOfServiceUrl;
+            this.accentColor = builder.accentColor;
+            this.vertical = builder.vertical;
+            this.websites = builder.websites;
+            this.emails = builder.emails;
+            this.phoneNumbers = builder.phoneNumbers;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderProfileGenericResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderProfileGenericResponse.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("about")
+            private String about;
+
+            @JsonProperty("address")
+            private String address;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("logo_url")
+            private String logoUrl;
+
+            @JsonProperty("banner_url")
+            private String bannerUrl;
+
+            @JsonProperty("privacy_url")
+            private String privacyUrl;
+
+            @JsonProperty("terms_of_service_url")
+            private String termsOfServiceUrl;
+
+            @JsonProperty("accent_color")
+            private String accentColor;
+
+            @JsonProperty("vertical")
+            private String vertical;
+
+            @JsonProperty("websites")
+            private List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites;
+
+            @JsonProperty("emails")
+            private List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails;
+
+            @JsonProperty("phone_numbers")
+            private List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("about")
+            public Builder about(String about) {
+                this.about = about;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("address")
+            public Builder address(String address) {
+                this.address = address;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("logo_url")
+            public Builder logoUrl(String logoUrl) {
+                this.logoUrl = logoUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("banner_url")
+            public Builder bannerUrl(String bannerUrl) {
+                this.bannerUrl = bannerUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("privacy_url")
+            public Builder privacyUrl(String privacyUrl) {
+                this.privacyUrl = privacyUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("terms_of_service_url")
+            public Builder termsOfServiceUrl(String termsOfServiceUrl) {
+                this.termsOfServiceUrl = termsOfServiceUrl;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("accent_color")
+            public Builder accentColor(String accentColor) {
+                this.accentColor = accentColor;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("vertical")
+            public Builder vertical(String vertical) {
+                this.vertical = vertical;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("websites")
+            public Builder websites(List<MessagingV2ChannelsSenderProfileGenericResponseWebsites> websites) {
+                this.websites = websites;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("emails")
+            public Builder emails(List<MessagingV2ChannelsSenderProfileGenericResponseEmails> emails) {
+                this.emails = emails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone_numbers")
+            public Builder phoneNumbers(List<MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers> phoneNumbers) {
+                this.phoneNumbers = phoneNumbers;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderProfileGenericResponse build() {
+                return new MessagingV2ChannelsSenderProfileGenericResponse(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderProfileGenericResponse other = (MessagingV2ChannelsSenderProfileGenericResponse) o;
+            return (
+                    Objects.equals(name, other.name) &&
+                            Objects.equals(about, other.about) &&
+                            Objects.equals(address, other.address) &&
+                            Objects.equals(description, other.description) &&
+                            Objects.equals(logoUrl, other.logoUrl) &&
+                            Objects.equals(bannerUrl, other.bannerUrl) &&
+                            Objects.equals(privacyUrl, other.privacyUrl) &&
+                            Objects.equals(termsOfServiceUrl, other.termsOfServiceUrl) &&
+                            Objects.equals(accentColor, other.accentColor) &&
+                            Objects.equals(vertical, other.vertical) &&
+                            Objects.equals(websites, other.websites) &&
+                            Objects.equals(emails, other.emails) &&
+                            Objects.equals(phoneNumbers, other.phoneNumbers)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    name,
+                    about,
+                    address,
+                    description,
+                    logoUrl,
+                    bannerUrl,
+                    privacyUrl,
+                    termsOfServiceUrl,
+                    accentColor,
+                    vertical,
+                    websites,
+                    emails,
+                    phoneNumbers
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = MessagingV2ChannelsSenderConfiguration.Builder.class)
+
+    @JsonDeserialize(builder = MessagingV2ChannelsSenderConfiguration.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class MessagingV2ChannelsSenderConfiguration {
@@ -669,28 +1836,118 @@ public class ChannelsSender extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("waba_id")
         @Getter
-        @Setter
-        private String wabaId;
+        private final String wabaId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("verification_method")
         @Getter
-        @Setter
-        private ChannelsSender.VerificationMethod verificationMethod;
+        private final ChannelsSender.VerificationMethod verificationMethod;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("verification_code")
         @Getter
-        @Setter
-        private String verificationCode;
+        private final String verificationCode;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("voice_application_sid")
         @Getter
-        @Setter
-        private String voiceApplicationSid;
+        private final String voiceApplicationSid;
+
+
+        private MessagingV2ChannelsSenderConfiguration(Builder builder) {
+            this.wabaId = builder.wabaId;
+            this.verificationMethod = builder.verificationMethod;
+            this.verificationCode = builder.verificationCode;
+            this.voiceApplicationSid = builder.voiceApplicationSid;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static MessagingV2ChannelsSenderConfiguration fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, MessagingV2ChannelsSenderConfiguration.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("waba_id")
+            private String wabaId;
+
+            @JsonProperty("verification_method")
+            private ChannelsSender.VerificationMethod verificationMethod;
+
+            @JsonProperty("verification_code")
+            private String verificationCode;
+
+            @JsonProperty("voice_application_sid")
+            private String voiceApplicationSid;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("waba_id")
+            public Builder wabaId(String wabaId) {
+                this.wabaId = wabaId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("verification_method")
+            public Builder verificationMethod(ChannelsSender.VerificationMethod verificationMethod) {
+                this.verificationMethod = verificationMethod;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("verification_code")
+            public Builder verificationCode(String verificationCode) {
+                this.verificationCode = verificationCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("voice_application_sid")
+            public Builder voiceApplicationSid(String voiceApplicationSid) {
+                this.voiceApplicationSid = voiceApplicationSid;
+                return this;
+            }
+
+            public MessagingV2ChannelsSenderConfiguration build() {
+                return new MessagingV2ChannelsSenderConfiguration(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MessagingV2ChannelsSenderConfiguration other = (MessagingV2ChannelsSenderConfiguration) o;
+            return (
+                    Objects.equals(wabaId, other.wabaId) &&
+                            Objects.equals(verificationMethod, other.verificationMethod) &&
+                            Objects.equals(verificationCode, other.verificationCode) &&
+                            Objects.equals(voiceApplicationSid, other.voiceApplicationSid)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    wabaId,
+                    verificationMethod,
+                    verificationCode,
+                    voiceApplicationSid
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a ChannelsSender object using the provided ObjectMapper.

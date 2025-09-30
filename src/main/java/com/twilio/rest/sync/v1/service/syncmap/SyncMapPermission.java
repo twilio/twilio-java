@@ -37,30 +37,30 @@ import java.util.Objects;
 public class SyncMapPermission extends Resource {
 
 
-    public static SyncMapPermissionDeleter deleter(final String pathserviceSid, final String pathmapSid, final String pathidentity) {
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity) {
         return new SyncMapPermissionDeleter(
-                pathserviceSid, pathmapSid, pathidentity
+                pathServiceSid, pathMapSid, pathIdentity
         );
     }
 
 
-    public static SyncMapPermissionFetcher fetcher(final String pathserviceSid, final String pathmapSid, final String pathidentity) {
+    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathIdentity) {
         return new SyncMapPermissionFetcher(
-                pathserviceSid, pathmapSid, pathidentity
+                pathServiceSid, pathMapSid, pathIdentity
         );
     }
 
 
-    public static SyncMapPermissionReader reader(final String pathserviceSid, final String pathmapSid) {
+    public static SyncMapPermissionReader reader(final String pathServiceSid, final String pathMapSid) {
         return new SyncMapPermissionReader(
-                pathserviceSid, pathmapSid
+                pathServiceSid, pathMapSid
         );
     }
 
 
-    public static SyncMapPermissionUpdater updater(final String pathserviceSid, final String pathmapSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static SyncMapPermissionUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new SyncMapPermissionUpdater(
-                pathserviceSid, pathmapSid, pathidentity, read, write, manage
+                pathServiceSid, pathMapSid, pathIdentity, read, write, manage
         );
     }
 

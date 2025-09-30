@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class AwsDeleter extends Deleter<Aws> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public AwsDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public AwsDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class AwsDeleter extends Deleter<Aws> {
 
         String path = "/v1/Credentials/AWS/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

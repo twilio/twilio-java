@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class OriginationUrlReader extends Reader<OriginationUrl> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private Long pageSize;
 
-    public OriginationUrlReader(final String pathtrunkSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public OriginationUrlReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
 
@@ -53,7 +53,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

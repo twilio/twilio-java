@@ -47,9 +47,9 @@ public class EsimProfile extends Resource {
     }
 
 
-    public static EsimProfileFetcher fetcher(final String pathsid) {
+    public static EsimProfileFetcher fetcher(final String pathSid) {
         return new EsimProfileFetcher(
-                pathsid
+                pathSid
         );
     }
 

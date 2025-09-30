@@ -36,9 +36,9 @@ import java.util.Objects;
 public class HighriskSpecialPrefix extends Resource {
 
 
-    public static HighriskSpecialPrefixReader reader(final String pathisoCode) {
+    public static HighriskSpecialPrefixReader reader(final String pathIsoCode) {
         return new HighriskSpecialPrefixReader(
-                pathisoCode
+                pathIsoCode
         );
     }
 

@@ -39,30 +39,30 @@ import java.util.Objects;
 public class UserChannel extends Resource {
 
 
-    public static UserChannelDeleter deleter(final String pathserviceSid, final String pathuserSid, final String pathchannelSid) {
+    public static UserChannelDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid) {
         return new UserChannelDeleter(
-                pathserviceSid, pathuserSid, pathchannelSid
+                pathServiceSid, pathUserSid, pathChannelSid
         );
     }
 
 
-    public static UserChannelFetcher fetcher(final String pathserviceSid, final String pathuserSid, final String pathchannelSid) {
+    public static UserChannelFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathChannelSid) {
         return new UserChannelFetcher(
-                pathserviceSid, pathuserSid, pathchannelSid
+                pathServiceSid, pathUserSid, pathChannelSid
         );
     }
 
 
-    public static UserChannelReader reader(final String pathserviceSid, final String pathuserSid) {
+    public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid) {
         return new UserChannelReader(
-                pathserviceSid, pathuserSid
+                pathServiceSid, pathUserSid
         );
     }
 
 
-    public static UserChannelUpdater updater(final String pathserviceSid, final String pathuserSid, final String pathchannelSid) {
+    public static UserChannelUpdater updater(final String pathServiceSid, final String pathUserSid, final String pathChannelSid) {
         return new UserChannelUpdater(
-                pathserviceSid, pathuserSid, pathchannelSid
+                pathServiceSid, pathUserSid, pathChannelSid
         );
     }
 

@@ -47,16 +47,16 @@ public class Credential extends Resource {
     }
 
 
-    public static CredentialDeleter deleter(final String pathsid) {
+    public static CredentialDeleter deleter(final String pathSid) {
         return new CredentialDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CredentialFetcher fetcher(final String pathsid) {
+    public static CredentialFetcher fetcher(final String pathSid) {
         return new CredentialFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class Credential extends Resource {
     }
 
 
-    public static CredentialUpdater updater(final String pathsid) {
+    public static CredentialUpdater updater(final String pathSid) {
         return new CredentialUpdater(
-                pathsid
+                pathSid
         );
     }
 

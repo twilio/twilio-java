@@ -38,9 +38,9 @@ import java.util.Objects;
 public class EncryptedOperatorResults extends Resource {
 
 
-    public static EncryptedOperatorResultsFetcher fetcher(final String pathtranscriptSid) {
+    public static EncryptedOperatorResultsFetcher fetcher(final String pathTranscriptSid) {
         return new EncryptedOperatorResultsFetcher(
-                pathtranscriptSid
+                pathTranscriptSid
         );
     }
 

@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Conversation extends Resource {
 
 
-    public static ConversationCreator creator(final String pathchatServiceSid) {
+    public static ConversationCreator creator(final String pathChatServiceSid) {
         return new ConversationCreator(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static ConversationDeleter deleter(final String pathchatServiceSid, final String pathsid) {
+    public static ConversationDeleter deleter(final String pathChatServiceSid, final String pathSid) {
         return new ConversationDeleter(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static ConversationFetcher fetcher(final String pathchatServiceSid, final String pathsid) {
+    public static ConversationFetcher fetcher(final String pathChatServiceSid, final String pathSid) {
         return new ConversationFetcher(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static ConversationReader reader(final String pathchatServiceSid) {
+    public static ConversationReader reader(final String pathChatServiceSid) {
         return new ConversationReader(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static ConversationUpdater updater(final String pathchatServiceSid, final String pathsid) {
+    public static ConversationUpdater updater(final String pathChatServiceSid, final String pathSid) {
         return new ConversationUpdater(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 

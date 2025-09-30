@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class ExportFetcher extends Fetcher<Export> {
 
-    private String pathresourceType;
+    private String pathResourceType;
 
-    public ExportFetcher(final String pathresourceType) {
-        this.pathresourceType = pathresourceType;
+    public ExportFetcher(final String pathResourceType) {
+        this.pathResourceType = pathResourceType;
     }
 
 
@@ -38,7 +38,7 @@ public class ExportFetcher extends Fetcher<Export> {
 
         String path = "/v1/Exports/{ResourceType}";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
 
 
         Request request = new Request(

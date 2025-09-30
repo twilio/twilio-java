@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class DeploymentReader extends Reader<Deployment> {
 
-    private String pathserviceSid;
-    private String pathenvironmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private Long pageSize;
 
-    public DeploymentReader(final String pathserviceSid, final String pathenvironmentSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathenvironmentSid = pathenvironmentSid;
+    public DeploymentReader(final String pathServiceSid, final String pathEnvironmentSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
 
@@ -55,8 +55,8 @@ public class DeploymentReader extends Reader<Deployment> {
 
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

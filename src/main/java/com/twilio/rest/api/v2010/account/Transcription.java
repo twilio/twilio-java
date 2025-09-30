@@ -41,30 +41,30 @@ import java.util.Objects;
 public class Transcription extends Resource {
 
 
-    public static TranscriptionDeleter deleter(final String pathsid) {
+    public static TranscriptionDeleter deleter(final String pathSid) {
         return new TranscriptionDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TranscriptionDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new TranscriptionDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static TranscriptionFetcher fetcher(final String pathsid) {
+    public static TranscriptionFetcher fetcher(final String pathSid) {
         return new TranscriptionFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TranscriptionFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new TranscriptionFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -76,9 +76,9 @@ public class Transcription extends Resource {
     }
 
 
-    public static TranscriptionReader reader(final String pathaccountSid) {
+    public static TranscriptionReader reader(final String pathAccountSid) {
         return new TranscriptionReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

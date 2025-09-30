@@ -28,12 +28,12 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ApiKeyUpdater extends Updater<ApiKey> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private Object policy;
 
-    public ApiKeyUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ApiKeyUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -54,7 +54,7 @@ public class ApiKeyUpdater extends Updater<ApiKey> {
 
         String path = "/v1/Keys/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

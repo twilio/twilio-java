@@ -37,23 +37,23 @@ import java.util.Objects;
 public class InstalledAddOnExtension extends Resource {
 
 
-    public static InstalledAddOnExtensionFetcher fetcher(final String pathinstalledAddOnSid, final String pathsid) {
+    public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid, final String pathSid) {
         return new InstalledAddOnExtensionFetcher(
-                pathinstalledAddOnSid, pathsid
+                pathInstalledAddOnSid, pathSid
         );
     }
 
 
-    public static InstalledAddOnExtensionReader reader(final String pathinstalledAddOnSid) {
+    public static InstalledAddOnExtensionReader reader(final String pathInstalledAddOnSid) {
         return new InstalledAddOnExtensionReader(
-                pathinstalledAddOnSid
+                pathInstalledAddOnSid
         );
     }
 
 
-    public static InstalledAddOnExtensionUpdater updater(final String pathinstalledAddOnSid, final String pathsid, final Boolean enabled) {
+    public static InstalledAddOnExtensionUpdater updater(final String pathInstalledAddOnSid, final String pathSid, final Boolean enabled) {
         return new InstalledAddOnExtensionUpdater(
-                pathinstalledAddOnSid, pathsid, enabled
+                pathInstalledAddOnSid, pathSid, enabled
         );
     }
 

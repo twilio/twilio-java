@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Worker extends Resource {
 
 
-    public static WorkerCreator creator(final String pathworkspaceSid, final String friendlyName) {
+    public static WorkerCreator creator(final String pathWorkspaceSid, final String friendlyName) {
         return new WorkerCreator(
-                pathworkspaceSid, friendlyName
+                pathWorkspaceSid, friendlyName
         );
     }
 
 
-    public static WorkerDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static WorkerDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new WorkerDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static WorkerFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new WorkerFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static WorkerReader reader(final String pathworkspaceSid) {
+    public static WorkerReader reader(final String pathWorkspaceSid) {
         return new WorkerReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static WorkerUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static WorkerUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new WorkerUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

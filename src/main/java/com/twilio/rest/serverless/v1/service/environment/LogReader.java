@@ -32,16 +32,16 @@ import java.time.ZonedDateTime;
 
 public class LogReader extends Reader<Log> {
 
-    private String pathserviceSid;
-    private String pathenvironmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private String functionSid;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private Long pageSize;
 
-    public LogReader(final String pathserviceSid, final String pathenvironmentSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathenvironmentSid = pathenvironmentSid;
+    public LogReader(final String pathServiceSid, final String pathEnvironmentSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
 
@@ -78,8 +78,8 @@ public class LogReader extends Reader<Log> {
 
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class DayReader extends Reader<Day> {
 
-    private String pathresourceType;
+    private String pathResourceType;
     private Long pageSize;
 
-    public DayReader(final String pathresourceType) {
-        this.pathresourceType = pathresourceType;
+    public DayReader(final String pathResourceType) {
+        this.pathResourceType = pathResourceType;
     }
 
 
@@ -53,7 +53,7 @@ public class DayReader extends Reader<Day> {
 
         String path = "/v1/Exports/{ResourceType}/Days";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

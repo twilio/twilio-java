@@ -40,16 +40,16 @@ import java.util.Objects;
 public class AssetVersion extends Resource {
 
 
-    public static AssetVersionFetcher fetcher(final String pathserviceSid, final String pathassetSid, final String pathsid) {
+    public static AssetVersionFetcher fetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid) {
         return new AssetVersionFetcher(
-                pathserviceSid, pathassetSid, pathsid
+                pathServiceSid, pathAssetSid, pathSid
         );
     }
 
 
-    public static AssetVersionReader reader(final String pathserviceSid, final String pathassetSid) {
+    public static AssetVersionReader reader(final String pathServiceSid, final String pathAssetSid) {
         return new AssetVersionReader(
-                pathserviceSid, pathassetSid
+                pathServiceSid, pathAssetSid
         );
     }
 

@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Alert extends Resource {
 
 
-    public static AlertFetcher fetcher(final String pathsid) {
+    public static AlertFetcher fetcher(final String pathSid) {
         return new AlertFetcher(
-                pathsid
+                pathSid
         );
     }
 

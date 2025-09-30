@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Channel extends Resource {
 
 
-    public static ChannelCreator creator(final String pathserviceSid) {
+    public static ChannelCreator creator(final String pathServiceSid) {
         return new ChannelCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static ChannelDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static ChannelDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new ChannelDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static ChannelFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static ChannelFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new ChannelFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static ChannelReader reader(final String pathserviceSid) {
+    public static ChannelReader reader(final String pathServiceSid) {
         return new ChannelReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static ChannelUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static ChannelUpdater updater(final String pathServiceSid, final String pathSid) {
         return new ChannelUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

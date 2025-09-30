@@ -32,7 +32,7 @@ import java.net.URI;
 import java.util.List;
 
 public class CompositionHookUpdater extends Updater<CompositionHook> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private Boolean enabled;
     private Object videoLayout;
@@ -44,8 +44,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public CompositionHookUpdater(final String pathsid, final String friendlyName) {
-        this.pathsid = pathsid;
+    public CompositionHookUpdater(final String pathSid, final String friendlyName) {
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
@@ -109,6 +109,9 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         return this;
     }
 
+    public CompositionHookUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CompositionHookUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -121,7 +124,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
 
         String path = "/v1/CompositionHooks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

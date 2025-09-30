@@ -41,30 +41,30 @@ import java.util.Objects;
 public class UserConversation extends Resource {
 
 
-    public static UserConversationDeleter deleter(final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationDeleter deleter(final String pathUserSid, final String pathConversationSid) {
         return new UserConversationDeleter(
-                pathuserSid, pathconversationSid
+                pathUserSid, pathConversationSid
         );
     }
 
 
-    public static UserConversationFetcher fetcher(final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationFetcher fetcher(final String pathUserSid, final String pathConversationSid) {
         return new UserConversationFetcher(
-                pathuserSid, pathconversationSid
+                pathUserSid, pathConversationSid
         );
     }
 
 
-    public static UserConversationReader reader(final String pathuserSid) {
+    public static UserConversationReader reader(final String pathUserSid) {
         return new UserConversationReader(
-                pathuserSid
+                pathUserSid
         );
     }
 
 
-    public static UserConversationUpdater updater(final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationUpdater updater(final String pathUserSid, final String pathConversationSid) {
         return new UserConversationUpdater(
-                pathuserSid, pathconversationSid
+                pathUserSid, pathConversationSid
         );
     }
 

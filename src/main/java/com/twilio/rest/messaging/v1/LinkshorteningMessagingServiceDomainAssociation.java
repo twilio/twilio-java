@@ -37,9 +37,9 @@ import java.util.Objects;
 public class LinkshorteningMessagingServiceDomainAssociation extends Resource {
 
 
-    public static LinkshorteningMessagingServiceDomainAssociationFetcher fetcher(final String pathmessagingServiceSid) {
+    public static LinkshorteningMessagingServiceDomainAssociationFetcher fetcher(final String pathMessagingServiceSid) {
         return new LinkshorteningMessagingServiceDomainAssociationFetcher(
-                pathmessagingServiceSid
+                pathMessagingServiceSid
         );
     }
 

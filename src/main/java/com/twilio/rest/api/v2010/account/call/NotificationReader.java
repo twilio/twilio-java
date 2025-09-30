@@ -32,21 +32,21 @@ import java.time.LocalDate;
 
 public class NotificationReader extends Reader<Notification> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private Integer log;
     private LocalDate messageDate;
     private LocalDate messageDateBefore;
     private LocalDate messageDateAfter;
     private Long pageSize;
 
-    public NotificationReader(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public NotificationReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
-    public NotificationReader(final String pathaccountSid, final String pathcallSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public NotificationReader(final String pathAccountSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -89,9 +89,9 @@ public class NotificationReader extends Reader<Notification> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

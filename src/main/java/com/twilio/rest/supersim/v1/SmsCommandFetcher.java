@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class SmsCommandFetcher extends Fetcher<SmsCommand> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public SmsCommandFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public SmsCommandFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class SmsCommandFetcher extends Fetcher<SmsCommand> {
 
         String path = "/v1/SmsCommands/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

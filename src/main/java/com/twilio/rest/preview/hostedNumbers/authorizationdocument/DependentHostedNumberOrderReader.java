@@ -31,7 +31,7 @@ import com.twilio.rest.Domains;
 
 public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumberOrder> {
 
-    private String pathsigningDocumentSid;
+    private String pathSigningDocumentSid;
     private DependentHostedNumberOrder.Status status;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String incomingPhoneNumberSid;
@@ -39,8 +39,8 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
     private String uniqueName;
     private Long pageSize;
 
-    public DependentHostedNumberOrderReader(final String pathsigningDocumentSid) {
-        this.pathsigningDocumentSid = pathsigningDocumentSid;
+    public DependentHostedNumberOrderReader(final String pathSigningDocumentSid) {
+        this.pathSigningDocumentSid = pathSigningDocumentSid;
     }
 
 
@@ -92,7 +92,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
         String path = "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
 
-        path = path.replace("{" + "SigningDocumentSid" + "}", this.pathsigningDocumentSid.toString());
+        path = path.replace("{" + "SigningDocumentSid" + "}", this.pathSigningDocumentSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

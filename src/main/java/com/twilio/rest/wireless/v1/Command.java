@@ -47,16 +47,16 @@ public class Command extends Resource {
     }
 
 
-    public static CommandDeleter deleter(final String pathsid) {
+    public static CommandDeleter deleter(final String pathSid) {
         return new CommandDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CommandFetcher fetcher(final String pathsid) {
+    public static CommandFetcher fetcher(final String pathSid) {
         return new CommandFetcher(
-                pathsid
+                pathSid
         );
     }
 

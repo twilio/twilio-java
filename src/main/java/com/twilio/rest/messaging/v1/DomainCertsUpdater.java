@@ -28,11 +28,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class DomainCertsUpdater extends Updater<DomainCerts> {
-    private String pathdomainSid;
+    private String pathDomainSid;
     private String tlsCert;
 
-    public DomainCertsUpdater(final String pathdomainSid, final String tlsCert) {
-        this.pathdomainSid = pathdomainSid;
+    public DomainCertsUpdater(final String pathDomainSid, final String tlsCert) {
+        this.pathDomainSid = pathDomainSid;
         this.tlsCert = tlsCert;
     }
 
@@ -48,7 +48,7 @@ public class DomainCertsUpdater extends Updater<DomainCerts> {
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

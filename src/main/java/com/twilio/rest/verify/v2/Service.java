@@ -47,16 +47,16 @@ public class Service extends Resource {
     }
 
 
-    public static ServiceDeleter deleter(final String pathsid) {
+    public static ServiceDeleter deleter(final String pathSid) {
         return new ServiceDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ServiceFetcher fetcher(final String pathsid) {
+    public static ServiceFetcher fetcher(final String pathSid) {
         return new ServiceFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class Service extends Resource {
     }
 
 
-    public static ServiceUpdater updater(final String pathsid) {
+    public static ServiceUpdater updater(final String pathSid) {
         return new ServiceUpdater(
-                pathsid
+                pathSid
         );
     }
 

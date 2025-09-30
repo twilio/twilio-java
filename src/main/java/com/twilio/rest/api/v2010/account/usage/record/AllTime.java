@@ -48,9 +48,9 @@ public class AllTime extends Resource {
     }
 
 
-    public static AllTimeReader reader(final String pathaccountSid) {
+    public static AllTimeReader reader(final String pathAccountSid) {
         return new AllTimeReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

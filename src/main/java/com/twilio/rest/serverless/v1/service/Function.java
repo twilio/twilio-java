@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Function extends Resource {
 
 
-    public static FunctionCreator creator(final String pathserviceSid, final String friendlyName) {
+    public static FunctionCreator creator(final String pathServiceSid, final String friendlyName) {
         return new FunctionCreator(
-                pathserviceSid, friendlyName
+                pathServiceSid, friendlyName
         );
     }
 
 
-    public static FunctionDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static FunctionDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new FunctionDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static FunctionFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static FunctionFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new FunctionFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static FunctionReader reader(final String pathserviceSid) {
+    public static FunctionReader reader(final String pathServiceSid) {
         return new FunctionReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static FunctionUpdater updater(final String pathserviceSid, final String pathsid, final String friendlyName) {
+    public static FunctionUpdater updater(final String pathServiceSid, final String pathSid, final String friendlyName) {
         return new FunctionUpdater(
-                pathserviceSid, pathsid, friendlyName
+                pathServiceSid, pathSid, friendlyName
         );
     }
 

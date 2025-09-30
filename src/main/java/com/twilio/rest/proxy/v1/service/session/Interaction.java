@@ -40,23 +40,23 @@ import java.util.Objects;
 public class Interaction extends Resource {
 
 
-    public static InteractionDeleter deleter(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+    public static InteractionDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
         return new InteractionDeleter(
-                pathserviceSid, pathsessionSid, pathsid
+                pathServiceSid, pathSessionSid, pathSid
         );
     }
 
 
-    public static InteractionFetcher fetcher(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+    public static InteractionFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
         return new InteractionFetcher(
-                pathserviceSid, pathsessionSid, pathsid
+                pathServiceSid, pathSessionSid, pathSid
         );
     }
 
 
-    public static InteractionReader reader(final String pathserviceSid, final String pathsessionSid) {
+    public static InteractionReader reader(final String pathServiceSid, final String pathSessionSid) {
         return new InteractionReader(
-                pathserviceSid, pathsessionSid
+                pathServiceSid, pathSessionSid
         );
     }
 

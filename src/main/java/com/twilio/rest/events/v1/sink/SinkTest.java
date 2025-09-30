@@ -36,9 +36,9 @@ import java.util.Objects;
 public class SinkTest extends Resource {
 
 
-    public static SinkTestCreator creator(final String pathsid) {
+    public static SinkTestCreator creator(final String pathSid) {
         return new SinkTestCreator(
-                pathsid
+                pathSid
         );
     }
 

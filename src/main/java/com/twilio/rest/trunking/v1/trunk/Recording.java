@@ -37,16 +37,16 @@ import java.util.Objects;
 public class Recording extends Resource {
 
 
-    public static RecordingFetcher fetcher(final String pathtrunkSid) {
+    public static RecordingFetcher fetcher(final String pathTrunkSid) {
         return new RecordingFetcher(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 
 
-    public static RecordingUpdater updater(final String pathtrunkSid) {
+    public static RecordingUpdater updater(final String pathTrunkSid) {
         return new RecordingUpdater(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

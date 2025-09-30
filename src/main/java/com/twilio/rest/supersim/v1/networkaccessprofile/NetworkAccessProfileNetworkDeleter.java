@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessProfileNetwork> {
 
-    private String pathnetworkAccessProfileSid;
-    private String pathsid;
+    private String pathNetworkAccessProfileSid;
+    private String pathSid;
 
-    public NetworkAccessProfileNetworkDeleter(final String pathnetworkAccessProfileSid, final String pathsid) {
-        this.pathnetworkAccessProfileSid = pathnetworkAccessProfileSid;
-        this.pathsid = pathsid;
+    public NetworkAccessProfileNetworkDeleter(final String pathNetworkAccessProfileSid, final String pathSid) {
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessPro
 
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
-        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathnetworkAccessProfileSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathNetworkAccessProfileSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

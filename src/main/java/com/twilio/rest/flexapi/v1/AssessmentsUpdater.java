@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 import java.math.BigDecimal;
 
 public class AssessmentsUpdater extends Updater<Assessments> {
-    private String pathassessmentSid;
+    private String pathAssessmentSid;
     private String authorization;
     private BigDecimal offset;
     private String answerText;
     private String answerId;
 
-    public AssessmentsUpdater(final String pathassessmentSid, final BigDecimal offset, final String answerText, final String answerId) {
-        this.pathassessmentSid = pathassessmentSid;
+    public AssessmentsUpdater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId) {
+        this.pathAssessmentSid = pathAssessmentSid;
         this.offset = offset;
         this.answerText = answerText;
         this.answerId = answerId;
@@ -73,7 +73,7 @@ public class AssessmentsUpdater extends Updater<Assessments> {
 
         String path = "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
-        path = path.replace("{" + "AssessmentSid" + "}", this.pathassessmentSid.toString());
+        path = path.replace("{" + "AssessmentSid" + "}", this.pathAssessmentSid.toString());
 
 
         Request request = new Request(

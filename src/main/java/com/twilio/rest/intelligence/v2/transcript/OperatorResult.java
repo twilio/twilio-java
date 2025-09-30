@@ -40,16 +40,16 @@ import java.util.Objects;
 public class OperatorResult extends Resource {
 
 
-    public static OperatorResultFetcher fetcher(final String pathtranscriptSid, final String pathoperatorSid) {
+    public static OperatorResultFetcher fetcher(final String pathTranscriptSid, final String pathOperatorSid) {
         return new OperatorResultFetcher(
-                pathtranscriptSid, pathoperatorSid
+                pathTranscriptSid, pathOperatorSid
         );
     }
 
 
-    public static OperatorResultReader reader(final String pathtranscriptSid) {
+    public static OperatorResultReader reader(final String pathTranscriptSid) {
         return new OperatorResultReader(
-                pathtranscriptSid
+                pathTranscriptSid
         );
     }
 

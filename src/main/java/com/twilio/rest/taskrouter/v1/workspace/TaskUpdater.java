@@ -30,8 +30,8 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 
 public class TaskUpdater extends Updater<Task> {
-    private String pathworkspaceSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String ifMatch;
     private String attributes;
     private Task.Status assignmentStatus;
@@ -40,9 +40,9 @@ public class TaskUpdater extends Updater<Task> {
     private String taskChannel;
     private ZonedDateTime virtualStartTime;
 
-    public TaskUpdater(final String pathworkspaceSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathsid = pathsid;
+    public TaskUpdater(final String pathWorkspaceSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -93,8 +93,8 @@ public class TaskUpdater extends Updater<Task> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

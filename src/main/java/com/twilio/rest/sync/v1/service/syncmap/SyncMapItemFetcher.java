@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
 
-    private String pathserviceSid;
-    private String pathmapSid;
-    private String pathkey;
+    private String pathServiceSid;
+    private String pathMapSid;
+    private String pathKey;
 
-    public SyncMapItemFetcher(final String pathserviceSid, final String pathmapSid, final String pathkey) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathmapSid = pathmapSid;
-        this.pathkey = pathkey;
+    public SyncMapItemFetcher(final String pathServiceSid, final String pathMapSid, final String pathKey) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathKey = pathKey;
     }
 
 
@@ -42,9 +42,9 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
 
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "MapSid" + "}", this.pathmapSid.toString());
-        path = path.replace("{" + "Key" + "}", this.pathkey.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
+        path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 
 
         Request request = new Request(

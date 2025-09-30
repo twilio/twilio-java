@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
-    private String pathroomSid;
-    private String pathparticipantSid;
+    private String pathRoomSid;
+    private String pathParticipantSid;
     private Long pageSize;
 
-    public SubscribedTrackReader(final String pathroomSid, final String pathparticipantSid) {
-        this.pathroomSid = pathroomSid;
-        this.pathparticipantSid = pathparticipantSid;
+    public SubscribedTrackReader(final String pathRoomSid, final String pathParticipantSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
 
@@ -55,8 +55,8 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

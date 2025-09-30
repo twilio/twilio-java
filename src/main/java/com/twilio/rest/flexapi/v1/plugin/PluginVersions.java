@@ -39,23 +39,23 @@ import java.util.Objects;
 public class PluginVersions extends Resource {
 
 
-    public static PluginVersionsCreator creator(final String pathpluginSid, final String version, final URI pluginUrl) {
+    public static PluginVersionsCreator creator(final String pathPluginSid, final String version, final URI pluginUrl) {
         return new PluginVersionsCreator(
-                pathpluginSid, version, pluginUrl
+                pathPluginSid, version, pluginUrl
         );
     }
 
 
-    public static PluginVersionsFetcher fetcher(final String pathpluginSid, final String pathsid) {
+    public static PluginVersionsFetcher fetcher(final String pathPluginSid, final String pathSid) {
         return new PluginVersionsFetcher(
-                pathpluginSid, pathsid
+                pathPluginSid, pathSid
         );
     }
 
 
-    public static PluginVersionsReader reader(final String pathpluginSid) {
+    public static PluginVersionsReader reader(final String pathPluginSid) {
         return new PluginVersionsReader(
-                pathpluginSid
+                pathPluginSid
         );
     }
 

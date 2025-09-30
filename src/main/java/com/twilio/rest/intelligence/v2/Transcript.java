@@ -48,16 +48,16 @@ public class Transcript extends Resource {
     }
 
 
-    public static TranscriptDeleter deleter(final String pathsid) {
+    public static TranscriptDeleter deleter(final String pathSid) {
         return new TranscriptDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TranscriptFetcher fetcher(final String pathsid) {
+    public static TranscriptFetcher fetcher(final String pathSid) {
         return new TranscriptFetcher(
-                pathsid
+                pathSid
         );
     }
 

@@ -40,9 +40,9 @@ import java.util.Objects;
 public class EventType extends Resource {
 
 
-    public static EventTypeFetcher fetcher(final String pathtype) {
+    public static EventTypeFetcher fetcher(final String pathType) {
         return new EventTypeFetcher(
-                pathtype
+                pathType
         );
     }
 

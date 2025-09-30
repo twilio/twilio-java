@@ -37,30 +37,30 @@ import java.util.Objects;
 public class DocumentPermission extends Resource {
 
 
-    public static DocumentPermissionDeleter deleter(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
+    public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
         return new DocumentPermissionDeleter(
-                pathserviceSid, pathdocumentSid, pathidentity
+                pathServiceSid, pathDocumentSid, pathIdentity
         );
     }
 
 
-    public static DocumentPermissionFetcher fetcher(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
+    public static DocumentPermissionFetcher fetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
         return new DocumentPermissionFetcher(
-                pathserviceSid, pathdocumentSid, pathidentity
+                pathServiceSid, pathDocumentSid, pathIdentity
         );
     }
 
 
-    public static DocumentPermissionReader reader(final String pathserviceSid, final String pathdocumentSid) {
+    public static DocumentPermissionReader reader(final String pathServiceSid, final String pathDocumentSid) {
         return new DocumentPermissionReader(
-                pathserviceSid, pathdocumentSid
+                pathServiceSid, pathDocumentSid
         );
     }
 
 
-    public static DocumentPermissionUpdater updater(final String pathserviceSid, final String pathdocumentSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static DocumentPermissionUpdater updater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new DocumentPermissionUpdater(
-                pathserviceSid, pathdocumentSid, pathidentity, read, write, manage
+                pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage
         );
     }
 

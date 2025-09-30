@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class EncryptedOperatorResultsFetcher extends Fetcher<EncryptedOperatorResults> {
 
-    private String pathtranscriptSid;
+    private String pathTranscriptSid;
     private Boolean redacted;
 
-    public EncryptedOperatorResultsFetcher(final String pathtranscriptSid) {
-        this.pathtranscriptSid = pathtranscriptSid;
+    public EncryptedOperatorResultsFetcher(final String pathTranscriptSid) {
+        this.pathTranscriptSid = pathTranscriptSid;
     }
 
 
@@ -47,7 +47,7 @@ public class EncryptedOperatorResultsFetcher extends Fetcher<EncryptedOperatorRe
 
         String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults/Encrypted";
 
-        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathTranscriptSid.toString());
 
 
         Request request = new Request(

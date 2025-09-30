@@ -33,7 +33,7 @@ import java.time.ZonedDateTime;
 
 public class MessageReader extends Reader<Message> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private ZonedDateTime dateSent;
@@ -44,8 +44,8 @@ public class MessageReader extends Reader<Message> {
     public MessageReader() {
     }
 
-    public MessageReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public MessageReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -100,8 +100,8 @@ public class MessageReader extends Reader<Message> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

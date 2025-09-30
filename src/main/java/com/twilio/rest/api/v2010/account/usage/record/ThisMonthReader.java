@@ -32,7 +32,7 @@ import java.time.LocalDate;
 
 public class ThisMonthReader extends Reader<ThisMonth> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -42,8 +42,8 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     public ThisMonthReader() {
     }
 
-    public ThisMonthReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public ThisMonthReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -86,8 +86,8 @@ public class ThisMonthReader extends Reader<ThisMonth> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

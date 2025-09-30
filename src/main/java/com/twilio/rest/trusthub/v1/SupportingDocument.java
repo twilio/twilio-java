@@ -47,16 +47,16 @@ public class SupportingDocument extends Resource {
     }
 
 
-    public static SupportingDocumentDeleter deleter(final String pathsid) {
+    public static SupportingDocumentDeleter deleter(final String pathSid) {
         return new SupportingDocumentDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SupportingDocumentFetcher fetcher(final String pathsid) {
+    public static SupportingDocumentFetcher fetcher(final String pathSid) {
         return new SupportingDocumentFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class SupportingDocument extends Resource {
     }
 
 
-    public static SupportingDocumentUpdater updater(final String pathsid) {
+    public static SupportingDocumentUpdater updater(final String pathSid) {
         return new SupportingDocumentUpdater(
-                pathsid
+                pathSid
         );
     }
 

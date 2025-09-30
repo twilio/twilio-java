@@ -28,11 +28,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class RecordingRulesUpdater extends Updater<RecordingRules> {
-    private String pathroomSid;
+    private String pathRoomSid;
     private Object rules;
 
-    public RecordingRulesUpdater(final String pathroomSid) {
-        this.pathroomSid = pathroomSid;
+    public RecordingRulesUpdater(final String pathRoomSid) {
+        this.pathRoomSid = pathRoomSid;
     }
 
 
@@ -47,7 +47,7 @@ public class RecordingRulesUpdater extends Updater<RecordingRules> {
 
         String path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
 
         Request request = new Request(

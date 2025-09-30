@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class DestinationAlphaSenderReader extends Reader<DestinationAlphaSender> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String isoCountryCode;
     private Long pageSize;
 
-    public DestinationAlphaSenderReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public DestinationAlphaSenderReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -60,7 +60,7 @@ public class DestinationAlphaSenderReader extends Reader<DestinationAlphaSender>
 
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

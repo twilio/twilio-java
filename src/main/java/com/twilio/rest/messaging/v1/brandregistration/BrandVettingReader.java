@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class BrandVettingReader extends Reader<BrandVetting> {
 
-    private String pathbrandSid;
+    private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
 
-    public BrandVettingReader(final String pathbrandSid) {
-        this.pathbrandSid = pathbrandSid;
+    public BrandVettingReader(final String pathBrandSid) {
+        this.pathBrandSid = pathBrandSid;
     }
 
 
@@ -53,7 +53,7 @@ public class BrandVettingReader extends Reader<BrandVetting> {
 
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
 
-        path = path.replace("{" + "BrandSid" + "}", this.pathbrandSid.toString());
+        path = path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

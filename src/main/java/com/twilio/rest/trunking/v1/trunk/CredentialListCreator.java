@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class CredentialListCreator extends Creator<CredentialList> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private String credentialListSid;
 
-    public CredentialListCreator(final String pathtrunkSid, final String credentialListSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public CredentialListCreator(final String pathTrunkSid, final String credentialListSid) {
+        this.pathTrunkSid = pathTrunkSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -50,7 +50,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
 
         Request request = new Request(

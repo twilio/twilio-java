@@ -38,9 +38,9 @@ import java.util.Objects;
 public class Network extends Resource {
 
 
-    public static NetworkFetcher fetcher(final String pathsid) {
+    public static NetworkFetcher fetcher(final String pathSid) {
         return new NetworkFetcher(
-                pathsid
+                pathSid
         );
     }
 

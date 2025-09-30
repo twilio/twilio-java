@@ -39,30 +39,30 @@ import java.util.Objects;
 public class CustomerProfilesChannelEndpointAssignment extends Resource {
 
 
-    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathcustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
+    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
         return new CustomerProfilesChannelEndpointAssignmentCreator(
-                pathcustomerProfileSid, channelEndpointType, channelEndpointSid
+                pathCustomerProfileSid, channelEndpointType, channelEndpointSid
         );
     }
 
 
-    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesChannelEndpointAssignmentDeleter(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesChannelEndpointAssignmentFetcher(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathcustomerProfileSid) {
+    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathCustomerProfileSid) {
         return new CustomerProfilesChannelEndpointAssignmentReader(
-                pathcustomerProfileSid
+                pathCustomerProfileSid
         );
     }
 

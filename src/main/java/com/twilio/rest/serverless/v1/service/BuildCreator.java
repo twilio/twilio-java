@@ -33,14 +33,14 @@ import java.util.List;
 
 public class BuildCreator extends Creator<Build> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private List<String> assetVersions;
     private List<String> functionVersions;
     private String dependencies;
     private String runtime;
 
-    public BuildCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public BuildCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -79,7 +79,7 @@ public class BuildCreator extends Creator<Build> {
 
         String path = "/v1/Services/{ServiceSid}/Builds";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

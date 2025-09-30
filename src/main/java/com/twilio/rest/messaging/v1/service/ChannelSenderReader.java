@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class ChannelSenderReader extends Reader<ChannelSender> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
     private Long pageSize;
 
-    public ChannelSenderReader(final String pathmessagingServiceSid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public ChannelSenderReader(final String pathMessagingServiceSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class ChannelSenderReader extends Reader<ChannelSender> {
 
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

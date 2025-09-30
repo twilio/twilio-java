@@ -37,16 +37,16 @@ import java.util.Objects;
 public class InteractionChannelInvite extends Resource {
 
 
-    public static InteractionChannelInviteCreator creator(final String pathinteractionSid, final String pathchannelSid, final Object routing) {
+    public static InteractionChannelInviteCreator creator(final String pathInteractionSid, final String pathChannelSid, final Object routing) {
         return new InteractionChannelInviteCreator(
-                pathinteractionSid, pathchannelSid, routing
+                pathInteractionSid, pathChannelSid, routing
         );
     }
 
 
-    public static InteractionChannelInviteReader reader(final String pathinteractionSid, final String pathchannelSid) {
+    public static InteractionChannelInviteReader reader(final String pathInteractionSid, final String pathChannelSid) {
         return new InteractionChannelInviteReader(
-                pathinteractionSid, pathchannelSid
+                pathInteractionSid, pathChannelSid
         );
     }
 

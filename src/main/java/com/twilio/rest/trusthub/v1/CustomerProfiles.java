@@ -49,16 +49,16 @@ public class CustomerProfiles extends Resource {
     }
 
 
-    public static CustomerProfilesDeleter deleter(final String pathsid) {
+    public static CustomerProfilesDeleter deleter(final String pathSid) {
         return new CustomerProfilesDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CustomerProfilesFetcher fetcher(final String pathsid) {
+    public static CustomerProfilesFetcher fetcher(final String pathSid) {
         return new CustomerProfilesFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -70,9 +70,9 @@ public class CustomerProfiles extends Resource {
     }
 
 
-    public static CustomerProfilesUpdater updater(final String pathsid) {
+    public static CustomerProfilesUpdater updater(final String pathSid) {
         return new CustomerProfilesUpdater(
-                pathsid
+                pathSid
         );
     }
 

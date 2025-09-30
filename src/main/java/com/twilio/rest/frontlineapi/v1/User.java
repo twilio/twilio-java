@@ -38,16 +38,16 @@ import java.util.Objects;
 public class User extends Resource {
 
 
-    public static UserFetcher fetcher(final String pathsid) {
+    public static UserFetcher fetcher(final String pathSid) {
         return new UserFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static UserUpdater updater(final String pathsid) {
+    public static UserUpdater updater(final String pathSid) {
         return new UserUpdater(
-                pathsid
+                pathSid
         );
     }
 

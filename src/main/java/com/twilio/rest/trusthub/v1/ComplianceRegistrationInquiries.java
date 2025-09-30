@@ -45,9 +45,9 @@ public class ComplianceRegistrationInquiries extends Resource {
     }
 
 
-    public static ComplianceRegistrationInquiriesUpdater updater(final String pathregistrationId) {
+    public static ComplianceRegistrationInquiriesUpdater updater(final String pathRegistrationId) {
         return new ComplianceRegistrationInquiriesUpdater(
-                pathregistrationId
+                pathRegistrationId
         );
     }
 

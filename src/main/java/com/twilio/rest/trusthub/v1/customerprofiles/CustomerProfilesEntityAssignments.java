@@ -39,30 +39,30 @@ import java.util.Objects;
 public class CustomerProfilesEntityAssignments extends Resource {
 
 
-    public static CustomerProfilesEntityAssignmentsCreator creator(final String pathcustomerProfileSid, final String objectSid) {
+    public static CustomerProfilesEntityAssignmentsCreator creator(final String pathCustomerProfileSid, final String objectSid) {
         return new CustomerProfilesEntityAssignmentsCreator(
-                pathcustomerProfileSid, objectSid
+                pathCustomerProfileSid, objectSid
         );
     }
 
 
-    public static CustomerProfilesEntityAssignmentsDeleter deleter(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesEntityAssignmentsDeleter deleter(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesEntityAssignmentsDeleter(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesEntityAssignmentsFetcher fetcher(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesEntityAssignmentsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesEntityAssignmentsFetcher(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesEntityAssignmentsReader reader(final String pathcustomerProfileSid) {
+    public static CustomerProfilesEntityAssignmentsReader reader(final String pathCustomerProfileSid) {
         return new CustomerProfilesEntityAssignmentsReader(
-                pathcustomerProfileSid
+                pathCustomerProfileSid
         );
     }
 

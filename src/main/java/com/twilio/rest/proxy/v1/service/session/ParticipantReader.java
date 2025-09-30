@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class ParticipantReader extends Reader<Participant> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private Long pageSize;
 
-    public ParticipantReader(final String pathserviceSid, final String pathsessionSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
+    public ParticipantReader(final String pathServiceSid, final String pathSessionSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
     }
 
 
@@ -55,8 +55,8 @@ public class ParticipantReader extends Reader<Participant> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

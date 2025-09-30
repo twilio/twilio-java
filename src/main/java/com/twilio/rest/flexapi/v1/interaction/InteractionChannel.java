@@ -39,23 +39,23 @@ import java.util.Objects;
 public class InteractionChannel extends Resource {
 
 
-    public static InteractionChannelFetcher fetcher(final String pathinteractionSid, final String pathsid) {
+    public static InteractionChannelFetcher fetcher(final String pathInteractionSid, final String pathSid) {
         return new InteractionChannelFetcher(
-                pathinteractionSid, pathsid
+                pathInteractionSid, pathSid
         );
     }
 
 
-    public static InteractionChannelReader reader(final String pathinteractionSid) {
+    public static InteractionChannelReader reader(final String pathInteractionSid) {
         return new InteractionChannelReader(
-                pathinteractionSid
+                pathInteractionSid
         );
     }
 
 
-    public static InteractionChannelUpdater updater(final String pathinteractionSid, final String pathsid, final InteractionChannel.UpdateChannelStatus status) {
+    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status) {
         return new InteractionChannelUpdater(
-                pathinteractionSid, pathsid, status
+                pathInteractionSid, pathSid, status
         );
     }
 

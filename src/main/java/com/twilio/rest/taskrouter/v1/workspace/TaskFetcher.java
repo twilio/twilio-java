@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class TaskFetcher extends Fetcher<Task> {
 
-    private String pathworkspaceSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathSid;
 
-    public TaskFetcher(final String pathworkspaceSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathsid = pathsid;
+    public TaskFetcher(final String pathWorkspaceSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class TaskFetcher extends Fetcher<Task> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

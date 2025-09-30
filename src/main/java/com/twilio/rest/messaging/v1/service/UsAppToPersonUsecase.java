@@ -37,9 +37,9 @@ import java.util.Objects;
 public class UsAppToPersonUsecase extends Resource {
 
 
-    public static UsAppToPersonUsecaseFetcher fetcher(final String pathmessagingServiceSid) {
+    public static UsAppToPersonUsecaseFetcher fetcher(final String pathMessagingServiceSid) {
         return new UsAppToPersonUsecaseFetcher(
-                pathmessagingServiceSid
+                pathMessagingServiceSid
         );
     }
 

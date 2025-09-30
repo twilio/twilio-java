@@ -40,37 +40,37 @@ import java.util.Objects;
 public class SyncMap extends Resource {
 
 
-    public static SyncMapCreator creator(final String pathserviceSid) {
+    public static SyncMapCreator creator(final String pathServiceSid) {
         return new SyncMapCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncMapDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SyncMapDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SyncMapDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncMapFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SyncMapFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SyncMapFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncMapReader reader(final String pathserviceSid) {
+    public static SyncMapReader reader(final String pathServiceSid) {
         return new SyncMapReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncMapUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SyncMapUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SyncMapUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

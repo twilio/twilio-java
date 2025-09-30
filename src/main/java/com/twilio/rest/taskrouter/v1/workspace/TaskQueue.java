@@ -41,37 +41,37 @@ import java.util.Objects;
 public class TaskQueue extends Resource {
 
 
-    public static TaskQueueCreator creator(final String pathworkspaceSid, final String friendlyName) {
+    public static TaskQueueCreator creator(final String pathWorkspaceSid, final String friendlyName) {
         return new TaskQueueCreator(
-                pathworkspaceSid, friendlyName
+                pathWorkspaceSid, friendlyName
         );
     }
 
 
-    public static TaskQueueDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static TaskQueueDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new TaskQueueDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskQueueFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new TaskQueueFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskQueueReader reader(final String pathworkspaceSid) {
+    public static TaskQueueReader reader(final String pathWorkspaceSid) {
         return new TaskQueueReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static TaskQueueUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static TaskQueueUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new TaskQueueUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

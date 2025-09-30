@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 public class NumberFetcher extends Fetcher<Number> {
 
-    private com.twilio.type.PhoneNumber pathdestinationNumber;
+    private com.twilio.type.PhoneNumber pathDestinationNumber;
     private com.twilio.type.PhoneNumber originationNumber;
 
-    public NumberFetcher(final com.twilio.type.PhoneNumber pathdestinationNumber) {
-        this.pathdestinationNumber = pathdestinationNumber;
+    public NumberFetcher(final com.twilio.type.PhoneNumber pathDestinationNumber) {
+        this.pathDestinationNumber = pathDestinationNumber;
     }
 
 
@@ -51,7 +51,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
         String path = "/v2/Voice/Numbers/{DestinationNumber}";
 
-        path = path.replace("{" + "DestinationNumber" + "}", this.pathdestinationNumber.toString());
+        path = path.replace("{" + "DestinationNumber" + "}", this.pathDestinationNumber.toString());
 
 
         Request request = new Request(

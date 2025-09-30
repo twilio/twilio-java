@@ -40,16 +40,16 @@ import java.util.Objects;
 public class FlexUser extends Resource {
 
 
-    public static FlexUserFetcher fetcher(final String pathinstanceSid, final String pathflexUserSid) {
+    public static FlexUserFetcher fetcher(final String pathInstanceSid, final String pathFlexUserSid) {
         return new FlexUserFetcher(
-                pathinstanceSid, pathflexUserSid
+                pathInstanceSid, pathFlexUserSid
         );
     }
 
 
-    public static FlexUserUpdater updater(final String pathinstanceSid, final String pathflexUserSid) {
+    public static FlexUserUpdater updater(final String pathInstanceSid, final String pathFlexUserSid) {
         return new FlexUserUpdater(
-                pathinstanceSid, pathflexUserSid
+                pathInstanceSid, pathFlexUserSid
         );
     }
 

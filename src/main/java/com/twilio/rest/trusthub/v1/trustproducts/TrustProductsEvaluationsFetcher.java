@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class TrustProductsEvaluationsFetcher extends Fetcher<TrustProductsEvaluations> {
 
-    private String pathtrustProductSid;
-    private String pathsid;
+    private String pathTrustProductSid;
+    private String pathSid;
 
-    public TrustProductsEvaluationsFetcher(final String pathtrustProductSid, final String pathsid) {
-        this.pathtrustProductSid = pathtrustProductSid;
-        this.pathsid = pathsid;
+    public TrustProductsEvaluationsFetcher(final String pathTrustProductSid, final String pathSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class TrustProductsEvaluationsFetcher extends Fetcher<TrustProductsEvalua
 
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

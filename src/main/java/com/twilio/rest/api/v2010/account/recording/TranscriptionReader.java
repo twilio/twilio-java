@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class TranscriptionReader extends Reader<Transcription> {
 
-    private String pathaccountSid;
-    private String pathrecordingSid;
+    private String pathAccountSid;
+    private String pathRecordingSid;
     private Long pageSize;
 
-    public TranscriptionReader(final String pathrecordingSid) {
-        this.pathrecordingSid = pathrecordingSid;
+    public TranscriptionReader(final String pathRecordingSid) {
+        this.pathRecordingSid = pathRecordingSid;
     }
 
-    public TranscriptionReader(final String pathaccountSid, final String pathrecordingSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathrecordingSid = pathrecordingSid;
+    public TranscriptionReader(final String pathAccountSid, final String pathRecordingSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathRecordingSid = pathRecordingSid;
     }
 
 
@@ -59,9 +59,9 @@ public class TranscriptionReader extends Reader<Transcription> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "RecordingSid" + "}", this.pathrecordingSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "RecordingSid" + "}", this.pathRecordingSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -41,16 +41,16 @@ import java.util.Objects;
 public class FunctionVersion extends Resource {
 
 
-    public static FunctionVersionFetcher fetcher(final String pathserviceSid, final String pathfunctionSid, final String pathsid) {
+    public static FunctionVersionFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid) {
         return new FunctionVersionFetcher(
-                pathserviceSid, pathfunctionSid, pathsid
+                pathServiceSid, pathFunctionSid, pathSid
         );
     }
 
 
-    public static FunctionVersionReader reader(final String pathserviceSid, final String pathfunctionSid) {
+    public static FunctionVersionReader reader(final String pathServiceSid, final String pathFunctionSid) {
         return new FunctionVersionReader(
-                pathserviceSid, pathfunctionSid
+                pathServiceSid, pathFunctionSid
         );
     }
 

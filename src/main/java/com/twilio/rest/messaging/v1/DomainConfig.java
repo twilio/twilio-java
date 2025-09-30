@@ -39,16 +39,16 @@ import java.util.Objects;
 public class DomainConfig extends Resource {
 
 
-    public static DomainConfigFetcher fetcher(final String pathdomainSid) {
+    public static DomainConfigFetcher fetcher(final String pathDomainSid) {
         return new DomainConfigFetcher(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static DomainConfigUpdater updater(final String pathdomainSid) {
+    public static DomainConfigUpdater updater(final String pathDomainSid) {
         return new DomainConfigUpdater(
-                pathdomainSid
+                pathDomainSid
         );
     }
 

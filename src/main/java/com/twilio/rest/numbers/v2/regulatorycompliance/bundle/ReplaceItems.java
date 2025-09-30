@@ -40,9 +40,9 @@ import java.util.Objects;
 public class ReplaceItems extends Resource {
 
 
-    public static ReplaceItemsCreator creator(final String pathbundleSid, final String fromBundleSid) {
+    public static ReplaceItemsCreator creator(final String pathBundleSid, final String fromBundleSid) {
         return new ReplaceItemsCreator(
-                pathbundleSid, fromBundleSid
+                pathBundleSid, fromBundleSid
         );
     }
 

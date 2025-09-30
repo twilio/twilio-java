@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Webhook extends Resource {
 
 
-    public static WebhookCreator creator(final String pathserviceSid, final String pathchannelSid, final Webhook.Type type) {
+    public static WebhookCreator creator(final String pathServiceSid, final String pathChannelSid, final Webhook.Type type) {
         return new WebhookCreator(
-                pathserviceSid, pathchannelSid, type
+                pathServiceSid, pathChannelSid, type
         );
     }
 
 
-    public static WebhookDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static WebhookDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new WebhookDeleter(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static WebhookFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new WebhookFetcher(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static WebhookReader reader(final String pathserviceSid, final String pathchannelSid) {
+    public static WebhookReader reader(final String pathServiceSid, final String pathChannelSid) {
         return new WebhookReader(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 
 
-    public static WebhookUpdater updater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static WebhookUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new WebhookUpdater(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 

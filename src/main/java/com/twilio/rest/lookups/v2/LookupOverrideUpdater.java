@@ -27,13 +27,13 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class LookupOverrideUpdater extends Updater<LookupOverride> {
-    private String pathfield;
-    private String pathphoneNumber;
+    private String pathField;
+    private String pathPhoneNumber;
     private LookupOverride.OverridesRequest overridesRequest;
 
-    public LookupOverrideUpdater(final String pathfield, final String pathphoneNumber) {
-        this.pathfield = pathfield;
-        this.pathphoneNumber = pathphoneNumber;
+    public LookupOverrideUpdater(final String pathField, final String pathPhoneNumber) {
+        this.pathField = pathField;
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -48,8 +48,8 @@ public class LookupOverrideUpdater extends Updater<LookupOverride> {
 
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
-        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+        path = path.replace("{" + "Field" + "}", this.pathField.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
 
 
         Request request = new Request(

@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class SourceIpMappingFetcher extends Fetcher<SourceIpMapping> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public SourceIpMappingFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public SourceIpMappingFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class SourceIpMappingFetcher extends Fetcher<SourceIpMapping> {
 
         String path = "/v1/SourceIpMappings/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

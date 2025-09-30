@@ -41,16 +41,16 @@ import java.util.Objects;
 public class ConferenceParticipant extends Resource {
 
 
-    public static ConferenceParticipantFetcher fetcher(final String pathconferenceSid, final String pathparticipantSid) {
+    public static ConferenceParticipantFetcher fetcher(final String pathConferenceSid, final String pathParticipantSid) {
         return new ConferenceParticipantFetcher(
-                pathconferenceSid, pathparticipantSid
+                pathConferenceSid, pathParticipantSid
         );
     }
 
 
-    public static ConferenceParticipantReader reader(final String pathconferenceSid) {
+    public static ConferenceParticipantReader reader(final String pathConferenceSid) {
         return new ConferenceParticipantReader(
-                pathconferenceSid
+                pathConferenceSid
         );
     }
 

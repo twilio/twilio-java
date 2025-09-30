@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class RateLimitReader extends Reader<RateLimit> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public RateLimitReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public RateLimitReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class RateLimitReader extends Reader<RateLimit> {
 
         String path = "/v2/Services/{ServiceSid}/RateLimits";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

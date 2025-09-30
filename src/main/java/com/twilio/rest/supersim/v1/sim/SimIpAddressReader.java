@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class SimIpAddressReader extends Reader<SimIpAddress> {
 
-    private String pathsimSid;
+    private String pathSimSid;
     private Long pageSize;
 
-    public SimIpAddressReader(final String pathsimSid) {
-        this.pathsimSid = pathsimSid;
+    public SimIpAddressReader(final String pathSimSid) {
+        this.pathSimSid = pathSimSid;
     }
 
 
@@ -53,7 +53,7 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
 
         String path = "/v1/Sims/{SimSid}/IpAddresses";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

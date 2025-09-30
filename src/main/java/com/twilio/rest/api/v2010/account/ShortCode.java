@@ -40,16 +40,16 @@ import java.util.Objects;
 public class ShortCode extends Resource {
 
 
-    public static ShortCodeFetcher fetcher(final String pathsid) {
+    public static ShortCodeFetcher fetcher(final String pathSid) {
         return new ShortCodeFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ShortCodeFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static ShortCodeFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new ShortCodeFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -61,23 +61,23 @@ public class ShortCode extends Resource {
     }
 
 
-    public static ShortCodeReader reader(final String pathaccountSid) {
+    public static ShortCodeReader reader(final String pathAccountSid) {
         return new ShortCodeReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static ShortCodeUpdater updater(final String pathsid) {
+    public static ShortCodeUpdater updater(final String pathSid) {
         return new ShortCodeUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ShortCodeUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static ShortCodeUpdater updater(final String pathAccountSid, final String pathSid) {
         return new ShortCodeUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

@@ -34,9 +34,9 @@ import java.io.InputStream;
 public class PortingWebhookConfigurationDelete extends Resource {
 
 
-    public static PortingWebhookConfigurationDeleteDeleter deleter(final PortingWebhookConfigurationDelete.WebhookType pathwebhookType) {
+    public static PortingWebhookConfigurationDeleteDeleter deleter(final PortingWebhookConfigurationDelete.WebhookType pathWebhookType) {
         return new PortingWebhookConfigurationDeleteDeleter(
-                pathwebhookType
+                pathWebhookType
         );
     }
 

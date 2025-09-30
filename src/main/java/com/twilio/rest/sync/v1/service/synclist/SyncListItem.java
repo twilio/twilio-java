@@ -40,37 +40,37 @@ import java.util.Objects;
 public class SyncListItem extends Resource {
 
 
-    public static SyncListItemCreator creator(final String pathserviceSid, final String pathlistSid, final Object data) {
+    public static SyncListItemCreator creator(final String pathServiceSid, final String pathListSid, final Object data) {
         return new SyncListItemCreator(
-                pathserviceSid, pathlistSid, data
+                pathServiceSid, pathListSid, data
         );
     }
 
 
-    public static SyncListItemDeleter deleter(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+    public static SyncListItemDeleter deleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
         return new SyncListItemDeleter(
-                pathserviceSid, pathlistSid, pathindex
+                pathServiceSid, pathListSid, pathIndex
         );
     }
 
 
-    public static SyncListItemFetcher fetcher(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
         return new SyncListItemFetcher(
-                pathserviceSid, pathlistSid, pathindex
+                pathServiceSid, pathListSid, pathIndex
         );
     }
 
 
-    public static SyncListItemReader reader(final String pathserviceSid, final String pathlistSid) {
+    public static SyncListItemReader reader(final String pathServiceSid, final String pathListSid) {
         return new SyncListItemReader(
-                pathserviceSid, pathlistSid
+                pathServiceSid, pathListSid
         );
     }
 
 
-    public static SyncListItemUpdater updater(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+    public static SyncListItemUpdater updater(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
         return new SyncListItemUpdater(
-                pathserviceSid, pathlistSid, pathindex
+                pathServiceSid, pathListSid, pathIndex
         );
     }
 

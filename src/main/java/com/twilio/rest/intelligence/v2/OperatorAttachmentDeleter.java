@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class OperatorAttachmentDeleter extends Deleter<OperatorAttachment> {
 
-    private String pathserviceSid;
-    private String pathoperatorSid;
+    private String pathServiceSid;
+    private String pathOperatorSid;
 
-    public OperatorAttachmentDeleter(final String pathserviceSid, final String pathoperatorSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathoperatorSid = pathoperatorSid;
+    public OperatorAttachmentDeleter(final String pathServiceSid, final String pathOperatorSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathOperatorSid = pathOperatorSid;
     }
 
 
@@ -40,8 +40,8 @@ public class OperatorAttachmentDeleter extends Deleter<OperatorAttachment> {
 
         String path = "/v2/Services/{ServiceSid}/Operators/{OperatorSid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "OperatorSid" + "}", this.pathoperatorSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "OperatorSid" + "}", this.pathOperatorSid.toString());
 
 
         Request request = new Request(

@@ -40,37 +40,37 @@ import java.util.Objects;
 public class TaskChannel extends Resource {
 
 
-    public static TaskChannelCreator creator(final String pathworkspaceSid, final String friendlyName, final String uniqueName) {
+    public static TaskChannelCreator creator(final String pathWorkspaceSid, final String friendlyName, final String uniqueName) {
         return new TaskChannelCreator(
-                pathworkspaceSid, friendlyName, uniqueName
+                pathWorkspaceSid, friendlyName, uniqueName
         );
     }
 
 
-    public static TaskChannelDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static TaskChannelDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new TaskChannelDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskChannelFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new TaskChannelFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskChannelReader reader(final String pathworkspaceSid) {
+    public static TaskChannelReader reader(final String pathWorkspaceSid) {
         return new TaskChannelReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static TaskChannelUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static TaskChannelUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new TaskChannelUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

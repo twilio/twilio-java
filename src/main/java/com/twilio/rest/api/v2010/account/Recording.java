@@ -41,30 +41,30 @@ import java.util.Objects;
 public class Recording extends Resource {
 
 
-    public static RecordingDeleter deleter(final String pathsid) {
+    public static RecordingDeleter deleter(final String pathSid) {
         return new RecordingDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RecordingDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new RecordingDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathSid) {
         return new RecordingFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new RecordingFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -76,9 +76,9 @@ public class Recording extends Resource {
     }
 
 
-    public static RecordingReader reader(final String pathaccountSid) {
+    public static RecordingReader reader(final String pathAccountSid) {
         return new RecordingReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

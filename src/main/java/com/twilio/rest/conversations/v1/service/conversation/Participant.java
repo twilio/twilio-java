@@ -40,37 +40,37 @@ import java.util.Objects;
 public class Participant extends Resource {
 
 
-    public static ParticipantCreator creator(final String pathchatServiceSid, final String pathconversationSid) {
+    public static ParticipantCreator creator(final String pathChatServiceSid, final String pathConversationSid) {
         return new ParticipantCreator(
-                pathchatServiceSid, pathconversationSid
+                pathChatServiceSid, pathConversationSid
         );
     }
 
 
-    public static ParticipantDeleter deleter(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+    public static ParticipantDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         return new ParticipantDeleter(
-                pathchatServiceSid, pathconversationSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathSid
         );
     }
 
 
-    public static ParticipantFetcher fetcher(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+    public static ParticipantFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         return new ParticipantFetcher(
-                pathchatServiceSid, pathconversationSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathchatServiceSid, final String pathconversationSid) {
+    public static ParticipantReader reader(final String pathChatServiceSid, final String pathConversationSid) {
         return new ParticipantReader(
-                pathchatServiceSid, pathconversationSid
+                pathChatServiceSid, pathConversationSid
         );
     }
 
 
-    public static ParticipantUpdater updater(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
+    public static ParticipantUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
         return new ParticipantUpdater(
-                pathchatServiceSid, pathconversationSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathSid
         );
     }
 

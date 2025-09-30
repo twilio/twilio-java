@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class PhoneNumberReader extends Reader<PhoneNumber> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private Long pageSize;
 
-    public PhoneNumberReader(final String pathtrunkSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public PhoneNumberReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
 
@@ -53,7 +53,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -40,37 +40,37 @@ import java.util.Objects;
 public class SyncList extends Resource {
 
 
-    public static SyncListCreator creator(final String pathserviceSid) {
+    public static SyncListCreator creator(final String pathServiceSid) {
         return new SyncListCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncListDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SyncListDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SyncListDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncListFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SyncListFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SyncListFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncListReader reader(final String pathserviceSid) {
+    public static SyncListReader reader(final String pathServiceSid) {
         return new SyncListReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncListUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SyncListUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SyncListUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

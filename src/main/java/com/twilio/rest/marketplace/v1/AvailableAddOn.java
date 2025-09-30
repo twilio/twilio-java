@@ -38,9 +38,9 @@ import java.util.Objects;
 public class AvailableAddOn extends Resource {
 
 
-    public static AvailableAddOnFetcher fetcher(final String pathsid) {
+    public static AvailableAddOnFetcher fetcher(final String pathSid) {
         return new AvailableAddOnFetcher(
-                pathsid
+                pathSid
         );
     }
 

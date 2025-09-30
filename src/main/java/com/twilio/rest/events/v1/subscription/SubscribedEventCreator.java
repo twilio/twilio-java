@@ -30,12 +30,12 @@ import com.twilio.rest.Domains;
 
 public class SubscribedEventCreator extends Creator<SubscribedEvent> {
 
-    private String pathsubscriptionSid;
+    private String pathSubscriptionSid;
     private String type;
     private Integer schemaVersion;
 
-    public SubscribedEventCreator(final String pathsubscriptionSid, final String type) {
-        this.pathsubscriptionSid = pathsubscriptionSid;
+    public SubscribedEventCreator(final String pathSubscriptionSid, final String type) {
+        this.pathSubscriptionSid = pathSubscriptionSid;
         this.type = type;
     }
 
@@ -57,7 +57,7 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
 
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path = path.replace("{" + "SubscriptionSid" + "}", this.pathsubscriptionSid.toString());
+        path = path.replace("{" + "SubscriptionSid" + "}", this.pathSubscriptionSid.toString());
 
 
         Request request = new Request(

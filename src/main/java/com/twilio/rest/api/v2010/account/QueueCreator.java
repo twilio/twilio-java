@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 
 public class QueueCreator extends Creator<Queue> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private Integer maxSize;
 
@@ -38,8 +38,8 @@ public class QueueCreator extends Creator<Queue> {
         this.friendlyName = friendlyName;
     }
 
-    public QueueCreator(final String pathaccountSid, final String friendlyName) {
-        this.pathaccountSid = pathaccountSid;
+    public QueueCreator(final String pathAccountSid, final String friendlyName) {
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -61,8 +61,8 @@ public class QueueCreator extends Creator<Queue> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

@@ -47,16 +47,16 @@ public class InstalledAddOn extends Resource {
     }
 
 
-    public static InstalledAddOnDeleter deleter(final String pathsid) {
+    public static InstalledAddOnDeleter deleter(final String pathSid) {
         return new InstalledAddOnDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static InstalledAddOnFetcher fetcher(final String pathsid) {
+    public static InstalledAddOnFetcher fetcher(final String pathSid) {
         return new InstalledAddOnFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -68,9 +68,9 @@ public class InstalledAddOn extends Resource {
     }
 
 
-    public static InstalledAddOnUpdater updater(final String pathsid) {
+    public static InstalledAddOnUpdater updater(final String pathSid) {
         return new InstalledAddOnUpdater(
-                pathsid
+                pathSid
         );
     }
 

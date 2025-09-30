@@ -40,9 +40,9 @@ import java.util.Objects;
 public class BundleClone extends Resource {
 
 
-    public static BundleCloneCreator creator(final String pathbundleSid, final String targetAccountSid) {
+    public static BundleCloneCreator creator(final String pathBundleSid, final String targetAccountSid) {
         return new BundleCloneCreator(
-                pathbundleSid, targetAccountSid
+                pathBundleSid, targetAccountSid
         );
     }
 

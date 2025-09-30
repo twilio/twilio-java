@@ -40,16 +40,16 @@ import java.util.Objects;
 public class DeliveryReceipt extends Resource {
 
 
-    public static DeliveryReceiptFetcher fetcher(final String pathchatServiceSid, final String pathconversationSid, final String pathmessageSid, final String pathsid) {
+    public static DeliveryReceiptFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid, final String pathSid) {
         return new DeliveryReceiptFetcher(
-                pathchatServiceSid, pathconversationSid, pathmessageSid, pathsid
+                pathChatServiceSid, pathConversationSid, pathMessageSid, pathSid
         );
     }
 
 
-    public static DeliveryReceiptReader reader(final String pathchatServiceSid, final String pathconversationSid, final String pathmessageSid) {
+    public static DeliveryReceiptReader reader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid) {
         return new DeliveryReceiptReader(
-                pathchatServiceSid, pathconversationSid, pathmessageSid
+                pathChatServiceSid, pathConversationSid, pathMessageSid
         );
     }
 

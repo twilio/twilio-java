@@ -38,9 +38,9 @@ import java.util.Objects;
 public class TaskQueueRealTimeStatistics extends Resource {
 
 
-    public static TaskQueueRealTimeStatisticsFetcher fetcher(final String pathworkspaceSid, final String pathtaskQueueSid) {
+    public static TaskQueueRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid) {
         return new TaskQueueRealTimeStatisticsFetcher(
-                pathworkspaceSid, pathtaskQueueSid
+                pathWorkspaceSid, pathTaskQueueSid
         );
     }
 

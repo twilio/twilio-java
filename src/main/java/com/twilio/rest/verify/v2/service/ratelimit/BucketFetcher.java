@@ -26,14 +26,14 @@ import com.twilio.rest.Domains;
 
 public class BucketFetcher extends Fetcher<Bucket> {
 
-    private String pathserviceSid;
-    private String pathrateLimitSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
+    private String pathSid;
 
-    public BucketFetcher(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathrateLimitSid = pathrateLimitSid;
-        this.pathsid = pathsid;
+    public BucketFetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class BucketFetcher extends Fetcher<Bucket> {
 
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "RateLimitSid" + "}", this.pathrateLimitSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "RateLimitSid" + "}", this.pathRateLimitSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

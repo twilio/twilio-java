@@ -31,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private String uniqueName;
     private String email;
@@ -43,8 +43,8 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     private String extension;
     private Integer callDelay;
 
-    public HostedNumberOrderUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public HostedNumberOrderUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -116,7 +116,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
         String path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -48,16 +48,16 @@ public class TollfreeVerification extends Resource {
     }
 
 
-    public static TollfreeVerificationDeleter deleter(final String pathsid) {
+    public static TollfreeVerificationDeleter deleter(final String pathSid) {
         return new TollfreeVerificationDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TollfreeVerificationFetcher fetcher(final String pathsid) {
+    public static TollfreeVerificationFetcher fetcher(final String pathSid) {
         return new TollfreeVerificationFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class TollfreeVerification extends Resource {
     }
 
 
-    public static TollfreeVerificationUpdater updater(final String pathsid) {
+    public static TollfreeVerificationUpdater updater(final String pathSid) {
         return new TollfreeVerificationUpdater(
-                pathsid
+                pathSid
         );
     }
 

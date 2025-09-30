@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class SyncListCreator extends Creator<SyncList> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private Integer ttl;
     private Integer collectionTtl;
 
-    public SyncListCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public SyncListCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -63,7 +63,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
         String path = "/v1/Services/{ServiceSid}/Lists";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

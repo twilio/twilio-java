@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Event extends Resource {
 
 
-    public static EventFetcher fetcher(final String pathsid) {
+    public static EventFetcher fetcher(final String pathSid) {
         return new EventFetcher(
-                pathsid
+                pathSid
         );
     }
 

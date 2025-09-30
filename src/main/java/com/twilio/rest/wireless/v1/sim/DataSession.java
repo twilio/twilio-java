@@ -38,9 +38,9 @@ import java.util.Objects;
 public class DataSession extends Resource {
 
 
-    public static DataSessionReader reader(final String pathsimSid) {
+    public static DataSessionReader reader(final String pathSimSid) {
         return new DataSessionReader(
-                pathsimSid
+                pathSimSid
         );
     }
 

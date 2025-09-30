@@ -31,15 +31,15 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaires> {
-    private String pathquestionnaireSid;
+    private String pathQuestionnaireSid;
     private String authorization;
     private Boolean active;
     private String name;
     private String description;
     private List<String> questionSids;
 
-    public InsightsQuestionnairesUpdater(final String pathquestionnaireSid, final Boolean active) {
-        this.pathquestionnaireSid = pathquestionnaireSid;
+    public InsightsQuestionnairesUpdater(final String pathQuestionnaireSid, final Boolean active) {
+        this.pathQuestionnaireSid = pathQuestionnaireSid;
         this.active = active;
     }
 
@@ -82,7 +82,7 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
 
         String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathquestionnaireSid.toString());
+        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathQuestionnaireSid.toString());
 
 
         Request request = new Request(

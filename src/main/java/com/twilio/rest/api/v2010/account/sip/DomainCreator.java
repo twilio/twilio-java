@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account.sip;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -32,7 +33,7 @@ import java.net.URI;
 
 public class DomainCreator extends Creator<Domain> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String domainName;
     private String friendlyName;
     private URI voiceUrl;
@@ -51,8 +52,8 @@ public class DomainCreator extends Creator<Domain> {
         this.domainName = domainName;
     }
 
-    public DomainCreator(final String pathaccountSid, final String domainName) {
-        this.pathaccountSid = pathaccountSid;
+    public DomainCreator(final String pathAccountSid, final String domainName) {
+        this.pathAccountSid = pathAccountSid;
         this.domainName = domainName;
     }
 
@@ -74,6 +75,9 @@ public class DomainCreator extends Creator<Domain> {
         return this;
     }
 
+    public DomainCreator setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public DomainCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -86,6 +90,9 @@ public class DomainCreator extends Creator<Domain> {
         return this;
     }
 
+    public DomainCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public DomainCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -98,6 +105,9 @@ public class DomainCreator extends Creator<Domain> {
         return this;
     }
 
+    public DomainCreator setVoiceStatusCallbackUrl(final String voiceStatusCallbackUrl) {
+        return setVoiceStatusCallbackUrl(Promoter.uriFromString(voiceStatusCallbackUrl));
+    }
 
     public DomainCreator setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
@@ -140,8 +150,8 @@ public class DomainCreator extends Creator<Domain> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

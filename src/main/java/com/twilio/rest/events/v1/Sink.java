@@ -48,16 +48,16 @@ public class Sink extends Resource {
     }
 
 
-    public static SinkDeleter deleter(final String pathsid) {
+    public static SinkDeleter deleter(final String pathSid) {
         return new SinkDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SinkFetcher fetcher(final String pathsid) {
+    public static SinkFetcher fetcher(final String pathSid) {
         return new SinkFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +69,9 @@ public class Sink extends Resource {
     }
 
 
-    public static SinkUpdater updater(final String pathsid, final String description) {
+    public static SinkUpdater updater(final String pathSid, final String description) {
         return new SinkUpdater(
-                pathsid, description
+                pathSid, description
         );
     }
 

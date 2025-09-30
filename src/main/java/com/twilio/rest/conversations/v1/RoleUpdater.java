@@ -31,11 +31,11 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class RoleUpdater extends Updater<Role> {
-    private String pathsid;
+    private String pathSid;
     private List<String> permission;
 
-    public RoleUpdater(final String pathsid, final List<String> permission) {
-        this.pathsid = pathsid;
+    public RoleUpdater(final String pathSid, final List<String> permission) {
+        this.pathSid = pathSid;
         this.permission = permission;
     }
 
@@ -54,7 +54,7 @@ public class RoleUpdater extends Updater<Role> {
 
         String path = "/v1/Roles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

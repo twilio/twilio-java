@@ -46,9 +46,9 @@ public class PluginRelease extends Resource {
     }
 
 
-    public static PluginReleaseFetcher fetcher(final String pathsid) {
+    public static PluginReleaseFetcher fetcher(final String pathSid) {
         return new PluginReleaseFetcher(
-                pathsid
+                pathSid
         );
     }
 

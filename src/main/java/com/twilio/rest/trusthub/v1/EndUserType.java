@@ -38,9 +38,9 @@ import java.util.Objects;
 public class EndUserType extends Resource {
 
 
-    public static EndUserTypeFetcher fetcher(final String pathsid) {
+    public static EndUserTypeFetcher fetcher(final String pathSid) {
         return new EndUserTypeFetcher(
-                pathsid
+                pathSid
         );
     }
 

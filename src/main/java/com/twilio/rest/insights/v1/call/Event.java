@@ -37,9 +37,9 @@ import java.util.Objects;
 public class Event extends Resource {
 
 
-    public static EventReader reader(final String pathcallSid) {
+    public static EventReader reader(final String pathCallSid) {
         return new EventReader(
-                pathcallSid
+                pathCallSid
         );
     }
 

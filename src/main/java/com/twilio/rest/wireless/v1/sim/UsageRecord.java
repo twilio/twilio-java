@@ -37,9 +37,9 @@ import java.util.Objects;
 public class UsageRecord extends Resource {
 
 
-    public static UsageRecordReader reader(final String pathsimSid) {
+    public static UsageRecordReader reader(final String pathSimSid) {
         return new UsageRecordReader(
-                pathsimSid
+                pathSimSid
         );
     }
 

@@ -44,16 +44,16 @@ public class Safelist extends Resource {
     }
 
 
-    public static SafelistDeleter deleter(final String pathphoneNumber) {
+    public static SafelistDeleter deleter(final String pathPhoneNumber) {
         return new SafelistDeleter(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 
 
-    public static SafelistFetcher fetcher(final String pathphoneNumber) {
+    public static SafelistFetcher fetcher(final String pathPhoneNumber) {
         return new SafelistFetcher(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 

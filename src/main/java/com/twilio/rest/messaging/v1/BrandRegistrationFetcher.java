@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class BrandRegistrationFetcher extends Fetcher<BrandRegistration> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public BrandRegistrationFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public BrandRegistrationFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class BrandRegistrationFetcher extends Fetcher<BrandRegistration> {
 
         String path = "/v1/a2p/BrandRegistrations/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -40,9 +40,9 @@ import java.util.Objects;
 public class ParticipantConversation extends Resource {
 
 
-    public static ParticipantConversationReader reader(final String pathchatServiceSid) {
+    public static ParticipantConversationReader reader(final String pathChatServiceSid) {
         return new ParticipantConversationReader(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 

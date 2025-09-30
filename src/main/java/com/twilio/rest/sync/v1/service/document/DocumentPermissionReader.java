@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
-    private String pathserviceSid;
-    private String pathdocumentSid;
+    private String pathServiceSid;
+    private String pathDocumentSid;
     private Long pageSize;
 
-    public DocumentPermissionReader(final String pathserviceSid, final String pathdocumentSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathdocumentSid = pathdocumentSid;
+    public DocumentPermissionReader(final String pathServiceSid, final String pathDocumentSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
     }
 
 
@@ -55,8 +55,8 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "DocumentSid" + "}", this.pathdocumentSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "DocumentSid" + "}", this.pathDocumentSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

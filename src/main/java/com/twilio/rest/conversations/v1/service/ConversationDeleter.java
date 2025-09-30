@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 public class ConversationDeleter extends Deleter<Conversation> {
 
-    private String pathchatServiceSid;
-    private String pathsid;
+    private String pathChatServiceSid;
+    private String pathSid;
     private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public ConversationDeleter(final String pathchatServiceSid, final String pathsid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathsid = pathsid;
+    public ConversationDeleter(final String pathChatServiceSid, final String pathSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -49,8 +49,8 @@ public class ConversationDeleter extends Deleter<Conversation> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -37,9 +37,9 @@ import java.util.Objects;
 public class Usage extends Resource {
 
 
-    public static UsageFetcher fetcher(final String pathsimSid) {
+    public static UsageFetcher fetcher(final String pathSimSid) {
         return new UsageFetcher(
-                pathsimSid
+                pathSimSid
         );
     }
 

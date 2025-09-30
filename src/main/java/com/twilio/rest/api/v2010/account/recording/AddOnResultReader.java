@@ -30,17 +30,17 @@ import com.twilio.rest.Domains;
 
 public class AddOnResultReader extends Reader<AddOnResult> {
 
-    private String pathaccountSid;
-    private String pathreferenceSid;
+    private String pathAccountSid;
+    private String pathReferenceSid;
     private Long pageSize;
 
-    public AddOnResultReader(final String pathreferenceSid) {
-        this.pathreferenceSid = pathreferenceSid;
+    public AddOnResultReader(final String pathReferenceSid) {
+        this.pathReferenceSid = pathReferenceSid;
     }
 
-    public AddOnResultReader(final String pathaccountSid, final String pathreferenceSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathreferenceSid = pathreferenceSid;
+    public AddOnResultReader(final String pathAccountSid, final String pathReferenceSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
     }
 
 
@@ -59,9 +59,9 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ReferenceSid" + "}", this.pathreferenceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ReferenceSid" + "}", this.pathReferenceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

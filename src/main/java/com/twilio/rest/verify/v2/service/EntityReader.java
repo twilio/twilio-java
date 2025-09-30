@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class EntityReader extends Reader<Entity> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private Long pageSize;
 
-    public EntityReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public EntityReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -53,7 +53,7 @@ public class EntityReader extends Reader<Entity> {
 
         String path = "/v2/Services/{ServiceSid}/Entities";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

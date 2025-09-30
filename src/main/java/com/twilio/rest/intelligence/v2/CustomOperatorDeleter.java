@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class CustomOperatorDeleter extends Deleter<CustomOperator> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public CustomOperatorDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public CustomOperatorDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class CustomOperatorDeleter extends Deleter<CustomOperator> {
 
         String path = "/v2/Operators/Custom/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -40,37 +40,37 @@ import java.util.Objects;
 public class RateLimit extends Resource {
 
 
-    public static RateLimitCreator creator(final String pathserviceSid, final String uniqueName) {
+    public static RateLimitCreator creator(final String pathServiceSid, final String uniqueName) {
         return new RateLimitCreator(
-                pathserviceSid, uniqueName
+                pathServiceSid, uniqueName
         );
     }
 
 
-    public static RateLimitDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static RateLimitDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new RateLimitDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RateLimitFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static RateLimitFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new RateLimitFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RateLimitReader reader(final String pathserviceSid) {
+    public static RateLimitReader reader(final String pathServiceSid) {
         return new RateLimitReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static RateLimitUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static RateLimitUpdater updater(final String pathServiceSid, final String pathSid) {
         return new RateLimitUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

@@ -33,13 +33,13 @@ import java.util.List;
 
 public class BindingReader extends Reader<Binding> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
     private List<Binding.BindingType> bindingType;
     private List<String> identity;
     private Long pageSize;
 
-    public BindingReader(final String pathchatServiceSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public BindingReader(final String pathChatServiceSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -76,7 +76,7 @@ public class BindingReader extends Reader<Binding> {
 
         String path = "/v1/Services/{ChatServiceSid}/Bindings";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

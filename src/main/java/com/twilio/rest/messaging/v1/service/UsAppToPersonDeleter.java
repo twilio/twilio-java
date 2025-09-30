@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
 
-    private String pathmessagingServiceSid;
-    private String pathsid;
+    private String pathMessagingServiceSid;
+    private String pathSid;
 
-    public UsAppToPersonDeleter(final String pathmessagingServiceSid, final String pathsid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
-        this.pathsid = pathsid;
+    public UsAppToPersonDeleter(final String pathMessagingServiceSid, final String pathSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
 
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class DomainCertsFetcher extends Fetcher<DomainCerts> {
 
-    private String pathdomainSid;
+    private String pathDomainSid;
 
-    public DomainCertsFetcher(final String pathdomainSid) {
-        this.pathdomainSid = pathdomainSid;
+    public DomainCertsFetcher(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
 
@@ -38,7 +38,7 @@ public class DomainCertsFetcher extends Fetcher<DomainCerts> {
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

@@ -32,8 +32,8 @@ import java.net.URI;
 import java.util.List;
 
 public class ConnectAppUpdater extends Updater<ConnectApp> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private URI authorizeRedirectUrl;
     private String companyName;
     private HttpMethod deauthorizeCallbackMethod;
@@ -43,13 +43,13 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     private URI homepageUrl;
     private List<ConnectApp.Permission> permissions;
 
-    public ConnectAppUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ConnectAppUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public ConnectAppUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public ConnectAppUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -58,6 +58,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         return this;
     }
 
+    public ConnectAppUpdater setAuthorizeRedirectUrl(final String authorizeRedirectUrl) {
+        return setAuthorizeRedirectUrl(Promoter.uriFromString(authorizeRedirectUrl));
+    }
 
     public ConnectAppUpdater setCompanyName(final String companyName) {
         this.companyName = companyName;
@@ -76,6 +79,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         return this;
     }
 
+    public ConnectAppUpdater setDeauthorizeCallbackUrl(final String deauthorizeCallbackUrl) {
+        return setDeauthorizeCallbackUrl(Promoter.uriFromString(deauthorizeCallbackUrl));
+    }
 
     public ConnectAppUpdater setDescription(final String description) {
         this.description = description;
@@ -94,6 +100,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         return this;
     }
 
+    public ConnectAppUpdater setHomepageUrl(final String homepageUrl) {
+        return setHomepageUrl(Promoter.uriFromString(homepageUrl));
+    }
 
     public ConnectAppUpdater setPermissions(final List<ConnectApp.Permission> permissions) {
         this.permissions = permissions;
@@ -109,9 +118,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

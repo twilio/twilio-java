@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class ConnectionPolicyTargetFetcher extends Fetcher<ConnectionPolicyTarget> {
 
-    private String pathconnectionPolicySid;
-    private String pathsid;
+    private String pathConnectionPolicySid;
+    private String pathSid;
 
-    public ConnectionPolicyTargetFetcher(final String pathconnectionPolicySid, final String pathsid) {
-        this.pathconnectionPolicySid = pathconnectionPolicySid;
-        this.pathsid = pathsid;
+    public ConnectionPolicyTargetFetcher(final String pathConnectionPolicySid, final String pathSid) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class ConnectionPolicyTargetFetcher extends Fetcher<ConnectionPolicyTarge
 
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathConnectionPolicySid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

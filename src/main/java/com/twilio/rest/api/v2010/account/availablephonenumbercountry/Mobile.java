@@ -38,16 +38,16 @@ import java.util.Objects;
 public class Mobile extends Resource {
 
 
-    public static MobileReader reader(final String pathcountryCode) {
+    public static MobileReader reader(final String pathCountryCode) {
         return new MobileReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static MobileReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static MobileReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new MobileReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

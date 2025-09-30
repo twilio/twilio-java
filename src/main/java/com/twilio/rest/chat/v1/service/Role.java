@@ -41,37 +41,37 @@ import java.util.Objects;
 public class Role extends Resource {
 
 
-    public static RoleCreator creator(final String pathserviceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
+    public static RoleCreator creator(final String pathServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
         return new RoleCreator(
-                pathserviceSid, friendlyName, type, permission
+                pathServiceSid, friendlyName, type, permission
         );
     }
 
 
-    public static RoleDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static RoleDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new RoleDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RoleFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static RoleFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new RoleFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RoleReader reader(final String pathserviceSid) {
+    public static RoleReader reader(final String pathServiceSid) {
         return new RoleReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static RoleUpdater updater(final String pathserviceSid, final String pathsid, final List<String> permission) {
+    public static RoleUpdater updater(final String pathServiceSid, final String pathSid, final List<String> permission) {
         return new RoleUpdater(
-                pathserviceSid, pathsid, permission
+                pathServiceSid, pathSid, permission
         );
     }
 

@@ -31,7 +31,7 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument> {
-    private String pathsid;
+    private String pathSid;
     private List<String> hostedNumberOrderSids;
     private String addressSid;
     private String email;
@@ -40,8 +40,8 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     private String contactTitle;
     private String contactPhoneNumber;
 
-    public AuthorizationDocumentUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public AuthorizationDocumentUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -98,7 +98,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
 
         String path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

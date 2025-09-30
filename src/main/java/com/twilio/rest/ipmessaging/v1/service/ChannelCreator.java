@@ -30,14 +30,14 @@ import com.twilio.rest.Domains;
 
 public class ChannelCreator extends Creator<Channel> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String friendlyName;
     private String uniqueName;
     private String attributes;
     private Channel.ChannelType type;
 
-    public ChannelCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public ChannelCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -70,7 +70,7 @@ public class ChannelCreator extends Creator<Channel> {
 
         String path = "/v1/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

@@ -39,30 +39,30 @@ import java.util.Objects;
 public class ItemAssignment extends Resource {
 
 
-    public static ItemAssignmentCreator creator(final String pathbundleSid, final String objectSid) {
+    public static ItemAssignmentCreator creator(final String pathBundleSid, final String objectSid) {
         return new ItemAssignmentCreator(
-                pathbundleSid, objectSid
+                pathBundleSid, objectSid
         );
     }
 
 
-    public static ItemAssignmentDeleter deleter(final String pathbundleSid, final String pathsid) {
+    public static ItemAssignmentDeleter deleter(final String pathBundleSid, final String pathSid) {
         return new ItemAssignmentDeleter(
-                pathbundleSid, pathsid
+                pathBundleSid, pathSid
         );
     }
 
 
-    public static ItemAssignmentFetcher fetcher(final String pathbundleSid, final String pathsid) {
+    public static ItemAssignmentFetcher fetcher(final String pathBundleSid, final String pathSid) {
         return new ItemAssignmentFetcher(
-                pathbundleSid, pathsid
+                pathBundleSid, pathSid
         );
     }
 
 
-    public static ItemAssignmentReader reader(final String pathbundleSid) {
+    public static ItemAssignmentReader reader(final String pathBundleSid) {
         return new ItemAssignmentReader(
-                pathbundleSid
+                pathBundleSid
         );
     }
 

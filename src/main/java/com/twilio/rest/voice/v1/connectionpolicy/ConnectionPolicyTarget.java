@@ -39,37 +39,37 @@ import java.util.Objects;
 public class ConnectionPolicyTarget extends Resource {
 
 
-    public static ConnectionPolicyTargetCreator creator(final String pathconnectionPolicySid, final URI target) {
+    public static ConnectionPolicyTargetCreator creator(final String pathConnectionPolicySid, final URI target) {
         return new ConnectionPolicyTargetCreator(
-                pathconnectionPolicySid, target
+                pathConnectionPolicySid, target
         );
     }
 
 
-    public static ConnectionPolicyTargetDeleter deleter(final String pathconnectionPolicySid, final String pathsid) {
+    public static ConnectionPolicyTargetDeleter deleter(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetDeleter(
-                pathconnectionPolicySid, pathsid
+                pathConnectionPolicySid, pathSid
         );
     }
 
 
-    public static ConnectionPolicyTargetFetcher fetcher(final String pathconnectionPolicySid, final String pathsid) {
+    public static ConnectionPolicyTargetFetcher fetcher(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetFetcher(
-                pathconnectionPolicySid, pathsid
+                pathConnectionPolicySid, pathSid
         );
     }
 
 
-    public static ConnectionPolicyTargetReader reader(final String pathconnectionPolicySid) {
+    public static ConnectionPolicyTargetReader reader(final String pathConnectionPolicySid) {
         return new ConnectionPolicyTargetReader(
-                pathconnectionPolicySid
+                pathConnectionPolicySid
         );
     }
 
 
-    public static ConnectionPolicyTargetUpdater updater(final String pathconnectionPolicySid, final String pathsid) {
+    public static ConnectionPolicyTargetUpdater updater(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetUpdater(
-                pathconnectionPolicySid, pathsid
+                pathConnectionPolicySid, pathSid
         );
     }
 

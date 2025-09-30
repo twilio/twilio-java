@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class ItemAssignmentReader extends Reader<ItemAssignment> {
 
-    private String pathbundleSid;
+    private String pathBundleSid;
     private Long pageSize;
 
-    public ItemAssignmentReader(final String pathbundleSid) {
-        this.pathbundleSid = pathbundleSid;
+    public ItemAssignmentReader(final String pathBundleSid) {
+        this.pathBundleSid = pathBundleSid;
     }
 
 
@@ -53,7 +53,7 @@ public class ItemAssignmentReader extends Reader<ItemAssignment> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

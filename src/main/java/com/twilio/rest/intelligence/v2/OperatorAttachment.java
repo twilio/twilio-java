@@ -37,16 +37,16 @@ import java.util.Objects;
 public class OperatorAttachment extends Resource {
 
 
-    public static OperatorAttachmentCreator creator(final String pathserviceSid, final String pathoperatorSid) {
+    public static OperatorAttachmentCreator creator(final String pathServiceSid, final String pathOperatorSid) {
         return new OperatorAttachmentCreator(
-                pathserviceSid, pathoperatorSid
+                pathServiceSid, pathOperatorSid
         );
     }
 
 
-    public static OperatorAttachmentDeleter deleter(final String pathserviceSid, final String pathoperatorSid) {
+    public static OperatorAttachmentDeleter deleter(final String pathServiceSid, final String pathOperatorSid) {
         return new OperatorAttachmentDeleter(
-                pathserviceSid, pathoperatorSid
+                pathServiceSid, pathOperatorSid
         );
     }
 

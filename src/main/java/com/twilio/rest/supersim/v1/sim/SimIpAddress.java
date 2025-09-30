@@ -37,9 +37,9 @@ import java.util.Objects;
 public class SimIpAddress extends Resource {
 
 
-    public static SimIpAddressReader reader(final String pathsimSid) {
+    public static SimIpAddressReader reader(final String pathSimSid) {
         return new SimIpAddressReader(
-                pathsimSid
+                pathSimSid
         );
     }
 

@@ -26,12 +26,12 @@ import com.twilio.rest.Domains;
 
 public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
 
-    private String pathtrunkSid;
-    private String pathsid;
+    private String pathTrunkSid;
+    private String pathSid;
 
-    public PhoneNumberDeleter(final String pathtrunkSid, final String pathsid) {
-        this.pathtrunkSid = pathtrunkSid;
-        this.pathsid = pathsid;
+    public PhoneNumberDeleter(final String pathTrunkSid, final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
 
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

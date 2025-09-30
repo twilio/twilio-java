@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class UserChannelReader extends Reader<UserChannel> {
 
-    private String pathserviceSid;
-    private String pathuserSid;
+    private String pathServiceSid;
+    private String pathUserSid;
     private Long pageSize;
 
-    public UserChannelReader(final String pathserviceSid, final String pathuserSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathuserSid = pathuserSid;
+    public UserChannelReader(final String pathServiceSid, final String pathUserSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
     }
 
 
@@ -55,8 +55,8 @@ public class UserChannelReader extends Reader<UserChannel> {
 
         String path = "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

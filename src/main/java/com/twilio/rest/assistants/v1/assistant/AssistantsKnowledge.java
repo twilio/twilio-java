@@ -38,23 +38,23 @@ import java.util.Objects;
 public class AssistantsKnowledge extends Resource {
 
 
-    public static AssistantsKnowledgeCreator creator(final String pathassistantId, final String pathid) {
+    public static AssistantsKnowledgeCreator creator(final String pathAssistantId, final String pathId) {
         return new AssistantsKnowledgeCreator(
-                pathassistantId, pathid
+                pathAssistantId, pathId
         );
     }
 
 
-    public static AssistantsKnowledgeDeleter deleter(final String pathassistantId, final String pathid) {
+    public static AssistantsKnowledgeDeleter deleter(final String pathAssistantId, final String pathId) {
         return new AssistantsKnowledgeDeleter(
-                pathassistantId, pathid
+                pathAssistantId, pathId
         );
     }
 
 
-    public static AssistantsKnowledgeReader reader(final String pathassistantId) {
+    public static AssistantsKnowledgeReader reader(final String pathAssistantId) {
         return new AssistantsKnowledgeReader(
-                pathassistantId
+                pathAssistantId
         );
     }
 

@@ -45,16 +45,16 @@ public class InsightsQuestionnaires extends Resource {
     }
 
 
-    public static InsightsQuestionnairesDeleter deleter(final String pathquestionnaireSid) {
+    public static InsightsQuestionnairesDeleter deleter(final String pathQuestionnaireSid) {
         return new InsightsQuestionnairesDeleter(
-                pathquestionnaireSid
+                pathQuestionnaireSid
         );
     }
 
 
-    public static InsightsQuestionnairesFetcher fetcher(final String pathquestionnaireSid) {
+    public static InsightsQuestionnairesFetcher fetcher(final String pathQuestionnaireSid) {
         return new InsightsQuestionnairesFetcher(
-                pathquestionnaireSid
+                pathQuestionnaireSid
         );
     }
 
@@ -66,9 +66,9 @@ public class InsightsQuestionnaires extends Resource {
     }
 
 
-    public static InsightsQuestionnairesUpdater updater(final String pathquestionnaireSid, final Boolean active) {
+    public static InsightsQuestionnairesUpdater updater(final String pathQuestionnaireSid, final Boolean active) {
         return new InsightsQuestionnairesUpdater(
-                pathquestionnaireSid, active
+                pathQuestionnaireSid, active
         );
     }
 

@@ -30,13 +30,13 @@ import com.twilio.rest.Domains;
 
 public class BucketReader extends Reader<Bucket> {
 
-    private String pathserviceSid;
-    private String pathrateLimitSid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
     private Long pageSize;
 
-    public BucketReader(final String pathserviceSid, final String pathrateLimitSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathrateLimitSid = pathrateLimitSid;
+    public BucketReader(final String pathServiceSid, final String pathRateLimitSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
     }
 
 
@@ -55,8 +55,8 @@ public class BucketReader extends Reader<Bucket> {
 
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "RateLimitSid" + "}", this.pathrateLimitSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "RateLimitSid" + "}", this.pathRateLimitSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -40,9 +40,9 @@ import java.util.Objects;
 public class WorkersCumulativeStatistics extends Resource {
 
 
-    public static WorkersCumulativeStatisticsFetcher fetcher(final String pathworkspaceSid) {
+    public static WorkersCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
         return new WorkersCumulativeStatisticsFetcher(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 

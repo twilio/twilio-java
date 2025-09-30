@@ -38,16 +38,16 @@ import java.util.Objects;
 public class MachineToMachine extends Resource {
 
 
-    public static MachineToMachineReader reader(final String pathcountryCode) {
+    public static MachineToMachineReader reader(final String pathCountryCode) {
         return new MachineToMachineReader(
-                pathcountryCode
+                pathCountryCode
         );
     }
 
 
-    public static MachineToMachineReader reader(final String pathaccountSid, final String pathcountryCode) {
+    public static MachineToMachineReader reader(final String pathAccountSid, final String pathCountryCode) {
         return new MachineToMachineReader(
-                pathaccountSid, pathcountryCode
+                pathAccountSid, pathCountryCode
         );
     }
 

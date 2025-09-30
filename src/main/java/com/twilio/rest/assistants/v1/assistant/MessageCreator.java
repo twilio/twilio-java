@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 public class MessageCreator extends Creator<Message> {
 
-    private String pathid;
+    private String pathId;
     private Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest;
 
-    public MessageCreator(final String pathid, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
-        this.pathid = pathid;
+    public MessageCreator(final String pathId, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
+        this.pathId = pathId;
         this.assistantsV1ServiceAssistantSendMessageRequest = assistantsV1ServiceAssistantSendMessageRequest;
     }
 
@@ -48,7 +48,7 @@ public class MessageCreator extends Creator<Message> {
 
         String path = "/v1/Assistants/{id}/Messages";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

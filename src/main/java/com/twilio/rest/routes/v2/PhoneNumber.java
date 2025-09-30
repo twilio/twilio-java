@@ -39,16 +39,16 @@ import java.util.Objects;
 public class PhoneNumber extends Resource {
 
 
-    public static PhoneNumberFetcher fetcher(final String pathphoneNumber) {
+    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 
 
-    public static PhoneNumberUpdater updater(final String pathphoneNumber) {
+    public static PhoneNumberUpdater updater(final String pathPhoneNumber) {
         return new PhoneNumberUpdater(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 

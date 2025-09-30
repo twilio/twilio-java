@@ -27,11 +27,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ToolUpdater extends Updater<Tool> {
-    private String pathid;
+    private String pathId;
     private Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest;
 
-    public ToolUpdater(final String pathid) {
-        this.pathid = pathid;
+    public ToolUpdater(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -46,7 +46,7 @@ public class ToolUpdater extends Updater<Tool> {
 
         String path = "/v1/Tools/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

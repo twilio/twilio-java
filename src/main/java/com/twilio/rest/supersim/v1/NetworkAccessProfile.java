@@ -47,9 +47,9 @@ public class NetworkAccessProfile extends Resource {
     }
 
 
-    public static NetworkAccessProfileFetcher fetcher(final String pathsid) {
+    public static NetworkAccessProfileFetcher fetcher(final String pathSid) {
         return new NetworkAccessProfileFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -61,9 +61,9 @@ public class NetworkAccessProfile extends Resource {
     }
 
 
-    public static NetworkAccessProfileUpdater updater(final String pathsid) {
+    public static NetworkAccessProfileUpdater updater(final String pathSid) {
         return new NetworkAccessProfileUpdater(
-                pathsid
+                pathSid
         );
     }
 

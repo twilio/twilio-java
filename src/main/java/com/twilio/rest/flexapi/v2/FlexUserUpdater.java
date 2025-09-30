@@ -28,15 +28,15 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class FlexUserUpdater extends Updater<FlexUser> {
-    private String pathinstanceSid;
-    private String pathflexUserSid;
+    private String pathInstanceSid;
+    private String pathFlexUserSid;
     private String email;
     private String userSid;
     private String locale;
 
-    public FlexUserUpdater(final String pathinstanceSid, final String pathflexUserSid) {
-        this.pathinstanceSid = pathinstanceSid;
-        this.pathflexUserSid = pathflexUserSid;
+    public FlexUserUpdater(final String pathInstanceSid, final String pathFlexUserSid) {
+        this.pathInstanceSid = pathInstanceSid;
+        this.pathFlexUserSid = pathFlexUserSid;
     }
 
 
@@ -63,8 +63,8 @@ public class FlexUserUpdater extends Updater<FlexUser> {
 
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
-        path = path.replace("{" + "InstanceSid" + "}", this.pathinstanceSid.toString());
-        path = path.replace("{" + "FlexUserSid" + "}", this.pathflexUserSid.toString());
+        path = path.replace("{" + "InstanceSid" + "}", this.pathInstanceSid.toString());
+        path = path.replace("{" + "FlexUserSid" + "}", this.pathFlexUserSid.toString());
 
 
         Request request = new Request(

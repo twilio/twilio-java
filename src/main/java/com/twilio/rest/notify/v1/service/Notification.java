@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Notification extends Resource {
 
 
-    public static NotificationCreator creator(final String pathserviceSid) {
+    public static NotificationCreator creator(final String pathServiceSid) {
         return new NotificationCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

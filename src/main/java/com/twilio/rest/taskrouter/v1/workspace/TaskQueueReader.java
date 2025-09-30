@@ -30,15 +30,15 @@ import com.twilio.rest.Domains;
 
 public class TaskQueueReader extends Reader<TaskQueue> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String evaluateWorkerAttributes;
     private String workerSid;
     private String ordering;
     private Long pageSize;
 
-    public TaskQueueReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskQueueReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -81,7 +81,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

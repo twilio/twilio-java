@@ -30,19 +30,19 @@ import com.twilio.rest.Domains;
 
 public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private String content;
     private String idempotencyKey;
 
-    public UserDefinedMessageCreator(final String pathcallSid, final String content) {
-        this.pathcallSid = pathcallSid;
+    public UserDefinedMessageCreator(final String pathCallSid, final String content) {
+        this.pathCallSid = pathCallSid;
         this.content = content;
     }
 
-    public UserDefinedMessageCreator(final String pathaccountSid, final String pathcallSid, final String content) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public UserDefinedMessageCreator(final String pathAccountSid, final String pathCallSid, final String content) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.content = content;
     }
 
@@ -64,9 +64,9 @@ public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

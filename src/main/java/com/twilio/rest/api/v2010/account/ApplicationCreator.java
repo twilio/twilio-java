@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -32,7 +33,7 @@ import java.net.URI;
 
 public class ApplicationCreator extends Creator<Application> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String apiVersion;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -53,8 +54,8 @@ public class ApplicationCreator extends Creator<Application> {
     public ApplicationCreator() {
     }
 
-    public ApplicationCreator(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public ApplicationCreator(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -69,6 +70,9 @@ public class ApplicationCreator extends Creator<Application> {
         return this;
     }
 
+    public ApplicationCreator setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public ApplicationCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -81,6 +85,9 @@ public class ApplicationCreator extends Creator<Application> {
         return this;
     }
 
+    public ApplicationCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public ApplicationCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -93,6 +100,9 @@ public class ApplicationCreator extends Creator<Application> {
         return this;
     }
 
+    public ApplicationCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public ApplicationCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -111,6 +121,9 @@ public class ApplicationCreator extends Creator<Application> {
         return this;
     }
 
+    public ApplicationCreator setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public ApplicationCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -123,6 +136,9 @@ public class ApplicationCreator extends Creator<Application> {
         return this;
     }
 
+    public ApplicationCreator setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public ApplicationCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
@@ -135,12 +151,18 @@ public class ApplicationCreator extends Creator<Application> {
         return this;
     }
 
+    public ApplicationCreator setSmsStatusCallback(final String smsStatusCallback) {
+        return setSmsStatusCallback(Promoter.uriFromString(smsStatusCallback));
+    }
 
     public ApplicationCreator setMessageStatusCallback(final URI messageStatusCallback) {
         this.messageStatusCallback = messageStatusCallback;
         return this;
     }
 
+    public ApplicationCreator setMessageStatusCallback(final String messageStatusCallback) {
+        return setMessageStatusCallback(Promoter.uriFromString(messageStatusCallback));
+    }
 
     public ApplicationCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -159,8 +181,8 @@ public class ApplicationCreator extends Creator<Application> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Applications.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 public class InteractionTransferCreator extends Creator<InteractionTransfer> {
 
-    private String pathinteractionSid;
-    private String pathchannelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private Object body;
 
-    public InteractionTransferCreator(final String pathinteractionSid, final String pathchannelSid) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathchannelSid = pathchannelSid;
+    public InteractionTransferCreator(final String pathInteractionSid, final String pathChannelSid) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -49,8 +49,8 @@ public class InteractionTransferCreator extends Creator<InteractionTransfer> {
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

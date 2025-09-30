@@ -38,23 +38,23 @@ import java.util.Objects;
 public class InteractionChannelParticipant extends Resource {
 
 
-    public static InteractionChannelParticipantCreator creator(final String pathinteractionSid, final String pathchannelSid, final InteractionChannelParticipant.Type type, final Object mediaProperties) {
+    public static InteractionChannelParticipantCreator creator(final String pathInteractionSid, final String pathChannelSid, final InteractionChannelParticipant.Type type, final Object mediaProperties) {
         return new InteractionChannelParticipantCreator(
-                pathinteractionSid, pathchannelSid, type, mediaProperties
+                pathInteractionSid, pathChannelSid, type, mediaProperties
         );
     }
 
 
-    public static InteractionChannelParticipantReader reader(final String pathinteractionSid, final String pathchannelSid) {
+    public static InteractionChannelParticipantReader reader(final String pathInteractionSid, final String pathChannelSid) {
         return new InteractionChannelParticipantReader(
-                pathinteractionSid, pathchannelSid
+                pathInteractionSid, pathChannelSid
         );
     }
 
 
-    public static InteractionChannelParticipantUpdater updater(final String pathinteractionSid, final String pathchannelSid, final String pathsid, final InteractionChannelParticipant.Status status) {
+    public static InteractionChannelParticipantUpdater updater(final String pathInteractionSid, final String pathChannelSid, final String pathSid, final InteractionChannelParticipant.Status status) {
         return new InteractionChannelParticipantUpdater(
-                pathinteractionSid, pathchannelSid, pathsid, status
+                pathInteractionSid, pathChannelSid, pathSid, status
         );
     }
 

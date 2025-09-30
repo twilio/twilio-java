@@ -38,16 +38,16 @@ import java.util.Objects;
 public class Job extends Resource {
 
 
-    public static JobDeleter deleter(final String pathjobSid) {
+    public static JobDeleter deleter(final String pathJobSid) {
         return new JobDeleter(
-                pathjobSid
+                pathJobSid
         );
     }
 
 
-    public static JobFetcher fetcher(final String pathjobSid) {
+    public static JobFetcher fetcher(final String pathJobSid) {
         return new JobFetcher(
-                pathjobSid
+                pathJobSid
         );
     }
 

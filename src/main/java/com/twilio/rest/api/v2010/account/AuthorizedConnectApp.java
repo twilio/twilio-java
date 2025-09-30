@@ -39,16 +39,16 @@ import java.util.Objects;
 public class AuthorizedConnectApp extends Resource {
 
 
-    public static AuthorizedConnectAppFetcher fetcher(final String pathconnectAppSid) {
+    public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid) {
         return new AuthorizedConnectAppFetcher(
-                pathconnectAppSid
+                pathConnectAppSid
         );
     }
 
 
-    public static AuthorizedConnectAppFetcher fetcher(final String pathaccountSid, final String pathconnectAppSid) {
+    public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid, final String pathConnectAppSid) {
         return new AuthorizedConnectAppFetcher(
-                pathaccountSid, pathconnectAppSid
+                pathAccountSid, pathConnectAppSid
         );
     }
 
@@ -60,32 +60,12 @@ public class AuthorizedConnectApp extends Resource {
     }
 
 
-    public static AuthorizedConnectAppReader reader(final String pathaccountSid) {
+    public static AuthorizedConnectAppReader reader(final String pathAccountSid) {
         return new AuthorizedConnectAppReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
-
-    public enum AuthorizedConnectAppAuthorizedConnectAppPermission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private AuthorizedConnectAppAuthorizedConnectAppPermission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AuthorizedConnectAppAuthorizedConnectAppPermission forValue(final String value) {
-            return Promoter.enumFromString(value, AuthorizedConnectAppAuthorizedConnectAppPermission.values());
-        }
-    }
 
     public enum Permission {
         GET_ALL("get-all"),
@@ -124,26 +104,6 @@ public class AuthorizedConnectApp extends Resource {
         @JsonCreator
         public static AuthorizedConnectAppPermission forValue(final String value) {
             return Promoter.enumFromString(value, AuthorizedConnectAppPermission.values());
-        }
-    }
-
-    public enum AuthorizedConnectAppAuthorizedConnectAppAuthorizedConnectAppPermission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private AuthorizedConnectAppAuthorizedConnectAppAuthorizedConnectAppPermission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AuthorizedConnectAppAuthorizedConnectAppAuthorizedConnectAppPermission forValue(final String value) {
-            return Promoter.enumFromString(value, AuthorizedConnectAppAuthorizedConnectAppAuthorizedConnectAppPermission.values());
         }
     }
 
@@ -211,7 +171,7 @@ public class AuthorizedConnectApp extends Resource {
     @Getter
     private final String connectAppSid;
     @Getter
-    private final List<AuthorizedConnectApp.AuthorizedConnectAppAuthorizedConnectAppAuthorizedConnectAppPermission> permissions;
+    private final List<AuthorizedConnectApp.Permission> permissions;
     @Getter
     private final String uri;
 
@@ -223,7 +183,7 @@ public class AuthorizedConnectApp extends Resource {
             @JsonProperty("connect_app_friendly_name") final String connectAppFriendlyName,
             @JsonProperty("connect_app_homepage_url") final URI connectAppHomepageUrl,
             @JsonProperty("connect_app_sid") final String connectAppSid,
-            @JsonProperty("permissions") final List<AuthorizedConnectApp.AuthorizedConnectAppAuthorizedConnectAppAuthorizedConnectAppPermission> permissions,
+            @JsonProperty("permissions") final List<AuthorizedConnectApp.Permission> permissions,
             @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;

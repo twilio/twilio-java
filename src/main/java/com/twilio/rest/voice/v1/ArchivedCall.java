@@ -34,9 +34,9 @@ import java.time.LocalDate;
 public class ArchivedCall extends Resource {
 
 
-    public static ArchivedCallDeleter deleter(final LocalDate pathdate, final String pathsid) {
+    public static ArchivedCallDeleter deleter(final LocalDate pathDate, final String pathSid) {
         return new ArchivedCallDeleter(
-                pathdate, pathsid
+                pathDate, pathSid
         );
     }
 

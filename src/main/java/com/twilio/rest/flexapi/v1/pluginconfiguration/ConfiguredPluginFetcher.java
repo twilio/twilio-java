@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
 
-    private String pathconfigurationSid;
-    private String pathpluginSid;
+    private String pathConfigurationSid;
+    private String pathPluginSid;
     private String flexMetadata;
 
-    public ConfiguredPluginFetcher(final String pathconfigurationSid, final String pathpluginSid) {
-        this.pathconfigurationSid = pathconfigurationSid;
-        this.pathpluginSid = pathpluginSid;
+    public ConfiguredPluginFetcher(final String pathConfigurationSid, final String pathPluginSid) {
+        this.pathConfigurationSid = pathConfigurationSid;
+        this.pathPluginSid = pathPluginSid;
     }
 
 
@@ -49,8 +49,8 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
 
         String path = "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}";
 
-        path = path.replace("{" + "ConfigurationSid" + "}", this.pathconfigurationSid.toString());
-        path = path.replace("{" + "PluginSid" + "}", this.pathpluginSid.toString());
+        path = path.replace("{" + "ConfigurationSid" + "}", this.pathConfigurationSid.toString());
+        path = path.replace("{" + "PluginSid" + "}", this.pathPluginSid.toString());
 
 
         Request request = new Request(

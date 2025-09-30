@@ -26,10 +26,10 @@ import com.twilio.rest.Domains;
 
 public class FormFetcher extends Fetcher<Form> {
 
-    private Form.FormTypes pathformType;
+    private Form.FormTypes pathFormType;
 
-    public FormFetcher(final Form.FormTypes pathformType) {
-        this.pathformType = pathformType;
+    public FormFetcher(final Form.FormTypes pathFormType) {
+        this.pathFormType = pathFormType;
     }
 
 
@@ -38,7 +38,7 @@ public class FormFetcher extends Fetcher<Form> {
 
         String path = "/v2/Forms/{FormType}";
 
-        path = path.replace("{" + "FormType" + "}", this.pathformType.toString());
+        path = path.replace("{" + "FormType" + "}", this.pathFormType.toString());
 
 
         Request request = new Request(

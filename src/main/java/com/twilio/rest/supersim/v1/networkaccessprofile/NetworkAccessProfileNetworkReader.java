@@ -30,11 +30,11 @@ import com.twilio.rest.Domains;
 
 public class NetworkAccessProfileNetworkReader extends Reader<NetworkAccessProfileNetwork> {
 
-    private String pathnetworkAccessProfileSid;
+    private String pathNetworkAccessProfileSid;
     private Long pageSize;
 
-    public NetworkAccessProfileNetworkReader(final String pathnetworkAccessProfileSid) {
-        this.pathnetworkAccessProfileSid = pathnetworkAccessProfileSid;
+    public NetworkAccessProfileNetworkReader(final String pathNetworkAccessProfileSid) {
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
     }
 
 
@@ -53,7 +53,7 @@ public class NetworkAccessProfileNetworkReader extends Reader<NetworkAccessProfi
 
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathnetworkAccessProfileSid.toString());
+        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathNetworkAccessProfileSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

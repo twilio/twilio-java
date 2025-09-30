@@ -46,16 +46,16 @@ public class Channel extends Resource {
     }
 
 
-    public static ChannelDeleter deleter(final String pathsid) {
+    public static ChannelDeleter deleter(final String pathSid) {
         return new ChannelDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ChannelFetcher fetcher(final String pathsid) {
+    public static ChannelFetcher fetcher(final String pathSid) {
         return new ChannelFetcher(
-                pathsid
+                pathSid
         );
     }
 

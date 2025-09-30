@@ -40,9 +40,9 @@ import java.util.Objects;
 public class Operator extends Resource {
 
 
-    public static OperatorFetcher fetcher(final String pathsid) {
+    public static OperatorFetcher fetcher(final String pathSid) {
         return new OperatorFetcher(
-                pathsid
+                pathSid
         );
     }
 

@@ -28,11 +28,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AwsUpdater extends Updater<Aws> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
 
-    public AwsUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public AwsUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -47,7 +47,7 @@ public class AwsUpdater extends Updater<Aws> {
 
         String path = "/v1/Credentials/AWS/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

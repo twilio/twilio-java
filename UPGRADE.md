@@ -19,7 +19,7 @@ Who are impacted:
 Users calling the Organisation API. Refer Examples
 Organisation API examples [here](https://github.com/twilio/twilio-java/blob/main/examples/OrgsAPIExample.md)
 
-####### Bug Fix: Using Object Datatype for OAS anyType fields
+####### Bug Fix: Using Object Datatype for open api spec anyType fields
 Who are impacted:
 There are APIs which have property/parameter without type defined in open api spec.
 Previous datatype Map<String,Object>, Changed Datatype Object

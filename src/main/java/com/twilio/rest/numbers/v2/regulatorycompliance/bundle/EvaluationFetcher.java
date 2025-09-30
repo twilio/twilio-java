@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class EvaluationFetcher extends Fetcher<Evaluation> {
 
-    private String pathbundleSid;
-    private String pathsid;
+    private String pathBundleSid;
+    private String pathSid;
 
-    public EvaluationFetcher(final String pathbundleSid, final String pathsid) {
-        this.pathbundleSid = pathbundleSid;
-        this.pathsid = pathsid;
+    public EvaluationFetcher(final String pathBundleSid, final String pathSid) {
+        this.pathBundleSid = pathBundleSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class EvaluationFetcher extends Fetcher<Evaluation> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

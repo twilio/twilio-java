@@ -17,6 +17,7 @@ package com.twilio.rest.taskrouter.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,10 +28,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class WorkspaceUpdater extends Updater<Workspace> {
-    private String pathsid;
+    private String pathSid;
     private String defaultActivitySid;
     private URI eventCallbackUrl;
     private String eventsFilter;
@@ -39,8 +43,8 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     private String timeoutActivitySid;
     private Workspace.QueueOrder prioritizeQueueOrder;
 
-    public WorkspaceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public WorkspaceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -55,6 +59,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         return this;
     }
 
+    public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
+        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
+    }
 
     public WorkspaceUpdater setEventsFilter(final String eventsFilter) {
         this.eventsFilter = eventsFilter;
@@ -91,7 +98,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
         String path = "/v1/Workspaces/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

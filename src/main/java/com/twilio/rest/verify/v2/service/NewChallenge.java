@@ -12,40 +12,54 @@
  * Do not edit the class manually.
  */
 
-package com.twilio.rest.verify.v2;
+package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewChallenge extends Resource {
 
 
-    public static NewChallengeCreator creator(final String pathserviceSid, final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest) {
+    public static NewChallengeCreator creator(final String pathServiceSid, final NewChallenge.CreatePasskeysChallengeRequest createPasskeysChallengeRequest) {
         return new NewChallengeCreator(
-                pathserviceSid, createPasskeysChallengeRequest
+                pathServiceSid, createPasskeysChallengeRequest
         );
     }
 
@@ -115,7 +129,7 @@ public class NewChallenge extends Resource {
     }
 
 
-    //@JsonDeserialize(builder = CreatePasskeysChallengeRequest.Builder.class)
+    @JsonDeserialize(builder = CreatePasskeysChallengeRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreatePasskeysChallengeRequest {
@@ -123,16 +137,68 @@ public class NewChallenge extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
         @Getter
-        @Setter
-        private String identity;
+        private final String identity;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("factor_sid")
         @Getter
-        @Setter
-        private String factorSid;
+        private final String factorSid;
+
+
+        private CreatePasskeysChallengeRequest(Builder builder) {
+            this.identity = builder.identity;
+            this.factorSid = builder.factorSid;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreatePasskeysChallengeRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CreatePasskeysChallengeRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("identity")
+            private String identity;
+
+            @JsonProperty("factor_sid")
+            private String factorSid;
+
+
+            public CreatePasskeysChallengeRequest build() {
+                return new CreatePasskeysChallengeRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreatePasskeysChallengeRequest other = (CreatePasskeysChallengeRequest) o;
+            return (
+                    Objects.equals(identity, other.identity) &&
+                            Objects.equals(factorSid, other.factorSid)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    identity,
+                    factorSid
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a NewChallenge object using the provided ObjectMapper.

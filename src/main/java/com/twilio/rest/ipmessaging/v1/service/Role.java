@@ -17,61 +17,74 @@ package com.twilio.rest.ipmessaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Role extends Resource {
 
 
-    public static RoleCreator creator(final String pathserviceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
+    public static RoleCreator creator(final String pathServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
         return new RoleCreator(
-                pathserviceSid, friendlyName, type, permission
+                pathServiceSid, friendlyName, type, permission
         );
     }
 
 
-    public static RoleDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static RoleDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new RoleDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RoleFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static RoleFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new RoleFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RoleReader reader(final String pathserviceSid) {
+    public static RoleReader reader(final String pathServiceSid) {
         return new RoleReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static RoleUpdater updater(final String pathserviceSid, final String pathsid, final List<String> permission) {
+    public static RoleUpdater updater(final String pathServiceSid, final String pathSid, final List<String> permission) {
         return new RoleUpdater(
-                pathserviceSid, pathsid, permission
+                pathServiceSid, pathSid, permission
         );
     }
 

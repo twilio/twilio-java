@@ -29,12 +29,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class ConversationWithParticipantsCreator extends Creator<ConversationWithParticipants> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
     private ConversationWithParticipants.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
     private String uniqueName;
@@ -49,8 +52,8 @@ public class ConversationWithParticipantsCreator extends Creator<ConversationWit
     private String bindingsEmailName;
     private List<String> participant;
 
-    public ConversationWithParticipantsCreator(final String pathchatServiceSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public ConversationWithParticipantsCreator(final String pathChatServiceSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -140,7 +143,7 @@ public class ConversationWithParticipantsCreator extends Creator<ConversationWit
 
         String path = "/v1/Services/{ChatServiceSid}/ConversationWithParticipants";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
 
         Request request = new Request(

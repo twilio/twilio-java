@@ -15,6 +15,7 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RoleAssignmentCreator extends Creator<RoleAssignment> {
 
-    private String pathorganizationSid;
+    private String pathOrganizationSid;
     private RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest;
 
-    public RoleAssignmentCreator(final String pathorganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
-        this.pathorganizationSid = pathorganizationSid;
+    public RoleAssignmentCreator(final String pathOrganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
+        this.pathOrganizationSid = pathOrganizationSid;
         this.publicApiCreateRoleAssignmentRequest = publicApiCreateRoleAssignmentRequest;
     }
 
@@ -48,7 +52,7 @@ public class RoleAssignmentCreator extends Creator<RoleAssignment> {
 
         String path = "/Organizations/{OrganizationSid}/RoleAssignments";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
 
 
         Request request = new Request(

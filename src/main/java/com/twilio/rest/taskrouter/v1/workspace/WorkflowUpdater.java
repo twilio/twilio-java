@@ -17,6 +17,7 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class WorkflowUpdater extends Updater<Workflow> {
-    private String pathworkspaceSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String friendlyName;
     private URI assignmentCallbackUrl;
     private URI fallbackAssignmentCallbackUrl;
@@ -39,9 +43,9 @@ public class WorkflowUpdater extends Updater<Workflow> {
     private Integer taskReservationTimeout;
     private String reEvaluateTasks;
 
-    public WorkflowUpdater(final String pathworkspaceSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathsid = pathsid;
+    public WorkflowUpdater(final String pathWorkspaceSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -56,12 +60,18 @@ public class WorkflowUpdater extends Updater<Workflow> {
         return this;
     }
 
+    public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
+    }
 
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         return this;
     }
 
+    public WorkflowUpdater setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
+    }
 
     public WorkflowUpdater setConfiguration(final String configuration) {
         this.configuration = configuration;
@@ -86,8 +96,8 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

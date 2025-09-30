@@ -14,9 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,11 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class EventReader extends Reader<Event> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private String eventType;
     private Integer minutes;
@@ -46,8 +49,8 @@ public class EventReader extends Reader<Event> {
     private String sid;
     private Long pageSize;
 
-    public EventReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public EventReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -132,7 +135,7 @@ public class EventReader extends Reader<Event> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Events";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

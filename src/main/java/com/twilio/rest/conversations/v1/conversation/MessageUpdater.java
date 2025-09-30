@@ -27,11 +27,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 
+import com.twilio.type.*;
+
 public class MessageUpdater extends Updater<Message> {
-    private String pathconversationSid;
-    private String pathsid;
+    private String pathConversationSid;
+    private String pathSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String author;
     private String body;
@@ -40,9 +43,9 @@ public class MessageUpdater extends Updater<Message> {
     private String attributes;
     private String subject;
 
-    public MessageUpdater(final String pathconversationSid, final String pathsid) {
-        this.pathconversationSid = pathconversationSid;
-        this.pathsid = pathsid;
+    public MessageUpdater(final String pathConversationSid, final String pathSid) {
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -93,8 +96,8 @@ public class MessageUpdater extends Updater<Message> {
 
         String path = "/v1/Conversations/{ConversationSid}/Messages/{Sid}";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

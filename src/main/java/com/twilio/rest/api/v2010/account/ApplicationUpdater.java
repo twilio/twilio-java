@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class ApplicationUpdater extends Updater<Application> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private String apiVersion;
     private URI voiceUrl;
@@ -49,13 +53,13 @@ public class ApplicationUpdater extends Updater<Application> {
     private URI messageStatusCallback;
     private Boolean publicApplicationConnectEnabled;
 
-    public ApplicationUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ApplicationUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public ApplicationUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public ApplicationUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -76,6 +80,9 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
+    public ApplicationUpdater setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public ApplicationUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -88,6 +95,9 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
+    public ApplicationUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public ApplicationUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -100,6 +110,9 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
+    public ApplicationUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public ApplicationUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -118,6 +131,9 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
+    public ApplicationUpdater setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public ApplicationUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -130,6 +146,9 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
+    public ApplicationUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public ApplicationUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
@@ -142,12 +161,18 @@ public class ApplicationUpdater extends Updater<Application> {
         return this;
     }
 
+    public ApplicationUpdater setSmsStatusCallback(final String smsStatusCallback) {
+        return setSmsStatusCallback(Promoter.uriFromString(smsStatusCallback));
+    }
 
     public ApplicationUpdater setMessageStatusCallback(final URI messageStatusCallback) {
         this.messageStatusCallback = messageStatusCallback;
         return this;
     }
 
+    public ApplicationUpdater setMessageStatusCallback(final String messageStatusCallback) {
+        return setMessageStatusCallback(Promoter.uriFromString(messageStatusCallback));
+    }
 
     public ApplicationUpdater setPublicApplicationConnectEnabled(final Boolean publicApplicationConnectEnabled) {
         this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
@@ -160,9 +185,9 @@ public class ApplicationUpdater extends Updater<Application> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

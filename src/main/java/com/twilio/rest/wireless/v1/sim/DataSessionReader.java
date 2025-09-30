@@ -14,9 +14,7 @@
 
 package com.twilio.rest.wireless.v1.sim;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class DataSessionReader extends Reader<DataSession> {
 
-    private String pathsimSid;
+    private String pathSimSid;
     private Long pageSize;
 
-    public DataSessionReader(final String pathsimSid) {
-        this.pathsimSid = pathsimSid;
+    public DataSessionReader(final String pathSimSid) {
+        this.pathSimSid = pathSimSid;
     }
 
 
@@ -53,7 +56,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
         String path = "/v1/Sims/{SimSid}/DataSessions";
 
-        path = path.replace("{" + "SimSid" + "}", this.pathsimSid.toString());
+        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

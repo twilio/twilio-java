@@ -14,9 +14,7 @@
 
 package com.twilio.rest.chat.v2.service.channel;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class WebhookReader extends Reader<Webhook> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private Long pageSize;
 
-    public WebhookReader(final String pathserviceSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public WebhookReader(final String pathServiceSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -55,8 +58,8 @@ public class WebhookReader extends Reader<Webhook> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

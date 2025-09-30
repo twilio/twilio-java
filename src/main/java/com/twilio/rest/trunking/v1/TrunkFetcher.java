@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class TrunkFetcher extends Fetcher<Trunk> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public TrunkFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public TrunkFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
 
         String path = "/v1/Trunks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

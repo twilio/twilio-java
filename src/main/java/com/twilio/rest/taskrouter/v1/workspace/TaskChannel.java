@@ -17,60 +17,73 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskChannel extends Resource {
 
 
-    public static TaskChannelCreator creator(final String pathworkspaceSid, final String friendlyName, final String uniqueName) {
+    public static TaskChannelCreator creator(final String pathWorkspaceSid, final String friendlyName, final String uniqueName) {
         return new TaskChannelCreator(
-                pathworkspaceSid, friendlyName, uniqueName
+                pathWorkspaceSid, friendlyName, uniqueName
         );
     }
 
 
-    public static TaskChannelDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static TaskChannelDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new TaskChannelDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskChannelFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new TaskChannelFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static TaskChannelReader reader(final String pathworkspaceSid) {
+    public static TaskChannelReader reader(final String pathWorkspaceSid) {
         return new TaskChannelReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static TaskChannelUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static TaskChannelUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new TaskChannelUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

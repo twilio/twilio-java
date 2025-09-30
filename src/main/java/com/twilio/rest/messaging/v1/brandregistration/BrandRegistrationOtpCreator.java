@@ -25,12 +25,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
 
-    private String pathbrandRegistrationSid;
+    private String pathBrandRegistrationSid;
 
-    public BrandRegistrationOtpCreator(final String pathbrandRegistrationSid) {
-        this.pathbrandRegistrationSid = pathbrandRegistrationSid;
+    public BrandRegistrationOtpCreator(final String pathBrandRegistrationSid) {
+        this.pathBrandRegistrationSid = pathBrandRegistrationSid;
     }
 
 
@@ -39,7 +42,7 @@ public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
 
         String path = "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
 
-        path = path.replace("{" + "BrandRegistrationSid" + "}", this.pathbrandRegistrationSid.toString());
+        path = path.replace("{" + "BrandRegistrationSid" + "}", this.pathBrandRegistrationSid.toString());
 
 
         Request request = new Request(

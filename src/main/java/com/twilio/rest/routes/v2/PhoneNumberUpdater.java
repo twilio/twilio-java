@@ -27,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PhoneNumberUpdater extends Updater<PhoneNumber> {
-    private String pathphoneNumber;
+    private String pathPhoneNumber;
     private String voiceRegion;
     private String friendlyName;
 
-    public PhoneNumberUpdater(final String pathphoneNumber) {
-        this.pathphoneNumber = pathphoneNumber;
+    public PhoneNumberUpdater(final String pathPhoneNumber) {
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -54,7 +57,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
 
 
         Request request = new Request(

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.ipmessaging.v2.service.channel;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -29,18 +27,23 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class InviteReader extends Reader<Invite> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private List<String> identity;
     private Long pageSize;
 
-    public InviteReader(final String pathserviceSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public InviteReader(final String pathServiceSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -68,8 +71,8 @@ public class InviteReader extends Reader<Invite> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

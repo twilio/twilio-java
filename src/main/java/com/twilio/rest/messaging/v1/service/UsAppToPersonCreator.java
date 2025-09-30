@@ -29,11 +29,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
     private String brandRegistrationSid;
     private String description;
     private String messageFlow;
@@ -51,8 +54,8 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
     private Boolean ageGated;
     private Boolean directLending;
 
-    public UsAppToPersonCreator(final String pathmessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.brandRegistrationSid = brandRegistrationSid;
         this.description = description;
         this.messageFlow = messageFlow;
@@ -176,7 +179,7 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
 
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
 
         Request request = new Request(

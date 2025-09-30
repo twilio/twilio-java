@@ -26,19 +26,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumulativeStatistics> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private Integer minutes;
     private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkspaceCumulativeStatisticsFetcher(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkspaceCumulativeStatisticsFetcher(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -77,7 +80,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
 
         String path = "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

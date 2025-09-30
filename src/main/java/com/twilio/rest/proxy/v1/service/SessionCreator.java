@@ -29,12 +29,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class SessionCreator extends Creator<Session> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
@@ -42,8 +45,8 @@ public class SessionCreator extends Creator<Session> {
     private Session.Status status;
     private List<Object> participants;
 
-    public SessionCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public SessionCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -91,7 +94,7 @@ public class SessionCreator extends Creator<Session> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

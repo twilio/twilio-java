@@ -26,15 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTimeStatistics> {
 
-    private String pathworkspaceSid;
-    private String pathtaskQueueSid;
+    private String pathWorkspaceSid;
+    private String pathTaskQueueSid;
     private String taskChannel;
 
-    public TaskQueueRealTimeStatisticsFetcher(final String pathworkspaceSid, final String pathtaskQueueSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathtaskQueueSid = pathtaskQueueSid;
+    public TaskQueueRealTimeStatisticsFetcher(final String pathWorkspaceSid, final String pathTaskQueueSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskQueueSid = pathTaskQueueSid;
     }
 
 
@@ -49,8 +52,8 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "TaskQueueSid" + "}", this.pathtaskQueueSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "TaskQueueSid" + "}", this.pathTaskQueueSid.toString());
 
 
         Request request = new Request(

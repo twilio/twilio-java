@@ -24,16 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InteractionFetcher extends Fetcher<Interaction> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathSid;
 
-    public InteractionFetcher(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
-        this.pathsid = pathsid;
+    public InteractionFetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +45,9 @@ public class InteractionFetcher extends Fetcher<Interaction> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

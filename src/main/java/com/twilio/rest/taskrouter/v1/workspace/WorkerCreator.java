@@ -28,15 +28,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class WorkerCreator extends Creator<Worker> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String activitySid;
     private String attributes;
 
-    public WorkerCreator(final String pathworkspaceSid, final String friendlyName) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkerCreator(final String pathWorkspaceSid, final String friendlyName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -64,7 +67,7 @@ public class WorkerCreator extends Creator<Worker> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

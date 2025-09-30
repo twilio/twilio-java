@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AuthorizationDocumentDeleter extends Deleter<AuthorizationDocument> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public AuthorizationDocumentDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public AuthorizationDocumentDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class AuthorizationDocumentDeleter extends Deleter<AuthorizationDocument>
 
         String path = "/v2/HostedNumber/AuthorizationDocuments/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -17,61 +17,74 @@ package com.twilio.rest.verify.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
 
-    public static WebhookCreator creator(final String pathserviceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
+    public static WebhookCreator creator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
         return new WebhookCreator(
-                pathserviceSid, friendlyName, eventTypes, webhookUrl
+                pathServiceSid, friendlyName, eventTypes, webhookUrl
         );
     }
 
 
-    public static WebhookDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static WebhookDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new WebhookDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static WebhookFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new WebhookFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static WebhookReader reader(final String pathserviceSid) {
+    public static WebhookReader reader(final String pathServiceSid) {
         return new WebhookReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static WebhookUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static WebhookUpdater updater(final String pathServiceSid, final String pathSid) {
         return new WebhookUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

@@ -17,53 +17,66 @@ package com.twilio.rest.messaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ShortCode extends Resource {
 
 
-    public static ShortCodeCreator creator(final String pathserviceSid, final String shortCodeSid) {
+    public static ShortCodeCreator creator(final String pathServiceSid, final String shortCodeSid) {
         return new ShortCodeCreator(
-                pathserviceSid, shortCodeSid
+                pathServiceSid, shortCodeSid
         );
     }
 
 
-    public static ShortCodeDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static ShortCodeDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new ShortCodeDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static ShortCodeFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new ShortCodeFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static ShortCodeReader reader(final String pathserviceSid) {
+    public static ShortCodeReader reader(final String pathServiceSid) {
         return new ShortCodeReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

@@ -17,60 +17,73 @@ package com.twilio.rest.verify.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RateLimit extends Resource {
 
 
-    public static RateLimitCreator creator(final String pathserviceSid, final String uniqueName) {
+    public static RateLimitCreator creator(final String pathServiceSid, final String uniqueName) {
         return new RateLimitCreator(
-                pathserviceSid, uniqueName
+                pathServiceSid, uniqueName
         );
     }
 
 
-    public static RateLimitDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static RateLimitDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new RateLimitDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RateLimitFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static RateLimitFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new RateLimitFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static RateLimitReader reader(final String pathserviceSid) {
+    public static RateLimitReader reader(final String pathServiceSid) {
         return new RateLimitReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static RateLimitUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static RateLimitUpdater updater(final String pathServiceSid, final String pathSid) {
         return new RateLimitUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

@@ -17,57 +17,70 @@ package com.twilio.rest.events.v1.subscription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribedEvent extends Resource {
 
 
-    public static SubscribedEventCreator creator(final String pathsubscriptionSid, final String type) {
+    public static SubscribedEventCreator creator(final String pathSubscriptionSid, final String type) {
         return new SubscribedEventCreator(
-                pathsubscriptionSid, type
+                pathSubscriptionSid, type
         );
     }
 
 
-    public static SubscribedEventDeleter deleter(final String pathsubscriptionSid, final String pathtype) {
+    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid, final String pathType) {
         return new SubscribedEventDeleter(
-                pathsubscriptionSid, pathtype
+                pathSubscriptionSid, pathType
         );
     }
 
 
-    public static SubscribedEventFetcher fetcher(final String pathsubscriptionSid, final String pathtype) {
+    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid, final String pathType) {
         return new SubscribedEventFetcher(
-                pathsubscriptionSid, pathtype
+                pathSubscriptionSid, pathType
         );
     }
 
 
-    public static SubscribedEventReader reader(final String pathsubscriptionSid) {
+    public static SubscribedEventReader reader(final String pathSubscriptionSid) {
         return new SubscribedEventReader(
-                pathsubscriptionSid
+                pathSubscriptionSid
         );
     }
 
 
-    public static SubscribedEventUpdater updater(final String pathsubscriptionSid, final String pathtype) {
+    public static SubscribedEventUpdater updater(final String pathSubscriptionSid, final String pathType) {
         return new SubscribedEventUpdater(
-                pathsubscriptionSid, pathtype
+                pathSubscriptionSid, pathType
         );
     }
 

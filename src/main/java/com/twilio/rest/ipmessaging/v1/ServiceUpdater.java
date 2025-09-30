@@ -28,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class ServiceUpdater extends Updater<Service> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private String defaultServiceRoleSid;
     private String defaultChannelRoleSid;
@@ -88,8 +91,8 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer limitsChannelMembers;
     private Integer limitsUserChannels;
 
-    public ServiceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -194,12 +197,18 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl) {
+        return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
+    }
 
     public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl) {
         this.postWebhookUrl = postWebhookUrl;
         return this;
     }
 
+    public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl) {
+        return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
+    }
 
     public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod) {
         this.webhookMethod = webhookMethod;
@@ -221,6 +230,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMessageSendUrl(final String webhooksOnMessageSendUrl) {
+        return setWebhooksOnMessageSendUrl(Promoter.uriFromString(webhooksOnMessageSendUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMessageSendMethod(final HttpMethod webhooksOnMessageSendMethod) {
         this.webhooksOnMessageSendMethod = webhooksOnMessageSendMethod;
@@ -233,6 +245,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMessageUpdateUrl(final String webhooksOnMessageUpdateUrl) {
+        return setWebhooksOnMessageUpdateUrl(Promoter.uriFromString(webhooksOnMessageUpdateUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMessageUpdateMethod(final HttpMethod webhooksOnMessageUpdateMethod) {
         this.webhooksOnMessageUpdateMethod = webhooksOnMessageUpdateMethod;
@@ -245,6 +260,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMessageRemoveUrl(final String webhooksOnMessageRemoveUrl) {
+        return setWebhooksOnMessageRemoveUrl(Promoter.uriFromString(webhooksOnMessageRemoveUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMessageRemoveMethod(final HttpMethod webhooksOnMessageRemoveMethod) {
         this.webhooksOnMessageRemoveMethod = webhooksOnMessageRemoveMethod;
@@ -257,6 +275,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnChannelAddUrl(final String webhooksOnChannelAddUrl) {
+        return setWebhooksOnChannelAddUrl(Promoter.uriFromString(webhooksOnChannelAddUrl));
+    }
 
     public ServiceUpdater setWebhooksOnChannelAddMethod(final HttpMethod webhooksOnChannelAddMethod) {
         this.webhooksOnChannelAddMethod = webhooksOnChannelAddMethod;
@@ -269,6 +290,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnChannelDestroyUrl(final String webhooksOnChannelDestroyUrl) {
+        return setWebhooksOnChannelDestroyUrl(Promoter.uriFromString(webhooksOnChannelDestroyUrl));
+    }
 
     public ServiceUpdater setWebhooksOnChannelDestroyMethod(final HttpMethod webhooksOnChannelDestroyMethod) {
         this.webhooksOnChannelDestroyMethod = webhooksOnChannelDestroyMethod;
@@ -281,6 +305,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnChannelUpdateUrl(final String webhooksOnChannelUpdateUrl) {
+        return setWebhooksOnChannelUpdateUrl(Promoter.uriFromString(webhooksOnChannelUpdateUrl));
+    }
 
     public ServiceUpdater setWebhooksOnChannelUpdateMethod(final HttpMethod webhooksOnChannelUpdateMethod) {
         this.webhooksOnChannelUpdateMethod = webhooksOnChannelUpdateMethod;
@@ -293,6 +320,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMemberAddUrl(final String webhooksOnMemberAddUrl) {
+        return setWebhooksOnMemberAddUrl(Promoter.uriFromString(webhooksOnMemberAddUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMemberAddMethod(final HttpMethod webhooksOnMemberAddMethod) {
         this.webhooksOnMemberAddMethod = webhooksOnMemberAddMethod;
@@ -305,6 +335,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMemberRemoveUrl(final String webhooksOnMemberRemoveUrl) {
+        return setWebhooksOnMemberRemoveUrl(Promoter.uriFromString(webhooksOnMemberRemoveUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMemberRemoveMethod(final HttpMethod webhooksOnMemberRemoveMethod) {
         this.webhooksOnMemberRemoveMethod = webhooksOnMemberRemoveMethod;
@@ -317,6 +350,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMessageSentUrl(final String webhooksOnMessageSentUrl) {
+        return setWebhooksOnMessageSentUrl(Promoter.uriFromString(webhooksOnMessageSentUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMessageSentMethod(final HttpMethod webhooksOnMessageSentMethod) {
         this.webhooksOnMessageSentMethod = webhooksOnMessageSentMethod;
@@ -329,6 +365,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMessageUpdatedUrl(final String webhooksOnMessageUpdatedUrl) {
+        return setWebhooksOnMessageUpdatedUrl(Promoter.uriFromString(webhooksOnMessageUpdatedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMessageUpdatedMethod(final HttpMethod webhooksOnMessageUpdatedMethod) {
         this.webhooksOnMessageUpdatedMethod = webhooksOnMessageUpdatedMethod;
@@ -341,6 +380,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMessageRemovedUrl(final String webhooksOnMessageRemovedUrl) {
+        return setWebhooksOnMessageRemovedUrl(Promoter.uriFromString(webhooksOnMessageRemovedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMessageRemovedMethod(final HttpMethod webhooksOnMessageRemovedMethod) {
         this.webhooksOnMessageRemovedMethod = webhooksOnMessageRemovedMethod;
@@ -353,6 +395,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnChannelAddedUrl(final String webhooksOnChannelAddedUrl) {
+        return setWebhooksOnChannelAddedUrl(Promoter.uriFromString(webhooksOnChannelAddedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnChannelAddedMethod(final HttpMethod webhooksOnChannelAddedMethod) {
         this.webhooksOnChannelAddedMethod = webhooksOnChannelAddedMethod;
@@ -365,6 +410,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnChannelDestroyedUrl(final String webhooksOnChannelDestroyedUrl) {
+        return setWebhooksOnChannelDestroyedUrl(Promoter.uriFromString(webhooksOnChannelDestroyedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnChannelDestroyedMethod(final HttpMethod webhooksOnChannelDestroyedMethod) {
         this.webhooksOnChannelDestroyedMethod = webhooksOnChannelDestroyedMethod;
@@ -377,6 +425,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnChannelUpdatedUrl(final String webhooksOnChannelUpdatedUrl) {
+        return setWebhooksOnChannelUpdatedUrl(Promoter.uriFromString(webhooksOnChannelUpdatedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnChannelUpdatedMethod(final HttpMethod webhooksOnChannelUpdatedMethod) {
         this.webhooksOnChannelUpdatedMethod = webhooksOnChannelUpdatedMethod;
@@ -389,6 +440,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMemberAddedUrl(final String webhooksOnMemberAddedUrl) {
+        return setWebhooksOnMemberAddedUrl(Promoter.uriFromString(webhooksOnMemberAddedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMemberAddedMethod(final HttpMethod webhooksOnMemberAddedMethod) {
         this.webhooksOnMemberAddedMethod = webhooksOnMemberAddedMethod;
@@ -401,6 +455,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setWebhooksOnMemberRemovedUrl(final String webhooksOnMemberRemovedUrl) {
+        return setWebhooksOnMemberRemovedUrl(Promoter.uriFromString(webhooksOnMemberRemovedUrl));
+    }
 
     public ServiceUpdater setWebhooksOnMemberRemovedMethod(final HttpMethod webhooksOnMemberRemovedMethod) {
         this.webhooksOnMemberRemovedMethod = webhooksOnMemberRemovedMethod;
@@ -425,7 +482,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

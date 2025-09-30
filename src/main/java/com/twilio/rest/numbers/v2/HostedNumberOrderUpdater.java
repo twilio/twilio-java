@@ -27,14 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
-    private String pathsid;
+    private String pathSid;
     private HostedNumberOrder.Status status;
     private Integer verificationCallDelay;
     private String verificationCallExtension;
 
-    public HostedNumberOrderUpdater(final String pathsid, final HostedNumberOrder.Status status) {
-        this.pathsid = pathsid;
+    public HostedNumberOrderUpdater(final String pathSid, final HostedNumberOrder.Status status) {
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -62,7 +65,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
         String path = "/v2/HostedNumber/Orders/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

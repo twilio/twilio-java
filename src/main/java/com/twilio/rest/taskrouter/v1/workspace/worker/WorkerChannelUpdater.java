@@ -27,17 +27,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class WorkerChannelUpdater extends Updater<WorkerChannel> {
-    private String pathworkspaceSid;
-    private String pathworkerSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
+    private String pathSid;
     private Integer capacity;
     private Boolean available;
 
-    public WorkerChannelUpdater(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkerSid = pathworkerSid;
-        this.pathsid = pathsid;
+    public WorkerChannelUpdater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -58,9 +61,9 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkerSid" + "}", this.pathworkerSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkerSid" + "}", this.pathWorkerSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

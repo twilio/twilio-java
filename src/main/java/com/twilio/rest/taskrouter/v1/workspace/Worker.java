@@ -17,60 +17,73 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Worker extends Resource {
 
 
-    public static WorkerCreator creator(final String pathworkspaceSid, final String friendlyName) {
+    public static WorkerCreator creator(final String pathWorkspaceSid, final String friendlyName) {
         return new WorkerCreator(
-                pathworkspaceSid, friendlyName
+                pathWorkspaceSid, friendlyName
         );
     }
 
 
-    public static WorkerDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static WorkerDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new WorkerDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static WorkerFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new WorkerFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static WorkerReader reader(final String pathworkspaceSid) {
+    public static WorkerReader reader(final String pathWorkspaceSid) {
         return new WorkerReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static WorkerUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static WorkerUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new WorkerUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

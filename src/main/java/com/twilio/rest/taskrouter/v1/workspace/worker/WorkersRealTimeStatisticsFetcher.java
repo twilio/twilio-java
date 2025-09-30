@@ -26,13 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeStatistics> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String taskChannel;
 
-    public WorkersRealTimeStatisticsFetcher(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkersRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -47,7 +50,7 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

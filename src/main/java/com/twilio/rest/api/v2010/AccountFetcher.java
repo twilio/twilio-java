@@ -24,15 +24,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AccountFetcher extends Fetcher<Account> {
 
-    private String pathsid;
+    private String pathSid;
 
     public AccountFetcher() {
     }
 
-    public AccountFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public AccountFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +44,8 @@ public class AccountFetcher extends Fetcher<Account> {
 
         String path = "/2010-04-01/Accounts/{Sid}.json";
 
-        this.pathsid = this.pathsid == null ? client.getAccountSid() : this.pathsid;
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathSid = this.pathSid == null ? client.getAccountSid() : this.pathSid;
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

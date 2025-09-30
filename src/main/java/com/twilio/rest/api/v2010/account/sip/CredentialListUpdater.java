@@ -27,19 +27,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CredentialListUpdater extends Updater<CredentialList> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
 
-    public CredentialListUpdater(final String pathsid, final String friendlyName) {
-        this.pathsid = pathsid;
+    public CredentialListUpdater(final String pathSid, final String friendlyName) {
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
-    public CredentialListUpdater(final String pathaccountSid, final String pathsid, final String friendlyName) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public CredentialListUpdater(final String pathAccountSid, final String pathSid, final String friendlyName) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
@@ -55,9 +58,9 @@ public class CredentialListUpdater extends Updater<CredentialList> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

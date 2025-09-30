@@ -28,14 +28,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class DestinationAlphaSenderCreator extends Creator<DestinationAlphaSender> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String alphaSender;
     private String isoCountryCode;
 
-    public DestinationAlphaSenderCreator(final String pathserviceSid, final String alphaSender) {
-        this.pathserviceSid = pathserviceSid;
+    public DestinationAlphaSenderCreator(final String pathServiceSid, final String alphaSender) {
+        this.pathServiceSid = pathServiceSid;
         this.alphaSender = alphaSender;
     }
 
@@ -57,7 +60,7 @@ public class DestinationAlphaSenderCreator extends Creator<DestinationAlphaSende
 
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

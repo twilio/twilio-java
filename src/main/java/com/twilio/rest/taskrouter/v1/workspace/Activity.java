@@ -17,60 +17,73 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Activity extends Resource {
 
 
-    public static ActivityCreator creator(final String pathworkspaceSid, final String friendlyName) {
+    public static ActivityCreator creator(final String pathWorkspaceSid, final String friendlyName) {
         return new ActivityCreator(
-                pathworkspaceSid, friendlyName
+                pathWorkspaceSid, friendlyName
         );
     }
 
 
-    public static ActivityDeleter deleter(final String pathworkspaceSid, final String pathsid) {
+    public static ActivityDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
         return new ActivityDeleter(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static ActivityFetcher fetcher(final String pathworkspaceSid, final String pathsid) {
+    public static ActivityFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
         return new ActivityFetcher(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 
 
-    public static ActivityReader reader(final String pathworkspaceSid) {
+    public static ActivityReader reader(final String pathWorkspaceSid) {
         return new ActivityReader(
-                pathworkspaceSid
+                pathWorkspaceSid
         );
     }
 
 
-    public static ActivityUpdater updater(final String pathworkspaceSid, final String pathsid) {
+    public static ActivityUpdater updater(final String pathWorkspaceSid, final String pathSid) {
         return new ActivityUpdater(
-                pathworkspaceSid, pathsid
+                pathWorkspaceSid, pathSid
         );
     }
 

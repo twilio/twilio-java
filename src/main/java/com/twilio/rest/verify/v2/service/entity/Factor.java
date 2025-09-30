@@ -17,53 +17,66 @@ package com.twilio.rest.verify.v2.service.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Factor extends Resource {
 
 
-    public static FactorDeleter deleter(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new FactorDeleter(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 
 
-    public static FactorFetcher fetcher(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static FactorFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new FactorFetcher(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 
 
-    public static FactorReader reader(final String pathserviceSid, final String pathidentity) {
+    public static FactorReader reader(final String pathServiceSid, final String pathIdentity) {
         return new FactorReader(
-                pathserviceSid, pathidentity
+                pathServiceSid, pathIdentity
         );
     }
 
 
-    public static FactorUpdater updater(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static FactorUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new FactorUpdater(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 

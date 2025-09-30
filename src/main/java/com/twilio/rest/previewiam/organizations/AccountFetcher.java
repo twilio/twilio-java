@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AccountFetcher extends Fetcher<Account> {
 
-    private String pathorganizationSid;
-    private String pathaccountSid;
+    private String pathOrganizationSid;
+    private String pathAccountSid;
 
-    public AccountFetcher(final String pathorganizationSid, final String pathaccountSid) {
-        this.pathorganizationSid = pathorganizationSid;
-        this.pathaccountSid = pathaccountSid;
+    public AccountFetcher(final String pathOrganizationSid, final String pathAccountSid) {
+        this.pathOrganizationSid = pathOrganizationSid;
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -40,8 +43,8 @@ public class AccountFetcher extends Fetcher<Account> {
 
         String path = "/Organizations/{OrganizationSid}/Accounts/{AccountSid}";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

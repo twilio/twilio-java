@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,14 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class LookupOverrideUpdater extends Updater<LookupOverride> {
-    private String pathfield;
-    private String pathphoneNumber;
+    private String pathField;
+    private String pathPhoneNumber;
     private LookupOverride.OverridesRequest overridesRequest;
 
-    public LookupOverrideUpdater(final String pathfield, final String pathphoneNumber) {
-        this.pathfield = pathfield;
-        this.pathphoneNumber = pathphoneNumber;
+    public LookupOverrideUpdater(final String pathField, final String pathPhoneNumber) {
+        this.pathField = pathField;
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -48,8 +52,8 @@ public class LookupOverrideUpdater extends Updater<LookupOverride> {
 
         String path = "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}";
 
-        path = path.replace("{" + "Field" + "}", this.pathfield.toString());
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+        path = path.replace("{" + "Field" + "}", this.pathField.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
 
 
         Request request = new Request(

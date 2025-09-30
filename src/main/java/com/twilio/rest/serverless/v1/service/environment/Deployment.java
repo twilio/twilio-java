@@ -17,45 +17,58 @@ package com.twilio.rest.serverless.v1.service.environment;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Deployment extends Resource {
 
 
-    public static DeploymentCreator creator(final String pathserviceSid, final String pathenvironmentSid) {
+    public static DeploymentCreator creator(final String pathServiceSid, final String pathEnvironmentSid) {
         return new DeploymentCreator(
-                pathserviceSid, pathenvironmentSid
+                pathServiceSid, pathEnvironmentSid
         );
     }
 
 
-    public static DeploymentFetcher fetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+    public static DeploymentFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
         return new DeploymentFetcher(
-                pathserviceSid, pathenvironmentSid, pathsid
+                pathServiceSid, pathEnvironmentSid, pathSid
         );
     }
 
 
-    public static DeploymentReader reader(final String pathserviceSid, final String pathenvironmentSid) {
+    public static DeploymentReader reader(final String pathServiceSid, final String pathEnvironmentSid) {
         return new DeploymentReader(
-                pathserviceSid, pathenvironmentSid
+                pathServiceSid, pathEnvironmentSid
         );
     }
 

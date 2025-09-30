@@ -17,80 +17,93 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOn extends Resource {
 
 
-    public static AssignedAddOnCreator creator(final String pathresourceSid, final String installedAddOnSid) {
+    public static AssignedAddOnCreator creator(final String pathResourceSid, final String installedAddOnSid) {
         return new AssignedAddOnCreator(
-                pathresourceSid, installedAddOnSid
+                pathResourceSid, installedAddOnSid
         );
     }
 
 
-    public static AssignedAddOnCreator creator(final String pathaccountSid, final String pathresourceSid, final String installedAddOnSid) {
+    public static AssignedAddOnCreator creator(final String pathAccountSid, final String pathResourceSid, final String installedAddOnSid) {
         return new AssignedAddOnCreator(
-                pathaccountSid, pathresourceSid, installedAddOnSid
+                pathAccountSid, pathResourceSid, installedAddOnSid
         );
     }
 
 
-    public static AssignedAddOnDeleter deleter(final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnDeleter deleter(final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnDeleter(
-                pathresourceSid, pathsid
+                pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnDeleter deleter(final String pathaccountSid, final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnDeleter deleter(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnDeleter(
-                pathaccountSid, pathresourceSid, pathsid
+                pathAccountSid, pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnFetcher fetcher(final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnFetcher(
-                pathresourceSid, pathsid
+                pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnFetcher fetcher(final String pathaccountSid, final String pathresourceSid, final String pathsid) {
+    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
         return new AssignedAddOnFetcher(
-                pathaccountSid, pathresourceSid, pathsid
+                pathAccountSid, pathResourceSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnReader reader(final String pathresourceSid) {
+    public static AssignedAddOnReader reader(final String pathResourceSid) {
         return new AssignedAddOnReader(
-                pathresourceSid
+                pathResourceSid
         );
     }
 
 
-    public static AssignedAddOnReader reader(final String pathaccountSid, final String pathresourceSid) {
+    public static AssignedAddOnReader reader(final String pathAccountSid, final String pathResourceSid) {
         return new AssignedAddOnReader(
-                pathaccountSid, pathresourceSid
+                pathAccountSid, pathResourceSid
         );
     }
 

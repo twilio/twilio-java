@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account.call;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,24 +29,27 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMessageSubscription> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private URI callback;
     private String idempotencyKey;
     private HttpMethod method;
 
-    public UserDefinedMessageSubscriptionCreator(final String pathcallSid, final URI callback) {
-        this.pathcallSid = pathcallSid;
+    public UserDefinedMessageSubscriptionCreator(final String pathCallSid, final URI callback) {
+        this.pathCallSid = pathCallSid;
         this.callback = callback;
     }
 
-    public UserDefinedMessageSubscriptionCreator(final String pathaccountSid, final String pathcallSid, final URI callback) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public UserDefinedMessageSubscriptionCreator(final String pathAccountSid, final String pathCallSid, final URI callback) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.callback = callback;
     }
 
@@ -55,6 +59,9 @@ public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMe
         return this;
     }
 
+    public UserDefinedMessageSubscriptionCreator setCallback(final String callback) {
+        return setCallback(Promoter.uriFromString(callback));
+    }
 
     public UserDefinedMessageSubscriptionCreator setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
@@ -73,9 +80,9 @@ public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMe
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

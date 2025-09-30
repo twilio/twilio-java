@@ -14,9 +14,7 @@
 
 package com.twilio.rest.conversations.v1.service.conversation.message;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,17 +26,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
-    private String pathchatServiceSid;
-    private String pathconversationSid;
-    private String pathmessageSid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathMessageSid;
     private Long pageSize;
 
-    public DeliveryReceiptReader(final String pathchatServiceSid, final String pathconversationSid, final String pathmessageSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathconversationSid = pathconversationSid;
-        this.pathmessageSid = pathmessageSid;
+    public DeliveryReceiptReader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
 
@@ -57,9 +60,9 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "MessageSid" + "}", this.pathmessageSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "MessageSid" + "}", this.pathMessageSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

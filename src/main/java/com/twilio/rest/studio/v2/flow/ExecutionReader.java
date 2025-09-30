@@ -14,9 +14,7 @@
 
 package com.twilio.rest.studio.v2.flow;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,17 +26,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ExecutionReader extends Reader<Execution> {
 
-    private String pathflowSid;
+    private String pathFlowSid;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
     private Long pageSize;
 
-    public ExecutionReader(final String pathflowSid) {
-        this.pathflowSid = pathflowSid;
+    public ExecutionReader(final String pathFlowSid) {
+        this.pathFlowSid = pathFlowSid;
     }
 
 
@@ -69,7 +72,7 @@ public class ExecutionReader extends Reader<Execution> {
 
         String path = "/v2/Flows/{FlowSid}/Executions";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -17,21 +17,34 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -45,37 +58,37 @@ public class Address extends Resource {
     }
 
 
-    public static AddressCreator creator(final String pathaccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+    public static AddressCreator creator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         return new AddressCreator(
-                pathaccountSid, customerName, street, city, region, postalCode, isoCountry
+                pathAccountSid, customerName, street, city, region, postalCode, isoCountry
         );
     }
 
 
-    public static AddressDeleter deleter(final String pathsid) {
+    public static AddressDeleter deleter(final String pathSid) {
         return new AddressDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static AddressDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new AddressDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static AddressFetcher fetcher(final String pathsid) {
+    public static AddressFetcher fetcher(final String pathSid) {
         return new AddressFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static AddressFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new AddressFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -87,23 +100,23 @@ public class Address extends Resource {
     }
 
 
-    public static AddressReader reader(final String pathaccountSid) {
+    public static AddressReader reader(final String pathAccountSid) {
         return new AddressReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static AddressUpdater updater(final String pathsid) {
+    public static AddressUpdater updater(final String pathSid) {
         return new AddressUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static AddressUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static AddressUpdater updater(final String pathAccountSid, final String pathSid) {
         return new AddressUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

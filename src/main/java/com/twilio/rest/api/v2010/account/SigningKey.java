@@ -17,51 +17,64 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SigningKey extends Resource {
 
 
-    public static SigningKeyDeleter deleter(final String pathsid) {
+    public static SigningKeyDeleter deleter(final String pathSid) {
         return new SigningKeyDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SigningKeyDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static SigningKeyDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new SigningKeyDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static SigningKeyFetcher fetcher(final String pathsid) {
+    public static SigningKeyFetcher fetcher(final String pathSid) {
         return new SigningKeyFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SigningKeyFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static SigningKeyFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new SigningKeyFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -73,23 +86,23 @@ public class SigningKey extends Resource {
     }
 
 
-    public static SigningKeyReader reader(final String pathaccountSid) {
+    public static SigningKeyReader reader(final String pathAccountSid) {
         return new SigningKeyReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static SigningKeyUpdater updater(final String pathsid) {
+    public static SigningKeyUpdater updater(final String pathSid) {
         return new SigningKeyUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static SigningKeyUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static SigningKeyUpdater updater(final String pathAccountSid, final String pathSid) {
         return new SigningKeyUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

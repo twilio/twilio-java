@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CountryFetcher extends Fetcher<Country> {
 
-    private String pathisoCountry;
+    private String pathIsoCountry;
 
-    public CountryFetcher(final String pathisoCountry) {
-        this.pathisoCountry = pathisoCountry;
+    public CountryFetcher(final String pathIsoCountry) {
+        this.pathIsoCountry = pathIsoCountry;
     }
 
 
@@ -38,7 +41,7 @@ public class CountryFetcher extends Fetcher<Country> {
 
         String path = "/v1/Voice/Countries/{IsoCountry}";
 
-        path = path.replace("{" + "IsoCountry" + "}", this.pathisoCountry.toString());
+        path = path.replace("{" + "IsoCountry" + "}", this.pathIsoCountry.toString());
 
 
         Request request = new Request(

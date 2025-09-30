@@ -28,13 +28,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class ReservationUpdater extends Updater<Reservation> {
-    private String pathworkspaceSid;
-    private String pathworkerSid;
-    private String pathsid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
+    private String pathSid;
     private String ifMatch;
     private Reservation.Status reservationStatus;
     private String workerActivitySid;
@@ -89,10 +92,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     private Boolean beepOnCustomerEntrance;
     private String jitterBufferSize;
 
-    public ReservationUpdater(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkerSid = pathworkerSid;
-        this.pathsid = pathsid;
+    public ReservationUpdater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -149,6 +152,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setDequeueStatusCallbackUrl(final String dequeueStatusCallbackUrl) {
+        return setDequeueStatusCallbackUrl(Promoter.uriFromString(dequeueStatusCallbackUrl));
+    }
 
     public ReservationUpdater setCallFrom(final String callFrom) {
         this.callFrom = callFrom;
@@ -179,12 +185,18 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setCallUrl(final String callUrl) {
+        return setCallUrl(Promoter.uriFromString(callUrl));
+    }
 
     public ReservationUpdater setCallStatusCallbackUrl(final URI callStatusCallbackUrl) {
         this.callStatusCallbackUrl = callStatusCallbackUrl;
         return this;
     }
 
+    public ReservationUpdater setCallStatusCallbackUrl(final String callStatusCallbackUrl) {
+        return setCallStatusCallbackUrl(Promoter.uriFromString(callStatusCallbackUrl));
+    }
 
     public ReservationUpdater setCallAccept(final Boolean callAccept) {
         this.callAccept = callAccept;
@@ -209,6 +221,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setRedirectUrl(final String redirectUrl) {
+        return setRedirectUrl(Promoter.uriFromString(redirectUrl));
+    }
 
     public ReservationUpdater setTo(final String to) {
         this.to = to;
@@ -227,6 +242,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public ReservationUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -284,6 +302,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setWaitUrl(final String waitUrl) {
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
+    }
 
     public ReservationUpdater setWaitMethod(final HttpMethod waitMethod) {
         this.waitMethod = waitMethod;
@@ -308,6 +329,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setConferenceStatusCallback(final String conferenceStatusCallback) {
+        return setConferenceStatusCallback(Promoter.uriFromString(conferenceStatusCallback));
+    }
 
     public ReservationUpdater setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
         this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
@@ -347,6 +371,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setRecordingStatusCallback(final String recordingStatusCallback) {
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
+    }
 
     public ReservationUpdater setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
@@ -359,6 +386,9 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
+        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
+    }
 
     public ReservationUpdater setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
         this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
@@ -428,9 +458,9 @@ public class ReservationUpdater extends Updater<Reservation> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkerSid" + "}", this.pathworkerSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkerSid" + "}", this.pathWorkerSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

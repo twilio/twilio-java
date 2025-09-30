@@ -17,53 +17,66 @@ package com.twilio.rest.proxy.v1.service.session;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
 
 
-    public static ParticipantCreator creator(final String pathserviceSid, final String pathsessionSid, final String identifier) {
+    public static ParticipantCreator creator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
         return new ParticipantCreator(
-                pathserviceSid, pathsessionSid, identifier
+                pathServiceSid, pathSessionSid, identifier
         );
     }
 
 
-    public static ParticipantDeleter deleter(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+    public static ParticipantDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
         return new ParticipantDeleter(
-                pathserviceSid, pathsessionSid, pathsid
+                pathServiceSid, pathSessionSid, pathSid
         );
     }
 
 
-    public static ParticipantFetcher fetcher(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+    public static ParticipantFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid) {
         return new ParticipantFetcher(
-                pathserviceSid, pathsessionSid, pathsid
+                pathServiceSid, pathSessionSid, pathSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathserviceSid, final String pathsessionSid) {
+    public static ParticipantReader reader(final String pathServiceSid, final String pathSessionSid) {
         return new ParticipantReader(
-                pathserviceSid, pathsessionSid
+                pathServiceSid, pathSessionSid
         );
     }
 

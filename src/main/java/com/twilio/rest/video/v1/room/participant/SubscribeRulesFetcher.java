@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
 
-    private String pathroomSid;
-    private String pathparticipantSid;
+    private String pathRoomSid;
+    private String pathParticipantSid;
 
-    public SubscribeRulesFetcher(final String pathroomSid, final String pathparticipantSid) {
-        this.pathroomSid = pathroomSid;
-        this.pathparticipantSid = pathparticipantSid;
+    public SubscribeRulesFetcher(final String pathRoomSid, final String pathParticipantSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
 
@@ -40,8 +43,8 @@ public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
 
 
         Request request = new Request(

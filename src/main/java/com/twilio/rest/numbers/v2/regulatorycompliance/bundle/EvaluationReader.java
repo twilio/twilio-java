@@ -14,9 +14,7 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class EvaluationReader extends Reader<Evaluation> {
 
-    private String pathbundleSid;
+    private String pathBundleSid;
     private Long pageSize;
 
-    public EvaluationReader(final String pathbundleSid) {
-        this.pathbundleSid = pathbundleSid;
+    public EvaluationReader(final String pathBundleSid) {
+        this.pathBundleSid = pathBundleSid;
     }
 
 
@@ -53,7 +56,7 @@ public class EvaluationReader extends Reader<Evaluation> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,22 +26,27 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension> {
 
-    private String pathaccountSid;
-    private String pathresourceSid;
-    private String pathassignedAddOnSid;
+    private String pathAccountSid;
+    private String pathResourceSid;
+    private String pathAssignedAddOnSid;
     private Long pageSize;
 
-    public AssignedAddOnExtensionReader(final String pathresourceSid, final String pathassignedAddOnSid) {
-        this.pathresourceSid = pathresourceSid;
-        this.pathassignedAddOnSid = pathassignedAddOnSid;
+    public AssignedAddOnExtensionReader(final String pathResourceSid, final String pathAssignedAddOnSid) {
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
 
-    public AssignedAddOnExtensionReader(final String pathaccountSid, final String pathresourceSid, final String pathassignedAddOnSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathresourceSid = pathresourceSid;
-        this.pathassignedAddOnSid = pathassignedAddOnSid;
+    public AssignedAddOnExtensionReader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
 
 
@@ -62,10 +65,10 @@ public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension>
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ResourceSid" + "}", this.pathresourceSid.toString());
-        path = path.replace("{" + "AssignedAddOnSid" + "}", this.pathassignedAddOnSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ResourceSid" + "}", this.pathResourceSid.toString());
+        path = path.replace("{" + "AssignedAddOnSid" + "}", this.pathAssignedAddOnSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

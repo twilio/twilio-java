@@ -17,50 +17,63 @@ package com.twilio.rest.sync.v1.service.synclist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncListPermission extends Resource {
 
 
-    public static SyncListPermissionDeleter deleter(final String pathserviceSid, final String pathlistSid, final String pathidentity) {
+    public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
         return new SyncListPermissionDeleter(
-                pathserviceSid, pathlistSid, pathidentity
+                pathServiceSid, pathListSid, pathIdentity
         );
     }
 
 
-    public static SyncListPermissionFetcher fetcher(final String pathserviceSid, final String pathlistSid, final String pathidentity) {
+    public static SyncListPermissionFetcher fetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity) {
         return new SyncListPermissionFetcher(
-                pathserviceSid, pathlistSid, pathidentity
+                pathServiceSid, pathListSid, pathIdentity
         );
     }
 
 
-    public static SyncListPermissionReader reader(final String pathserviceSid, final String pathlistSid) {
+    public static SyncListPermissionReader reader(final String pathServiceSid, final String pathListSid) {
         return new SyncListPermissionReader(
-                pathserviceSid, pathlistSid
+                pathServiceSid, pathListSid
         );
     }
 
 
-    public static SyncListPermissionUpdater updater(final String pathserviceSid, final String pathlistSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static SyncListPermissionUpdater updater(final String pathServiceSid, final String pathListSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new SyncListPermissionUpdater(
-                pathserviceSid, pathlistSid, pathidentity, read, write, manage
+                pathServiceSid, pathListSid, pathIdentity, read, write, manage
         );
     }
 

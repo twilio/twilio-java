@@ -17,52 +17,65 @@ package com.twilio.rest.chat.v1.service.channel;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Invite extends Resource {
 
 
-    public static InviteCreator creator(final String pathserviceSid, final String pathchannelSid, final String identity) {
+    public static InviteCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity) {
         return new InviteCreator(
-                pathserviceSid, pathchannelSid, identity
+                pathServiceSid, pathChannelSid, identity
         );
     }
 
 
-    public static InviteDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static InviteDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new InviteDeleter(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static InviteFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static InviteFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new InviteFetcher(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static InviteReader reader(final String pathserviceSid, final String pathchannelSid) {
+    public static InviteReader reader(final String pathServiceSid, final String pathChannelSid) {
         return new InviteReader(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 

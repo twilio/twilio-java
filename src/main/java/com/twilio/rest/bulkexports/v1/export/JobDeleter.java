@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class JobDeleter extends Deleter<Job> {
 
-    private String pathjobSid;
+    private String pathJobSid;
 
-    public JobDeleter(final String pathjobSid) {
-        this.pathjobSid = pathjobSid;
+    public JobDeleter(final String pathJobSid) {
+        this.pathJobSid = pathJobSid;
     }
 
 
@@ -38,7 +41,7 @@ public class JobDeleter extends Deleter<Job> {
 
         String path = "/v1/Exports/Jobs/{JobSid}";
 
-        path = path.replace("{" + "JobSid" + "}", this.pathjobSid.toString());
+        path = path.replace("{" + "JobSid" + "}", this.pathJobSid.toString());
 
 
         Request request = new Request(

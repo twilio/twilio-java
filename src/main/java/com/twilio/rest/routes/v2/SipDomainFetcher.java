@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SipDomainFetcher extends Fetcher<SipDomain> {
 
-    private String pathsipDomain;
+    private String pathSipDomain;
 
-    public SipDomainFetcher(final String pathsipDomain) {
-        this.pathsipDomain = pathsipDomain;
+    public SipDomainFetcher(final String pathSipDomain) {
+        this.pathSipDomain = pathSipDomain;
     }
 
 
@@ -38,7 +41,7 @@ public class SipDomainFetcher extends Fetcher<SipDomain> {
 
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path = path.replace("{" + "SipDomain" + "}", this.pathsipDomain.toString());
+        path = path.replace("{" + "SipDomain" + "}", this.pathSipDomain.toString());
 
 
         Request request = new Request(

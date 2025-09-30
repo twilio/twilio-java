@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ToolFetcher extends Fetcher<Tool> {
 
-    private String pathid;
+    private String pathId;
 
-    public ToolFetcher(final String pathid) {
-        this.pathid = pathid;
+    public ToolFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -38,7 +41,7 @@ public class ToolFetcher extends Fetcher<Tool> {
 
         String path = "/v1/Tools/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

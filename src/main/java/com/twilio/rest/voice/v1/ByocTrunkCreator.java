@@ -18,6 +18,7 @@ package com.twilio.rest.voice.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,7 +29,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class ByocTrunkCreator extends Creator<ByocTrunk> {
 
@@ -58,6 +62,9 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
         return this;
     }
 
+    public ByocTrunkCreator setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public ByocTrunkCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -70,6 +77,9 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
         return this;
     }
 
+    public ByocTrunkCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public ByocTrunkCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -82,6 +92,9 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
         return this;
     }
 
+    public ByocTrunkCreator setStatusCallbackUrl(final String statusCallbackUrl) {
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
+    }
 
     public ByocTrunkCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;

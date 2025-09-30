@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PortingPortInPhoneNumberFetcher extends Fetcher<PortingPortInPhoneNumber> {
 
-    private String pathportInRequestSid;
-    private String pathphoneNumberSid;
+    private String pathPortInRequestSid;
+    private String pathPhoneNumberSid;
 
-    public PortingPortInPhoneNumberFetcher(final String pathportInRequestSid, final String pathphoneNumberSid) {
-        this.pathportInRequestSid = pathportInRequestSid;
-        this.pathphoneNumberSid = pathphoneNumberSid;
+    public PortingPortInPhoneNumberFetcher(final String pathPortInRequestSid, final String pathPhoneNumberSid) {
+        this.pathPortInRequestSid = pathPortInRequestSid;
+        this.pathPhoneNumberSid = pathPhoneNumberSid;
     }
 
 
@@ -40,8 +43,8 @@ public class PortingPortInPhoneNumberFetcher extends Fetcher<PortingPortInPhoneN
 
         String path = "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}";
 
-        path = path.replace("{" + "PortInRequestSid" + "}", this.pathportInRequestSid.toString());
-        path = path.replace("{" + "PhoneNumberSid" + "}", this.pathphoneNumberSid.toString());
+        path = path.replace("{" + "PortInRequestSid" + "}", this.pathPortInRequestSid.toString());
+        path = path.replace("{" + "PhoneNumberSid" + "}", this.pathPhoneNumberSid.toString());
 
 
         Request request = new Request(

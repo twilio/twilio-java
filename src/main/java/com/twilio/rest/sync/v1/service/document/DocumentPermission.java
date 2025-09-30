@@ -17,50 +17,63 @@ package com.twilio.rest.sync.v1.service.document;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DocumentPermission extends Resource {
 
 
-    public static DocumentPermissionDeleter deleter(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
+    public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
         return new DocumentPermissionDeleter(
-                pathserviceSid, pathdocumentSid, pathidentity
+                pathServiceSid, pathDocumentSid, pathIdentity
         );
     }
 
 
-    public static DocumentPermissionFetcher fetcher(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
+    public static DocumentPermissionFetcher fetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
         return new DocumentPermissionFetcher(
-                pathserviceSid, pathdocumentSid, pathidentity
+                pathServiceSid, pathDocumentSid, pathIdentity
         );
     }
 
 
-    public static DocumentPermissionReader reader(final String pathserviceSid, final String pathdocumentSid) {
+    public static DocumentPermissionReader reader(final String pathServiceSid, final String pathDocumentSid) {
         return new DocumentPermissionReader(
-                pathserviceSid, pathdocumentSid
+                pathServiceSid, pathDocumentSid
         );
     }
 
 
-    public static DocumentPermissionUpdater updater(final String pathserviceSid, final String pathdocumentSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static DocumentPermissionUpdater updater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new DocumentPermissionUpdater(
-                pathserviceSid, pathdocumentSid, pathidentity, read, write, manage
+                pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage
         );
     }
 

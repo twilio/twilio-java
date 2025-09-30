@@ -27,10 +27,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class FactorUpdater extends Updater<Factor> {
-    private String pathserviceSid;
-    private String pathidentity;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathIdentity;
+    private String pathSid;
     private String authPayload;
     private String friendlyName;
     private String configNotificationToken;
@@ -41,10 +44,10 @@ public class FactorUpdater extends Updater<Factor> {
     private Factor.TotpAlgorithms configAlg;
     private String configNotificationPlatform;
 
-    public FactorUpdater(final String pathserviceSid, final String pathidentity, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
-        this.pathsid = pathsid;
+    public FactorUpdater(final String pathServiceSid, final String pathIdentity, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
+        this.pathSid = pathSid;
     }
 
 
@@ -107,9 +110,9 @@ public class FactorUpdater extends Updater<Factor> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private String pathphoneNumber;
+    private String pathPhoneNumber;
 
-    public PhoneNumberFetcher(final String pathphoneNumber) {
-        this.pathphoneNumber = pathphoneNumber;
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -38,7 +41,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathPhoneNumber.toString());
 
 
         Request request = new Request(

@@ -28,16 +28,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class RoleUpdater extends Updater<Role> {
-    private String pathchatServiceSid;
-    private String pathsid;
+    private String pathChatServiceSid;
+    private String pathSid;
     private List<String> permission;
 
-    public RoleUpdater(final String pathchatServiceSid, final String pathsid, final List<String> permission) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathsid = pathsid;
+    public RoleUpdater(final String pathChatServiceSid, final String pathSid, final List<String> permission) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathSid = pathSid;
         this.permission = permission;
     }
 
@@ -56,8 +59,8 @@ public class RoleUpdater extends Updater<Role> {
 
         String path = "/v1/Services/{ChatServiceSid}/Roles/{Sid}";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

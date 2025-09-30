@@ -17,49 +17,62 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOnExtension extends Resource {
 
 
-    public static AssignedAddOnExtensionFetcher fetcher(final String pathresourceSid, final String pathassignedAddOnSid, final String pathsid) {
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid) {
         return new AssignedAddOnExtensionFetcher(
-                pathresourceSid, pathassignedAddOnSid, pathsid
+                pathResourceSid, pathAssignedAddOnSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnExtensionFetcher fetcher(final String pathaccountSid, final String pathresourceSid, final String pathassignedAddOnSid, final String pathsid) {
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid) {
         return new AssignedAddOnExtensionFetcher(
-                pathaccountSid, pathresourceSid, pathassignedAddOnSid, pathsid
+                pathAccountSid, pathResourceSid, pathAssignedAddOnSid, pathSid
         );
     }
 
 
-    public static AssignedAddOnExtensionReader reader(final String pathresourceSid, final String pathassignedAddOnSid) {
+    public static AssignedAddOnExtensionReader reader(final String pathResourceSid, final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(
-                pathresourceSid, pathassignedAddOnSid
+                pathResourceSid, pathAssignedAddOnSid
         );
     }
 
 
-    public static AssignedAddOnExtensionReader reader(final String pathaccountSid, final String pathresourceSid, final String pathassignedAddOnSid) {
+    public static AssignedAddOnExtensionReader reader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(
-                pathaccountSid, pathresourceSid, pathassignedAddOnSid
+                pathAccountSid, pathResourceSid, pathAssignedAddOnSid
         );
     }
 

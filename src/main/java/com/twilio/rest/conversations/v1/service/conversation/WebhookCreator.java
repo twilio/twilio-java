@@ -29,12 +29,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class WebhookCreator extends Creator<Webhook> {
 
-    private String pathchatServiceSid;
-    private String pathconversationSid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
     private Webhook.Target target;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
@@ -43,9 +46,9 @@ public class WebhookCreator extends Creator<Webhook> {
     private String configurationFlowSid;
     private Integer configurationReplayAfter;
 
-    public WebhookCreator(final String pathchatServiceSid, final String pathconversationSid, final Webhook.Target target) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathconversationSid = pathconversationSid;
+    public WebhookCreator(final String pathChatServiceSid, final String pathConversationSid, final Webhook.Target target) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
         this.target = target;
     }
 
@@ -103,8 +106,8 @@ public class WebhookCreator extends Creator<Webhook> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

@@ -26,21 +26,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
 
-    private String pathworkspaceSid;
-    private String pathworkflowSid;
+    private String pathWorkspaceSid;
+    private String pathWorkflowSid;
     private Integer minutes;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkflowStatisticsFetcher(final String pathworkspaceSid, final String pathworkflowSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkflowSid = pathworkflowSid;
+    public WorkflowStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkflowSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkflowSid = pathWorkflowSid;
     }
 
 
@@ -79,8 +82,8 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkflowSid" + "}", this.pathworkflowSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkflowSid" + "}", this.pathWorkflowSid.toString());
 
 
         Request request = new Request(

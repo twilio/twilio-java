@@ -29,19 +29,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class WebhookCreator extends Creator<Webhook> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String friendlyName;
     private List<String> eventTypes;
     private String webhookUrl;
     private Webhook.Status status;
     private Webhook.Version version;
 
-    public WebhookCreator(final String pathserviceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
-        this.pathserviceSid = pathserviceSid;
+    public WebhookCreator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.eventTypes = eventTypes;
         this.webhookUrl = webhookUrl;
@@ -86,7 +89,7 @@ public class WebhookCreator extends Creator<Webhook> {
 
         String path = "/v2/Services/{ServiceSid}/Webhooks";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

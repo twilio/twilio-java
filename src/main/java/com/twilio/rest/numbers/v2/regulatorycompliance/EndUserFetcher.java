@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class EndUserFetcher extends Fetcher<EndUser> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public EndUserFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public EndUserFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class EndUserFetcher extends Fetcher<EndUser> {
 
         String path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

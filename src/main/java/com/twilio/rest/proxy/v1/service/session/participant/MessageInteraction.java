@@ -17,54 +17,67 @@ package com.twilio.rest.proxy.v1.service.session.participant;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MessageInteraction extends Resource {
 
 
-    public static MessageInteractionCreator creator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String body) {
+    public static MessageInteractionCreator creator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String body) {
         return new MessageInteractionCreator(
-                pathserviceSid, pathsessionSid, pathparticipantSid, body
+                pathServiceSid, pathSessionSid, pathParticipantSid, body
         );
     }
 
 
-    public static MessageInteractionCreator creator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final List<URI> mediaUrl) {
+    public static MessageInteractionCreator creator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final List<URI> mediaUrl) {
         return new MessageInteractionCreator(
-                pathserviceSid, pathsessionSid, pathparticipantSid, mediaUrl
+                pathServiceSid, pathSessionSid, pathParticipantSid, mediaUrl
         );
     }
 
 
-    public static MessageInteractionFetcher fetcher(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String pathsid) {
+    public static MessageInteractionFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String pathSid) {
         return new MessageInteractionFetcher(
-                pathserviceSid, pathsessionSid, pathparticipantSid, pathsid
+                pathServiceSid, pathSessionSid, pathParticipantSid, pathSid
         );
     }
 
 
-    public static MessageInteractionReader reader(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid) {
+    public static MessageInteractionReader reader(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid) {
         return new MessageInteractionReader(
-                pathserviceSid, pathsessionSid, pathparticipantSid
+                pathServiceSid, pathSessionSid, pathParticipantSid
         );
     }
 

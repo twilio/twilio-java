@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,22 +28,25 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class ConferenceUpdater extends Updater<Conference> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private Conference.UpdateStatus status;
     private URI announceUrl;
     private HttpMethod announceMethod;
 
-    public ConferenceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ConferenceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public ConferenceUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public ConferenceUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -57,6 +61,9 @@ public class ConferenceUpdater extends Updater<Conference> {
         return this;
     }
 
+    public ConferenceUpdater setAnnounceUrl(final String announceUrl) {
+        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
+    }
 
     public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod) {
         this.announceMethod = announceMethod;
@@ -69,9 +76,9 @@ public class ConferenceUpdater extends Updater<Conference> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

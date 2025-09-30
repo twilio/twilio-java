@@ -25,14 +25,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AssistantsToolCreator extends Creator<AssistantsTool> {
 
-    private String pathassistantId;
-    private String pathid;
+    private String pathAssistantId;
+    private String pathId;
 
-    public AssistantsToolCreator(final String pathassistantId, final String pathid) {
-        this.pathassistantId = pathassistantId;
-        this.pathid = pathid;
+    public AssistantsToolCreator(final String pathAssistantId, final String pathId) {
+        this.pathAssistantId = pathAssistantId;
+        this.pathId = pathId;
     }
 
 
@@ -41,8 +44,8 @@ public class AssistantsToolCreator extends Creator<AssistantsTool> {
 
         String path = "/v1/Assistants/{assistantId}/Tools/{id}";
 
-        path = path.replace("{" + "assistantId" + "}", this.pathassistantId.toString());
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "assistantId" + "}", this.pathAssistantId.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

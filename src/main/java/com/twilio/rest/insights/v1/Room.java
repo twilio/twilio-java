@@ -17,12 +17,10 @@ package com.twilio.rest.insights.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,22 +28,37 @@ import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
 
 
-    public static RoomFetcher fetcher(final String pathroomSid) {
+    public static RoomFetcher fetcher(final String pathRoomSid) {
         return new RoomFetcher(
-                pathroomSid
+                pathRoomSid
         );
     }
 
@@ -138,50 +151,6 @@ public class Room extends Resource {
         @JsonCreator
         public static EndReason forValue(final String value) {
             return Promoter.enumFromString(value, EndReason.values());
-        }
-    }
-
-    public enum RoomRoomCodec {
-        VP8("VP8"),
-        H264("H264"),
-        VP9("VP9"),
-        OPUS("opus");
-
-        private final String value;
-
-        private RoomRoomCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomCodec {
-        VP8("VP8"),
-        H264("H264"),
-        VP9("VP9"),
-        OPUS("opus");
-
-        private final String value;
-
-        private RoomRoomRoomCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomCodec.values());
         }
     }
 
@@ -359,7 +328,7 @@ public class Room extends Resource {
     @Getter
     private final String accountSid;
     @Getter
-    private final List<Room.RoomRoomRoomCodec> codecs;
+    private final List<Room.Codec> codecs;
     @Getter
     private final Integer concurrentParticipants;
     @Getter
@@ -412,7 +381,7 @@ public class Room extends Resource {
     @JsonCreator
     private Room(
             @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("codecs") final List<Room.RoomRoomRoomCodec> codecs,
+            @JsonProperty("codecs") final List<Room.Codec> codecs,
             @JsonProperty("concurrent_participants") final Integer concurrentParticipants,
             @JsonProperty("create_time")
             @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime createTime,

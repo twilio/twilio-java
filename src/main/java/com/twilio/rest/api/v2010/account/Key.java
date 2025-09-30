@@ -17,51 +17,64 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Key extends Resource {
 
 
-    public static KeyDeleter deleter(final String pathsid) {
+    public static KeyDeleter deleter(final String pathSid) {
         return new KeyDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static KeyDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static KeyDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new KeyDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static KeyFetcher fetcher(final String pathsid) {
+    public static KeyFetcher fetcher(final String pathSid) {
         return new KeyFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static KeyFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static KeyFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new KeyFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -73,23 +86,23 @@ public class Key extends Resource {
     }
 
 
-    public static KeyReader reader(final String pathaccountSid) {
+    public static KeyReader reader(final String pathAccountSid) {
         return new KeyReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static KeyUpdater updater(final String pathsid) {
+    public static KeyUpdater updater(final String pathSid) {
         return new KeyUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static KeyUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static KeyUpdater updater(final String pathAccountSid, final String pathSid) {
         return new KeyUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

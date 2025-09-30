@@ -18,6 +18,7 @@ package com.twilio.rest.api.v2010.account.call;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,12 +29,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class SiprecCreator extends Creator<Siprec> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private String name;
     private String connectorName;
     private Siprec.Track track;
@@ -238,13 +242,13 @@ public class SiprecCreator extends Creator<Siprec> {
     private String parameter99Name;
     private String parameter99Value;
 
-    public SiprecCreator(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public SiprecCreator(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
-    public SiprecCreator(final String pathaccountSid, final String pathcallSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public SiprecCreator(final String pathAccountSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -271,6 +275,9 @@ public class SiprecCreator extends Creator<Siprec> {
         return this;
     }
 
+    public SiprecCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public SiprecCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -1471,9 +1478,9 @@ public class SiprecCreator extends Creator<Siprec> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

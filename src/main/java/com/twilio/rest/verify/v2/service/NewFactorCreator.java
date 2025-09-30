@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class NewFactorCreator extends Creator<NewFactor> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest;
 
-    public NewFactorCreator(final String pathserviceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
-        this.pathserviceSid = pathserviceSid;
+    public NewFactorCreator(final String pathServiceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
+        this.pathServiceSid = pathServiceSid;
         this.createNewPasskeysFactorRequest = createNewPasskeysFactorRequest;
     }
 
@@ -48,7 +52,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
         String path = "/v2/Services/{ServiceSid}/Passkeys/Factors";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

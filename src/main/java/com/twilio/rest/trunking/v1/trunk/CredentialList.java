@@ -17,52 +17,65 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CredentialList extends Resource {
 
 
-    public static CredentialListCreator creator(final String pathtrunkSid, final String credentialListSid) {
+    public static CredentialListCreator creator(final String pathTrunkSid, final String credentialListSid) {
         return new CredentialListCreator(
-                pathtrunkSid, credentialListSid
+                pathTrunkSid, credentialListSid
         );
     }
 
 
-    public static CredentialListDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static CredentialListDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new CredentialListDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static CredentialListFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static CredentialListFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new CredentialListFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static CredentialListReader reader(final String pathtrunkSid) {
+    public static CredentialListReader reader(final String pathTrunkSid) {
         return new CredentialListReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

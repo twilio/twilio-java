@@ -24,24 +24,27 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class DataFetcher extends Fetcher<Data> {
 
-    private String pathaccountSid;
-    private String pathreferenceSid;
-    private String pathaddOnResultSid;
-    private String pathpayloadSid;
+    private String pathAccountSid;
+    private String pathReferenceSid;
+    private String pathAddOnResultSid;
+    private String pathPayloadSid;
 
-    public DataFetcher(final String pathreferenceSid, final String pathaddOnResultSid, final String pathpayloadSid) {
-        this.pathreferenceSid = pathreferenceSid;
-        this.pathaddOnResultSid = pathaddOnResultSid;
-        this.pathpayloadSid = pathpayloadSid;
+    public DataFetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathPayloadSid) {
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathAddOnResultSid = pathAddOnResultSid;
+        this.pathPayloadSid = pathPayloadSid;
     }
 
-    public DataFetcher(final String pathaccountSid, final String pathreferenceSid, final String pathaddOnResultSid, final String pathpayloadSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathreferenceSid = pathreferenceSid;
-        this.pathaddOnResultSid = pathaddOnResultSid;
-        this.pathpayloadSid = pathpayloadSid;
+    public DataFetcher(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathPayloadSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
+        this.pathAddOnResultSid = pathAddOnResultSid;
+        this.pathPayloadSid = pathPayloadSid;
     }
 
 
@@ -50,11 +53,11 @@ public class DataFetcher extends Fetcher<Data> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ReferenceSid" + "}", this.pathreferenceSid.toString());
-        path = path.replace("{" + "AddOnResultSid" + "}", this.pathaddOnResultSid.toString());
-        path = path.replace("{" + "PayloadSid" + "}", this.pathpayloadSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ReferenceSid" + "}", this.pathReferenceSid.toString());
+        path = path.replace("{" + "AddOnResultSid" + "}", this.pathAddOnResultSid.toString());
+        path = path.replace("{" + "PayloadSid" + "}", this.pathPayloadSid.toString());
 
 
         Request request = new Request(

@@ -17,60 +17,73 @@ package com.twilio.rest.sync.v1.service.synclist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncListItem extends Resource {
 
 
-    public static SyncListItemCreator creator(final String pathserviceSid, final String pathlistSid, final Object data) {
+    public static SyncListItemCreator creator(final String pathServiceSid, final String pathListSid, final Object data) {
         return new SyncListItemCreator(
-                pathserviceSid, pathlistSid, data
+                pathServiceSid, pathListSid, data
         );
     }
 
 
-    public static SyncListItemDeleter deleter(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+    public static SyncListItemDeleter deleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
         return new SyncListItemDeleter(
-                pathserviceSid, pathlistSid, pathindex
+                pathServiceSid, pathListSid, pathIndex
         );
     }
 
 
-    public static SyncListItemFetcher fetcher(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
         return new SyncListItemFetcher(
-                pathserviceSid, pathlistSid, pathindex
+                pathServiceSid, pathListSid, pathIndex
         );
     }
 
 
-    public static SyncListItemReader reader(final String pathserviceSid, final String pathlistSid) {
+    public static SyncListItemReader reader(final String pathServiceSid, final String pathListSid) {
         return new SyncListItemReader(
-                pathserviceSid, pathlistSid
+                pathServiceSid, pathListSid
         );
     }
 
 
-    public static SyncListItemUpdater updater(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
+    public static SyncListItemUpdater updater(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
         return new SyncListItemUpdater(
-                pathserviceSid, pathlistSid, pathindex
+                pathServiceSid, pathListSid, pathIndex
         );
     }
 

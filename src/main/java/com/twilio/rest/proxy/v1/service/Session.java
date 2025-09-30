@@ -17,61 +17,74 @@ package com.twilio.rest.proxy.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Session extends Resource {
 
 
-    public static SessionCreator creator(final String pathserviceSid) {
+    public static SessionCreator creator(final String pathServiceSid) {
         return new SessionCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SessionDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SessionDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SessionDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SessionFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SessionFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SessionFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SessionReader reader(final String pathserviceSid) {
+    public static SessionReader reader(final String pathServiceSid) {
         return new SessionReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SessionUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SessionUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SessionUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

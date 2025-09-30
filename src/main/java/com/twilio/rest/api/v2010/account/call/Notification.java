@@ -17,53 +17,66 @@ package com.twilio.rest.api.v2010.account.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
 
 
-    public static NotificationFetcher fetcher(final String pathcallSid, final String pathsid) {
+    public static NotificationFetcher fetcher(final String pathCallSid, final String pathSid) {
         return new NotificationFetcher(
-                pathcallSid, pathsid
+                pathCallSid, pathSid
         );
     }
 
 
-    public static NotificationFetcher fetcher(final String pathaccountSid, final String pathcallSid, final String pathsid) {
+    public static NotificationFetcher fetcher(final String pathAccountSid, final String pathCallSid, final String pathSid) {
         return new NotificationFetcher(
-                pathaccountSid, pathcallSid, pathsid
+                pathAccountSid, pathCallSid, pathSid
         );
     }
 
 
-    public static NotificationReader reader(final String pathcallSid) {
+    public static NotificationReader reader(final String pathCallSid) {
         return new NotificationReader(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static NotificationReader reader(final String pathaccountSid, final String pathcallSid) {
+    public static NotificationReader reader(final String pathAccountSid, final String pathCallSid) {
         return new NotificationReader(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 

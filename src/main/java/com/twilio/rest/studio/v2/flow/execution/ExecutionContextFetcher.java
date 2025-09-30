@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
 
-    private String pathflowSid;
-    private String pathexecutionSid;
+    private String pathFlowSid;
+    private String pathExecutionSid;
 
-    public ExecutionContextFetcher(final String pathflowSid, final String pathexecutionSid) {
-        this.pathflowSid = pathflowSid;
-        this.pathexecutionSid = pathexecutionSid;
+    public ExecutionContextFetcher(final String pathFlowSid, final String pathExecutionSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
     }
 
 
@@ -40,8 +43,8 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
 
         String path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "ExecutionSid" + "}", this.pathexecutionSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "ExecutionSid" + "}", this.pathExecutionSid.toString());
 
 
         Request request = new Request(

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.messaging.v1.service;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,14 +26,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class DestinationAlphaSenderReader extends Reader<DestinationAlphaSender> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String isoCountryCode;
     private Long pageSize;
 
-    public DestinationAlphaSenderReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public DestinationAlphaSenderReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -60,7 +63,7 @@ public class DestinationAlphaSenderReader extends Reader<DestinationAlphaSender>
 
         String path = "/v1/Services/{ServiceSid}/DestinationAlphaSenders";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

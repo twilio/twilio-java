@@ -14,9 +14,7 @@
 
 package com.twilio.rest.studio.v2.flow.execution;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class ExecutionStepReader extends Reader<ExecutionStep> {
 
-    private String pathflowSid;
-    private String pathexecutionSid;
+    private String pathFlowSid;
+    private String pathExecutionSid;
     private Long pageSize;
 
-    public ExecutionStepReader(final String pathflowSid, final String pathexecutionSid) {
-        this.pathflowSid = pathflowSid;
-        this.pathexecutionSid = pathexecutionSid;
+    public ExecutionStepReader(final String pathFlowSid, final String pathExecutionSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
     }
 
 
@@ -55,8 +58,8 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
         String path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "ExecutionSid" + "}", this.pathexecutionSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "ExecutionSid" + "}", this.pathExecutionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

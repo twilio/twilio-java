@@ -28,17 +28,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.Endpoint;
-import com.twilio.type.Twiml;
+
 
 import java.net.URI;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class CallCreator extends Creator<Call> {
 
-    private String pathaccountSid;
-    private Endpoint to;
-    private Endpoint from;
+    private String pathAccountSid;
+    private com.twilio.type.Endpoint to;
+    private com.twilio.type.Endpoint from;
     private HttpMethod method;
     private URI fallbackUrl;
     private HttpMethod fallbackMethod;
@@ -70,56 +71,56 @@ public class CallCreator extends Creator<Call> {
     private String recordingTrack;
     private Integer timeLimit;
     private URI url;
-    private Twiml twiml;
+    private com.twilio.type.Twiml twiml;
     private String applicationSid;
 
-    public CallCreator(final Endpoint to, final Endpoint from, final URI url) {
+    public CallCreator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
         this.to = to;
         this.from = from;
         this.url = url;
     }
 
-    public CallCreator(final String pathaccountSid, final Endpoint to, final Endpoint from, final URI url) {
-        this.pathaccountSid = pathaccountSid;
+    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.url = url;
     }
 
-    public CallCreator(final Endpoint to, final Endpoint from, final Twiml twiml) {
+    public CallCreator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
         this.to = to;
         this.from = from;
         this.twiml = twiml;
     }
 
-    public CallCreator(final String pathaccountSid, final Endpoint to, final Endpoint from, final Twiml twiml) {
-        this.pathaccountSid = pathaccountSid;
+    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.twiml = twiml;
     }
 
-    public CallCreator(final Endpoint to, final Endpoint from, final String applicationSid) {
+    public CallCreator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
     }
 
-    public CallCreator(final String pathaccountSid, final Endpoint to, final Endpoint from, final String applicationSid) {
-        this.pathaccountSid = pathaccountSid;
+    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
     }
 
 
-    public CallCreator setTo(final Endpoint to) {
+    public CallCreator setTo(final com.twilio.type.Endpoint to) {
         this.to = to;
         return this;
     }
 
 
-    public CallCreator setFrom(final Endpoint from) {
+    public CallCreator setFrom(final com.twilio.type.Endpoint from) {
         this.from = from;
         return this;
     }
@@ -136,6 +137,9 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
+    public CallCreator setFallbackUrl(final String fallbackUrl) {
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
+    }
 
     public CallCreator setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
@@ -148,6 +152,9 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
+    public CallCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CallCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
         this.statusCallbackEvent = statusCallbackEvent;
@@ -274,6 +281,9 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
+    public CallCreator setAsyncAmdStatusCallback(final String asyncAmdStatusCallback) {
+        return setAsyncAmdStatusCallback(Promoter.uriFromString(asyncAmdStatusCallback));
+    }
 
     public CallCreator setAsyncAmdStatusCallbackMethod(final HttpMethod asyncAmdStatusCallbackMethod) {
         this.asyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod;
@@ -316,8 +326,11 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
+    public CallCreator setUrl(final String url) {
+        return setUrl(Promoter.uriFromString(url));
+    }
 
-    public CallCreator setTwiml(final Twiml twiml) {
+    public CallCreator setTwiml(final com.twilio.type.Twiml twiml) {
         this.twiml = twiml;
         return this;
     }
@@ -337,8 +350,8 @@ public class CallCreator extends Creator<Call> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

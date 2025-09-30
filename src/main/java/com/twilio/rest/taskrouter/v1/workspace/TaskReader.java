@@ -14,9 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -29,11 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class TaskReader extends Reader<Task> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private Integer priority;
     private List<String> assignmentStatus;
     private String workflowSid;
@@ -46,8 +49,8 @@ public class TaskReader extends Reader<Task> {
     private Boolean hasAddons;
     private Long pageSize;
 
-    public TaskReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -129,7 +132,7 @@ public class TaskReader extends Reader<Task> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

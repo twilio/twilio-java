@@ -17,79 +17,92 @@ package com.twilio.rest.api.v2010.account.sip.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CredentialListMapping extends Resource {
 
 
-    public static CredentialListMappingCreator creator(final String pathdomainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
         return new CredentialListMappingCreator(
-                pathdomainSid, credentialListSid
+                pathDomainSid, credentialListSid
         );
     }
 
 
-    public static CredentialListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
         return new CredentialListMappingCreator(
-                pathaccountSid, pathdomainSid, credentialListSid
+                pathAccountSid, pathDomainSid, credentialListSid
         );
     }
 
 
-    public static CredentialListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new CredentialListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static CredentialListMappingReader reader(final String pathdomainSid) {
+    public static CredentialListMappingReader reader(final String pathDomainSid) {
         return new CredentialListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static CredentialListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static CredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new CredentialListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

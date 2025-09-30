@@ -17,6 +17,7 @@ package com.twilio.rest.trusthub.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,17 +28,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
-    private String pathsid;
+    private String pathSid;
     private CustomerProfiles.Status status;
     private URI statusCallback;
     private String friendlyName;
     private String email;
 
-    public CustomerProfilesUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public CustomerProfilesUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -52,6 +56,9 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
         return this;
     }
 
+    public CustomerProfilesUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CustomerProfilesUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -70,7 +77,7 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles> {
 
         String path = "/v1/CustomerProfiles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

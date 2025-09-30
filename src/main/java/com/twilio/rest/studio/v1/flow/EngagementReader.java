@@ -14,9 +14,7 @@
 
 package com.twilio.rest.studio.v1.flow;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class EngagementReader extends Reader<Engagement> {
 
-    private String pathflowSid;
+    private String pathFlowSid;
     private Long pageSize;
 
-    public EngagementReader(final String pathflowSid) {
-        this.pathflowSid = pathflowSid;
+    public EngagementReader(final String pathFlowSid) {
+        this.pathFlowSid = pathFlowSid;
     }
 
 
@@ -53,7 +56,7 @@ public class EngagementReader extends Reader<Engagement> {
 
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

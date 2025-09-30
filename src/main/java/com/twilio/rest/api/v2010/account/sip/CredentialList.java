@@ -17,22 +17,35 @@ package com.twilio.rest.api.v2010.account.sip;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -46,37 +59,37 @@ public class CredentialList extends Resource {
     }
 
 
-    public static CredentialListCreator creator(final String pathaccountSid, final String friendlyName) {
+    public static CredentialListCreator creator(final String pathAccountSid, final String friendlyName) {
         return new CredentialListCreator(
-                pathaccountSid, friendlyName
+                pathAccountSid, friendlyName
         );
     }
 
 
-    public static CredentialListDeleter deleter(final String pathsid) {
+    public static CredentialListDeleter deleter(final String pathSid) {
         return new CredentialListDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CredentialListDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static CredentialListDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new CredentialListDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static CredentialListFetcher fetcher(final String pathsid) {
+    public static CredentialListFetcher fetcher(final String pathSid) {
         return new CredentialListFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CredentialListFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static CredentialListFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new CredentialListFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -88,23 +101,23 @@ public class CredentialList extends Resource {
     }
 
 
-    public static CredentialListReader reader(final String pathaccountSid) {
+    public static CredentialListReader reader(final String pathAccountSid) {
         return new CredentialListReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static CredentialListUpdater updater(final String pathsid, final String friendlyName) {
+    public static CredentialListUpdater updater(final String pathSid, final String friendlyName) {
         return new CredentialListUpdater(
-                pathsid, friendlyName
+                pathSid, friendlyName
         );
     }
 
 
-    public static CredentialListUpdater updater(final String pathaccountSid, final String pathsid, final String friendlyName) {
+    public static CredentialListUpdater updater(final String pathAccountSid, final String pathSid, final String friendlyName) {
         return new CredentialListUpdater(
-                pathaccountSid, pathsid, friendlyName
+                pathAccountSid, pathSid, friendlyName
         );
     }
 

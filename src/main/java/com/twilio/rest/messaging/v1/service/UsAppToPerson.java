@@ -17,60 +17,73 @@ package com.twilio.rest.messaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
 
 
-    public static UsAppToPersonCreator creator(final String pathmessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
+    public static UsAppToPersonCreator creator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
         return new UsAppToPersonCreator(
-                pathmessagingServiceSid, brandRegistrationSid, description, messageFlow, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone
+                pathMessagingServiceSid, brandRegistrationSid, description, messageFlow, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone
         );
     }
 
 
-    public static UsAppToPersonDeleter deleter(final String pathmessagingServiceSid, final String pathsid) {
+    public static UsAppToPersonDeleter deleter(final String pathMessagingServiceSid, final String pathSid) {
         return new UsAppToPersonDeleter(
-                pathmessagingServiceSid, pathsid
+                pathMessagingServiceSid, pathSid
         );
     }
 
 
-    public static UsAppToPersonFetcher fetcher(final String pathmessagingServiceSid, final String pathsid) {
+    public static UsAppToPersonFetcher fetcher(final String pathMessagingServiceSid, final String pathSid) {
         return new UsAppToPersonFetcher(
-                pathmessagingServiceSid, pathsid
+                pathMessagingServiceSid, pathSid
         );
     }
 
 
-    public static UsAppToPersonReader reader(final String pathmessagingServiceSid) {
+    public static UsAppToPersonReader reader(final String pathMessagingServiceSid) {
         return new UsAppToPersonReader(
-                pathmessagingServiceSid
+                pathMessagingServiceSid
         );
     }
 
 
-    public static UsAppToPersonUpdater updater(final String pathmessagingServiceSid, final String pathsid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending) {
+    public static UsAppToPersonUpdater updater(final String pathMessagingServiceSid, final String pathSid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending) {
         return new UsAppToPersonUpdater(
-                pathmessagingServiceSid, pathsid, hasEmbeddedLinks, hasEmbeddedPhone, messageSamples, messageFlow, description, ageGated, directLending
+                pathMessagingServiceSid, pathSid, hasEmbeddedLinks, hasEmbeddedPhone, messageSamples, messageFlow, description, ageGated, directLending
         );
     }
 

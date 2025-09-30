@@ -17,24 +17,37 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -48,16 +61,16 @@ public class Bundle extends Resource {
     }
 
 
-    public static BundleDeleter deleter(final String pathsid) {
+    public static BundleDeleter deleter(final String pathSid) {
         return new BundleDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static BundleFetcher fetcher(final String pathsid) {
+    public static BundleFetcher fetcher(final String pathSid) {
         return new BundleFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -69,9 +82,9 @@ public class Bundle extends Resource {
     }
 
 
-    public static BundleUpdater updater(final String pathsid) {
+    public static BundleUpdater updater(final String pathSid) {
         return new BundleUpdater(
-                pathsid
+                pathSid
         );
     }
 

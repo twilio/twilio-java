@@ -14,9 +14,7 @@
 
 package com.twilio.rest.assistants.v1.assistant;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class AssistantsToolReader extends Reader<AssistantsTool> {
 
-    private String pathassistantId;
+    private String pathAssistantId;
     private Integer pageSize;
 
-    public AssistantsToolReader(final String pathassistantId) {
-        this.pathassistantId = pathassistantId;
+    public AssistantsToolReader(final String pathAssistantId) {
+        this.pathAssistantId = pathAssistantId;
     }
 
 
@@ -53,7 +56,7 @@ public class AssistantsToolReader extends Reader<AssistantsTool> {
 
         String path = "/v1/Assistants/{assistantId}/Tools";
 
-        path = path.replace("{" + "assistantId" + "}", this.pathassistantId.toString());
+        path = path.replace("{" + "assistantId" + "}", this.pathAssistantId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

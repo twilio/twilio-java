@@ -14,9 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class InteractionChannelParticipantReader extends Reader<InteractionChannelParticipant> {
 
-    private String pathinteractionSid;
-    private String pathchannelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private Long pageSize;
 
-    public InteractionChannelParticipantReader(final String pathinteractionSid, final String pathchannelSid) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathchannelSid = pathchannelSid;
+    public InteractionChannelParticipantReader(final String pathInteractionSid, final String pathChannelSid) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -55,8 +58,8 @@ public class InteractionChannelParticipantReader extends Reader<InteractionChann
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

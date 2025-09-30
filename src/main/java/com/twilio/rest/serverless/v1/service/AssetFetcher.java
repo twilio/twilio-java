@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AssetFetcher extends Fetcher<Asset> {
 
-    private String pathserviceSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSid;
 
-    public AssetFetcher(final String pathserviceSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsid = pathsid;
+    public AssetFetcher(final String pathServiceSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class AssetFetcher extends Fetcher<Asset> {
 
         String path = "/v1/Services/{ServiceSid}/Assets/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -27,13 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.Twiml;
+
 
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class CallUpdater extends Updater<Call> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private URI url;
     private HttpMethod method;
     private Call.UpdateStatus status;
@@ -41,16 +43,16 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod fallbackMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
-    private Twiml twiml;
+    private com.twilio.type.Twiml twiml;
     private Integer timeLimit;
 
-    public CallUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public CallUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public CallUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public CallUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -59,6 +61,9 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
+    public CallUpdater setUrl(final String url) {
+        return setUrl(Promoter.uriFromString(url));
+    }
 
     public CallUpdater setMethod(final HttpMethod method) {
         this.method = method;
@@ -77,6 +82,9 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
+    public CallUpdater setFallbackUrl(final String fallbackUrl) {
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
+    }
 
     public CallUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
@@ -89,6 +97,9 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
+    public CallUpdater setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CallUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -96,7 +107,7 @@ public class CallUpdater extends Updater<Call> {
     }
 
 
-    public CallUpdater setTwiml(final Twiml twiml) {
+    public CallUpdater setTwiml(final com.twilio.type.Twiml twiml) {
         this.twiml = twiml;
         return this;
     }
@@ -116,9 +127,9 @@ public class CallUpdater extends Updater<Call> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

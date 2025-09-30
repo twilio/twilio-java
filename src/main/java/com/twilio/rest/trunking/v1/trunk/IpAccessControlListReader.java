@@ -14,9 +14,7 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private Long pageSize;
 
-    public IpAccessControlListReader(final String pathtrunkSid) {
-        this.pathtrunkSid = pathtrunkSid;
+    public IpAccessControlListReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
     }
 
 
@@ -53,7 +56,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

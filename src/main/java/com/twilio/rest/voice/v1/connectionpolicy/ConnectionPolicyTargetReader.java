@@ -14,9 +14,7 @@
 
 package com.twilio.rest.voice.v1.connectionpolicy;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget> {
 
-    private String pathconnectionPolicySid;
+    private String pathConnectionPolicySid;
     private Long pageSize;
 
-    public ConnectionPolicyTargetReader(final String pathconnectionPolicySid) {
-        this.pathconnectionPolicySid = pathconnectionPolicySid;
+    public ConnectionPolicyTargetReader(final String pathConnectionPolicySid) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
     }
 
 
@@ -53,7 +56,7 @@ public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget>
 
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathConnectionPolicySid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

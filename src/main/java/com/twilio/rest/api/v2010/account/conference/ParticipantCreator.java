@@ -28,17 +28,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.Endpoint;
+
 
 import java.net.URI;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class ParticipantCreator extends Creator<Participant> {
 
-    private String pathaccountSid;
-    private String pathconferenceSid;
-    private Endpoint from;
-    private Endpoint to;
+    private String pathAccountSid;
+    private String pathConferenceSid;
+    private com.twilio.type.Endpoint from;
+    private com.twilio.type.Endpoint to;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
@@ -85,28 +87,29 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod amdStatusCallbackMethod;
     private String trim;
     private String callToken;
+    private String callerDisplayName;
 
-    public ParticipantCreator(final String pathconferenceSid, final Endpoint from, final Endpoint to) {
-        this.pathconferenceSid = pathconferenceSid;
+    public ParticipantCreator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
+        this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
     }
 
-    public ParticipantCreator(final String pathaccountSid, final String pathconferenceSid, final Endpoint from, final Endpoint to) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathconferenceSid = pathconferenceSid;
+    public ParticipantCreator(final String pathAccountSid, final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
     }
 
 
-    public ParticipantCreator setFrom(final Endpoint from) {
+    public ParticipantCreator setFrom(final com.twilio.type.Endpoint from) {
         this.from = from;
         return this;
     }
 
 
-    public ParticipantCreator setTo(final Endpoint to) {
+    public ParticipantCreator setTo(final com.twilio.type.Endpoint to) {
         this.to = to;
         return this;
     }
@@ -117,6 +120,9 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public ParticipantCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -180,6 +186,9 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setWaitUrl(final String waitUrl) {
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
+    }
 
     public ParticipantCreator setWaitMethod(final HttpMethod waitMethod) {
         this.waitMethod = waitMethod;
@@ -216,6 +225,9 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setConferenceStatusCallback(final String conferenceStatusCallback) {
+        return setConferenceStatusCallback(Promoter.uriFromString(conferenceStatusCallback));
+    }
 
     public ParticipantCreator setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
         this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
@@ -243,6 +255,9 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setRecordingStatusCallback(final String recordingStatusCallback) {
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
+    }
 
     public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
@@ -273,6 +288,9 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
+        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
+    }
 
     public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
         this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
@@ -381,6 +399,9 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+    public ParticipantCreator setAmdStatusCallback(final String amdStatusCallback) {
+        return setAmdStatusCallback(Promoter.uriFromString(amdStatusCallback));
+    }
 
     public ParticipantCreator setAmdStatusCallbackMethod(final HttpMethod amdStatusCallbackMethod) {
         this.amdStatusCallbackMethod = amdStatusCallbackMethod;
@@ -400,14 +421,20 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
 
+    public ParticipantCreator setCallerDisplayName(final String callerDisplayName) {
+        this.callerDisplayName = callerDisplayName;
+        return this;
+    }
+
+
     @Override
     public Participant create(final TwilioRestClient client) {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
 
 
         Request request = new Request(
@@ -683,6 +710,11 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (callToken != null) {
             Serializer.toString(request, "CallToken", callToken, ParameterType.URLENCODED);
+        }
+
+
+        if (callerDisplayName != null) {
+            Serializer.toString(request, "CallerDisplayName", callerDisplayName, ParameterType.URLENCODED);
         }
 
 

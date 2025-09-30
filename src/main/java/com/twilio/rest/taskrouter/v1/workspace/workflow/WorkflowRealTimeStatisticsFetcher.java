@@ -26,15 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeStatistics> {
 
-    private String pathworkspaceSid;
-    private String pathworkflowSid;
+    private String pathWorkspaceSid;
+    private String pathWorkflowSid;
     private String taskChannel;
 
-    public WorkflowRealTimeStatisticsFetcher(final String pathworkspaceSid, final String pathworkflowSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkflowSid = pathworkflowSid;
+    public WorkflowRealTimeStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkflowSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkflowSid = pathWorkflowSid;
     }
 
 
@@ -49,8 +52,8 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkflowSid" + "}", this.pathworkflowSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkflowSid" + "}", this.pathWorkflowSid.toString());
 
 
         Request request = new Request(

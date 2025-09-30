@@ -17,36 +17,49 @@ package com.twilio.rest.intelligence.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorAttachment extends Resource {
 
 
-    public static OperatorAttachmentCreator creator(final String pathserviceSid, final String pathoperatorSid) {
+    public static OperatorAttachmentCreator creator(final String pathServiceSid, final String pathOperatorSid) {
         return new OperatorAttachmentCreator(
-                pathserviceSid, pathoperatorSid
+                pathServiceSid, pathOperatorSid
         );
     }
 
 
-    public static OperatorAttachmentDeleter deleter(final String pathserviceSid, final String pathoperatorSid) {
+    public static OperatorAttachmentDeleter deleter(final String pathServiceSid, final String pathOperatorSid) {
         return new OperatorAttachmentDeleter(
-                pathserviceSid, pathoperatorSid
+                pathServiceSid, pathOperatorSid
         );
     }
 

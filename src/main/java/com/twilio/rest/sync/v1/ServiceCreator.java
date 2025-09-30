@@ -18,6 +18,7 @@ package com.twilio.rest.sync.v1;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,7 +29,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class ServiceCreator extends Creator<Service> {
 
@@ -55,6 +59,9 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
+    public ServiceCreator setWebhookUrl(final String webhookUrl) {
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
+    }
 
     public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;

@@ -17,51 +17,64 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OutgoingCallerId extends Resource {
 
 
-    public static OutgoingCallerIdDeleter deleter(final String pathsid) {
+    public static OutgoingCallerIdDeleter deleter(final String pathSid) {
         return new OutgoingCallerIdDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static OutgoingCallerIdDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new OutgoingCallerIdDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static OutgoingCallerIdFetcher fetcher(final String pathsid) {
+    public static OutgoingCallerIdFetcher fetcher(final String pathSid) {
         return new OutgoingCallerIdFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static OutgoingCallerIdFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static OutgoingCallerIdFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new OutgoingCallerIdFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -73,23 +86,23 @@ public class OutgoingCallerId extends Resource {
     }
 
 
-    public static OutgoingCallerIdReader reader(final String pathaccountSid) {
+    public static OutgoingCallerIdReader reader(final String pathAccountSid) {
         return new OutgoingCallerIdReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static OutgoingCallerIdUpdater updater(final String pathsid) {
+    public static OutgoingCallerIdUpdater updater(final String pathSid) {
         return new OutgoingCallerIdUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static OutgoingCallerIdUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static OutgoingCallerIdUpdater updater(final String pathAccountSid, final String pathSid) {
         return new OutgoingCallerIdUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

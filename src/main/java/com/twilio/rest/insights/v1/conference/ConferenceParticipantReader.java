@@ -14,9 +14,7 @@
 
 package com.twilio.rest.insights.v1.conference;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,16 +26,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
 
-    private String pathconferenceSid;
+    private String pathConferenceSid;
     private String participantSid;
     private String label;
     private String events;
     private Long pageSize;
 
-    public ConferenceParticipantReader(final String pathconferenceSid) {
-        this.pathconferenceSid = pathconferenceSid;
+    public ConferenceParticipantReader(final String pathConferenceSid) {
+        this.pathConferenceSid = pathConferenceSid;
     }
 
 
@@ -74,7 +77,7 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
 
         String path = "/v1/Conferences/{ConferenceSid}/Participants";
 
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

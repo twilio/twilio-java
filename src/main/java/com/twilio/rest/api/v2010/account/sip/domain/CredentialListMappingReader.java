@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.sip.domain;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,19 +26,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
+    private String pathAccountSid;
+    private String pathDomainSid;
     private Long pageSize;
 
-    public CredentialListMappingReader(final String pathdomainSid) {
-        this.pathdomainSid = pathdomainSid;
+    public CredentialListMappingReader(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
-    public CredentialListMappingReader(final String pathaccountSid, final String pathdomainSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
+    public CredentialListMappingReader(final String pathAccountSid, final String pathDomainSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
     }
 
 
@@ -59,9 +62,9 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

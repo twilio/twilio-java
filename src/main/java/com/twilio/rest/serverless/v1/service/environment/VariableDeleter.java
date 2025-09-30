@@ -24,16 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class VariableDeleter extends Deleter<Variable> {
 
-    private String pathserviceSid;
-    private String pathenvironmentSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
+    private String pathSid;
 
-    public VariableDeleter(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathenvironmentSid = pathenvironmentSid;
-        this.pathsid = pathsid;
+    public VariableDeleter(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +45,9 @@ public class VariableDeleter extends Deleter<Variable> {
 
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

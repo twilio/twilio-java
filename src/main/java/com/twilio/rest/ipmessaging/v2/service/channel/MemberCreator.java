@@ -28,12 +28,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class MemberCreator extends Creator<Member> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private Member.WebhookEnabledType xTwilioWebhookEnabled;
     private String identity;
     private String roleSid;
@@ -43,9 +46,9 @@ public class MemberCreator extends Creator<Member> {
     private ZonedDateTime dateUpdated;
     private String attributes;
 
-    public MemberCreator(final String pathserviceSid, final String pathchannelSid, final String identity) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public MemberCreator(final String pathServiceSid, final String pathChannelSid, final String identity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
         this.identity = identity;
     }
 
@@ -103,8 +106,8 @@ public class MemberCreator extends Creator<Member> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

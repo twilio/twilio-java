@@ -26,13 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class BulkHostedNumberOrderFetcher extends Fetcher<BulkHostedNumberOrder> {
 
-    private String pathbulkHostingSid;
+    private String pathBulkHostingSid;
     private String orderStatus;
 
-    public BulkHostedNumberOrderFetcher(final String pathbulkHostingSid) {
-        this.pathbulkHostingSid = pathbulkHostingSid;
+    public BulkHostedNumberOrderFetcher(final String pathBulkHostingSid) {
+        this.pathBulkHostingSid = pathBulkHostingSid;
     }
 
 
@@ -47,7 +50,7 @@ public class BulkHostedNumberOrderFetcher extends Fetcher<BulkHostedNumberOrder>
 
         String path = "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}";
 
-        path = path.replace("{" + "BulkHostingSid" + "}", this.pathbulkHostingSid.toString());
+        path = path.replace("{" + "BulkHostingSid" + "}", this.pathBulkHostingSid.toString());
 
 
         Request request = new Request(

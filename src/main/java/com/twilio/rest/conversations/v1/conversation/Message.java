@@ -17,62 +17,75 @@ package com.twilio.rest.conversations.v1.conversation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
 
-    public static MessageCreator creator(final String pathconversationSid) {
+    public static MessageCreator creator(final String pathConversationSid) {
         return new MessageCreator(
-                pathconversationSid
+                pathConversationSid
         );
     }
 
 
-    public static MessageDeleter deleter(final String pathconversationSid, final String pathsid) {
+    public static MessageDeleter deleter(final String pathConversationSid, final String pathSid) {
         return new MessageDeleter(
-                pathconversationSid, pathsid
+                pathConversationSid, pathSid
         );
     }
 
 
-    public static MessageFetcher fetcher(final String pathconversationSid, final String pathsid) {
+    public static MessageFetcher fetcher(final String pathConversationSid, final String pathSid) {
         return new MessageFetcher(
-                pathconversationSid, pathsid
+                pathConversationSid, pathSid
         );
     }
 
 
-    public static MessageReader reader(final String pathconversationSid) {
+    public static MessageReader reader(final String pathConversationSid) {
         return new MessageReader(
-                pathconversationSid
+                pathConversationSid
         );
     }
 
 
-    public static MessageUpdater updater(final String pathconversationSid, final String pathsid) {
+    public static MessageUpdater updater(final String pathConversationSid, final String pathSid) {
         return new MessageUpdater(
-                pathconversationSid, pathsid
+                pathConversationSid, pathSid
         );
     }
 

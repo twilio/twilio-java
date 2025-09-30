@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class TrustProductsChannelEndpointAssignmentFetcher extends Fetcher<TrustProductsChannelEndpointAssignment> {
 
-    private String pathtrustProductSid;
-    private String pathsid;
+    private String pathTrustProductSid;
+    private String pathSid;
 
-    public TrustProductsChannelEndpointAssignmentFetcher(final String pathtrustProductSid, final String pathsid) {
-        this.pathtrustProductSid = pathtrustProductSid;
-        this.pathsid = pathsid;
+    public TrustProductsChannelEndpointAssignmentFetcher(final String pathTrustProductSid, final String pathSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class TrustProductsChannelEndpointAssignmentFetcher extends Fetcher<Trust
 
         String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

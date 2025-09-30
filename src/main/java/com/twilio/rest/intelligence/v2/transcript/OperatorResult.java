@@ -17,39 +17,52 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorResult extends Resource {
 
 
-    public static OperatorResultFetcher fetcher(final String pathtranscriptSid, final String pathoperatorSid) {
+    public static OperatorResultFetcher fetcher(final String pathTranscriptSid, final String pathOperatorSid) {
         return new OperatorResultFetcher(
-                pathtranscriptSid, pathoperatorSid
+                pathTranscriptSid, pathOperatorSid
         );
     }
 
 
-    public static OperatorResultReader reader(final String pathtranscriptSid) {
+    public static OperatorResultReader reader(final String pathTranscriptSid) {
         return new OperatorResultReader(
-                pathtranscriptSid
+                pathTranscriptSid
         );
     }
 

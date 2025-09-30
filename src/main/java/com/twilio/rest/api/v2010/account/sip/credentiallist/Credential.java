@@ -17,93 +17,106 @@ package com.twilio.rest.api.v2010.account.sip.credentiallist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Credential extends Resource {
 
 
-    public static CredentialCreator creator(final String pathcredentialListSid, final String username, final String password) {
+    public static CredentialCreator creator(final String pathCredentialListSid, final String username, final String password) {
         return new CredentialCreator(
-                pathcredentialListSid, username, password
+                pathCredentialListSid, username, password
         );
     }
 
 
-    public static CredentialCreator creator(final String pathaccountSid, final String pathcredentialListSid, final String username, final String password) {
+    public static CredentialCreator creator(final String pathAccountSid, final String pathCredentialListSid, final String username, final String password) {
         return new CredentialCreator(
-                pathaccountSid, pathcredentialListSid, username, password
+                pathAccountSid, pathCredentialListSid, username, password
         );
     }
 
 
-    public static CredentialDeleter deleter(final String pathcredentialListSid, final String pathsid) {
+    public static CredentialDeleter deleter(final String pathCredentialListSid, final String pathSid) {
         return new CredentialDeleter(
-                pathcredentialListSid, pathsid
+                pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialDeleter deleter(final String pathaccountSid, final String pathcredentialListSid, final String pathsid) {
+    public static CredentialDeleter deleter(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
         return new CredentialDeleter(
-                pathaccountSid, pathcredentialListSid, pathsid
+                pathAccountSid, pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialFetcher fetcher(final String pathcredentialListSid, final String pathsid) {
+    public static CredentialFetcher fetcher(final String pathCredentialListSid, final String pathSid) {
         return new CredentialFetcher(
-                pathcredentialListSid, pathsid
+                pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialFetcher fetcher(final String pathaccountSid, final String pathcredentialListSid, final String pathsid) {
+    public static CredentialFetcher fetcher(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
         return new CredentialFetcher(
-                pathaccountSid, pathcredentialListSid, pathsid
+                pathAccountSid, pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialReader reader(final String pathcredentialListSid) {
+    public static CredentialReader reader(final String pathCredentialListSid) {
         return new CredentialReader(
-                pathcredentialListSid
+                pathCredentialListSid
         );
     }
 
 
-    public static CredentialReader reader(final String pathaccountSid, final String pathcredentialListSid) {
+    public static CredentialReader reader(final String pathAccountSid, final String pathCredentialListSid) {
         return new CredentialReader(
-                pathaccountSid, pathcredentialListSid
+                pathAccountSid, pathCredentialListSid
         );
     }
 
 
-    public static CredentialUpdater updater(final String pathcredentialListSid, final String pathsid) {
+    public static CredentialUpdater updater(final String pathCredentialListSid, final String pathSid) {
         return new CredentialUpdater(
-                pathcredentialListSid, pathsid
+                pathCredentialListSid, pathSid
         );
     }
 
 
-    public static CredentialUpdater updater(final String pathaccountSid, final String pathcredentialListSid, final String pathsid) {
+    public static CredentialUpdater updater(final String pathAccountSid, final String pathCredentialListSid, final String pathSid) {
         return new CredentialUpdater(
-                pathaccountSid, pathcredentialListSid, pathsid
+                pathAccountSid, pathCredentialListSid, pathSid
         );
     }
 

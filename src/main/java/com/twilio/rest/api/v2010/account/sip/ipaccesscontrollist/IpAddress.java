@@ -17,93 +17,106 @@ package com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAddress extends Resource {
 
 
-    public static IpAddressCreator creator(final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
+    public static IpAddressCreator creator(final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress) {
         return new IpAddressCreator(
-                pathipAccessControlListSid, friendlyName, ipAddress
+                pathIpAccessControlListSid, friendlyName, ipAddress
         );
     }
 
 
-    public static IpAddressCreator creator(final String pathaccountSid, final String pathipAccessControlListSid, final String friendlyName, final String ipAddress) {
+    public static IpAddressCreator creator(final String pathAccountSid, final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress) {
         return new IpAddressCreator(
-                pathaccountSid, pathipAccessControlListSid, friendlyName, ipAddress
+                pathAccountSid, pathIpAccessControlListSid, friendlyName, ipAddress
         );
     }
 
 
-    public static IpAddressDeleter deleter(final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressDeleter deleter(final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressDeleter(
-                pathipAccessControlListSid, pathsid
+                pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressDeleter deleter(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressDeleter deleter(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressDeleter(
-                pathaccountSid, pathipAccessControlListSid, pathsid
+                pathAccountSid, pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressFetcher fetcher(final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressFetcher(
-                pathipAccessControlListSid, pathsid
+                pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressFetcher fetcher(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressFetcher fetcher(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressFetcher(
-                pathaccountSid, pathipAccessControlListSid, pathsid
+                pathAccountSid, pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressReader reader(final String pathipAccessControlListSid) {
+    public static IpAddressReader reader(final String pathIpAccessControlListSid) {
         return new IpAddressReader(
-                pathipAccessControlListSid
+                pathIpAccessControlListSid
         );
     }
 
 
-    public static IpAddressReader reader(final String pathaccountSid, final String pathipAccessControlListSid) {
+    public static IpAddressReader reader(final String pathAccountSid, final String pathIpAccessControlListSid) {
         return new IpAddressReader(
-                pathaccountSid, pathipAccessControlListSid
+                pathAccountSid, pathIpAccessControlListSid
         );
     }
 
 
-    public static IpAddressUpdater updater(final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressUpdater updater(final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressUpdater(
-                pathipAccessControlListSid, pathsid
+                pathIpAccessControlListSid, pathSid
         );
     }
 
 
-    public static IpAddressUpdater updater(final String pathaccountSid, final String pathipAccessControlListSid, final String pathsid) {
+    public static IpAddressUpdater updater(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
         return new IpAddressUpdater(
-                pathaccountSid, pathipAccessControlListSid, pathsid
+                pathAccountSid, pathIpAccessControlListSid, pathSid
         );
     }
 

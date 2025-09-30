@@ -29,12 +29,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class WebhookCreator extends Creator<Webhook> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private Webhook.Type type;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
@@ -43,9 +46,9 @@ public class WebhookCreator extends Creator<Webhook> {
     private String configurationFlowSid;
     private Integer configurationRetryCount;
 
-    public WebhookCreator(final String pathserviceSid, final String pathchannelSid, final Webhook.Type type) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public WebhookCreator(final String pathServiceSid, final String pathChannelSid, final Webhook.Type type) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
         this.type = type;
     }
 
@@ -103,8 +106,8 @@ public class WebhookCreator extends Creator<Webhook> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

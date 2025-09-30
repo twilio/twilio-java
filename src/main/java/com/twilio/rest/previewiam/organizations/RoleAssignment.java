@@ -16,78 +16,153 @@ package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RoleAssignment extends Resource {
 
 
-    public static RoleAssignmentCreator creator(final String pathorganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
+    public static RoleAssignmentCreator creator(final String pathOrganizationSid, final RoleAssignment.PublicApiCreateRoleAssignmentRequest publicApiCreateRoleAssignmentRequest) {
         return new RoleAssignmentCreator(
-                pathorganizationSid, publicApiCreateRoleAssignmentRequest
+                pathOrganizationSid, publicApiCreateRoleAssignmentRequest
         );
     }
 
 
-    public static RoleAssignmentDeleter deleter(final String pathorganizationSid, final String pathroleAssignmentSid) {
+    public static RoleAssignmentDeleter deleter(final String pathOrganizationSid, final String pathRoleAssignmentSid) {
         return new RoleAssignmentDeleter(
-                pathorganizationSid, pathroleAssignmentSid
+                pathOrganizationSid, pathRoleAssignmentSid
         );
     }
 
 
-    public static RoleAssignmentReader reader(final String pathorganizationSid) {
+    public static RoleAssignmentReader reader(final String pathOrganizationSid) {
         return new RoleAssignmentReader(
-                pathorganizationSid
+                pathOrganizationSid
         );
     }
 
 
-    //@JsonDeserialize(builder = PublicApiCreateRoleAssignmentRequest.Builder.class)
+    @JsonDeserialize(builder = PublicApiCreateRoleAssignmentRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class PublicApiCreateRoleAssignmentRequest {
-        public PublicApiCreateRoleAssignmentRequest(final String roleSid, final String scope, final String identity) {
-            this.roleSid = roleSid;
-            this.scope = scope;
-            this.identity = identity;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("role_sid")
         @Getter
-        @Setter
-        private String roleSid;
+        private final String roleSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("scope")
         @Getter
-        @Setter
-        private String scope;
+        private final String scope;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
         @Getter
-        @Setter
-        private String identity;
+        private final String identity;
+
+
+        private PublicApiCreateRoleAssignmentRequest(Builder builder) {
+            this.roleSid = builder.roleSid;
+            this.scope = builder.scope;
+            this.identity = builder.identity;
+        }
+
+        public static Builder builder(final String roleSid, final String scope, final String identity) {
+            return new Builder(roleSid, scope, identity);
+        }
+
+        public static PublicApiCreateRoleAssignmentRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, PublicApiCreateRoleAssignmentRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("role_sid")
+            private String roleSid;
+
+            @JsonProperty("scope")
+            private String scope;
+
+            @JsonProperty("identity")
+            private String identity;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("role_sid") final String roleSid, @JsonProperty("scope") final String scope, @JsonProperty("identity") final String identity) {
+                this.roleSid = roleSid;
+                this.scope = scope;
+                this.identity = identity;
+            }
+
+
+            public PublicApiCreateRoleAssignmentRequest build() {
+                return new PublicApiCreateRoleAssignmentRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            PublicApiCreateRoleAssignmentRequest other = (PublicApiCreateRoleAssignmentRequest) o;
+            return (
+                    Objects.equals(roleSid, other.roleSid) &&
+                            Objects.equals(scope, other.scope) &&
+                            Objects.equals(identity, other.identity)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    roleSid,
+                    scope,
+                    identity
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a RoleAssignment object using the provided ObjectMapper.

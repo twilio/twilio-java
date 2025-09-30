@@ -17,45 +17,58 @@ package com.twilio.rest.flexapi.v1.interaction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannel extends Resource {
 
 
-    public static InteractionChannelFetcher fetcher(final String pathinteractionSid, final String pathsid) {
+    public static InteractionChannelFetcher fetcher(final String pathInteractionSid, final String pathSid) {
         return new InteractionChannelFetcher(
-                pathinteractionSid, pathsid
+                pathInteractionSid, pathSid
         );
     }
 
 
-    public static InteractionChannelReader reader(final String pathinteractionSid) {
+    public static InteractionChannelReader reader(final String pathInteractionSid) {
         return new InteractionChannelReader(
-                pathinteractionSid
+                pathInteractionSid
         );
     }
 
 
-    public static InteractionChannelUpdater updater(final String pathinteractionSid, final String pathsid, final InteractionChannel.UpdateChannelStatus status) {
+    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status) {
         return new InteractionChannelUpdater(
-                pathinteractionSid, pathsid, status
+                pathInteractionSid, pathSid, status
         );
     }
 

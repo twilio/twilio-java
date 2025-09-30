@@ -17,6 +17,7 @@ package com.twilio.rest.messaging.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,17 +28,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class DomainConfigUpdater extends Updater<DomainConfig> {
-    private String pathdomainSid;
+    private String pathDomainSid;
     private URI fallbackUrl;
     private URI callbackUrl;
     private Boolean continueOnFailure;
     private Boolean disableHttps;
 
-    public DomainConfigUpdater(final String pathdomainSid) {
-        this.pathdomainSid = pathdomainSid;
+    public DomainConfigUpdater(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
 
@@ -46,12 +50,18 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         return this;
     }
 
+    public DomainConfigUpdater setFallbackUrl(final String fallbackUrl) {
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
+    }
 
     public DomainConfigUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
+    public DomainConfigUpdater setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public DomainConfigUpdater setContinueOnFailure(final Boolean continueOnFailure) {
         this.continueOnFailure = continueOnFailure;
@@ -70,7 +80,7 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

@@ -17,39 +17,52 @@ package com.twilio.rest.studio.v1.flow.engagement;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Step extends Resource {
 
 
-    public static StepFetcher fetcher(final String pathflowSid, final String pathengagementSid, final String pathsid) {
+    public static StepFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid) {
         return new StepFetcher(
-                pathflowSid, pathengagementSid, pathsid
+                pathFlowSid, pathEngagementSid, pathSid
         );
     }
 
 
-    public static StepReader reader(final String pathflowSid, final String pathengagementSid) {
+    public static StepReader reader(final String pathFlowSid, final String pathEngagementSid) {
         return new StepReader(
-                pathflowSid, pathengagementSid
+                pathFlowSid, pathEngagementSid
         );
     }
 

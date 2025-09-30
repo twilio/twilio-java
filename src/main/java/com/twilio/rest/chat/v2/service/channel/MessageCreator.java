@@ -28,12 +28,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class MessageCreator extends Creator<Message> {
 
-    private String pathserviceSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String from;
     private String attributes;
@@ -43,9 +46,9 @@ public class MessageCreator extends Creator<Message> {
     private String body;
     private String mediaSid;
 
-    public MessageCreator(final String pathserviceSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathchannelSid = pathchannelSid;
+    public MessageCreator(final String pathServiceSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -102,8 +105,8 @@ public class MessageCreator extends Creator<Message> {
 
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

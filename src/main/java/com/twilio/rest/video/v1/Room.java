@@ -17,12 +17,10 @@ package com.twilio.rest.video.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,13 +28,28 @@ import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -50,9 +63,9 @@ public class Room extends Resource {
     }
 
 
-    public static RoomFetcher fetcher(final String pathsid) {
+    public static RoomFetcher fetcher(final String pathSid) {
         return new RoomFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -64,9 +77,9 @@ public class Room extends Resource {
     }
 
 
-    public static RoomUpdater updater(final String pathsid, final Room.RoomStatus status) {
+    public static RoomUpdater updater(final String pathSid, final Room.RoomStatus status) {
         return new RoomUpdater(
-                pathsid, status
+                pathSid, status
         );
     }
 
@@ -134,106 +147,6 @@ public class Room extends Resource {
         }
     }
 
-    public enum RoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomVideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomRoomRoomVideoCodec.values());
-        }
-    }
-
     public enum VideoCodec {
         VP8("VP8"),
         H264("H264");
@@ -251,26 +164,6 @@ public class Room extends Resource {
         @JsonCreator
         public static VideoCodec forValue(final String value) {
             return Promoter.enumFromString(value, VideoCodec.values());
-        }
-    }
-
-    public enum RoomRoomRoomRoomRoomRoomRoomVideoCodec {
-        VP8("VP8"),
-        H264("H264");
-
-        private final String value;
-
-        private RoomRoomRoomRoomRoomRoomRoomVideoCodec(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RoomRoomRoomRoomRoomRoomRoomVideoCodec forValue(final String value) {
-            return Promoter.enumFromString(value, RoomRoomRoomRoomRoomRoomRoomVideoCodec.values());
         }
     }
 
@@ -372,7 +265,7 @@ public class Room extends Resource {
     @Getter
     private final URI url;
     @Getter
-    private final List<Room.RoomRoomRoomRoomRoomRoomRoomVideoCodec> videoCodecs;
+    private final List<Room.VideoCodec> videoCodecs;
 
     @JsonCreator
     private Room(
@@ -402,7 +295,7 @@ public class Room extends Resource {
             @JsonProperty("unique_name") final String uniqueName,
             @JsonProperty("unused_room_timeout") final Integer unusedRoomTimeout,
             @JsonProperty("url") final URI url,
-            @JsonProperty("video_codecs") final List<Room.RoomRoomRoomRoomRoomRoomRoomVideoCodec> videoCodecs
+            @JsonProperty("video_codecs") final List<Room.VideoCodec> videoCodecs
     ) {
         this.accountSid = accountSid;
         this.audioOnly = audioOnly;

@@ -17,24 +17,37 @@ package com.twilio.rest.api.v2010.account.sip;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -48,37 +61,37 @@ public class Domain extends Resource {
     }
 
 
-    public static DomainCreator creator(final String pathaccountSid, final String domainName) {
+    public static DomainCreator creator(final String pathAccountSid, final String domainName) {
         return new DomainCreator(
-                pathaccountSid, domainName
+                pathAccountSid, domainName
         );
     }
 
 
-    public static DomainDeleter deleter(final String pathsid) {
+    public static DomainDeleter deleter(final String pathSid) {
         return new DomainDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static DomainDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static DomainDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new DomainDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static DomainFetcher fetcher(final String pathsid) {
+    public static DomainFetcher fetcher(final String pathSid) {
         return new DomainFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static DomainFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static DomainFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new DomainFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -90,23 +103,23 @@ public class Domain extends Resource {
     }
 
 
-    public static DomainReader reader(final String pathaccountSid) {
+    public static DomainReader reader(final String pathAccountSid) {
         return new DomainReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static DomainUpdater updater(final String pathsid) {
+    public static DomainUpdater updater(final String pathSid) {
         return new DomainUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static DomainUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static DomainUpdater updater(final String pathAccountSid, final String pathSid) {
         return new DomainUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

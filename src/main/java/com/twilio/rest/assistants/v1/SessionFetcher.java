@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SessionFetcher extends Fetcher<Session> {
 
-    private String pathid;
+    private String pathId;
 
-    public SessionFetcher(final String pathid) {
-        this.pathid = pathid;
+    public SessionFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -38,7 +41,7 @@ public class SessionFetcher extends Fetcher<Session> {
 
         String path = "/v1/Sessions/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

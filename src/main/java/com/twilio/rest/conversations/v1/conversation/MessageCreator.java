@@ -28,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class MessageCreator extends Creator<Message> {
 
-    private String pathconversationSid;
+    private String pathConversationSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String author;
     private String body;
@@ -44,8 +47,8 @@ public class MessageCreator extends Creator<Message> {
     private String contentVariables;
     private String subject;
 
-    public MessageCreator(final String pathconversationSid) {
-        this.pathconversationSid = pathconversationSid;
+    public MessageCreator(final String pathConversationSid) {
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -114,7 +117,7 @@ public class MessageCreator extends Creator<Message> {
 
         String path = "/v1/Conversations/{ConversationSid}/Messages";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

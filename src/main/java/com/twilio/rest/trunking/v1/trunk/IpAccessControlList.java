@@ -17,52 +17,65 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAccessControlList extends Resource {
 
 
-    public static IpAccessControlListCreator creator(final String pathtrunkSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListCreator creator(final String pathTrunkSid, final String ipAccessControlListSid) {
         return new IpAccessControlListCreator(
-                pathtrunkSid, ipAccessControlListSid
+                pathTrunkSid, ipAccessControlListSid
         );
     }
 
 
-    public static IpAccessControlListDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static IpAccessControlListDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new IpAccessControlListDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new IpAccessControlListFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListReader reader(final String pathtrunkSid) {
+    public static IpAccessControlListReader reader(final String pathTrunkSid) {
         return new IpAccessControlListReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

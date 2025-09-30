@@ -14,9 +14,7 @@
 
 package com.twilio.rest.studio.v1.flow.engagement;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class StepReader extends Reader<Step> {
 
-    private String pathflowSid;
-    private String pathengagementSid;
+    private String pathFlowSid;
+    private String pathEngagementSid;
     private Long pageSize;
 
-    public StepReader(final String pathflowSid, final String pathengagementSid) {
-        this.pathflowSid = pathflowSid;
-        this.pathengagementSid = pathengagementSid;
+    public StepReader(final String pathFlowSid, final String pathEngagementSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathEngagementSid = pathEngagementSid;
     }
 
 
@@ -55,8 +58,8 @@ public class StepReader extends Reader<Step> {
 
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "EngagementSid" + "}", this.pathengagementSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "EngagementSid" + "}", this.pathEngagementSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

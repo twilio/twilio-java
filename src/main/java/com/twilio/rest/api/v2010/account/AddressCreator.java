@@ -28,9 +28,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AddressCreator extends Creator<Address> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String customerName;
     private String street;
     private String city;
@@ -51,8 +54,8 @@ public class AddressCreator extends Creator<Address> {
         this.isoCountry = isoCountry;
     }
 
-    public AddressCreator(final String pathaccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
-        this.pathaccountSid = pathaccountSid;
+    public AddressCreator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+        this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
         this.street = street;
         this.city = city;
@@ -127,8 +130,8 @@ public class AddressCreator extends Creator<Address> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

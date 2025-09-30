@@ -27,18 +27,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 
+import com.twilio.type.*;
+
 public class SessionUpdater extends Updater<Session> {
-    private String pathserviceSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathSid;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
 
-    public SessionUpdater(final String pathserviceSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsid = pathsid;
+    public SessionUpdater(final String pathServiceSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -65,8 +68,8 @@ public class SessionUpdater extends Updater<Session> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -17,20 +17,33 @@ package com.twilio.rest.verify.v2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -44,16 +57,16 @@ public class Safelist extends Resource {
     }
 
 
-    public static SafelistDeleter deleter(final String pathphoneNumber) {
+    public static SafelistDeleter deleter(final String pathPhoneNumber) {
         return new SafelistDeleter(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 
 
-    public static SafelistFetcher fetcher(final String pathphoneNumber) {
+    public static SafelistFetcher fetcher(final String pathPhoneNumber) {
         return new SafelistFetcher(
-                pathphoneNumber
+                pathPhoneNumber
         );
     }
 

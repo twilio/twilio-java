@@ -28,13 +28,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class NetworkAccessProfileNetworkCreator extends Creator<NetworkAccessProfileNetwork> {
 
-    private String pathnetworkAccessProfileSid;
+    private String pathNetworkAccessProfileSid;
     private String network;
 
-    public NetworkAccessProfileNetworkCreator(final String pathnetworkAccessProfileSid, final String network) {
-        this.pathnetworkAccessProfileSid = pathnetworkAccessProfileSid;
+    public NetworkAccessProfileNetworkCreator(final String pathNetworkAccessProfileSid, final String network) {
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
         this.network = network;
     }
 
@@ -50,7 +53,7 @@ public class NetworkAccessProfileNetworkCreator extends Creator<NetworkAccessPro
 
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathnetworkAccessProfileSid.toString());
+        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathNetworkAccessProfileSid.toString());
 
 
         Request request = new Request(

@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ConnectionPolicyTargetDeleter extends Deleter<ConnectionPolicyTarget> {
 
-    private String pathconnectionPolicySid;
-    private String pathsid;
+    private String pathConnectionPolicySid;
+    private String pathSid;
 
-    public ConnectionPolicyTargetDeleter(final String pathconnectionPolicySid, final String pathsid) {
-        this.pathconnectionPolicySid = pathconnectionPolicySid;
-        this.pathsid = pathsid;
+    public ConnectionPolicyTargetDeleter(final String pathConnectionPolicySid, final String pathSid) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class ConnectionPolicyTargetDeleter extends Deleter<ConnectionPolicyTarge
 
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathConnectionPolicySid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

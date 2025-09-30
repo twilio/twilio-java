@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RatePlanDeleter extends Deleter<RatePlan> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public RatePlanDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public RatePlanDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
 
         String path = "/wireless/RatePlans/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

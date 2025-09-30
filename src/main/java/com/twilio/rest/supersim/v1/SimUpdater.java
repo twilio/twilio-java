@@ -17,6 +17,7 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,10 +28,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class SimUpdater extends Updater<Sim> {
-    private String pathsid;
+    private String pathSid;
     private String uniqueName;
     private Sim.StatusUpdate status;
     private String fleet;
@@ -38,8 +42,8 @@ public class SimUpdater extends Updater<Sim> {
     private HttpMethod callbackMethod;
     private String accountSid;
 
-    public SimUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public SimUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -66,6 +70,9 @@ public class SimUpdater extends Updater<Sim> {
         return this;
     }
 
+    public SimUpdater setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
@@ -84,7 +91,7 @@ public class SimUpdater extends Updater<Sim> {
 
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

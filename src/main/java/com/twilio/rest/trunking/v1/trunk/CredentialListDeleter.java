@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CredentialListDeleter extends Deleter<CredentialList> {
 
-    private String pathtrunkSid;
-    private String pathsid;
+    private String pathTrunkSid;
+    private String pathSid;
 
-    public CredentialListDeleter(final String pathtrunkSid, final String pathsid) {
-        this.pathtrunkSid = pathtrunkSid;
-        this.pathsid = pathsid;
+    public CredentialListDeleter(final String pathTrunkSid, final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
 
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

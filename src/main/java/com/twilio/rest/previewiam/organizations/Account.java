@@ -17,38 +17,51 @@ package com.twilio.rest.previewiam.organizations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Account extends Resource {
 
 
-    public static AccountFetcher fetcher(final String pathorganizationSid, final String pathaccountSid) {
+    public static AccountFetcher fetcher(final String pathOrganizationSid, final String pathAccountSid) {
         return new AccountFetcher(
-                pathorganizationSid, pathaccountSid
+                pathOrganizationSid, pathAccountSid
         );
     }
 
 
-    public static AccountReader reader(final String pathorganizationSid) {
+    public static AccountReader reader(final String pathOrganizationSid) {
         return new AccountReader(
-                pathorganizationSid
+                pathOrganizationSid
         );
     }
 

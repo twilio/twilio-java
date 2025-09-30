@@ -14,9 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.pluginconfiguration;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,14 +26,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
 
-    private String pathconfigurationSid;
+    private String pathConfigurationSid;
     private Long pageSize;
     private String flexMetadata;
 
-    public ConfiguredPluginReader(final String pathconfigurationSid) {
-        this.pathconfigurationSid = pathconfigurationSid;
+    public ConfiguredPluginReader(final String pathConfigurationSid) {
+        this.pathConfigurationSid = pathConfigurationSid;
     }
 
 
@@ -60,7 +63,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
 
         String path = "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins";
 
-        path = path.replace("{" + "ConfigurationSid" + "}", this.pathconfigurationSid.toString());
+        path = path.replace("{" + "ConfigurationSid" + "}", this.pathConfigurationSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

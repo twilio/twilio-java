@@ -28,17 +28,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UserCreator extends Creator<User> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
     private User.WebhookEnabledType xTwilioWebhookEnabled;
     private String identity;
     private String friendlyName;
     private String attributes;
     private String roleSid;
 
-    public UserCreator(final String pathchatServiceSid, final String identity) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public UserCreator(final String pathChatServiceSid, final String identity) {
+        this.pathChatServiceSid = pathChatServiceSid;
         this.identity = identity;
     }
 
@@ -78,7 +81,7 @@ public class UserCreator extends Creator<User> {
 
         String path = "/v1/Services/{ChatServiceSid}/Users";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
 
         Request request = new Request(

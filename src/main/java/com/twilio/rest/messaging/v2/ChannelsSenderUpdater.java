@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,12 +27,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ChannelsSenderUpdater extends Updater<ChannelsSender> {
-    private String pathsid;
+    private String pathSid;
     private ChannelsSender.MessagingV2ChannelsSenderRequestsUpdate messagingV2ChannelsSenderRequestsUpdate;
 
-    public ChannelsSenderUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ChannelsSenderUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -46,7 +50,7 @@ public class ChannelsSenderUpdater extends Updater<ChannelsSender> {
 
         String path = "/v2/Channels/Senders/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

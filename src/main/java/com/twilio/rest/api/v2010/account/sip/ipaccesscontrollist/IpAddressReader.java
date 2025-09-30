@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,19 +26,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class IpAddressReader extends Reader<IpAddress> {
 
-    private String pathaccountSid;
-    private String pathipAccessControlListSid;
+    private String pathAccountSid;
+    private String pathIpAccessControlListSid;
     private Long pageSize;
 
-    public IpAddressReader(final String pathipAccessControlListSid) {
-        this.pathipAccessControlListSid = pathipAccessControlListSid;
+    public IpAddressReader(final String pathIpAccessControlListSid) {
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
-    public IpAddressReader(final String pathaccountSid, final String pathipAccessControlListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathipAccessControlListSid = pathipAccessControlListSid;
+    public IpAddressReader(final String pathAccountSid, final String pathIpAccessControlListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
 
@@ -59,9 +62,9 @@ public class IpAddressReader extends Reader<IpAddress> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "IpAccessControlListSid" + "}", this.pathipAccessControlListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "IpAccessControlListSid" + "}", this.pathIpAccessControlListSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
 
-    private String pathmessagingServiceSid;
-    private String pathsid;
+    private String pathMessagingServiceSid;
+    private String pathSid;
 
-    public UsAppToPersonFetcher(final String pathmessagingServiceSid, final String pathsid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
-        this.pathsid = pathsid;
+    public UsAppToPersonFetcher(final String pathMessagingServiceSid, final String pathSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
 
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

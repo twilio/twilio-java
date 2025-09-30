@@ -28,14 +28,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CustomerProfilesChannelEndpointAssignmentCreator extends Creator<CustomerProfilesChannelEndpointAssignment> {
 
-    private String pathcustomerProfileSid;
+    private String pathCustomerProfileSid;
     private String channelEndpointType;
     private String channelEndpointSid;
 
-    public CustomerProfilesChannelEndpointAssignmentCreator(final String pathcustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
+    public CustomerProfilesChannelEndpointAssignmentCreator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.channelEndpointType = channelEndpointType;
         this.channelEndpointSid = channelEndpointSid;
     }
@@ -58,7 +61,7 @@ public class CustomerProfilesChannelEndpointAssignmentCreator extends Creator<Cu
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
 
 
         Request request = new Request(

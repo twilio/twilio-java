@@ -17,54 +17,67 @@ package com.twilio.rest.conversations.v1.service.user;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserConversation extends Resource {
 
 
-    public static UserConversationDeleter deleter(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationDeleter deleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         return new UserConversationDeleter(
-                pathchatServiceSid, pathuserSid, pathconversationSid
+                pathChatServiceSid, pathUserSid, pathConversationSid
         );
     }
 
 
-    public static UserConversationFetcher fetcher(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationFetcher fetcher(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         return new UserConversationFetcher(
-                pathchatServiceSid, pathuserSid, pathconversationSid
+                pathChatServiceSid, pathUserSid, pathConversationSid
         );
     }
 
 
-    public static UserConversationReader reader(final String pathchatServiceSid, final String pathuserSid) {
+    public static UserConversationReader reader(final String pathChatServiceSid, final String pathUserSid) {
         return new UserConversationReader(
-                pathchatServiceSid, pathuserSid
+                pathChatServiceSid, pathUserSid
         );
     }
 
 
-    public static UserConversationUpdater updater(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+    public static UserConversationUpdater updater(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
         return new UserConversationUpdater(
-                pathchatServiceSid, pathuserSid, pathconversationSid
+                pathChatServiceSid, pathUserSid, pathConversationSid
         );
     }
 

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.supersim.v1.networkaccessprofile;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class NetworkAccessProfileNetworkReader extends Reader<NetworkAccessProfileNetwork> {
 
-    private String pathnetworkAccessProfileSid;
+    private String pathNetworkAccessProfileSid;
     private Long pageSize;
 
-    public NetworkAccessProfileNetworkReader(final String pathnetworkAccessProfileSid) {
-        this.pathnetworkAccessProfileSid = pathnetworkAccessProfileSid;
+    public NetworkAccessProfileNetworkReader(final String pathNetworkAccessProfileSid) {
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
     }
 
 
@@ -53,7 +56,7 @@ public class NetworkAccessProfileNetworkReader extends Reader<NetworkAccessProfi
 
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathnetworkAccessProfileSid.toString());
+        path = path.replace("{" + "NetworkAccessProfileSid" + "}", this.pathNetworkAccessProfileSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

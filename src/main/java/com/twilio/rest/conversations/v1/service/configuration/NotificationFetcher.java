@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class NotificationFetcher extends Fetcher<Notification> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
 
-    public NotificationFetcher(final String pathchatServiceSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public NotificationFetcher(final String pathChatServiceSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -38,7 +41,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
 
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
 
         Request request = new Request(

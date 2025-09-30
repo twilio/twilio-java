@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AssistantFetcher extends Fetcher<Assistant> {
 
-    private String pathid;
+    private String pathId;
 
-    public AssistantFetcher(final String pathid) {
-        this.pathid = pathid;
+    public AssistantFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -38,7 +41,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
 
         String path = "/v1/Assistants/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

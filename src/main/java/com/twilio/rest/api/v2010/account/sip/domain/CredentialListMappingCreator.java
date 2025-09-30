@@ -28,20 +28,23 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CredentialListMappingCreator extends Creator<CredentialListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
+    private String pathAccountSid;
+    private String pathDomainSid;
     private String credentialListSid;
 
-    public CredentialListMappingCreator(final String pathdomainSid, final String credentialListSid) {
-        this.pathdomainSid = pathdomainSid;
+    public CredentialListMappingCreator(final String pathDomainSid, final String credentialListSid) {
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
-    public CredentialListMappingCreator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
+    public CredentialListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -57,9 +60,9 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

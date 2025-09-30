@@ -27,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class EndUserUpdater extends Updater<EndUser> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private Object attributes;
 
-    public EndUserUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public EndUserUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -54,7 +57,7 @@ public class EndUserUpdater extends Updater<EndUser> {
 
         String path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

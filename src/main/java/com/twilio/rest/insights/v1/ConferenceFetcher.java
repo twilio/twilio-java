@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ConferenceFetcher extends Fetcher<Conference> {
 
-    private String pathconferenceSid;
+    private String pathConferenceSid;
 
-    public ConferenceFetcher(final String pathconferenceSid) {
-        this.pathconferenceSid = pathconferenceSid;
+    public ConferenceFetcher(final String pathConferenceSid) {
+        this.pathConferenceSid = pathConferenceSid;
     }
 
 
@@ -38,7 +41,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
         String path = "/v1/Conferences/{ConferenceSid}";
 
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
 
 
         Request request = new Request(

@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class ShortCodeUpdater extends Updater<ShortCode> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private String apiVersion;
     private URI smsUrl;
@@ -39,13 +43,13 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     private URI smsFallbackUrl;
     private HttpMethod smsFallbackMethod;
 
-    public ShortCodeUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ShortCodeUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public ShortCodeUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public ShortCodeUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -66,6 +70,9 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         return this;
     }
 
+    public ShortCodeUpdater setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -78,6 +85,9 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         return this;
     }
 
+    public ShortCodeUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public ShortCodeUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
@@ -90,9 +100,9 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

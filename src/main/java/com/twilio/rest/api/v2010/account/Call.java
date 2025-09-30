@@ -17,99 +17,110 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.Endpoint;
-import com.twilio.type.Twiml;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Call extends Resource {
 
 
-    public static CallCreator creator(final Endpoint to, final Endpoint from, final URI url) {
+    public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
         return new CallCreator(
                 to, from, url
         );
     }
 
 
-    public static CallCreator creator(final String pathaccountSid, final Endpoint to, final Endpoint from, final URI url) {
+    public static CallCreator creator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
         return new CallCreator(
-                pathaccountSid, to, from, url
+                pathAccountSid, to, from, url
         );
     }
 
 
-    public static CallCreator creator(final Endpoint to, final Endpoint from, final Twiml twiml) {
+    public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
         return new CallCreator(
                 to, from, twiml
         );
     }
 
 
-    public static CallCreator creator(final String pathaccountSid, final Endpoint to, final Endpoint from, final Twiml twiml) {
+    public static CallCreator creator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
         return new CallCreator(
-                pathaccountSid, to, from, twiml
+                pathAccountSid, to, from, twiml
         );
     }
 
 
-    public static CallCreator creator(final Endpoint to, final Endpoint from, final String applicationSid) {
+    public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
         return new CallCreator(
                 to, from, applicationSid
         );
     }
 
 
-    public static CallCreator creator(final String pathaccountSid, final Endpoint to, final Endpoint from, final String applicationSid) {
+    public static CallCreator creator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
         return new CallCreator(
-                pathaccountSid, to, from, applicationSid
+                pathAccountSid, to, from, applicationSid
         );
     }
 
 
-    public static CallDeleter deleter(final String pathsid) {
+    public static CallDeleter deleter(final String pathSid) {
         return new CallDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CallDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static CallDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new CallDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static CallFetcher fetcher(final String pathsid) {
+    public static CallFetcher fetcher(final String pathSid) {
         return new CallFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CallFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static CallFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new CallFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -121,23 +132,23 @@ public class Call extends Resource {
     }
 
 
-    public static CallReader reader(final String pathaccountSid) {
+    public static CallReader reader(final String pathAccountSid) {
         return new CallReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static CallUpdater updater(final String pathsid) {
+    public static CallUpdater updater(final String pathSid) {
         return new CallUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static CallUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static CallUpdater updater(final String pathAccountSid, final String pathSid) {
         return new CallUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

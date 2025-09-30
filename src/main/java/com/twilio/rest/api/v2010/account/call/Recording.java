@@ -17,96 +17,109 @@ package com.twilio.rest.api.v2010.account.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Currency;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
 
 
-    public static RecordingCreator creator(final String pathcallSid) {
+    public static RecordingCreator creator(final String pathCallSid) {
         return new RecordingCreator(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static RecordingCreator creator(final String pathaccountSid, final String pathcallSid) {
+    public static RecordingCreator creator(final String pathAccountSid, final String pathCallSid) {
         return new RecordingCreator(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 
 
-    public static RecordingDeleter deleter(final String pathcallSid, final String pathsid) {
+    public static RecordingDeleter deleter(final String pathCallSid, final String pathSid) {
         return new RecordingDeleter(
-                pathcallSid, pathsid
+                pathCallSid, pathSid
         );
     }
 
 
-    public static RecordingDeleter deleter(final String pathaccountSid, final String pathcallSid, final String pathsid) {
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathCallSid, final String pathSid) {
         return new RecordingDeleter(
-                pathaccountSid, pathcallSid, pathsid
+                pathAccountSid, pathCallSid, pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathcallSid, final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathCallSid, final String pathSid) {
         return new RecordingFetcher(
-                pathcallSid, pathsid
+                pathCallSid, pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathaccountSid, final String pathcallSid, final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathCallSid, final String pathSid) {
         return new RecordingFetcher(
-                pathaccountSid, pathcallSid, pathsid
+                pathAccountSid, pathCallSid, pathSid
         );
     }
 
 
-    public static RecordingReader reader(final String pathcallSid) {
+    public static RecordingReader reader(final String pathCallSid) {
         return new RecordingReader(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static RecordingReader reader(final String pathaccountSid, final String pathcallSid) {
+    public static RecordingReader reader(final String pathAccountSid, final String pathCallSid) {
         return new RecordingReader(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 
 
-    public static RecordingUpdater updater(final String pathcallSid, final String pathsid, final Recording.Status status) {
+    public static RecordingUpdater updater(final String pathCallSid, final String pathSid, final Recording.Status status) {
         return new RecordingUpdater(
-                pathcallSid, pathsid, status
+                pathCallSid, pathSid, status
         );
     }
 
 
-    public static RecordingUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Recording.Status status) {
+    public static RecordingUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Recording.Status status) {
         return new RecordingUpdater(
-                pathaccountSid, pathcallSid, pathsid, status
+                pathAccountSid, pathCallSid, pathSid, status
         );
     }
 

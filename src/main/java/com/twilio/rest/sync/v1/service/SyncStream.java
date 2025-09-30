@@ -17,60 +17,73 @@ package com.twilio.rest.sync.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncStream extends Resource {
 
 
-    public static SyncStreamCreator creator(final String pathserviceSid) {
+    public static SyncStreamCreator creator(final String pathServiceSid) {
         return new SyncStreamCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncStreamDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SyncStreamDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SyncStreamDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncStreamFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SyncStreamFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SyncStreamFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncStreamReader reader(final String pathserviceSid) {
+    public static SyncStreamReader reader(final String pathServiceSid) {
         return new SyncStreamReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncStreamUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SyncStreamUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SyncStreamUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

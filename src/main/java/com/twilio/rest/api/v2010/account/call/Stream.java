@@ -17,53 +17,66 @@ package com.twilio.rest.api.v2010.account.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Stream extends Resource {
 
 
-    public static StreamCreator creator(final String pathcallSid, final URI url) {
+    public static StreamCreator creator(final String pathCallSid, final URI url) {
         return new StreamCreator(
-                pathcallSid, url
+                pathCallSid, url
         );
     }
 
 
-    public static StreamCreator creator(final String pathaccountSid, final String pathcallSid, final URI url) {
+    public static StreamCreator creator(final String pathAccountSid, final String pathCallSid, final URI url) {
         return new StreamCreator(
-                pathaccountSid, pathcallSid, url
+                pathAccountSid, pathCallSid, url
         );
     }
 
 
-    public static StreamUpdater updater(final String pathcallSid, final String pathsid, final Stream.UpdateStatus status) {
+    public static StreamUpdater updater(final String pathCallSid, final String pathSid, final Stream.UpdateStatus status) {
         return new StreamUpdater(
-                pathcallSid, pathsid, status
+                pathCallSid, pathSid, status
         );
     }
 
 
-    public static StreamUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Stream.UpdateStatus status) {
+    public static StreamUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Stream.UpdateStatus status) {
         return new StreamUpdater(
-                pathaccountSid, pathcallSid, pathsid, status
+                pathAccountSid, pathCallSid, pathSid, status
         );
     }
 

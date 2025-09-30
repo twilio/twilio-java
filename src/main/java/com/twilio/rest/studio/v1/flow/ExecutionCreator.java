@@ -29,15 +29,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ExecutionCreator extends Creator<Execution> {
 
-    private String pathflowSid;
+    private String pathFlowSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private Object parameters;
 
-    public ExecutionCreator(final String pathflowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
-        this.pathflowSid = pathflowSid;
+    public ExecutionCreator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from) {
+        this.pathFlowSid = pathFlowSid;
         this.to = to;
         this.from = from;
     }
@@ -72,7 +75,7 @@ public class ExecutionCreator extends Creator<Execution> {
 
         String path = "/v1/Flows/{FlowSid}/Executions";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
 
         Request request = new Request(

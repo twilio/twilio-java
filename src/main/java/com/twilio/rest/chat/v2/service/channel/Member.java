@@ -17,60 +17,73 @@ package com.twilio.rest.chat.v2.service.channel;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
 
 
-    public static MemberCreator creator(final String pathserviceSid, final String pathchannelSid, final String identity) {
+    public static MemberCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity) {
         return new MemberCreator(
-                pathserviceSid, pathchannelSid, identity
+                pathServiceSid, pathChannelSid, identity
         );
     }
 
 
-    public static MemberDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MemberDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MemberDeleter(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static MemberFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MemberFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MemberFetcher(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 
 
-    public static MemberReader reader(final String pathserviceSid, final String pathchannelSid) {
+    public static MemberReader reader(final String pathServiceSid, final String pathChannelSid) {
         return new MemberReader(
-                pathserviceSid, pathchannelSid
+                pathServiceSid, pathChannelSid
         );
     }
 
 
-    public static MemberUpdater updater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+    public static MemberUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
         return new MemberUpdater(
-                pathserviceSid, pathchannelSid, pathsid
+                pathServiceSid, pathChannelSid, pathSid
         );
     }
 

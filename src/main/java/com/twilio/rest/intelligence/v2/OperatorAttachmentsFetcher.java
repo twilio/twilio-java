@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
 
-    public OperatorAttachmentsFetcher(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public OperatorAttachmentsFetcher(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -38,7 +41,7 @@ public class OperatorAttachmentsFetcher extends Fetcher<OperatorAttachments> {
 
         String path = "/v2/Services/{ServiceSid}/Operators";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

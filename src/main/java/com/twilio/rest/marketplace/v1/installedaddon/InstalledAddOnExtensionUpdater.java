@@ -27,14 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtension> {
-    private String pathinstalledAddOnSid;
-    private String pathsid;
+    private String pathInstalledAddOnSid;
+    private String pathSid;
     private Boolean enabled;
 
-    public InstalledAddOnExtensionUpdater(final String pathinstalledAddOnSid, final String pathsid, final Boolean enabled) {
-        this.pathinstalledAddOnSid = pathinstalledAddOnSid;
-        this.pathsid = pathsid;
+    public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid, final String pathSid, final Boolean enabled) {
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
+        this.pathSid = pathSid;
         this.enabled = enabled;
     }
 
@@ -50,8 +53,8 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
 
         String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathinstalledAddOnSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathInstalledAddOnSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

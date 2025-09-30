@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public HostedNumberOrderFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public HostedNumberOrderFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
 
         String path = "/v2/HostedNumber/Orders/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

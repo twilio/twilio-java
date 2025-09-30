@@ -29,11 +29,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class TollFreeCreator extends Creator<TollFree> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String apiVersion;
     private String friendlyName;
@@ -62,8 +65,8 @@ public class TollFreeCreator extends Creator<TollFree> {
         this.phoneNumber = phoneNumber;
     }
 
-    public TollFreeCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.pathaccountSid = pathaccountSid;
+    public TollFreeCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -106,6 +109,9 @@ public class TollFreeCreator extends Creator<TollFree> {
         return this;
     }
 
+    public TollFreeCreator setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public TollFreeCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -118,12 +124,18 @@ public class TollFreeCreator extends Creator<TollFree> {
         return this;
     }
 
+    public TollFreeCreator setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public TollFreeCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
+    public TollFreeCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public TollFreeCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -154,6 +166,9 @@ public class TollFreeCreator extends Creator<TollFree> {
         return this;
     }
 
+    public TollFreeCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public TollFreeCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -166,6 +181,9 @@ public class TollFreeCreator extends Creator<TollFree> {
         return this;
     }
 
+    public TollFreeCreator setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public TollFreeCreator setIdentitySid(final String identitySid) {
         this.identitySid = identitySid;
@@ -214,8 +232,8 @@ public class TollFreeCreator extends Creator<TollFree> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

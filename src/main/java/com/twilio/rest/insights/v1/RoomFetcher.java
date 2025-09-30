@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RoomFetcher extends Fetcher<Room> {
 
-    private String pathroomSid;
+    private String pathRoomSid;
 
-    public RoomFetcher(final String pathroomSid) {
-        this.pathroomSid = pathroomSid;
+    public RoomFetcher(final String pathRoomSid) {
+        this.pathRoomSid = pathRoomSid;
     }
 
 
@@ -38,7 +41,7 @@ public class RoomFetcher extends Fetcher<Room> {
 
         String path = "/v1/Video/Rooms/{RoomSid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
 
         Request request = new Request(

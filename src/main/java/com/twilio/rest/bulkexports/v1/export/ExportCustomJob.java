@@ -17,36 +17,49 @@ package com.twilio.rest.bulkexports.v1.export;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExportCustomJob extends Resource {
 
 
-    public static ExportCustomJobCreator creator(final String pathresourceType, final String startDay, final String endDay, final String friendlyName) {
+    public static ExportCustomJobCreator creator(final String pathResourceType, final String startDay, final String endDay, final String friendlyName) {
         return new ExportCustomJobCreator(
-                pathresourceType, startDay, endDay, friendlyName
+                pathResourceType, startDay, endDay, friendlyName
         );
     }
 
 
-    public static ExportCustomJobReader reader(final String pathresourceType) {
+    public static ExportCustomJobReader reader(final String pathResourceType) {
         return new ExportCustomJobReader(
-                pathresourceType
+                pathResourceType
         );
     }
 

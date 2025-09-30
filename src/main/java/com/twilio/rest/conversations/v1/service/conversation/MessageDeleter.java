@@ -26,17 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class MessageDeleter extends Deleter<Message> {
 
-    private String pathchatServiceSid;
-    private String pathconversationSid;
-    private String pathsid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public MessageDeleter(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
-        this.pathchatServiceSid = pathchatServiceSid;
-        this.pathconversationSid = pathconversationSid;
-        this.pathsid = pathsid;
+    public MessageDeleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -51,9 +54,9 @@ public class MessageDeleter extends Deleter<Message> {
 
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

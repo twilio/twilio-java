@@ -16,36 +16,50 @@ package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewFactor extends Resource {
 
 
-    public static NewFactorCreator creator(final String pathserviceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
+    public static NewFactorCreator creator(final String pathServiceSid, final NewFactor.CreateNewPasskeysFactorRequest createNewPasskeysFactorRequest) {
         return new NewFactorCreator(
-                pathserviceSid, createNewPasskeysFactorRequest
+                pathServiceSid, createNewPasskeysFactorRequest
         );
     }
 
@@ -155,7 +169,7 @@ public class NewFactor extends Resource {
     }
 
 
-    //@JsonDeserialize(builder = CreateNewPasskeysFactorRequestConfigRelyingParty.Builder.class)
+    @JsonDeserialize(builder = CreateNewPasskeysFactorRequestConfigRelyingParty.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateNewPasskeysFactorRequestConfigRelyingParty {
@@ -163,24 +177,102 @@ public class NewFactor extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("origins")
         @Getter
-        @Setter
-        private List<String> origins;
+        private final List<String> origins;
+
+
+        private CreateNewPasskeysFactorRequestConfigRelyingParty(Builder builder) {
+            this.id = builder.id;
+            this.name = builder.name;
+            this.origins = builder.origins;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateNewPasskeysFactorRequestConfigRelyingParty fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CreateNewPasskeysFactorRequestConfigRelyingParty.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("origins")
+            private List<String> origins;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            public Builder id(String id) {
+                this.id = id;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("name")
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("origins")
+            public Builder origins(List<String> origins) {
+                this.origins = origins;
+                return this;
+            }
+
+            public CreateNewPasskeysFactorRequestConfigRelyingParty build() {
+                return new CreateNewPasskeysFactorRequestConfigRelyingParty(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateNewPasskeysFactorRequestConfigRelyingParty other = (CreateNewPasskeysFactorRequestConfigRelyingParty) o;
+            return (
+                    Objects.equals(id, other.id) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(origins, other.origins)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    id,
+                    name,
+                    origins
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CreateNewPasskeysFactorRequestConfig.Builder.class)
+
+    @JsonDeserialize(builder = CreateNewPasskeysFactorRequestConfig.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateNewPasskeysFactorRequestConfig {
@@ -188,57 +280,207 @@ public class NewFactor extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("relying_party")
         @Getter
-        @Setter
-        private CreateNewPasskeysFactorRequestConfigRelyingParty relyingParty;
+        private final CreateNewPasskeysFactorRequestConfigRelyingParty relyingParty;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("authenticator_attachment")
         @Getter
-        @Setter
-        private NewFactor.AuthenticatorAttachment authenticatorAttachment;
+        private final NewFactor.AuthenticatorAttachment authenticatorAttachment;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("discoverable_credentials")
         @Getter
-        @Setter
-        private NewFactor.DiscoverableCredentials discoverableCredentials;
+        private final NewFactor.DiscoverableCredentials discoverableCredentials;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("user_verification")
         @Getter
-        @Setter
-        private NewFactor.UserVerification userVerification;
+        private final NewFactor.UserVerification userVerification;
+
+
+        private CreateNewPasskeysFactorRequestConfig(Builder builder) {
+            this.relyingParty = builder.relyingParty;
+            this.authenticatorAttachment = builder.authenticatorAttachment;
+            this.discoverableCredentials = builder.discoverableCredentials;
+            this.userVerification = builder.userVerification;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static CreateNewPasskeysFactorRequestConfig fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CreateNewPasskeysFactorRequestConfig.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("relying_party")
+            private CreateNewPasskeysFactorRequestConfigRelyingParty relyingParty;
+
+            @JsonProperty("authenticator_attachment")
+            private NewFactor.AuthenticatorAttachment authenticatorAttachment;
+
+            @JsonProperty("discoverable_credentials")
+            private NewFactor.DiscoverableCredentials discoverableCredentials;
+
+            @JsonProperty("user_verification")
+            private NewFactor.UserVerification userVerification;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("relying_party")
+            public Builder relyingParty(CreateNewPasskeysFactorRequestConfigRelyingParty relyingParty) {
+                this.relyingParty = relyingParty;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("authenticator_attachment")
+            public Builder authenticatorAttachment(NewFactor.AuthenticatorAttachment authenticatorAttachment) {
+                this.authenticatorAttachment = authenticatorAttachment;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("discoverable_credentials")
+            public Builder discoverableCredentials(NewFactor.DiscoverableCredentials discoverableCredentials) {
+                this.discoverableCredentials = discoverableCredentials;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("user_verification")
+            public Builder userVerification(NewFactor.UserVerification userVerification) {
+                this.userVerification = userVerification;
+                return this;
+            }
+
+            public CreateNewPasskeysFactorRequestConfig build() {
+                return new CreateNewPasskeysFactorRequestConfig(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateNewPasskeysFactorRequestConfig other = (CreateNewPasskeysFactorRequestConfig) o;
+            return (
+                    Objects.equals(relyingParty, other.relyingParty) &&
+                            Objects.equals(authenticatorAttachment, other.authenticatorAttachment) &&
+                            Objects.equals(discoverableCredentials, other.discoverableCredentials) &&
+                            Objects.equals(userVerification, other.userVerification)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    relyingParty,
+                    authenticatorAttachment,
+                    discoverableCredentials,
+                    userVerification
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = CreateNewPasskeysFactorRequest.Builder.class)
+
+    @JsonDeserialize(builder = CreateNewPasskeysFactorRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateNewPasskeysFactorRequest {
-        public CreateNewPasskeysFactorRequest(final String friendlyName, final String identity) {
-            this.friendlyName = friendlyName;
-            this.identity = identity;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("friendly_name")
         @Getter
-        @Setter
-        private String friendlyName;
+        private final String friendlyName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("identity")
         @Getter
-        @Setter
-        private String identity;
+        private final String identity;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("config")
         @Getter
-        @Setter
-        private CreateNewPasskeysFactorRequestConfig config;
+        private final CreateNewPasskeysFactorRequestConfig config;
+
+
+        private CreateNewPasskeysFactorRequest(Builder builder) {
+            this.friendlyName = builder.friendlyName;
+            this.identity = builder.identity;
+            this.config = builder.config;
+        }
+
+        public static Builder builder(final String friendlyName, final String identity) {
+            return new Builder(friendlyName, identity);
+        }
+
+        public static CreateNewPasskeysFactorRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, CreateNewPasskeysFactorRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("friendly_name")
+            private String friendlyName;
+
+            @JsonProperty("identity")
+            private String identity;
+
+            @JsonProperty("config")
+            private CreateNewPasskeysFactorRequestConfig config;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("friendly_name") final String friendlyName, @JsonProperty("identity") final String identity) {
+                this.friendlyName = friendlyName;
+                this.identity = identity;
+            }
+
+
+            public CreateNewPasskeysFactorRequest build() {
+                return new CreateNewPasskeysFactorRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateNewPasskeysFactorRequest other = (CreateNewPasskeysFactorRequest) o;
+            return (
+                    Objects.equals(friendlyName, other.friendlyName) &&
+                            Objects.equals(identity, other.identity) &&
+                            Objects.equals(config, other.config)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    friendlyName,
+                    identity,
+                    config
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a NewFactor object using the provided ObjectMapper.

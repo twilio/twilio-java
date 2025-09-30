@@ -28,9 +28,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String code;
     private String to;
     private String verificationSid;
@@ -38,8 +41,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private String payee;
     private String snaClientToken;
 
-    public VerificationCheckCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public VerificationCheckCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -84,7 +87,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
         String path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

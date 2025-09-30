@@ -17,61 +17,74 @@ package com.twilio.rest.conversations.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Role extends Resource {
 
 
-    public static RoleCreator creator(final String pathchatServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
+    public static RoleCreator creator(final String pathChatServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
         return new RoleCreator(
-                pathchatServiceSid, friendlyName, type, permission
+                pathChatServiceSid, friendlyName, type, permission
         );
     }
 
 
-    public static RoleDeleter deleter(final String pathchatServiceSid, final String pathsid) {
+    public static RoleDeleter deleter(final String pathChatServiceSid, final String pathSid) {
         return new RoleDeleter(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static RoleFetcher fetcher(final String pathchatServiceSid, final String pathsid) {
+    public static RoleFetcher fetcher(final String pathChatServiceSid, final String pathSid) {
         return new RoleFetcher(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static RoleReader reader(final String pathchatServiceSid) {
+    public static RoleReader reader(final String pathChatServiceSid) {
         return new RoleReader(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static RoleUpdater updater(final String pathchatServiceSid, final String pathsid, final List<String> permission) {
+    public static RoleUpdater updater(final String pathChatServiceSid, final String pathSid, final List<String> permission) {
         return new RoleUpdater(
-                pathchatServiceSid, pathsid, permission
+                pathChatServiceSid, pathSid, permission
         );
     }
 

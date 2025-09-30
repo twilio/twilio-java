@@ -17,47 +17,60 @@ package com.twilio.rest.verify.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Verification extends Resource {
 
 
-    public static VerificationCreator creator(final String pathserviceSid, final String to, final String channel) {
+    public static VerificationCreator creator(final String pathServiceSid, final String to, final String channel) {
         return new VerificationCreator(
-                pathserviceSid, to, channel
+                pathServiceSid, to, channel
         );
     }
 
 
-    public static VerificationFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static VerificationFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new VerificationFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static VerificationUpdater updater(final String pathserviceSid, final String pathsid, final Verification.Status status) {
+    public static VerificationUpdater updater(final String pathServiceSid, final String pathSid, final Verification.Status status) {
         return new VerificationUpdater(
-                pathserviceSid, pathsid, status
+                pathServiceSid, pathSid, status
         );
     }
 

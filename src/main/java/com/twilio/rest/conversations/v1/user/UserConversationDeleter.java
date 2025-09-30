@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UserConversationDeleter extends Deleter<UserConversation> {
 
-    private String pathuserSid;
-    private String pathconversationSid;
+    private String pathUserSid;
+    private String pathConversationSid;
 
-    public UserConversationDeleter(final String pathuserSid, final String pathconversationSid) {
-        this.pathuserSid = pathuserSid;
-        this.pathconversationSid = pathconversationSid;
+    public UserConversationDeleter(final String pathUserSid, final String pathConversationSid) {
+        this.pathUserSid = pathUserSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -40,8 +43,8 @@ public class UserConversationDeleter extends Deleter<UserConversation> {
 
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

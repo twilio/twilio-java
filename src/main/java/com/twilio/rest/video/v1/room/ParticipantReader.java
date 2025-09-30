@@ -14,9 +14,7 @@
 
 package com.twilio.rest.video.v1.room;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,19 +26,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ParticipantReader extends Reader<Participant> {
 
-    private String pathroomSid;
+    private String pathRoomSid;
     private Participant.Status status;
     private String identity;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private Long pageSize;
 
-    public ParticipantReader(final String pathroomSid) {
-        this.pathroomSid = pathroomSid;
+    public ParticipantReader(final String pathRoomSid) {
+        this.pathRoomSid = pathRoomSid;
     }
 
 
@@ -83,7 +86,7 @@ public class ParticipantReader extends Reader<Participant> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

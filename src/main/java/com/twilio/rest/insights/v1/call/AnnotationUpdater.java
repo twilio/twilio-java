@@ -27,8 +27,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AnnotationUpdater extends Updater<Annotation> {
-    private String pathcallSid;
+    private String pathCallSid;
     private Annotation.AnsweredBy answeredBy;
     private Annotation.ConnectivityIssue connectivityIssue;
     private String qualityIssues;
@@ -37,8 +40,8 @@ public class AnnotationUpdater extends Updater<Annotation> {
     private String comment;
     private String incident;
 
-    public AnnotationUpdater(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public AnnotationUpdater(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -89,7 +92,7 @@ public class AnnotationUpdater extends Updater<Annotation> {
 
         String path = "/v1/Voice/{CallSid}/Annotation";
 
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

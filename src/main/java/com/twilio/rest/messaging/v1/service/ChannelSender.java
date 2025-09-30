@@ -17,52 +17,65 @@ package com.twilio.rest.messaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ChannelSender extends Resource {
 
 
-    public static ChannelSenderCreator creator(final String pathmessagingServiceSid, final String sid) {
+    public static ChannelSenderCreator creator(final String pathMessagingServiceSid, final String sid) {
         return new ChannelSenderCreator(
-                pathmessagingServiceSid, sid
+                pathMessagingServiceSid, sid
         );
     }
 
 
-    public static ChannelSenderDeleter deleter(final String pathmessagingServiceSid, final String pathsid) {
+    public static ChannelSenderDeleter deleter(final String pathMessagingServiceSid, final String pathSid) {
         return new ChannelSenderDeleter(
-                pathmessagingServiceSid, pathsid
+                pathMessagingServiceSid, pathSid
         );
     }
 
 
-    public static ChannelSenderFetcher fetcher(final String pathmessagingServiceSid, final String pathsid) {
+    public static ChannelSenderFetcher fetcher(final String pathMessagingServiceSid, final String pathSid) {
         return new ChannelSenderFetcher(
-                pathmessagingServiceSid, pathsid
+                pathMessagingServiceSid, pathSid
         );
     }
 
 
-    public static ChannelSenderReader reader(final String pathmessagingServiceSid) {
+    public static ChannelSenderReader reader(final String pathMessagingServiceSid) {
         return new ChannelSenderReader(
-                pathmessagingServiceSid
+                pathMessagingServiceSid
         );
     }
 

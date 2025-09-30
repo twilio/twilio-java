@@ -27,15 +27,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UserUpdater extends Updater<User> {
-    private String pathsid;
+    private String pathSid;
     private User.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
     private String attributes;
     private String roleSid;
 
-    public UserUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public UserUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -68,7 +71,7 @@ public class UserUpdater extends Updater<User> {
 
         String path = "/v1/Users/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

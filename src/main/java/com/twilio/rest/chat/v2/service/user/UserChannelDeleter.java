@@ -26,17 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UserChannelDeleter extends Deleter<UserChannel> {
 
-    private String pathserviceSid;
-    private String pathuserSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathUserSid;
+    private String pathChannelSid;
     private UserChannel.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public UserChannelDeleter(final String pathserviceSid, final String pathuserSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathuserSid = pathuserSid;
-        this.pathchannelSid = pathchannelSid;
+    public UserChannelDeleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -51,9 +54,9 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
 
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

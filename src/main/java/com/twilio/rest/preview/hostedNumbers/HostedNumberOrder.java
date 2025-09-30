@@ -17,12 +17,10 @@ package com.twilio.rest.preview.hostedNumbers;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,12 +28,27 @@ import com.twilio.type.PhoneNumberCapabilities;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -49,16 +62,16 @@ public class HostedNumberOrder extends Resource {
     }
 
 
-    public static HostedNumberOrderDeleter deleter(final String pathsid) {
+    public static HostedNumberOrderDeleter deleter(final String pathSid) {
         return new HostedNumberOrderDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static HostedNumberOrderFetcher fetcher(final String pathsid) {
+    public static HostedNumberOrderFetcher fetcher(final String pathSid) {
         return new HostedNumberOrderFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -70,9 +83,9 @@ public class HostedNumberOrder extends Resource {
     }
 
 
-    public static HostedNumberOrderUpdater updater(final String pathsid) {
+    public static HostedNumberOrderUpdater updater(final String pathSid) {
         return new HostedNumberOrderUpdater(
-                pathsid
+                pathSid
         );
     }
 

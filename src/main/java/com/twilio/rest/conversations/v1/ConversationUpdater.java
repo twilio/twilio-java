@@ -27,10 +27,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 
+import com.twilio.type.*;
+
 public class ConversationUpdater extends Updater<Conversation> {
-    private String pathsid;
+    private String pathSid;
     private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
     private ZonedDateTime dateCreated;
@@ -44,8 +47,8 @@ public class ConversationUpdater extends Updater<Conversation> {
     private String bindingsEmailAddress;
     private String bindingsEmailName;
 
-    public ConversationUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ConversationUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -126,7 +129,7 @@ public class ConversationUpdater extends Updater<Conversation> {
 
         String path = "/v1/Conversations/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

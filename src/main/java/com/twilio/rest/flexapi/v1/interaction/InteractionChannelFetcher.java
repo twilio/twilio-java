@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InteractionChannelFetcher extends Fetcher<InteractionChannel> {
 
-    private String pathinteractionSid;
-    private String pathsid;
+    private String pathInteractionSid;
+    private String pathSid;
 
-    public InteractionChannelFetcher(final String pathinteractionSid, final String pathsid) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathsid = pathsid;
+    public InteractionChannelFetcher(final String pathInteractionSid, final String pathSid) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class InteractionChannelFetcher extends Fetcher<InteractionChannel> {
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

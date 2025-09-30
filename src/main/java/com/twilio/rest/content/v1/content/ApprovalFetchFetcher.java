@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public ApprovalFetchFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public ApprovalFetchFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class ApprovalFetchFetcher extends Fetcher<ApprovalFetch> {
 
         String path = "/v1/Content/{Sid}/ApprovalRequests";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

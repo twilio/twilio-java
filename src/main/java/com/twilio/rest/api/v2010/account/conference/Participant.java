@@ -17,95 +17,107 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.type.Endpoint;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
 
 
-    public static ParticipantCreator creator(final String pathconferenceSid, final Endpoint from, final Endpoint to) {
+    public static ParticipantCreator creator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(
-                pathconferenceSid, from, to
+                pathConferenceSid, from, to
         );
     }
 
 
-    public static ParticipantCreator creator(final String pathaccountSid, final String pathconferenceSid, final Endpoint from, final Endpoint to) {
+    public static ParticipantCreator creator(final String pathAccountSid, final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(
-                pathaccountSid, pathconferenceSid, from, to
+                pathAccountSid, pathConferenceSid, from, to
         );
     }
 
 
-    public static ParticipantDeleter deleter(final String pathconferenceSid, final String pathcallSid) {
+    public static ParticipantDeleter deleter(final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantDeleter(
-                pathconferenceSid, pathcallSid
+                pathConferenceSid, pathCallSid
         );
     }
 
 
-    public static ParticipantDeleter deleter(final String pathaccountSid, final String pathconferenceSid, final String pathcallSid) {
+    public static ParticipantDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantDeleter(
-                pathaccountSid, pathconferenceSid, pathcallSid
+                pathAccountSid, pathConferenceSid, pathCallSid
         );
     }
 
 
-    public static ParticipantFetcher fetcher(final String pathconferenceSid, final String pathcallSid) {
+    public static ParticipantFetcher fetcher(final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantFetcher(
-                pathconferenceSid, pathcallSid
+                pathConferenceSid, pathCallSid
         );
     }
 
 
-    public static ParticipantFetcher fetcher(final String pathaccountSid, final String pathconferenceSid, final String pathcallSid) {
+    public static ParticipantFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantFetcher(
-                pathaccountSid, pathconferenceSid, pathcallSid
+                pathAccountSid, pathConferenceSid, pathCallSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathconferenceSid) {
+    public static ParticipantReader reader(final String pathConferenceSid) {
         return new ParticipantReader(
-                pathconferenceSid
+                pathConferenceSid
         );
     }
 
 
-    public static ParticipantReader reader(final String pathaccountSid, final String pathconferenceSid) {
+    public static ParticipantReader reader(final String pathAccountSid, final String pathConferenceSid) {
         return new ParticipantReader(
-                pathaccountSid, pathconferenceSid
+                pathAccountSid, pathConferenceSid
         );
     }
 
 
-    public static ParticipantUpdater updater(final String pathconferenceSid, final String pathcallSid) {
+    public static ParticipantUpdater updater(final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantUpdater(
-                pathconferenceSid, pathcallSid
+                pathConferenceSid, pathCallSid
         );
     }
 
 
-    public static ParticipantUpdater updater(final String pathaccountSid, final String pathconferenceSid, final String pathcallSid) {
+    public static ParticipantUpdater updater(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
         return new ParticipantUpdater(
-                pathaccountSid, pathconferenceSid, pathcallSid
+                pathAccountSid, pathConferenceSid, pathCallSid
         );
     }
 

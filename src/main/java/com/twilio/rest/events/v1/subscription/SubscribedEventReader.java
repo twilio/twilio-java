@@ -14,9 +14,7 @@
 
 package com.twilio.rest.events.v1.subscription;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
-    private String pathsubscriptionSid;
+    private String pathSubscriptionSid;
     private Long pageSize;
 
-    public SubscribedEventReader(final String pathsubscriptionSid) {
-        this.pathsubscriptionSid = pathsubscriptionSid;
+    public SubscribedEventReader(final String pathSubscriptionSid) {
+        this.pathSubscriptionSid = pathSubscriptionSid;
     }
 
 
@@ -53,7 +56,7 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path = path.replace("{" + "SubscriptionSid" + "}", this.pathsubscriptionSid.toString());
+        path = path.replace("{" + "SubscriptionSid" + "}", this.pathSubscriptionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

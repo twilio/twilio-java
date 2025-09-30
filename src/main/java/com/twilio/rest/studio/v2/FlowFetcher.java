@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class FlowFetcher extends Fetcher<Flow> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public FlowFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public FlowFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class FlowFetcher extends Fetcher<Flow> {
 
         String path = "/v2/Flows/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

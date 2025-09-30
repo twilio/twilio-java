@@ -17,59 +17,72 @@ package com.twilio.rest.verify.v2.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MessagingConfiguration extends Resource {
 
 
-    public static MessagingConfigurationCreator creator(final String pathserviceSid, final String country, final String messagingServiceSid) {
+    public static MessagingConfigurationCreator creator(final String pathServiceSid, final String country, final String messagingServiceSid) {
         return new MessagingConfigurationCreator(
-                pathserviceSid, country, messagingServiceSid
+                pathServiceSid, country, messagingServiceSid
         );
     }
 
 
-    public static MessagingConfigurationDeleter deleter(final String pathserviceSid, final String pathcountry) {
+    public static MessagingConfigurationDeleter deleter(final String pathServiceSid, final String pathCountry) {
         return new MessagingConfigurationDeleter(
-                pathserviceSid, pathcountry
+                pathServiceSid, pathCountry
         );
     }
 
 
-    public static MessagingConfigurationFetcher fetcher(final String pathserviceSid, final String pathcountry) {
+    public static MessagingConfigurationFetcher fetcher(final String pathServiceSid, final String pathCountry) {
         return new MessagingConfigurationFetcher(
-                pathserviceSid, pathcountry
+                pathServiceSid, pathCountry
         );
     }
 
 
-    public static MessagingConfigurationReader reader(final String pathserviceSid) {
+    public static MessagingConfigurationReader reader(final String pathServiceSid) {
         return new MessagingConfigurationReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static MessagingConfigurationUpdater updater(final String pathserviceSid, final String pathcountry, final String messagingServiceSid) {
+    public static MessagingConfigurationUpdater updater(final String pathServiceSid, final String pathCountry, final String messagingServiceSid) {
         return new MessagingConfigurationUpdater(
-                pathserviceSid, pathcountry, messagingServiceSid
+                pathServiceSid, pathCountry, messagingServiceSid
         );
     }
 

@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class WebhookFetcher extends Fetcher<Webhook> {
 
-    private String pathconversationSid;
-    private String pathsid;
+    private String pathConversationSid;
+    private String pathSid;
 
-    public WebhookFetcher(final String pathconversationSid, final String pathsid) {
-        this.pathconversationSid = pathconversationSid;
-        this.pathsid = pathsid;
+    public WebhookFetcher(final String pathConversationSid, final String pathSid) {
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class WebhookFetcher extends Fetcher<Webhook> {
 
         String path = "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

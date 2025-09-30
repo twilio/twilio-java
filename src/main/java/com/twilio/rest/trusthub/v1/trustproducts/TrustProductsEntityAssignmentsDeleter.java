@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class TrustProductsEntityAssignmentsDeleter extends Deleter<TrustProductsEntityAssignments> {
 
-    private String pathtrustProductSid;
-    private String pathsid;
+    private String pathTrustProductSid;
+    private String pathSid;
 
-    public TrustProductsEntityAssignmentsDeleter(final String pathtrustProductSid, final String pathsid) {
-        this.pathtrustProductSid = pathtrustProductSid;
-        this.pathsid = pathsid;
+    public TrustProductsEntityAssignmentsDeleter(final String pathTrustProductSid, final String pathSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class TrustProductsEntityAssignmentsDeleter extends Deleter<TrustProducts
 
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

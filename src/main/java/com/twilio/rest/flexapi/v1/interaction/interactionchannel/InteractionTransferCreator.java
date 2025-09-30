@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,15 +27,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InteractionTransferCreator extends Creator<InteractionTransfer> {
 
-    private String pathinteractionSid;
-    private String pathchannelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private Object body;
 
-    public InteractionTransferCreator(final String pathinteractionSid, final String pathchannelSid) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathchannelSid = pathchannelSid;
+    public InteractionTransferCreator(final String pathInteractionSid, final String pathChannelSid) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -49,8 +53,8 @@ public class InteractionTransferCreator extends Creator<InteractionTransfer> {
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

@@ -18,6 +18,7 @@ package com.twilio.rest.flexapi.v1.plugin;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,11 +29,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class PluginVersionsCreator extends Creator<PluginVersions> {
 
-    private String pathpluginSid;
+    private String pathPluginSid;
     private String flexMetadata;
     private String version;
     private URI pluginUrl;
@@ -41,8 +45,8 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
     private String cliVersion;
     private String validateStatus;
 
-    public PluginVersionsCreator(final String pathpluginSid, final String version, final URI pluginUrl) {
-        this.pathpluginSid = pathpluginSid;
+    public PluginVersionsCreator(final String pathPluginSid, final String version, final URI pluginUrl) {
+        this.pathPluginSid = pathPluginSid;
         this.version = version;
         this.pluginUrl = pluginUrl;
     }
@@ -59,6 +63,9 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
         return this;
     }
 
+    public PluginVersionsCreator setPluginUrl(final String pluginUrl) {
+        return setPluginUrl(Promoter.uriFromString(pluginUrl));
+    }
 
     public PluginVersionsCreator setChangelog(final String changelog) {
         this.changelog = changelog;
@@ -95,7 +102,7 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
 
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
 
-        path = path.replace("{" + "PluginSid" + "}", this.pathpluginSid.toString());
+        path = path.replace("{" + "PluginSid" + "}", this.pathPluginSid.toString());
 
 
         Request request = new Request(

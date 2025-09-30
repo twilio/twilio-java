@@ -14,9 +14,7 @@
 
 package com.twilio.rest.proxy.v1.service.session.participant;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,17 +26,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class MessageInteractionReader extends Reader<MessageInteraction> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
-    private String pathparticipantSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathParticipantSid;
     private Long pageSize;
 
-    public MessageInteractionReader(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
-        this.pathparticipantSid = pathparticipantSid;
+    public MessageInteractionReader(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
 
@@ -57,9 +60,9 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -17,38 +17,51 @@ package com.twilio.rest.events.v1.schema;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SchemaVersion extends Resource {
 
 
-    public static SchemaVersionFetcher fetcher(final String pathid, final Integer pathschemaVersion) {
+    public static SchemaVersionFetcher fetcher(final String pathId, final Integer pathSchemaVersion) {
         return new SchemaVersionFetcher(
-                pathid, pathschemaVersion
+                pathId, pathSchemaVersion
         );
     }
 
 
-    public static SchemaVersionReader reader(final String pathid) {
+    public static SchemaVersionReader reader(final String pathId) {
         return new SchemaVersionReader(
-                pathid
+                pathId
         );
     }
 

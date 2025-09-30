@@ -28,13 +28,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CustomerProfilesEvaluationsCreator extends Creator<CustomerProfilesEvaluations> {
 
-    private String pathcustomerProfileSid;
+    private String pathCustomerProfileSid;
     private String policySid;
 
-    public CustomerProfilesEvaluationsCreator(final String pathcustomerProfileSid, final String policySid) {
-        this.pathcustomerProfileSid = pathcustomerProfileSid;
+    public CustomerProfilesEvaluationsCreator(final String pathCustomerProfileSid, final String policySid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.policySid = policySid;
     }
 
@@ -50,7 +53,7 @@ public class CustomerProfilesEvaluationsCreator extends Creator<CustomerProfiles
 
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations";
 
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
 
 
         Request request = new Request(

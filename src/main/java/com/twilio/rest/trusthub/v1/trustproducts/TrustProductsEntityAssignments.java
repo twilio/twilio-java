@@ -17,52 +17,65 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TrustProductsEntityAssignments extends Resource {
 
 
-    public static TrustProductsEntityAssignmentsCreator creator(final String pathtrustProductSid, final String objectSid) {
+    public static TrustProductsEntityAssignmentsCreator creator(final String pathTrustProductSid, final String objectSid) {
         return new TrustProductsEntityAssignmentsCreator(
-                pathtrustProductSid, objectSid
+                pathTrustProductSid, objectSid
         );
     }
 
 
-    public static TrustProductsEntityAssignmentsDeleter deleter(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsEntityAssignmentsDeleter deleter(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEntityAssignmentsDeleter(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsEntityAssignmentsFetcher fetcher(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsEntityAssignmentsFetcher fetcher(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEntityAssignmentsFetcher(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsEntityAssignmentsReader reader(final String pathtrustProductSid) {
+    public static TrustProductsEntityAssignmentsReader reader(final String pathTrustProductSid) {
         return new TrustProductsEntityAssignmentsReader(
-                pathtrustProductSid
+                pathTrustProductSid
         );
     }
 

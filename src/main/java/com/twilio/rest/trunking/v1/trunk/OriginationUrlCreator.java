@@ -18,6 +18,7 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,19 +29,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
-    private String pathtrunkSid;
+    private String pathTrunkSid;
     private Integer weight;
     private Integer priority;
     private Boolean enabled;
     private String friendlyName;
     private URI sipUrl;
 
-    public OriginationUrlCreator(final String pathtrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
-        this.pathtrunkSid = pathtrunkSid;
+    public OriginationUrlCreator(final String pathTrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
+        this.pathTrunkSid = pathTrunkSid;
         this.weight = weight;
         this.priority = priority;
         this.enabled = enabled;
@@ -78,13 +82,16 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
         return this;
     }
 
+    public OriginationUrlCreator setSipUrl(final String sipUrl) {
+        return setSipUrl(Promoter.uriFromString(sipUrl));
+    }
 
     @Override
     public OriginationUrl create(final TwilioRestClient client) {
 
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
 
         Request request = new Request(

@@ -17,68 +17,81 @@ package com.twilio.rest.api.v2010.account.recording;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Currency;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
 
 
-    public static TranscriptionDeleter deleter(final String pathrecordingSid, final String pathsid) {
+    public static TranscriptionDeleter deleter(final String pathRecordingSid, final String pathSid) {
         return new TranscriptionDeleter(
-                pathrecordingSid, pathsid
+                pathRecordingSid, pathSid
         );
     }
 
 
-    public static TranscriptionDeleter deleter(final String pathaccountSid, final String pathrecordingSid, final String pathsid) {
+    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathRecordingSid, final String pathSid) {
         return new TranscriptionDeleter(
-                pathaccountSid, pathrecordingSid, pathsid
+                pathAccountSid, pathRecordingSid, pathSid
         );
     }
 
 
-    public static TranscriptionFetcher fetcher(final String pathrecordingSid, final String pathsid) {
+    public static TranscriptionFetcher fetcher(final String pathRecordingSid, final String pathSid) {
         return new TranscriptionFetcher(
-                pathrecordingSid, pathsid
+                pathRecordingSid, pathSid
         );
     }
 
 
-    public static TranscriptionFetcher fetcher(final String pathaccountSid, final String pathrecordingSid, final String pathsid) {
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, final String pathRecordingSid, final String pathSid) {
         return new TranscriptionFetcher(
-                pathaccountSid, pathrecordingSid, pathsid
+                pathAccountSid, pathRecordingSid, pathSid
         );
     }
 
 
-    public static TranscriptionReader reader(final String pathrecordingSid) {
+    public static TranscriptionReader reader(final String pathRecordingSid) {
         return new TranscriptionReader(
-                pathrecordingSid
+                pathRecordingSid
         );
     }
 
 
-    public static TranscriptionReader reader(final String pathaccountSid, final String pathrecordingSid) {
+    public static TranscriptionReader reader(final String pathAccountSid, final String pathRecordingSid) {
         return new TranscriptionReader(
-                pathaccountSid, pathrecordingSid
+                pathAccountSid, pathRecordingSid
         );
     }
 

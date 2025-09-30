@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtension> {
 
-    private String pathinstalledAddOnSid;
-    private String pathsid;
+    private String pathInstalledAddOnSid;
+    private String pathSid;
 
-    public InstalledAddOnExtensionFetcher(final String pathinstalledAddOnSid, final String pathsid) {
-        this.pathinstalledAddOnSid = pathinstalledAddOnSid;
-        this.pathsid = pathsid;
+    public InstalledAddOnExtensionFetcher(final String pathInstalledAddOnSid, final String pathSid) {
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
 
         String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathinstalledAddOnSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathInstalledAddOnSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

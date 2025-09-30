@@ -14,9 +14,7 @@
 
 package com.twilio.rest.assistants.v1.session;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class MessageReader extends Reader<Message> {
 
-    private String pathsessionId;
+    private String pathSessionId;
     private Integer pageSize;
 
-    public MessageReader(final String pathsessionId) {
-        this.pathsessionId = pathsessionId;
+    public MessageReader(final String pathSessionId) {
+        this.pathSessionId = pathSessionId;
     }
 
 
@@ -53,7 +56,7 @@ public class MessageReader extends Reader<Message> {
 
         String path = "/v1/Sessions/{sessionId}/Messages";
 
-        path = path.replace("{" + "sessionId" + "}", this.pathsessionId.toString());
+        path = path.replace("{" + "sessionId" + "}", this.pathSessionId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

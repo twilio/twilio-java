@@ -14,9 +14,7 @@
 
 package com.twilio.rest.chat.v2.service;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -29,16 +27,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class ChannelReader extends Reader<Channel> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private List<Channel.ChannelType> type;
     private Long pageSize;
 
-    public ChannelReader(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public ChannelReader(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -66,7 +69,7 @@ public class ChannelReader extends Reader<Channel> {
 
         String path = "/v2/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

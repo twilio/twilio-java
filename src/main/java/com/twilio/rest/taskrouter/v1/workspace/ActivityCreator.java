@@ -28,14 +28,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ActivityCreator extends Creator<Activity> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private Boolean available;
 
-    public ActivityCreator(final String pathworkspaceSid, final String friendlyName) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public ActivityCreator(final String pathWorkspaceSid, final String friendlyName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -57,7 +60,7 @@ public class ActivityCreator extends Creator<Activity> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

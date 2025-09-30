@@ -14,9 +14,7 @@
 
 package com.twilio.rest.voice.v1.dialingpermissions.country;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
-    private String pathisoCode;
+    private String pathIsoCode;
     private Long pageSize;
 
-    public HighriskSpecialPrefixReader(final String pathisoCode) {
-        this.pathisoCode = pathisoCode;
+    public HighriskSpecialPrefixReader(final String pathIsoCode) {
+        this.pathIsoCode = pathIsoCode;
     }
 
 
@@ -53,7 +56,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
         String path = "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes";
 
-        path = path.replace("{" + "IsoCode" + "}", this.pathisoCode.toString());
+        path = path.replace("{" + "IsoCode" + "}", this.pathIsoCode.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

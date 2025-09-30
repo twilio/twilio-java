@@ -24,16 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
 
-    private String pathserviceSid;
-    private String pathdocumentSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathDocumentSid;
+    private String pathIdentity;
 
-    public DocumentPermissionFetcher(final String pathserviceSid, final String pathdocumentSid, final String pathidentity) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathdocumentSid = pathdocumentSid;
-        this.pathidentity = pathidentity;
+    public DocumentPermissionFetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -42,9 +45,9 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "DocumentSid" + "}", this.pathdocumentSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "DocumentSid" + "}", this.pathDocumentSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

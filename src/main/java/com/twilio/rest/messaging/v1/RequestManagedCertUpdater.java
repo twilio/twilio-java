@@ -24,11 +24,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RequestManagedCertUpdater extends Updater<RequestManagedCert> {
-    private String pathdomainSid;
 
-    public RequestManagedCertUpdater(final String pathdomainSid) {
-        this.pathdomainSid = pathdomainSid;
+import com.twilio.type.*;
+
+public class RequestManagedCertUpdater extends Updater<RequestManagedCert> {
+    private String pathDomainSid;
+
+    public RequestManagedCertUpdater(final String pathDomainSid) {
+        this.pathDomainSid = pathDomainSid;
     }
 
 
@@ -37,7 +40,7 @@ public class RequestManagedCertUpdater extends Updater<RequestManagedCert> {
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/RequestManagedCert";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
 
 
         Request request = new Request(

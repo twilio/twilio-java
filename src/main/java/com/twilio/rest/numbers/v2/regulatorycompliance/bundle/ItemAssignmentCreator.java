@@ -28,13 +28,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ItemAssignmentCreator extends Creator<ItemAssignment> {
 
-    private String pathbundleSid;
+    private String pathBundleSid;
     private String objectSid;
 
-    public ItemAssignmentCreator(final String pathbundleSid, final String objectSid) {
-        this.pathbundleSid = pathbundleSid;
+    public ItemAssignmentCreator(final String pathBundleSid, final String objectSid) {
+        this.pathBundleSid = pathBundleSid;
         this.objectSid = objectSid;
     }
 
@@ -50,7 +53,7 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
-        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "BundleSid" + "}", this.pathBundleSid.toString());
 
 
         Request request = new Request(

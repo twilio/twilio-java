@@ -25,14 +25,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class LinkshorteningMessagingServiceCreator extends Creator<LinkshorteningMessagingService> {
 
-    private String pathdomainSid;
-    private String pathmessagingServiceSid;
+    private String pathDomainSid;
+    private String pathMessagingServiceSid;
 
-    public LinkshorteningMessagingServiceCreator(final String pathdomainSid, final String pathmessagingServiceSid) {
-        this.pathdomainSid = pathdomainSid;
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public LinkshorteningMessagingServiceCreator(final String pathDomainSid, final String pathMessagingServiceSid) {
+        this.pathDomainSid = pathDomainSid;
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -41,8 +44,8 @@ public class LinkshorteningMessagingServiceCreator extends Creator<Linkshortenin
 
         String path = "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
 
         Request request = new Request(

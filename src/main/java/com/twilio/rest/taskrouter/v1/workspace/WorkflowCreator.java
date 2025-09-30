@@ -18,6 +18,7 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,19 +29,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class WorkflowCreator extends Creator<Workflow> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String configuration;
     private URI assignmentCallbackUrl;
     private URI fallbackAssignmentCallbackUrl;
     private Integer taskReservationTimeout;
 
-    public WorkflowCreator(final String pathworkspaceSid, final String friendlyName, final String configuration) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public WorkflowCreator(final String pathWorkspaceSid, final String friendlyName, final String configuration) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
         this.configuration = configuration;
     }
@@ -63,12 +67,18 @@ public class WorkflowCreator extends Creator<Workflow> {
         return this;
     }
 
+    public WorkflowCreator setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
+    }
 
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         return this;
     }
 
+    public WorkflowCreator setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
+    }
 
     public WorkflowCreator setTaskReservationTimeout(final Integer taskReservationTimeout) {
         this.taskReservationTimeout = taskReservationTimeout;
@@ -81,7 +91,7 @@ public class WorkflowCreator extends Creator<Workflow> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

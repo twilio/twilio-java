@@ -17,39 +17,52 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conference extends Resource {
 
 
-    public static ConferenceFetcher fetcher(final String pathsid) {
+    public static ConferenceFetcher fetcher(final String pathSid) {
         return new ConferenceFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConferenceFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static ConferenceFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new ConferenceFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -61,23 +74,23 @@ public class Conference extends Resource {
     }
 
 
-    public static ConferenceReader reader(final String pathaccountSid) {
+    public static ConferenceReader reader(final String pathAccountSid) {
         return new ConferenceReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static ConferenceUpdater updater(final String pathsid) {
+    public static ConferenceUpdater updater(final String pathSid) {
         return new ConferenceUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConferenceUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static ConferenceUpdater updater(final String pathAccountSid, final String pathSid) {
         return new ConferenceUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

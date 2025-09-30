@@ -14,9 +14,7 @@
 
 package com.twilio.rest.trusthub.v1.trustproducts;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustProductsChannelEndpointAssignment> {
 
-    private String pathtrustProductSid;
+    private String pathTrustProductSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
     private Long pageSize;
 
-    public TrustProductsChannelEndpointAssignmentReader(final String pathtrustProductSid) {
-        this.pathtrustProductSid = pathtrustProductSid;
+    public TrustProductsChannelEndpointAssignmentReader(final String pathTrustProductSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
     }
 
 
@@ -67,7 +70,7 @@ public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustPr
 
         String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

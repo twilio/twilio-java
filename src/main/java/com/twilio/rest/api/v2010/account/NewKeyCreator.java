@@ -28,16 +28,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class NewKeyCreator extends Creator<NewKey> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String friendlyName;
 
     public NewKeyCreator() {
     }
 
-    public NewKeyCreator(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public NewKeyCreator(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -52,8 +55,8 @@ public class NewKeyCreator extends Creator<NewKey> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Keys.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

@@ -27,9 +27,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AddressUpdater extends Updater<Address> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private String customerName;
     private String street;
@@ -40,13 +43,13 @@ public class AddressUpdater extends Updater<Address> {
     private Boolean autoCorrectAddress;
     private String streetSecondary;
 
-    public AddressUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public AddressUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public AddressUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public AddressUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -109,9 +112,9 @@ public class AddressUpdater extends Updater<Address> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

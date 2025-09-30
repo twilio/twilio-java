@@ -27,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ComplianceRegistrationInquiriesUpdater extends Updater<ComplianceRegistrationInquiries> {
-    private String pathregistrationId;
+    private String pathRegistrationId;
     private Boolean isIsvEmbed;
     private String themeSetId;
 
-    public ComplianceRegistrationInquiriesUpdater(final String pathregistrationId) {
-        this.pathregistrationId = pathregistrationId;
+    public ComplianceRegistrationInquiriesUpdater(final String pathRegistrationId) {
+        this.pathRegistrationId = pathRegistrationId;
     }
 
 
@@ -54,7 +57,7 @@ public class ComplianceRegistrationInquiriesUpdater extends Updater<ComplianceRe
 
         String path = "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize";
 
-        path = path.replace("{" + "RegistrationId" + "}", this.pathregistrationId.toString());
+        path = path.replace("{" + "RegistrationId" + "}", this.pathRegistrationId.toString());
 
 
         Request request = new Request(

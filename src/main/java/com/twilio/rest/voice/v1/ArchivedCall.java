@@ -16,27 +16,38 @@ package com.twilio.rest.voice.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.LocalDate;
+
+import com.twilio.type.*;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ArchivedCall extends Resource {
 
 
-    public static ArchivedCallDeleter deleter(final LocalDate pathdate, final String pathsid) {
+    public static ArchivedCallDeleter deleter(final LocalDate pathDate, final String pathSid) {
         return new ArchivedCallDeleter(
-                pathdate, pathsid
+                pathDate, pathSid
         );
     }
 

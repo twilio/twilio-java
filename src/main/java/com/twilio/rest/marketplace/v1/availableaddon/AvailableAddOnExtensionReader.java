@@ -14,9 +14,7 @@
 
 package com.twilio.rest.marketplace.v1.availableaddon;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtension> {
 
-    private String pathavailableAddOnSid;
+    private String pathAvailableAddOnSid;
     private Integer pageSize;
 
-    public AvailableAddOnExtensionReader(final String pathavailableAddOnSid) {
-        this.pathavailableAddOnSid = pathavailableAddOnSid;
+    public AvailableAddOnExtensionReader(final String pathAvailableAddOnSid) {
+        this.pathAvailableAddOnSid = pathAvailableAddOnSid;
     }
 
 
@@ -53,7 +56,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
         String path = "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions";
 
-        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathavailableAddOnSid.toString());
+        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathAvailableAddOnSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -17,50 +17,63 @@ package com.twilio.rest.sync.v1.service.syncmap;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncMapPermission extends Resource {
 
 
-    public static SyncMapPermissionDeleter deleter(final String pathserviceSid, final String pathmapSid, final String pathidentity) {
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity) {
         return new SyncMapPermissionDeleter(
-                pathserviceSid, pathmapSid, pathidentity
+                pathServiceSid, pathMapSid, pathIdentity
         );
     }
 
 
-    public static SyncMapPermissionFetcher fetcher(final String pathserviceSid, final String pathmapSid, final String pathidentity) {
+    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathIdentity) {
         return new SyncMapPermissionFetcher(
-                pathserviceSid, pathmapSid, pathidentity
+                pathServiceSid, pathMapSid, pathIdentity
         );
     }
 
 
-    public static SyncMapPermissionReader reader(final String pathserviceSid, final String pathmapSid) {
+    public static SyncMapPermissionReader reader(final String pathServiceSid, final String pathMapSid) {
         return new SyncMapPermissionReader(
-                pathserviceSid, pathmapSid
+                pathServiceSid, pathMapSid
         );
     }
 
 
-    public static SyncMapPermissionUpdater updater(final String pathserviceSid, final String pathmapSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static SyncMapPermissionUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
         return new SyncMapPermissionUpdater(
-                pathserviceSid, pathmapSid, pathidentity, read, write, manage
+                pathServiceSid, pathMapSid, pathIdentity, read, write, manage
         );
     }
 

@@ -29,11 +29,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class BindingCreator extends Creator<Binding> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String identity;
     private Binding.BindingType bindingType;
     private String address;
@@ -42,8 +45,8 @@ public class BindingCreator extends Creator<Binding> {
     private String credentialSid;
     private String endpoint;
 
-    public BindingCreator(final String pathserviceSid, final String identity, final Binding.BindingType bindingType, final String address) {
-        this.pathserviceSid = pathserviceSid;
+    public BindingCreator(final String pathServiceSid, final String identity, final Binding.BindingType bindingType, final String address) {
+        this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.bindingType = bindingType;
         this.address = address;
@@ -100,7 +103,7 @@ public class BindingCreator extends Creator<Binding> {
 
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ModuleDataManagementFetcher extends Fetcher<ModuleDataManagement> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public ModuleDataManagementFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public ModuleDataManagementFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class ModuleDataManagementFetcher extends Fetcher<ModuleDataManagement> {
 
         String path = "/v1/Listing/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

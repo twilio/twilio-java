@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class DayFetcher extends Fetcher<Day> {
 
-    private String pathresourceType;
-    private String pathday;
+    private String pathResourceType;
+    private String pathDay;
 
-    public DayFetcher(final String pathresourceType, final String pathday) {
-        this.pathresourceType = pathresourceType;
-        this.pathday = pathday;
+    public DayFetcher(final String pathResourceType, final String pathDay) {
+        this.pathResourceType = pathResourceType;
+        this.pathDay = pathDay;
     }
 
 
@@ -40,8 +43,8 @@ public class DayFetcher extends Fetcher<Day> {
 
         String path = "/v1/Exports/{ResourceType}/Days/{Day}";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
-        path = path.replace("{" + "Day" + "}", this.pathday.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
+        path = path.replace("{" + "Day" + "}", this.pathDay.toString());
 
 
         Request request = new Request(

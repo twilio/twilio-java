@@ -17,61 +17,74 @@ package com.twilio.rest.conversations.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
 
 
-    public static UserCreator creator(final String pathchatServiceSid, final String identity) {
+    public static UserCreator creator(final String pathChatServiceSid, final String identity) {
         return new UserCreator(
-                pathchatServiceSid, identity
+                pathChatServiceSid, identity
         );
     }
 
 
-    public static UserDeleter deleter(final String pathchatServiceSid, final String pathsid) {
+    public static UserDeleter deleter(final String pathChatServiceSid, final String pathSid) {
         return new UserDeleter(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static UserFetcher fetcher(final String pathchatServiceSid, final String pathsid) {
+    public static UserFetcher fetcher(final String pathChatServiceSid, final String pathSid) {
         return new UserFetcher(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static UserReader reader(final String pathchatServiceSid) {
+    public static UserReader reader(final String pathChatServiceSid) {
         return new UserReader(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static UserUpdater updater(final String pathchatServiceSid, final String pathsid) {
+    public static UserUpdater updater(final String pathChatServiceSid, final String pathSid) {
         return new UserUpdater(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 

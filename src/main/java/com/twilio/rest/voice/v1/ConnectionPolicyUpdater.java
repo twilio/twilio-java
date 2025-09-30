@@ -27,12 +27,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ConnectionPolicyUpdater extends Updater<ConnectionPolicy> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
 
-    public ConnectionPolicyUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ConnectionPolicyUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -47,7 +50,7 @@ public class ConnectionPolicyUpdater extends Updater<ConnectionPolicy> {
 
         String path = "/v1/ConnectionPolicies/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

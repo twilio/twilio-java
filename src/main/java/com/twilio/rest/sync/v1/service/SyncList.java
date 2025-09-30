@@ -17,60 +17,73 @@ package com.twilio.rest.sync.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncList extends Resource {
 
 
-    public static SyncListCreator creator(final String pathserviceSid) {
+    public static SyncListCreator creator(final String pathServiceSid) {
         return new SyncListCreator(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncListDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static SyncListDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new SyncListDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncListFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static SyncListFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new SyncListFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static SyncListReader reader(final String pathserviceSid) {
+    public static SyncListReader reader(final String pathServiceSid) {
         return new SyncListReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 
 
-    public static SyncListUpdater updater(final String pathserviceSid, final String pathsid) {
+    public static SyncListUpdater updater(final String pathServiceSid, final String pathSid) {
         return new SyncListUpdater(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 

@@ -24,21 +24,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RecordingDeleter extends Deleter<Recording> {
 
-    private String pathaccountSid;
-    private String pathconferenceSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathConferenceSid;
+    private String pathSid;
 
-    public RecordingDeleter(final String pathconferenceSid, final String pathsid) {
-        this.pathconferenceSid = pathconferenceSid;
-        this.pathsid = pathsid;
+    public RecordingDeleter(final String pathConferenceSid, final String pathSid) {
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathSid = pathSid;
     }
 
-    public RecordingDeleter(final String pathaccountSid, final String pathconferenceSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathconferenceSid = pathconferenceSid;
-        this.pathsid = pathsid;
+    public RecordingDeleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +50,10 @@ public class RecordingDeleter extends Deleter<Recording> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

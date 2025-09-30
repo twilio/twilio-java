@@ -16,25 +16,39 @@ package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -48,16 +62,16 @@ public class Assistant extends Resource {
     }
 
 
-    public static AssistantDeleter deleter(final String pathid) {
+    public static AssistantDeleter deleter(final String pathId) {
         return new AssistantDeleter(
-                pathid
+                pathId
         );
     }
 
 
-    public static AssistantFetcher fetcher(final String pathid) {
+    public static AssistantFetcher fetcher(final String pathId) {
         return new AssistantFetcher(
-                pathid
+                pathId
         );
     }
 
@@ -69,123 +83,293 @@ public class Assistant extends Resource {
     }
 
 
-    public static AssistantUpdater updater(final String pathid) {
+    public static AssistantUpdater updater(final String pathId) {
         return new AssistantUpdater(
-                pathid
+                pathId
         );
     }
 
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceTool.Builder.class)
+    @JsonDeserialize(builder = AssistantsV1ServiceTool.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceTool {
-        public AssistantsV1ServiceTool(final String description, final Boolean enabled, final String id, final Object meta, final String name, final Boolean requiresAuth, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
-            this.description = description;
-            this.enabled = enabled;
-            this.id = id;
-            this.meta = meta;
-            this.name = name;
-            this.requiresAuth = requiresAuth;
-            this.type = type;
-            this.dateCreated = dateCreated;
-            this.dateUpdated = dateUpdated;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("account_sid")
         @Getter
-        @Setter
-        private String accountSid;
+        private final String accountSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
         @Getter
-        @Setter
-        private String description;
+        private final String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("enabled")
         @Getter
-        @Setter
-        private Boolean enabled;
+        private final Boolean enabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("meta")
         @Getter
-        @Setter
-        private Object meta;
+        private final Object meta;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("requires_auth")
         @Getter
-        @Setter
-        private Boolean requiresAuth;
+        private final Boolean requiresAuth;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private String type;
+        private final String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
         @Getter
-        @Setter
-        private String url;
+        private final String url;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
-        @Setter
-        private ZonedDateTime dateCreated;
+        private final ZonedDateTime dateCreated;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
         @Getter
-        @Setter
-        private ZonedDateTime dateUpdated;
+        private final ZonedDateTime dateUpdated;
+
+
+        private AssistantsV1ServiceTool(Builder builder) {
+            this.accountSid = builder.accountSid;
+            this.description = builder.description;
+            this.enabled = builder.enabled;
+            this.id = builder.id;
+            this.meta = builder.meta;
+            this.name = builder.name;
+            this.requiresAuth = builder.requiresAuth;
+            this.type = builder.type;
+            this.url = builder.url;
+            this.dateCreated = builder.dateCreated;
+            this.dateUpdated = builder.dateUpdated;
+        }
+
+        public static Builder builder(final String description, final Boolean enabled, final String id, final Object meta, final String name, final Boolean requiresAuth, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
+            return new Builder(description, enabled, id, meta, name, requiresAuth, type, dateCreated, dateUpdated);
+        }
+
+        public static AssistantsV1ServiceTool fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceTool.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("account_sid")
+            private String accountSid;
+
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("enabled")
+            private Boolean enabled;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("meta")
+            private Object meta;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("requires_auth")
+            private Boolean requiresAuth;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonProperty("url")
+            private String url;
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonProperty("date_created")
+            private ZonedDateTime dateCreated;
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonProperty("date_updated")
+            private ZonedDateTime dateUpdated;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("description") final String description, @JsonProperty("enabled") final Boolean enabled, @JsonProperty("id") final String id, @JsonProperty("meta") final Object meta, @JsonProperty("name") final String name, @JsonProperty("requires_auth") final Boolean requiresAuth, @JsonProperty("type") final String type, @JsonProperty("date_created") final ZonedDateTime dateCreated, @JsonProperty("date_updated") final ZonedDateTime dateUpdated) {
+                this.description = description;
+                this.enabled = enabled;
+                this.id = id;
+                this.meta = meta;
+                this.name = name;
+                this.requiresAuth = requiresAuth;
+                this.type = type;
+                this.dateCreated = dateCreated;
+                this.dateUpdated = dateUpdated;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("account_sid")
+            public Builder accountSid(String accountSid) {
+                this.accountSid = accountSid;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            public Builder url(String url) {
+                this.url = url;
+                return this;
+            }
+
+            public AssistantsV1ServiceTool build() {
+                return new AssistantsV1ServiceTool(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceTool other = (AssistantsV1ServiceTool) o;
+            return (
+                    Objects.equals(accountSid, other.accountSid) &&
+                            Objects.equals(description, other.description) &&
+                            Objects.equals(enabled, other.enabled) &&
+                            Objects.equals(id, other.id) &&
+                            Objects.equals(meta, other.meta) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(requiresAuth, other.requiresAuth) &&
+                            Objects.equals(type, other.type) &&
+                            Objects.equals(url, other.url) &&
+                            Objects.equals(dateCreated, other.dateCreated) &&
+                            Objects.equals(dateUpdated, other.dateUpdated)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    accountSid,
+                    description,
+                    enabled,
+                    id,
+                    meta,
+                    name,
+                    requiresAuth,
+                    type,
+                    url,
+                    dateCreated,
+                    dateUpdated
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceCustomerAi.Builder.class)
+
+    @JsonDeserialize(builder = AssistantsV1ServiceCustomerAi.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCustomerAi {
-        public AssistantsV1ServiceCustomerAi(final Boolean perceptionEngineEnabled, final Boolean personalizationEngineEnabled) {
-            this.perceptionEngineEnabled = perceptionEngineEnabled;
-            this.personalizationEngineEnabled = personalizationEngineEnabled;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("perception_engine_enabled")
         @Getter
-        @Setter
-        private Boolean perceptionEngineEnabled;
+        private final Boolean perceptionEngineEnabled;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("personalization_engine_enabled")
         @Getter
-        @Setter
-        private Boolean personalizationEngineEnabled;
+        private final Boolean personalizationEngineEnabled;
+
+
+        private AssistantsV1ServiceCustomerAi(Builder builder) {
+            this.perceptionEngineEnabled = builder.perceptionEngineEnabled;
+            this.personalizationEngineEnabled = builder.personalizationEngineEnabled;
+        }
+
+        public static Builder builder(final Boolean perceptionEngineEnabled, final Boolean personalizationEngineEnabled) {
+            return new Builder(perceptionEngineEnabled, personalizationEngineEnabled);
+        }
+
+        public static AssistantsV1ServiceCustomerAi fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceCustomerAi.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("perception_engine_enabled")
+            private Boolean perceptionEngineEnabled;
+
+            @JsonProperty("personalization_engine_enabled")
+            private Boolean personalizationEngineEnabled;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("perception_engine_enabled") final Boolean perceptionEngineEnabled, @JsonProperty("personalization_engine_enabled") final Boolean personalizationEngineEnabled) {
+                this.perceptionEngineEnabled = perceptionEngineEnabled;
+                this.personalizationEngineEnabled = personalizationEngineEnabled;
+            }
+
+
+            public AssistantsV1ServiceCustomerAi build() {
+                return new AssistantsV1ServiceCustomerAi(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceCustomerAi other = (AssistantsV1ServiceCustomerAi) o;
+            return (
+                    Objects.equals(perceptionEngineEnabled, other.perceptionEngineEnabled) &&
+                            Objects.equals(personalizationEngineEnabled, other.personalizationEngineEnabled)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    perceptionEngineEnabled,
+                    personalizationEngineEnabled
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceUpdateAssistantRequest.Builder.class)
+
+    @JsonDeserialize(builder = AssistantsV1ServiceUpdateAssistantRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateAssistantRequest {
@@ -193,76 +377,213 @@ public class Assistant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("customer_ai")
         @Getter
-        @Setter
-        private AssistantsV1ServiceCustomerAi customerAi;
+        private final AssistantsV1ServiceCustomerAi customerAi;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("owner")
         @Getter
-        @Setter
-        private String owner;
+        private final String owner;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("personality_prompt")
         @Getter
-        @Setter
-        private String personalityPrompt;
+        private final String personalityPrompt;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("segment_credential")
         @Getter
-        @Setter
-        private AssistantsV1ServiceSegmentCredential segmentCredential;
+        private final AssistantsV1ServiceSegmentCredential segmentCredential;
+
+
+        private AssistantsV1ServiceUpdateAssistantRequest(Builder builder) {
+            this.customerAi = builder.customerAi;
+            this.name = builder.name;
+            this.owner = builder.owner;
+            this.personalityPrompt = builder.personalityPrompt;
+            this.segmentCredential = builder.segmentCredential;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static AssistantsV1ServiceUpdateAssistantRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceUpdateAssistantRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("customer_ai")
+            private AssistantsV1ServiceCustomerAi customerAi;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("owner")
+            private String owner;
+
+            @JsonProperty("personality_prompt")
+            private String personalityPrompt;
+
+            @JsonProperty("segment_credential")
+            private AssistantsV1ServiceSegmentCredential segmentCredential;
+
+
+            public AssistantsV1ServiceUpdateAssistantRequest build() {
+                return new AssistantsV1ServiceUpdateAssistantRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceUpdateAssistantRequest other = (AssistantsV1ServiceUpdateAssistantRequest) o;
+            return (
+                    Objects.equals(customerAi, other.customerAi) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(owner, other.owner) &&
+                            Objects.equals(personalityPrompt, other.personalityPrompt) &&
+                            Objects.equals(segmentCredential, other.segmentCredential)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    customerAi,
+                    name,
+                    owner,
+                    personalityPrompt,
+                    segmentCredential
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceCreateAssistantRequest.Builder.class)
+
+    @JsonDeserialize(builder = AssistantsV1ServiceCreateAssistantRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateAssistantRequest {
-        public AssistantsV1ServiceCreateAssistantRequest(final String name) {
-            this.name = name;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("customer_ai")
         @Getter
-        @Setter
-        private AssistantsV1ServiceCustomerAi customerAi;
+        private final AssistantsV1ServiceCustomerAi customerAi;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("owner")
         @Getter
-        @Setter
-        private String owner;
+        private final String owner;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("personality_prompt")
         @Getter
-        @Setter
-        private String personalityPrompt;
+        private final String personalityPrompt;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("segment_credential")
         @Getter
-        @Setter
-        private AssistantsV1ServiceSegmentCredential segmentCredential;
+        private final AssistantsV1ServiceSegmentCredential segmentCredential;
+
+
+        private AssistantsV1ServiceCreateAssistantRequest(Builder builder) {
+            this.customerAi = builder.customerAi;
+            this.name = builder.name;
+            this.owner = builder.owner;
+            this.personalityPrompt = builder.personalityPrompt;
+            this.segmentCredential = builder.segmentCredential;
+        }
+
+        public static Builder builder(final String name) {
+            return new Builder(name);
+        }
+
+        public static AssistantsV1ServiceCreateAssistantRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceCreateAssistantRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("customer_ai")
+            private AssistantsV1ServiceCustomerAi customerAi;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("owner")
+            private String owner;
+
+            @JsonProperty("personality_prompt")
+            private String personalityPrompt;
+
+            @JsonProperty("segment_credential")
+            private AssistantsV1ServiceSegmentCredential segmentCredential;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("name") final String name) {
+                this.name = name;
+            }
+
+
+            public AssistantsV1ServiceCreateAssistantRequest build() {
+                return new AssistantsV1ServiceCreateAssistantRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceCreateAssistantRequest other = (AssistantsV1ServiceCreateAssistantRequest) o;
+            return (
+                    Objects.equals(customerAi, other.customerAi) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(owner, other.owner) &&
+                            Objects.equals(personalityPrompt, other.personalityPrompt) &&
+                            Objects.equals(segmentCredential, other.segmentCredential)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    customerAi,
+                    name,
+                    owner,
+                    personalityPrompt,
+                    segmentCredential
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceSegmentCredential.Builder.class)
+
+    @JsonDeserialize(builder = AssistantsV1ServiceSegmentCredential.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceSegmentCredential {
@@ -270,104 +591,325 @@ public class Assistant extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("profile_api_key")
         @Getter
-        @Setter
-        private String profileApiKey;
+        private final String profileApiKey;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("space_id")
         @Getter
-        @Setter
-        private String spaceId;
+        private final String spaceId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("write_key")
         @Getter
-        @Setter
-        private String writeKey;
+        private final String writeKey;
+
+
+        private AssistantsV1ServiceSegmentCredential(Builder builder) {
+            this.profileApiKey = builder.profileApiKey;
+            this.spaceId = builder.spaceId;
+            this.writeKey = builder.writeKey;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static AssistantsV1ServiceSegmentCredential fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceSegmentCredential.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("profile_api_key")
+            private String profileApiKey;
+
+            @JsonProperty("space_id")
+            private String spaceId;
+
+            @JsonProperty("write_key")
+            private String writeKey;
+
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("profile_api_key")
+            public Builder profileApiKey(String profileApiKey) {
+                this.profileApiKey = profileApiKey;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("space_id")
+            public Builder spaceId(String spaceId) {
+                this.spaceId = spaceId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("write_key")
+            public Builder writeKey(String writeKey) {
+                this.writeKey = writeKey;
+                return this;
+            }
+
+            public AssistantsV1ServiceSegmentCredential build() {
+                return new AssistantsV1ServiceSegmentCredential(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceSegmentCredential other = (AssistantsV1ServiceSegmentCredential) o;
+            return (
+                    Objects.equals(profileApiKey, other.profileApiKey) &&
+                            Objects.equals(spaceId, other.spaceId) &&
+                            Objects.equals(writeKey, other.writeKey)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    profileApiKey,
+                    spaceId,
+                    writeKey
+            );
+        }
 
     }
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceKnowledge.Builder.class)
+
+    @JsonDeserialize(builder = AssistantsV1ServiceKnowledge.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceKnowledge {
-        public AssistantsV1ServiceKnowledge(final String id, final String name, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
-            this.id = id;
-            this.name = name;
-            this.type = type;
-            this.dateCreated = dateCreated;
-            this.dateUpdated = dateUpdated;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
         @Getter
-        @Setter
-        private String description;
+        private final String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
         @Getter
-        @Setter
-        private String id;
+        private final String id;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("account_sid")
         @Getter
-        @Setter
-        private String accountSid;
+        private final String accountSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("knowledge_source_details")
         @Getter
-        @Setter
-        private Object knowledgeSourceDetails;
+        private final Object knowledgeSourceDetails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
         @Getter
-        @Setter
-        private String name;
+        private final String name;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("status")
         @Getter
-        @Setter
-        private String status;
+        private final String status;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
-        @Setter
-        private String type;
+        private final String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("url")
         @Getter
-        @Setter
-        private String url;
+        private final String url;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("embedding_model")
         @Getter
-        @Setter
-        private String embeddingModel;
+        private final String embeddingModel;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
-        @Setter
-        private ZonedDateTime dateCreated;
+        private final ZonedDateTime dateCreated;
 
         @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
         @Getter
-        @Setter
-        private ZonedDateTime dateUpdated;
+        private final ZonedDateTime dateUpdated;
+
+
+        private AssistantsV1ServiceKnowledge(Builder builder) {
+            this.description = builder.description;
+            this.id = builder.id;
+            this.accountSid = builder.accountSid;
+            this.knowledgeSourceDetails = builder.knowledgeSourceDetails;
+            this.name = builder.name;
+            this.status = builder.status;
+            this.type = builder.type;
+            this.url = builder.url;
+            this.embeddingModel = builder.embeddingModel;
+            this.dateCreated = builder.dateCreated;
+            this.dateUpdated = builder.dateUpdated;
+        }
+
+        public static Builder builder(final String id, final String name, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
+            return new Builder(id, name, type, dateCreated, dateUpdated);
+        }
+
+        public static AssistantsV1ServiceKnowledge fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceKnowledge.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("description")
+            private String description;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("account_sid")
+            private String accountSid;
+
+            @JsonProperty("knowledge_source_details")
+            private Object knowledgeSourceDetails;
+
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("status")
+            private String status;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonProperty("url")
+            private String url;
+
+            @JsonProperty("embedding_model")
+            private String embeddingModel;
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonProperty("date_created")
+            private ZonedDateTime dateCreated;
+
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonProperty("date_updated")
+            private ZonedDateTime dateUpdated;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("id") final String id, @JsonProperty("name") final String name, @JsonProperty("type") final String type, @JsonProperty("date_created") final ZonedDateTime dateCreated, @JsonProperty("date_updated") final ZonedDateTime dateUpdated) {
+                this.id = id;
+                this.name = name;
+                this.type = type;
+                this.dateCreated = dateCreated;
+                this.dateUpdated = dateUpdated;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("account_sid")
+            public Builder accountSid(String accountSid) {
+                this.accountSid = accountSid;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("knowledge_source_details")
+            public Builder knowledgeSourceDetails(Object knowledgeSourceDetails) {
+                this.knowledgeSourceDetails = knowledgeSourceDetails;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("status")
+            public Builder status(String status) {
+                this.status = status;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            public Builder url(String url) {
+                this.url = url;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("embedding_model")
+            public Builder embeddingModel(String embeddingModel) {
+                this.embeddingModel = embeddingModel;
+                return this;
+            }
+
+            public AssistantsV1ServiceKnowledge build() {
+                return new AssistantsV1ServiceKnowledge(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceKnowledge other = (AssistantsV1ServiceKnowledge) o;
+            return (
+                    Objects.equals(description, other.description) &&
+                            Objects.equals(id, other.id) &&
+                            Objects.equals(accountSid, other.accountSid) &&
+                            Objects.equals(knowledgeSourceDetails, other.knowledgeSourceDetails) &&
+                            Objects.equals(name, other.name) &&
+                            Objects.equals(status, other.status) &&
+                            Objects.equals(type, other.type) &&
+                            Objects.equals(url, other.url) &&
+                            Objects.equals(embeddingModel, other.embeddingModel) &&
+                            Objects.equals(dateCreated, other.dateCreated) &&
+                            Objects.equals(dateUpdated, other.dateUpdated)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    description,
+                    id,
+                    accountSid,
+                    knowledgeSourceDetails,
+                    name,
+                    status,
+                    type,
+                    url,
+                    embeddingModel,
+                    dateCreated,
+                    dateUpdated
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a Assistant object using the provided ObjectMapper.

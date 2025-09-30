@@ -17,79 +17,92 @@ package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthCallsIpAccessControlListMapping extends Resource {
 
 
-    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathdomainSid, final String ipAccessControlListSid) {
+    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathDomainSid, final String ipAccessControlListSid) {
         return new AuthCallsIpAccessControlListMappingCreator(
-                pathdomainSid, ipAccessControlListSid
+                pathDomainSid, ipAccessControlListSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String ipAccessControlListSid) {
+    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String ipAccessControlListSid) {
         return new AuthCallsIpAccessControlListMappingCreator(
-                pathaccountSid, pathdomainSid, ipAccessControlListSid
+                pathAccountSid, pathDomainSid, ipAccessControlListSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new AuthCallsIpAccessControlListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthCallsIpAccessControlListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new AuthCallsIpAccessControlListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthCallsIpAccessControlListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingReader reader(final String pathdomainSid) {
+    public static AuthCallsIpAccessControlListMappingReader reader(final String pathDomainSid) {
         return new AuthCallsIpAccessControlListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static AuthCallsIpAccessControlListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static AuthCallsIpAccessControlListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new AuthCallsIpAccessControlListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

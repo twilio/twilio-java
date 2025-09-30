@@ -26,13 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuestionnairesQuestion> {
 
-    private String pathquestionSid;
+    private String pathQuestionSid;
     private String authorization;
 
-    public InsightsQuestionnairesQuestionDeleter(final String pathquestionSid) {
-        this.pathquestionSid = pathquestionSid;
+    public InsightsQuestionnairesQuestionDeleter(final String pathQuestionSid) {
+        this.pathQuestionSid = pathQuestionSid;
     }
 
 
@@ -47,7 +50,7 @@ public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuest
 
         String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path = path.replace("{" + "QuestionSid" + "}", this.pathquestionSid.toString());
+        path = path.replace("{" + "QuestionSid" + "}", this.pathQuestionSid.toString());
 
 
         Request request = new Request(

@@ -17,59 +17,72 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectionPolicyTarget extends Resource {
 
 
-    public static ConnectionPolicyTargetCreator creator(final String pathconnectionPolicySid, final URI target) {
+    public static ConnectionPolicyTargetCreator creator(final String pathConnectionPolicySid, final URI target) {
         return new ConnectionPolicyTargetCreator(
-                pathconnectionPolicySid, target
+                pathConnectionPolicySid, target
         );
     }
 
 
-    public static ConnectionPolicyTargetDeleter deleter(final String pathconnectionPolicySid, final String pathsid) {
+    public static ConnectionPolicyTargetDeleter deleter(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetDeleter(
-                pathconnectionPolicySid, pathsid
+                pathConnectionPolicySid, pathSid
         );
     }
 
 
-    public static ConnectionPolicyTargetFetcher fetcher(final String pathconnectionPolicySid, final String pathsid) {
+    public static ConnectionPolicyTargetFetcher fetcher(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetFetcher(
-                pathconnectionPolicySid, pathsid
+                pathConnectionPolicySid, pathSid
         );
     }
 
 
-    public static ConnectionPolicyTargetReader reader(final String pathconnectionPolicySid) {
+    public static ConnectionPolicyTargetReader reader(final String pathConnectionPolicySid) {
         return new ConnectionPolicyTargetReader(
-                pathconnectionPolicySid
+                pathConnectionPolicySid
         );
     }
 
 
-    public static ConnectionPolicyTargetUpdater updater(final String pathconnectionPolicySid, final String pathsid) {
+    public static ConnectionPolicyTargetUpdater updater(final String pathConnectionPolicySid, final String pathSid) {
         return new ConnectionPolicyTargetUpdater(
-                pathconnectionPolicySid, pathsid
+                pathConnectionPolicySid, pathSid
         );
     }
 

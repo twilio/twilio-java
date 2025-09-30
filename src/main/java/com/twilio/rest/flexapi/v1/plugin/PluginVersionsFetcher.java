@@ -26,15 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
 
-    private String pathpluginSid;
-    private String pathsid;
+    private String pathPluginSid;
+    private String pathSid;
     private String flexMetadata;
 
-    public PluginVersionsFetcher(final String pathpluginSid, final String pathsid) {
-        this.pathpluginSid = pathpluginSid;
-        this.pathsid = pathsid;
+    public PluginVersionsFetcher(final String pathPluginSid, final String pathSid) {
+        this.pathPluginSid = pathPluginSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -49,8 +52,8 @@ public class PluginVersionsFetcher extends Fetcher<PluginVersions> {
 
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}";
 
-        path = path.replace("{" + "PluginSid" + "}", this.pathpluginSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "PluginSid" + "}", this.pathPluginSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

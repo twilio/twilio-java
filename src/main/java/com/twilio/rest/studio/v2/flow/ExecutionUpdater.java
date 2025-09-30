@@ -27,14 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ExecutionUpdater extends Updater<Execution> {
-    private String pathflowSid;
-    private String pathsid;
+    private String pathFlowSid;
+    private String pathSid;
     private Execution.Status status;
 
-    public ExecutionUpdater(final String pathflowSid, final String pathsid, final Execution.Status status) {
-        this.pathflowSid = pathflowSid;
-        this.pathsid = pathsid;
+    public ExecutionUpdater(final String pathFlowSid, final String pathSid, final Execution.Status status) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -50,8 +53,8 @@ public class ExecutionUpdater extends Updater<Execution> {
 
         String path = "/v2/Flows/{FlowSid}/Executions/{Sid}";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

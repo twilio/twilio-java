@@ -17,61 +17,74 @@ package com.twilio.rest.conversations.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conversation extends Resource {
 
 
-    public static ConversationCreator creator(final String pathchatServiceSid) {
+    public static ConversationCreator creator(final String pathChatServiceSid) {
         return new ConversationCreator(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static ConversationDeleter deleter(final String pathchatServiceSid, final String pathsid) {
+    public static ConversationDeleter deleter(final String pathChatServiceSid, final String pathSid) {
         return new ConversationDeleter(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static ConversationFetcher fetcher(final String pathchatServiceSid, final String pathsid) {
+    public static ConversationFetcher fetcher(final String pathChatServiceSid, final String pathSid) {
         return new ConversationFetcher(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
 
-    public static ConversationReader reader(final String pathchatServiceSid) {
+    public static ConversationReader reader(final String pathChatServiceSid) {
         return new ConversationReader(
-                pathchatServiceSid
+                pathChatServiceSid
         );
     }
 
 
-    public static ConversationUpdater updater(final String pathchatServiceSid, final String pathsid) {
+    public static ConversationUpdater updater(final String pathChatServiceSid, final String pathSid) {
         return new ConversationUpdater(
-                pathchatServiceSid, pathsid
+                pathChatServiceSid, pathSid
         );
     }
 
@@ -99,7 +112,8 @@ public class Conversation extends Resource {
     public enum State {
         INACTIVE("inactive"),
         ACTIVE("active"),
-        CLOSED("closed");
+        CLOSED("closed"),
+        INITIALIZING("initializing");
 
         private final String value;
 

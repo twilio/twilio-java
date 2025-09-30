@@ -17,25 +17,38 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -49,9 +62,9 @@ public class BrandRegistration extends Resource {
     }
 
 
-    public static BrandRegistrationFetcher fetcher(final String pathsid) {
+    public static BrandRegistrationFetcher fetcher(final String pathSid) {
         return new BrandRegistrationFetcher(
-                pathsid
+                pathSid
         );
     }
 
@@ -63,9 +76,9 @@ public class BrandRegistration extends Resource {
     }
 
 
-    public static BrandRegistrationUpdater updater(final String pathsid) {
+    public static BrandRegistrationUpdater updater(final String pathSid) {
         return new BrandRegistrationUpdater(
-                pathsid
+                pathSid
         );
     }
 
@@ -118,75 +131,6 @@ public class BrandRegistration extends Resource {
         }
     }
 
-    public enum BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback.values());
-        }
-    }
-
-    public enum BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback.values());
-        }
-    }
-
-    public enum BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback.values());
-        }
-    }
-
     public enum BrandFeedback {
         TAX_ID("TAX_ID"),
         STOCK_SYMBOL("STOCK_SYMBOL"),
@@ -210,52 +154,6 @@ public class BrandRegistration extends Resource {
         }
     }
 
-    public enum BrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback.values());
-        }
-    }
-
-    public enum BrandRegistrationBrandRegistrationBrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandRegistrationBrandRegistrationBrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandRegistrationBrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandRegistrationBrandFeedback.values());
-        }
-    }
-
     public enum IdentityStatus {
         SELF_DECLARED("SELF_DECLARED"),
         UNVERIFIED("UNVERIFIED"),
@@ -275,29 +173,6 @@ public class BrandRegistration extends Resource {
         @JsonCreator
         public static IdentityStatus forValue(final String value) {
             return Promoter.enumFromString(value, IdentityStatus.values());
-        }
-    }
-
-    public enum BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback.values());
         }
     }
 
@@ -357,7 +232,7 @@ public class BrandRegistration extends Resource {
     @Getter
     private final String accountSid;
     @Getter
-    private final List<BrandRegistration.BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback> brandFeedback;
+    private final List<BrandRegistration.BrandFeedback> brandFeedback;
     @Getter
     private final Integer brandScore;
     @Getter
@@ -399,7 +274,7 @@ public class BrandRegistration extends Resource {
     private BrandRegistration(
             @JsonProperty("a2p_profile_bundle_sid") final String a2pProfileBundleSid,
             @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("brand_feedback") final List<BrandRegistration.BrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandRegistrationBrandFeedback> brandFeedback,
+            @JsonProperty("brand_feedback") final List<BrandRegistration.BrandFeedback> brandFeedback,
             @JsonProperty("brand_score") final Integer brandScore,
             @JsonProperty("brand_type") final String brandType,
             @JsonProperty("customer_profile_bundle_sid") final String customerProfileBundleSid,

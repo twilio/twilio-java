@@ -27,20 +27,23 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 
+import com.twilio.type.*;
+
 public class UserChannelUpdater extends Updater<UserChannel> {
-    private String pathserviceSid;
-    private String pathuserSid;
-    private String pathchannelSid;
+    private String pathServiceSid;
+    private String pathUserSid;
+    private String pathChannelSid;
     private UserChannel.NotificationLevel notificationLevel;
     private Integer lastConsumedMessageIndex;
     private ZonedDateTime lastConsumptionTimestamp;
 
-    public UserChannelUpdater(final String pathserviceSid, final String pathuserSid, final String pathchannelSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathuserSid = pathuserSid;
-        this.pathchannelSid = pathchannelSid;
+    public UserChannelUpdater(final String pathServiceSid, final String pathUserSid, final String pathChannelSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
 
@@ -67,9 +70,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
 
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

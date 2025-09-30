@@ -29,11 +29,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -63,8 +66,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         this.phoneNumber = phoneNumber;
     }
 
-    public IncomingPhoneNumberCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.pathaccountSid = pathaccountSid;
+    public IncomingPhoneNumberCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -72,8 +75,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         this.areaCode = areaCode;
     }
 
-    public IncomingPhoneNumberCreator(final String pathaccountSid, final String areaCode) {
-        this.pathaccountSid = pathaccountSid;
+    public IncomingPhoneNumberCreator(final String pathAccountSid, final String areaCode) {
+        this.pathAccountSid = pathAccountSid;
         this.areaCode = areaCode;
     }
 
@@ -107,6 +110,9 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberCreator setSmsFallbackUrl(final String smsFallbackUrl) {
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
+    }
 
     public IncomingPhoneNumberCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
@@ -119,12 +125,18 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberCreator setSmsUrl(final String smsUrl) {
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
+    }
 
     public IncomingPhoneNumberCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
+    public IncomingPhoneNumberCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public IncomingPhoneNumberCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -155,6 +167,9 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public IncomingPhoneNumberCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -167,6 +182,9 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         return this;
     }
 
+    public IncomingPhoneNumberCreator setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public IncomingPhoneNumberCreator setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
         this.emergencyStatus = emergencyStatus;
@@ -230,8 +248,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

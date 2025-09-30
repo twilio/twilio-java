@@ -14,9 +14,7 @@
 
 package com.twilio.rest.conversations.v1.service;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class ParticipantConversationReader extends Reader<ParticipantConversation> {
 
-    private String pathchatServiceSid;
+    private String pathChatServiceSid;
     private String identity;
     private String address;
     private Long pageSize;
 
-    public ParticipantConversationReader(final String pathchatServiceSid) {
-        this.pathchatServiceSid = pathchatServiceSid;
+    public ParticipantConversationReader(final String pathChatServiceSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -67,7 +70,7 @@ public class ParticipantConversationReader extends Reader<ParticipantConversatio
 
         String path = "/v1/Services/{ChatServiceSid}/ParticipantConversations";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

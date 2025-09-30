@@ -27,18 +27,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
 
+import com.twilio.type.*;
+
 public class UserConversationUpdater extends Updater<UserConversation> {
-    private String pathuserSid;
-    private String pathconversationSid;
+    private String pathUserSid;
+    private String pathConversationSid;
     private UserConversation.NotificationLevel notificationLevel;
     private ZonedDateTime lastReadTimestamp;
     private Integer lastReadMessageIndex;
 
-    public UserConversationUpdater(final String pathuserSid, final String pathconversationSid) {
-        this.pathuserSid = pathuserSid;
-        this.pathconversationSid = pathconversationSid;
+    public UserConversationUpdater(final String pathUserSid, final String pathConversationSid) {
+        this.pathUserSid = pathUserSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -65,8 +68,8 @@ public class UserConversationUpdater extends Updater<UserConversation> {
 
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
 
 
         Request request = new Request(

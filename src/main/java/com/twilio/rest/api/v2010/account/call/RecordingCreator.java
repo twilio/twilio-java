@@ -29,13 +29,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class RecordingCreator extends Creator<Recording> {
 
-    private String pathaccountSid;
-    private String pathcallSid;
+    private String pathAccountSid;
+    private String pathCallSid;
     private List<String> recordingStatusCallbackEvent;
     private URI recordingStatusCallback;
     private HttpMethod recordingStatusCallbackMethod;
@@ -43,13 +46,13 @@ public class RecordingCreator extends Creator<Recording> {
     private String recordingChannels;
     private String recordingTrack;
 
-    public RecordingCreator(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public RecordingCreator(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
-    public RecordingCreator(final String pathaccountSid, final String pathcallSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathcallSid = pathcallSid;
+    public RecordingCreator(final String pathAccountSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -67,6 +70,9 @@ public class RecordingCreator extends Creator<Recording> {
         return this;
     }
 
+    public RecordingCreator setRecordingStatusCallback(final String recordingStatusCallback) {
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
+    }
 
     public RecordingCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
@@ -97,9 +103,9 @@ public class RecordingCreator extends Creator<Recording> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
 
         Request request = new Request(

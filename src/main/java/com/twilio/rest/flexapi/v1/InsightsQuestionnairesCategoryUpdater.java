@@ -27,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InsightsQuestionnairesCategoryUpdater extends Updater<InsightsQuestionnairesCategory> {
-    private String pathcategorySid;
+    private String pathCategorySid;
     private String authorization;
     private String name;
 
-    public InsightsQuestionnairesCategoryUpdater(final String pathcategorySid, final String name) {
-        this.pathcategorySid = pathcategorySid;
+    public InsightsQuestionnairesCategoryUpdater(final String pathCategorySid, final String name) {
+        this.pathCategorySid = pathCategorySid;
         this.name = name;
     }
 
@@ -55,7 +58,7 @@ public class InsightsQuestionnairesCategoryUpdater extends Updater<InsightsQuest
 
         String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
 
-        path = path.replace("{" + "CategorySid" + "}", this.pathcategorySid.toString());
+        path = path.replace("{" + "CategorySid" + "}", this.pathCategorySid.toString());
 
 
         Request request = new Request(

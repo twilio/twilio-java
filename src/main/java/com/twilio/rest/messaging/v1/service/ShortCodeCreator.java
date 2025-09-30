@@ -28,13 +28,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ShortCodeCreator extends Creator<ShortCode> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String shortCodeSid;
 
-    public ShortCodeCreator(final String pathserviceSid, final String shortCodeSid) {
-        this.pathserviceSid = pathserviceSid;
+    public ShortCodeCreator(final String pathServiceSid, final String shortCodeSid) {
+        this.pathServiceSid = pathServiceSid;
         this.shortCodeSid = shortCodeSid;
     }
 
@@ -50,7 +53,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
         String path = "/v1/Services/{ServiceSid}/ShortCodes";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

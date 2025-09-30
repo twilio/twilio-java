@@ -28,9 +28,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
 
-    private String pathresourceType;
+    private String pathResourceType;
     private String startDay;
     private String endDay;
     private String friendlyName;
@@ -38,8 +41,8 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
     private String webhookMethod;
     private String email;
 
-    public ExportCustomJobCreator(final String pathresourceType, final String startDay, final String endDay, final String friendlyName) {
-        this.pathresourceType = pathresourceType;
+    public ExportCustomJobCreator(final String pathResourceType, final String startDay, final String endDay, final String friendlyName) {
+        this.pathResourceType = pathResourceType;
         this.startDay = startDay;
         this.endDay = endDay;
         this.friendlyName = friendlyName;
@@ -87,7 +90,7 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
 
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
 
 
         Request request = new Request(

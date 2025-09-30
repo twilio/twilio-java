@@ -29,8 +29,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class RoomCreator extends Creator<Room> {
 
@@ -79,6 +82,9 @@ public class RoomCreator extends Creator<Room> {
         return this;
     }
 
+    public RoomCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public RoomCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;

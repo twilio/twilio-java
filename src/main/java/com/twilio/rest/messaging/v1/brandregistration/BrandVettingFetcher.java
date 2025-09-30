@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class BrandVettingFetcher extends Fetcher<BrandVetting> {
 
-    private String pathbrandSid;
-    private String pathbrandVettingSid;
+    private String pathBrandSid;
+    private String pathBrandVettingSid;
 
-    public BrandVettingFetcher(final String pathbrandSid, final String pathbrandVettingSid) {
-        this.pathbrandSid = pathbrandSid;
-        this.pathbrandVettingSid = pathbrandVettingSid;
+    public BrandVettingFetcher(final String pathBrandSid, final String pathBrandVettingSid) {
+        this.pathBrandSid = pathBrandSid;
+        this.pathBrandVettingSid = pathBrandVettingSid;
     }
 
 
@@ -40,8 +43,8 @@ public class BrandVettingFetcher extends Fetcher<BrandVetting> {
 
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}";
 
-        path = path.replace("{" + "BrandSid" + "}", this.pathbrandSid.toString());
-        path = path.replace("{" + "BrandVettingSid" + "}", this.pathbrandVettingSid.toString());
+        path = path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
+        path = path.replace("{" + "BrandVettingSid" + "}", this.pathBrandVettingSid.toString());
 
 
         Request request = new Request(

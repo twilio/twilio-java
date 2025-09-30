@@ -24,16 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
 
-    private String pathserviceSid;
-    private String pathfunctionSid;
-    private String pathsid;
+    private String pathServiceSid;
+    private String pathFunctionSid;
+    private String pathSid;
 
-    public FunctionVersionFetcher(final String pathserviceSid, final String pathfunctionSid, final String pathsid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathfunctionSid = pathfunctionSid;
-        this.pathsid = pathsid;
+    public FunctionVersionFetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathFunctionSid = pathFunctionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +45,9 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
 
         String path = "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "FunctionSid" + "}", this.pathfunctionSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "FunctionSid" + "}", this.pathFunctionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

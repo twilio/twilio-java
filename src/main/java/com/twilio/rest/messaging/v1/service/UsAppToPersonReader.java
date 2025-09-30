@@ -14,9 +14,7 @@
 
 package com.twilio.rest.messaging.v1.service;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
     private Long pageSize;
 
-    public UsAppToPersonReader(final String pathmessagingServiceSid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public UsAppToPersonReader(final String pathMessagingServiceSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -53,7 +56,7 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

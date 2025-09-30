@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.usage;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,9 +26,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class TriggerReader extends Reader<Trigger> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
     private String usageCategory;
@@ -39,8 +42,8 @@ public class TriggerReader extends Reader<Trigger> {
     public TriggerReader() {
     }
 
-    public TriggerReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public TriggerReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -77,8 +80,8 @@ public class TriggerReader extends Reader<Trigger> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

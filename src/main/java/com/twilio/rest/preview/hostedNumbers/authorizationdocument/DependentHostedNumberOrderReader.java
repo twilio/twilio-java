@@ -14,9 +14,7 @@
 
 package com.twilio.rest.preview.hostedNumbers.authorizationdocument;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -29,9 +27,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumberOrder> {
 
-    private String pathsigningDocumentSid;
+    private String pathSigningDocumentSid;
     private DependentHostedNumberOrder.Status status;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String incomingPhoneNumberSid;
@@ -39,8 +42,8 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
     private String uniqueName;
     private Long pageSize;
 
-    public DependentHostedNumberOrderReader(final String pathsigningDocumentSid) {
-        this.pathsigningDocumentSid = pathsigningDocumentSid;
+    public DependentHostedNumberOrderReader(final String pathSigningDocumentSid) {
+        this.pathSigningDocumentSid = pathSigningDocumentSid;
     }
 
 
@@ -92,7 +95,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
         String path = "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
 
-        path = path.replace("{" + "SigningDocumentSid" + "}", this.pathsigningDocumentSid.toString());
+        path = path.replace("{" + "SigningDocumentSid" + "}", this.pathSigningDocumentSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

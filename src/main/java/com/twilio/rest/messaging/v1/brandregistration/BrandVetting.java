@@ -17,46 +17,59 @@ package com.twilio.rest.messaging.v1.brandregistration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandVetting extends Resource {
 
 
-    public static BrandVettingCreator creator(final String pathbrandSid, final BrandVetting.VettingProvider vettingProvider) {
+    public static BrandVettingCreator creator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider) {
         return new BrandVettingCreator(
-                pathbrandSid, vettingProvider
+                pathBrandSid, vettingProvider
         );
     }
 
 
-    public static BrandVettingFetcher fetcher(final String pathbrandSid, final String pathbrandVettingSid) {
+    public static BrandVettingFetcher fetcher(final String pathBrandSid, final String pathBrandVettingSid) {
         return new BrandVettingFetcher(
-                pathbrandSid, pathbrandVettingSid
+                pathBrandSid, pathBrandVettingSid
         );
     }
 
 
-    public static BrandVettingReader reader(final String pathbrandSid) {
+    public static BrandVettingReader reader(final String pathBrandSid) {
         return new BrandVettingReader(
-                pathbrandSid
+                pathBrandSid
         );
     }
 

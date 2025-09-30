@@ -17,79 +17,92 @@ package com.twilio.rest.api.v2010.account.sip.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAccessControlListMapping extends Resource {
 
 
-    public static IpAccessControlListMappingCreator creator(final String pathdomainSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListMappingCreator creator(final String pathDomainSid, final String ipAccessControlListSid) {
         return new IpAccessControlListMappingCreator(
-                pathdomainSid, ipAccessControlListSid
+                pathDomainSid, ipAccessControlListSid
         );
     }
 
 
-    public static IpAccessControlListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String ipAccessControlListSid) {
         return new IpAccessControlListMappingCreator(
-                pathaccountSid, pathdomainSid, ipAccessControlListSid
+                pathAccountSid, pathDomainSid, ipAccessControlListSid
         );
     }
 
 
-    public static IpAccessControlListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new IpAccessControlListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static IpAccessControlListMappingReader reader(final String pathdomainSid) {
+    public static IpAccessControlListMappingReader reader(final String pathDomainSid) {
         return new IpAccessControlListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static IpAccessControlListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static IpAccessControlListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new IpAccessControlListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

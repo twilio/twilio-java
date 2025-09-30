@@ -17,53 +17,66 @@ package com.twilio.rest.messaging.v1.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AlphaSender extends Resource {
 
 
-    public static AlphaSenderCreator creator(final String pathserviceSid, final String alphaSender) {
+    public static AlphaSenderCreator creator(final String pathServiceSid, final String alphaSender) {
         return new AlphaSenderCreator(
-                pathserviceSid, alphaSender
+                pathServiceSid, alphaSender
         );
     }
 
 
-    public static AlphaSenderDeleter deleter(final String pathserviceSid, final String pathsid) {
+    public static AlphaSenderDeleter deleter(final String pathServiceSid, final String pathSid) {
         return new AlphaSenderDeleter(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static AlphaSenderFetcher fetcher(final String pathserviceSid, final String pathsid) {
+    public static AlphaSenderFetcher fetcher(final String pathServiceSid, final String pathSid) {
         return new AlphaSenderFetcher(
-                pathserviceSid, pathsid
+                pathServiceSid, pathSid
         );
     }
 
 
-    public static AlphaSenderReader reader(final String pathserviceSid) {
+    public static AlphaSenderReader reader(final String pathServiceSid) {
         return new AlphaSenderReader(
-                pathserviceSid
+                pathServiceSid
         );
     }
 

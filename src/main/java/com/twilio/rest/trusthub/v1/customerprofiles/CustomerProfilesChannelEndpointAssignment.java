@@ -17,52 +17,65 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CustomerProfilesChannelEndpointAssignment extends Resource {
 
 
-    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathcustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
+    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
         return new CustomerProfilesChannelEndpointAssignmentCreator(
-                pathcustomerProfileSid, channelEndpointType, channelEndpointSid
+                pathCustomerProfileSid, channelEndpointType, channelEndpointSid
         );
     }
 
 
-    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesChannelEndpointAssignmentDeleter(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathcustomerProfileSid, final String pathsid) {
+    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathCustomerProfileSid, final String pathSid) {
         return new CustomerProfilesChannelEndpointAssignmentFetcher(
-                pathcustomerProfileSid, pathsid
+                pathCustomerProfileSid, pathSid
         );
     }
 
 
-    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathcustomerProfileSid) {
+    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathCustomerProfileSid) {
         return new CustomerProfilesChannelEndpointAssignmentReader(
-                pathcustomerProfileSid
+                pathCustomerProfileSid
         );
     }
 

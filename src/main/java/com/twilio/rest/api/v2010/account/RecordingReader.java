@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,11 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class RecordingReader extends Reader<Recording> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateCreatedBefore;
     private ZonedDateTime dateCreatedAfter;
@@ -44,8 +47,8 @@ public class RecordingReader extends Reader<Recording> {
     public RecordingReader() {
     }
 
-    public RecordingReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public RecordingReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -100,8 +103,8 @@ public class RecordingReader extends Reader<Recording> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

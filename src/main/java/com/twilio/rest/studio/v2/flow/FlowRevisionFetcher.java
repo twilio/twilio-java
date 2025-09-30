@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
 
-    private String pathsid;
-    private String pathrevision;
+    private String pathSid;
+    private String pathRevision;
 
-    public FlowRevisionFetcher(final String pathsid, final String pathrevision) {
-        this.pathsid = pathsid;
-        this.pathrevision = pathrevision;
+    public FlowRevisionFetcher(final String pathSid, final String pathRevision) {
+        this.pathSid = pathSid;
+        this.pathRevision = pathRevision;
     }
 
 
@@ -40,8 +43,8 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
 
         String path = "/v2/Flows/{Sid}/Revisions/{Revision}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
-        path = path.replace("{" + "Revision" + "}", this.pathrevision.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Revision" + "}", this.pathRevision.toString());
 
 
         Request request = new Request(

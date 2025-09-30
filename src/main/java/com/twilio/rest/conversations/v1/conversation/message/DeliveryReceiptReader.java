@@ -14,9 +14,7 @@
 
 package com.twilio.rest.conversations.v1.conversation.message;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
-    private String pathconversationSid;
-    private String pathmessageSid;
+    private String pathConversationSid;
+    private String pathMessageSid;
     private Long pageSize;
 
-    public DeliveryReceiptReader(final String pathconversationSid, final String pathmessageSid) {
-        this.pathconversationSid = pathconversationSid;
-        this.pathmessageSid = pathmessageSid;
+    public DeliveryReceiptReader(final String pathConversationSid, final String pathMessageSid) {
+        this.pathConversationSid = pathConversationSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
 
@@ -55,8 +58,8 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
         String path = "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
-        path = path.replace("{" + "MessageSid" + "}", this.pathmessageSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
+        path = path.replace("{" + "MessageSid" + "}", this.pathMessageSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

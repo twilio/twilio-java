@@ -17,45 +17,58 @@ package com.twilio.rest.taskrouter.v1.workspace.worker;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkerChannel extends Resource {
 
 
-    public static WorkerChannelFetcher fetcher(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
+    public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
         return new WorkerChannelFetcher(
-                pathworkspaceSid, pathworkerSid, pathsid
+                pathWorkspaceSid, pathWorkerSid, pathSid
         );
     }
 
 
-    public static WorkerChannelReader reader(final String pathworkspaceSid, final String pathworkerSid) {
+    public static WorkerChannelReader reader(final String pathWorkspaceSid, final String pathWorkerSid) {
         return new WorkerChannelReader(
-                pathworkspaceSid, pathworkerSid
+                pathWorkspaceSid, pathWorkerSid
         );
     }
 
 
-    public static WorkerChannelUpdater updater(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
+    public static WorkerChannelUpdater updater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
         return new WorkerChannelUpdater(
-                pathworkspaceSid, pathworkerSid, pathsid
+                pathWorkspaceSid, pathWorkerSid, pathSid
         );
     }
 

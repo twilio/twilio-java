@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
-    private String pathtrunkSid;
-    private String pathsid;
+    private String pathTrunkSid;
+    private String pathSid;
 
-    public IpAccessControlListDeleter(final String pathtrunkSid, final String pathsid) {
-        this.pathtrunkSid = pathtrunkSid;
-        this.pathsid = pathsid;
+    public IpAccessControlListDeleter(final String pathTrunkSid, final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +43,8 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

@@ -27,18 +27,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
-    private String pathserviceSid;
-    private String pathlistSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathListSid;
+    private String pathIdentity;
     private Boolean read;
     private Boolean write;
     private Boolean manage;
 
-    public SyncListPermissionUpdater(final String pathserviceSid, final String pathlistSid, final String pathidentity, final Boolean read, final Boolean write, final Boolean manage) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathlistSid = pathlistSid;
-        this.pathidentity = pathidentity;
+    public SyncListPermissionUpdater(final String pathServiceSid, final String pathListSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -68,9 +71,9 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
 
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

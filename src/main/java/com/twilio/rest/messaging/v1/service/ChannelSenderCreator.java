@@ -28,13 +28,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ChannelSenderCreator extends Creator<ChannelSender> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
     private String sid;
 
-    public ChannelSenderCreator(final String pathmessagingServiceSid, final String sid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public ChannelSenderCreator(final String pathMessagingServiceSid, final String sid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.sid = sid;
     }
 
@@ -50,7 +53,7 @@ public class ChannelSenderCreator extends Creator<ChannelSender> {
 
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
 
         Request request = new Request(

@@ -14,9 +14,7 @@
 
 package com.twilio.rest.bulkexports.v1.export;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class DayReader extends Reader<Day> {
 
-    private String pathresourceType;
+    private String pathResourceType;
     private Long pageSize;
 
-    public DayReader(final String pathresourceType) {
-        this.pathresourceType = pathresourceType;
+    public DayReader(final String pathResourceType) {
+        this.pathResourceType = pathResourceType;
     }
 
 
@@ -53,7 +56,7 @@ public class DayReader extends Reader<Day> {
 
         String path = "/v1/Exports/{ResourceType}/Days";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

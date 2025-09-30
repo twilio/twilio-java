@@ -17,21 +17,34 @@ package com.twilio.rest.flexapi.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -45,16 +58,16 @@ public class InsightsQuestionnaires extends Resource {
     }
 
 
-    public static InsightsQuestionnairesDeleter deleter(final String pathquestionnaireSid) {
+    public static InsightsQuestionnairesDeleter deleter(final String pathQuestionnaireSid) {
         return new InsightsQuestionnairesDeleter(
-                pathquestionnaireSid
+                pathQuestionnaireSid
         );
     }
 
 
-    public static InsightsQuestionnairesFetcher fetcher(final String pathquestionnaireSid) {
+    public static InsightsQuestionnairesFetcher fetcher(final String pathQuestionnaireSid) {
         return new InsightsQuestionnairesFetcher(
-                pathquestionnaireSid
+                pathQuestionnaireSid
         );
     }
 
@@ -66,9 +79,9 @@ public class InsightsQuestionnaires extends Resource {
     }
 
 
-    public static InsightsQuestionnairesUpdater updater(final String pathquestionnaireSid, final Boolean active) {
+    public static InsightsQuestionnairesUpdater updater(final String pathQuestionnaireSid, final Boolean active) {
         return new InsightsQuestionnairesUpdater(
-                pathquestionnaireSid, active
+                pathQuestionnaireSid, active
         );
     }
 

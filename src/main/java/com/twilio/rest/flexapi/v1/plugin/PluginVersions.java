@@ -17,45 +17,58 @@ package com.twilio.rest.flexapi.v1.plugin;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PluginVersions extends Resource {
 
 
-    public static PluginVersionsCreator creator(final String pathpluginSid, final String version, final URI pluginUrl) {
+    public static PluginVersionsCreator creator(final String pathPluginSid, final String version, final URI pluginUrl) {
         return new PluginVersionsCreator(
-                pathpluginSid, version, pluginUrl
+                pathPluginSid, version, pluginUrl
         );
     }
 
 
-    public static PluginVersionsFetcher fetcher(final String pathpluginSid, final String pathsid) {
+    public static PluginVersionsFetcher fetcher(final String pathPluginSid, final String pathSid) {
         return new PluginVersionsFetcher(
-                pathpluginSid, pathsid
+                pathPluginSid, pathSid
         );
     }
 
 
-    public static PluginVersionsReader reader(final String pathpluginSid) {
+    public static PluginVersionsReader reader(final String pathPluginSid) {
         return new PluginVersionsReader(
-                pathpluginSid
+                pathPluginSid
         );
     }
 

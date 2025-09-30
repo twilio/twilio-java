@@ -17,79 +17,92 @@ package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtyperegistrat
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthRegistrationsCredentialListMapping extends Resource {
 
 
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathdomainSid, final String credentialListSid) {
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
         return new AuthRegistrationsCredentialListMappingCreator(
-                pathdomainSid, credentialListSid
+                pathDomainSid, credentialListSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathaccountSid, final String pathdomainSid, final String credentialListSid) {
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
         return new AuthRegistrationsCredentialListMappingCreator(
-                pathaccountSid, pathdomainSid, credentialListSid
+                pathAccountSid, pathDomainSid, credentialListSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingDeleter(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingDeleter(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingFetcher(
-                pathdomainSid, pathsid
+                pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
         return new AuthRegistrationsCredentialListMappingFetcher(
-                pathaccountSid, pathdomainSid, pathsid
+                pathAccountSid, pathDomainSid, pathSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingReader reader(final String pathdomainSid) {
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathDomainSid) {
         return new AuthRegistrationsCredentialListMappingReader(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static AuthRegistrationsCredentialListMappingReader reader(final String pathaccountSid, final String pathdomainSid) {
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
         return new AuthRegistrationsCredentialListMappingReader(
-                pathaccountSid, pathdomainSid
+                pathAccountSid, pathDomainSid
         );
     }
 

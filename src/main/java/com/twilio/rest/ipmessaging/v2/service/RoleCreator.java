@@ -29,17 +29,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class RoleCreator extends Creator<Role> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String friendlyName;
     private Role.RoleType type;
     private List<String> permission;
 
-    public RoleCreator(final String pathserviceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
-        this.pathserviceSid = pathserviceSid;
+    public RoleCreator(final String pathServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.type = type;
         this.permission = permission;
@@ -72,7 +75,7 @@ public class RoleCreator extends Creator<Role> {
 
         String path = "/v2/Services/{ServiceSid}/Roles";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

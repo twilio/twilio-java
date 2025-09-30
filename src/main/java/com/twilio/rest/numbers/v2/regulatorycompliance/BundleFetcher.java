@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class BundleFetcher extends Fetcher<Bundle> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public BundleFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public BundleFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class BundleFetcher extends Fetcher<Bundle> {
 
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

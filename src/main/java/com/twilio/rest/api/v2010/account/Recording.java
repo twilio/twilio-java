@@ -17,54 +17,67 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
 
 
-    public static RecordingDeleter deleter(final String pathsid) {
+    public static RecordingDeleter deleter(final String pathSid) {
         return new RecordingDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RecordingDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new RecordingDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathSid) {
         return new RecordingFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static RecordingFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new RecordingFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -76,9 +89,9 @@ public class Recording extends Resource {
     }
 
 
-    public static RecordingReader reader(final String pathaccountSid) {
+    public static RecordingReader reader(final String pathAccountSid) {
         return new RecordingReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 

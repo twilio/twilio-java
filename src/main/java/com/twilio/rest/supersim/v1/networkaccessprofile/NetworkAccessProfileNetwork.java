@@ -17,51 +17,64 @@ package com.twilio.rest.supersim.v1.networkaccessprofile;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NetworkAccessProfileNetwork extends Resource {
 
 
-    public static NetworkAccessProfileNetworkCreator creator(final String pathnetworkAccessProfileSid, final String network) {
+    public static NetworkAccessProfileNetworkCreator creator(final String pathNetworkAccessProfileSid, final String network) {
         return new NetworkAccessProfileNetworkCreator(
-                pathnetworkAccessProfileSid, network
+                pathNetworkAccessProfileSid, network
         );
     }
 
 
-    public static NetworkAccessProfileNetworkDeleter deleter(final String pathnetworkAccessProfileSid, final String pathsid) {
+    public static NetworkAccessProfileNetworkDeleter deleter(final String pathNetworkAccessProfileSid, final String pathSid) {
         return new NetworkAccessProfileNetworkDeleter(
-                pathnetworkAccessProfileSid, pathsid
+                pathNetworkAccessProfileSid, pathSid
         );
     }
 
 
-    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathnetworkAccessProfileSid, final String pathsid) {
+    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathNetworkAccessProfileSid, final String pathSid) {
         return new NetworkAccessProfileNetworkFetcher(
-                pathnetworkAccessProfileSid, pathsid
+                pathNetworkAccessProfileSid, pathSid
         );
     }
 
 
-    public static NetworkAccessProfileNetworkReader reader(final String pathnetworkAccessProfileSid) {
+    public static NetworkAccessProfileNetworkReader reader(final String pathNetworkAccessProfileSid) {
         return new NetworkAccessProfileNetworkReader(
-                pathnetworkAccessProfileSid
+                pathNetworkAccessProfileSid
         );
     }
 

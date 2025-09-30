@@ -24,18 +24,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
-    private String pathaccountSid;
-    private String pathconnectAppSid;
+    private String pathAccountSid;
+    private String pathConnectAppSid;
 
-    public AuthorizedConnectAppFetcher(final String pathconnectAppSid) {
-        this.pathconnectAppSid = pathconnectAppSid;
+    public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
+        this.pathConnectAppSid = pathConnectAppSid;
     }
 
-    public AuthorizedConnectAppFetcher(final String pathaccountSid, final String pathconnectAppSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathconnectAppSid = pathconnectAppSid;
+    public AuthorizedConnectAppFetcher(final String pathAccountSid, final String pathConnectAppSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConnectAppSid = pathConnectAppSid;
     }
 
 
@@ -44,9 +47,9 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "ConnectAppSid" + "}", this.pathconnectAppSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "ConnectAppSid" + "}", this.pathConnectAppSid.toString());
 
 
         Request request = new Request(

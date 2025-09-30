@@ -17,45 +17,58 @@ package com.twilio.rest.messaging.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainCerts extends Resource {
 
 
-    public static DomainCertsDeleter deleter(final String pathdomainSid) {
+    public static DomainCertsDeleter deleter(final String pathDomainSid) {
         return new DomainCertsDeleter(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static DomainCertsFetcher fetcher(final String pathdomainSid) {
+    public static DomainCertsFetcher fetcher(final String pathDomainSid) {
         return new DomainCertsFetcher(
-                pathdomainSid
+                pathDomainSid
         );
     }
 
 
-    public static DomainCertsUpdater updater(final String pathdomainSid, final String tlsCert) {
+    public static DomainCertsUpdater updater(final String pathDomainSid, final String tlsCert) {
         return new DomainCertsUpdater(
-                pathdomainSid, tlsCert
+                pathDomainSid, tlsCert
         );
     }
 

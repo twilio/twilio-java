@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,16 +27,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class QueryCreator extends Creator<Query> {
 
-    private Query.LookupRequest1 lookupRequest1;
+    private Query.LookupRequest lookupRequest;
 
     public QueryCreator() {
     }
 
 
-    public QueryCreator setLookupRequest1(final Query.LookupRequest1 lookupRequest1) {
-        this.lookupRequest1 = lookupRequest1;
+    public QueryCreator setLookupRequest(final Query.LookupRequest lookupRequest) {
+        this.lookupRequest = lookupRequest;
         return this;
     }
 
@@ -74,8 +78,8 @@ public class QueryCreator extends Creator<Query> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (lookupRequest1 != null) {
-            request.setBody(Query.toJson(lookupRequest1, objectMapper));
+        if (lookupRequest != null) {
+            request.setBody(Query.toJson(lookupRequest, objectMapper));
         }
     }
 }

@@ -26,17 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SyncListItemDeleter extends Deleter<SyncListItem> {
 
-    private String pathserviceSid;
-    private String pathlistSid;
-    private Integer pathindex;
+    private String pathServiceSid;
+    private String pathListSid;
+    private Integer pathIndex;
     private String ifMatch;
 
-    public SyncListItemDeleter(final String pathserviceSid, final String pathlistSid, final Integer pathindex) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathlistSid = pathlistSid;
-        this.pathindex = pathindex;
+    public SyncListItemDeleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIndex = pathIndex;
     }
 
 
@@ -51,9 +54,9 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
 
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
-        path = path.replace("{" + "Index" + "}", this.pathindex.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
+        path = path.replace("{" + "Index" + "}", this.pathIndex.toString());
 
 
         Request request = new Request(

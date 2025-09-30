@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class DomainConfigMessagingServiceFetcher extends Fetcher<DomainConfigMessagingService> {
 
-    private String pathmessagingServiceSid;
+    private String pathMessagingServiceSid;
 
-    public DomainConfigMessagingServiceFetcher(final String pathmessagingServiceSid) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
+    public DomainConfigMessagingServiceFetcher(final String pathMessagingServiceSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
 
@@ -38,7 +41,7 @@ public class DomainConfigMessagingServiceFetcher extends Fetcher<DomainConfigMes
 
         String path = "/v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
 
 
         Request request = new Request(

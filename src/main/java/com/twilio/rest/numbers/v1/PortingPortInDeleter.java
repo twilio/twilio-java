@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PortingPortInDeleter extends Deleter<PortingPortIn> {
 
-    private String pathportInRequestSid;
+    private String pathPortInRequestSid;
 
-    public PortingPortInDeleter(final String pathportInRequestSid) {
-        this.pathportInRequestSid = pathportInRequestSid;
+    public PortingPortInDeleter(final String pathPortInRequestSid) {
+        this.pathPortInRequestSid = pathPortInRequestSid;
     }
 
 
@@ -38,7 +41,7 @@ public class PortingPortInDeleter extends Deleter<PortingPortIn> {
 
         String path = "/v1/Porting/PortIn/{PortInRequestSid}";
 
-        path = path.replace("{" + "PortInRequestSid" + "}", this.pathportInRequestSid.toString());
+        path = path.replace("{" + "PortInRequestSid" + "}", this.pathPortInRequestSid.toString());
 
 
         Request request = new Request(

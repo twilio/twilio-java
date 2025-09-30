@@ -29,8 +29,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
 
 public class CompositionCreator extends Creator<Composition> {
 
@@ -96,6 +99,9 @@ public class CompositionCreator extends Creator<Composition> {
         return this;
     }
 
+    public CompositionCreator setStatusCallback(final String statusCallback) {
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
+    }
 
     public CompositionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;

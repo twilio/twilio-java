@@ -14,9 +14,7 @@
 
 package com.twilio.rest.insights.v1.call;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class MetricReader extends Reader<Metric> {
 
-    private String pathcallSid;
+    private String pathCallSid;
     private Metric.TwilioEdge edge;
     private Metric.StreamDirection direction;
     private Long pageSize;
 
-    public MetricReader(final String pathcallSid) {
-        this.pathcallSid = pathcallSid;
+    public MetricReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -67,7 +70,7 @@ public class MetricReader extends Reader<Metric> {
 
         String path = "/v1/Voice/{CallSid}/Metrics";
 
-        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

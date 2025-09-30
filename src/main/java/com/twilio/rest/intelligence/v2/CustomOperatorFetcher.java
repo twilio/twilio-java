@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CustomOperatorFetcher extends Fetcher<CustomOperator> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public CustomOperatorFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public CustomOperatorFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class CustomOperatorFetcher extends Fetcher<CustomOperator> {
 
         String path = "/v2/Operators/Custom/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

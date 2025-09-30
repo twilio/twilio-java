@@ -14,9 +14,7 @@
 
 package com.twilio.rest.assistants.v1.assistant;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class FeedbackReader extends Reader<Feedback> {
 
-    private String pathid;
+    private String pathId;
     private Integer pageSize;
 
-    public FeedbackReader(final String pathid) {
-        this.pathid = pathid;
+    public FeedbackReader(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -53,7 +56,7 @@ public class FeedbackReader extends Reader<Feedback> {
 
         String path = "/v1/Assistants/{id}/Feedbacks";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -28,17 +28,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class CredentialListCreator extends Creator<CredentialList> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private String friendlyName;
 
     public CredentialListCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
-    public CredentialListCreator(final String pathaccountSid, final String friendlyName) {
-        this.pathaccountSid = pathaccountSid;
+    public CredentialListCreator(final String pathAccountSid, final String friendlyName) {
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -54,8 +57,8 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
 
         Request request = new Request(

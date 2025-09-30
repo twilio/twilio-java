@@ -27,14 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ParticipantUpdater extends Updater<Participant> {
-    private String pathroomSid;
-    private String pathsid;
+    private String pathRoomSid;
+    private String pathSid;
     private Participant.Status status;
 
-    public ParticipantUpdater(final String pathroomSid, final String pathsid) {
-        this.pathroomSid = pathroomSid;
-        this.pathsid = pathsid;
+    public ParticipantUpdater(final String pathRoomSid, final String pathSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -49,8 +52,8 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants/{Sid}";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

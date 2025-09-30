@@ -28,15 +28,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class InteractionChannelInviteCreator extends Creator<InteractionChannelInvite> {
 
-    private String pathinteractionSid;
-    private String pathchannelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private Object routing;
 
-    public InteractionChannelInviteCreator(final String pathinteractionSid, final String pathchannelSid, final Object routing) {
-        this.pathinteractionSid = pathinteractionSid;
-        this.pathchannelSid = pathchannelSid;
+    public InteractionChannelInviteCreator(final String pathInteractionSid, final String pathChannelSid, final Object routing) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
         this.routing = routing;
     }
 
@@ -52,8 +55,8 @@ public class InteractionChannelInviteCreator extends Creator<InteractionChannelI
 
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
 
 
         Request request = new Request(

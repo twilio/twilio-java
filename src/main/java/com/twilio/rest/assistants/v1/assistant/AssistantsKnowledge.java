@@ -17,44 +17,57 @@ package com.twilio.rest.assistants.v1.assistant;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssistantsKnowledge extends Resource {
 
 
-    public static AssistantsKnowledgeCreator creator(final String pathassistantId, final String pathid) {
+    public static AssistantsKnowledgeCreator creator(final String pathAssistantId, final String pathId) {
         return new AssistantsKnowledgeCreator(
-                pathassistantId, pathid
+                pathAssistantId, pathId
         );
     }
 
 
-    public static AssistantsKnowledgeDeleter deleter(final String pathassistantId, final String pathid) {
+    public static AssistantsKnowledgeDeleter deleter(final String pathAssistantId, final String pathId) {
         return new AssistantsKnowledgeDeleter(
-                pathassistantId, pathid
+                pathAssistantId, pathId
         );
     }
 
 
-    public static AssistantsKnowledgeReader reader(final String pathassistantId) {
+    public static AssistantsKnowledgeReader reader(final String pathAssistantId) {
         return new AssistantsKnowledgeReader(
-                pathassistantId
+                pathAssistantId
         );
     }
 

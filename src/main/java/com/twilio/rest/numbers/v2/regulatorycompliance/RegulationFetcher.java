@@ -26,13 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RegulationFetcher extends Fetcher<Regulation> {
 
-    private String pathsid;
+    private String pathSid;
     private Boolean includeConstraints;
 
-    public RegulationFetcher(final String pathsid) {
-        this.pathsid = pathsid;
+    public RegulationFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -47,7 +50,7 @@ public class RegulationFetcher extends Fetcher<Regulation> {
 
         String path = "/v2/RegulatoryCompliance/Regulations/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

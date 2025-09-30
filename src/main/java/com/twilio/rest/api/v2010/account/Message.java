@@ -17,26 +17,39 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -50,9 +63,9 @@ public class Message extends Resource {
     }
 
 
-    public static MessageCreator creator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
         return new MessageCreator(
-                pathaccountSid, to, from, body
+                pathAccountSid, to, from, body
         );
     }
 
@@ -64,9 +77,9 @@ public class Message extends Resource {
     }
 
 
-    public static MessageCreator creator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
         return new MessageCreator(
-                pathaccountSid, to, from, mediaUrl
+                pathAccountSid, to, from, mediaUrl
         );
     }
 
@@ -78,9 +91,9 @@ public class Message extends Resource {
     }
 
 
-    public static MessageCreator creator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
         return new MessageCreator(
-                pathaccountSid, to, messagingServiceSid, body
+                pathAccountSid, to, messagingServiceSid, body
         );
     }
 
@@ -92,37 +105,37 @@ public class Message extends Resource {
     }
 
 
-    public static MessageCreator creator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
         return new MessageCreator(
-                pathaccountSid, to, messagingServiceSid, mediaUrl
+                pathAccountSid, to, messagingServiceSid, mediaUrl
         );
     }
 
 
-    public static MessageDeleter deleter(final String pathsid) {
+    public static MessageDeleter deleter(final String pathSid) {
         return new MessageDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static MessageDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static MessageDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new MessageDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static MessageFetcher fetcher(final String pathsid) {
+    public static MessageFetcher fetcher(final String pathSid) {
         return new MessageFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static MessageFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static MessageFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new MessageFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -134,23 +147,23 @@ public class Message extends Resource {
     }
 
 
-    public static MessageReader reader(final String pathaccountSid) {
+    public static MessageReader reader(final String pathAccountSid) {
         return new MessageReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static MessageUpdater updater(final String pathsid) {
+    public static MessageUpdater updater(final String pathSid) {
         return new MessageUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static MessageUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static MessageUpdater updater(final String pathAccountSid, final String pathSid) {
         return new MessageUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

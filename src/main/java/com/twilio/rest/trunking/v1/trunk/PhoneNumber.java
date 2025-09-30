@@ -17,12 +17,10 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,42 +28,57 @@ import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
 
 
-    public static PhoneNumberCreator creator(final String pathtrunkSid, final String phoneNumberSid) {
+    public static PhoneNumberCreator creator(final String pathTrunkSid, final String phoneNumberSid) {
         return new PhoneNumberCreator(
-                pathtrunkSid, phoneNumberSid
+                pathTrunkSid, phoneNumberSid
         );
     }
 
 
-    public static PhoneNumberDeleter deleter(final String pathtrunkSid, final String pathsid) {
+    public static PhoneNumberDeleter deleter(final String pathTrunkSid, final String pathSid) {
         return new PhoneNumberDeleter(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static PhoneNumberFetcher fetcher(final String pathtrunkSid, final String pathsid) {
+    public static PhoneNumberFetcher fetcher(final String pathTrunkSid, final String pathSid) {
         return new PhoneNumberFetcher(
-                pathtrunkSid, pathsid
+                pathTrunkSid, pathSid
         );
     }
 
 
-    public static PhoneNumberReader reader(final String pathtrunkSid) {
+    public static PhoneNumberReader reader(final String pathTrunkSid) {
         return new PhoneNumberReader(
-                pathtrunkSid
+                pathTrunkSid
         );
     }
 

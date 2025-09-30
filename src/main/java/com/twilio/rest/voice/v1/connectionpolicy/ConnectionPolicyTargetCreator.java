@@ -18,6 +18,7 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,19 +29,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
+
+import com.twilio.type.*;
 
 public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarget> {
 
-    private String pathconnectionPolicySid;
+    private String pathConnectionPolicySid;
     private URI target;
     private String friendlyName;
     private Integer priority;
     private Integer weight;
     private Boolean enabled;
 
-    public ConnectionPolicyTargetCreator(final String pathconnectionPolicySid, final URI target) {
-        this.pathconnectionPolicySid = pathconnectionPolicySid;
+    public ConnectionPolicyTargetCreator(final String pathConnectionPolicySid, final URI target) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
         this.target = target;
     }
 
@@ -50,6 +54,9 @@ public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarge
         return this;
     }
 
+    public ConnectionPolicyTargetCreator setTarget(final String target) {
+        return setTarget(Promoter.uriFromString(target));
+    }
 
     public ConnectionPolicyTargetCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -80,7 +87,7 @@ public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarge
 
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathConnectionPolicySid.toString());
 
 
         Request request = new Request(

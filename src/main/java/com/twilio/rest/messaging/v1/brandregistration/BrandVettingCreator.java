@@ -28,14 +28,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class BrandVettingCreator extends Creator<BrandVetting> {
 
-    private String pathbrandSid;
+    private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
     private String vettingId;
 
-    public BrandVettingCreator(final String pathbrandSid, final BrandVetting.VettingProvider vettingProvider) {
-        this.pathbrandSid = pathbrandSid;
+    public BrandVettingCreator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider) {
+        this.pathBrandSid = pathBrandSid;
         this.vettingProvider = vettingProvider;
     }
 
@@ -57,7 +60,7 @@ public class BrandVettingCreator extends Creator<BrandVetting> {
 
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
 
-        path = path.replace("{" + "BrandSid" + "}", this.pathbrandSid.toString());
+        path = path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
 
 
         Request request = new Request(

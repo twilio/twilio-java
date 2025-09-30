@@ -17,11 +17,9 @@ package com.twilio.rest.api.v2010.account;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -29,41 +27,56 @@ import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectApp extends Resource {
 
 
-    public static ConnectAppDeleter deleter(final String pathsid) {
+    public static ConnectAppDeleter deleter(final String pathSid) {
         return new ConnectAppDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConnectAppDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static ConnectAppDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new ConnectAppDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static ConnectAppFetcher fetcher(final String pathsid) {
+    public static ConnectAppFetcher fetcher(final String pathSid) {
         return new ConnectAppFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConnectAppFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static ConnectAppFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new ConnectAppFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -75,66 +88,26 @@ public class ConnectApp extends Resource {
     }
 
 
-    public static ConnectAppReader reader(final String pathaccountSid) {
+    public static ConnectAppReader reader(final String pathAccountSid) {
         return new ConnectAppReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static ConnectAppUpdater updater(final String pathsid) {
+    public static ConnectAppUpdater updater(final String pathSid) {
         return new ConnectAppUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static ConnectAppUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static ConnectAppUpdater updater(final String pathAccountSid, final String pathSid) {
         return new ConnectAppUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
-
-    public enum ConnectAppConnectAppConnectAppConnectAppConnectAppPermission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private ConnectAppConnectAppConnectAppConnectAppConnectAppPermission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConnectAppConnectAppConnectAppConnectAppConnectAppPermission forValue(final String value) {
-            return Promoter.enumFromString(value, ConnectAppConnectAppConnectAppConnectAppConnectAppPermission.values());
-        }
-    }
-
-    public enum ConnectAppConnectAppConnectAppPermission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private ConnectAppConnectAppConnectAppPermission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConnectAppConnectAppConnectAppPermission forValue(final String value) {
-            return Promoter.enumFromString(value, ConnectAppConnectAppConnectAppPermission.values());
-        }
-    }
 
     public enum ConnectAppPermission {
         GET_ALL("get-all"),
@@ -156,26 +129,6 @@ public class ConnectApp extends Resource {
         }
     }
 
-    public enum ConnectAppConnectAppConnectAppConnectAppPermission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private ConnectAppConnectAppConnectAppConnectAppPermission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConnectAppConnectAppConnectAppConnectAppPermission forValue(final String value) {
-            return Promoter.enumFromString(value, ConnectAppConnectAppConnectAppConnectAppPermission.values());
-        }
-    }
-
     public enum Permission {
         GET_ALL("get-all"),
         POST_ALL("post-all");
@@ -193,26 +146,6 @@ public class ConnectApp extends Resource {
         @JsonCreator
         public static Permission forValue(final String value) {
             return Promoter.enumFromString(value, Permission.values());
-        }
-    }
-
-    public enum ConnectAppConnectAppPermission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private ConnectAppConnectAppPermission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConnectAppConnectAppPermission forValue(final String value) {
-            return Promoter.enumFromString(value, ConnectAppConnectAppPermission.values());
         }
     }
 
@@ -284,7 +217,7 @@ public class ConnectApp extends Resource {
     @Getter
     private final URI homepageUrl;
     @Getter
-    private final List<ConnectApp.ConnectAppConnectAppConnectAppConnectAppConnectAppPermission> permissions;
+    private final List<ConnectApp.Permission> permissions;
     @Getter
     private final String sid;
     @Getter
@@ -300,7 +233,7 @@ public class ConnectApp extends Resource {
             @JsonProperty("description") final String description,
             @JsonProperty("friendly_name") final String friendlyName,
             @JsonProperty("homepage_url") final URI homepageUrl,
-            @JsonProperty("permissions") final List<ConnectApp.ConnectAppConnectAppConnectAppConnectAppConnectAppPermission> permissions,
+            @JsonProperty("permissions") final List<ConnectApp.Permission> permissions,
             @JsonProperty("sid") final String sid,
             @JsonProperty("uri") final String uri
     ) {

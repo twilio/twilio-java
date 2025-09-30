@@ -17,12 +17,10 @@ package com.twilio.rest.api.v2010.account.usage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -30,11 +28,26 @@ import com.twilio.http.HttpMethod;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -48,37 +61,37 @@ public class Trigger extends Resource {
     }
 
 
-    public static TriggerCreator creator(final String pathaccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
+    public static TriggerCreator creator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final String usageCategory) {
         return new TriggerCreator(
-                pathaccountSid, callbackUrl, triggerValue, usageCategory
+                pathAccountSid, callbackUrl, triggerValue, usageCategory
         );
     }
 
 
-    public static TriggerDeleter deleter(final String pathsid) {
+    public static TriggerDeleter deleter(final String pathSid) {
         return new TriggerDeleter(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TriggerDeleter deleter(final String pathaccountSid, final String pathsid) {
+    public static TriggerDeleter deleter(final String pathAccountSid, final String pathSid) {
         return new TriggerDeleter(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
 
-    public static TriggerFetcher fetcher(final String pathsid) {
+    public static TriggerFetcher fetcher(final String pathSid) {
         return new TriggerFetcher(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TriggerFetcher fetcher(final String pathaccountSid, final String pathsid) {
+    public static TriggerFetcher fetcher(final String pathAccountSid, final String pathSid) {
         return new TriggerFetcher(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 
@@ -90,23 +103,23 @@ public class Trigger extends Resource {
     }
 
 
-    public static TriggerReader reader(final String pathaccountSid) {
+    public static TriggerReader reader(final String pathAccountSid) {
         return new TriggerReader(
-                pathaccountSid
+                pathAccountSid
         );
     }
 
 
-    public static TriggerUpdater updater(final String pathsid) {
+    public static TriggerUpdater updater(final String pathSid) {
         return new TriggerUpdater(
-                pathsid
+                pathSid
         );
     }
 
 
-    public static TriggerUpdater updater(final String pathaccountSid, final String pathsid) {
+    public static TriggerUpdater updater(final String pathAccountSid, final String pathSid) {
         return new TriggerUpdater(
-                pathaccountSid, pathsid
+                pathAccountSid, pathSid
         );
     }
 

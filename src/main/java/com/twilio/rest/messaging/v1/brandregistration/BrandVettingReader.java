@@ -14,9 +14,7 @@
 
 package com.twilio.rest.messaging.v1.brandregistration;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class BrandVettingReader extends Reader<BrandVetting> {
 
-    private String pathbrandSid;
+    private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
 
-    public BrandVettingReader(final String pathbrandSid) {
-        this.pathbrandSid = pathbrandSid;
+    public BrandVettingReader(final String pathBrandSid) {
+        this.pathBrandSid = pathBrandSid;
     }
 
 
@@ -53,7 +56,7 @@ public class BrandVettingReader extends Reader<BrandVetting> {
 
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
 
-        path = path.replace("{" + "BrandSid" + "}", this.pathbrandSid.toString());
+        path = path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

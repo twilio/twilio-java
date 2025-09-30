@@ -28,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class ServiceUpdater extends Updater<Service> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private String defaultServiceRoleSid;
     private String defaultChannelRoleSid;
@@ -65,8 +68,8 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer postWebhookRetryCount;
     private Boolean notificationsLogEnabled;
 
-    public ServiceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -201,12 +204,18 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl) {
+        return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
+    }
 
     public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl) {
         this.postWebhookUrl = postWebhookUrl;
         return this;
     }
 
+    public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl) {
+        return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
+    }
 
     public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod) {
         this.webhookMethod = webhookMethod;
@@ -264,7 +273,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         String path = "/v2/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

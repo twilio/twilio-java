@@ -28,10 +28,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class NewFactorCreator extends Creator<NewFactor> {
 
-    private String pathserviceSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private String friendlyName;
     private NewFactor.FactorTypes factorType;
     private String bindingAlg;
@@ -47,9 +50,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
     private NewFactor.TotpAlgorithms configAlg;
     private Object metadata;
 
-    public NewFactorCreator(final String pathserviceSid, final String pathidentity, final String friendlyName, final NewFactor.FactorTypes factorType) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
+    public NewFactorCreator(final String pathServiceSid, final String pathIdentity, final String friendlyName, final NewFactor.FactorTypes factorType) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
         this.friendlyName = friendlyName;
         this.factorType = factorType;
     }
@@ -144,8 +147,8 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
 
         Request request = new Request(

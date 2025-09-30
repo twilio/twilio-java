@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class RoleAssignmentDeleter extends Deleter<RoleAssignment> {
 
-    private String pathorganizationSid;
-    private String pathroleAssignmentSid;
+    private String pathOrganizationSid;
+    private String pathRoleAssignmentSid;
 
-    public RoleAssignmentDeleter(final String pathorganizationSid, final String pathroleAssignmentSid) {
-        this.pathorganizationSid = pathorganizationSid;
-        this.pathroleAssignmentSid = pathroleAssignmentSid;
+    public RoleAssignmentDeleter(final String pathOrganizationSid, final String pathRoleAssignmentSid) {
+        this.pathOrganizationSid = pathOrganizationSid;
+        this.pathRoleAssignmentSid = pathRoleAssignmentSid;
     }
 
 
@@ -40,8 +43,8 @@ public class RoleAssignmentDeleter extends Deleter<RoleAssignment> {
 
         String path = "/Organizations/{OrganizationSid}/RoleAssignments/{RoleAssignmentSid}";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
-        path = path.replace("{" + "RoleAssignmentSid" + "}", this.pathroleAssignmentSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
+        path = path.replace("{" + "RoleAssignmentSid" + "}", this.pathRoleAssignmentSid.toString());
 
 
         Request request = new Request(

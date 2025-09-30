@@ -24,14 +24,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class MessagingConfigurationFetcher extends Fetcher<MessagingConfiguration> {
 
-    private String pathserviceSid;
-    private String pathcountry;
+    private String pathServiceSid;
+    private String pathCountry;
 
-    public MessagingConfigurationFetcher(final String pathserviceSid, final String pathcountry) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathcountry = pathcountry;
+    public MessagingConfigurationFetcher(final String pathServiceSid, final String pathCountry) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathCountry = pathCountry;
     }
 
 
@@ -40,8 +43,8 @@ public class MessagingConfigurationFetcher extends Fetcher<MessagingConfiguratio
 
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Country" + "}", this.pathcountry.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
 
 
         Request request = new Request(

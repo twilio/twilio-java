@@ -24,21 +24,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class AuthCallsCredentialListMappingDeleter extends Deleter<AuthCallsCredentialListMapping> {
 
-    private String pathaccountSid;
-    private String pathdomainSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathDomainSid;
+    private String pathSid;
 
-    public AuthCallsCredentialListMappingDeleter(final String pathdomainSid, final String pathsid) {
-        this.pathdomainSid = pathdomainSid;
-        this.pathsid = pathsid;
+    public AuthCallsCredentialListMappingDeleter(final String pathDomainSid, final String pathSid) {
+        this.pathDomainSid = pathDomainSid;
+        this.pathSid = pathSid;
     }
 
-    public AuthCallsCredentialListMappingDeleter(final String pathaccountSid, final String pathdomainSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathdomainSid = pathdomainSid;
-        this.pathsid = pathsid;
+    public AuthCallsCredentialListMappingDeleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +50,10 @@ public class AuthCallsCredentialListMappingDeleter extends Deleter<AuthCallsCred
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

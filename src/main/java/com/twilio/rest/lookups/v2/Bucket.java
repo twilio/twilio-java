@@ -16,50 +16,65 @@ package com.twilio.rest.lookups.v2;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.Resource;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bucket extends Resource {
 
 
-    public static BucketDeleter deleter(final String pathfield, final String pathbucket) {
+    public static BucketDeleter deleter(final String pathField, final String pathBucket) {
         return new BucketDeleter(
-                pathfield, pathbucket
+                pathField, pathBucket
         );
     }
 
 
-    public static BucketFetcher fetcher(final String pathfield, final String pathbucket) {
+    public static BucketFetcher fetcher(final String pathField, final String pathBucket) {
         return new BucketFetcher(
-                pathfield, pathbucket
+                pathField, pathBucket
         );
     }
 
 
-    public static BucketUpdater updater(final String pathfield, final String pathbucket) {
+    public static BucketUpdater updater(final String pathField, final String pathBucket) {
         return new BucketUpdater(
-                pathfield, pathbucket
+                pathField, pathBucket
         );
     }
 
 
-    //@JsonDeserialize(builder = RateLimitRequest.Builder.class)
+    @JsonDeserialize(builder = RateLimitRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class RateLimitRequest {
@@ -67,16 +82,68 @@ public class Bucket extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("limit")
         @Getter
-        @Setter
-        private Integer limit;
+        private final Integer limit;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("ttl")
         @Getter
-        @Setter
-        private Integer ttl;
+        private final Integer ttl;
+
+
+        private RateLimitRequest(Builder builder) {
+            this.limit = builder.limit;
+            this.ttl = builder.ttl;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static RateLimitRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, RateLimitRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("limit")
+            private Integer limit;
+
+            @JsonProperty("ttl")
+            private Integer ttl;
+
+
+            public RateLimitRequest build() {
+                return new RateLimitRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            RateLimitRequest other = (RateLimitRequest) o;
+            return (
+                    Objects.equals(limit, other.limit) &&
+                            Objects.equals(ttl, other.ttl)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    limit,
+                    ttl
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a Bucket object using the provided ObjectMapper.

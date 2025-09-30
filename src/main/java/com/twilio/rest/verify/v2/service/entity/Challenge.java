@@ -17,54 +17,67 @@ package com.twilio.rest.verify.v2.service.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Challenge extends Resource {
 
 
-    public static ChallengeCreator creator(final String pathserviceSid, final String pathidentity, final String factorSid) {
+    public static ChallengeCreator creator(final String pathServiceSid, final String pathIdentity, final String factorSid) {
         return new ChallengeCreator(
-                pathserviceSid, pathidentity, factorSid
+                pathServiceSid, pathIdentity, factorSid
         );
     }
 
 
-    public static ChallengeFetcher fetcher(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static ChallengeFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new ChallengeFetcher(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 
 
-    public static ChallengeReader reader(final String pathserviceSid, final String pathidentity) {
+    public static ChallengeReader reader(final String pathServiceSid, final String pathIdentity) {
         return new ChallengeReader(
-                pathserviceSid, pathidentity
+                pathServiceSid, pathIdentity
         );
     }
 
 
-    public static ChallengeUpdater updater(final String pathserviceSid, final String pathidentity, final String pathsid) {
+    public static ChallengeUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid) {
         return new ChallengeUpdater(
-                pathserviceSid, pathidentity, pathsid
+                pathServiceSid, pathIdentity, pathSid
         );
     }
 

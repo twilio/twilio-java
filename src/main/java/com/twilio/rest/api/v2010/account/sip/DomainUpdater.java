@@ -17,6 +17,7 @@ package com.twilio.rest.api.v2010.account.sip;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class DomainUpdater extends Updater<Domain> {
-    private String pathaccountSid;
-    private String pathsid;
+    private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -46,13 +50,13 @@ public class DomainUpdater extends Updater<Domain> {
     private String byocTrunkSid;
     private String emergencyCallerSid;
 
-    public DomainUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public DomainUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
-    public DomainUpdater(final String pathaccountSid, final String pathsid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathsid = pathsid;
+    public DomainUpdater(final String pathAccountSid, final String pathSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -73,6 +77,9 @@ public class DomainUpdater extends Updater<Domain> {
         return this;
     }
 
+    public DomainUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public DomainUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -91,12 +98,18 @@ public class DomainUpdater extends Updater<Domain> {
         return this;
     }
 
+    public DomainUpdater setVoiceStatusCallbackUrl(final String voiceStatusCallbackUrl) {
+        return setVoiceStatusCallbackUrl(Promoter.uriFromString(voiceStatusCallbackUrl));
+    }
 
     public DomainUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
+    public DomainUpdater setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public DomainUpdater setSipRegistration(final Boolean sipRegistration) {
         this.sipRegistration = sipRegistration;
@@ -139,9 +152,9 @@ public class DomainUpdater extends Updater<Domain> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

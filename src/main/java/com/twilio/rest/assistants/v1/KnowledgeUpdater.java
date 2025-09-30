@@ -15,6 +15,7 @@
 package com.twilio.rest.assistants.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,12 +27,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class KnowledgeUpdater extends Updater<Knowledge> {
-    private String pathid;
+    private String pathId;
     private Knowledge.AssistantsV1ServiceUpdateKnowledgeRequest assistantsV1ServiceUpdateKnowledgeRequest;
 
-    public KnowledgeUpdater(final String pathid) {
-        this.pathid = pathid;
+    public KnowledgeUpdater(final String pathId) {
+        this.pathId = pathId;
     }
 
 
@@ -46,7 +50,7 @@ public class KnowledgeUpdater extends Updater<Knowledge> {
 
         String path = "/v1/Knowledge/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathid.toString());
+        path = path.replace("{" + "id" + "}", this.pathId.toString());
 
 
         Request request = new Request(

@@ -28,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
 
 public class TaskCreator extends Creator<Task> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private Integer timeout;
     private Integer priority;
     private String taskChannel;
@@ -43,8 +46,8 @@ public class TaskCreator extends Creator<Task> {
     private String ignoreCapacity;
     private String taskQueueSid;
 
-    public TaskCreator(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskCreator(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -107,7 +110,7 @@ public class TaskCreator extends Creator<Task> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
 
         Request request = new Request(

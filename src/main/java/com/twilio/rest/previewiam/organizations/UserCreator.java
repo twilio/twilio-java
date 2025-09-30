@@ -15,6 +15,7 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,13 +27,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class UserCreator extends Creator<User> {
 
-    private String pathorganizationSid;
+    private String pathOrganizationSid;
     private User.ScimUser scimUser;
 
-    public UserCreator(final String pathorganizationSid, final User.ScimUser scimUser) {
-        this.pathorganizationSid = pathorganizationSid;
+    public UserCreator(final String pathOrganizationSid, final User.ScimUser scimUser) {
+        this.pathOrganizationSid = pathOrganizationSid;
         this.scimUser = scimUser;
     }
 
@@ -48,7 +52,7 @@ public class UserCreator extends Creator<User> {
 
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
 
 
         Request request = new Request(

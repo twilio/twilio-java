@@ -16,77 +16,156 @@ package com.twilio.rest.assistants.v1.assistant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Feedback extends Resource {
 
 
-    public static FeedbackCreator creator(final String pathid, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
+    public static FeedbackCreator creator(final String pathId, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
         return new FeedbackCreator(
-                pathid, assistantsV1ServiceCreateFeedbackRequest
+                pathId, assistantsV1ServiceCreateFeedbackRequest
         );
     }
 
 
-    public static FeedbackReader reader(final String pathid) {
+    public static FeedbackReader reader(final String pathId) {
         return new FeedbackReader(
-                pathid
+                pathId
         );
     }
 
 
-    //@JsonDeserialize(builder = AssistantsV1ServiceCreateFeedbackRequest.Builder.class)
+    @JsonDeserialize(builder = AssistantsV1ServiceCreateFeedbackRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateFeedbackRequest {
-        public AssistantsV1ServiceCreateFeedbackRequest(final String sessionId) {
-            this.sessionId = sessionId;
-        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("message_id")
         @Getter
-        @Setter
-        private String messageId;
+        private final String messageId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("score")
         @Getter
-        @Setter
-        private Float score;
+        private final Float score;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("session_id")
         @Getter
-        @Setter
-        private String sessionId;
+        private final String sessionId;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("text")
         @Getter
-        @Setter
-        private String text;
+        private final String text;
+
+
+        private AssistantsV1ServiceCreateFeedbackRequest(Builder builder) {
+            this.messageId = builder.messageId;
+            this.score = builder.score;
+            this.sessionId = builder.sessionId;
+            this.text = builder.text;
+        }
+
+        public static Builder builder(final String sessionId) {
+            return new Builder(sessionId);
+        }
+
+        public static AssistantsV1ServiceCreateFeedbackRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+            return mapper.readValue(jsonString, AssistantsV1ServiceCreateFeedbackRequest.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+            @JsonProperty("message_id")
+            private String messageId;
+
+            @JsonProperty("score")
+            private Float score;
+
+            @JsonProperty("session_id")
+            private String sessionId;
+
+            @JsonProperty("text")
+            private String text;
+
+
+            @JsonCreator
+            public Builder(@JsonProperty("session_id") final String sessionId) {
+                this.sessionId = sessionId;
+            }
+
+
+            public AssistantsV1ServiceCreateFeedbackRequest build() {
+                return new AssistantsV1ServiceCreateFeedbackRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            AssistantsV1ServiceCreateFeedbackRequest other = (AssistantsV1ServiceCreateFeedbackRequest) o;
+            return (
+                    Objects.equals(messageId, other.messageId) &&
+                            Objects.equals(score, other.score) &&
+                            Objects.equals(sessionId, other.sessionId) &&
+                            Objects.equals(text, other.text)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                    messageId,
+                    score,
+                    sessionId,
+                    text
+            );
+        }
 
     }
+
 
     /**
      * Converts a JSON String into a Feedback object using the provided ObjectMapper.

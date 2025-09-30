@@ -28,11 +28,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.util.List;
 
+import com.twilio.type.*;
+
 public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
-    private String pathmessagingServiceSid;
-    private String pathsid;
+    private String pathMessagingServiceSid;
+    private String pathSid;
     private Boolean hasEmbeddedLinks;
     private Boolean hasEmbeddedPhone;
     private List<String> messageSamples;
@@ -41,9 +44,9 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
     private Boolean ageGated;
     private Boolean directLending;
 
-    public UsAppToPersonUpdater(final String pathmessagingServiceSid, final String pathsid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending) {
-        this.pathmessagingServiceSid = pathmessagingServiceSid;
-        this.pathsid = pathsid;
+    public UsAppToPersonUpdater(final String pathMessagingServiceSid, final String pathSid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.pathSid = pathSid;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         this.hasEmbeddedPhone = hasEmbeddedPhone;
         this.messageSamples = messageSamples;
@@ -104,8 +107,8 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
 
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

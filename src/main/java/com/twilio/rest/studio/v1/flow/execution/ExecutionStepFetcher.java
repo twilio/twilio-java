@@ -24,16 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
 
-    private String pathflowSid;
-    private String pathexecutionSid;
-    private String pathsid;
+    private String pathFlowSid;
+    private String pathExecutionSid;
+    private String pathSid;
 
-    public ExecutionStepFetcher(final String pathflowSid, final String pathexecutionSid, final String pathsid) {
-        this.pathflowSid = pathflowSid;
-        this.pathexecutionSid = pathexecutionSid;
-        this.pathsid = pathsid;
+    public ExecutionStepFetcher(final String pathFlowSid, final String pathExecutionSid, final String pathSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +45,9 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
 
         String path = "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "ExecutionSid" + "}", this.pathexecutionSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "ExecutionSid" + "}", this.pathExecutionSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

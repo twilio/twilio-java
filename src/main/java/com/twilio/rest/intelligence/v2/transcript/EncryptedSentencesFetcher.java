@@ -26,13 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
 
-    private String pathtranscriptSid;
+    private String pathTranscriptSid;
     private Boolean redacted;
 
-    public EncryptedSentencesFetcher(final String pathtranscriptSid) {
-        this.pathtranscriptSid = pathtranscriptSid;
+    public EncryptedSentencesFetcher(final String pathTranscriptSid) {
+        this.pathTranscriptSid = pathTranscriptSid;
     }
 
 
@@ -47,7 +50,7 @@ public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
 
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences/Encrypted";
 
-        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathTranscriptSid.toString());
 
 
         Request request = new Request(

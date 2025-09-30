@@ -24,16 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class StepContextFetcher extends Fetcher<StepContext> {
 
-    private String pathflowSid;
-    private String pathengagementSid;
-    private String pathstepSid;
+    private String pathFlowSid;
+    private String pathEngagementSid;
+    private String pathStepSid;
 
-    public StepContextFetcher(final String pathflowSid, final String pathengagementSid, final String pathstepSid) {
-        this.pathflowSid = pathflowSid;
-        this.pathengagementSid = pathengagementSid;
-        this.pathstepSid = pathstepSid;
+    public StepContextFetcher(final String pathFlowSid, final String pathEngagementSid, final String pathStepSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathEngagementSid = pathEngagementSid;
+        this.pathStepSid = pathStepSid;
     }
 
 
@@ -42,9 +45,9 @@ public class StepContextFetcher extends Fetcher<StepContext> {
 
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
-        path = path.replace("{" + "EngagementSid" + "}", this.pathengagementSid.toString());
-        path = path.replace("{" + "StepSid" + "}", this.pathstepSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path = path.replace("{" + "EngagementSid" + "}", this.pathEngagementSid.toString());
+        path = path.replace("{" + "StepSid" + "}", this.pathStepSid.toString());
 
 
         Request request = new Request(

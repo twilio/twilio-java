@@ -14,9 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,11 +26,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
-    private String pathworkspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private String friendlyName;
     private Integer minutes;
@@ -41,8 +44,8 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private String splitByWaitTime;
     private Long pageSize;
 
-    public TaskQueuesStatisticsReader(final String pathworkspaceSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
+    public TaskQueuesStatisticsReader(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
 
@@ -97,7 +100,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

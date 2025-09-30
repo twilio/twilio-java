@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.message;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,24 +26,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
 
 public class MediaReader extends Reader<Media> {
 
-    private String pathaccountSid;
-    private String pathmessageSid;
+    private String pathAccountSid;
+    private String pathMessageSid;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateCreatedBefore;
     private ZonedDateTime dateCreatedAfter;
     private Long pageSize;
 
-    public MediaReader(final String pathmessageSid) {
-        this.pathmessageSid = pathmessageSid;
+    public MediaReader(final String pathMessageSid) {
+        this.pathMessageSid = pathMessageSid;
     }
 
-    public MediaReader(final String pathaccountSid, final String pathmessageSid) {
-        this.pathaccountSid = pathaccountSid;
-        this.pathmessageSid = pathmessageSid;
+    public MediaReader(final String pathAccountSid, final String pathMessageSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
 
@@ -82,9 +85,9 @@ public class MediaReader extends Reader<Media> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
-        path = path.replace("{" + "MessageSid" + "}", this.pathmessageSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        path = path.replace("{" + "MessageSid" + "}", this.pathMessageSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

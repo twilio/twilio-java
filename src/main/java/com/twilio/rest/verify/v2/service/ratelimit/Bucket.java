@@ -17,59 +17,72 @@ package com.twilio.rest.verify.v2.service.ratelimit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bucket extends Resource {
 
 
-    public static BucketCreator creator(final String pathserviceSid, final String pathrateLimitSid, final Integer max, final Integer interval) {
+    public static BucketCreator creator(final String pathServiceSid, final String pathRateLimitSid, final Integer max, final Integer interval) {
         return new BucketCreator(
-                pathserviceSid, pathrateLimitSid, max, interval
+                pathServiceSid, pathRateLimitSid, max, interval
         );
     }
 
 
-    public static BucketDeleter deleter(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+    public static BucketDeleter deleter(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
         return new BucketDeleter(
-                pathserviceSid, pathrateLimitSid, pathsid
+                pathServiceSid, pathRateLimitSid, pathSid
         );
     }
 
 
-    public static BucketFetcher fetcher(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+    public static BucketFetcher fetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
         return new BucketFetcher(
-                pathserviceSid, pathrateLimitSid, pathsid
+                pathServiceSid, pathRateLimitSid, pathSid
         );
     }
 
 
-    public static BucketReader reader(final String pathserviceSid, final String pathrateLimitSid) {
+    public static BucketReader reader(final String pathServiceSid, final String pathRateLimitSid) {
         return new BucketReader(
-                pathserviceSid, pathrateLimitSid
+                pathServiceSid, pathRateLimitSid
         );
     }
 
 
-    public static BucketUpdater updater(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+    public static BucketUpdater updater(final String pathServiceSid, final String pathRateLimitSid, final String pathSid) {
         return new BucketUpdater(
-                pathserviceSid, pathrateLimitSid, pathsid
+                pathServiceSid, pathRateLimitSid, pathSid
         );
     }
 

@@ -17,47 +17,60 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TrustProductsEvaluations extends Resource {
 
 
-    public static TrustProductsEvaluationsCreator creator(final String pathtrustProductSid, final String policySid) {
+    public static TrustProductsEvaluationsCreator creator(final String pathTrustProductSid, final String policySid) {
         return new TrustProductsEvaluationsCreator(
-                pathtrustProductSid, policySid
+                pathTrustProductSid, policySid
         );
     }
 
 
-    public static TrustProductsEvaluationsFetcher fetcher(final String pathtrustProductSid, final String pathsid) {
+    public static TrustProductsEvaluationsFetcher fetcher(final String pathTrustProductSid, final String pathSid) {
         return new TrustProductsEvaluationsFetcher(
-                pathtrustProductSid, pathsid
+                pathTrustProductSid, pathSid
         );
     }
 
 
-    public static TrustProductsEvaluationsReader reader(final String pathtrustProductSid) {
+    public static TrustProductsEvaluationsReader reader(final String pathTrustProductSid) {
         return new TrustProductsEvaluationsReader(
-                pathtrustProductSid
+                pathTrustProductSid
         );
     }
 

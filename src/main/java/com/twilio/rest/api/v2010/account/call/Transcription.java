@@ -17,52 +17,65 @@ package com.twilio.rest.api.v2010.account.call;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.twilio.base.Resource;
+
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+
+import com.twilio.type.*;
+
 import java.util.Objects;
+
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.twilio.base.Resource;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
 
 
-    public static TranscriptionCreator creator(final String pathcallSid) {
+    public static TranscriptionCreator creator(final String pathCallSid) {
         return new TranscriptionCreator(
-                pathcallSid
+                pathCallSid
         );
     }
 
 
-    public static TranscriptionCreator creator(final String pathaccountSid, final String pathcallSid) {
+    public static TranscriptionCreator creator(final String pathAccountSid, final String pathCallSid) {
         return new TranscriptionCreator(
-                pathaccountSid, pathcallSid
+                pathAccountSid, pathCallSid
         );
     }
 
 
-    public static TranscriptionUpdater updater(final String pathcallSid, final String pathsid, final Transcription.UpdateStatus status) {
+    public static TranscriptionUpdater updater(final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
         return new TranscriptionUpdater(
-                pathcallSid, pathsid, status
+                pathCallSid, pathSid, status
         );
     }
 
 
-    public static TranscriptionUpdater updater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Transcription.UpdateStatus status) {
+    public static TranscriptionUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
         return new TranscriptionUpdater(
-                pathaccountSid, pathcallSid, pathsid, status
+                pathAccountSid, pathCallSid, pathSid, status
         );
     }
 

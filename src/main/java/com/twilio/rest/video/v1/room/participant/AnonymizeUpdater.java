@@ -24,13 +24,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AnonymizeUpdater extends Updater<Anonymize> {
-    private String pathroomSid;
-    private String pathsid;
 
-    public AnonymizeUpdater(final String pathroomSid, final String pathsid) {
-        this.pathroomSid = pathroomSid;
-        this.pathsid = pathsid;
+import com.twilio.type.*;
+
+public class AnonymizeUpdater extends Updater<Anonymize> {
+    private String pathRoomSid;
+    private String pathSid;
+
+    public AnonymizeUpdater(final String pathRoomSid, final String pathSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -39,8 +42,8 @@ public class AnonymizeUpdater extends Updater<Anonymize> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

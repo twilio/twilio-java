@@ -14,9 +14,7 @@
 
 package com.twilio.rest.proxy.v1.service.session;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class InteractionReader extends Reader<Interaction> {
 
-    private String pathserviceSid;
-    private String pathsessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private Long pageSize;
 
-    public InteractionReader(final String pathserviceSid, final String pathsessionSid) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathsessionSid = pathsessionSid;
+    public InteractionReader(final String pathServiceSid, final String pathSessionSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
     }
 
 
@@ -55,8 +58,8 @@ public class InteractionReader extends Reader<Interaction> {
 
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

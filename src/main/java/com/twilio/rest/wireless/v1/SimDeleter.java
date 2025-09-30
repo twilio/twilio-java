@@ -24,12 +24,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class SimDeleter extends Deleter<Sim> {
 
-    private String pathsid;
+    private String pathSid;
 
-    public SimDeleter(final String pathsid) {
-        this.pathsid = pathsid;
+    public SimDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +41,7 @@ public class SimDeleter extends Deleter<Sim> {
 
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

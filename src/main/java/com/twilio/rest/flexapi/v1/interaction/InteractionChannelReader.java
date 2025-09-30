@@ -14,9 +14,7 @@
 
 package com.twilio.rest.flexapi.v1.interaction;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class InteractionChannelReader extends Reader<InteractionChannel> {
 
-    private String pathinteractionSid;
+    private String pathInteractionSid;
     private Long pageSize;
 
-    public InteractionChannelReader(final String pathinteractionSid) {
-        this.pathinteractionSid = pathinteractionSid;
+    public InteractionChannelReader(final String pathInteractionSid) {
+        this.pathInteractionSid = pathInteractionSid;
     }
 
 
@@ -53,7 +56,7 @@ public class InteractionChannelReader extends Reader<InteractionChannel> {
 
         String path = "/v1/Interactions/{InteractionSid}/Channels";
 
-        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
+        path = path.replace("{" + "InteractionSid" + "}", this.pathInteractionSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

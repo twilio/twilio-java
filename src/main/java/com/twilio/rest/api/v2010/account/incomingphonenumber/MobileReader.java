@@ -14,9 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
@@ -29,9 +27,14 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class MobileReader extends Reader<Mobile> {
 
-    private String pathaccountSid;
+    private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -41,8 +44,8 @@ public class MobileReader extends Reader<Mobile> {
     public MobileReader() {
     }
 
-    public MobileReader(final String pathaccountSid) {
-        this.pathaccountSid = pathaccountSid;
+    public MobileReader(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
 
@@ -88,8 +91,8 @@ public class MobileReader extends Reader<Mobile> {
 
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
 
-        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

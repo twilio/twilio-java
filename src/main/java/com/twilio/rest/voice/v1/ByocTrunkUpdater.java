@@ -17,6 +17,7 @@ package com.twilio.rest.voice.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,10 +28,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class ByocTrunkUpdater extends Updater<ByocTrunk> {
-    private String pathsid;
+    private String pathSid;
     private String friendlyName;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -42,8 +46,8 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
     private String connectionPolicySid;
     private String fromDomainSid;
 
-    public ByocTrunkUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ByocTrunkUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -58,6 +62,9 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         return this;
     }
 
+    public ByocTrunkUpdater setVoiceUrl(final String voiceUrl) {
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
+    }
 
     public ByocTrunkUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
@@ -70,6 +77,9 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         return this;
     }
 
+    public ByocTrunkUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
+    }
 
     public ByocTrunkUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -82,6 +92,9 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
         return this;
     }
 
+    public ByocTrunkUpdater setStatusCallbackUrl(final String statusCallbackUrl) {
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
+    }
 
     public ByocTrunkUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
@@ -112,7 +125,7 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
 
         String path = "/v1/ByocTrunks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

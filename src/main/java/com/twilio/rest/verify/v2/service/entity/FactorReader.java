@@ -14,9 +14,7 @@
 
 package com.twilio.rest.verify.v2.service.entity;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class FactorReader extends Reader<Factor> {
 
-    private String pathserviceSid;
-    private String pathidentity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private Long pageSize;
 
-    public FactorReader(final String pathserviceSid, final String pathidentity) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathidentity = pathidentity;
+    public FactorReader(final String pathServiceSid, final String pathIdentity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -55,8 +58,8 @@ public class FactorReader extends Reader<Factor> {
 
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

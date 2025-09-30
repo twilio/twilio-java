@@ -29,15 +29,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
-    private String pathserviceSid;
+    private String pathServiceSid;
     private String sid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private Boolean isReserved;
 
-    public PhoneNumberCreator(final String pathserviceSid) {
-        this.pathserviceSid = pathserviceSid;
+    public PhoneNumberCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
 
@@ -67,7 +70,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
         String path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
 
 
         Request request = new Request(

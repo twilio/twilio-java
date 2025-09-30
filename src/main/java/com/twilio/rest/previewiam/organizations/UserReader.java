@@ -14,9 +14,7 @@
 
 package com.twilio.rest.previewiam.organizations;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,13 +26,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class UserReader extends Reader<User> {
 
-    private String pathorganizationSid;
+    private String pathOrganizationSid;
     private String filter;
 
-    public UserReader(final String pathorganizationSid) {
-        this.pathorganizationSid = pathorganizationSid;
+    public UserReader(final String pathOrganizationSid) {
+        this.pathOrganizationSid = pathOrganizationSid;
     }
 
 
@@ -53,7 +56,7 @@ public class UserReader extends Reader<User> {
 
         String path = "/Organizations/{OrganizationSid}/scim/Users";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathorganizationSid.toString());
+        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

@@ -29,6 +29,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class TokenCreator extends Creator<Token> {
 
     private String grantType;
@@ -40,9 +43,7 @@ public class TokenCreator extends Creator<Token> {
     private String refreshToken;
     private String scope;
 
-    public TokenCreator(final String grantType, final String clientId) {
-        this.grantType = grantType;
-        this.clientId = clientId;
+    public TokenCreator() {
     }
 
 

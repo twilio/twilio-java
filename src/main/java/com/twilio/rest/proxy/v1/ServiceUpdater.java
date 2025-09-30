@@ -17,6 +17,7 @@ package com.twilio.rest.proxy.v1;
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Promoter;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -27,10 +28,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
 import java.net.URI;
 
+import com.twilio.type.*;
+
 public class ServiceUpdater extends Updater<Service> {
-    private String pathsid;
+    private String pathSid;
     private String uniqueName;
     private Integer defaultTtl;
     private URI callbackUrl;
@@ -40,8 +44,8 @@ public class ServiceUpdater extends Updater<Service> {
     private URI outOfSessionCallbackUrl;
     private String chatInstanceSid;
 
-    public ServiceUpdater(final String pathsid) {
-        this.pathsid = pathsid;
+    public ServiceUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
 
@@ -62,6 +66,9 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
 
     public ServiceUpdater setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
         this.geoMatchLevel = geoMatchLevel;
@@ -80,12 +87,18 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
+    public ServiceUpdater setInterceptCallbackUrl(final String interceptCallbackUrl) {
+        return setInterceptCallbackUrl(Promoter.uriFromString(interceptCallbackUrl));
+    }
 
     public ServiceUpdater setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl) {
         this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
         return this;
     }
 
+    public ServiceUpdater setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl) {
+        return setOutOfSessionCallbackUrl(Promoter.uriFromString(outOfSessionCallbackUrl));
+    }
 
     public ServiceUpdater setChatInstanceSid(final String chatInstanceSid) {
         this.chatInstanceSid = chatInstanceSid;
@@ -98,7 +111,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
 
         Request request = new Request(

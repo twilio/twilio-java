@@ -14,9 +14,7 @@
 
 package com.twilio.rest.video.v1.room.participant;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,15 +26,20 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
-    private String pathroomSid;
-    private String pathparticipantSid;
+    private String pathRoomSid;
+    private String pathParticipantSid;
     private Long pageSize;
 
-    public SubscribedTrackReader(final String pathroomSid, final String pathparticipantSid) {
-        this.pathroomSid = pathroomSid;
-        this.pathparticipantSid = pathparticipantSid;
+    public SubscribedTrackReader(final String pathRoomSid, final String pathParticipantSid) {
+        this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
 
@@ -55,8 +58,8 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
         String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks";
 
-        path = path.replace("{" + "RoomSid" + "}", this.pathroomSid.toString());
-        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathParticipantSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

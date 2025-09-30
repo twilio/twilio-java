@@ -28,15 +28,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+
 public class StreamMessageCreator extends Creator<StreamMessage> {
 
-    private String pathserviceSid;
-    private String pathstreamSid;
+    private String pathServiceSid;
+    private String pathStreamSid;
     private Object data;
 
-    public StreamMessageCreator(final String pathserviceSid, final String pathstreamSid, final Object data) {
-        this.pathserviceSid = pathserviceSid;
-        this.pathstreamSid = pathstreamSid;
+    public StreamMessageCreator(final String pathServiceSid, final String pathStreamSid, final Object data) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathStreamSid = pathStreamSid;
         this.data = data;
     }
 
@@ -52,8 +55,8 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
         String path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
-        path = path.replace("{" + "StreamSid" + "}", this.pathstreamSid.toString());
+        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path = path.replace("{" + "StreamSid" + "}", this.pathStreamSid.toString());
 
 
         Request request = new Request(

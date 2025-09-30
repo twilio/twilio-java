@@ -14,9 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace.worker;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
-import com.twilio.base.ResourceSet;
 import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
@@ -28,16 +26,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+import com.twilio.type.*;
+import com.twilio.base.Page;
+import com.twilio.base.ResourceSet;
+
 public class ReservationReader extends Reader<Reservation> {
 
-    private String pathworkspaceSid;
-    private String pathworkerSid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
     private Reservation.Status reservationStatus;
     private Long pageSize;
 
-    public ReservationReader(final String pathworkspaceSid, final String pathworkerSid) {
-        this.pathworkspaceSid = pathworkspaceSid;
-        this.pathworkerSid = pathworkerSid;
+    public ReservationReader(final String pathWorkspaceSid, final String pathWorkerSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
     }
 
 
@@ -62,8 +65,8 @@ public class ReservationReader extends Reader<Reservation> {
 
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
-        path = path.replace("{" + "WorkerSid" + "}", this.pathworkerSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path = path.replace("{" + "WorkerSid" + "}", this.pathWorkerSid.toString());
 
         Request request = new Request(
                 HttpMethod.GET,

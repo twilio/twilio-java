@@ -18,215 +18,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeliveryReceipt extends Resource {
 
-    private static final long serialVersionUID = 126608153820635L;
 
-    public static DeliveryReceiptFetcher fetcher(
-        final String pathConversationSid,
-        final String pathMessageSid,
-        final String pathSid
-    ) {
+    public static DeliveryReceiptFetcher fetcher(final String pathconversationSid, final String pathmessageSid, final String pathsid) {
         return new DeliveryReceiptFetcher(
-            pathConversationSid,
-            pathMessageSid,
-            pathSid
+                pathconversationSid, pathmessageSid, pathsid
         );
     }
 
-    public static DeliveryReceiptReader reader(
-        final String pathConversationSid,
-        final String pathMessageSid
-    ) {
-        return new DeliveryReceiptReader(pathConversationSid, pathMessageSid);
-    }
 
-    /**
-     * Converts a JSON String into a DeliveryReceipt object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return DeliveryReceipt object represented by the provided JSON
-     */
-    public static DeliveryReceipt fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, DeliveryReceipt.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a DeliveryReceipt object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return DeliveryReceipt object represented by the provided JSON
-     */
-    public static DeliveryReceipt fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, DeliveryReceipt.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String accountSid;
-    private final String conversationSid;
-    private final String sid;
-    private final String messageSid;
-    private final String channelMessageSid;
-    private final String participantSid;
-    private final DeliveryReceipt.DeliveryStatus status;
-    private final Integer errorCode;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-
-    @JsonCreator
-    private DeliveryReceipt(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("conversation_sid") final String conversationSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("message_sid") final String messageSid,
-        @JsonProperty("channel_message_sid") final String channelMessageSid,
-        @JsonProperty("participant_sid") final String participantSid,
-        @JsonProperty("status") final DeliveryReceipt.DeliveryStatus status,
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.conversationSid = conversationSid;
-        this.sid = sid;
-        this.messageSid = messageSid;
-        this.channelMessageSid = channelMessageSid;
-        this.participantSid = participantSid;
-        this.status = status;
-        this.errorCode = errorCode;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getMessageSid() {
-        return this.messageSid;
-    }
-
-    public final String getChannelMessageSid() {
-        return this.channelMessageSid;
-    }
-
-    public final String getParticipantSid() {
-        return this.participantSid;
-    }
-
-    public final DeliveryReceipt.DeliveryStatus getStatus() {
-        return this.status;
-    }
-
-    public final Integer getErrorCode() {
-        return this.errorCode;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        DeliveryReceipt other = (DeliveryReceipt) o;
-
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(messageSid, other.messageSid) &&
-            Objects.equals(channelMessageSid, other.channelMessageSid) &&
-            Objects.equals(participantSid, other.participantSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+    public static DeliveryReceiptReader reader(final String pathconversationSid, final String pathmessageSid) {
+        return new DeliveryReceiptReader(
+                pathconversationSid, pathmessageSid
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            conversationSid,
-            sid,
-            messageSid,
-            channelMessageSid,
-            participantSid,
-            status,
-            errorCode,
-            dateCreated,
-            dateUpdated,
-            url
-        );
-    }
 
     public enum DeliveryStatus {
         READ("read"),
@@ -250,4 +76,153 @@ public class DeliveryReceipt extends Resource {
             return Promoter.enumFromString(value, DeliveryStatus.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a DeliveryReceipt object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DeliveryReceipt object represented by the provided JSON
+     */
+    public static DeliveryReceipt fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, DeliveryReceipt.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a DeliveryReceipt object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DeliveryReceipt object represented by the provided JSON
+     */
+    public static DeliveryReceipt fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, DeliveryReceipt.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final String channelMessageSid;
+    @Getter
+    private final String conversationSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final Integer errorCode;
+    @Getter
+    private final String messageSid;
+    @Getter
+    private final String participantSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final DeliveryReceipt.DeliveryStatus status;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private DeliveryReceipt(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("channel_message_sid") final String channelMessageSid,
+            @JsonProperty("conversation_sid") final String conversationSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("error_code") final Integer errorCode,
+            @JsonProperty("message_sid") final String messageSid,
+            @JsonProperty("participant_sid") final String participantSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("status") final DeliveryReceipt.DeliveryStatus status,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.channelMessageSid = channelMessageSid;
+        this.conversationSid = conversationSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.errorCode = errorCode;
+        this.messageSid = messageSid;
+        this.participantSid = participantSid;
+        this.sid = sid;
+        this.status = status;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        DeliveryReceipt other = (DeliveryReceipt) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(channelMessageSid, other.channelMessageSid) &&
+                        Objects.equals(conversationSid, other.conversationSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(errorCode, other.errorCode) &&
+                        Objects.equals(messageSid, other.messageSid) &&
+                        Objects.equals(participantSid, other.participantSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                channelMessageSid,
+                conversationSid,
+                dateCreated,
+                dateUpdated,
+                errorCode,
+                messageSid,
+                participantSid,
+                sid,
+                status,
+                url
+        );
+    }
+
+
 }
+

@@ -18,47 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.PhoneNumberCapabilities;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Local extends Resource {
 
-    private static final long serialVersionUID = 211749226408502L;
 
-    public static LocalReader reader(final String pathCountryCode) {
-        return new LocalReader(pathCountryCode);
+    public static LocalReader reader(final String pathcountryCode) {
+        return new LocalReader(
+                pathcountryCode
+        );
     }
 
-    public static LocalReader reader(
-        final String pathAccountSid,
-        final String pathCountryCode
-    ) {
-        return new LocalReader(pathAccountSid, pathCountryCode);
+
+    public static LocalReader reader(final String pathaccountSid, final String pathcountryCode) {
+        return new LocalReader(
+                pathaccountSid, pathcountryCode
+        );
     }
+
 
     /**
      * Converts a JSON String into a Local object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Local object represented by the provided JSON
      */
-    public static Local fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Local fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Local.class);
@@ -73,14 +74,11 @@ public class Local extends Resource {
      * Converts a JSON InputStream into a Local object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Local object represented by the provided JSON
      */
-    public static Local fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Local fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Local.class);
@@ -91,105 +89,75 @@ public class Local extends Resource {
         }
     }
 
-    private final com.twilio.type.PhoneNumber friendlyName;
-    private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String lata;
-    private final String locality;
-    private final String rateCenter;
-    private final BigDecimal latitude;
-    private final BigDecimal longitude;
-    private final String region;
-    private final String postalCode;
-    private final String isoCountry;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String addressRequirements;
+    @Getter
     private final Boolean beta;
+    @Getter
     private final PhoneNumberCapabilities capabilities;
+    @Getter
+    private final com.twilio.type.PhoneNumber friendlyName;
+    @Getter
+    private final String isoCountry;
+    @Getter
+    private final String lata;
+    @Getter
+    private final BigDecimal latitude;
+    @Getter
+    private final String locality;
+    @Getter
+    private final BigDecimal longitude;
+    @Getter
+    private final com.twilio.type.PhoneNumber phoneNumber;
+    @Getter
+    private final String postalCode;
+    @Getter
+    private final String rateCenter;
+    @Getter
+    private final String region;
 
     @JsonCreator
     private Local(
-        @JsonProperty(
-            "friendly_name"
-        ) final com.twilio.type.PhoneNumber friendlyName,
-        @JsonProperty(
-            "phone_number"
-        ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty("lata") final String lata,
-        @JsonProperty("locality") final String locality,
-        @JsonProperty("rate_center") final String rateCenter,
-        @JsonProperty("latitude") final BigDecimal latitude,
-        @JsonProperty("longitude") final BigDecimal longitude,
-        @JsonProperty("region") final String region,
-        @JsonProperty("postal_code") final String postalCode,
-        @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("address_requirements") final String addressRequirements,
-        @JsonProperty("beta") final Boolean beta,
-        @JsonProperty("capabilities") final PhoneNumberCapabilities capabilities
+            @JsonProperty("address_requirements") final String addressRequirements,
+            @JsonProperty("beta") final Boolean beta,
+            @JsonProperty("capabilities") final PhoneNumberCapabilities capabilities,
+            @JsonProperty("friendly_name") final com.twilio.type.PhoneNumber friendlyName,
+            @JsonProperty("iso_country") final String isoCountry,
+            @JsonProperty("lata") final String lata,
+            @JsonProperty("latitude") final BigDecimal latitude,
+            @JsonProperty("locality") final String locality,
+            @JsonProperty("longitude") final BigDecimal longitude,
+            @JsonProperty("phone_number") final com.twilio.type.PhoneNumber phoneNumber,
+            @JsonProperty("postal_code") final String postalCode,
+            @JsonProperty("rate_center") final String rateCenter,
+            @JsonProperty("region") final String region
     ) {
-        this.friendlyName = friendlyName;
-        this.phoneNumber = phoneNumber;
-        this.lata = lata;
-        this.locality = locality;
-        this.rateCenter = rateCenter;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.region = region;
-        this.postalCode = postalCode;
-        this.isoCountry = isoCountry;
         this.addressRequirements = addressRequirements;
         this.beta = beta;
         this.capabilities = capabilities;
-    }
-
-    public final com.twilio.type.PhoneNumber getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final String getLata() {
-        return this.lata;
-    }
-
-    public final String getLocality() {
-        return this.locality;
-    }
-
-    public final String getRateCenter() {
-        return this.rateCenter;
-    }
-
-    public final BigDecimal getLatitude() {
-        return this.latitude;
-    }
-
-    public final BigDecimal getLongitude() {
-        return this.longitude;
-    }
-
-    public final String getRegion() {
-        return this.region;
-    }
-
-    public final String getPostalCode() {
-        return this.postalCode;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final String getAddressRequirements() {
-        return this.addressRequirements;
-    }
-
-    public final Boolean getBeta() {
-        return this.beta;
-    }
-
-    public final PhoneNumberCapabilities getCapabilities() {
-        return this.capabilities;
+        this.friendlyName = friendlyName;
+        this.isoCountry = isoCountry;
+        this.lata = lata;
+        this.latitude = latitude;
+        this.locality = locality;
+        this.longitude = longitude;
+        this.phoneNumber = phoneNumber;
+        this.postalCode = postalCode;
+        this.rateCenter = rateCenter;
+        this.region = region;
     }
 
     @Override
@@ -203,40 +171,42 @@ public class Local extends Resource {
         }
 
         Local other = (Local) o;
-
         return (
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(lata, other.lata) &&
-            Objects.equals(locality, other.locality) &&
-            Objects.equals(rateCenter, other.rateCenter) &&
-            Objects.equals(latitude, other.latitude) &&
-            Objects.equals(longitude, other.longitude) &&
-            Objects.equals(region, other.region) &&
-            Objects.equals(postalCode, other.postalCode) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(addressRequirements, other.addressRequirements) &&
-            Objects.equals(beta, other.beta) &&
-            Objects.equals(capabilities, other.capabilities)
+                Objects.equals(addressRequirements, other.addressRequirements) &&
+                        Objects.equals(beta, other.beta) &&
+                        Objects.equals(capabilities, other.capabilities) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(isoCountry, other.isoCountry) &&
+                        Objects.equals(lata, other.lata) &&
+                        Objects.equals(latitude, other.latitude) &&
+                        Objects.equals(locality, other.locality) &&
+                        Objects.equals(longitude, other.longitude) &&
+                        Objects.equals(phoneNumber, other.phoneNumber) &&
+                        Objects.equals(postalCode, other.postalCode) &&
+                        Objects.equals(rateCenter, other.rateCenter) &&
+                        Objects.equals(region, other.region)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            friendlyName,
-            phoneNumber,
-            lata,
-            locality,
-            rateCenter,
-            latitude,
-            longitude,
-            region,
-            postalCode,
-            isoCountry,
-            addressRequirements,
-            beta,
-            capabilities
+                addressRequirements,
+                beta,
+                capabilities,
+                friendlyName,
+                isoCountry,
+                lata,
+                latitude,
+                locality,
+                longitude,
+                phoneNumber,
+                postalCode,
+                rateCenter,
+                region
         );
     }
+
+
 }
+

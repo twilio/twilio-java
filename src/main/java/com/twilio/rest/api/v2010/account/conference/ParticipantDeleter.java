@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,71 +26,50 @@ import com.twilio.rest.Domains;
 
 public class ParticipantDeleter extends Deleter<Participant> {
 
-    private String pathConferenceSid;
-    private String pathCallSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathconferenceSid;
+    private String pathcallSid;
 
-    public ParticipantDeleter(
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathCallSid = pathCallSid;
+    public ParticipantDeleter(final String pathconferenceSid, final String pathcallSid) {
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathcallSid = pathcallSid;
     }
 
-    public ParticipantDeleter(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathCallSid = pathCallSid;
+    public ParticipantDeleter(final String pathaccountSid, final String pathconferenceSid, final String pathcallSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathcallSid = pathcallSid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.API.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

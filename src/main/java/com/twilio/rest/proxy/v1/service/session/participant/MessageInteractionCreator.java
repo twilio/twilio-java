@@ -14,9 +14,12 @@
 
 package com.twilio.rest.proxy.v1.service.session.participant;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,47 +28,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
-    private String pathServiceSid;
-    private String pathSessionSid;
-    private String pathParticipantSid;
+    private String pathserviceSid;
+    private String pathsessionSid;
+    private String pathparticipantSid;
     private String body;
     private List<URI> mediaUrl;
 
-    public MessageInteractionCreator(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathParticipantSid,
-        final String body
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
-        this.pathParticipantSid = pathParticipantSid;
+    public MessageInteractionCreator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String body) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsessionSid = pathsessionSid;
+        this.pathparticipantSid = pathparticipantSid;
         this.body = body;
     }
 
-    public MessageInteractionCreator(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathParticipantSid,
-        final List<URI> mediaUrl
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
-        this.pathParticipantSid = pathParticipantSid;
+    public MessageInteractionCreator(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final List<URI> mediaUrl) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsessionSid = pathsessionSid;
+        this.pathparticipantSid = pathparticipantSid;
         this.mediaUrl = mediaUrl;
     }
+
 
     public MessageInteractionCreator setBody(final String body) {
         this.body = body;
         return this;
     }
+
 
     public MessageInteractionCreator setMediaUrl(final List<URI> mediaUrl) {
         this.mediaUrl = mediaUrl;
@@ -76,71 +70,54 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
         return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
-    public MessageInteractionCreator setMediaUrl(final String mediaUrl) {
-        return setMediaUrl(Promoter.uriFromString(mediaUrl));
-    }
-
     @Override
     public MessageInteraction create(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.PROXY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessageInteraction creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MessageInteraction creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return MessageInteraction.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return MessageInteraction.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (body != null) {
-            request.addPostParam("Body", body);
+            Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
         }
+
+
         if (mediaUrl != null) {
-            for (URI prop : mediaUrl) {
-                request.addPostParam("MediaUrl", prop.toString());
+            for (URI param : mediaUrl) {
+                Serializer.toString(request, "MediaUrl", param, ParameterType.URLENCODED);
             }
         }
+
     }
 }

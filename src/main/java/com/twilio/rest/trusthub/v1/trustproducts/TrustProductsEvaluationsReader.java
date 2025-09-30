@@ -17,7 +17,8 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,122 +28,90 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class TrustProductsEvaluationsReader
-    extends Reader<TrustProductsEvaluations> {
+public class TrustProductsEvaluationsReader extends Reader<TrustProductsEvaluations> {
 
-    private String pathTrustProductSid;
+    private String pathtrustProductSid;
     private Long pageSize;
 
-    public TrustProductsEvaluationsReader(final String pathTrustProductSid) {
-        this.pathTrustProductSid = pathTrustProductSid;
+    public TrustProductsEvaluationsReader(final String pathtrustProductSid) {
+        this.pathtrustProductSid = pathtrustProductSid;
     }
+
 
     public TrustProductsEvaluationsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
+
     @Override
-    public ResourceSet<TrustProductsEvaluations> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<TrustProductsEvaluations> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<TrustProductsEvaluations> firstPage(
-        final TwilioRestClient client
-    ) {
+    public Page<TrustProductsEvaluations> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
+
+        path = path.replace("{" + "TrustProductSid" + "}", this.pathtrustProductSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TRUSTHUB.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TRUSTHUB.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProductsEvaluations> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<TrustProductsEvaluations> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "TrustProductsEvaluations read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TrustProductsEvaluations read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "results",
-            response.getContent(),
-            TrustProductsEvaluations.class,
-            client.getObjectMapper()
-        );
+                "results",
+                response.getContent(),
+                TrustProductsEvaluations.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<TrustProductsEvaluations> previousPage(
-        final Page<TrustProductsEvaluations> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
-        );
+    public Page<TrustProductsEvaluations> previousPage(final Page<TrustProductsEvaluations> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TrustProductsEvaluations> nextPage(
-        final Page<TrustProductsEvaluations> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUSTHUB.toString())
-        );
+    public Page<TrustProductsEvaluations> nextPage(final Page<TrustProductsEvaluations> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TrustProductsEvaluations> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<TrustProductsEvaluations> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

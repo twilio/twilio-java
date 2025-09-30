@@ -15,7 +15,6 @@
 package com.twilio.rest.bulkexports.v1.export;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +26,44 @@ import com.twilio.rest.Domains;
 
 public class DayFetcher extends Fetcher<Day> {
 
-    private String pathResourceType;
-    private String pathDay;
+    private String pathresourceType;
+    private String pathday;
 
-    public DayFetcher(final String pathResourceType, final String pathDay) {
-        this.pathResourceType = pathResourceType;
-        this.pathDay = pathDay;
+    public DayFetcher(final String pathresourceType, final String pathday) {
+        this.pathresourceType = pathresourceType;
+        this.pathday = pathday;
     }
+
 
     @Override
     public Day fetch(final TwilioRestClient client) {
+
         String path = "/v1/Exports/{ResourceType}/Days/{Day}";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
-        path = path.replace("{" + "Day" + "}", this.pathDay.toString());
+        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+        path = path.replace("{" + "Day" + "}", this.pathday.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.BULKEXPORTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.BULKEXPORTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Day fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Day fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Day.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

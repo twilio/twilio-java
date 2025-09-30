@@ -15,7 +15,8 @@
 package com.twilio.rest.taskrouter.v1.workspace.taskqueue;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,80 +26,64 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class TaskQueueRealTimeStatisticsFetcher
-    extends Fetcher<TaskQueueRealTimeStatistics> {
+public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTimeStatistics> {
 
-    private String pathWorkspaceSid;
-    private String pathTaskQueueSid;
+    private String pathworkspaceSid;
+    private String pathtaskQueueSid;
     private String taskChannel;
 
-    public TaskQueueRealTimeStatisticsFetcher(
-        final String pathWorkspaceSid,
-        final String pathTaskQueueSid
-    ) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathTaskQueueSid = pathTaskQueueSid;
+    public TaskQueueRealTimeStatisticsFetcher(final String pathworkspaceSid, final String pathtaskQueueSid) {
+        this.pathworkspaceSid = pathworkspaceSid;
+        this.pathtaskQueueSid = pathtaskQueueSid;
     }
 
-    public TaskQueueRealTimeStatisticsFetcher setTaskChannel(
-        final String taskChannel
-    ) {
+
+    public TaskQueueRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
+
     @Override
     public TaskQueueRealTimeStatistics fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "TaskQueueSid" + "}",
-                this.pathTaskQueueSid.toString()
-            );
+        String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics";
+
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "TaskQueueSid" + "}", this.pathtaskQueueSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TASKROUTER.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "TaskQueueRealTimeStatistics fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TaskQueueRealTimeStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return TaskQueueRealTimeStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return TaskQueueRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
+            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
         }
+
+
     }
 }

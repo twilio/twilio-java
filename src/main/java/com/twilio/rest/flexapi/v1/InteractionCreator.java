@@ -14,10 +14,11 @@
 
 package com.twilio.rest.flexapi.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,95 +27,96 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
 
 public class InteractionCreator extends Creator<Interaction> {
 
-    private Map<String, Object> channel;
-    private Map<String, Object> routing;
+    private Object channel;
+    private Object routing;
     private String interactionContextSid;
     private String webhookTtid;
 
-    public InteractionCreator(final Map<String, Object> channel) {
+    public InteractionCreator(final Object channel) {
         this.channel = channel;
     }
 
-    public InteractionCreator setChannel(final Map<String, Object> channel) {
+
+    public InteractionCreator setChannel(final Object channel) {
         this.channel = channel;
         return this;
     }
 
-    public InteractionCreator setRouting(final Map<String, Object> routing) {
+
+    public InteractionCreator setRouting(final Object routing) {
         this.routing = routing;
         return this;
     }
 
-    public InteractionCreator setInteractionContextSid(
-        final String interactionContextSid
-    ) {
+
+    public InteractionCreator setInteractionContextSid(final String interactionContextSid) {
         this.interactionContextSid = interactionContextSid;
         return this;
     }
+
 
     public InteractionCreator setWebhookTtid(final String webhookTtid) {
         this.webhookTtid = webhookTtid;
         return this;
     }
 
+
     @Override
     public Interaction create(final TwilioRestClient client) {
+
         String path = "/v1/Interactions";
 
-        path = path.replace("{" + "Channel" + "}", this.channel.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Interaction creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Interaction creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Interaction.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Interaction.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (channel != null) {
-            request.addPostParam("Channel", Converter.mapToJson(channel));
+            Serializer.toString(request, "Channel", channel, ParameterType.URLENCODED);
         }
+
+
         if (routing != null) {
-            request.addPostParam("Routing", Converter.mapToJson(routing));
+            Serializer.toString(request, "Routing", routing, ParameterType.URLENCODED);
         }
+
+
         if (interactionContextSid != null) {
-            request.addPostParam(
-                "InteractionContextSid",
-                interactionContextSid
-            );
+            Serializer.toString(request, "InteractionContextSid", interactionContextSid, ParameterType.URLENCODED);
         }
+
+
         if (webhookTtid != null) {
-            request.addPostParam("WebhookTtid", webhookTtid);
+            Serializer.toString(request, "WebhookTtid", webhookTtid, ParameterType.URLENCODED);
         }
+
+
     }
 }

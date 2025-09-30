@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Twiml;
+
 import java.net.URI;
 
 public class CallUpdater extends Updater<Call> {
-
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathsid;
     private URI url;
     private HttpMethod method;
     private Call.UpdateStatus status;
@@ -38,68 +41,62 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod fallbackMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
-    private com.twilio.type.Twiml twiml;
+    private Twiml twiml;
     private Integer timeLimit;
 
-    public CallUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public CallUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public CallUpdater(final String pathAccountSid, final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public CallUpdater(final String pathaccountSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathsid = pathsid;
     }
+
 
     public CallUpdater setUrl(final URI url) {
         this.url = url;
         return this;
     }
 
-    public CallUpdater setUrl(final String url) {
-        return setUrl(Promoter.uriFromString(url));
-    }
 
     public CallUpdater setMethod(final HttpMethod method) {
         this.method = method;
         return this;
     }
 
+
     public CallUpdater setStatus(final Call.UpdateStatus status) {
         this.status = status;
         return this;
     }
+
 
     public CallUpdater setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public CallUpdater setFallbackUrl(final String fallbackUrl) {
-        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
-    }
 
     public CallUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
 
+
     public CallUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CallUpdater setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public CallUpdater setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public CallUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-    public CallUpdater setTwiml(final com.twilio.type.Twiml twiml) {
+
+    public CallUpdater setTwiml(final Twiml twiml) {
         this.twiml = twiml;
         return this;
     }
@@ -113,43 +110,36 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
+
     @Override
     public Call update(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Call update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Call update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -158,35 +148,51 @@ public class CallUpdater extends Updater<Call> {
     }
 
     private void addPostParams(final Request request) {
+
         if (url != null) {
-            request.addPostParam("Url", url.toString());
+            Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
+
+
         if (method != null) {
-            request.addPostParam("Method", method.toString());
+            Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
         }
+
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
+            Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", fallbackMethod.toString());
+            Serializer.toString(request, "FallbackMethod", fallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (twiml != null) {
-            request.addPostParam("Twiml", twiml.toString());
+            Serializer.toString(request, "Twiml", twiml, ParameterType.URLENCODED);
         }
+
+
         if (timeLimit != null) {
-            request.addPostParam("TimeLimit", timeLimit.toString());
+            Serializer.toString(request, "TimeLimit", timeLimit, ParameterType.URLENCODED);
         }
+
+
     }
 }

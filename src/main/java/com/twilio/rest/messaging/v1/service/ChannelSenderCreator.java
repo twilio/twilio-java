@@ -14,8 +14,11 @@
 
 package com.twilio.rest.messaging.v1.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,68 +30,61 @@ import com.twilio.rest.Domains;
 
 public class ChannelSenderCreator extends Creator<ChannelSender> {
 
-    private String pathMessagingServiceSid;
+    private String pathmessagingServiceSid;
     private String sid;
 
-    public ChannelSenderCreator(
-        final String pathMessagingServiceSid,
-        final String sid
-    ) {
-        this.pathMessagingServiceSid = pathMessagingServiceSid;
+    public ChannelSenderCreator(final String pathmessagingServiceSid, final String sid) {
+        this.pathmessagingServiceSid = pathmessagingServiceSid;
         this.sid = sid;
     }
+
 
     public ChannelSenderCreator setSid(final String sid) {
         this.sid = sid;
         return this;
     }
 
+
     @Override
     public ChannelSender create(final TwilioRestClient client) {
+
         String path = "/v1/Services/{MessagingServiceSid}/ChannelSenders";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.sid.toString());
+        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathmessagingServiceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MESSAGING.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ChannelSender creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ChannelSender creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ChannelSender.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ChannelSender.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (sid != null) {
-            request.addPostParam("Sid", sid);
+            Serializer.toString(request, "Sid", sid, ParameterType.URLENCODED);
         }
+
+
     }
 }

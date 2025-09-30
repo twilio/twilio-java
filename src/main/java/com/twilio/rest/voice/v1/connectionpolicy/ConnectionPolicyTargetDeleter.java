@@ -15,7 +15,6 @@
 package com.twilio.rest.voice.v1.connectionpolicy;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,54 +24,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ConnectionPolicyTargetDeleter
-    extends Deleter<ConnectionPolicyTarget> {
+public class ConnectionPolicyTargetDeleter extends Deleter<ConnectionPolicyTarget> {
 
-    private String pathConnectionPolicySid;
-    private String pathSid;
+    private String pathconnectionPolicySid;
+    private String pathsid;
 
-    public ConnectionPolicyTargetDeleter(
-        final String pathConnectionPolicySid,
-        final String pathSid
-    ) {
-        this.pathConnectionPolicySid = pathConnectionPolicySid;
-        this.pathSid = pathSid;
+    public ConnectionPolicyTargetDeleter(final String pathconnectionPolicySid, final String pathsid) {
+        this.pathconnectionPolicySid = pathconnectionPolicySid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
+
+        path = path.replace("{" + "ConnectionPolicySid" + "}", this.pathconnectionPolicySid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.VOICE.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.VOICE.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectionPolicyTarget delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectionPolicyTarget delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

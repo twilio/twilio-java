@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2.service.ratelimit;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,59 +26,44 @@ import com.twilio.rest.Domains;
 
 public class BucketDeleter extends Deleter<Bucket> {
 
-    private String pathServiceSid;
-    private String pathRateLimitSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathrateLimitSid;
+    private String pathsid;
 
-    public BucketDeleter(
-        final String pathServiceSid,
-        final String pathRateLimitSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathRateLimitSid = pathRateLimitSid;
-        this.pathSid = pathSid;
+    public BucketDeleter(final String pathserviceSid, final String pathrateLimitSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathrateLimitSid = pathrateLimitSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "RateLimitSid" + "}",
-                this.pathRateLimitSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "RateLimitSid" + "}", this.pathrateLimitSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.VERIFY.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bucket delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bucket delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

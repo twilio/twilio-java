@@ -14,8 +14,11 @@
 
 package com.twilio.rest.verify.v2.service;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,7 +30,7 @@ import com.twilio.rest.Domains;
 
 public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
-    private String pathServiceSid;
+    private String pathserviceSid;
     private String code;
     private String to;
     private String verificationSid;
@@ -35,104 +38,112 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private String payee;
     private String snaClientToken;
 
-    public VerificationCheckCreator(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public VerificationCheckCreator(final String pathserviceSid) {
+        this.pathserviceSid = pathserviceSid;
     }
+
 
     public VerificationCheckCreator setCode(final String code) {
         this.code = code;
         return this;
     }
 
+
     public VerificationCheckCreator setTo(final String to) {
         this.to = to;
         return this;
     }
 
-    public VerificationCheckCreator setVerificationSid(
-        final String verificationSid
-    ) {
+
+    public VerificationCheckCreator setVerificationSid(final String verificationSid) {
         this.verificationSid = verificationSid;
         return this;
     }
+
 
     public VerificationCheckCreator setAmount(final String amount) {
         this.amount = amount;
         return this;
     }
 
+
     public VerificationCheckCreator setPayee(final String payee) {
         this.payee = payee;
         return this;
     }
 
-    public VerificationCheckCreator setSnaClientToken(
-        final String snaClientToken
-    ) {
+
+    public VerificationCheckCreator setSnaClientToken(final String snaClientToken) {
         this.snaClientToken = snaClientToken;
         return this;
     }
 
+
     @Override
     public VerificationCheck create(final TwilioRestClient client) {
+
         String path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VERIFY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "VerificationCheck creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return VerificationCheck.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (code != null) {
-            request.addPostParam("Code", code);
+            Serializer.toString(request, "Code", code, ParameterType.URLENCODED);
         }
+
+
         if (to != null) {
-            request.addPostParam("To", to);
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
+
         if (verificationSid != null) {
-            request.addPostParam("VerificationSid", verificationSid);
+            Serializer.toString(request, "VerificationSid", verificationSid, ParameterType.URLENCODED);
         }
+
+
         if (amount != null) {
-            request.addPostParam("Amount", amount);
+            Serializer.toString(request, "Amount", amount, ParameterType.URLENCODED);
         }
+
+
         if (payee != null) {
-            request.addPostParam("Payee", payee);
+            Serializer.toString(request, "Payee", payee, ParameterType.URLENCODED);
         }
+
+
         if (snaClientToken != null) {
-            request.addPostParam("SnaClientToken", snaClientToken);
+            Serializer.toString(request, "SnaClientToken", snaClientToken, ParameterType.URLENCODED);
         }
+
+
     }
 }

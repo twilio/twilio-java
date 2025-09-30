@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,55 +26,46 @@ import com.twilio.rest.Domains;
 
 public class KeyDeleter extends Deleter<Key> {
 
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathsid;
 
-    public KeyDeleter(final String pathSid) {
-        this.pathSid = pathSid;
+    public KeyDeleter(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public KeyDeleter(final String pathAccountSid, final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public KeyDeleter(final String pathaccountSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.API.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Key delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Key delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

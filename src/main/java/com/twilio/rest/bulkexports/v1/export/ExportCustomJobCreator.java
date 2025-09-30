@@ -14,8 +14,11 @@
 
 package com.twilio.rest.bulkexports.v1.export;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,7 +30,7 @@ import com.twilio.rest.Domains;
 
 public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
 
-    private String pathResourceType;
+    private String pathresourceType;
     private String startDay;
     private String endDay;
     private String friendlyName;
@@ -35,115 +38,115 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
     private String webhookMethod;
     private String email;
 
-    public ExportCustomJobCreator(
-        final String pathResourceType,
-        final String startDay,
-        final String endDay,
-        final String friendlyName
-    ) {
-        this.pathResourceType = pathResourceType;
+    public ExportCustomJobCreator(final String pathresourceType, final String startDay, final String endDay, final String friendlyName) {
+        this.pathresourceType = pathresourceType;
         this.startDay = startDay;
         this.endDay = endDay;
         this.friendlyName = friendlyName;
     }
+
 
     public ExportCustomJobCreator setStartDay(final String startDay) {
         this.startDay = startDay;
         return this;
     }
 
+
     public ExportCustomJobCreator setEndDay(final String endDay) {
         this.endDay = endDay;
         return this;
     }
+
 
     public ExportCustomJobCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public ExportCustomJobCreator setWebhookUrl(final String webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
+
 
     public ExportCustomJobCreator setWebhookMethod(final String webhookMethod) {
         this.webhookMethod = webhookMethod;
         return this;
     }
 
+
     public ExportCustomJobCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
 
+
     @Override
     public ExportCustomJob create(final TwilioRestClient client) {
+
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
-        path = path.replace("{" + "StartDay" + "}", this.startDay.toString());
-        path = path.replace("{" + "EndDay" + "}", this.endDay.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
+        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.BULKEXPORTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.BULKEXPORTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExportCustomJob creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ExportCustomJob creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ExportCustomJob.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ExportCustomJob.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (startDay != null) {
-            request.addPostParam("StartDay", startDay);
+            Serializer.toString(request, "StartDay", startDay, ParameterType.URLENCODED);
         }
+
+
         if (endDay != null) {
-            request.addPostParam("EndDay", endDay);
+            Serializer.toString(request, "EndDay", endDay, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl);
+            Serializer.toString(request, "WebhookUrl", webhookUrl, ParameterType.URLENCODED);
         }
+
+
         if (webhookMethod != null) {
-            request.addPostParam("WebhookMethod", webhookMethod);
+            Serializer.toString(request, "WebhookMethod", webhookMethod, ParameterType.URLENCODED);
         }
+
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -15,7 +15,6 @@
 package com.twilio.rest.studio.v2.flow;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,47 +26,41 @@ import com.twilio.rest.Domains;
 
 public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
 
-    private String pathSid;
+    private String pathsid;
 
-    public FlowTestUserFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public FlowTestUserFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public FlowTestUser fetch(final TwilioRestClient client) {
+
         String path = "/v2/Flows/{Sid}/TestUsers";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.STUDIO.toString(),
-            path
+                HttpMethod.GET,
+                Domains.STUDIO.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "FlowTestUser fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FlowTestUser fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return FlowTestUser.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return FlowTestUser.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

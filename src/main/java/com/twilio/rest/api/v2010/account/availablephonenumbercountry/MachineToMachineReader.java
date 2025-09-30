@@ -17,8 +17,9 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -30,8 +31,8 @@ import com.twilio.rest.Domains;
 
 public class MachineToMachineReader extends Reader<MachineToMachine> {
 
-    private String pathCountryCode;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathcountryCode;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -52,72 +53,71 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     private Boolean faxEnabled;
     private Long pageSize;
 
-    public MachineToMachineReader(final String pathCountryCode) {
-        this.pathCountryCode = pathCountryCode;
+    public MachineToMachineReader(final String pathcountryCode) {
+        this.pathcountryCode = pathcountryCode;
     }
 
-    public MachineToMachineReader(
-        final String pathAccountSid,
-        final String pathCountryCode
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCountryCode = pathCountryCode;
+    public MachineToMachineReader(final String pathaccountSid, final String pathcountryCode) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathcountryCode = pathcountryCode;
     }
+
 
     public MachineToMachineReader setAreaCode(final Integer areaCode) {
         this.areaCode = areaCode;
         return this;
     }
 
+
     public MachineToMachineReader setContains(final String contains) {
         this.contains = contains;
         return this;
     }
+
 
     public MachineToMachineReader setSmsEnabled(final Boolean smsEnabled) {
         this.smsEnabled = smsEnabled;
         return this;
     }
 
+
     public MachineToMachineReader setMmsEnabled(final Boolean mmsEnabled) {
         this.mmsEnabled = mmsEnabled;
         return this;
     }
+
 
     public MachineToMachineReader setVoiceEnabled(final Boolean voiceEnabled) {
         this.voiceEnabled = voiceEnabled;
         return this;
     }
 
-    public MachineToMachineReader setExcludeAllAddressRequired(
-        final Boolean excludeAllAddressRequired
-    ) {
+
+    public MachineToMachineReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
         this.excludeAllAddressRequired = excludeAllAddressRequired;
         return this;
     }
 
-    public MachineToMachineReader setExcludeLocalAddressRequired(
-        final Boolean excludeLocalAddressRequired
-    ) {
+
+    public MachineToMachineReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
         this.excludeLocalAddressRequired = excludeLocalAddressRequired;
         return this;
     }
 
-    public MachineToMachineReader setExcludeForeignAddressRequired(
-        final Boolean excludeForeignAddressRequired
-    ) {
+
+    public MachineToMachineReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
         this.excludeForeignAddressRequired = excludeForeignAddressRequired;
         return this;
     }
+
 
     public MachineToMachineReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
 
-    public MachineToMachineReader setNearNumber(
-        final com.twilio.type.PhoneNumber nearNumber
-    ) {
+
+    public MachineToMachineReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
         this.nearNumber = nearNumber;
         return this;
     }
@@ -131,45 +131,54 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
         return this;
     }
 
+
     public MachineToMachineReader setDistance(final Integer distance) {
         this.distance = distance;
         return this;
     }
+
 
     public MachineToMachineReader setInPostalCode(final String inPostalCode) {
         this.inPostalCode = inPostalCode;
         return this;
     }
 
+
     public MachineToMachineReader setInRegion(final String inRegion) {
         this.inRegion = inRegion;
         return this;
     }
+
 
     public MachineToMachineReader setInRateCenter(final String inRateCenter) {
         this.inRateCenter = inRateCenter;
         return this;
     }
 
+
     public MachineToMachineReader setInLata(final String inLata) {
         this.inLata = inLata;
         return this;
     }
+
 
     public MachineToMachineReader setInLocality(final String inLocality) {
         this.inLocality = inLocality;
         return this;
     }
 
+
     public MachineToMachineReader setFaxEnabled(final Boolean faxEnabled) {
         this.faxEnabled = faxEnabled;
         return this;
     }
 
+
     public MachineToMachineReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<MachineToMachine> read(final TwilioRestClient client) {
@@ -177,170 +186,160 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     public Page<MachineToMachine> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "CountryCode" + "}",
-                this.pathCountryCode.toString()
-            );
+
+        String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "CountryCode" + "}", this.pathcountryCode.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<MachineToMachine> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<MachineToMachine> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "MachineToMachine read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MachineToMachine read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "available_phone_numbers",
-            response.getContent(),
-            MachineToMachine.class,
-            client.getObjectMapper()
-        );
+                "available_phone_numbers",
+                response.getContent(),
+                MachineToMachine.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<MachineToMachine> previousPage(
-        final Page<MachineToMachine> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<MachineToMachine> previousPage(final Page<MachineToMachine> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<MachineToMachine> nextPage(
-        final Page<MachineToMachine> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
+    public Page<MachineToMachine> nextPage(final Page<MachineToMachine> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<MachineToMachine> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<MachineToMachine> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (areaCode != null) {
-            request.addQueryParam("AreaCode", areaCode.toString());
-        }
-        if (contains != null) {
-            request.addQueryParam("Contains", contains);
-        }
-        if (smsEnabled != null) {
-            request.addQueryParam("SmsEnabled", smsEnabled.toString());
-        }
-        if (mmsEnabled != null) {
-            request.addQueryParam("MmsEnabled", mmsEnabled.toString());
-        }
-        if (voiceEnabled != null) {
-            request.addQueryParam("VoiceEnabled", voiceEnabled.toString());
-        }
-        if (excludeAllAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeAllAddressRequired",
-                excludeAllAddressRequired.toString()
-            );
-        }
-        if (excludeLocalAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeLocalAddressRequired",
-                excludeLocalAddressRequired.toString()
-            );
-        }
-        if (excludeForeignAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeForeignAddressRequired",
-                excludeForeignAddressRequired.toString()
-            );
-        }
-        if (beta != null) {
-            request.addQueryParam("Beta", beta.toString());
-        }
-        if (nearNumber != null) {
-            request.addQueryParam("NearNumber", nearNumber.toString());
-        }
-        if (nearLatLong != null) {
-            request.addQueryParam("NearLatLong", nearLatLong);
-        }
-        if (distance != null) {
-            request.addQueryParam("Distance", distance.toString());
-        }
-        if (inPostalCode != null) {
-            request.addQueryParam("InPostalCode", inPostalCode);
-        }
-        if (inRegion != null) {
-            request.addQueryParam("InRegion", inRegion);
-        }
-        if (inRateCenter != null) {
-            request.addQueryParam("InRateCenter", inRateCenter);
-        }
-        if (inLata != null) {
-            request.addQueryParam("InLata", inLata);
-        }
-        if (inLocality != null) {
-            request.addQueryParam("InLocality", inLocality);
-        }
-        if (faxEnabled != null) {
-            request.addQueryParam("FaxEnabled", faxEnabled.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "AreaCode", areaCode, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (contains != null) {
+            Serializer.toString(request, "Contains", contains, ParameterType.QUERY);
         }
+
+
+        if (smsEnabled != null) {
+            Serializer.toString(request, "SmsEnabled", smsEnabled, ParameterType.QUERY);
+        }
+
+
+        if (mmsEnabled != null) {
+            Serializer.toString(request, "MmsEnabled", mmsEnabled, ParameterType.QUERY);
+        }
+
+
+        if (voiceEnabled != null) {
+            Serializer.toString(request, "VoiceEnabled", voiceEnabled, ParameterType.QUERY);
+        }
+
+
+        if (excludeAllAddressRequired != null) {
+            Serializer.toString(request, "ExcludeAllAddressRequired", excludeAllAddressRequired, ParameterType.QUERY);
+        }
+
+
+        if (excludeLocalAddressRequired != null) {
+            Serializer.toString(request, "ExcludeLocalAddressRequired", excludeLocalAddressRequired, ParameterType.QUERY);
+        }
+
+
+        if (excludeForeignAddressRequired != null) {
+            Serializer.toString(request, "ExcludeForeignAddressRequired", excludeForeignAddressRequired, ParameterType.QUERY);
+        }
+
+
+        if (beta != null) {
+            Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
+        }
+
+
+        if (nearNumber != null) {
+            Serializer.toString(request, "NearNumber", nearNumber, ParameterType.QUERY);
+        }
+
+
+        if (nearLatLong != null) {
+            Serializer.toString(request, "NearLatLong", nearLatLong, ParameterType.QUERY);
+        }
+
+
+        if (distance != null) {
+            Serializer.toString(request, "Distance", distance, ParameterType.QUERY);
+        }
+
+
+        if (inPostalCode != null) {
+            Serializer.toString(request, "InPostalCode", inPostalCode, ParameterType.QUERY);
+        }
+
+
+        if (inRegion != null) {
+            Serializer.toString(request, "InRegion", inRegion, ParameterType.QUERY);
+        }
+
+
+        if (inRateCenter != null) {
+            Serializer.toString(request, "InRateCenter", inRateCenter, ParameterType.QUERY);
+        }
+
+
+        if (inLata != null) {
+            Serializer.toString(request, "InLata", inLata, ParameterType.QUERY);
+        }
+
+
+        if (inLocality != null) {
+            Serializer.toString(request, "InLocality", inLocality, ParameterType.QUERY);
+        }
+
+
+        if (faxEnabled != null) {
+            Serializer.toString(request, "FaxEnabled", faxEnabled, ParameterType.QUERY);
+        }
+
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+        }
+
+
     }
 }

@@ -15,7 +15,8 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,80 +28,67 @@ import com.twilio.rest.Domains;
 
 public class RecordingFetcher extends Fetcher<Recording> {
 
-    private String pathSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathsid;
     private Boolean includeSoftDeleted;
 
-    public RecordingFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public RecordingFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public RecordingFetcher(final String pathAccountSid, final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public RecordingFetcher(final String pathaccountSid, final String pathsid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathsid = pathsid;
     }
 
-    public RecordingFetcher setIncludeSoftDeleted(
-        final Boolean includeSoftDeleted
-    ) {
+
+    public RecordingFetcher setIncludeSoftDeleted(final Boolean includeSoftDeleted) {
         this.includeSoftDeleted = includeSoftDeleted;
         return this;
     }
 
+
     @Override
     public Recording fetch(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Recording fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Recording fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Recording.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (includeSoftDeleted != null) {
-            request.addQueryParam(
-                "IncludeSoftDeleted",
-                includeSoftDeleted.toString()
-            );
+            Serializer.toString(request, "IncludeSoftDeleted", includeSoftDeleted, ParameterType.QUERY);
         }
+
+
     }
 }

@@ -14,9 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class TranscriptionCreator extends Creator<Transcription> {
 
-    private String pathCallSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathcallSid;
     private String name;
     private Transcription.Track track;
     private URI statusCallbackUrl;
@@ -47,211 +49,207 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private Boolean enableAutomaticPunctuation;
     private String intelligenceService;
 
-    public TranscriptionCreator(final String pathCallSid) {
-        this.pathCallSid = pathCallSid;
+    public TranscriptionCreator(final String pathcallSid) {
+        this.pathcallSid = pathcallSid;
     }
 
-    public TranscriptionCreator(
-        final String pathAccountSid,
-        final String pathCallSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
+    public TranscriptionCreator(final String pathaccountSid, final String pathcallSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathcallSid = pathcallSid;
     }
+
 
     public TranscriptionCreator setName(final String name) {
         this.name = name;
         return this;
     }
 
+
     public TranscriptionCreator setTrack(final Transcription.Track track) {
         this.track = track;
         return this;
     }
 
-    public TranscriptionCreator setStatusCallbackUrl(
-        final URI statusCallbackUrl
-    ) {
+
+    public TranscriptionCreator setStatusCallbackUrl(final URI statusCallbackUrl) {
         this.statusCallbackUrl = statusCallbackUrl;
         return this;
     }
 
-    public TranscriptionCreator setStatusCallbackUrl(
-        final String statusCallbackUrl
-    ) {
-        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
-    }
 
-    public TranscriptionCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public TranscriptionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-    public TranscriptionCreator setInboundTrackLabel(
-        final String inboundTrackLabel
-    ) {
+
+    public TranscriptionCreator setInboundTrackLabel(final String inboundTrackLabel) {
         this.inboundTrackLabel = inboundTrackLabel;
         return this;
     }
 
-    public TranscriptionCreator setOutboundTrackLabel(
-        final String outboundTrackLabel
-    ) {
+
+    public TranscriptionCreator setOutboundTrackLabel(final String outboundTrackLabel) {
         this.outboundTrackLabel = outboundTrackLabel;
         return this;
     }
 
-    public TranscriptionCreator setPartialResults(
-        final Boolean partialResults
-    ) {
+
+    public TranscriptionCreator setPartialResults(final Boolean partialResults) {
         this.partialResults = partialResults;
         return this;
     }
+
 
     public TranscriptionCreator setLanguageCode(final String languageCode) {
         this.languageCode = languageCode;
         return this;
     }
 
-    public TranscriptionCreator setTranscriptionEngine(
-        final String transcriptionEngine
-    ) {
+
+    public TranscriptionCreator setTranscriptionEngine(final String transcriptionEngine) {
         this.transcriptionEngine = transcriptionEngine;
         return this;
     }
 
-    public TranscriptionCreator setProfanityFilter(
-        final Boolean profanityFilter
-    ) {
+
+    public TranscriptionCreator setProfanityFilter(final Boolean profanityFilter) {
         this.profanityFilter = profanityFilter;
         return this;
     }
+
 
     public TranscriptionCreator setSpeechModel(final String speechModel) {
         this.speechModel = speechModel;
         return this;
     }
 
+
     public TranscriptionCreator setHints(final String hints) {
         this.hints = hints;
         return this;
     }
 
-    public TranscriptionCreator setEnableAutomaticPunctuation(
-        final Boolean enableAutomaticPunctuation
-    ) {
+
+    public TranscriptionCreator setEnableAutomaticPunctuation(final Boolean enableAutomaticPunctuation) {
         this.enableAutomaticPunctuation = enableAutomaticPunctuation;
         return this;
     }
 
-    public TranscriptionCreator setIntelligenceService(
-        final String intelligenceService
-    ) {
+
+    public TranscriptionCreator setIntelligenceService(final String intelligenceService) {
         this.intelligenceService = intelligenceService;
         return this;
     }
 
+
     @Override
     public Transcription create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Transcription creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Transcription creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Transcription.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Transcription.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(request, "Name", name, ParameterType.URLENCODED);
         }
+
+
         if (track != null) {
-            request.addPostParam("Track", track.toString());
+            Serializer.toString(request, "Track", track, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackUrl != null) {
-            request.addPostParam(
-                "StatusCallbackUrl",
-                statusCallbackUrl.toString()
-            );
+            Serializer.toString(request, "StatusCallbackUrl", statusCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (inboundTrackLabel != null) {
-            request.addPostParam("InboundTrackLabel", inboundTrackLabel);
+            Serializer.toString(request, "InboundTrackLabel", inboundTrackLabel, ParameterType.URLENCODED);
         }
+
+
         if (outboundTrackLabel != null) {
-            request.addPostParam("OutboundTrackLabel", outboundTrackLabel);
+            Serializer.toString(request, "OutboundTrackLabel", outboundTrackLabel, ParameterType.URLENCODED);
         }
+
+
         if (partialResults != null) {
-            request.addPostParam("PartialResults", partialResults.toString());
+            Serializer.toString(request, "PartialResults", partialResults, ParameterType.URLENCODED);
         }
+
+
         if (languageCode != null) {
-            request.addPostParam("LanguageCode", languageCode);
+            Serializer.toString(request, "LanguageCode", languageCode, ParameterType.URLENCODED);
         }
+
+
         if (transcriptionEngine != null) {
-            request.addPostParam("TranscriptionEngine", transcriptionEngine);
+            Serializer.toString(request, "TranscriptionEngine", transcriptionEngine, ParameterType.URLENCODED);
         }
+
+
         if (profanityFilter != null) {
-            request.addPostParam("ProfanityFilter", profanityFilter.toString());
+            Serializer.toString(request, "ProfanityFilter", profanityFilter, ParameterType.URLENCODED);
         }
+
+
         if (speechModel != null) {
-            request.addPostParam("SpeechModel", speechModel);
+            Serializer.toString(request, "SpeechModel", speechModel, ParameterType.URLENCODED);
         }
+
+
         if (hints != null) {
-            request.addPostParam("Hints", hints);
+            Serializer.toString(request, "Hints", hints, ParameterType.URLENCODED);
         }
+
+
         if (enableAutomaticPunctuation != null) {
-            request.addPostParam(
-                "EnableAutomaticPunctuation",
-                enableAutomaticPunctuation.toString()
-            );
+            Serializer.toString(request, "EnableAutomaticPunctuation", enableAutomaticPunctuation, ParameterType.URLENCODED);
         }
+
+
         if (intelligenceService != null) {
-            request.addPostParam("IntelligenceService", intelligenceService);
+            Serializer.toString(request, "IntelligenceService", intelligenceService, ParameterType.URLENCODED);
         }
+
+
     }
 }

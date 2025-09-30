@@ -15,7 +15,8 @@
 package com.twilio.rest.intelligence.v2.transcript;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,75 +28,62 @@ import com.twilio.rest.Domains;
 
 public class OperatorResultFetcher extends Fetcher<OperatorResult> {
 
-    private String pathTranscriptSid;
-    private String pathOperatorSid;
+    private String pathtranscriptSid;
+    private String pathoperatorSid;
     private Boolean redacted;
 
-    public OperatorResultFetcher(
-        final String pathTranscriptSid,
-        final String pathOperatorSid
-    ) {
-        this.pathTranscriptSid = pathTranscriptSid;
-        this.pathOperatorSid = pathOperatorSid;
+    public OperatorResultFetcher(final String pathtranscriptSid, final String pathoperatorSid) {
+        this.pathtranscriptSid = pathtranscriptSid;
+        this.pathoperatorSid = pathoperatorSid;
     }
+
 
     public OperatorResultFetcher setRedacted(final Boolean redacted) {
         this.redacted = redacted;
         return this;
     }
 
+
     @Override
     public OperatorResult fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}";
 
-        path =
-            path.replace(
-                "{" + "TranscriptSid" + "}",
-                this.pathTranscriptSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "OperatorSid" + "}",
-                this.pathOperatorSid.toString()
-            );
+        String path = "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}";
+
+        path = path.replace("{" + "TranscriptSid" + "}", this.pathtranscriptSid.toString());
+        path = path.replace("{" + "OperatorSid" + "}", this.pathoperatorSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INTELLIGENCE.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INTELLIGENCE.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "OperatorResult fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("OperatorResult fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return OperatorResult.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return OperatorResult.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
+            Serializer.toString(request, "Redacted", redacted, ParameterType.QUERY);
         }
+
+
     }
 }

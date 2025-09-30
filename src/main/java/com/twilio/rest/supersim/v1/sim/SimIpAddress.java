@@ -18,119 +18,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SimIpAddress extends Resource {
 
-    private static final long serialVersionUID = 180616107351268L;
 
-    public static SimIpAddressReader reader(final String pathSimSid) {
-        return new SimIpAddressReader(pathSimSid);
-    }
-
-    /**
-     * Converts a JSON String into a SimIpAddress object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SimIpAddress object represented by the provided JSON
-     */
-    public static SimIpAddress fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, SimIpAddress.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a SimIpAddress object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SimIpAddress object represented by the provided JSON
-     */
-    public static SimIpAddress fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, SimIpAddress.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String ipAddress;
-    private final SimIpAddress.IpAddressVersion ipAddressVersion;
-
-    @JsonCreator
-    private SimIpAddress(
-        @JsonProperty("ip_address") final String ipAddress,
-        @JsonProperty(
-            "ip_address_version"
-        ) final SimIpAddress.IpAddressVersion ipAddressVersion
-    ) {
-        this.ipAddress = ipAddress;
-        this.ipAddressVersion = ipAddressVersion;
-    }
-
-    public final String getIpAddress() {
-        return this.ipAddress;
-    }
-
-    public final SimIpAddress.IpAddressVersion getIpAddressVersion() {
-        return this.ipAddressVersion;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        SimIpAddress other = (SimIpAddress) o;
-
-        return (
-            Objects.equals(ipAddress, other.ipAddress) &&
-            Objects.equals(ipAddressVersion, other.ipAddressVersion)
+    public static SimIpAddressReader reader(final String pathsimSid) {
+        return new SimIpAddressReader(
+                pathsimSid
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(ipAddress, ipAddressVersion);
-    }
 
     public enum IpAddressVersion {
-        IPV4("IPv4"),
-        IPV6("IPv6");
+        I_PV4("IPv4"),
+        I_PV6("IPv6");
 
         private final String value;
 
@@ -147,4 +63,97 @@ public class SimIpAddress extends Resource {
             return Promoter.enumFromString(value, IpAddressVersion.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a SimIpAddress object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return SimIpAddress object represented by the provided JSON
+     */
+    public static SimIpAddress fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, SimIpAddress.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a SimIpAddress object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return SimIpAddress object represented by the provided JSON
+     */
+    public static SimIpAddress fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, SimIpAddress.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String ipAddress;
+    @Getter
+    private final SimIpAddress.IpAddressVersion ipAddressVersion;
+
+    @JsonCreator
+    private SimIpAddress(
+            @JsonProperty("ip_address") final String ipAddress,
+            @JsonProperty("ip_address_version") final SimIpAddress.IpAddressVersion ipAddressVersion
+    ) {
+        this.ipAddress = ipAddress;
+        this.ipAddressVersion = ipAddressVersion;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        SimIpAddress other = (SimIpAddress) o;
+        return (
+                Objects.equals(ipAddress, other.ipAddress) &&
+                        Objects.equals(ipAddressVersion, other.ipAddressVersion)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                ipAddress,
+                ipAddressVersion
+        );
+    }
+
+
 }
+

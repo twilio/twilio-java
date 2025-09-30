@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,103 +28,72 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AuthCallsIpAccessControlListMappingCreator
-    extends Creator<AuthCallsIpAccessControlListMapping> {
+public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCallsIpAccessControlListMapping> {
 
-    private String pathDomainSid;
+    private String pathaccountSid;
+    private String pathdomainSid;
     private String ipAccessControlListSid;
-    private String pathAccountSid;
 
-    public AuthCallsIpAccessControlListMappingCreator(
-        final String pathDomainSid,
-        final String ipAccessControlListSid
-    ) {
-        this.pathDomainSid = pathDomainSid;
+    public AuthCallsIpAccessControlListMappingCreator(final String pathdomainSid, final String ipAccessControlListSid) {
+        this.pathdomainSid = pathdomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
-    public AuthCallsIpAccessControlListMappingCreator(
-        final String pathAccountSid,
-        final String pathDomainSid,
-        final String ipAccessControlListSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathDomainSid = pathDomainSid;
+    public AuthCallsIpAccessControlListMappingCreator(final String pathaccountSid, final String pathdomainSid, final String ipAccessControlListSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathdomainSid = pathdomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
-    public AuthCallsIpAccessControlListMappingCreator setIpAccessControlListSid(
-        final String ipAccessControlListSid
-    ) {
+
+    public AuthCallsIpAccessControlListMappingCreator setIpAccessControlListSid(final String ipAccessControlListSid) {
         this.ipAccessControlListSid = ipAccessControlListSid;
         return this;
     }
 
-    @Override
-    public AuthCallsIpAccessControlListMapping create(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "IpAccessControlListSid" + "}",
-                this.ipAccessControlListSid.toString()
-            );
+    @Override
+    public AuthCallsIpAccessControlListMapping create(final TwilioRestClient client) {
+
+        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "AuthCallsIpAccessControlListMapping creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AuthCallsIpAccessControlListMapping creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AuthCallsIpAccessControlListMapping.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AuthCallsIpAccessControlListMapping.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (ipAccessControlListSid != null) {
-            request.addPostParam(
-                "IpAccessControlListSid",
-                ipAccessControlListSid
-            );
+            Serializer.toString(request, "IpAccessControlListSid", ipAccessControlListSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

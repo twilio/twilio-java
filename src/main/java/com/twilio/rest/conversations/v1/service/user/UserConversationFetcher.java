@@ -15,7 +15,6 @@
 package com.twilio.rest.conversations.v1.service.user;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,66 +26,47 @@ import com.twilio.rest.Domains;
 
 public class UserConversationFetcher extends Fetcher<UserConversation> {
 
-    private String pathChatServiceSid;
-    private String pathUserSid;
-    private String pathConversationSid;
+    private String pathchatServiceSid;
+    private String pathuserSid;
+    private String pathconversationSid;
 
-    public UserConversationFetcher(
-        final String pathChatServiceSid,
-        final String pathUserSid,
-        final String pathConversationSid
-    ) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathUserSid = pathUserSid;
-        this.pathConversationSid = pathConversationSid;
+    public UserConversationFetcher(final String pathchatServiceSid, final String pathuserSid, final String pathconversationSid) {
+        this.pathchatServiceSid = pathchatServiceSid;
+        this.pathuserSid = pathuserSid;
+        this.pathconversationSid = pathconversationSid;
     }
+
 
     @Override
     public UserConversation fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
+        String path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathuserSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserConversation fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserConversation fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return UserConversation.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UserConversation.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

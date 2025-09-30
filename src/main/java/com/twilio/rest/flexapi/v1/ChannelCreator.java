@@ -14,8 +14,11 @@
 
 package com.twilio.rest.flexapi.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,113 +41,99 @@ public class ChannelCreator extends Creator<Channel> {
     private String taskAttributes;
     private Boolean longLived;
 
-    public ChannelCreator(
-        final String flexFlowSid,
-        final String identity,
-        final String chatUserFriendlyName,
-        final String chatFriendlyName
-    ) {
+    public ChannelCreator(final String flexFlowSid, final String identity, final String chatUserFriendlyName, final String chatFriendlyName) {
         this.flexFlowSid = flexFlowSid;
         this.identity = identity;
         this.chatUserFriendlyName = chatUserFriendlyName;
         this.chatFriendlyName = chatFriendlyName;
     }
+
 
     public ChannelCreator setFlexFlowSid(final String flexFlowSid) {
         this.flexFlowSid = flexFlowSid;
         return this;
     }
 
+
     public ChannelCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
 
-    public ChannelCreator setChatUserFriendlyName(
-        final String chatUserFriendlyName
-    ) {
+
+    public ChannelCreator setChatUserFriendlyName(final String chatUserFriendlyName) {
         this.chatUserFriendlyName = chatUserFriendlyName;
         return this;
     }
+
 
     public ChannelCreator setChatFriendlyName(final String chatFriendlyName) {
         this.chatFriendlyName = chatFriendlyName;
         return this;
     }
 
+
     public ChannelCreator setTarget(final String target) {
         this.target = target;
         return this;
     }
+
 
     public ChannelCreator setChatUniqueName(final String chatUniqueName) {
         this.chatUniqueName = chatUniqueName;
         return this;
     }
 
+
     public ChannelCreator setPreEngagementData(final String preEngagementData) {
         this.preEngagementData = preEngagementData;
         return this;
     }
+
 
     public ChannelCreator setTaskSid(final String taskSid) {
         this.taskSid = taskSid;
         return this;
     }
 
+
     public ChannelCreator setTaskAttributes(final String taskAttributes) {
         this.taskAttributes = taskAttributes;
         return this;
     }
+
 
     public ChannelCreator setLongLived(final Boolean longLived) {
         this.longLived = longLived;
         return this;
     }
 
+
     @Override
     public Channel create(final TwilioRestClient client) {
+
         String path = "/v1/Channels";
 
-        path =
-            path.replace(
-                "{" + "FlexFlowSid" + "}",
-                this.flexFlowSid.toString()
-            );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
-        path =
-            path.replace(
-                "{" + "ChatUserFriendlyName" + "}",
-                this.chatUserFriendlyName.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChatFriendlyName" + "}",
-                this.chatFriendlyName.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Channel creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -153,35 +142,56 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     private void addPostParams(final Request request) {
+
         if (flexFlowSid != null) {
-            request.addPostParam("FlexFlowSid", flexFlowSid);
+            Serializer.toString(request, "FlexFlowSid", flexFlowSid, ParameterType.URLENCODED);
         }
+
+
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
         }
+
+
         if (chatUserFriendlyName != null) {
-            request.addPostParam("ChatUserFriendlyName", chatUserFriendlyName);
+            Serializer.toString(request, "ChatUserFriendlyName", chatUserFriendlyName, ParameterType.URLENCODED);
         }
+
+
         if (chatFriendlyName != null) {
-            request.addPostParam("ChatFriendlyName", chatFriendlyName);
+            Serializer.toString(request, "ChatFriendlyName", chatFriendlyName, ParameterType.URLENCODED);
         }
+
+
         if (target != null) {
-            request.addPostParam("Target", target);
+            Serializer.toString(request, "Target", target, ParameterType.URLENCODED);
         }
+
+
         if (chatUniqueName != null) {
-            request.addPostParam("ChatUniqueName", chatUniqueName);
+            Serializer.toString(request, "ChatUniqueName", chatUniqueName, ParameterType.URLENCODED);
         }
+
+
         if (preEngagementData != null) {
-            request.addPostParam("PreEngagementData", preEngagementData);
+            Serializer.toString(request, "PreEngagementData", preEngagementData, ParameterType.URLENCODED);
         }
+
+
         if (taskSid != null) {
-            request.addPostParam("TaskSid", taskSid);
+            Serializer.toString(request, "TaskSid", taskSid, ParameterType.URLENCODED);
         }
+
+
         if (taskAttributes != null) {
-            request.addPostParam("TaskAttributes", taskAttributes);
+            Serializer.toString(request, "TaskAttributes", taskAttributes, ParameterType.URLENCODED);
         }
+
+
         if (longLived != null) {
-            request.addPostParam("LongLived", longLived.toString());
+            Serializer.toString(request, "LongLived", longLived, ParameterType.URLENCODED);
         }
+
+
     }
 }

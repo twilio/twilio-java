@@ -18,45 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Job extends Resource {
 
-    private static final long serialVersionUID = 103628862500013L;
 
-    public static JobDeleter deleter(final String pathJobSid) {
-        return new JobDeleter(pathJobSid);
+    public static JobDeleter deleter(final String pathjobSid) {
+        return new JobDeleter(
+                pathjobSid
+        );
     }
 
-    public static JobFetcher fetcher(final String pathJobSid) {
-        return new JobFetcher(pathJobSid);
+
+    public static JobFetcher fetcher(final String pathjobSid) {
+        return new JobFetcher(
+                pathjobSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Job object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Job object represented by the provided JSON
      */
-    public static Job fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Job fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Job.class);
@@ -71,14 +74,11 @@ public class Job extends Resource {
      * Converts a JSON InputStream into a Job object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Job object represented by the provided JSON
      */
-    public static Job fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Job fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Job.class);
@@ -89,96 +89,71 @@ public class Job extends Resource {
         }
     }
 
-    private final String resourceType;
-    private final String friendlyName;
-    private final Map<String, Object> details;
-    private final String startDay;
-    private final String endDay;
-    private final String jobSid;
-    private final String webhookUrl;
-    private final String webhookMethod;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final List<Object> details;
+    @Getter
     private final String email;
-    private final URI url;
-    private final String jobQueuePosition;
+    @Getter
+    private final String endDay;
+    @Getter
     private final String estimatedCompletionTime;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String jobQueuePosition;
+    @Getter
+    private final String jobSid;
+    @Getter
+    private final String resourceType;
+    @Getter
+    private final String startDay;
+    @Getter
+    private final URI url;
+    @Getter
+    private final String webhookMethod;
+    @Getter
+    private final String webhookUrl;
 
     @JsonCreator
     private Job(
-        @JsonProperty("resource_type") final String resourceType,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("details") final Map<String, Object> details,
-        @JsonProperty("start_day") final String startDay,
-        @JsonProperty("end_day") final String endDay,
-        @JsonProperty("job_sid") final String jobSid,
-        @JsonProperty("webhook_url") final String webhookUrl,
-        @JsonProperty("webhook_method") final String webhookMethod,
-        @JsonProperty("email") final String email,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("job_queue_position") final String jobQueuePosition,
-        @JsonProperty(
-            "estimated_completion_time"
-        ) final String estimatedCompletionTime
+            @JsonProperty("details") final List<Object> details,
+            @JsonProperty("email") final String email,
+            @JsonProperty("end_day") final String endDay,
+            @JsonProperty("estimated_completion_time") final String estimatedCompletionTime,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("job_queue_position") final String jobQueuePosition,
+            @JsonProperty("job_sid") final String jobSid,
+            @JsonProperty("resource_type") final String resourceType,
+            @JsonProperty("start_day") final String startDay,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("webhook_method") final String webhookMethod,
+            @JsonProperty("webhook_url") final String webhookUrl
     ) {
-        this.resourceType = resourceType;
-        this.friendlyName = friendlyName;
         this.details = details;
-        this.startDay = startDay;
-        this.endDay = endDay;
-        this.jobSid = jobSid;
-        this.webhookUrl = webhookUrl;
-        this.webhookMethod = webhookMethod;
         this.email = email;
-        this.url = url;
-        this.jobQueuePosition = jobQueuePosition;
+        this.endDay = endDay;
         this.estimatedCompletionTime = estimatedCompletionTime;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Map<String, Object> getDetails() {
-        return this.details;
-    }
-
-    public final String getStartDay() {
-        return this.startDay;
-    }
-
-    public final String getEndDay() {
-        return this.endDay;
-    }
-
-    public final String getJobSid() {
-        return this.jobSid;
-    }
-
-    public final String getWebhookUrl() {
-        return this.webhookUrl;
-    }
-
-    public final String getWebhookMethod() {
-        return this.webhookMethod;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getJobQueuePosition() {
-        return this.jobQueuePosition;
-    }
-
-    public final String getEstimatedCompletionTime() {
-        return this.estimatedCompletionTime;
+        this.friendlyName = friendlyName;
+        this.jobQueuePosition = jobQueuePosition;
+        this.jobSid = jobSid;
+        this.resourceType = resourceType;
+        this.startDay = startDay;
+        this.url = url;
+        this.webhookMethod = webhookMethod;
+        this.webhookUrl = webhookUrl;
     }
 
     @Override
@@ -192,41 +167,40 @@ public class Job extends Resource {
         }
 
         Job other = (Job) o;
-
         return (
-            Objects.equals(resourceType, other.resourceType) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(details, other.details) &&
-            Objects.equals(startDay, other.startDay) &&
-            Objects.equals(endDay, other.endDay) &&
-            Objects.equals(jobSid, other.jobSid) &&
-            Objects.equals(webhookUrl, other.webhookUrl) &&
-            Objects.equals(webhookMethod, other.webhookMethod) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
-            Objects.equals(
-                estimatedCompletionTime,
-                other.estimatedCompletionTime
-            )
+                Objects.equals(details, other.details) &&
+                        Objects.equals(email, other.email) &&
+                        Objects.equals(endDay, other.endDay) &&
+                        Objects.equals(estimatedCompletionTime, other.estimatedCompletionTime) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
+                        Objects.equals(jobSid, other.jobSid) &&
+                        Objects.equals(resourceType, other.resourceType) &&
+                        Objects.equals(startDay, other.startDay) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(webhookMethod, other.webhookMethod) &&
+                        Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            resourceType,
-            friendlyName,
-            details,
-            startDay,
-            endDay,
-            jobSid,
-            webhookUrl,
-            webhookMethod,
-            email,
-            url,
-            jobQueuePosition,
-            estimatedCompletionTime
+                details,
+                email,
+                endDay,
+                estimatedCompletionTime,
+                friendlyName,
+                jobQueuePosition,
+                jobSid,
+                resourceType,
+                startDay,
+                url,
+                webhookMethod,
+                webhookUrl
         );
     }
+
+
 }
+

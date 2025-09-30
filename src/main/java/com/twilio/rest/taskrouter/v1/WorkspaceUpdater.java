@@ -16,7 +16,8 @@ package com.twilio.rest.taskrouter.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class WorkspaceUpdater extends Updater<Workspace> {
-
-    private String pathSid;
+    private String pathsid;
     private String defaultActivitySid;
     private URI eventCallbackUrl;
     private String eventsFilter;
@@ -38,125 +39,123 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     private String timeoutActivitySid;
     private Workspace.QueueOrder prioritizeQueueOrder;
 
-    public WorkspaceUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public WorkspaceUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public WorkspaceUpdater setDefaultActivitySid(
-        final String defaultActivitySid
-    ) {
+
+    public WorkspaceUpdater setDefaultActivitySid(final String defaultActivitySid) {
         this.defaultActivitySid = defaultActivitySid;
         return this;
     }
+
 
     public WorkspaceUpdater setEventCallbackUrl(final URI eventCallbackUrl) {
         this.eventCallbackUrl = eventCallbackUrl;
         return this;
     }
 
-    public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
-        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
-    }
 
     public WorkspaceUpdater setEventsFilter(final String eventsFilter) {
         this.eventsFilter = eventsFilter;
         return this;
     }
 
+
     public WorkspaceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-    public WorkspaceUpdater setMultiTaskEnabled(
-        final Boolean multiTaskEnabled
-    ) {
+
+    public WorkspaceUpdater setMultiTaskEnabled(final Boolean multiTaskEnabled) {
         this.multiTaskEnabled = multiTaskEnabled;
         return this;
     }
 
-    public WorkspaceUpdater setTimeoutActivitySid(
-        final String timeoutActivitySid
-    ) {
+
+    public WorkspaceUpdater setTimeoutActivitySid(final String timeoutActivitySid) {
         this.timeoutActivitySid = timeoutActivitySid;
         return this;
     }
 
-    public WorkspaceUpdater setPrioritizeQueueOrder(
-        final Workspace.QueueOrder prioritizeQueueOrder
-    ) {
+
+    public WorkspaceUpdater setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {
         this.prioritizeQueueOrder = prioritizeQueueOrder;
         return this;
     }
 
+
     @Override
     public Workspace update(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TASKROUTER.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Workspace update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Workspace update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Workspace.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Workspace.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (defaultActivitySid != null) {
-            request.addPostParam("DefaultActivitySid", defaultActivitySid);
+            Serializer.toString(request, "DefaultActivitySid", defaultActivitySid, ParameterType.URLENCODED);
         }
+
+
         if (eventCallbackUrl != null) {
-            request.addPostParam(
-                "EventCallbackUrl",
-                eventCallbackUrl.toString()
-            );
+            Serializer.toString(request, "EventCallbackUrl", eventCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (eventsFilter != null) {
-            request.addPostParam("EventsFilter", eventsFilter);
+            Serializer.toString(request, "EventsFilter", eventsFilter, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (multiTaskEnabled != null) {
-            request.addPostParam(
-                "MultiTaskEnabled",
-                multiTaskEnabled.toString()
-            );
+            Serializer.toString(request, "MultiTaskEnabled", multiTaskEnabled, ParameterType.URLENCODED);
         }
+
+
         if (timeoutActivitySid != null) {
-            request.addPostParam("TimeoutActivitySid", timeoutActivitySid);
+            Serializer.toString(request, "TimeoutActivitySid", timeoutActivitySid, ParameterType.URLENCODED);
         }
+
+
         if (prioritizeQueueOrder != null) {
-            request.addPostParam(
-                "PrioritizeQueueOrder",
-                prioritizeQueueOrder.toString()
-            );
+            Serializer.toString(request, "PrioritizeQueueOrder", prioritizeQueueOrder, ParameterType.URLENCODED);
         }
+
+
     }
 }

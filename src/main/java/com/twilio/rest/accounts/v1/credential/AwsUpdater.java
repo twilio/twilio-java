@@ -16,6 +16,8 @@ package com.twilio.rest.accounts.v1.credential;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,47 +28,47 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AwsUpdater extends Updater<Aws> {
-
-    private String pathSid;
+    private String pathsid;
     private String friendlyName;
 
-    public AwsUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public AwsUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public AwsUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     @Override
     public Aws update(final TwilioRestClient client) {
+
         String path = "/v1/Credentials/AWS/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.ACCOUNTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.ACCOUNTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Aws update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Aws update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -75,8 +77,11 @@ public class AwsUpdater extends Updater<Aws> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
     }
 }

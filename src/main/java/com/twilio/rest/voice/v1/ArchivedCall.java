@@ -17,41 +17,38 @@ package com.twilio.rest.voice.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ArchivedCall extends Resource {
 
-    private static final long serialVersionUID = 0L;
 
-    public static ArchivedCallDeleter deleter(
-        final LocalDate pathDate,
-        final String pathSid
-    ) {
-        return new ArchivedCallDeleter(pathDate, pathSid);
+    public static ArchivedCallDeleter deleter(final LocalDate pathdate, final String pathsid) {
+        return new ArchivedCallDeleter(
+                pathdate, pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a ArchivedCall object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ArchivedCall object represented by the provided JSON
      */
-    public static ArchivedCall fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ArchivedCall fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ArchivedCall.class);
@@ -66,14 +63,11 @@ public class ArchivedCall extends Resource {
      * Converts a JSON InputStream into a ArchivedCall object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ArchivedCall object represented by the provided JSON
      */
-    public static ArchivedCall fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ArchivedCall fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ArchivedCall.class);
@@ -84,8 +78,21 @@ public class ArchivedCall extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
     @JsonCreator
-    private ArchivedCall() {}
+    private ArchivedCall() {
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -96,4 +103,6 @@ public class ArchivedCall extends Resource {
     public int hashCode() {
         return 1;
     }
+
 }
+

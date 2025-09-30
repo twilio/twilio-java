@@ -14,8 +14,11 @@
 
 package com.twilio.rest.trusthub.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,8 +28,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ComplianceRegistrationInquiriesCreator
-    extends Creator<ComplianceRegistrationInquiries> {
+public class ComplianceRegistrationInquiriesCreator extends Creator<ComplianceRegistrationInquiries> {
 
     private ComplianceRegistrationInquiries.EndUserType endUserType;
     private ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType;
@@ -68,506 +70,474 @@ public class ComplianceRegistrationInquiriesCreator
     private String statusCallbackUrl;
     private String themeSetId;
 
-    public ComplianceRegistrationInquiriesCreator(
-        final ComplianceRegistrationInquiries.EndUserType endUserType,
-        final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType
-    ) {
+    public ComplianceRegistrationInquiriesCreator(final ComplianceRegistrationInquiries.EndUserType endUserType, final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType) {
         this.endUserType = endUserType;
         this.phoneNumberType = phoneNumberType;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEndUserType(
-        final ComplianceRegistrationInquiries.EndUserType endUserType
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEndUserType(final ComplianceRegistrationInquiries.EndUserType endUserType) {
         this.endUserType = endUserType;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setPhoneNumberType(
-        final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setPhoneNumberType(final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType) {
         this.phoneNumberType = phoneNumberType;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setBusinessIdentityType(
-        final ComplianceRegistrationInquiries.BusinessIdentityType businessIdentityType
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setBusinessIdentityType(final ComplianceRegistrationInquiries.BusinessIdentityType businessIdentityType) {
         this.businessIdentityType = businessIdentityType;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationAuthority(
-        final ComplianceRegistrationInquiries.BusinessRegistrationAuthority businessRegistrationAuthority
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationAuthority(final ComplianceRegistrationInquiries.BusinessRegistrationAuthority businessRegistrationAuthority) {
         this.businessRegistrationAuthority = businessRegistrationAuthority;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setBusinessLegalName(
-        final String businessLegalName
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setBusinessLegalName(final String businessLegalName) {
         this.businessLegalName = businessLegalName;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setNotificationEmail(
-        final String notificationEmail
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setNotificationEmail(final String notificationEmail) {
         this.notificationEmail = notificationEmail;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAcceptedNotificationReceipt(
-        final Boolean acceptedNotificationReceipt
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAcceptedNotificationReceipt(final Boolean acceptedNotificationReceipt) {
         this.acceptedNotificationReceipt = acceptedNotificationReceipt;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationNumber(
-        final String businessRegistrationNumber
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationNumber(final String businessRegistrationNumber) {
         this.businessRegistrationNumber = businessRegistrationNumber;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setBusinessWebsiteUrl(
-        final String businessWebsiteUrl
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setBusinessWebsiteUrl(final String businessWebsiteUrl) {
         this.businessWebsiteUrl = businessWebsiteUrl;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setFriendlyName(
-        final String friendlyName
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1FirstName(
-        final String authorizedRepresentative1FirstName
-    ) {
-        this.authorizedRepresentative1FirstName =
-            authorizedRepresentative1FirstName;
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1FirstName(final String authorizedRepresentative1FirstName) {
+        this.authorizedRepresentative1FirstName = authorizedRepresentative1FirstName;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1LastName(
-        final String authorizedRepresentative1LastName
-    ) {
-        this.authorizedRepresentative1LastName =
-            authorizedRepresentative1LastName;
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1LastName(final String authorizedRepresentative1LastName) {
+        this.authorizedRepresentative1LastName = authorizedRepresentative1LastName;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Phone(
-        final String authorizedRepresentative1Phone
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Phone(final String authorizedRepresentative1Phone) {
         this.authorizedRepresentative1Phone = authorizedRepresentative1Phone;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Email(
-        final String authorizedRepresentative1Email
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Email(final String authorizedRepresentative1Email) {
         this.authorizedRepresentative1Email = authorizedRepresentative1Email;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1DateOfBirth(
-        final String authorizedRepresentative1DateOfBirth
-    ) {
-        this.authorizedRepresentative1DateOfBirth =
-            authorizedRepresentative1DateOfBirth;
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1DateOfBirth(final String authorizedRepresentative1DateOfBirth) {
+        this.authorizedRepresentative1DateOfBirth = authorizedRepresentative1DateOfBirth;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAddressStreet(
-        final String addressStreet
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAddressStreet(final String addressStreet) {
         this.addressStreet = addressStreet;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAddressStreetSecondary(
-        final String addressStreetSecondary
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAddressStreetSecondary(final String addressStreetSecondary) {
         this.addressStreetSecondary = addressStreetSecondary;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAddressCity(
-        final String addressCity
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAddressCity(final String addressCity) {
         this.addressCity = addressCity;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAddressSubdivision(
-        final String addressSubdivision
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAddressSubdivision(final String addressSubdivision) {
         this.addressSubdivision = addressSubdivision;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAddressPostalCode(
-        final String addressPostalCode
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAddressPostalCode(final String addressPostalCode) {
         this.addressPostalCode = addressPostalCode;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setAddressCountryCode(
-        final String addressCountryCode
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setAddressCountryCode(final String addressCountryCode) {
         this.addressCountryCode = addressCountryCode;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreet(
-        final String emergencyAddressStreet
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreet(final String emergencyAddressStreet) {
         this.emergencyAddressStreet = emergencyAddressStreet;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreetSecondary(
-        final String emergencyAddressStreetSecondary
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreetSecondary(final String emergencyAddressStreetSecondary) {
         this.emergencyAddressStreetSecondary = emergencyAddressStreetSecondary;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCity(
-        final String emergencyAddressCity
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCity(final String emergencyAddressCity) {
         this.emergencyAddressCity = emergencyAddressCity;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressSubdivision(
-        final String emergencyAddressSubdivision
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressSubdivision(final String emergencyAddressSubdivision) {
         this.emergencyAddressSubdivision = emergencyAddressSubdivision;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressPostalCode(
-        final String emergencyAddressPostalCode
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressPostalCode(final String emergencyAddressPostalCode) {
         this.emergencyAddressPostalCode = emergencyAddressPostalCode;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCountryCode(
-        final String emergencyAddressCountryCode
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCountryCode(final String emergencyAddressCountryCode) {
         this.emergencyAddressCountryCode = emergencyAddressCountryCode;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setUseAddressAsEmergencyAddress(
-        final Boolean useAddressAsEmergencyAddress
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setUseAddressAsEmergencyAddress(final Boolean useAddressAsEmergencyAddress) {
         this.useAddressAsEmergencyAddress = useAddressAsEmergencyAddress;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setFileName(
-        final String fileName
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setFileName(final String fileName) {
         this.fileName = fileName;
         return this;
     }
+
 
     public ComplianceRegistrationInquiriesCreator set_file(final String _file) {
         this._file = _file;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setFirstName(
-        final String firstName
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setFirstName(final String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setLastName(
-        final String lastName
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setLastName(final String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setDateOfBirth(
-        final String dateOfBirth
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setDateOfBirth(final String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setIndividualEmail(
-        final String individualEmail
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setIndividualEmail(final String individualEmail) {
         this.individualEmail = individualEmail;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setIndividualPhone(
-        final String individualPhone
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setIndividualPhone(final String individualPhone) {
         this.individualPhone = individualPhone;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setIsIsvEmbed(
-        final Boolean isIsvEmbed
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setIsIsvEmbed(final Boolean isIsvEmbed) {
         this.isIsvEmbed = isIsvEmbed;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setIsvRegisteringForSelfOrTenant(
-        final String isvRegisteringForSelfOrTenant
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setIsvRegisteringForSelfOrTenant(final String isvRegisteringForSelfOrTenant) {
         this.isvRegisteringForSelfOrTenant = isvRegisteringForSelfOrTenant;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setStatusCallbackUrl(
-        final String statusCallbackUrl
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setStatusCallbackUrl(final String statusCallbackUrl) {
         this.statusCallbackUrl = statusCallbackUrl;
         return this;
     }
 
-    public ComplianceRegistrationInquiriesCreator setThemeSetId(
-        final String themeSetId
-    ) {
+
+    public ComplianceRegistrationInquiriesCreator setThemeSetId(final String themeSetId) {
         this.themeSetId = themeSetId;
         return this;
     }
 
-    @Override
-    public ComplianceRegistrationInquiries create(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize";
 
-        path =
-            path.replace(
-                "{" + "EndUserType" + "}",
-                this.endUserType.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumberType" + "}",
-                this.phoneNumberType.toString()
-            );
+    @Override
+    public ComplianceRegistrationInquiries create(final TwilioRestClient client) {
+
+        String path = "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize";
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TRUSTHUB.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TRUSTHUB.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ComplianceRegistrationInquiries creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ComplianceRegistrationInquiries creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ComplianceRegistrationInquiries.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ComplianceRegistrationInquiries.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (endUserType != null) {
-            request.addPostParam("EndUserType", endUserType.toString());
+            Serializer.toString(request, "EndUserType", endUserType, ParameterType.URLENCODED);
         }
+
+
         if (phoneNumberType != null) {
-            request.addPostParam("PhoneNumberType", phoneNumberType.toString());
+            Serializer.toString(request, "PhoneNumberType", phoneNumberType, ParameterType.URLENCODED);
         }
+
+
         if (businessIdentityType != null) {
-            request.addPostParam(
-                "BusinessIdentityType",
-                businessIdentityType.toString()
-            );
+            Serializer.toString(request, "BusinessIdentityType", businessIdentityType, ParameterType.URLENCODED);
         }
+
+
         if (businessRegistrationAuthority != null) {
-            request.addPostParam(
-                "BusinessRegistrationAuthority",
-                businessRegistrationAuthority.toString()
-            );
+            Serializer.toString(request, "BusinessRegistrationAuthority", businessRegistrationAuthority, ParameterType.URLENCODED);
         }
+
+
         if (businessLegalName != null) {
-            request.addPostParam("BusinessLegalName", businessLegalName);
+            Serializer.toString(request, "BusinessLegalName", businessLegalName, ParameterType.URLENCODED);
         }
+
+
         if (notificationEmail != null) {
-            request.addPostParam("NotificationEmail", notificationEmail);
+            Serializer.toString(request, "NotificationEmail", notificationEmail, ParameterType.URLENCODED);
         }
+
+
         if (acceptedNotificationReceipt != null) {
-            request.addPostParam(
-                "AcceptedNotificationReceipt",
-                acceptedNotificationReceipt.toString()
-            );
+            Serializer.toString(request, "AcceptedNotificationReceipt", acceptedNotificationReceipt, ParameterType.URLENCODED);
         }
+
+
         if (businessRegistrationNumber != null) {
-            request.addPostParam(
-                "BusinessRegistrationNumber",
-                businessRegistrationNumber
-            );
+            Serializer.toString(request, "BusinessRegistrationNumber", businessRegistrationNumber, ParameterType.URLENCODED);
         }
+
+
         if (businessWebsiteUrl != null) {
-            request.addPostParam("BusinessWebsiteUrl", businessWebsiteUrl);
+            Serializer.toString(request, "BusinessWebsiteUrl", businessWebsiteUrl, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (authorizedRepresentative1FirstName != null) {
-            request.addPostParam(
-                "AuthorizedRepresentative1FirstName",
-                authorizedRepresentative1FirstName
-            );
+            Serializer.toString(request, "AuthorizedRepresentative1FirstName", authorizedRepresentative1FirstName, ParameterType.URLENCODED);
         }
+
+
         if (authorizedRepresentative1LastName != null) {
-            request.addPostParam(
-                "AuthorizedRepresentative1LastName",
-                authorizedRepresentative1LastName
-            );
+            Serializer.toString(request, "AuthorizedRepresentative1LastName", authorizedRepresentative1LastName, ParameterType.URLENCODED);
         }
+
+
         if (authorizedRepresentative1Phone != null) {
-            request.addPostParam(
-                "AuthorizedRepresentative1Phone",
-                authorizedRepresentative1Phone
-            );
+            Serializer.toString(request, "AuthorizedRepresentative1Phone", authorizedRepresentative1Phone, ParameterType.URLENCODED);
         }
+
+
         if (authorizedRepresentative1Email != null) {
-            request.addPostParam(
-                "AuthorizedRepresentative1Email",
-                authorizedRepresentative1Email
-            );
+            Serializer.toString(request, "AuthorizedRepresentative1Email", authorizedRepresentative1Email, ParameterType.URLENCODED);
         }
+
+
         if (authorizedRepresentative1DateOfBirth != null) {
-            request.addPostParam(
-                "AuthorizedRepresentative1DateOfBirth",
-                authorizedRepresentative1DateOfBirth
-            );
+            Serializer.toString(request, "AuthorizedRepresentative1DateOfBirth", authorizedRepresentative1DateOfBirth, ParameterType.URLENCODED);
         }
+
+
         if (addressStreet != null) {
-            request.addPostParam("AddressStreet", addressStreet);
+            Serializer.toString(request, "AddressStreet", addressStreet, ParameterType.URLENCODED);
         }
+
+
         if (addressStreetSecondary != null) {
-            request.addPostParam(
-                "AddressStreetSecondary",
-                addressStreetSecondary
-            );
+            Serializer.toString(request, "AddressStreetSecondary", addressStreetSecondary, ParameterType.URLENCODED);
         }
+
+
         if (addressCity != null) {
-            request.addPostParam("AddressCity", addressCity);
+            Serializer.toString(request, "AddressCity", addressCity, ParameterType.URLENCODED);
         }
+
+
         if (addressSubdivision != null) {
-            request.addPostParam("AddressSubdivision", addressSubdivision);
+            Serializer.toString(request, "AddressSubdivision", addressSubdivision, ParameterType.URLENCODED);
         }
+
+
         if (addressPostalCode != null) {
-            request.addPostParam("AddressPostalCode", addressPostalCode);
+            Serializer.toString(request, "AddressPostalCode", addressPostalCode, ParameterType.URLENCODED);
         }
+
+
         if (addressCountryCode != null) {
-            request.addPostParam("AddressCountryCode", addressCountryCode);
+            Serializer.toString(request, "AddressCountryCode", addressCountryCode, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressStreet != null) {
-            request.addPostParam(
-                "EmergencyAddressStreet",
-                emergencyAddressStreet
-            );
+            Serializer.toString(request, "EmergencyAddressStreet", emergencyAddressStreet, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressStreetSecondary != null) {
-            request.addPostParam(
-                "EmergencyAddressStreetSecondary",
-                emergencyAddressStreetSecondary
-            );
+            Serializer.toString(request, "EmergencyAddressStreetSecondary", emergencyAddressStreetSecondary, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressCity != null) {
-            request.addPostParam("EmergencyAddressCity", emergencyAddressCity);
+            Serializer.toString(request, "EmergencyAddressCity", emergencyAddressCity, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressSubdivision != null) {
-            request.addPostParam(
-                "EmergencyAddressSubdivision",
-                emergencyAddressSubdivision
-            );
+            Serializer.toString(request, "EmergencyAddressSubdivision", emergencyAddressSubdivision, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressPostalCode != null) {
-            request.addPostParam(
-                "EmergencyAddressPostalCode",
-                emergencyAddressPostalCode
-            );
+            Serializer.toString(request, "EmergencyAddressPostalCode", emergencyAddressPostalCode, ParameterType.URLENCODED);
         }
+
+
         if (emergencyAddressCountryCode != null) {
-            request.addPostParam(
-                "EmergencyAddressCountryCode",
-                emergencyAddressCountryCode
-            );
+            Serializer.toString(request, "EmergencyAddressCountryCode", emergencyAddressCountryCode, ParameterType.URLENCODED);
         }
+
+
         if (useAddressAsEmergencyAddress != null) {
-            request.addPostParam(
-                "UseAddressAsEmergencyAddress",
-                useAddressAsEmergencyAddress.toString()
-            );
+            Serializer.toString(request, "UseAddressAsEmergencyAddress", useAddressAsEmergencyAddress, ParameterType.URLENCODED);
         }
+
+
         if (fileName != null) {
-            request.addPostParam("FileName", fileName);
+            Serializer.toString(request, "FileName", fileName, ParameterType.URLENCODED);
         }
+
+
         if (_file != null) {
-            request.addPostParam("File", _file);
+            Serializer.toString(request, "File", _file, ParameterType.URLENCODED);
         }
+
+
         if (firstName != null) {
-            request.addPostParam("FirstName", firstName);
+            Serializer.toString(request, "FirstName", firstName, ParameterType.URLENCODED);
         }
+
+
         if (lastName != null) {
-            request.addPostParam("LastName", lastName);
+            Serializer.toString(request, "LastName", lastName, ParameterType.URLENCODED);
         }
+
+
         if (dateOfBirth != null) {
-            request.addPostParam("DateOfBirth", dateOfBirth);
+            Serializer.toString(request, "DateOfBirth", dateOfBirth, ParameterType.URLENCODED);
         }
+
+
         if (individualEmail != null) {
-            request.addPostParam("IndividualEmail", individualEmail);
+            Serializer.toString(request, "IndividualEmail", individualEmail, ParameterType.URLENCODED);
         }
+
+
         if (individualPhone != null) {
-            request.addPostParam("IndividualPhone", individualPhone);
+            Serializer.toString(request, "IndividualPhone", individualPhone, ParameterType.URLENCODED);
         }
+
+
         if (isIsvEmbed != null) {
-            request.addPostParam("IsIsvEmbed", isIsvEmbed.toString());
+            Serializer.toString(request, "IsIsvEmbed", isIsvEmbed, ParameterType.URLENCODED);
         }
+
+
         if (isvRegisteringForSelfOrTenant != null) {
-            request.addPostParam(
-                "IsvRegisteringForSelfOrTenant",
-                isvRegisteringForSelfOrTenant
-            );
+            Serializer.toString(request, "IsvRegisteringForSelfOrTenant", isvRegisteringForSelfOrTenant, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackUrl != null) {
-            request.addPostParam("StatusCallbackUrl", statusCallbackUrl);
+            Serializer.toString(request, "StatusCallbackUrl", statusCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (themeSetId != null) {
-            request.addPostParam("ThemeSetId", themeSetId);
+            Serializer.toString(request, "ThemeSetId", themeSetId, ParameterType.URLENCODED);
         }
+
+
     }
 }

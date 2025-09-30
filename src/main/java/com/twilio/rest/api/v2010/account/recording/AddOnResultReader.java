@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account.recording;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,26 +30,25 @@ import com.twilio.rest.Domains;
 
 public class AddOnResultReader extends Reader<AddOnResult> {
 
-    private String pathReferenceSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathreferenceSid;
     private Long pageSize;
 
-    public AddOnResultReader(final String pathReferenceSid) {
-        this.pathReferenceSid = pathReferenceSid;
+    public AddOnResultReader(final String pathreferenceSid) {
+        this.pathreferenceSid = pathreferenceSid;
     }
 
-    public AddOnResultReader(
-        final String pathAccountSid,
-        final String pathReferenceSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathReferenceSid = pathReferenceSid;
+    public AddOnResultReader(final String pathaccountSid, final String pathreferenceSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathreferenceSid = pathreferenceSid;
     }
+
 
     public AddOnResultReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<AddOnResult> read(final TwilioRestClient client) {
@@ -56,107 +56,70 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     }
 
     public Page<AddOnResult> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ReferenceSid" + "}",
-                this.pathReferenceSid.toString()
-            );
+
+        String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ReferenceSid" + "}", this.pathreferenceSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<AddOnResult> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<AddOnResult> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "AddOnResult read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AddOnResult read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "add_on_results",
-            response.getContent(),
-            AddOnResult.class,
-            client.getObjectMapper()
-        );
+                "add_on_results",
+                response.getContent(),
+                AddOnResult.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<AddOnResult> previousPage(
-        final Page<AddOnResult> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<AddOnResult> previousPage(final Page<AddOnResult> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AddOnResult> nextPage(
-        final Page<AddOnResult> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
+    public Page<AddOnResult> nextPage(final Page<AddOnResult> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AddOnResult> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<AddOnResult> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

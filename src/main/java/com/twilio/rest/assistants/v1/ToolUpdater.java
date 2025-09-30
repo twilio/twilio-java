@@ -27,50 +27,47 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ToolUpdater extends Updater<Tool> {
-
-    private String pathId;
+    private String pathid;
     private Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest;
 
-    public ToolUpdater(final String pathId) {
-        this.pathId = pathId;
+    public ToolUpdater(final String pathid) {
+        this.pathid = pathid;
     }
 
-    public ToolUpdater setAssistantsV1ServiceUpdateToolRequest(
-        final Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest
-    ) {
-        this.assistantsV1ServiceUpdateToolRequest =
-            assistantsV1ServiceUpdateToolRequest;
+
+    public ToolUpdater setAssistantsV1ServiceUpdateToolRequest(final Tool.AssistantsV1ServiceUpdateToolRequest assistantsV1ServiceUpdateToolRequest) {
+        this.assistantsV1ServiceUpdateToolRequest = assistantsV1ServiceUpdateToolRequest;
         return this;
     }
 
+
     @Override
     public Tool update(final TwilioRestClient client) {
+
         String path = "/v1/Tools/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathId.toString());
+        path = path.replace("{" + "id" + "}", this.pathid.toString());
+
 
         Request request = new Request(
-            HttpMethod.PUT,
-            Domains.ASSISTANTS.toString(),
-            path
+                HttpMethod.PUT,
+                Domains.ASSISTANTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Tool update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Tool update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -81,9 +78,7 @@ public class ToolUpdater extends Updater<Tool> {
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceUpdateToolRequest != null) {
-            request.setBody(
-                Tool.toJson(assistantsV1ServiceUpdateToolRequest, objectMapper)
-            );
+            request.setBody(Tool.toJson(assistantsV1ServiceUpdateToolRequest, objectMapper));
         }
     }
 }

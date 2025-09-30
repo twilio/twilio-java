@@ -16,7 +16,8 @@ package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
-
-    private String pathSid;
+    private String pathsid;
     private String friendlyName;
     private URI inboundRequestUrl;
     private HttpMethod inboundMethod;
@@ -47,138 +48,134 @@ public class ServiceUpdater extends Updater<Service> {
     private String usecase;
     private Boolean useInboundWebhookOnNumber;
 
-    public ServiceUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ServiceUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public ServiceUpdater setInboundRequestUrl(final URI inboundRequestUrl) {
         this.inboundRequestUrl = inboundRequestUrl;
         return this;
     }
 
-    public ServiceUpdater setInboundRequestUrl(final String inboundRequestUrl) {
-        return setInboundRequestUrl(Promoter.uriFromString(inboundRequestUrl));
-    }
 
     public ServiceUpdater setInboundMethod(final HttpMethod inboundMethod) {
         this.inboundMethod = inboundMethod;
         return this;
     }
 
+
     public ServiceUpdater setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public ServiceUpdater setFallbackUrl(final String fallbackUrl) {
-        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
-    }
 
     public ServiceUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
 
+
     public ServiceUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ServiceUpdater setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
     public ServiceUpdater setStickySender(final Boolean stickySender) {
         this.stickySender = stickySender;
         return this;
     }
 
+
     public ServiceUpdater setMmsConverter(final Boolean mmsConverter) {
         this.mmsConverter = mmsConverter;
         return this;
     }
+
 
     public ServiceUpdater setSmartEncoding(final Boolean smartEncoding) {
         this.smartEncoding = smartEncoding;
         return this;
     }
 
-    public ServiceUpdater setScanMessageContent(
-        final Service.ScanMessageContent scanMessageContent
-    ) {
+
+    public ServiceUpdater setScanMessageContent(final Service.ScanMessageContent scanMessageContent) {
         this.scanMessageContent = scanMessageContent;
         return this;
     }
 
-    public ServiceUpdater setFallbackToLongCode(
-        final Boolean fallbackToLongCode
-    ) {
+
+    public ServiceUpdater setFallbackToLongCode(final Boolean fallbackToLongCode) {
         this.fallbackToLongCode = fallbackToLongCode;
         return this;
     }
+
 
     public ServiceUpdater setAreaCodeGeomatch(final Boolean areaCodeGeomatch) {
         this.areaCodeGeomatch = areaCodeGeomatch;
         return this;
     }
 
+
     public ServiceUpdater setValidityPeriod(final Integer validityPeriod) {
         this.validityPeriod = validityPeriod;
         return this;
     }
 
-    public ServiceUpdater setSynchronousValidation(
-        final Boolean synchronousValidation
-    ) {
+
+    public ServiceUpdater setSynchronousValidation(final Boolean synchronousValidation) {
         this.synchronousValidation = synchronousValidation;
         return this;
     }
+
 
     public ServiceUpdater setUsecase(final String usecase) {
         this.usecase = usecase;
         return this;
     }
 
-    public ServiceUpdater setUseInboundWebhookOnNumber(
-        final Boolean useInboundWebhookOnNumber
-    ) {
+
+    public ServiceUpdater setUseInboundWebhookOnNumber(final Boolean useInboundWebhookOnNumber) {
         this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
         return this;
     }
 
+
     @Override
     public Service update(final TwilioRestClient client) {
+
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MESSAGING.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -187,71 +184,86 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (inboundRequestUrl != null) {
-            request.addPostParam(
-                "InboundRequestUrl",
-                inboundRequestUrl.toString()
-            );
+            Serializer.toString(request, "InboundRequestUrl", inboundRequestUrl, ParameterType.URLENCODED);
         }
+
+
         if (inboundMethod != null) {
-            request.addPostParam("InboundMethod", inboundMethod.toString());
+            Serializer.toString(request, "InboundMethod", inboundMethod, ParameterType.URLENCODED);
         }
+
+
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
+            Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", fallbackMethod.toString());
+            Serializer.toString(request, "FallbackMethod", fallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (stickySender != null) {
-            request.addPostParam("StickySender", stickySender.toString());
+            Serializer.toString(request, "StickySender", stickySender, ParameterType.URLENCODED);
         }
+
+
         if (mmsConverter != null) {
-            request.addPostParam("MmsConverter", mmsConverter.toString());
+            Serializer.toString(request, "MmsConverter", mmsConverter, ParameterType.URLENCODED);
         }
+
+
         if (smartEncoding != null) {
-            request.addPostParam("SmartEncoding", smartEncoding.toString());
+            Serializer.toString(request, "SmartEncoding", smartEncoding, ParameterType.URLENCODED);
         }
+
+
         if (scanMessageContent != null) {
-            request.addPostParam(
-                "ScanMessageContent",
-                scanMessageContent.toString()
-            );
+            Serializer.toString(request, "ScanMessageContent", scanMessageContent, ParameterType.URLENCODED);
         }
+
+
         if (fallbackToLongCode != null) {
-            request.addPostParam(
-                "FallbackToLongCode",
-                fallbackToLongCode.toString()
-            );
+            Serializer.toString(request, "FallbackToLongCode", fallbackToLongCode, ParameterType.URLENCODED);
         }
+
+
         if (areaCodeGeomatch != null) {
-            request.addPostParam(
-                "AreaCodeGeomatch",
-                areaCodeGeomatch.toString()
-            );
+            Serializer.toString(request, "AreaCodeGeomatch", areaCodeGeomatch, ParameterType.URLENCODED);
         }
+
+
         if (validityPeriod != null) {
-            request.addPostParam("ValidityPeriod", validityPeriod.toString());
+            Serializer.toString(request, "ValidityPeriod", validityPeriod, ParameterType.URLENCODED);
         }
+
+
         if (synchronousValidation != null) {
-            request.addPostParam(
-                "SynchronousValidation",
-                synchronousValidation.toString()
-            );
+            Serializer.toString(request, "SynchronousValidation", synchronousValidation, ParameterType.URLENCODED);
         }
+
+
         if (usecase != null) {
-            request.addPostParam("Usecase", usecase);
+            Serializer.toString(request, "Usecase", usecase, ParameterType.URLENCODED);
         }
+
+
         if (useInboundWebhookOnNumber != null) {
-            request.addPostParam(
-                "UseInboundWebhookOnNumber",
-                useInboundWebhookOnNumber.toString()
-            );
+            Serializer.toString(request, "UseInboundWebhookOnNumber", useInboundWebhookOnNumber, ParameterType.URLENCODED);
         }
+
+
     }
 }

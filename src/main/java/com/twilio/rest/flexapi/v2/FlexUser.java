@@ -18,52 +18,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlexUser extends Resource {
 
-    private static final long serialVersionUID = 33792747593719L;
 
-    public static FlexUserFetcher fetcher(
-        final String pathInstanceSid,
-        final String pathFlexUserSid
-    ) {
-        return new FlexUserFetcher(pathInstanceSid, pathFlexUserSid);
+    public static FlexUserFetcher fetcher(final String pathinstanceSid, final String pathflexUserSid) {
+        return new FlexUserFetcher(
+                pathinstanceSid, pathflexUserSid
+        );
     }
 
-    public static FlexUserUpdater updater(
-        final String pathInstanceSid,
-        final String pathFlexUserSid
-    ) {
-        return new FlexUserUpdater(pathInstanceSid, pathFlexUserSid);
+
+    public static FlexUserUpdater updater(final String pathinstanceSid, final String pathflexUserSid) {
+        return new FlexUserUpdater(
+                pathinstanceSid, pathflexUserSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a FlexUser object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FlexUser object represented by the provided JSON
      */
-    public static FlexUser fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static FlexUser fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlexUser.class);
@@ -78,14 +76,11 @@ public class FlexUser extends Resource {
      * Converts a JSON InputStream into a FlexUser object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FlexUser object represented by the provided JSON
      */
-    public static FlexUser fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static FlexUser fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlexUser.class);
@@ -96,115 +91,85 @@ public class FlexUser extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String instanceSid;
-    private final String userSid;
-    private final String flexUserSid;
-    private final String workerSid;
-    private final String workspaceSid;
-    private final String flexTeamSid;
-    private final String username;
-    private final String email;
-    private final String locale;
-    private final List<String> roles;
+    @Getter
     private final ZonedDateTime createdDate;
+    @Getter
+    private final String email;
+    @Getter
+    private final String flexTeamSid;
+    @Getter
+    private final String flexUserSid;
+    @Getter
+    private final String instanceSid;
+    @Getter
+    private final String locale;
+    @Getter
+    private final List<String> roles;
+    @Getter
     private final ZonedDateTime updatedDate;
-    private final Integer version;
+    @Getter
     private final URI url;
+    @Getter
+    private final String userSid;
+    @Getter
+    private final String username;
+    @Getter
+    private final Integer version;
+    @Getter
+    private final String workerSid;
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private FlexUser(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("instance_sid") final String instanceSid,
-        @JsonProperty("user_sid") final String userSid,
-        @JsonProperty("flex_user_sid") final String flexUserSid,
-        @JsonProperty("worker_sid") final String workerSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("flex_team_sid") final String flexTeamSid,
-        @JsonProperty("username") final String username,
-        @JsonProperty("email") final String email,
-        @JsonProperty("locale") final String locale,
-        @JsonProperty("roles") final List<String> roles,
-        @JsonProperty("created_date") final String createdDate,
-        @JsonProperty("updated_date") final String updatedDate,
-        @JsonProperty("version") final Integer version,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("created_date")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime createdDate,
+            @JsonProperty("email") final String email,
+            @JsonProperty("flex_team_sid") final String flexTeamSid,
+            @JsonProperty("flex_user_sid") final String flexUserSid,
+            @JsonProperty("instance_sid") final String instanceSid,
+            @JsonProperty("locale") final String locale,
+            @JsonProperty("roles") final List<String> roles,
+            @JsonProperty("updated_date")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime updatedDate,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("user_sid") final String userSid,
+            @JsonProperty("username") final String username,
+            @JsonProperty("version") final Integer version,
+            @JsonProperty("worker_sid") final String workerSid,
+            @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
-        this.instanceSid = instanceSid;
-        this.userSid = userSid;
-        this.flexUserSid = flexUserSid;
-        this.workerSid = workerSid;
-        this.workspaceSid = workspaceSid;
-        this.flexTeamSid = flexTeamSid;
-        this.username = username;
+        this.createdDate = createdDate;
         this.email = email;
+        this.flexTeamSid = flexTeamSid;
+        this.flexUserSid = flexUserSid;
+        this.instanceSid = instanceSid;
         this.locale = locale;
         this.roles = roles;
-        this.createdDate = DateConverter.iso8601DateTimeFromString(createdDate);
-        this.updatedDate = DateConverter.iso8601DateTimeFromString(updatedDate);
-        this.version = version;
+        this.updatedDate = updatedDate;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getInstanceSid() {
-        return this.instanceSid;
-    }
-
-    public final String getUserSid() {
-        return this.userSid;
-    }
-
-    public final String getFlexUserSid() {
-        return this.flexUserSid;
-    }
-
-    public final String getWorkerSid() {
-        return this.workerSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final String getFlexTeamSid() {
-        return this.flexTeamSid;
-    }
-
-    public final String getUsername() {
-        return this.username;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final String getLocale() {
-        return this.locale;
-    }
-
-    public final List<String> getRoles() {
-        return this.roles;
-    }
-
-    public final ZonedDateTime getCreatedDate() {
-        return this.createdDate;
-    }
-
-    public final ZonedDateTime getUpdatedDate() {
-        return this.updatedDate;
-    }
-
-    public final Integer getVersion() {
-        return this.version;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.userSid = userSid;
+        this.username = username;
+        this.version = version;
+        this.workerSid = workerSid;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -218,44 +183,46 @@ public class FlexUser extends Resource {
         }
 
         FlexUser other = (FlexUser) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(instanceSid, other.instanceSid) &&
-            Objects.equals(userSid, other.userSid) &&
-            Objects.equals(flexUserSid, other.flexUserSid) &&
-            Objects.equals(workerSid, other.workerSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(flexTeamSid, other.flexTeamSid) &&
-            Objects.equals(username, other.username) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(locale, other.locale) &&
-            Objects.equals(roles, other.roles) &&
-            Objects.equals(createdDate, other.createdDate) &&
-            Objects.equals(updatedDate, other.updatedDate) &&
-            Objects.equals(version, other.version) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(createdDate, other.createdDate) &&
+                        Objects.equals(email, other.email) &&
+                        Objects.equals(flexTeamSid, other.flexTeamSid) &&
+                        Objects.equals(flexUserSid, other.flexUserSid) &&
+                        Objects.equals(instanceSid, other.instanceSid) &&
+                        Objects.equals(locale, other.locale) &&
+                        Objects.equals(roles, other.roles) &&
+                        Objects.equals(updatedDate, other.updatedDate) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(userSid, other.userSid) &&
+                        Objects.equals(username, other.username) &&
+                        Objects.equals(version, other.version) &&
+                        Objects.equals(workerSid, other.workerSid) &&
+                        Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            instanceSid,
-            userSid,
-            flexUserSid,
-            workerSid,
-            workspaceSid,
-            flexTeamSid,
-            username,
-            email,
-            locale,
-            roles,
-            createdDate,
-            updatedDate,
-            version,
-            url
+                accountSid,
+                createdDate,
+                email,
+                flexTeamSid,
+                flexUserSid,
+                instanceSid,
+                locale,
+                roles,
+                updatedDate,
+                url,
+                userSid,
+                username,
+                version,
+                workerSid,
+                workspaceSid
         );
     }
+
+
 }
+

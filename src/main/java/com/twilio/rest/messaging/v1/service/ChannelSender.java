@@ -18,64 +18,63 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ChannelSender extends Resource {
 
-    private static final long serialVersionUID = 32697428616380L;
 
-    public static ChannelSenderCreator creator(
-        final String pathMessagingServiceSid,
-        final String sid
-    ) {
-        return new ChannelSenderCreator(pathMessagingServiceSid, sid);
+    public static ChannelSenderCreator creator(final String pathmessagingServiceSid, final String sid) {
+        return new ChannelSenderCreator(
+                pathmessagingServiceSid, sid
+        );
     }
 
-    public static ChannelSenderDeleter deleter(
-        final String pathMessagingServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelSenderDeleter(pathMessagingServiceSid, pathSid);
+
+    public static ChannelSenderDeleter deleter(final String pathmessagingServiceSid, final String pathsid) {
+        return new ChannelSenderDeleter(
+                pathmessagingServiceSid, pathsid
+        );
     }
 
-    public static ChannelSenderFetcher fetcher(
-        final String pathMessagingServiceSid,
-        final String pathSid
-    ) {
-        return new ChannelSenderFetcher(pathMessagingServiceSid, pathSid);
+
+    public static ChannelSenderFetcher fetcher(final String pathmessagingServiceSid, final String pathsid) {
+        return new ChannelSenderFetcher(
+                pathmessagingServiceSid, pathsid
+        );
     }
 
-    public static ChannelSenderReader reader(
-        final String pathMessagingServiceSid
-    ) {
-        return new ChannelSenderReader(pathMessagingServiceSid);
+
+    public static ChannelSenderReader reader(final String pathmessagingServiceSid) {
+        return new ChannelSenderReader(
+                pathmessagingServiceSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a ChannelSender object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ChannelSender object represented by the provided JSON
      */
-    public static ChannelSender fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ChannelSender fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ChannelSender.class);
@@ -90,14 +89,11 @@ public class ChannelSender extends Resource {
      * Converts a JSON InputStream into a ChannelSender object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ChannelSender object represented by the provided JSON
      */
-    public static ChannelSender fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ChannelSender fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ChannelSender.class);
@@ -108,73 +104,61 @@ public class ChannelSender extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String messagingServiceSid;
-    private final String sid;
-    private final String sender;
-    private final String senderType;
+    @Getter
     private final String countryCode;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String messagingServiceSid;
+    @Getter
+    private final String sender;
+    @Getter
+    private final String senderType;
+    @Getter
+    private final String sid;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private ChannelSender(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("sender") final String sender,
-        @JsonProperty("sender_type") final String senderType,
-        @JsonProperty("country_code") final String countryCode,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("country_code") final String countryCode,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+            @JsonProperty("sender") final String sender,
+            @JsonProperty("sender_type") final String senderType,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
+        this.countryCode = countryCode;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.messagingServiceSid = messagingServiceSid;
-        this.sid = sid;
         this.sender = sender;
         this.senderType = senderType;
-        this.countryCode = countryCode;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getMessagingServiceSid() {
-        return this.messagingServiceSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSender() {
-        return this.sender;
-    }
-
-    public final String getSenderType() {
-        return this.senderType;
-    }
-
-    public final String getCountryCode() {
-        return this.countryCode;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -188,32 +172,34 @@ public class ChannelSender extends Resource {
         }
 
         ChannelSender other = (ChannelSender) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sender, other.sender) &&
-            Objects.equals(senderType, other.senderType) &&
-            Objects.equals(countryCode, other.countryCode) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(countryCode, other.countryCode) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+                        Objects.equals(sender, other.sender) &&
+                        Objects.equals(senderType, other.senderType) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            messagingServiceSid,
-            sid,
-            sender,
-            senderType,
-            countryCode,
-            dateCreated,
-            dateUpdated,
-            url
+                accountSid,
+                countryCode,
+                dateCreated,
+                dateUpdated,
+                messagingServiceSid,
+                sender,
+                senderType,
+                sid,
+                url
         );
     }
+
+
 }
+

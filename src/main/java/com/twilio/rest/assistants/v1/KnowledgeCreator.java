@@ -30,72 +30,53 @@ public class KnowledgeCreator extends Creator<Knowledge> {
 
     private Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest;
 
-    public KnowledgeCreator(
-        final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest
-    ) {
-        this.assistantsV1ServiceCreateKnowledgeRequest =
-            assistantsV1ServiceCreateKnowledgeRequest;
+    public KnowledgeCreator(final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest) {
+        this.assistantsV1ServiceCreateKnowledgeRequest = assistantsV1ServiceCreateKnowledgeRequest;
     }
 
-    public KnowledgeCreator setAssistantsV1ServiceCreateKnowledgeRequest(
-        final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest
-    ) {
-        this.assistantsV1ServiceCreateKnowledgeRequest =
-            assistantsV1ServiceCreateKnowledgeRequest;
+
+    public KnowledgeCreator setAssistantsV1ServiceCreateKnowledgeRequest(final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest) {
+        this.assistantsV1ServiceCreateKnowledgeRequest = assistantsV1ServiceCreateKnowledgeRequest;
         return this;
     }
 
+
     @Override
     public Knowledge create(final TwilioRestClient client) {
+
         String path = "/v1/Knowledge";
 
-        path =
-            path.replace(
-                "{" + "AssistantsV1ServiceCreateKnowledgeRequest" + "}",
-                this.assistantsV1ServiceCreateKnowledgeRequest.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.ASSISTANTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.ASSISTANTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Knowledge creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Knowledge creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Knowledge.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Knowledge.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceCreateKnowledgeRequest != null) {
-            request.setBody(
-                Knowledge.toJson(
-                    assistantsV1ServiceCreateKnowledgeRequest,
-                    objectMapper
-                )
-            );
+            request.setBody(Knowledge.toJson(assistantsV1ServiceCreateKnowledgeRequest, objectMapper));
         }
     }
 }

@@ -15,7 +15,8 @@
 package com.twilio.rest.taskrouter.v1.workspace.worker;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,70 +26,61 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WorkersRealTimeStatisticsFetcher
-    extends Fetcher<WorkersRealTimeStatistics> {
+public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeStatistics> {
 
-    private String pathWorkspaceSid;
+    private String pathworkspaceSid;
     private String taskChannel;
 
-    public WorkersRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
+    public WorkersRealTimeStatisticsFetcher(final String pathworkspaceSid) {
+        this.pathworkspaceSid = pathworkspaceSid;
     }
 
-    public WorkersRealTimeStatisticsFetcher setTaskChannel(
-        final String taskChannel
-    ) {
+
+    public WorkersRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
+
     @Override
     public WorkersRealTimeStatistics fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        String path = "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics";
+
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TASKROUTER.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "WorkersRealTimeStatistics fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WorkersRealTimeStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return WorkersRealTimeStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WorkersRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
+            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
         }
+
+
     }
 }

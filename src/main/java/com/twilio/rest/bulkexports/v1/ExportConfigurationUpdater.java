@@ -16,7 +16,8 @@ package com.twilio.rest.bulkexports.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,91 +26,88 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
-
-    private String pathResourceType;
+    private String pathresourceType;
     private Boolean enabled;
     private URI webhookUrl;
     private String webhookMethod;
 
-    public ExportConfigurationUpdater(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
+    public ExportConfigurationUpdater(final String pathresourceType) {
+        this.pathresourceType = pathresourceType;
     }
+
 
     public ExportConfigurationUpdater setEnabled(final Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
+
     public ExportConfigurationUpdater setWebhookUrl(final URI webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-    public ExportConfigurationUpdater setWebhookUrl(final String webhookUrl) {
-        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
-    }
 
-    public ExportConfigurationUpdater setWebhookMethod(
-        final String webhookMethod
-    ) {
+    public ExportConfigurationUpdater setWebhookMethod(final String webhookMethod) {
         this.webhookMethod = webhookMethod;
         return this;
     }
 
+
     @Override
     public ExportConfiguration update(final TwilioRestClient client) {
+
         String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+        path = path.replace("{" + "ResourceType" + "}", this.pathresourceType.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.BULKEXPORTS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.BULKEXPORTS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExportConfiguration update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ExportConfiguration update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ExportConfiguration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
         }
+
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl.toString());
+            Serializer.toString(request, "WebhookUrl", webhookUrl, ParameterType.URLENCODED);
         }
+
+
         if (webhookMethod != null) {
-            request.addPostParam("WebhookMethod", webhookMethod);
+            Serializer.toString(request, "WebhookMethod", webhookMethod, ParameterType.URLENCODED);
         }
+
+
     }
 }

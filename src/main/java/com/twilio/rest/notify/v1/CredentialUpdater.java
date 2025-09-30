@@ -16,6 +16,8 @@ package com.twilio.rest.notify.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +28,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class CredentialUpdater extends Updater<Credential> {
-
-    private String pathSid;
+    private String pathsid;
     private String friendlyName;
     private String certificate;
     private String privateKey;
@@ -35,96 +36,112 @@ public class CredentialUpdater extends Updater<Credential> {
     private String apiKey;
     private String secret;
 
-    public CredentialUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public CredentialUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public CredentialUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public CredentialUpdater setCertificate(final String certificate) {
         this.certificate = certificate;
         return this;
     }
+
 
     public CredentialUpdater setPrivateKey(final String privateKey) {
         this.privateKey = privateKey;
         return this;
     }
 
+
     public CredentialUpdater setSandbox(final Boolean sandbox) {
         this.sandbox = sandbox;
         return this;
     }
+
 
     public CredentialUpdater setApiKey(final String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
+
     public CredentialUpdater setSecret(final String secret) {
         this.secret = secret;
         return this;
     }
 
+
     @Override
     public Credential update(final TwilioRestClient client) {
+
         String path = "/v1/Credentials/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.NOTIFY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.NOTIFY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Credential update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Credential update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Credential.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Credential.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (certificate != null) {
-            request.addPostParam("Certificate", certificate);
+            Serializer.toString(request, "Certificate", certificate, ParameterType.URLENCODED);
         }
+
+
         if (privateKey != null) {
-            request.addPostParam("PrivateKey", privateKey);
+            Serializer.toString(request, "PrivateKey", privateKey, ParameterType.URLENCODED);
         }
+
+
         if (sandbox != null) {
-            request.addPostParam("Sandbox", sandbox.toString());
+            Serializer.toString(request, "Sandbox", sandbox, ParameterType.URLENCODED);
         }
+
+
         if (apiKey != null) {
-            request.addPostParam("ApiKey", apiKey);
+            Serializer.toString(request, "ApiKey", apiKey, ParameterType.URLENCODED);
         }
+
+
         if (secret != null) {
-            request.addPostParam("Secret", secret);
+            Serializer.toString(request, "Secret", secret, ParameterType.URLENCODED);
         }
+
+
     }
 }

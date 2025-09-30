@@ -16,6 +16,8 @@ package com.twilio.rest.marketplace.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +28,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
-
-    private String pathSid;
+    private String pathsid;
     private String moduleInfo;
     private String description;
     private String documentation;
@@ -36,110 +37,123 @@ public class ModuleDataManagementUpdater extends Updater<ModuleDataManagement> {
     private String configuration;
     private String pricing;
 
-    public ModuleDataManagementUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ModuleDataManagementUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public ModuleDataManagementUpdater setModuleInfo(final String moduleInfo) {
         this.moduleInfo = moduleInfo;
         return this;
     }
 
-    public ModuleDataManagementUpdater setDescription(
-        final String description
-    ) {
+
+    public ModuleDataManagementUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-    public ModuleDataManagementUpdater setDocumentation(
-        final String documentation
-    ) {
+
+    public ModuleDataManagementUpdater setDocumentation(final String documentation) {
         this.documentation = documentation;
         return this;
     }
+
 
     public ModuleDataManagementUpdater setPolicies(final String policies) {
         this.policies = policies;
         return this;
     }
 
+
     public ModuleDataManagementUpdater setSupport(final String support) {
         this.support = support;
         return this;
     }
 
-    public ModuleDataManagementUpdater setConfiguration(
-        final String configuration
-    ) {
+
+    public ModuleDataManagementUpdater setConfiguration(final String configuration) {
         this.configuration = configuration;
         return this;
     }
+
 
     public ModuleDataManagementUpdater setPricing(final String pricing) {
         this.pricing = pricing;
         return this;
     }
 
+
     @Override
     public ModuleDataManagement update(final TwilioRestClient client) {
+
         String path = "/v1/Listing/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MARKETPLACE.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MARKETPLACE.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "ModuleDataManagement update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ModuleDataManagement update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ModuleDataManagement.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ModuleDataManagement.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (moduleInfo != null) {
-            request.addPostParam("ModuleInfo", moduleInfo);
+            Serializer.toString(request, "ModuleInfo", moduleInfo, ParameterType.URLENCODED);
         }
+
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
         }
+
+
         if (documentation != null) {
-            request.addPostParam("Documentation", documentation);
+            Serializer.toString(request, "Documentation", documentation, ParameterType.URLENCODED);
         }
+
+
         if (policies != null) {
-            request.addPostParam("Policies", policies);
+            Serializer.toString(request, "Policies", policies, ParameterType.URLENCODED);
         }
+
+
         if (support != null) {
-            request.addPostParam("Support", support);
+            Serializer.toString(request, "Support", support, ParameterType.URLENCODED);
         }
+
+
         if (configuration != null) {
-            request.addPostParam("Configuration", configuration);
+            Serializer.toString(request, "Configuration", configuration, ParameterType.URLENCODED);
         }
+
+
         if (pricing != null) {
-            request.addPostParam("Pricing", pricing);
+            Serializer.toString(request, "Pricing", pricing, ParameterType.URLENCODED);
         }
+
+
     }
 }

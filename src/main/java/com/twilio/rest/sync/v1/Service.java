@@ -18,59 +18,71 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-    private static final long serialVersionUID = 61347848648189L;
 
     public static ServiceCreator creator() {
-        return new ServiceCreator();
+        return new ServiceCreator(
+
+        );
     }
 
-    public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(pathSid);
+
+    public static ServiceDeleter deleter(final String pathsid) {
+        return new ServiceDeleter(
+                pathsid
+        );
     }
 
-    public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(pathSid);
+
+    public static ServiceFetcher fetcher(final String pathsid) {
+        return new ServiceFetcher(
+                pathsid
+        );
     }
+
 
     public static ServiceReader reader() {
-        return new ServiceReader();
+        return new ServiceReader(
+
+        );
     }
 
-    public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(pathSid);
+
+    public static ServiceUpdater updater(final String pathsid) {
+        return new ServiceUpdater(
+                pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -85,14 +97,11 @@ public class Service extends Resource {
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -103,116 +112,81 @@ public class Service extends Resource {
         }
     }
 
-    private final String sid;
-    private final String uniqueName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-    private final URI webhookUrl;
-    private final Boolean webhooksFromRestEnabled;
-    private final Boolean reachabilityWebhooksEnabled;
+    @Getter
     private final Boolean aclEnabled;
-    private final Boolean reachabilityDebouncingEnabled;
-    private final Integer reachabilityDebouncingWindow;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final Boolean reachabilityDebouncingEnabled;
+    @Getter
+    private final Integer reachabilityDebouncingWindow;
+    @Getter
+    private final Boolean reachabilityWebhooksEnabled;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String uniqueName;
+    @Getter
+    private final URI url;
+    @Getter
+    private final URI webhookUrl;
+    @Getter
+    private final Boolean webhooksFromRestEnabled;
 
     @JsonCreator
     private Service(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("webhook_url") final URI webhookUrl,
-        @JsonProperty(
-            "webhooks_from_rest_enabled"
-        ) final Boolean webhooksFromRestEnabled,
-        @JsonProperty(
-            "reachability_webhooks_enabled"
-        ) final Boolean reachabilityWebhooksEnabled,
-        @JsonProperty("acl_enabled") final Boolean aclEnabled,
-        @JsonProperty(
-            "reachability_debouncing_enabled"
-        ) final Boolean reachabilityDebouncingEnabled,
-        @JsonProperty(
-            "reachability_debouncing_window"
-        ) final Integer reachabilityDebouncingWindow,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("acl_enabled") final Boolean aclEnabled,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("reachability_debouncing_enabled") final Boolean reachabilityDebouncingEnabled,
+            @JsonProperty("reachability_debouncing_window") final Integer reachabilityDebouncingWindow,
+            @JsonProperty("reachability_webhooks_enabled") final Boolean reachabilityWebhooksEnabled,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("unique_name") final String uniqueName,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("webhook_url") final URI webhookUrl,
+            @JsonProperty("webhooks_from_rest_enabled") final Boolean webhooksFromRestEnabled
     ) {
+        this.accountSid = accountSid;
+        this.aclEnabled = aclEnabled;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.links = links;
+        this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
+        this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
+        this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         this.sid = sid;
         this.uniqueName = uniqueName;
-        this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.webhookUrl = webhookUrl;
         this.webhooksFromRestEnabled = webhooksFromRestEnabled;
-        this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
-        this.aclEnabled = aclEnabled;
-        this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
-        this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final URI getWebhookUrl() {
-        return this.webhookUrl;
-    }
-
-    public final Boolean getWebhooksFromRestEnabled() {
-        return this.webhooksFromRestEnabled;
-    }
-
-    public final Boolean getReachabilityWebhooksEnabled() {
-        return this.reachabilityWebhooksEnabled;
-    }
-
-    public final Boolean getAclEnabled() {
-        return this.aclEnabled;
-    }
-
-    public final Boolean getReachabilityDebouncingEnabled() {
-        return this.reachabilityDebouncingEnabled;
-    }
-
-    public final Integer getReachabilityDebouncingWindow() {
-        return this.reachabilityDebouncingWindow;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -226,54 +200,44 @@ public class Service extends Resource {
         }
 
         Service other = (Service) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(webhookUrl, other.webhookUrl) &&
-            Objects.equals(
-                webhooksFromRestEnabled,
-                other.webhooksFromRestEnabled
-            ) &&
-            Objects.equals(
-                reachabilityWebhooksEnabled,
-                other.reachabilityWebhooksEnabled
-            ) &&
-            Objects.equals(aclEnabled, other.aclEnabled) &&
-            Objects.equals(
-                reachabilityDebouncingEnabled,
-                other.reachabilityDebouncingEnabled
-            ) &&
-            Objects.equals(
-                reachabilityDebouncingWindow,
-                other.reachabilityDebouncingWindow
-            ) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(aclEnabled, other.aclEnabled) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(reachabilityDebouncingEnabled, other.reachabilityDebouncingEnabled) &&
+                        Objects.equals(reachabilityDebouncingWindow, other.reachabilityDebouncingWindow) &&
+                        Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(uniqueName, other.uniqueName) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(webhookUrl, other.webhookUrl) &&
+                        Objects.equals(webhooksFromRestEnabled, other.webhooksFromRestEnabled)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            uniqueName,
-            accountSid,
-            friendlyName,
-            dateCreated,
-            dateUpdated,
-            url,
-            webhookUrl,
-            webhooksFromRestEnabled,
-            reachabilityWebhooksEnabled,
-            aclEnabled,
-            reachabilityDebouncingEnabled,
-            reachabilityDebouncingWindow,
-            links
+                accountSid,
+                aclEnabled,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                links,
+                reachabilityDebouncingEnabled,
+                reachabilityDebouncingWindow,
+                reachabilityWebhooksEnabled,
+                sid,
+                uniqueName,
+                url,
+                webhookUrl,
+                webhooksFromRestEnabled
         );
     }
+
+
 }
+

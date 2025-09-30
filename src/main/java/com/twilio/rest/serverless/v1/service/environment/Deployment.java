@@ -18,63 +18,56 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Deployment extends Resource {
 
-    private static final long serialVersionUID = 53350837896565L;
 
-    public static DeploymentCreator creator(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
-        return new DeploymentCreator(pathServiceSid, pathEnvironmentSid);
-    }
-
-    public static DeploymentFetcher fetcher(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
-        return new DeploymentFetcher(
-            pathServiceSid,
-            pathEnvironmentSid,
-            pathSid
+    public static DeploymentCreator creator(final String pathserviceSid, final String pathenvironmentSid) {
+        return new DeploymentCreator(
+                pathserviceSid, pathenvironmentSid
         );
     }
 
-    public static DeploymentReader reader(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
-        return new DeploymentReader(pathServiceSid, pathEnvironmentSid);
+
+    public static DeploymentFetcher fetcher(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+        return new DeploymentFetcher(
+                pathserviceSid, pathenvironmentSid, pathsid
+        );
     }
+
+
+    public static DeploymentReader reader(final String pathserviceSid, final String pathenvironmentSid) {
+        return new DeploymentReader(
+                pathserviceSid, pathenvironmentSid
+        );
+    }
+
 
     /**
      * Converts a JSON String into a Deployment object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Deployment object represented by the provided JSON
      */
-    public static Deployment fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Deployment fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Deployment.class);
@@ -89,14 +82,11 @@ public class Deployment extends Resource {
      * Converts a JSON InputStream into a Deployment object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Deployment object represented by the provided JSON
      */
-    public static Deployment fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Deployment fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Deployment.class);
@@ -107,66 +97,57 @@ public class Deployment extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String environmentSid;
+    @Getter
     private final String buildSid;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String environmentSid;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Deployment(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("environment_sid") final String environmentSid,
-        @JsonProperty("build_sid") final String buildSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("build_sid") final String buildSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("environment_sid") final String environmentSid,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.environmentSid = environmentSid;
         this.buildSid = buildSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.environmentSid = environmentSid;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getEnvironmentSid() {
-        return this.environmentSid;
-    }
-
-    public final String getBuildSid() {
-        return this.buildSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -180,30 +161,32 @@ public class Deployment extends Resource {
         }
 
         Deployment other = (Deployment) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(environmentSid, other.environmentSid) &&
-            Objects.equals(buildSid, other.buildSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(buildSid, other.buildSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(environmentSid, other.environmentSid) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            environmentSid,
-            buildSid,
-            dateCreated,
-            dateUpdated,
-            url
+                accountSid,
+                buildSid,
+                dateCreated,
+                dateUpdated,
+                environmentSid,
+                serviceSid,
+                sid,
+                url
         );
     }
+
+
 }
+

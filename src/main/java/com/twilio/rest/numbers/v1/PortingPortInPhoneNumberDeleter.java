@@ -15,7 +15,6 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,58 +24,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class PortingPortInPhoneNumberDeleter
-    extends Deleter<PortingPortInPhoneNumber> {
+public class PortingPortInPhoneNumberDeleter extends Deleter<PortingPortInPhoneNumber> {
 
-    private String pathPortInRequestSid;
-    private String pathPhoneNumberSid;
+    private String pathportInRequestSid;
+    private String pathphoneNumberSid;
 
-    public PortingPortInPhoneNumberDeleter(
-        final String pathPortInRequestSid,
-        final String pathPhoneNumberSid
-    ) {
-        this.pathPortInRequestSid = pathPortInRequestSid;
-        this.pathPhoneNumberSid = pathPhoneNumberSid;
+    public PortingPortInPhoneNumberDeleter(final String pathportInRequestSid, final String pathphoneNumberSid) {
+        this.pathportInRequestSid = pathportInRequestSid;
+        this.pathphoneNumberSid = pathphoneNumberSid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}";
 
-        path =
-            path.replace(
-                "{" + "PortInRequestSid" + "}",
-                this.pathPortInRequestSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumberSid" + "}",
-                this.pathPhoneNumberSid.toString()
-            );
+        String path = "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}";
+
+        path = path.replace("{" + "PortInRequestSid" + "}", this.pathportInRequestSid.toString());
+        path = path.replace("{" + "PhoneNumberSid" + "}", this.pathphoneNumberSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.NUMBERS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "PortingPortInPhoneNumber delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PortingPortInPhoneNumber delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

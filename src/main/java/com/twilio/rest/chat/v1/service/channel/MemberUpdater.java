@@ -16,6 +16,8 @@ package com.twilio.rest.chat.v1.service.channel;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,74 +28,60 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class MemberUpdater extends Updater<Member> {
-
-    private String pathServiceSid;
-    private String pathChannelSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathchannelSid;
+    private String pathsid;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
 
-    public MemberUpdater(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathChannelSid = pathChannelSid;
-        this.pathSid = pathSid;
+    public MemberUpdater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathchannelSid = pathchannelSid;
+        this.pathsid = pathsid;
     }
+
 
     public MemberUpdater setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
-    public MemberUpdater setLastConsumedMessageIndex(
-        final Integer lastConsumedMessageIndex
-    ) {
+
+    public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         return this;
     }
 
+
     @Override
     public Member update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.CHAT.toString(),
-            path
+                HttpMethod.POST,
+                Domains.CHAT.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Member update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -102,14 +90,16 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     private void addPostParams(final Request request) {
+
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
         }
+
+
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
-                "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
-            );
+            Serializer.toString(request, "LastConsumedMessageIndex", lastConsumedMessageIndex, ParameterType.URLENCODED);
         }
+
+
     }
 }

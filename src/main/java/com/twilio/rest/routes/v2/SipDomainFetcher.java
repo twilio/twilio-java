@@ -15,7 +15,6 @@
 package com.twilio.rest.routes.v2;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +26,41 @@ import com.twilio.rest.Domains;
 
 public class SipDomainFetcher extends Fetcher<SipDomain> {
 
-    private String pathSipDomain;
+    private String pathsipDomain;
 
-    public SipDomainFetcher(final String pathSipDomain) {
-        this.pathSipDomain = pathSipDomain;
+    public SipDomainFetcher(final String pathsipDomain) {
+        this.pathsipDomain = pathsipDomain;
     }
+
 
     @Override
     public SipDomain fetch(final TwilioRestClient client) {
+
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path =
-            path.replace(
-                "{" + "SipDomain" + "}",
-                this.pathSipDomain.toString()
-            );
+        path = path.replace("{" + "SipDomain" + "}", this.pathsipDomain.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.ROUTES.toString(),
-            path
+                HttpMethod.GET,
+                Domains.ROUTES.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SipDomain fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SipDomain fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return SipDomain.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SipDomain.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

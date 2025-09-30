@@ -16,7 +16,8 @@ package com.twilio.rest.api.v2010.account.queue;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,93 +26,72 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class MemberUpdater extends Updater<Member> {
-
-    private String pathQueueSid;
-    private String pathCallSid;
+    private String pathaccountSid;
+    private String pathqueueSid;
+    private String pathcallSid;
     private URI url;
-    private String pathAccountSid;
     private HttpMethod method;
 
-    public MemberUpdater(
-        final String pathQueueSid,
-        final String pathCallSid,
-        final URI url
-    ) {
-        this.pathQueueSid = pathQueueSid;
-        this.pathCallSid = pathCallSid;
+    public MemberUpdater(final String pathqueueSid, final String pathcallSid, final URI url) {
+        this.pathqueueSid = pathqueueSid;
+        this.pathcallSid = pathcallSid;
         this.url = url;
     }
 
-    public MemberUpdater(
-        final String pathAccountSid,
-        final String pathQueueSid,
-        final String pathCallSid,
-        final URI url
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathQueueSid = pathQueueSid;
-        this.pathCallSid = pathCallSid;
+    public MemberUpdater(final String pathaccountSid, final String pathqueueSid, final String pathcallSid, final URI url) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathqueueSid = pathqueueSid;
+        this.pathcallSid = pathcallSid;
         this.url = url;
     }
+
 
     public MemberUpdater setUrl(final URI url) {
         this.url = url;
         return this;
     }
 
-    public MemberUpdater setUrl(final String url) {
-        return setUrl(Promoter.uriFromString(url));
-    }
 
     public MemberUpdater setMethod(final HttpMethod method) {
         this.method = method;
         return this;
     }
 
+
     @Override
     public Member update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Url" + "}", this.url.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "QueueSid" + "}", this.pathqueueSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Member update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -120,11 +100,16 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     private void addPostParams(final Request request) {
+
         if (url != null) {
-            request.addPostParam("Url", url.toString());
+            Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
+
+
         if (method != null) {
-            request.addPostParam("Method", method.toString());
+            Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
         }
+
+
     }
 }

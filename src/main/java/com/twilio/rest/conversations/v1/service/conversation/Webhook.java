@@ -18,235 +18,62 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
-    private static final long serialVersionUID = 228548505277204L;
 
-    public static WebhookCreator creator(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final Webhook.Target target
-    ) {
+    public static WebhookCreator creator(final String pathchatServiceSid, final String pathconversationSid, final Webhook.Target target) {
         return new WebhookCreator(
-            pathChatServiceSid,
-            pathConversationSid,
-            target
+                pathchatServiceSid, pathconversationSid, target
         );
     }
 
-    public static WebhookDeleter deleter(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
+
+    public static WebhookDeleter deleter(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
         return new WebhookDeleter(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
+                pathchatServiceSid, pathconversationSid, pathsid
         );
     }
 
-    public static WebhookFetcher fetcher(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
+
+    public static WebhookFetcher fetcher(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
         return new WebhookFetcher(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
+                pathchatServiceSid, pathconversationSid, pathsid
         );
     }
 
-    public static WebhookReader reader(
-        final String pathChatServiceSid,
-        final String pathConversationSid
-    ) {
-        return new WebhookReader(pathChatServiceSid, pathConversationSid);
+
+    public static WebhookReader reader(final String pathchatServiceSid, final String pathconversationSid) {
+        return new WebhookReader(
+                pathchatServiceSid, pathconversationSid
+        );
     }
 
-    public static WebhookUpdater updater(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
+
+    public static WebhookUpdater updater(final String pathchatServiceSid, final String pathconversationSid, final String pathsid) {
         return new WebhookUpdater(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
+                pathchatServiceSid, pathconversationSid, pathsid
         );
     }
 
-    /**
-     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Webhook object represented by the provided JSON
-     */
-    public static Webhook fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Webhook.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Webhook object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Webhook object represented by the provided JSON
-     */
-    public static Webhook fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Webhook.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String chatServiceSid;
-    private final String conversationSid;
-    private final String target;
-    private final URI url;
-    private final Map<String, Object> configuration;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-
-    @JsonCreator
-    private Webhook(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("conversation_sid") final String conversationSid,
-        @JsonProperty("target") final String target,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.chatServiceSid = chatServiceSid;
-        this.conversationSid = conversationSid;
-        this.target = target;
-        this.url = url;
-        this.configuration = configuration;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getTarget() {
-        return this.target;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Webhook other = (Webhook) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(target, other.target) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(configuration, other.configuration) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            chatServiceSid,
-            conversationSid,
-            target,
-            url,
-            configuration,
-            dateCreated,
-            dateUpdated
-        );
-    }
 
     public enum Target {
         WEBHOOK("webhook"),
@@ -270,8 +97,8 @@ public class Webhook extends Resource {
     }
 
     public enum Method {
-        GET("GET"),
-        POST("POST");
+        GET("get"),
+        POST("post");
 
         private final String value;
 
@@ -288,4 +115,141 @@ public class Webhook extends Resource {
             return Promoter.enumFromString(value, Method.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Webhook.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Webhook object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Webhook.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final String chatServiceSid;
+    @Getter
+    private final Object configuration;
+    @Getter
+    private final String conversationSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String target;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Webhook(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("chat_service_sid") final String chatServiceSid,
+            @JsonProperty("configuration") final Object configuration,
+            @JsonProperty("conversation_sid") final String conversationSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("target") final String target,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.chatServiceSid = chatServiceSid;
+        this.configuration = configuration;
+        this.conversationSid = conversationSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.sid = sid;
+        this.target = target;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Webhook other = (Webhook) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(chatServiceSid, other.chatServiceSid) &&
+                        Objects.equals(configuration, other.configuration) &&
+                        Objects.equals(conversationSid, other.conversationSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(target, other.target) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                chatServiceSid,
+                configuration,
+                conversationSid,
+                dateCreated,
+                dateUpdated,
+                sid,
+                target,
+                url
+        );
+    }
+
+
 }
+

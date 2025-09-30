@@ -14,9 +14,11 @@
 
 package com.twilio.rest.sync.v1;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class ServiceCreator extends Creator<Service> {
@@ -38,81 +40,77 @@ public class ServiceCreator extends Creator<Service> {
     private Integer reachabilityDebouncingWindow;
     private Boolean webhooksFromRestEnabled;
 
-    public ServiceCreator() {}
+    public ServiceCreator() {
+    }
+
 
     public ServiceCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public ServiceCreator setWebhookUrl(final URI webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-    public ServiceCreator setWebhookUrl(final String webhookUrl) {
-        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
-    }
 
-    public ServiceCreator setReachabilityWebhooksEnabled(
-        final Boolean reachabilityWebhooksEnabled
-    ) {
+    public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         return this;
     }
+
 
     public ServiceCreator setAclEnabled(final Boolean aclEnabled) {
         this.aclEnabled = aclEnabled;
         return this;
     }
 
-    public ServiceCreator setReachabilityDebouncingEnabled(
-        final Boolean reachabilityDebouncingEnabled
-    ) {
+
+    public ServiceCreator setReachabilityDebouncingEnabled(final Boolean reachabilityDebouncingEnabled) {
         this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
         return this;
     }
 
-    public ServiceCreator setReachabilityDebouncingWindow(
-        final Integer reachabilityDebouncingWindow
-    ) {
+
+    public ServiceCreator setReachabilityDebouncingWindow(final Integer reachabilityDebouncingWindow) {
         this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
         return this;
     }
 
-    public ServiceCreator setWebhooksFromRestEnabled(
-        final Boolean webhooksFromRestEnabled
-    ) {
+
+    public ServiceCreator setWebhooksFromRestEnabled(final Boolean webhooksFromRestEnabled) {
         this.webhooksFromRestEnabled = webhooksFromRestEnabled;
         return this;
     }
 
+
     @Override
     public Service create(final TwilioRestClient client) {
+
         String path = "/v1/Services";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SYNC.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SYNC.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -121,38 +119,41 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl.toString());
+            Serializer.toString(request, "WebhookUrl", webhookUrl, ParameterType.URLENCODED);
         }
+
+
         if (reachabilityWebhooksEnabled != null) {
-            request.addPostParam(
-                "ReachabilityWebhooksEnabled",
-                reachabilityWebhooksEnabled.toString()
-            );
+            Serializer.toString(request, "ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled, ParameterType.URLENCODED);
         }
+
+
         if (aclEnabled != null) {
-            request.addPostParam("AclEnabled", aclEnabled.toString());
+            Serializer.toString(request, "AclEnabled", aclEnabled, ParameterType.URLENCODED);
         }
+
+
         if (reachabilityDebouncingEnabled != null) {
-            request.addPostParam(
-                "ReachabilityDebouncingEnabled",
-                reachabilityDebouncingEnabled.toString()
-            );
+            Serializer.toString(request, "ReachabilityDebouncingEnabled", reachabilityDebouncingEnabled, ParameterType.URLENCODED);
         }
+
+
         if (reachabilityDebouncingWindow != null) {
-            request.addPostParam(
-                "ReachabilityDebouncingWindow",
-                reachabilityDebouncingWindow.toString()
-            );
+            Serializer.toString(request, "ReachabilityDebouncingWindow", reachabilityDebouncingWindow, ParameterType.URLENCODED);
         }
+
+
         if (webhooksFromRestEnabled != null) {
-            request.addPostParam(
-                "WebhooksFromRestEnabled",
-                webhooksFromRestEnabled.toString()
-            );
+            Serializer.toString(request, "WebhooksFromRestEnabled", webhooksFromRestEnabled, ParameterType.URLENCODED);
         }
+
+
     }
 }

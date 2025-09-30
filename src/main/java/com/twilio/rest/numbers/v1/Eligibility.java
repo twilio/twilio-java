@@ -24,36 +24,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Eligibility extends Resource {
 
-    private static final long serialVersionUID = 222327706675602L;
 
     public static EligibilityCreator creator() {
-        return new EligibilityCreator();
+        return new EligibilityCreator(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Eligibility object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Eligibility object represented by the provided JSON
      */
-    public static Eligibility fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Eligibility fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Eligibility.class);
@@ -68,14 +66,11 @@ public class Eligibility extends Resource {
      * Converts a JSON InputStream into a Eligibility object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Eligibility object represented by the provided JSON
      */
-    public static Eligibility fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Eligibility fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Eligibility.class);
@@ -98,17 +93,15 @@ public class Eligibility extends Resource {
         }
     }
 
-    private final List<Map<String, Object>> results;
+
+    @Getter
+    private final List<Object> results;
 
     @JsonCreator
     private Eligibility(
-        @JsonProperty("results") final List<Map<String, Object>> results
+            @JsonProperty("results") final List<Object> results
     ) {
         this.results = results;
-    }
-
-    public final List<Map<String, Object>> getResults() {
-        return this.results;
     }
 
     @Override
@@ -122,12 +115,18 @@ public class Eligibility extends Resource {
         }
 
         Eligibility other = (Eligibility) o;
-
-        return Objects.equals(results, other.results);
+        return (
+                Objects.equals(results, other.results)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(results);
+        return Objects.hash(
+                results
+        );
     }
+
+
 }
+

@@ -14,10 +14,11 @@
 
 package com.twilio.rest.intelligence.v2;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,102 +27,99 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 
 public class TranscriptCreator extends Creator<Transcript> {
 
     private String serviceSid;
-    private Map<String, Object> channel;
+    private Object channel;
     private String customerKey;
     private ZonedDateTime mediaStartTime;
 
-    public TranscriptCreator(
-        final String serviceSid,
-        final Map<String, Object> channel
-    ) {
+    public TranscriptCreator(final String serviceSid, final Object channel) {
         this.serviceSid = serviceSid;
         this.channel = channel;
     }
+
 
     public TranscriptCreator setServiceSid(final String serviceSid) {
         this.serviceSid = serviceSid;
         return this;
     }
 
-    public TranscriptCreator setChannel(final Map<String, Object> channel) {
+
+    public TranscriptCreator setChannel(final Object channel) {
         this.channel = channel;
         return this;
     }
+
 
     public TranscriptCreator setCustomerKey(final String customerKey) {
         this.customerKey = customerKey;
         return this;
     }
 
-    public TranscriptCreator setMediaStartTime(
-        final ZonedDateTime mediaStartTime
-    ) {
+
+    public TranscriptCreator setMediaStartTime(final ZonedDateTime mediaStartTime) {
         this.mediaStartTime = mediaStartTime;
         return this;
     }
 
+
     @Override
     public Transcript create(final TwilioRestClient client) {
+
         String path = "/v2/Transcripts";
 
-        path =
-            path.replace("{" + "ServiceSid" + "}", this.serviceSid.toString());
-        path = path.replace("{" + "Channel" + "}", this.channel.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.INTELLIGENCE.toString(),
-            path
+                HttpMethod.POST,
+                Domains.INTELLIGENCE.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Transcript creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Transcript creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Transcript.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Transcript.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (serviceSid != null) {
-            request.addPostParam("ServiceSid", serviceSid);
+            Serializer.toString(request, "ServiceSid", serviceSid, ParameterType.URLENCODED);
         }
+
+
         if (channel != null) {
-            request.addPostParam("Channel", Converter.mapToJson(channel));
+            Serializer.toString(request, "Channel", channel, ParameterType.URLENCODED);
         }
+
+
         if (customerKey != null) {
-            request.addPostParam("CustomerKey", customerKey);
+            Serializer.toString(request, "CustomerKey", customerKey, ParameterType.URLENCODED);
         }
+
+
         if (mediaStartTime != null) {
-            request.addPostParam(
-                "MediaStartTime",
-                mediaStartTime.toInstant().toString()
-            );
+            Serializer.toString(request, "MediaStartTime", mediaStartTime, ParameterType.URLENCODED);
         }
+
+
     }
 }

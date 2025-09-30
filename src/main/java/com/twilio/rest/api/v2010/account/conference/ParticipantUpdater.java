@@ -16,7 +16,8 @@ package com.twilio.rest.api.v2010.account.conference;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class ParticipantUpdater extends Updater<Participant> {
-
-    private String pathConferenceSid;
-    private String pathCallSid;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathconferenceSid;
+    private String pathcallSid;
     private Boolean muted;
     private Boolean hold;
     private URI holdUrl;
@@ -45,192 +46,188 @@ public class ParticipantUpdater extends Updater<Participant> {
     private Boolean coaching;
     private String callSidToCoach;
 
-    public ParticipantUpdater(
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathCallSid = pathCallSid;
+    public ParticipantUpdater(final String pathconferenceSid, final String pathcallSid) {
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathcallSid = pathcallSid;
     }
 
-    public ParticipantUpdater(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final String pathCallSid
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathCallSid = pathCallSid;
+    public ParticipantUpdater(final String pathaccountSid, final String pathconferenceSid, final String pathcallSid) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathcallSid = pathcallSid;
     }
+
 
     public ParticipantUpdater setMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
 
+
     public ParticipantUpdater setHold(final Boolean hold) {
         this.hold = hold;
         return this;
     }
+
 
     public ParticipantUpdater setHoldUrl(final URI holdUrl) {
         this.holdUrl = holdUrl;
         return this;
     }
 
-    public ParticipantUpdater setHoldUrl(final String holdUrl) {
-        return setHoldUrl(Promoter.uriFromString(holdUrl));
-    }
 
     public ParticipantUpdater setHoldMethod(final HttpMethod holdMethod) {
         this.holdMethod = holdMethod;
         return this;
     }
 
+
     public ParticipantUpdater setAnnounceUrl(final URI announceUrl) {
         this.announceUrl = announceUrl;
         return this;
     }
 
-    public ParticipantUpdater setAnnounceUrl(final String announceUrl) {
-        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
-    }
 
-    public ParticipantUpdater setAnnounceMethod(
-        final HttpMethod announceMethod
-    ) {
+    public ParticipantUpdater setAnnounceMethod(final HttpMethod announceMethod) {
         this.announceMethod = announceMethod;
         return this;
     }
+
 
     public ParticipantUpdater setWaitUrl(final URI waitUrl) {
         this.waitUrl = waitUrl;
         return this;
     }
 
-    public ParticipantUpdater setWaitUrl(final String waitUrl) {
-        return setWaitUrl(Promoter.uriFromString(waitUrl));
-    }
 
     public ParticipantUpdater setWaitMethod(final HttpMethod waitMethod) {
         this.waitMethod = waitMethod;
         return this;
     }
 
+
     public ParticipantUpdater setBeepOnExit(final Boolean beepOnExit) {
         this.beepOnExit = beepOnExit;
         return this;
     }
 
-    public ParticipantUpdater setEndConferenceOnExit(
-        final Boolean endConferenceOnExit
-    ) {
+
+    public ParticipantUpdater setEndConferenceOnExit(final Boolean endConferenceOnExit) {
         this.endConferenceOnExit = endConferenceOnExit;
         return this;
     }
+
 
     public ParticipantUpdater setCoaching(final Boolean coaching) {
         this.coaching = coaching;
         return this;
     }
 
+
     public ParticipantUpdater setCallSidToCoach(final String callSidToCoach) {
         this.callSidToCoach = callSidToCoach;
         return this;
     }
 
+
     @Override
     public Participant update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Participant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (muted != null) {
-            request.addPostParam("Muted", muted.toString());
+            Serializer.toString(request, "Muted", muted, ParameterType.URLENCODED);
         }
+
+
         if (hold != null) {
-            request.addPostParam("Hold", hold.toString());
+            Serializer.toString(request, "Hold", hold, ParameterType.URLENCODED);
         }
+
+
         if (holdUrl != null) {
-            request.addPostParam("HoldUrl", holdUrl.toString());
+            Serializer.toString(request, "HoldUrl", holdUrl, ParameterType.URLENCODED);
         }
+
+
         if (holdMethod != null) {
-            request.addPostParam("HoldMethod", holdMethod.toString());
+            Serializer.toString(request, "HoldMethod", holdMethod, ParameterType.URLENCODED);
         }
+
+
         if (announceUrl != null) {
-            request.addPostParam("AnnounceUrl", announceUrl.toString());
+            Serializer.toString(request, "AnnounceUrl", announceUrl, ParameterType.URLENCODED);
         }
+
+
         if (announceMethod != null) {
-            request.addPostParam("AnnounceMethod", announceMethod.toString());
+            Serializer.toString(request, "AnnounceMethod", announceMethod, ParameterType.URLENCODED);
         }
+
+
         if (waitUrl != null) {
-            request.addPostParam("WaitUrl", waitUrl.toString());
+            Serializer.toString(request, "WaitUrl", waitUrl, ParameterType.URLENCODED);
         }
+
+
         if (waitMethod != null) {
-            request.addPostParam("WaitMethod", waitMethod.toString());
+            Serializer.toString(request, "WaitMethod", waitMethod, ParameterType.URLENCODED);
         }
+
+
         if (beepOnExit != null) {
-            request.addPostParam("BeepOnExit", beepOnExit.toString());
+            Serializer.toString(request, "BeepOnExit", beepOnExit, ParameterType.URLENCODED);
         }
+
+
         if (endConferenceOnExit != null) {
-            request.addPostParam(
-                "EndConferenceOnExit",
-                endConferenceOnExit.toString()
-            );
+            Serializer.toString(request, "EndConferenceOnExit", endConferenceOnExit, ParameterType.URLENCODED);
         }
+
+
         if (coaching != null) {
-            request.addPostParam("Coaching", coaching.toString());
+            Serializer.toString(request, "Coaching", coaching, ParameterType.URLENCODED);
         }
+
+
         if (callSidToCoach != null) {
-            request.addPostParam("CallSidToCoach", callSidToCoach);
+            Serializer.toString(request, "CallSidToCoach", callSidToCoach, ParameterType.URLENCODED);
         }
+
+
     }
 }

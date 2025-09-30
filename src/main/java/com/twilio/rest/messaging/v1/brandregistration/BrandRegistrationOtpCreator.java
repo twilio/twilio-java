@@ -14,8 +14,8 @@
 
 package com.twilio.rest.messaging.v1.brandregistration;
 
+
 import com.twilio.base.Creator;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +27,42 @@ import com.twilio.rest.Domains;
 
 public class BrandRegistrationOtpCreator extends Creator<BrandRegistrationOtp> {
 
-    private String pathBrandRegistrationSid;
+    private String pathbrandRegistrationSid;
 
-    public BrandRegistrationOtpCreator(final String pathBrandRegistrationSid) {
-        this.pathBrandRegistrationSid = pathBrandRegistrationSid;
+    public BrandRegistrationOtpCreator(final String pathbrandRegistrationSid) {
+        this.pathbrandRegistrationSid = pathbrandRegistrationSid;
     }
+
 
     @Override
     public BrandRegistrationOtp create(final TwilioRestClient client) {
-        String path =
-            "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
 
-        path =
-            path.replace(
-                "{" + "BrandRegistrationSid" + "}",
-                this.pathBrandRegistrationSid.toString()
-            );
+        String path = "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
+
+        path = path.replace("{" + "BrandRegistrationSid" + "}", this.pathbrandRegistrationSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MESSAGING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "BrandRegistrationOtp creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BrandRegistrationOtp creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return BrandRegistrationOtp.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return BrandRegistrationOtp.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

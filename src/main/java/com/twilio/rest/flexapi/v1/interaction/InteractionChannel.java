@@ -18,194 +18,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannel extends Resource {
 
-    private static final long serialVersionUID = 96183028905472L;
 
-    public static InteractionChannelFetcher fetcher(
-        final String pathInteractionSid,
-        final String pathSid
-    ) {
-        return new InteractionChannelFetcher(pathInteractionSid, pathSid);
+    public static InteractionChannelFetcher fetcher(final String pathinteractionSid, final String pathsid) {
+        return new InteractionChannelFetcher(
+                pathinteractionSid, pathsid
+        );
     }
 
-    public static InteractionChannelReader reader(
-        final String pathInteractionSid
-    ) {
-        return new InteractionChannelReader(pathInteractionSid);
+
+    public static InteractionChannelReader reader(final String pathinteractionSid) {
+        return new InteractionChannelReader(
+                pathinteractionSid
+        );
     }
 
-    public static InteractionChannelUpdater updater(
-        final String pathInteractionSid,
-        final String pathSid,
-        final InteractionChannel.UpdateChannelStatus status
-    ) {
+
+    public static InteractionChannelUpdater updater(final String pathinteractionSid, final String pathsid, final InteractionChannel.UpdateChannelStatus status) {
         return new InteractionChannelUpdater(
-            pathInteractionSid,
-            pathSid,
-            status
+                pathinteractionSid, pathsid, status
         );
     }
 
-    /**
-     * Converts a JSON String into a InteractionChannel object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionChannel object represented by the provided JSON
-     */
-    public static InteractionChannel fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, InteractionChannel.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a InteractionChannel object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InteractionChannel object represented by the provided JSON
-     */
-    public static InteractionChannel fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, InteractionChannel.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String interactionSid;
-    private final InteractionChannel.Type type;
-    private final InteractionChannel.ChannelStatus status;
-    private final Integer errorCode;
-    private final String errorMessage;
-    private final URI url;
-    private final Map<String, String> links;
-
-    @JsonCreator
-    private InteractionChannel(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("interaction_sid") final String interactionSid,
-        @JsonProperty("type") final InteractionChannel.Type type,
-        @JsonProperty("status") final InteractionChannel.ChannelStatus status,
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("error_message") final String errorMessage,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
-    ) {
-        this.sid = sid;
-        this.interactionSid = interactionSid;
-        this.type = type;
-        this.status = status;
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-        this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getInteractionSid() {
-        return this.interactionSid;
-    }
-
-    public final InteractionChannel.Type getType() {
-        return this.type;
-    }
-
-    public final InteractionChannel.ChannelStatus getStatus() {
-        return this.status;
-    }
-
-    public final Integer getErrorCode() {
-        return this.errorCode;
-    }
-
-    public final String getErrorMessage() {
-        return this.errorMessage;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        InteractionChannel other = (InteractionChannel) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(interactionSid, other.interactionSid) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(errorMessage, other.errorMessage) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            interactionSid,
-            type,
-            status,
-            errorCode,
-            errorMessage,
-            url,
-            links
-        );
-    }
 
     public enum Type {
         VOICE("voice"),
@@ -233,6 +86,30 @@ public class InteractionChannel extends Resource {
         }
     }
 
+    public enum ChannelStatus {
+        SETUP("setup"),
+        ACTIVE("active"),
+        FAILED("failed"),
+        CLOSED("closed"),
+        INACTIVE("inactive"),
+        PAUSE("pause");
+
+        private final String value;
+
+        private ChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelStatus.values());
+        }
+    }
+
     public enum UpdateChannelStatus {
         CLOSED("closed"),
         INACTIVE("inactive");
@@ -253,26 +130,132 @@ public class InteractionChannel extends Resource {
         }
     }
 
-    public enum ChannelStatus {
-        SETUP("setup"),
-        ACTIVE("active"),
-        FAILED("failed"),
-        CLOSED("closed"),
-        INACTIVE("inactive");
 
-        private final String value;
-
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
+    /**
+     * Converts a JSON String into a InteractionChannel object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return InteractionChannel object represented by the provided JSON
+     */
+    public static InteractionChannel fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, InteractionChannel.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+    /**
+     * Converts a JSON InputStream into a InteractionChannel object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return InteractionChannel object represented by the provided JSON
+     */
+    public static InteractionChannel fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, InteractionChannel.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final Integer errorCode;
+    @Getter
+    private final String errorMessage;
+    @Getter
+    private final String interactionSid;
+    @Getter
+    private final Map<String, String> links;
+    @Getter
+    private final String sid;
+    @Getter
+    private final InteractionChannel.ChannelStatus status;
+    @Getter
+    private final InteractionChannel.Type type;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private InteractionChannel(
+            @JsonProperty("error_code") final Integer errorCode,
+            @JsonProperty("error_message") final String errorMessage,
+            @JsonProperty("interaction_sid") final String interactionSid,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("status") final InteractionChannel.ChannelStatus status,
+            @JsonProperty("type") final InteractionChannel.Type type,
+            @JsonProperty("url") final URI url
+    ) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.interactionSid = interactionSid;
+        this.links = links;
+        this.sid = sid;
+        this.status = status;
+        this.type = type;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        InteractionChannel other = (InteractionChannel) o;
+        return (
+                Objects.equals(errorCode, other.errorCode) &&
+                        Objects.equals(errorMessage, other.errorMessage) &&
+                        Objects.equals(interactionSid, other.interactionSid) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(type, other.type) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                errorCode,
+                errorMessage,
+                interactionSid,
+                links,
+                sid,
+                status,
+                type,
+                url
+        );
+    }
+
+
 }
+

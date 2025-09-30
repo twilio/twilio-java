@@ -16,7 +16,8 @@ package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,107 +26,100 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class DomainConfigUpdater extends Updater<DomainConfig> {
-
-    private String pathDomainSid;
+    private String pathdomainSid;
     private URI fallbackUrl;
     private URI callbackUrl;
     private Boolean continueOnFailure;
     private Boolean disableHttps;
 
-    public DomainConfigUpdater(final String pathDomainSid) {
-        this.pathDomainSid = pathDomainSid;
+    public DomainConfigUpdater(final String pathdomainSid) {
+        this.pathdomainSid = pathdomainSid;
     }
+
 
     public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public DomainConfigUpdater setFallbackUrl(final String fallbackUrl) {
-        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
-    }
 
     public DomainConfigUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public DomainConfigUpdater setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
 
-    public DomainConfigUpdater setContinueOnFailure(
-        final Boolean continueOnFailure
-    ) {
+    public DomainConfigUpdater setContinueOnFailure(final Boolean continueOnFailure) {
         this.continueOnFailure = continueOnFailure;
         return this;
     }
+
 
     public DomainConfigUpdater setDisableHttps(final Boolean disableHttps) {
         this.disableHttps = disableHttps;
         return this;
     }
 
+
     @Override
     public DomainConfig update(final TwilioRestClient client) {
+
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace("{" + "DomainSid" + "}", this.pathdomainSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.MESSAGING.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "DomainConfig update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DomainConfig update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return DomainConfig.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DomainConfig.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
+            Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (continueOnFailure != null) {
-            request.addPostParam(
-                "ContinueOnFailure",
-                continueOnFailure.toString()
-            );
+            Serializer.toString(request, "ContinueOnFailure", continueOnFailure, ParameterType.URLENCODED);
         }
+
+
         if (disableHttps != null) {
-            request.addPostParam("DisableHttps", disableHttps.toString());
+            Serializer.toString(request, "DisableHttps", disableHttps, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -25,24 +25,58 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InstalledAddOnUsage extends Resource {
 
-    private static final long serialVersionUID = 201246203121312L;
 
+    public static InstalledAddOnUsageCreator creator(final String pathinstalledAddOnSid, final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage) {
+        return new InstalledAddOnUsageCreator(
+                pathinstalledAddOnSid, marketplaceV1InstalledAddOnInstalledAddOnUsage
+        );
+    }
+
+
+    //@JsonDeserialize(builder = MarketplaceV1InstalledAddOnInstalledAddOnUsage.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
+    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
+        public MarketplaceV1InstalledAddOnInstalledAddOnUsage(final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner> billableItems) {
+            this.billableItems = billableItems;
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total_submitted")
+        @Getter
+        @Setter
+        private BigDecimal totalSubmitted;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("billable_items")
+        @Getter
+        @Setter
+        private List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner> billableItems;
+
+    }
+
+    //@JsonDeserialize(builder = MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner {
+        public MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner(final BigDecimal quantity, final String sid) {
+            this.quantity = quantity;
+            this.sid = sid;
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("quantity")
@@ -62,74 +96,16 @@ public class InstalledAddOnUsage extends Resource {
         @Setter
         private Boolean submitted;
 
-        public static MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems.class
-            );
-        }
-    }
-
-    @ToString
-    public static class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("totalSubmitted")
-        @Getter
-        @Setter
-        private BigDecimal totalSubmitted;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("billableItems")
-        @Getter
-        @Setter
-        private List<
-            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-        > billableItems;
-
-        public MarketplaceV1InstalledAddOnInstalledAddOnUsage(
-            final List<
-                MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-            > billableItems
-        ) {
-            this.billableItems = billableItems;
-        }
-
-        public static MarketplaceV1InstalledAddOnInstalledAddOnUsage fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                MarketplaceV1InstalledAddOnInstalledAddOnUsage.class
-            );
-        }
-    }
-
-    public static InstalledAddOnUsageCreator creator(
-        final String pathInstalledAddOnSid,
-        final InstalledAddOnUsage.MarketplaceV1InstalledAddOnInstalledAddOnUsage marketplaceV1InstalledAddOnInstalledAddOnUsage
-    ) {
-        return new InstalledAddOnUsageCreator(
-            pathInstalledAddOnSid,
-            marketplaceV1InstalledAddOnInstalledAddOnUsage
-        );
     }
 
     /**
      * Converts a JSON String into a InstalledAddOnUsage object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOnUsage object represented by the provided JSON
      */
-    public static InstalledAddOnUsage fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static InstalledAddOnUsage fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InstalledAddOnUsage.class);
@@ -144,14 +120,11 @@ public class InstalledAddOnUsage extends Resource {
      * Converts a JSON InputStream into a InstalledAddOnUsage object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOnUsage object represented by the provided JSON
      */
-    public static InstalledAddOnUsage fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static InstalledAddOnUsage fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InstalledAddOnUsage.class);
@@ -174,30 +147,19 @@ public class InstalledAddOnUsage extends Resource {
         }
     }
 
+
+    @Getter
+    private final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner> billableItems;
+    @Getter
     private final BigDecimal totalSubmitted;
-    private final List<
-        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-    > billableItems;
 
     @JsonCreator
     private InstalledAddOnUsage(
-        @JsonProperty("total_submitted") final BigDecimal totalSubmitted,
-        @JsonProperty("billable_items") final List<
-            MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-        > billableItems
+            @JsonProperty("billable_items") final List<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItemsInner> billableItems,
+            @JsonProperty("total_submitted") final BigDecimal totalSubmitted
     ) {
-        this.totalSubmitted = totalSubmitted;
         this.billableItems = billableItems;
-    }
-
-    public final BigDecimal getTotalSubmitted() {
-        return this.totalSubmitted;
-    }
-
-    public final List<
-        MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
-    > getBillableItems() {
-        return this.billableItems;
+        this.totalSubmitted = totalSubmitted;
     }
 
     @Override
@@ -211,15 +173,20 @@ public class InstalledAddOnUsage extends Resource {
         }
 
         InstalledAddOnUsage other = (InstalledAddOnUsage) o;
-
         return (
-            Objects.equals(totalSubmitted, other.totalSubmitted) &&
-            Objects.equals(billableItems, other.billableItems)
+                Objects.equals(billableItems, other.billableItems) &&
+                        Objects.equals(totalSubmitted, other.totalSubmitted)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(totalSubmitted, billableItems);
+        return Objects.hash(
+                billableItems,
+                totalSubmitted
+        );
     }
+
+
 }
+

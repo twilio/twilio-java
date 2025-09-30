@@ -16,7 +16,8 @@ package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,88 +26,80 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
 
 public class ChallengeUpdater extends Updater<Challenge> {
-
-    private String pathServiceSid;
-    private String pathIdentity;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathidentity;
+    private String pathsid;
     private String authPayload;
-    private Map<String, Object> metadata;
+    private Object metadata;
 
-    public ChallengeUpdater(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
-        this.pathSid = pathSid;
+    public ChallengeUpdater(final String pathserviceSid, final String pathidentity, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathidentity = pathidentity;
+        this.pathsid = pathsid;
     }
+
 
     public ChallengeUpdater setAuthPayload(final String authPayload) {
         this.authPayload = authPayload;
         return this;
     }
 
-    public ChallengeUpdater setMetadata(final Map<String, Object> metadata) {
+
+    public ChallengeUpdater setMetadata(final Object metadata) {
         this.metadata = metadata;
         return this;
     }
 
+
     @Override
     public Challenge update(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VERIFY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Challenge update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Challenge update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Challenge.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Challenge.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (authPayload != null) {
-            request.addPostParam("AuthPayload", authPayload);
+            Serializer.toString(request, "AuthPayload", authPayload, ParameterType.URLENCODED);
         }
+
+
         if (metadata != null) {
-            request.addPostParam("Metadata", Converter.mapToJson(metadata));
+            Serializer.toString(request, "Metadata", metadata, ParameterType.URLENCODED);
         }
+
+
     }
 }

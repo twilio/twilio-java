@@ -18,46 +18,53 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Safelist extends Resource {
 
-    private static final long serialVersionUID = 179274993739L;
 
     public static SafelistCreator creator(final String phoneNumber) {
-        return new SafelistCreator(phoneNumber);
+        return new SafelistCreator(
+                phoneNumber
+        );
     }
+
 
     public static SafelistDeleter deleter() {
-        return new SafelistDeleter();
+        return new SafelistDeleter(
+
+        );
     }
 
+
     public static SafelistFetcher fetcher() {
-        return new SafelistFetcher();
+        return new SafelistFetcher(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Safelist object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Safelist object represented by the provided JSON
      */
-    public static Safelist fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Safelist fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Safelist.class);
@@ -72,14 +79,11 @@ public class Safelist extends Resource {
      * Converts a JSON InputStream into a Safelist object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Safelist object represented by the provided JSON
      */
-    public static Safelist fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Safelist fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Safelist.class);
@@ -90,24 +94,31 @@ public class Safelist extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String phoneNumber;
+    @Getter
+    private final String sid;
 
     @JsonCreator
     private Safelist(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("phone_number") final String phoneNumber
+            @JsonProperty("phone_number") final String phoneNumber,
+            @JsonProperty("sid") final String sid
     ) {
-        this.sid = sid;
         this.phoneNumber = phoneNumber;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getPhoneNumber() {
-        return this.phoneNumber;
+        this.sid = sid;
     }
 
     @Override
@@ -121,15 +132,20 @@ public class Safelist extends Resource {
         }
 
         Safelist other = (Safelist) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(phoneNumber, other.phoneNumber)
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                        Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, phoneNumber);
+        return Objects.hash(
+                phoneNumber,
+                sid
+        );
     }
+
+
 }
+

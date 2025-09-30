@@ -18,63 +18,64 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AlphaSender extends Resource {
 
-    private static final long serialVersionUID = 147044042659249L;
 
-    public static AlphaSenderCreator creator(
-        final String pathServiceSid,
-        final String alphaSender
-    ) {
-        return new AlphaSenderCreator(pathServiceSid, alphaSender);
+    public static AlphaSenderCreator creator(final String pathserviceSid, final String alphaSender) {
+        return new AlphaSenderCreator(
+                pathserviceSid, alphaSender
+        );
     }
 
-    public static AlphaSenderDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new AlphaSenderDeleter(pathServiceSid, pathSid);
+
+    public static AlphaSenderDeleter deleter(final String pathserviceSid, final String pathsid) {
+        return new AlphaSenderDeleter(
+                pathserviceSid, pathsid
+        );
     }
 
-    public static AlphaSenderFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new AlphaSenderFetcher(pathServiceSid, pathSid);
+
+    public static AlphaSenderFetcher fetcher(final String pathserviceSid, final String pathsid) {
+        return new AlphaSenderFetcher(
+                pathserviceSid, pathsid
+        );
     }
 
-    public static AlphaSenderReader reader(final String pathServiceSid) {
-        return new AlphaSenderReader(pathServiceSid);
+
+    public static AlphaSenderReader reader(final String pathserviceSid) {
+        return new AlphaSenderReader(
+                pathserviceSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a AlphaSender object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AlphaSender object represented by the provided JSON
      */
-    public static AlphaSender fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static AlphaSender fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AlphaSender.class);
@@ -89,14 +90,11 @@ public class AlphaSender extends Resource {
      * Converts a JSON InputStream into a AlphaSender object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AlphaSender object represented by the provided JSON
      */
-    public static AlphaSender fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static AlphaSender fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AlphaSender.class);
@@ -107,66 +105,57 @@ public class AlphaSender extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+    @Getter
     private final String alphaSender;
+    @Getter
     private final List<String> capabilities;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private AlphaSender(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("alpha_sender") final String alphaSender,
-        @JsonProperty("capabilities") final List<String> capabilities,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("alpha_sender") final String alphaSender,
+            @JsonProperty("capabilities") final List<String> capabilities,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.alphaSender = alphaSender;
         this.capabilities = capabilities;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getAlphaSender() {
-        return this.alphaSender;
-    }
-
-    public final List<String> getCapabilities() {
-        return this.capabilities;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -180,30 +169,32 @@ public class AlphaSender extends Resource {
         }
 
         AlphaSender other = (AlphaSender) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(alphaSender, other.alphaSender) &&
-            Objects.equals(capabilities, other.capabilities) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(alphaSender, other.alphaSender) &&
+                        Objects.equals(capabilities, other.capabilities) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            dateCreated,
-            dateUpdated,
-            alphaSender,
-            capabilities,
-            url
+                accountSid,
+                alphaSender,
+                capabilities,
+                dateCreated,
+                dateUpdated,
+                serviceSid,
+                sid,
+                url
         );
     }
+
+
 }
+

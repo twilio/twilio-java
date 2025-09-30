@@ -25,20 +25,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.ToString;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ReferralConversion extends Resource {
 
-    private static final long serialVersionUID = 67114907443655L;
 
+    public static ReferralConversionCreator creator(final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest) {
+        return new ReferralConversionCreator(
+                createReferralConversionRequest
+        );
+    }
+
+
+    //@JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateReferralConversionRequest {
 
@@ -48,36 +56,16 @@ public class ReferralConversion extends Resource {
         @Setter
         private String referralAccountSid;
 
-        public CreateReferralConversionRequest() {}
-
-        public static CreateReferralConversionRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                CreateReferralConversionRequest.class
-            );
-        }
-    }
-
-    public static ReferralConversionCreator creator(
-        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
-    ) {
-        return new ReferralConversionCreator(createReferralConversionRequest);
     }
 
     /**
      * Converts a JSON String into a ReferralConversion object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ReferralConversion object represented by the provided JSON
      */
-    public static ReferralConversion fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ReferralConversion fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ReferralConversion.class);
@@ -92,14 +80,11 @@ public class ReferralConversion extends Resource {
      * Converts a JSON InputStream into a ReferralConversion object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ReferralConversion object represented by the provided JSON
      */
-    public static ReferralConversion fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ReferralConversion fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ReferralConversion.class);
@@ -122,17 +107,15 @@ public class ReferralConversion extends Resource {
         }
     }
 
+
+    @Getter
     private final String convertedAccountSid;
 
     @JsonCreator
     private ReferralConversion(
-        @JsonProperty("converted_account_sid") final String convertedAccountSid
+            @JsonProperty("converted_account_sid") final String convertedAccountSid
     ) {
         this.convertedAccountSid = convertedAccountSid;
-    }
-
-    public final String getConvertedAccountSid() {
-        return this.convertedAccountSid;
     }
 
     @Override
@@ -146,12 +129,18 @@ public class ReferralConversion extends Resource {
         }
 
         ReferralConversion other = (ReferralConversion) o;
-
-        return Objects.equals(convertedAccountSid, other.convertedAccountSid);
+        return (
+                Objects.equals(convertedAccountSid, other.convertedAccountSid)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(convertedAccountSid);
+        return Objects.hash(
+                convertedAccountSid
+        );
     }
+
+
 }
+

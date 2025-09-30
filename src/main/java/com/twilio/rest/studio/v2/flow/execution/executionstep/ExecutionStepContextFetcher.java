@@ -15,7 +15,6 @@
 package com.twilio.rest.studio.v2.flow.execution.executionstep;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,62 +26,47 @@ import com.twilio.rest.Domains;
 
 public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
 
-    private String pathFlowSid;
-    private String pathExecutionSid;
-    private String pathStepSid;
+    private String pathflowSid;
+    private String pathexecutionSid;
+    private String pathstepSid;
 
-    public ExecutionStepContextFetcher(
-        final String pathFlowSid,
-        final String pathExecutionSid,
-        final String pathStepSid
-    ) {
-        this.pathFlowSid = pathFlowSid;
-        this.pathExecutionSid = pathExecutionSid;
-        this.pathStepSid = pathStepSid;
+    public ExecutionStepContextFetcher(final String pathflowSid, final String pathexecutionSid, final String pathstepSid) {
+        this.pathflowSid = pathflowSid;
+        this.pathexecutionSid = pathexecutionSid;
+        this.pathstepSid = pathstepSid;
     }
+
 
     @Override
     public ExecutionStepContext fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "ExecutionSid" + "}",
-                this.pathExecutionSid.toString()
-            );
-        path = path.replace("{" + "StepSid" + "}", this.pathStepSid.toString());
+        String path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context";
+
+        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "ExecutionSid" + "}", this.pathexecutionSid.toString());
+        path = path.replace("{" + "StepSid" + "}", this.pathstepSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.STUDIO.toString(),
-            path
+                HttpMethod.GET,
+                Domains.STUDIO.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExecutionStepContext fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ExecutionStepContext fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return ExecutionStepContext.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ExecutionStepContext.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

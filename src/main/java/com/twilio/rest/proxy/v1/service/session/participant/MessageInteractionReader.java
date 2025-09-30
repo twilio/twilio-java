@@ -17,7 +17,8 @@ package com.twilio.rest.proxy.v1.service.session.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,25 +30,23 @@ import com.twilio.rest.Domains;
 
 public class MessageInteractionReader extends Reader<MessageInteraction> {
 
-    private String pathServiceSid;
-    private String pathSessionSid;
-    private String pathParticipantSid;
+    private String pathserviceSid;
+    private String pathsessionSid;
+    private String pathparticipantSid;
     private Long pageSize;
 
-    public MessageInteractionReader(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathParticipantSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
-        this.pathParticipantSid = pathParticipantSid;
+    public MessageInteractionReader(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsessionSid = pathsessionSid;
+        this.pathparticipantSid = pathparticipantSid;
     }
+
 
     public MessageInteractionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<MessageInteraction> read(final TwilioRestClient client) {
@@ -55,108 +54,70 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
     }
 
     public Page<MessageInteraction> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+
+        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PROXY.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<MessageInteraction> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<MessageInteraction> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessageInteraction read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MessageInteraction read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "interactions",
-            response.getContent(),
-            MessageInteraction.class,
-            client.getObjectMapper()
-        );
+                "interactions",
+                response.getContent(),
+                MessageInteraction.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<MessageInteraction> previousPage(
-        final Page<MessageInteraction> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.PROXY.toString())
-        );
+    public Page<MessageInteraction> previousPage(final Page<MessageInteraction> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<MessageInteraction> nextPage(
-        final Page<MessageInteraction> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.PROXY.toString())
-        );
+    public Page<MessageInteraction> nextPage(final Page<MessageInteraction> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<MessageInteraction> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<MessageInteraction> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

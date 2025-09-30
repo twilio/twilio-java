@@ -16,7 +16,8 @@ package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class SimUpdater extends Updater<Sim> {
-
-    private String pathSid;
+    private String pathsid;
     private String uniqueName;
     private Sim.StatusUpdate status;
     private String fleet;
@@ -37,72 +38,74 @@ public class SimUpdater extends Updater<Sim> {
     private HttpMethod callbackMethod;
     private String accountSid;
 
-    public SimUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public SimUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public SimUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
+
     public SimUpdater setStatus(final Sim.StatusUpdate status) {
         this.status = status;
         return this;
     }
+
 
     public SimUpdater setFleet(final String fleet) {
         this.fleet = fleet;
         return this;
     }
 
+
     public SimUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public SimUpdater setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
 
     public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
         return this;
     }
 
+
     public SimUpdater setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
+
     @Override
     public Sim update(final TwilioRestClient client) {
+
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SUPERSIM.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SUPERSIM.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Sim update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Sim update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -111,23 +114,36 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     private void addPostParams(final Request request) {
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
         if (fleet != null) {
-            request.addPostParam("Fleet", fleet);
+            Serializer.toString(request, "Fleet", fleet, ParameterType.URLENCODED);
         }
+
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod.toString());
+            Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
+            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

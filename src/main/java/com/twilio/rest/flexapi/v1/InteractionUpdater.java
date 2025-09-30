@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,60 +28,60 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class InteractionUpdater extends Updater<Interaction> {
-
-    private String pathSid;
+    private String pathsid;
     private String webhookTtid;
 
-    public InteractionUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public InteractionUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public InteractionUpdater setWebhookTtid(final String webhookTtid) {
         this.webhookTtid = webhookTtid;
         return this;
     }
 
+
     @Override
     public Interaction update(final TwilioRestClient client) {
+
         String path = "/v1/Interactions/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Interaction update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Interaction update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Interaction.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Interaction.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (webhookTtid != null) {
-            request.addPostParam("WebhookTtid", webhookTtid);
+            Serializer.toString(request, "WebhookTtid", webhookTtid, ParameterType.URLENCODED);
         }
+
+
     }
 }

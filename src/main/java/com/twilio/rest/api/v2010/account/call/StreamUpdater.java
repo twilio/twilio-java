@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,79 +28,61 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class StreamUpdater extends Updater<Stream> {
-
-    private String pathCallSid;
-    private String pathSid;
+    private String pathaccountSid;
+    private String pathcallSid;
+    private String pathsid;
     private Stream.UpdateStatus status;
-    private String pathAccountSid;
 
-    public StreamUpdater(
-        final String pathCallSid,
-        final String pathSid,
-        final Stream.UpdateStatus status
-    ) {
-        this.pathCallSid = pathCallSid;
-        this.pathSid = pathSid;
+    public StreamUpdater(final String pathcallSid, final String pathsid, final Stream.UpdateStatus status) {
+        this.pathcallSid = pathcallSid;
+        this.pathsid = pathsid;
         this.status = status;
     }
 
-    public StreamUpdater(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final String pathSid,
-        final Stream.UpdateStatus status
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
-        this.pathSid = pathSid;
+    public StreamUpdater(final String pathaccountSid, final String pathcallSid, final String pathsid, final Stream.UpdateStatus status) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathcallSid = pathcallSid;
+        this.pathsid = pathsid;
         this.status = status;
     }
+
 
     public StreamUpdater setStatus(final Stream.UpdateStatus status) {
         this.status = status;
         return this;
     }
 
+
     @Override
     public Stream update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Stream update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Stream update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -107,8 +91,11 @@ public class StreamUpdater extends Updater<Stream> {
     }
 
     private void addPostParams(final Request request) {
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
         }
+
+
     }
 }

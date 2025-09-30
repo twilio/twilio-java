@@ -17,7 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,131 +28,103 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class InsightsQuestionnairesCategoryReader
-    extends Reader<InsightsQuestionnairesCategory> {
+public class InsightsQuestionnairesCategoryReader extends Reader<InsightsQuestionnairesCategory> {
 
-    private String authorization;
     private Long pageSize;
+    private String authorization;
 
-    public InsightsQuestionnairesCategoryReader() {}
-
-    public InsightsQuestionnairesCategoryReader setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
+    public InsightsQuestionnairesCategoryReader() {
     }
 
-    public InsightsQuestionnairesCategoryReader setPageSize(
-        final Long pageSize
-    ) {
+
+    public InsightsQuestionnairesCategoryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
+
+    public InsightsQuestionnairesCategoryReader setAuthorization(final String authorization) {
+        this.authorization = authorization;
+        return this;
+    }
+
+
     @Override
-    public ResourceSet<InsightsQuestionnairesCategory> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<InsightsQuestionnairesCategory> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<InsightsQuestionnairesCategory> firstPage(
-        final TwilioRestClient client
-    ) {
+    public Page<InsightsQuestionnairesCategory> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Insights/QualityManagement/Categories";
 
-        Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
-        );
 
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.FLEXAPI.toString(),
+                path
+        );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         return pageForRequest(client, request);
     }
 
-    private Page<InsightsQuestionnairesCategory> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<InsightsQuestionnairesCategory> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnairesCategory read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnairesCategory read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "categories",
-            response.getContent(),
-            InsightsQuestionnairesCategory.class,
-            client.getObjectMapper()
-        );
+                "categories",
+                response.getContent(),
+                InsightsQuestionnairesCategory.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<InsightsQuestionnairesCategory> previousPage(
-        final Page<InsightsQuestionnairesCategory> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
-        );
+    public Page<InsightsQuestionnairesCategory> previousPage(final Page<InsightsQuestionnairesCategory> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<InsightsQuestionnairesCategory> nextPage(
-        final Page<InsightsQuestionnairesCategory> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
-        );
+    public Page<InsightsQuestionnairesCategory> nextPage(final Page<InsightsQuestionnairesCategory> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<InsightsQuestionnairesCategory> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<InsightsQuestionnairesCategory> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
-    }
-
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
-        }
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+    }
+
+    private void addHeaderParams(final Request request) {
+
+        if (authorization != null) {
+            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
         }
+
     }
 }

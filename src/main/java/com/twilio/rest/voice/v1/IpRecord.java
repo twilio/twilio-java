@@ -18,57 +18,70 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpRecord extends Resource {
 
-    private static final long serialVersionUID = 256613502425072L;
 
     public static IpRecordCreator creator(final String ipAddress) {
-        return new IpRecordCreator(ipAddress);
+        return new IpRecordCreator(
+                ipAddress
+        );
     }
 
-    public static IpRecordDeleter deleter(final String pathSid) {
-        return new IpRecordDeleter(pathSid);
+
+    public static IpRecordDeleter deleter(final String pathsid) {
+        return new IpRecordDeleter(
+                pathsid
+        );
     }
 
-    public static IpRecordFetcher fetcher(final String pathSid) {
-        return new IpRecordFetcher(pathSid);
+
+    public static IpRecordFetcher fetcher(final String pathsid) {
+        return new IpRecordFetcher(
+                pathsid
+        );
     }
+
 
     public static IpRecordReader reader() {
-        return new IpRecordReader();
+        return new IpRecordReader(
+
+        );
     }
 
-    public static IpRecordUpdater updater(final String pathSid) {
-        return new IpRecordUpdater(pathSid);
+
+    public static IpRecordUpdater updater(final String pathsid) {
+        return new IpRecordUpdater(
+                pathsid
+        );
     }
+
 
     /**
      * Converts a JSON String into a IpRecord object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IpRecord object represented by the provided JSON
      */
-    public static IpRecord fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static IpRecord fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpRecord.class);
@@ -83,14 +96,11 @@ public class IpRecord extends Resource {
      * Converts a JSON InputStream into a IpRecord object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IpRecord object represented by the provided JSON
      */
-    public static IpRecord fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static IpRecord fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpRecord.class);
@@ -101,66 +111,57 @@ public class IpRecord extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String sid;
-    private final String friendlyName;
-    private final String ipAddress;
+    @Getter
     private final Integer cidrPrefixLength;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String ipAddress;
+    @Getter
+    private final String sid;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private IpRecord(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("ip_address") final String ipAddress,
-        @JsonProperty("cidr_prefix_length") final Integer cidrPrefixLength,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("cidr_prefix_length") final Integer cidrPrefixLength,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("ip_address") final String ipAddress,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.sid = sid;
+        this.cidrPrefixLength = cidrPrefixLength;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
-        this.cidrPrefixLength = cidrPrefixLength;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getIpAddress() {
-        return this.ipAddress;
-    }
-
-    public final Integer getCidrPrefixLength() {
-        return this.cidrPrefixLength;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -174,30 +175,32 @@ public class IpRecord extends Resource {
         }
 
         IpRecord other = (IpRecord) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(ipAddress, other.ipAddress) &&
-            Objects.equals(cidrPrefixLength, other.cidrPrefixLength) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(cidrPrefixLength, other.cidrPrefixLength) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(ipAddress, other.ipAddress) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            sid,
-            friendlyName,
-            ipAddress,
-            cidrPrefixLength,
-            dateCreated,
-            dateUpdated,
-            url
+                accountSid,
+                cidrPrefixLength,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                ipAddress,
+                sid,
+                url
         );
     }
+
+
 }
+

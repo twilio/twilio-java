@@ -15,9 +15,9 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
-import com.twilio.converter.PrefixedCollapsibleMap;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,25 +26,28 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.util.List;
 import java.util.Map;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
-    private String pathPhoneNumber;
+    private String pathphoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(final String pathPhoneNumber) {
-        this.pathPhoneNumber = pathPhoneNumber;
+    public PhoneNumberFetcher(final String pathphoneNumber) {
+        this.pathphoneNumber = pathphoneNumber;
     }
+
 
     public PhoneNumberFetcher setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
         return this;
     }
+
 
     public PhoneNumberFetcher setType(final List<String> type) {
         this.type = type;
@@ -64,78 +67,70 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         return setAddOns(Promoter.listOfOne(addOns));
     }
 
-    public PhoneNumberFetcher setAddOnsData(
-        final Map<String, Object> addOnsData
-    ) {
+    public PhoneNumberFetcher setAddOnsData(final Map<String, Object> addOnsData) {
         this.addOnsData = addOnsData;
         return this;
     }
 
+
     @Override
     public PhoneNumber fetch(final TwilioRestClient client) {
+
         String path = "/v1/PhoneNumbers/{PhoneNumber}";
 
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.LOOKUPS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.LOOKUPS.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "PhoneNumber fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PhoneNumber fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return PhoneNumber.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (countryCode != null) {
-            request.addQueryParam("CountryCode", countryCode);
+            Serializer.toString(request, "CountryCode", countryCode, ParameterType.QUERY);
         }
+
+
         if (type != null) {
-            for (String prop : type) {
-                request.addQueryParam("Type", prop);
+            for (String param : type) {
+                Serializer.toString(request, "Type", param, ParameterType.QUERY);
             }
         }
+
+
         if (addOns != null) {
-            for (String prop : addOns) {
-                request.addQueryParam("AddOns", prop);
+            for (String param : addOns) {
+                Serializer.toString(request, "AddOns", param, ParameterType.QUERY);
             }
         }
+
+
         if (addOnsData != null) {
-            Map<String, String> params = PrefixedCollapsibleMap.serialize(
-                addOnsData,
-                "AddOns"
-            );
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                request.addQueryParam(entry.getKey(), entry.getValue());
-            }
+            Serializer.toString(request, "AddOnsData", addOnsData, ParameterType.QUERY);
         }
+
+
     }
 }

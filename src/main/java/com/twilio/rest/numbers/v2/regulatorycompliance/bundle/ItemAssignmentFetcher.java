@@ -15,7 +15,6 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,58 +26,44 @@ import com.twilio.rest.Domains;
 
 public class ItemAssignmentFetcher extends Fetcher<ItemAssignment> {
 
-    private String pathBundleSid;
-    private String pathSid;
+    private String pathbundleSid;
+    private String pathsid;
 
-    public ItemAssignmentFetcher(
-        final String pathBundleSid,
-        final String pathSid
-    ) {
-        this.pathBundleSid = pathBundleSid;
-        this.pathSid = pathSid;
+    public ItemAssignmentFetcher(final String pathbundleSid, final String pathsid) {
+        this.pathbundleSid = pathbundleSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public ItemAssignment fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
+
+        path = path.replace("{" + "BundleSid" + "}", this.pathbundleSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.NUMBERS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ItemAssignment fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ItemAssignment fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return ItemAssignment.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ItemAssignment.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

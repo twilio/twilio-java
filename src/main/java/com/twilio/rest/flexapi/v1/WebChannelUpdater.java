@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,73 +28,72 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WebChannelUpdater extends Updater<WebChannel> {
-
-    private String pathSid;
+    private String pathsid;
     private WebChannel.ChatStatus chatStatus;
     private String postEngagementData;
 
-    public WebChannelUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public WebChannelUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public WebChannelUpdater setChatStatus(
-        final WebChannel.ChatStatus chatStatus
-    ) {
+
+    public WebChannelUpdater setChatStatus(final WebChannel.ChatStatus chatStatus) {
         this.chatStatus = chatStatus;
         return this;
     }
 
-    public WebChannelUpdater setPostEngagementData(
-        final String postEngagementData
-    ) {
+
+    public WebChannelUpdater setPostEngagementData(final String postEngagementData) {
         this.postEngagementData = postEngagementData;
         return this;
     }
 
+
     @Override
     public WebChannel update(final TwilioRestClient client) {
+
         String path = "/v1/WebChannels/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "WebChannel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WebChannel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return WebChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WebChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (chatStatus != null) {
-            request.addPostParam("ChatStatus", chatStatus.toString());
+            Serializer.toString(request, "ChatStatus", chatStatus, ParameterType.URLENCODED);
         }
+
+
         if (postEngagementData != null) {
-            request.addPostParam("PostEngagementData", postEngagementData);
+            Serializer.toString(request, "PostEngagementData", postEngagementData, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -1,6 +1,76 @@
 twilio-java changelog
 =====================
 
+[2025-09-30] Version 11.0.0
+------------------------------------
+
+**Library - Breaking Changes**
+- Refer [Upgrade.md](https://github.com/twilio/twilio-java/blob/main/UPGRADE.md) for detailed migration notes and list of Breaking Changes.
+
+**Accounts**
+- Update beta feature flag for consent and contact bulk upsert APIs
+
+**Api**
+- Add `date_created` property to media resource and date_created filtering parameters for read action
+- Updated the Recordings Resource `channels` property to clarify channels = # of channels in the recording resource and how to specify the # of channels in recording download
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+- Add multiple missing usage categories to usage records and usage triggers api
+- Add `channels-whatsapp-template-marketing` and `channels-whatsapp-template-utility` to usage categories
+
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Fix `state` spelling for `initializing` enum value
+- Update `state` to include `intializing` for ServiceConversationWithParticipants and ConversationWithParticipants
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Intelligence**
+- Add encryption_credential_sid field in transcripts and services in v2
+
+**Flex**
+- Adding new optional parameter `identity` to `web_channels` API in version `v2`
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+**Verify**
+- Add passkeys support to Verify API creating and updating services.
+- Update `ienum` type for Factor creation
+- Add passkeys as challenge and factor type
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Studio**
+- Add `type` to Step resource APIs
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.-
+
+**Trusthub**
+- Remove beta feature flag for all TH APIs
+- Remove beta feature flag for ComplianceInquiries API to support OneConsole traffic
+- Add required Permissions to the ComplianceInquiries API
+
+**Twiml**
+- Add new noun `<AiSession>`
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+**Verify**
+- Allow to update all passkeys parameters in the service update
+
+
 [2025-06-12] Version 10.9.2
 ---------------------------
 **Library - Chore**

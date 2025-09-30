@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,60 +26,47 @@ import com.twilio.rest.Domains;
 
 public class FactorFetcher extends Fetcher<Factor> {
 
-    private String pathServiceSid;
-    private String pathIdentity;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathidentity;
+    private String pathsid;
 
-    public FactorFetcher(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
-        this.pathSid = pathSid;
+    public FactorFetcher(final String pathserviceSid, final String pathidentity, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathidentity = pathidentity;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public Factor fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.GET,
+                Domains.VERIFY.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Factor fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Factor fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Factor.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

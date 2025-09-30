@@ -18,47 +18,46 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ValidationRequest extends Resource {
 
-    private static final long serialVersionUID = 159203610764140L;
 
-    public static ValidationRequestCreator creator(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
-        return new ValidationRequestCreator(phoneNumber);
+    public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
+        return new ValidationRequestCreator(
+                phoneNumber
+        );
     }
 
-    public static ValidationRequestCreator creator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
-        return new ValidationRequestCreator(pathAccountSid, phoneNumber);
+
+    public static ValidationRequestCreator creator(final String pathaccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        return new ValidationRequestCreator(
+                pathaccountSid, phoneNumber
+        );
     }
+
 
     /**
      * Converts a JSON String into a ValidationRequest object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ValidationRequest object represented by the provided JSON
      */
-    public static ValidationRequest fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ValidationRequest fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ValidationRequest.class);
@@ -73,14 +72,11 @@ public class ValidationRequest extends Resource {
      * Converts a JSON InputStream into a ValidationRequest object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ValidationRequest object represented by the provided JSON
      */
-    public static ValidationRequest fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ValidationRequest fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ValidationRequest.class);
@@ -91,47 +87,43 @@ public class ValidationRequest extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
     private final String callSid;
+    @Getter
     private final String friendlyName;
+    @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+    @Getter
     private final String validationCode;
 
     @JsonCreator
     private ValidationRequest(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty(
-            "phone_number"
-        ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty("validation_code") final String validationCode
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("call_sid") final String callSid,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("phone_number") final com.twilio.type.PhoneNumber phoneNumber,
+            @JsonProperty("validation_code") final String validationCode
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
         this.validationCode = validationCode;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final String getValidationCode() {
-        return this.validationCode;
     }
 
     @Override
@@ -145,24 +137,26 @@ public class ValidationRequest extends Resource {
         }
 
         ValidationRequest other = (ValidationRequest) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
-            Objects.equals(validationCode, other.validationCode)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(callSid, other.callSid) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(phoneNumber, other.phoneNumber) &&
+                        Objects.equals(validationCode, other.validationCode)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            callSid,
-            friendlyName,
-            phoneNumber,
-            validationCode
+                accountSid,
+                callSid,
+                friendlyName,
+                phoneNumber,
+                validationCode
         );
     }
+
+
 }
+

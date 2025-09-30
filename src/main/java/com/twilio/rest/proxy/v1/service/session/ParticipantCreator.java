@@ -14,8 +14,11 @@
 
 package com.twilio.rest.proxy.v1.service.session;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,107 +30,100 @@ import com.twilio.rest.Domains;
 
 public class ParticipantCreator extends Creator<Participant> {
 
-    private String pathServiceSid;
-    private String pathSessionSid;
+    private String pathserviceSid;
+    private String pathsessionSid;
     private String identifier;
     private String friendlyName;
     private String proxyIdentifier;
     private String proxyIdentifierSid;
 
-    public ParticipantCreator(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String identifier
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
+    public ParticipantCreator(final String pathserviceSid, final String pathsessionSid, final String identifier) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsessionSid = pathsessionSid;
         this.identifier = identifier;
     }
+
 
     public ParticipantCreator setIdentifier(final String identifier) {
         this.identifier = identifier;
         return this;
     }
 
+
     public ParticipantCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
+
 
     public ParticipantCreator setProxyIdentifier(final String proxyIdentifier) {
         this.proxyIdentifier = proxyIdentifier;
         return this;
     }
 
-    public ParticipantCreator setProxyIdentifierSid(
-        final String proxyIdentifierSid
-    ) {
+
+    public ParticipantCreator setProxyIdentifierSid(final String proxyIdentifierSid) {
         this.proxyIdentifierSid = proxyIdentifierSid;
         return this;
     }
 
+
     @Override
     public Participant create(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path =
-            path.replace("{" + "Identifier" + "}", this.identifier.toString());
+        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.PROXY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Participant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (identifier != null) {
-            request.addPostParam("Identifier", identifier);
+            Serializer.toString(request, "Identifier", identifier, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (proxyIdentifier != null) {
-            request.addPostParam("ProxyIdentifier", proxyIdentifier);
+            Serializer.toString(request, "ProxyIdentifier", proxyIdentifier, ParameterType.URLENCODED);
         }
+
+
         if (proxyIdentifierSid != null) {
-            request.addPostParam("ProxyIdentifierSid", proxyIdentifierSid);
+            Serializer.toString(request, "ProxyIdentifierSid", proxyIdentifierSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

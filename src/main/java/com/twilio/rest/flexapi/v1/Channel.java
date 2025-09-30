@@ -18,63 +18,63 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
 
-    private static final long serialVersionUID = 86822994047371L;
 
-    public static ChannelCreator creator(
-        final String flexFlowSid,
-        final String identity,
-        final String chatUserFriendlyName,
-        final String chatFriendlyName
-    ) {
+    public static ChannelCreator creator(final String flexFlowSid, final String identity, final String chatUserFriendlyName, final String chatFriendlyName) {
         return new ChannelCreator(
-            flexFlowSid,
-            identity,
-            chatUserFriendlyName,
-            chatFriendlyName
+                flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName
         );
     }
 
-    public static ChannelDeleter deleter(final String pathSid) {
-        return new ChannelDeleter(pathSid);
+
+    public static ChannelDeleter deleter(final String pathsid) {
+        return new ChannelDeleter(
+                pathsid
+        );
     }
 
-    public static ChannelFetcher fetcher(final String pathSid) {
-        return new ChannelFetcher(pathSid);
+
+    public static ChannelFetcher fetcher(final String pathsid) {
+        return new ChannelFetcher(
+                pathsid
+        );
     }
+
 
     public static ChannelReader reader() {
-        return new ChannelReader();
+        return new ChannelReader(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a Channel object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
      */
-    public static Channel fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Channel fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Channel.class);
@@ -89,14 +89,11 @@ public class Channel extends Resource {
      * Converts a JSON InputStream into a Channel object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
      */
-    public static Channel fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Channel fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Channel.class);
@@ -107,66 +104,57 @@ public class Channel extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String flexFlowSid;
-    private final String sid;
-    private final String userSid;
-    private final String taskSid;
-    private final URI url;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String flexFlowSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String taskSid;
+    @Getter
+    private final URI url;
+    @Getter
+    private final String userSid;
 
     @JsonCreator
     private Channel(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("flex_flow_sid") final String flexFlowSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("user_sid") final String userSid,
-        @JsonProperty("task_sid") final String taskSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("flex_flow_sid") final String flexFlowSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("task_sid") final String taskSid,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("user_sid") final String userSid
     ) {
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.flexFlowSid = flexFlowSid;
         this.sid = sid;
-        this.userSid = userSid;
         this.taskSid = taskSid;
         this.url = url;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFlexFlowSid() {
-        return this.flexFlowSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUserSid() {
-        return this.userSid;
-    }
-
-    public final String getTaskSid() {
-        return this.taskSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
+        this.userSid = userSid;
     }
 
     @Override
@@ -180,30 +168,32 @@ public class Channel extends Resource {
         }
 
         Channel other = (Channel) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(flexFlowSid, other.flexFlowSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(userSid, other.userSid) &&
-            Objects.equals(taskSid, other.taskSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(flexFlowSid, other.flexFlowSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(taskSid, other.taskSid) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(userSid, other.userSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            flexFlowSid,
-            sid,
-            userSid,
-            taskSid,
-            url,
-            dateCreated,
-            dateUpdated
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                flexFlowSid,
+                sid,
+                taskSid,
+                url,
+                userSid
         );
     }
+
+
 }
+

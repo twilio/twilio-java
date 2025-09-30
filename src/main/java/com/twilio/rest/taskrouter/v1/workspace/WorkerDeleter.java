@@ -15,7 +15,8 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,54 +28,49 @@ import com.twilio.rest.Domains;
 
 public class WorkerDeleter extends Deleter<Worker> {
 
-    private String pathWorkspaceSid;
-    private String pathSid;
+    private String pathworkspaceSid;
+    private String pathsid;
     private String ifMatch;
 
-    public WorkerDeleter(final String pathWorkspaceSid, final String pathSid) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathSid = pathSid;
+    public WorkerDeleter(final String pathworkspaceSid, final String pathsid) {
+        this.pathworkspaceSid = pathworkspaceSid;
+        this.pathsid = pathsid;
     }
+
 
     public WorkerDeleter setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
+
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.TASKROUTER.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Worker delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Worker delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -82,8 +78,10 @@ public class WorkerDeleter extends Deleter<Worker> {
     }
 
     private void addHeaderParams(final Request request) {
+
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
         }
+
     }
 }

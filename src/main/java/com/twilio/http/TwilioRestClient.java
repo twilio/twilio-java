@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import lombok.Getter;
+import org.apache.hc.core5.http.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,10 +89,13 @@ public class TwilioRestClient {
      * @return Response object
      */
     public Response request(final Request request) {
-        if (username != null && password != null) {
-            request.setAuth(username, password);
-        } else if (authStrategy != null) {
-            request.setAuth(authStrategy);
+        // If authStrategy is passed from NoAuth API, no need to set authStrategy (ex TokenCreator). 
+        if (request.getAuthStrategy() == null) {
+            if (username != null && password != null) {
+                request.setAuth(username, password);
+            } else if (authStrategy != null) {
+                request.setAuth(authStrategy);
+            }
         }
 
         if (region != null)
@@ -114,7 +118,7 @@ public class TwilioRestClient {
 
             if (logger.isDebugEnabled()) {
                 logger.debug("status code: {}", statusCode);
-                org.apache.http.Header[] responseHeaders = response.getHeaders();
+                Header[] responseHeaders = response.getHeaders();
                 logger.debug("response headers:");
                 for (int i = 0; i < responseHeaders.length; i++) {
                     logger.debug("responseHeader: {}", responseHeaders[i]);

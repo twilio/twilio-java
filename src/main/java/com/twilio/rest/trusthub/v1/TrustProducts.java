@@ -18,241 +18,64 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TrustProducts extends Resource {
 
-    private static final long serialVersionUID = 79201442410217L;
 
-    public static TrustProductsCreator creator(
-        final String friendlyName,
-        final String email,
-        final String policySid
-    ) {
-        return new TrustProductsCreator(friendlyName, email, policySid);
+    public static TrustProductsCreator creator(final String friendlyName, final String email, final String policySid) {
+        return new TrustProductsCreator(
+                friendlyName, email, policySid
+        );
     }
 
-    public static TrustProductsDeleter deleter(final String pathSid) {
-        return new TrustProductsDeleter(pathSid);
+
+    public static TrustProductsDeleter deleter(final String pathsid) {
+        return new TrustProductsDeleter(
+                pathsid
+        );
     }
 
-    public static TrustProductsFetcher fetcher(final String pathSid) {
-        return new TrustProductsFetcher(pathSid);
+
+    public static TrustProductsFetcher fetcher(final String pathsid) {
+        return new TrustProductsFetcher(
+                pathsid
+        );
     }
+
 
     public static TrustProductsReader reader() {
-        return new TrustProductsReader();
-    }
+        return new TrustProductsReader(
 
-    public static TrustProductsUpdater updater(final String pathSid) {
-        return new TrustProductsUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a TrustProducts object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return TrustProducts object represented by the provided JSON
-     */
-    public static TrustProducts fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, TrustProducts.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a TrustProducts object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return TrustProducts object represented by the provided JSON
-     */
-    public static TrustProducts fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, TrustProducts.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String policySid;
-    private final String friendlyName;
-    private final TrustProducts.Status status;
-    private final ZonedDateTime validUntil;
-    private final String email;
-    private final URI statusCallback;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-    private final Map<String, String> links;
-    private final List<Map<String, Object>> errors;
-
-    @JsonCreator
-    private TrustProducts(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("policy_sid") final String policySid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final TrustProducts.Status status,
-        @JsonProperty("valid_until") final String validUntil,
-        @JsonProperty("email") final String email,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("errors") final List<Map<String, Object>> errors
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.policySid = policySid;
-        this.friendlyName = friendlyName;
-        this.status = status;
-        this.validUntil = DateConverter.iso8601DateTimeFromString(validUntil);
-        this.email = email;
-        this.statusCallback = statusCallback;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-        this.links = links;
-        this.errors = errors;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getPolicySid() {
-        return this.policySid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final TrustProducts.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getValidUntil() {
-        return this.validUntil;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final List<Map<String, Object>> getErrors() {
-        return this.errors;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        TrustProducts other = (TrustProducts) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(policySid, other.policySid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(validUntil, other.validUntil) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(errors, other.errors)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            policySid,
-            friendlyName,
-            status,
-            validUntil,
-            email,
-            statusCallback,
-            dateCreated,
-            dateUpdated,
-            url,
-            links,
-            errors
+
+    public static TrustProductsUpdater updater(final String pathsid) {
+        return new TrustProductsUpdater(
+                pathsid
         );
     }
+
 
     public enum Status {
         DRAFT("draft"),
@@ -276,4 +99,166 @@ public class TrustProducts extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a TrustProducts object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return TrustProducts object represented by the provided JSON
+     */
+    public static TrustProducts fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, TrustProducts.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a TrustProducts object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return TrustProducts object represented by the provided JSON
+     */
+    public static TrustProducts fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, TrustProducts.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String email;
+    @Getter
+    private final List<Object> errors;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final Map<String, String> links;
+    @Getter
+    private final String policySid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final TrustProducts.Status status;
+    @Getter
+    private final URI statusCallback;
+    @Getter
+    private final URI url;
+    @Getter
+    private final ZonedDateTime validUntil;
+
+    @JsonCreator
+    private TrustProducts(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("email") final String email,
+            @JsonProperty("errors") final List<Object> errors,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("policy_sid") final String policySid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("status") final TrustProducts.Status status,
+            @JsonProperty("status_callback") final URI statusCallback,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("valid_until")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime validUntil
+    ) {
+        this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.email = email;
+        this.errors = errors;
+        this.friendlyName = friendlyName;
+        this.links = links;
+        this.policySid = policySid;
+        this.sid = sid;
+        this.status = status;
+        this.statusCallback = statusCallback;
+        this.url = url;
+        this.validUntil = validUntil;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TrustProducts other = (TrustProducts) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(email, other.email) &&
+                        Objects.equals(errors, other.errors) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(policySid, other.policySid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(status, other.status) &&
+                        Objects.equals(statusCallback, other.statusCallback) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(validUntil, other.validUntil)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                email,
+                errors,
+                friendlyName,
+                links,
+                policySid,
+                sid,
+                status,
+                statusCallback,
+                url,
+                validUntil
+        );
+    }
+
+
 }
+

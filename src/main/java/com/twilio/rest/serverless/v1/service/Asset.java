@@ -18,72 +18,71 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Asset extends Resource {
 
-    private static final long serialVersionUID = 60673471687127L;
 
-    public static AssetCreator creator(
-        final String pathServiceSid,
-        final String friendlyName
-    ) {
-        return new AssetCreator(pathServiceSid, friendlyName);
+    public static AssetCreator creator(final String pathserviceSid, final String friendlyName) {
+        return new AssetCreator(
+                pathserviceSid, friendlyName
+        );
     }
 
-    public static AssetDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new AssetDeleter(pathServiceSid, pathSid);
+
+    public static AssetDeleter deleter(final String pathserviceSid, final String pathsid) {
+        return new AssetDeleter(
+                pathserviceSid, pathsid
+        );
     }
 
-    public static AssetFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
-        return new AssetFetcher(pathServiceSid, pathSid);
+
+    public static AssetFetcher fetcher(final String pathserviceSid, final String pathsid) {
+        return new AssetFetcher(
+                pathserviceSid, pathsid
+        );
     }
 
-    public static AssetReader reader(final String pathServiceSid) {
-        return new AssetReader(pathServiceSid);
+
+    public static AssetReader reader(final String pathserviceSid) {
+        return new AssetReader(
+                pathserviceSid
+        );
     }
 
-    public static AssetUpdater updater(
-        final String pathServiceSid,
-        final String pathSid,
-        final String friendlyName
-    ) {
-        return new AssetUpdater(pathServiceSid, pathSid, friendlyName);
+
+    public static AssetUpdater updater(final String pathserviceSid, final String pathsid, final String friendlyName) {
+        return new AssetUpdater(
+                pathserviceSid, pathsid, friendlyName
+        );
     }
+
 
     /**
      * Converts a JSON String into a Asset object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Asset object represented by the provided JSON
      */
-    public static Asset fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Asset fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Asset.class);
@@ -98,14 +97,11 @@ public class Asset extends Resource {
      * Converts a JSON InputStream into a Asset object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Asset object represented by the provided JSON
      */
-    public static Asset fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Asset fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Asset.class);
@@ -116,66 +112,57 @@ public class Asset extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String friendlyName;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+    @Getter
+    private final String friendlyName;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Asset(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -189,30 +176,32 @@ public class Asset extends Resource {
         }
 
         Asset other = (Asset) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            friendlyName,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                links,
+                serviceSid,
+                sid,
+                url
         );
     }
+
+
 }
+

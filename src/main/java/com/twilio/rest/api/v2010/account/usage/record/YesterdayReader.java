@@ -17,8 +17,8 @@ package com.twilio.rest.api.v2010.account.usage.record;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
-import com.twilio.converter.DateConverter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,49 +27,55 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.LocalDate;
 
 public class YesterdayReader extends Reader<Yesterday> {
 
-    private String pathAccountSid;
-    private Yesterday.Category category;
+    private String pathaccountSid;
+    private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
     private Long pageSize;
 
-    public YesterdayReader() {}
-
-    public YesterdayReader(final String pathAccountSid) {
-        this.pathAccountSid = pathAccountSid;
+    public YesterdayReader() {
     }
 
-    public YesterdayReader setCategory(final Yesterday.Category category) {
+    public YesterdayReader(final String pathaccountSid) {
+        this.pathaccountSid = pathaccountSid;
+    }
+
+
+    public YesterdayReader setCategory(final String category) {
         this.category = category;
         return this;
     }
+
 
     public YesterdayReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
 
+
     public YesterdayReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
 
-    public YesterdayReader setIncludeSubaccounts(
-        final Boolean includeSubaccounts
-    ) {
+
+    public YesterdayReader setIncludeSubaccounts(final Boolean includeSubaccounts) {
         this.includeSubaccounts = includeSubaccounts;
         return this;
     }
+
 
     public YesterdayReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<Yesterday> read(final TwilioRestClient client) {
@@ -77,125 +83,89 @@ public class YesterdayReader extends Reader<Yesterday> {
     }
 
     public Page<Yesterday> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+
+        String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<Yesterday> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Yesterday> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "Yesterday read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Yesterday read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "usage_records",
-            response.getContent(),
-            Yesterday.class,
-            client.getObjectMapper()
-        );
+                "usage_records",
+                response.getContent(),
+                Yesterday.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<Yesterday> previousPage(
-        final Page<Yesterday> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.API.toString())
-        );
+    public Page<Yesterday> previousPage(final Page<Yesterday> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Yesterday> nextPage(
-        final Page<Yesterday> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.API.toString())
-        );
+    public Page<Yesterday> nextPage(final Page<Yesterday> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Yesterday> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<Yesterday> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (category != null) {
-            request.addQueryParam("Category", category.toString());
+            Serializer.toString(request, "Category", category, ParameterType.QUERY);
         }
+
+
         if (startDate != null) {
-            request.addQueryParam(
-                "StartDate",
-                DateConverter.dateStringFromLocalDate(startDate)
-            );
+            Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
         }
+
 
         if (endDate != null) {
-            request.addQueryParam(
-                "EndDate",
-                DateConverter.dateStringFromLocalDate(endDate)
-            );
+            Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
         }
+
 
         if (includeSubaccounts != null) {
-            request.addQueryParam(
-                "IncludeSubaccounts",
-                includeSubaccounts.toString()
-            );
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "IncludeSubaccounts", includeSubaccounts, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+
+        if (pageSize != null) {
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
+
+
     }
 }

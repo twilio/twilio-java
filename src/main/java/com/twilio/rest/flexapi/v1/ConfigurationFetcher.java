@@ -15,7 +15,8 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,53 +30,53 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
 
     private String uiVersion;
 
-    public ConfigurationFetcher() {}
+    public ConfigurationFetcher() {
+    }
+
 
     public ConfigurationFetcher setUiVersion(final String uiVersion) {
         this.uiVersion = uiVersion;
         return this;
     }
 
+
     @Override
     public Configuration fetch(final TwilioRestClient client) {
+
         String path = "/v1/Configuration";
 
+
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.GET,
+                Domains.FLEXAPI.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Configuration fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Configuration fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Configuration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (uiVersion != null) {
-            request.addQueryParam("UiVersion", uiVersion);
+            Serializer.toString(request, "UiVersion", uiVersion, ParameterType.QUERY);
         }
+
+
     }
 }

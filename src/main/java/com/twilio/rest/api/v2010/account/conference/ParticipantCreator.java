@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account.conference;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,17 +28,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Endpoint;
+
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class ParticipantCreator extends Creator<Participant> {
 
-    private String pathConferenceSid;
-    private com.twilio.type.Endpoint from;
-    private com.twilio.type.Endpoint to;
-    private String pathAccountSid;
+    private String pathaccountSid;
+    private String pathconferenceSid;
+    private Endpoint from;
+    private Endpoint to;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
@@ -83,64 +86,50 @@ public class ParticipantCreator extends Creator<Participant> {
     private String trim;
     private String callToken;
 
-    public ParticipantCreator(
-        final String pathConferenceSid,
-        final com.twilio.type.Endpoint from,
-        final com.twilio.type.Endpoint to
-    ) {
-        this.pathConferenceSid = pathConferenceSid;
+    public ParticipantCreator(final String pathconferenceSid, final Endpoint from, final Endpoint to) {
+        this.pathconferenceSid = pathconferenceSid;
         this.from = from;
         this.to = to;
     }
 
-    public ParticipantCreator(
-        final String pathAccountSid,
-        final String pathConferenceSid,
-        final com.twilio.type.Endpoint from,
-        final com.twilio.type.Endpoint to
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathConferenceSid = pathConferenceSid;
+    public ParticipantCreator(final String pathaccountSid, final String pathconferenceSid, final Endpoint from, final Endpoint to) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathconferenceSid = pathconferenceSid;
         this.from = from;
         this.to = to;
     }
 
-    public ParticipantCreator setFrom(final com.twilio.type.Endpoint from) {
+
+    public ParticipantCreator setFrom(final Endpoint from) {
         this.from = from;
         return this;
     }
 
-    public ParticipantCreator setTo(final com.twilio.type.Endpoint to) {
+
+    public ParticipantCreator setTo(final Endpoint to) {
         this.to = to;
         return this;
     }
+
 
     public ParticipantCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ParticipantCreator setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
-    public ParticipantCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public ParticipantCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-    public ParticipantCreator setStatusCallbackEvent(
-        final List<String> statusCallbackEvent
-    ) {
+
+    public ParticipantCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
         this.statusCallbackEvent = statusCallbackEvent;
         return this;
     }
 
-    public ParticipantCreator setStatusCallbackEvent(
-        final String statusCallbackEvent
-    ) {
+    public ParticipantCreator setStatusCallbackEvent(final String statusCallbackEvent) {
         return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
     }
 
@@ -149,212 +138,164 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+
     public ParticipantCreator setTimeout(final Integer timeout) {
         this.timeout = timeout;
         return this;
     }
+
 
     public ParticipantCreator setRecord(final Boolean record) {
         this.record = record;
         return this;
     }
 
+
     public ParticipantCreator setMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
+
 
     public ParticipantCreator setBeep(final String beep) {
         this.beep = beep;
         return this;
     }
 
-    public ParticipantCreator setStartConferenceOnEnter(
-        final Boolean startConferenceOnEnter
-    ) {
+
+    public ParticipantCreator setStartConferenceOnEnter(final Boolean startConferenceOnEnter) {
         this.startConferenceOnEnter = startConferenceOnEnter;
         return this;
     }
 
-    public ParticipantCreator setEndConferenceOnExit(
-        final Boolean endConferenceOnExit
-    ) {
+
+    public ParticipantCreator setEndConferenceOnExit(final Boolean endConferenceOnExit) {
         this.endConferenceOnExit = endConferenceOnExit;
         return this;
     }
+
 
     public ParticipantCreator setWaitUrl(final URI waitUrl) {
         this.waitUrl = waitUrl;
         return this;
     }
 
-    public ParticipantCreator setWaitUrl(final String waitUrl) {
-        return setWaitUrl(Promoter.uriFromString(waitUrl));
-    }
 
     public ParticipantCreator setWaitMethod(final HttpMethod waitMethod) {
         this.waitMethod = waitMethod;
         return this;
     }
 
+
     public ParticipantCreator setEarlyMedia(final Boolean earlyMedia) {
         this.earlyMedia = earlyMedia;
         return this;
     }
 
-    public ParticipantCreator setMaxParticipants(
-        final Integer maxParticipants
-    ) {
+
+    public ParticipantCreator setMaxParticipants(final Integer maxParticipants) {
         this.maxParticipants = maxParticipants;
         return this;
     }
 
-    public ParticipantCreator setConferenceRecord(
-        final String conferenceRecord
-    ) {
+
+    public ParticipantCreator setConferenceRecord(final String conferenceRecord) {
         this.conferenceRecord = conferenceRecord;
         return this;
     }
+
 
     public ParticipantCreator setConferenceTrim(final String conferenceTrim) {
         this.conferenceTrim = conferenceTrim;
         return this;
     }
 
-    public ParticipantCreator setConferenceStatusCallback(
-        final URI conferenceStatusCallback
-    ) {
+
+    public ParticipantCreator setConferenceStatusCallback(final URI conferenceStatusCallback) {
         this.conferenceStatusCallback = conferenceStatusCallback;
         return this;
     }
 
-    public ParticipantCreator setConferenceStatusCallback(
-        final String conferenceStatusCallback
-    ) {
-        return setConferenceStatusCallback(
-            Promoter.uriFromString(conferenceStatusCallback)
-        );
-    }
 
-    public ParticipantCreator setConferenceStatusCallbackMethod(
-        final HttpMethod conferenceStatusCallbackMethod
-    ) {
+    public ParticipantCreator setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
         this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
         return this;
     }
 
-    public ParticipantCreator setConferenceStatusCallbackEvent(
-        final List<String> conferenceStatusCallbackEvent
-    ) {
+
+    public ParticipantCreator setConferenceStatusCallbackEvent(final List<String> conferenceStatusCallbackEvent) {
         this.conferenceStatusCallbackEvent = conferenceStatusCallbackEvent;
         return this;
     }
 
-    public ParticipantCreator setConferenceStatusCallbackEvent(
-        final String conferenceStatusCallbackEvent
-    ) {
-        return setConferenceStatusCallbackEvent(
-            Promoter.listOfOne(conferenceStatusCallbackEvent)
-        );
+    public ParticipantCreator setConferenceStatusCallbackEvent(final String conferenceStatusCallbackEvent) {
+        return setConferenceStatusCallbackEvent(Promoter.listOfOne(conferenceStatusCallbackEvent));
     }
 
-    public ParticipantCreator setRecordingChannels(
-        final String recordingChannels
-    ) {
+    public ParticipantCreator setRecordingChannels(final String recordingChannels) {
         this.recordingChannels = recordingChannels;
         return this;
     }
 
-    public ParticipantCreator setRecordingStatusCallback(
-        final URI recordingStatusCallback
-    ) {
+
+    public ParticipantCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
         this.recordingStatusCallback = recordingStatusCallback;
         return this;
     }
 
-    public ParticipantCreator setRecordingStatusCallback(
-        final String recordingStatusCallback
-    ) {
-        return setRecordingStatusCallback(
-            Promoter.uriFromString(recordingStatusCallback)
-        );
-    }
 
-    public ParticipantCreator setRecordingStatusCallbackMethod(
-        final HttpMethod recordingStatusCallbackMethod
-    ) {
+    public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
         return this;
     }
+
 
     public ParticipantCreator setSipAuthUsername(final String sipAuthUsername) {
         this.sipAuthUsername = sipAuthUsername;
         return this;
     }
 
+
     public ParticipantCreator setSipAuthPassword(final String sipAuthPassword) {
         this.sipAuthPassword = sipAuthPassword;
         return this;
     }
+
 
     public ParticipantCreator setRegion(final String region) {
         this.region = region;
         return this;
     }
 
-    public ParticipantCreator setConferenceRecordingStatusCallback(
-        final URI conferenceRecordingStatusCallback
-    ) {
-        this.conferenceRecordingStatusCallback =
-            conferenceRecordingStatusCallback;
+
+    public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
+        this.conferenceRecordingStatusCallback = conferenceRecordingStatusCallback;
         return this;
     }
 
-    public ParticipantCreator setConferenceRecordingStatusCallback(
-        final String conferenceRecordingStatusCallback
-    ) {
-        return setConferenceRecordingStatusCallback(
-            Promoter.uriFromString(conferenceRecordingStatusCallback)
-        );
-    }
 
-    public ParticipantCreator setConferenceRecordingStatusCallbackMethod(
-        final HttpMethod conferenceRecordingStatusCallbackMethod
-    ) {
-        this.conferenceRecordingStatusCallbackMethod =
-            conferenceRecordingStatusCallbackMethod;
+    public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
+        this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
         return this;
     }
 
-    public ParticipantCreator setRecordingStatusCallbackEvent(
-        final List<String> recordingStatusCallbackEvent
-    ) {
+
+    public ParticipantCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
         this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
         return this;
     }
 
-    public ParticipantCreator setRecordingStatusCallbackEvent(
-        final String recordingStatusCallbackEvent
-    ) {
-        return setRecordingStatusCallbackEvent(
-            Promoter.listOfOne(recordingStatusCallbackEvent)
-        );
+    public ParticipantCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
+        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
     }
 
-    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(
-        final List<String> conferenceRecordingStatusCallbackEvent
-    ) {
-        this.conferenceRecordingStatusCallbackEvent =
-            conferenceRecordingStatusCallbackEvent;
+    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final List<String> conferenceRecordingStatusCallbackEvent) {
+        this.conferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent;
         return this;
     }
 
-    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(
-        final String conferenceRecordingStatusCallbackEvent
-    ) {
-        return setConferenceRecordingStatusCallbackEvent(
-            Promoter.listOfOne(conferenceRecordingStatusCallbackEvent)
-        );
+    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final String conferenceRecordingStatusCallbackEvent) {
+        return setConferenceRecordingStatusCallbackEvent(Promoter.listOfOne(conferenceRecordingStatusCallbackEvent));
     }
 
     public ParticipantCreator setCoaching(final Boolean coaching) {
@@ -362,363 +303,388 @@ public class ParticipantCreator extends Creator<Participant> {
         return this;
     }
 
+
     public ParticipantCreator setCallSidToCoach(final String callSidToCoach) {
         this.callSidToCoach = callSidToCoach;
         return this;
     }
 
-    public ParticipantCreator setJitterBufferSize(
-        final String jitterBufferSize
-    ) {
+
+    public ParticipantCreator setJitterBufferSize(final String jitterBufferSize) {
         this.jitterBufferSize = jitterBufferSize;
         return this;
     }
+
 
     public ParticipantCreator setByoc(final String byoc) {
         this.byoc = byoc;
         return this;
     }
 
+
     public ParticipantCreator setCallerId(final String callerId) {
         this.callerId = callerId;
         return this;
     }
+
 
     public ParticipantCreator setCallReason(final String callReason) {
         this.callReason = callReason;
         return this;
     }
 
+
     public ParticipantCreator setRecordingTrack(final String recordingTrack) {
         this.recordingTrack = recordingTrack;
         return this;
     }
+
 
     public ParticipantCreator setTimeLimit(final Integer timeLimit) {
         this.timeLimit = timeLimit;
         return this;
     }
 
-    public ParticipantCreator setMachineDetection(
-        final String machineDetection
-    ) {
+
+    public ParticipantCreator setMachineDetection(final String machineDetection) {
         this.machineDetection = machineDetection;
         return this;
     }
 
-    public ParticipantCreator setMachineDetectionTimeout(
-        final Integer machineDetectionTimeout
-    ) {
+
+    public ParticipantCreator setMachineDetectionTimeout(final Integer machineDetectionTimeout) {
         this.machineDetectionTimeout = machineDetectionTimeout;
         return this;
     }
 
-    public ParticipantCreator setMachineDetectionSpeechThreshold(
-        final Integer machineDetectionSpeechThreshold
-    ) {
+
+    public ParticipantCreator setMachineDetectionSpeechThreshold(final Integer machineDetectionSpeechThreshold) {
         this.machineDetectionSpeechThreshold = machineDetectionSpeechThreshold;
         return this;
     }
 
-    public ParticipantCreator setMachineDetectionSpeechEndThreshold(
-        final Integer machineDetectionSpeechEndThreshold
-    ) {
-        this.machineDetectionSpeechEndThreshold =
-            machineDetectionSpeechEndThreshold;
+
+    public ParticipantCreator setMachineDetectionSpeechEndThreshold(final Integer machineDetectionSpeechEndThreshold) {
+        this.machineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold;
         return this;
     }
 
-    public ParticipantCreator setMachineDetectionSilenceTimeout(
-        final Integer machineDetectionSilenceTimeout
-    ) {
+
+    public ParticipantCreator setMachineDetectionSilenceTimeout(final Integer machineDetectionSilenceTimeout) {
         this.machineDetectionSilenceTimeout = machineDetectionSilenceTimeout;
         return this;
     }
 
-    public ParticipantCreator setAmdStatusCallback(
-        final URI amdStatusCallback
-    ) {
+
+    public ParticipantCreator setAmdStatusCallback(final URI amdStatusCallback) {
         this.amdStatusCallback = amdStatusCallback;
         return this;
     }
 
-    public ParticipantCreator setAmdStatusCallback(
-        final String amdStatusCallback
-    ) {
-        return setAmdStatusCallback(Promoter.uriFromString(amdStatusCallback));
-    }
 
-    public ParticipantCreator setAmdStatusCallbackMethod(
-        final HttpMethod amdStatusCallbackMethod
-    ) {
+    public ParticipantCreator setAmdStatusCallbackMethod(final HttpMethod amdStatusCallbackMethod) {
         this.amdStatusCallbackMethod = amdStatusCallbackMethod;
         return this;
     }
+
 
     public ParticipantCreator setTrim(final String trim) {
         this.trim = trim;
         return this;
     }
 
+
     public ParticipantCreator setCallToken(final String callToken) {
         this.callToken = callToken;
         return this;
     }
 
+
     @Override
     public Participant create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
-        path = path.replace("{" + "From" + "}", this.from.toString());
-        path = path.replace("{" + "To" + "}", this.to.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Participant creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Participant creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Participant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Participant.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
         }
+
+
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (statusCallbackEvent != null) {
-            for (String prop : statusCallbackEvent) {
-                request.addPostParam("StatusCallbackEvent", prop);
+            for (String param : statusCallbackEvent) {
+                Serializer.toString(request, "StatusCallbackEvent", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (label != null) {
-            request.addPostParam("Label", label);
+            Serializer.toString(request, "Label", label, ParameterType.URLENCODED);
         }
+
+
         if (timeout != null) {
-            request.addPostParam("Timeout", timeout.toString());
+            Serializer.toString(request, "Timeout", timeout, ParameterType.URLENCODED);
         }
+
+
         if (record != null) {
-            request.addPostParam("Record", record.toString());
+            Serializer.toString(request, "Record", record, ParameterType.URLENCODED);
         }
+
+
         if (muted != null) {
-            request.addPostParam("Muted", muted.toString());
+            Serializer.toString(request, "Muted", muted, ParameterType.URLENCODED);
         }
+
+
         if (beep != null) {
-            request.addPostParam("Beep", beep);
+            Serializer.toString(request, "Beep", beep, ParameterType.URLENCODED);
         }
+
+
         if (startConferenceOnEnter != null) {
-            request.addPostParam(
-                "StartConferenceOnEnter",
-                startConferenceOnEnter.toString()
-            );
+            Serializer.toString(request, "StartConferenceOnEnter", startConferenceOnEnter, ParameterType.URLENCODED);
         }
+
+
         if (endConferenceOnExit != null) {
-            request.addPostParam(
-                "EndConferenceOnExit",
-                endConferenceOnExit.toString()
-            );
+            Serializer.toString(request, "EndConferenceOnExit", endConferenceOnExit, ParameterType.URLENCODED);
         }
+
+
         if (waitUrl != null) {
-            request.addPostParam("WaitUrl", waitUrl.toString());
+            Serializer.toString(request, "WaitUrl", waitUrl, ParameterType.URLENCODED);
         }
+
+
         if (waitMethod != null) {
-            request.addPostParam("WaitMethod", waitMethod.toString());
+            Serializer.toString(request, "WaitMethod", waitMethod, ParameterType.URLENCODED);
         }
+
+
         if (earlyMedia != null) {
-            request.addPostParam("EarlyMedia", earlyMedia.toString());
+            Serializer.toString(request, "EarlyMedia", earlyMedia, ParameterType.URLENCODED);
         }
+
+
         if (maxParticipants != null) {
-            request.addPostParam("MaxParticipants", maxParticipants.toString());
+            Serializer.toString(request, "MaxParticipants", maxParticipants, ParameterType.URLENCODED);
         }
+
+
         if (conferenceRecord != null) {
-            request.addPostParam("ConferenceRecord", conferenceRecord);
+            Serializer.toString(request, "ConferenceRecord", conferenceRecord, ParameterType.URLENCODED);
         }
+
+
         if (conferenceTrim != null) {
-            request.addPostParam("ConferenceTrim", conferenceTrim);
+            Serializer.toString(request, "ConferenceTrim", conferenceTrim, ParameterType.URLENCODED);
         }
+
+
         if (conferenceStatusCallback != null) {
-            request.addPostParam(
-                "ConferenceStatusCallback",
-                conferenceStatusCallback.toString()
-            );
+            Serializer.toString(request, "ConferenceStatusCallback", conferenceStatusCallback, ParameterType.URLENCODED);
         }
+
+
         if (conferenceStatusCallbackMethod != null) {
-            request.addPostParam(
-                "ConferenceStatusCallbackMethod",
-                conferenceStatusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "ConferenceStatusCallbackMethod", conferenceStatusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (conferenceStatusCallbackEvent != null) {
-            for (String prop : conferenceStatusCallbackEvent) {
-                request.addPostParam("ConferenceStatusCallbackEvent", prop);
+            for (String param : conferenceStatusCallbackEvent) {
+                Serializer.toString(request, "ConferenceStatusCallbackEvent", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (recordingChannels != null) {
-            request.addPostParam("RecordingChannels", recordingChannels);
+            Serializer.toString(request, "RecordingChannels", recordingChannels, ParameterType.URLENCODED);
         }
+
+
         if (recordingStatusCallback != null) {
-            request.addPostParam(
-                "RecordingStatusCallback",
-                recordingStatusCallback.toString()
-            );
+            Serializer.toString(request, "RecordingStatusCallback", recordingStatusCallback, ParameterType.URLENCODED);
         }
+
+
         if (recordingStatusCallbackMethod != null) {
-            request.addPostParam(
-                "RecordingStatusCallbackMethod",
-                recordingStatusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "RecordingStatusCallbackMethod", recordingStatusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (sipAuthUsername != null) {
-            request.addPostParam("SipAuthUsername", sipAuthUsername);
+            Serializer.toString(request, "SipAuthUsername", sipAuthUsername, ParameterType.URLENCODED);
         }
+
+
         if (sipAuthPassword != null) {
-            request.addPostParam("SipAuthPassword", sipAuthPassword);
+            Serializer.toString(request, "SipAuthPassword", sipAuthPassword, ParameterType.URLENCODED);
         }
+
+
         if (region != null) {
-            request.addPostParam("Region", region);
+            Serializer.toString(request, "Region", region, ParameterType.URLENCODED);
         }
+
+
         if (conferenceRecordingStatusCallback != null) {
-            request.addPostParam(
-                "ConferenceRecordingStatusCallback",
-                conferenceRecordingStatusCallback.toString()
-            );
+            Serializer.toString(request, "ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback, ParameterType.URLENCODED);
         }
+
+
         if (conferenceRecordingStatusCallbackMethod != null) {
-            request.addPostParam(
-                "ConferenceRecordingStatusCallbackMethod",
-                conferenceRecordingStatusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (recordingStatusCallbackEvent != null) {
-            for (String prop : recordingStatusCallbackEvent) {
-                request.addPostParam("RecordingStatusCallbackEvent", prop);
+            for (String param : recordingStatusCallbackEvent) {
+                Serializer.toString(request, "RecordingStatusCallbackEvent", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (conferenceRecordingStatusCallbackEvent != null) {
-            for (String prop : conferenceRecordingStatusCallbackEvent) {
-                request.addPostParam(
-                    "ConferenceRecordingStatusCallbackEvent",
-                    prop
-                );
+            for (String param : conferenceRecordingStatusCallbackEvent) {
+                Serializer.toString(request, "ConferenceRecordingStatusCallbackEvent", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (coaching != null) {
-            request.addPostParam("Coaching", coaching.toString());
+            Serializer.toString(request, "Coaching", coaching, ParameterType.URLENCODED);
         }
+
+
         if (callSidToCoach != null) {
-            request.addPostParam("CallSidToCoach", callSidToCoach);
+            Serializer.toString(request, "CallSidToCoach", callSidToCoach, ParameterType.URLENCODED);
         }
+
+
         if (jitterBufferSize != null) {
-            request.addPostParam("JitterBufferSize", jitterBufferSize);
+            Serializer.toString(request, "JitterBufferSize", jitterBufferSize, ParameterType.URLENCODED);
         }
+
+
         if (byoc != null) {
-            request.addPostParam("Byoc", byoc);
+            Serializer.toString(request, "Byoc", byoc, ParameterType.URLENCODED);
         }
+
+
         if (callerId != null) {
-            request.addPostParam("CallerId", callerId);
+            Serializer.toString(request, "CallerId", callerId, ParameterType.URLENCODED);
         }
+
+
         if (callReason != null) {
-            request.addPostParam("CallReason", callReason);
+            Serializer.toString(request, "CallReason", callReason, ParameterType.URLENCODED);
         }
+
+
         if (recordingTrack != null) {
-            request.addPostParam("RecordingTrack", recordingTrack);
+            Serializer.toString(request, "RecordingTrack", recordingTrack, ParameterType.URLENCODED);
         }
+
+
         if (timeLimit != null) {
-            request.addPostParam("TimeLimit", timeLimit.toString());
+            Serializer.toString(request, "TimeLimit", timeLimit, ParameterType.URLENCODED);
         }
+
+
         if (machineDetection != null) {
-            request.addPostParam("MachineDetection", machineDetection);
+            Serializer.toString(request, "MachineDetection", machineDetection, ParameterType.URLENCODED);
         }
+
+
         if (machineDetectionTimeout != null) {
-            request.addPostParam(
-                "MachineDetectionTimeout",
-                machineDetectionTimeout.toString()
-            );
+            Serializer.toString(request, "MachineDetectionTimeout", machineDetectionTimeout, ParameterType.URLENCODED);
         }
+
+
         if (machineDetectionSpeechThreshold != null) {
-            request.addPostParam(
-                "MachineDetectionSpeechThreshold",
-                machineDetectionSpeechThreshold.toString()
-            );
+            Serializer.toString(request, "MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold, ParameterType.URLENCODED);
         }
+
+
         if (machineDetectionSpeechEndThreshold != null) {
-            request.addPostParam(
-                "MachineDetectionSpeechEndThreshold",
-                machineDetectionSpeechEndThreshold.toString()
-            );
+            Serializer.toString(request, "MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold, ParameterType.URLENCODED);
         }
+
+
         if (machineDetectionSilenceTimeout != null) {
-            request.addPostParam(
-                "MachineDetectionSilenceTimeout",
-                machineDetectionSilenceTimeout.toString()
-            );
+            Serializer.toString(request, "MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout, ParameterType.URLENCODED);
         }
+
+
         if (amdStatusCallback != null) {
-            request.addPostParam(
-                "AmdStatusCallback",
-                amdStatusCallback.toString()
-            );
+            Serializer.toString(request, "AmdStatusCallback", amdStatusCallback, ParameterType.URLENCODED);
         }
+
+
         if (amdStatusCallbackMethod != null) {
-            request.addPostParam(
-                "AmdStatusCallbackMethod",
-                amdStatusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "AmdStatusCallbackMethod", amdStatusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (trim != null) {
-            request.addPostParam("Trim", trim);
+            Serializer.toString(request, "Trim", trim, ParameterType.URLENCODED);
         }
+
+
         if (callToken != null) {
-            request.addPostParam("CallToken", callToken);
+            Serializer.toString(request, "CallToken", callToken, ParameterType.URLENCODED);
         }
+
+
     }
 }

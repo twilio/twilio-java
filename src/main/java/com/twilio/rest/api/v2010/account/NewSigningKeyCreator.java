@@ -14,8 +14,11 @@
 
 package com.twilio.rest.api.v2010.account;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,69 +30,64 @@ import com.twilio.rest.Domains;
 
 public class NewSigningKeyCreator extends Creator<NewSigningKey> {
 
-    private String pathAccountSid;
+    private String pathaccountSid;
     private String friendlyName;
 
-    public NewSigningKeyCreator() {}
-
-    public NewSigningKeyCreator(final String pathAccountSid) {
-        this.pathAccountSid = pathAccountSid;
+    public NewSigningKeyCreator() {
     }
+
+    public NewSigningKeyCreator(final String pathaccountSid) {
+        this.pathaccountSid = pathaccountSid;
+    }
+
 
     public NewSigningKeyCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     @Override
     public NewSigningKey create(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "NewSigningKey creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("NewSigningKey creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return NewSigningKey.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return NewSigningKey.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,88 +28,78 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class VariableUpdater extends Updater<Variable> {
-
-    private String pathServiceSid;
-    private String pathEnvironmentSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathenvironmentSid;
+    private String pathsid;
     private String key;
     private String value;
 
-    public VariableUpdater(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathEnvironmentSid = pathEnvironmentSid;
-        this.pathSid = pathSid;
+    public VariableUpdater(final String pathserviceSid, final String pathenvironmentSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathenvironmentSid = pathenvironmentSid;
+        this.pathsid = pathsid;
     }
+
 
     public VariableUpdater setKey(final String key) {
         this.key = key;
         return this;
     }
 
+
     public VariableUpdater setValue(final String value) {
         this.value = value;
         return this;
     }
 
+
     @Override
     public Variable update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "EnvironmentSid" + "}", this.pathenvironmentSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SERVERLESS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SERVERLESS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Variable update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Variable update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Variable.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Variable.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (key != null) {
-            request.addPostParam("Key", key);
+            Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
         }
+
+
         if (value != null) {
-            request.addPostParam("Value", value);
+            Serializer.toString(request, "Value", value, ParameterType.URLENCODED);
         }
+
+
     }
 }

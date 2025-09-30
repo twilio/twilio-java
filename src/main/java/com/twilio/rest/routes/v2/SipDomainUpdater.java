@@ -16,6 +16,8 @@ package com.twilio.rest.routes.v2;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,73 +28,72 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class SipDomainUpdater extends Updater<SipDomain> {
-
-    private String pathSipDomain;
+    private String pathsipDomain;
     private String voiceRegion;
     private String friendlyName;
 
-    public SipDomainUpdater(final String pathSipDomain) {
-        this.pathSipDomain = pathSipDomain;
+    public SipDomainUpdater(final String pathsipDomain) {
+        this.pathsipDomain = pathsipDomain;
     }
+
 
     public SipDomainUpdater setVoiceRegion(final String voiceRegion) {
         this.voiceRegion = voiceRegion;
         return this;
     }
 
+
     public SipDomainUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     @Override
     public SipDomain update(final TwilioRestClient client) {
+
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path =
-            path.replace(
-                "{" + "SipDomain" + "}",
-                this.pathSipDomain.toString()
-            );
+        path = path.replace("{" + "SipDomain" + "}", this.pathsipDomain.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.ROUTES.toString(),
-            path
+                HttpMethod.POST,
+                Domains.ROUTES.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "SipDomain update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SipDomain update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SipDomain.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SipDomain.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (voiceRegion != null) {
-            request.addPostParam("VoiceRegion", voiceRegion);
+            Serializer.toString(request, "VoiceRegion", voiceRegion, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
     }
 }

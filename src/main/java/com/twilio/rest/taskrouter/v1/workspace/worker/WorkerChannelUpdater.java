@@ -16,6 +16,8 @@ package com.twilio.rest.taskrouter.v1.workspace.worker;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,88 +28,78 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class WorkerChannelUpdater extends Updater<WorkerChannel> {
-
-    private String pathWorkspaceSid;
-    private String pathWorkerSid;
-    private String pathSid;
+    private String pathworkspaceSid;
+    private String pathworkerSid;
+    private String pathsid;
     private Integer capacity;
     private Boolean available;
 
-    public WorkerChannelUpdater(
-        final String pathWorkspaceSid,
-        final String pathWorkerSid,
-        final String pathSid
-    ) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathWorkerSid = pathWorkerSid;
-        this.pathSid = pathSid;
+    public WorkerChannelUpdater(final String pathworkspaceSid, final String pathworkerSid, final String pathsid) {
+        this.pathworkspaceSid = pathworkspaceSid;
+        this.pathworkerSid = pathworkerSid;
+        this.pathsid = pathsid;
     }
+
 
     public WorkerChannelUpdater setCapacity(final Integer capacity) {
         this.capacity = capacity;
         return this;
     }
 
+
     public WorkerChannelUpdater setAvailable(final Boolean available) {
         this.available = available;
         return this;
     }
 
+
     @Override
     public WorkerChannel update(final TwilioRestClient client) {
-        String path =
-            "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "WorkerSid" + "}",
-                this.pathWorkerSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}";
+
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "WorkerSid" + "}", this.pathworkerSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TASKROUTER.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "WorkerChannel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WorkerChannel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return WorkerChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WorkerChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (capacity != null) {
-            request.addPostParam("Capacity", capacity.toString());
+            Serializer.toString(request, "Capacity", capacity, ParameterType.URLENCODED);
         }
+
+
         if (available != null) {
-            request.addPostParam("Available", available.toString());
+            Serializer.toString(request, "Available", available, ParameterType.URLENCODED);
         }
+
+
     }
 }

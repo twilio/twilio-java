@@ -22,31 +22,67 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Tool extends Resource {
 
-    private static final long serialVersionUID = 65943663776562L;
 
+    public static ToolCreator creator(final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest) {
+        return new ToolCreator(
+                assistantsV1ServiceCreateToolRequest
+        );
+    }
+
+
+    public static ToolDeleter deleter(final String pathid) {
+        return new ToolDeleter(
+                pathid
+        );
+    }
+
+
+    public static ToolFetcher fetcher(final String pathid) {
+        return new ToolFetcher(
+                pathid
+        );
+    }
+
+
+    public static ToolReader reader() {
+        return new ToolReader(
+
+        );
+    }
+
+
+    public static ToolUpdater updater(final String pathid) {
+        return new ToolUpdater(
+                pathid
+        );
+    }
+
+
+    //@JsonDeserialize(builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
+        public AssistantsV1ServiceCreatePolicyRequest(final Object policyDetails) {
+            this.policyDetails = policyDetails;
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
@@ -72,89 +108,16 @@ public class Tool extends Resource {
         @Setter
         private Object policyDetails;
 
-        public String getPolicyDetails() {
-            return Converter.objectToJson(policyDetails);
-        }
-
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("type")
         @Getter
         @Setter
         private String type;
 
-        public static AssistantsV1ServiceCreatePolicyRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceCreatePolicyRequest.class
-            );
-        }
     }
 
-    @ToString
-    public static class AssistantsV1ServiceCreateToolRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("assistant_id")
-        @Getter
-        @Setter
-        private String assistantId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("description")
-        @Getter
-        @Setter
-        private String description;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("enabled")
-        @Getter
-        @Setter
-        private Boolean enabled;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("meta")
-        @Getter
-        @Setter
-        private Map<String, Object> meta;
-
-        public String getMeta() {
-            return Converter.mapToJson(meta);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("policy")
-        @Getter
-        @Setter
-        private AssistantsV1ServiceCreatePolicyRequest policy;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        @Setter
-        private String type;
-
-        public AssistantsV1ServiceCreateToolRequest() {}
-
-        public static AssistantsV1ServiceCreateToolRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceCreateToolRequest.class
-            );
-        }
-    }
-
+    //@JsonDeserialize(builder = AssistantsV1ServiceUpdateToolRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateToolRequest {
 
@@ -180,11 +143,7 @@ public class Tool extends Resource {
         @JsonProperty("meta")
         @Getter
         @Setter
-        private Map<String, Object> meta;
-
-        public String getMeta() {
-            return Converter.mapToJson(meta);
-        }
+        private Object meta;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -204,21 +163,70 @@ public class Tool extends Resource {
         @Setter
         private String type;
 
-        public AssistantsV1ServiceUpdateToolRequest() {}
-
-        public static AssistantsV1ServiceUpdateToolRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceUpdateToolRequest.class
-            );
-        }
     }
 
+    //@JsonDeserialize(builder = AssistantsV1ServiceCreateToolRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceCreateToolRequest {
+        public AssistantsV1ServiceCreateToolRequest(final Boolean enabled, final String name, final String type) {
+            this.enabled = enabled;
+            this.name = name;
+            this.type = type;
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("assistant_id")
+        @Getter
+        @Setter
+        private String assistantId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        @Setter
+        private String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("enabled")
+        @Getter
+        @Setter
+        private Boolean enabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("meta")
+        @Getter
+        @Setter
+        private Object meta;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("policy")
+        @Getter
+        @Setter
+        private AssistantsV1ServiceCreatePolicyRequest policy;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+    }
+
+    //@JsonDeserialize(builder = AssistantsV1ServicePolicy.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServicePolicy {
+        public AssistantsV1ServicePolicy(final String type, final Object policyDetails) {
+            this.type = type;
+            this.policyDetails = policyDetails;
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("id")
@@ -239,13 +247,13 @@ public class Tool extends Resource {
         private String description;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("accountSid")
+        @JsonProperty("account_sid")
         @Getter
         @Setter
         private String accountSid;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("userSid")
+        @JsonProperty("user_sid")
         @Getter
         @Setter
         private String userSid;
@@ -257,79 +265,35 @@ public class Tool extends Resource {
         private String type;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("policyDetails")
+        @JsonProperty("policy_details")
         @Getter
         @Setter
-        private Map<String, Object> policyDetails;
+        private Object policyDetails;
 
-        public String getPolicyDetails() {
-            return Converter.mapToJson(policyDetails);
-        }
-
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("dateCreated")
+        @JsonProperty("date_created")
         @Getter
         @Setter
         private ZonedDateTime dateCreated;
 
-        public String getDateCreated() {
-            return dateCreated.toInstant().toString();
-        }
-
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("dateUpdated")
+        @JsonProperty("date_updated")
         @Getter
         @Setter
         private ZonedDateTime dateUpdated;
 
-        public String getDateUpdated() {
-            return dateUpdated.toInstant().toString();
-        }
-
-        public static AssistantsV1ServicePolicy fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServicePolicy.class
-            );
-        }
-    }
-
-    public static ToolCreator creator(
-        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
-    ) {
-        return new ToolCreator(assistantsV1ServiceCreateToolRequest);
-    }
-
-    public static ToolDeleter deleter(final String pathId) {
-        return new ToolDeleter(pathId);
-    }
-
-    public static ToolFetcher fetcher(final String pathId) {
-        return new ToolFetcher(pathId);
-    }
-
-    public static ToolReader reader() {
-        return new ToolReader();
-    }
-
-    public static ToolUpdater updater(final String pathId) {
-        return new ToolUpdater(pathId);
     }
 
     /**
      * Converts a JSON String into a Tool object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Tool object represented by the provided JSON
      */
-    public static Tool fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Tool fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Tool.class);
@@ -344,14 +308,11 @@ public class Tool extends Resource {
      * Converts a JSON InputStream into a Tool object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Tool object represented by the provided JSON
      */
-    public static Tool fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Tool fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Tool.class);
@@ -374,94 +335,61 @@ public class Tool extends Resource {
         }
     }
 
+
+    @Getter
     private final String accountSid;
-    private final String description;
-    private final Boolean enabled;
-    private final String id;
-    private final Map<String, Object> meta;
-    private final String name;
-    private final Boolean requiresAuth;
-    private final String type;
-    private final String url;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String description;
+    @Getter
+    private final Boolean enabled;
+    @Getter
+    private final String id;
+    @Getter
+    private final Object meta;
+    @Getter
+    private final String name;
+    @Getter
     private final List<AssistantsV1ServicePolicy> policies;
+    @Getter
+    private final Boolean requiresAuth;
+    @Getter
+    private final String type;
+    @Getter
+    private final String url;
 
     @JsonCreator
     private Tool(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("description") final String description,
-        @JsonProperty("enabled") final Boolean enabled,
-        @JsonProperty("id") final String id,
-        @JsonProperty("meta") final Map<String, Object> meta,
-        @JsonProperty("name") final String name,
-        @JsonProperty("requires_auth") final Boolean requiresAuth,
-        @JsonProperty("type") final String type,
-        @JsonProperty("url") final String url,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("policies") final List<AssistantsV1ServicePolicy> policies
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("description") final String description,
+            @JsonProperty("enabled") final Boolean enabled,
+            @JsonProperty("id") final String id,
+            @JsonProperty("meta") final Object meta,
+            @JsonProperty("name") final String name,
+            @JsonProperty("policies") final List<AssistantsV1ServicePolicy> policies,
+            @JsonProperty("requires_auth") final Boolean requiresAuth,
+            @JsonProperty("type") final String type,
+            @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
         this.enabled = enabled;
         this.id = id;
         this.meta = meta;
         this.name = name;
+        this.policies = policies;
         this.requiresAuth = requiresAuth;
         this.type = type;
         this.url = url;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.policies = policies;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final Map<String, Object> getMeta() {
-        return this.meta;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final Boolean getRequiresAuth() {
-        return this.requiresAuth;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getUrl() {
-        return this.url;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final List<AssistantsV1ServicePolicy> getPolicies() {
-        return this.policies;
     }
 
     @Override
@@ -475,38 +403,40 @@ public class Tool extends Resource {
         }
 
         Tool other = (Tool) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(enabled, other.enabled) &&
-            Objects.equals(id, other.id) &&
-            Objects.equals(meta, other.meta) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(requiresAuth, other.requiresAuth) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(policies, other.policies)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(description, other.description) &&
+                        Objects.equals(enabled, other.enabled) &&
+                        Objects.equals(id, other.id) &&
+                        Objects.equals(meta, other.meta) &&
+                        Objects.equals(name, other.name) &&
+                        Objects.equals(policies, other.policies) &&
+                        Objects.equals(requiresAuth, other.requiresAuth) &&
+                        Objects.equals(type, other.type) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            description,
-            enabled,
-            id,
-            meta,
-            name,
-            requiresAuth,
-            type,
-            url,
-            dateCreated,
-            dateUpdated,
-            policies
+                accountSid,
+                dateCreated,
+                dateUpdated,
+                description,
+                enabled,
+                id,
+                meta,
+                name,
+                policies,
+                requiresAuth,
+                type,
+                url
         );
     }
+
+
 }
+

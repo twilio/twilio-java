@@ -16,7 +16,8 @@ package com.twilio.rest.trunking.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class TrunkUpdater extends Updater<Trunk> {
-
-    private String pathSid;
+    private String pathsid;
     private String friendlyName;
     private String domainName;
     private URI disasterRecoveryUrl;
@@ -39,92 +40,86 @@ public class TrunkUpdater extends Updater<Trunk> {
     private Boolean cnamLookupEnabled;
     private Trunk.TransferCallerId transferCallerId;
 
-    public TrunkUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public TrunkUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public TrunkUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     public TrunkUpdater setDomainName(final String domainName) {
         this.domainName = domainName;
         return this;
     }
+
 
     public TrunkUpdater setDisasterRecoveryUrl(final URI disasterRecoveryUrl) {
         this.disasterRecoveryUrl = disasterRecoveryUrl;
         return this;
     }
 
-    public TrunkUpdater setDisasterRecoveryUrl(
-        final String disasterRecoveryUrl
-    ) {
-        return setDisasterRecoveryUrl(
-            Promoter.uriFromString(disasterRecoveryUrl)
-        );
-    }
 
-    public TrunkUpdater setDisasterRecoveryMethod(
-        final HttpMethod disasterRecoveryMethod
-    ) {
+    public TrunkUpdater setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod) {
         this.disasterRecoveryMethod = disasterRecoveryMethod;
         return this;
     }
 
-    public TrunkUpdater setTransferMode(
-        final Trunk.TransferSetting transferMode
-    ) {
+
+    public TrunkUpdater setTransferMode(final Trunk.TransferSetting transferMode) {
         this.transferMode = transferMode;
         return this;
     }
+
 
     public TrunkUpdater setSecure(final Boolean secure) {
         this.secure = secure;
         return this;
     }
 
+
     public TrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
         this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
 
-    public TrunkUpdater setTransferCallerId(
-        final Trunk.TransferCallerId transferCallerId
-    ) {
+
+    public TrunkUpdater setTransferCallerId(final Trunk.TransferCallerId transferCallerId) {
         this.transferCallerId = transferCallerId;
         return this;
     }
 
+
     @Override
     public Trunk update(final TwilioRestClient client) {
+
         String path = "/v1/Trunks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TRUNKING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TRUNKING.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trunk update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trunk update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -133,41 +128,46 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (domainName != null) {
-            request.addPostParam("DomainName", domainName);
+            Serializer.toString(request, "DomainName", domainName, ParameterType.URLENCODED);
         }
+
+
         if (disasterRecoveryUrl != null) {
-            request.addPostParam(
-                "DisasterRecoveryUrl",
-                disasterRecoveryUrl.toString()
-            );
+            Serializer.toString(request, "DisasterRecoveryUrl", disasterRecoveryUrl, ParameterType.URLENCODED);
         }
+
+
         if (disasterRecoveryMethod != null) {
-            request.addPostParam(
-                "DisasterRecoveryMethod",
-                disasterRecoveryMethod.toString()
-            );
+            Serializer.toString(request, "DisasterRecoveryMethod", disasterRecoveryMethod, ParameterType.URLENCODED);
         }
+
+
         if (transferMode != null) {
-            request.addPostParam("TransferMode", transferMode.toString());
+            Serializer.toString(request, "TransferMode", transferMode, ParameterType.URLENCODED);
         }
+
+
         if (secure != null) {
-            request.addPostParam("Secure", secure.toString());
+            Serializer.toString(request, "Secure", secure, ParameterType.URLENCODED);
         }
+
+
         if (cnamLookupEnabled != null) {
-            request.addPostParam(
-                "CnamLookupEnabled",
-                cnamLookupEnabled.toString()
-            );
+            Serializer.toString(request, "CnamLookupEnabled", cnamLookupEnabled, ParameterType.URLENCODED);
         }
+
+
         if (transferCallerId != null) {
-            request.addPostParam(
-                "TransferCallerId",
-                transferCallerId.toString()
-            );
+            Serializer.toString(request, "TransferCallerId", transferCallerId, ParameterType.URLENCODED);
         }
+
+
     }
 }

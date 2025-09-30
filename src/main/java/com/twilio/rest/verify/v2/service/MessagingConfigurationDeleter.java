@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,54 +24,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MessagingConfigurationDeleter
-    extends Deleter<MessagingConfiguration> {
+public class MessagingConfigurationDeleter extends Deleter<MessagingConfiguration> {
 
-    private String pathServiceSid;
-    private String pathCountry;
+    private String pathserviceSid;
+    private String pathcountry;
 
-    public MessagingConfigurationDeleter(
-        final String pathServiceSid,
-        final String pathCountry
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathCountry = pathCountry;
+    public MessagingConfigurationDeleter(final String pathserviceSid, final String pathcountry) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathcountry = pathcountry;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
+        String path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Country" + "}", this.pathcountry.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.VERIFY.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.VERIFY.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessagingConfiguration delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MessagingConfiguration delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

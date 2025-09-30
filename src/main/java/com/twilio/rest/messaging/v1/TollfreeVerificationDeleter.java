@@ -15,7 +15,6 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,40 +26,38 @@ import com.twilio.rest.Domains;
 
 public class TollfreeVerificationDeleter extends Deleter<TollfreeVerification> {
 
-    private String pathSid;
+    private String pathsid;
 
-    public TollfreeVerificationDeleter(final String pathSid) {
-        this.pathSid = pathSid;
+    public TollfreeVerificationDeleter(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v1/Tollfree/Verifications/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.MESSAGING.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.MESSAGING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "TollfreeVerification delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TollfreeVerification delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

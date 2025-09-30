@@ -14,9 +14,11 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,126 +27,118 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
-    private String pathTrunkSid;
+    private String pathtrunkSid;
     private Integer weight;
     private Integer priority;
     private Boolean enabled;
     private String friendlyName;
     private URI sipUrl;
 
-    public OriginationUrlCreator(
-        final String pathTrunkSid,
-        final Integer weight,
-        final Integer priority,
-        final Boolean enabled,
-        final String friendlyName,
-        final URI sipUrl
-    ) {
-        this.pathTrunkSid = pathTrunkSid;
+    public OriginationUrlCreator(final String pathtrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
+        this.pathtrunkSid = pathtrunkSid;
         this.weight = weight;
         this.priority = priority;
         this.enabled = enabled;
         this.friendlyName = friendlyName;
         this.sipUrl = sipUrl;
     }
+
 
     public OriginationUrlCreator setWeight(final Integer weight) {
         this.weight = weight;
         return this;
     }
 
+
     public OriginationUrlCreator setPriority(final Integer priority) {
         this.priority = priority;
         return this;
     }
+
 
     public OriginationUrlCreator setEnabled(final Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
+
     public OriginationUrlCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
+
 
     public OriginationUrlCreator setSipUrl(final URI sipUrl) {
         this.sipUrl = sipUrl;
         return this;
     }
 
-    public OriginationUrlCreator setSipUrl(final String sipUrl) {
-        return setSipUrl(Promoter.uriFromString(sipUrl));
-    }
 
     @Override
     public OriginationUrl create(final TwilioRestClient client) {
+
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
-        path = path.replace("{" + "Weight" + "}", this.weight.toString());
-        path = path.replace("{" + "Priority" + "}", this.priority.toString());
-        path = path.replace("{" + "Enabled" + "}", this.enabled.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "SipUrl" + "}", this.sipUrl.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TRUNKING.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TRUNKING.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "OriginationUrl creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("OriginationUrl creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return OriginationUrl.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return OriginationUrl.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (weight != null) {
-            request.addPostParam("Weight", weight.toString());
+            Serializer.toString(request, "Weight", weight, ParameterType.URLENCODED);
         }
+
+
         if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
+            Serializer.toString(request, "Priority", priority, ParameterType.URLENCODED);
         }
+
+
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (sipUrl != null) {
-            request.addPostParam("SipUrl", sipUrl.toString());
+            Serializer.toString(request, "SipUrl", sipUrl, ParameterType.URLENCODED);
         }
+
+
     }
 }

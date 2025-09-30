@@ -14,8 +14,11 @@
 
 package com.twilio.rest.voice.v1.dialingpermissions;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -33,58 +36,51 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
         this.updateRequest = updateRequest;
     }
 
-    public BulkCountryUpdateCreator setUpdateRequest(
-        final String updateRequest
-    ) {
+
+    public BulkCountryUpdateCreator setUpdateRequest(final String updateRequest) {
         this.updateRequest = updateRequest;
         return this;
     }
 
+
     @Override
     public BulkCountryUpdate create(final TwilioRestClient client) {
+
         String path = "/v1/DialingPermissions/BulkCountryUpdates";
 
-        path =
-            path.replace(
-                "{" + "UpdateRequest" + "}",
-                this.updateRequest.toString()
-            );
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.VOICE.toString(),
-            path
+                HttpMethod.POST,
+                Domains.VOICE.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "BulkCountryUpdate creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BulkCountryUpdate creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return BulkCountryUpdate.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return BulkCountryUpdate.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (updateRequest != null) {
-            request.addPostParam("UpdateRequest", updateRequest);
+            Serializer.toString(request, "UpdateRequest", updateRequest, ParameterType.URLENCODED);
         }
+
+
     }
 }

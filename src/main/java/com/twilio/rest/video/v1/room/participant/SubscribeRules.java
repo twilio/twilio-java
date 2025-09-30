@@ -18,52 +18,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.SubscribeRule;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribeRules extends Resource {
 
-    private static final long serialVersionUID = 5507350376020L;
 
-    public static SubscribeRulesFetcher fetcher(
-        final String pathRoomSid,
-        final String pathParticipantSid
-    ) {
-        return new SubscribeRulesFetcher(pathRoomSid, pathParticipantSid);
+    public static SubscribeRulesFetcher fetcher(final String pathroomSid, final String pathparticipantSid) {
+        return new SubscribeRulesFetcher(
+                pathroomSid, pathparticipantSid
+        );
     }
 
-    public static SubscribeRulesUpdater updater(
-        final String pathRoomSid,
-        final String pathParticipantSid
-    ) {
-        return new SubscribeRulesUpdater(pathRoomSid, pathParticipantSid);
+
+    public static SubscribeRulesUpdater updater(final String pathroomSid, final String pathparticipantSid) {
+        return new SubscribeRulesUpdater(
+                pathroomSid, pathparticipantSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a SubscribeRules object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribeRules object represented by the provided JSON
      */
-    public static SubscribeRules fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SubscribeRules fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SubscribeRules.class);
@@ -78,14 +76,11 @@ public class SubscribeRules extends Resource {
      * Converts a JSON InputStream into a SubscribeRules object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribeRules object represented by the provided JSON
      */
-    public static SubscribeRules fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static SubscribeRules fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SubscribeRules.class);
@@ -96,45 +91,45 @@ public class SubscribeRules extends Resource {
         }
     }
 
-    private final String participantSid;
-    private final String roomSid;
-    private final List<SubscribeRule> rules;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String participantSid;
+    @Getter
+    private final String roomSid;
+    @Getter
+    private final List<SubscribeRule> rules;
 
     @JsonCreator
     private SubscribeRules(
-        @JsonProperty("participant_sid") final String participantSid,
-        @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("rules") final List<SubscribeRule> rules,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("participant_sid") final String participantSid,
+            @JsonProperty("room_sid") final String roomSid,
+            @JsonProperty("rules") final List<SubscribeRule> rules
     ) {
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.participantSid = participantSid;
         this.roomSid = roomSid;
         this.rules = rules;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getParticipantSid() {
-        return this.participantSid;
-    }
-
-    public final String getRoomSid() {
-        return this.roomSid;
-    }
-
-    public final List<SubscribeRule> getRules() {
-        return this.rules;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -148,24 +143,26 @@ public class SubscribeRules extends Resource {
         }
 
         SubscribeRules other = (SubscribeRules) o;
-
         return (
-            Objects.equals(participantSid, other.participantSid) &&
-            Objects.equals(roomSid, other.roomSid) &&
-            Objects.equals(rules, other.rules) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(participantSid, other.participantSid) &&
+                        Objects.equals(roomSid, other.roomSid) &&
+                        Objects.equals(rules, other.rules)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            participantSid,
-            roomSid,
-            rules,
-            dateCreated,
-            dateUpdated
+                dateCreated,
+                dateUpdated,
+                participantSid,
+                roomSid,
+                rules
         );
     }
+
+
 }
+

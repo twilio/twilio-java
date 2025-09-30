@@ -15,7 +15,6 @@
 package com.twilio.rest.conversations.v1.service.conversation.message;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,74 +26,50 @@ import com.twilio.rest.Domains;
 
 public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
 
-    private String pathChatServiceSid;
-    private String pathConversationSid;
-    private String pathMessageSid;
-    private String pathSid;
+    private String pathchatServiceSid;
+    private String pathconversationSid;
+    private String pathmessageSid;
+    private String pathsid;
 
-    public DeliveryReceiptFetcher(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathMessageSid,
-        final String pathSid
-    ) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathConversationSid = pathConversationSid;
-        this.pathMessageSid = pathMessageSid;
-        this.pathSid = pathSid;
+    public DeliveryReceiptFetcher(final String pathchatServiceSid, final String pathconversationSid, final String pathmessageSid, final String pathsid) {
+        this.pathchatServiceSid = pathchatServiceSid;
+        this.pathconversationSid = pathconversationSid;
+        this.pathmessageSid = pathmessageSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public DeliveryReceipt fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ChatServiceSid" + "}",
-                this.pathChatServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSid" + "}",
-                this.pathMessageSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
+
+        path = path.replace("{" + "ChatServiceSid" + "}", this.pathchatServiceSid.toString());
+        path = path.replace("{" + "ConversationSid" + "}", this.pathconversationSid.toString());
+        path = path.replace("{" + "MessageSid" + "}", this.pathmessageSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "DeliveryReceipt fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DeliveryReceipt fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return DeliveryReceipt.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DeliveryReceipt.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -15,7 +15,8 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,49 +28,46 @@ import com.twilio.rest.Domains;
 
 public class ConversationDeleter extends Deleter<Conversation> {
 
-    private String pathSid;
+    private String pathsid;
     private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public ConversationDeleter(final String pathSid) {
-        this.pathSid = pathSid;
+    public ConversationDeleter(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public ConversationDeleter setXTwilioWebhookEnabled(
-        final Conversation.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
+
+    public ConversationDeleter setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled) {
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
+
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v1/Conversations/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.CONVERSATIONS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.CONVERSATIONS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Conversation delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Conversation delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -77,11 +75,10 @@ public class ConversationDeleter extends Deleter<Conversation> {
     }
 
     private void addHeaderParams(final Request request) {
+
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
         }
+
     }
 }

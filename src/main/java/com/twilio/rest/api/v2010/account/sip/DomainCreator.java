@@ -14,9 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.sip;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class DomainCreator extends Creator<Domain> {
 
+    private String pathaccountSid;
     private String domainName;
-    private String pathAccountSid;
     private String friendlyName;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -49,140 +51,118 @@ public class DomainCreator extends Creator<Domain> {
         this.domainName = domainName;
     }
 
-    public DomainCreator(final String pathAccountSid, final String domainName) {
-        this.pathAccountSid = pathAccountSid;
+    public DomainCreator(final String pathaccountSid, final String domainName) {
+        this.pathaccountSid = pathaccountSid;
         this.domainName = domainName;
     }
+
 
     public DomainCreator setDomainName(final String domainName) {
         this.domainName = domainName;
         return this;
     }
 
+
     public DomainCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
+
 
     public DomainCreator setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public DomainCreator setVoiceUrl(final String voiceUrl) {
-        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
-    }
 
     public DomainCreator setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
 
+
     public DomainCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public DomainCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
-        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
-    }
 
-    public DomainCreator setVoiceFallbackMethod(
-        final HttpMethod voiceFallbackMethod
-    ) {
+    public DomainCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
 
-    public DomainCreator setVoiceStatusCallbackUrl(
-        final URI voiceStatusCallbackUrl
-    ) {
+
+    public DomainCreator setVoiceStatusCallbackUrl(final URI voiceStatusCallbackUrl) {
         this.voiceStatusCallbackUrl = voiceStatusCallbackUrl;
         return this;
     }
 
-    public DomainCreator setVoiceStatusCallbackUrl(
-        final String voiceStatusCallbackUrl
-    ) {
-        return setVoiceStatusCallbackUrl(
-            Promoter.uriFromString(voiceStatusCallbackUrl)
-        );
-    }
 
-    public DomainCreator setVoiceStatusCallbackMethod(
-        final HttpMethod voiceStatusCallbackMethod
-    ) {
+    public DomainCreator setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;
         return this;
     }
+
 
     public DomainCreator setSipRegistration(final Boolean sipRegistration) {
         this.sipRegistration = sipRegistration;
         return this;
     }
 
-    public DomainCreator setEmergencyCallingEnabled(
-        final Boolean emergencyCallingEnabled
-    ) {
+
+    public DomainCreator setEmergencyCallingEnabled(final Boolean emergencyCallingEnabled) {
         this.emergencyCallingEnabled = emergencyCallingEnabled;
         return this;
     }
+
 
     public DomainCreator setSecure(final Boolean secure) {
         this.secure = secure;
         return this;
     }
 
+
     public DomainCreator setByocTrunkSid(final String byocTrunkSid) {
         this.byocTrunkSid = byocTrunkSid;
         return this;
     }
 
-    public DomainCreator setEmergencyCallerSid(
-        final String emergencyCallerSid
-    ) {
+
+    public DomainCreator setEmergencyCallerSid(final String emergencyCallerSid) {
         this.emergencyCallerSid = emergencyCallerSid;
         return this;
     }
 
+
     @Override
     public Domain create(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace("{" + "DomainName" + "}", this.domainName.toString());
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Domain creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Domain creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -191,59 +171,71 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     private void addPostParams(final Request request) {
+
         if (domainName != null) {
-            request.addPostParam("DomainName", domainName);
+            Serializer.toString(request, "DomainName", domainName, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
+            Serializer.toString(request, "VoiceUrl", voiceUrl, ParameterType.URLENCODED);
         }
+
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
+            Serializer.toString(request, "VoiceMethod", voiceMethod, ParameterType.URLENCODED);
         }
+
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
-                "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
-            );
+            Serializer.toString(request, "VoiceFallbackUrl", voiceFallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
-                "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
-            );
+            Serializer.toString(request, "VoiceFallbackMethod", voiceFallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (voiceStatusCallbackUrl != null) {
-            request.addPostParam(
-                "VoiceStatusCallbackUrl",
-                voiceStatusCallbackUrl.toString()
-            );
+            Serializer.toString(request, "VoiceStatusCallbackUrl", voiceStatusCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (voiceStatusCallbackMethod != null) {
-            request.addPostParam(
-                "VoiceStatusCallbackMethod",
-                voiceStatusCallbackMethod.toString()
-            );
+            Serializer.toString(request, "VoiceStatusCallbackMethod", voiceStatusCallbackMethod, ParameterType.URLENCODED);
         }
+
+
         if (sipRegistration != null) {
-            request.addPostParam("SipRegistration", sipRegistration.toString());
+            Serializer.toString(request, "SipRegistration", sipRegistration, ParameterType.URLENCODED);
         }
+
+
         if (emergencyCallingEnabled != null) {
-            request.addPostParam(
-                "EmergencyCallingEnabled",
-                emergencyCallingEnabled.toString()
-            );
+            Serializer.toString(request, "EmergencyCallingEnabled", emergencyCallingEnabled, ParameterType.URLENCODED);
         }
+
+
         if (secure != null) {
-            request.addPostParam("Secure", secure.toString());
+            Serializer.toString(request, "Secure", secure, ParameterType.URLENCODED);
         }
+
+
         if (byocTrunkSid != null) {
-            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+            Serializer.toString(request, "ByocTrunkSid", byocTrunkSid, ParameterType.URLENCODED);
         }
+
+
         if (emergencyCallerSid != null) {
-            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
+            Serializer.toString(request, "EmergencyCallerSid", emergencyCallerSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

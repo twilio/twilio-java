@@ -16,6 +16,8 @@ package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,64 +28,51 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AssetUpdater extends Updater<Asset> {
-
-    private String pathServiceSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathsid;
     private String friendlyName;
 
-    public AssetUpdater(
-        final String pathServiceSid,
-        final String pathSid,
-        final String friendlyName
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSid = pathSid;
+    public AssetUpdater(final String pathserviceSid, final String pathsid, final String friendlyName) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsid = pathsid;
         this.friendlyName = friendlyName;
     }
+
 
     public AssetUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     @Override
     public Asset update(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Assets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.SERVERLESS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.SERVERLESS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Asset update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Asset update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -92,8 +81,11 @@ public class AssetUpdater extends Updater<Asset> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
     }
 }

@@ -14,9 +14,12 @@
 
 package com.twilio.rest.api.v2010.account;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,18 +28,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.net.URI;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
 
+    private String pathaccountSid;
     private com.twilio.type.PhoneNumber to;
-    private String pathAccountSid;
     private URI statusCallback;
     private String applicationSid;
     private BigDecimal maxPrice;
@@ -61,93 +62,58 @@ public class MessageCreator extends Creator<Message> {
     private List<URI> mediaUrl;
     private String contentSid;
 
-    public MessageCreator(
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final String body
-    ) {
+    public MessageCreator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
         this.to = to;
         this.from = from;
         this.body = body;
     }
 
-    public MessageCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final String body
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
+        this.pathaccountSid = pathaccountSid;
         this.to = to;
         this.from = from;
         this.body = body;
     }
 
-    public MessageCreator(
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final List<URI> mediaUrl
-    ) {
+    public MessageCreator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final com.twilio.type.PhoneNumber from,
-        final List<URI> mediaUrl
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+        this.pathaccountSid = pathaccountSid;
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final String body
-    ) {
+    public MessageCreator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
     }
 
-    public MessageCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final String body
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+        this.pathaccountSid = pathaccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
     }
 
-    public MessageCreator(
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final List<URI> mediaUrl
-    ) {
+    public MessageCreator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber to,
-        final String messagingServiceSid,
-        final List<URI> mediaUrl
-    ) {
-        this.pathAccountSid = pathAccountSid;
+    public MessageCreator(final String pathaccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+        this.pathaccountSid = pathaccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
     }
+
 
     public MessageCreator setTo(final com.twilio.type.PhoneNumber to) {
         this.to = to;
@@ -163,62 +129,62 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
-    public MessageCreator setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
     public MessageCreator setApplicationSid(final String applicationSid) {
         this.applicationSid = applicationSid;
         return this;
     }
 
+
     public MessageCreator setMaxPrice(final BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
         return this;
     }
+
 
     public MessageCreator setProvideFeedback(final Boolean provideFeedback) {
         this.provideFeedback = provideFeedback;
         return this;
     }
 
+
     public MessageCreator setAttempt(final Integer attempt) {
         this.attempt = attempt;
         return this;
     }
+
 
     public MessageCreator setValidityPeriod(final Integer validityPeriod) {
         this.validityPeriod = validityPeriod;
         return this;
     }
 
+
     public MessageCreator setForceDelivery(final Boolean forceDelivery) {
         this.forceDelivery = forceDelivery;
         return this;
     }
 
-    public MessageCreator setContentRetention(
-        final Message.ContentRetention contentRetention
-    ) {
+
+    public MessageCreator setContentRetention(final Message.ContentRetention contentRetention) {
         this.contentRetention = contentRetention;
         return this;
     }
 
-    public MessageCreator setAddressRetention(
-        final Message.AddressRetention addressRetention
-    ) {
+
+    public MessageCreator setAddressRetention(final Message.AddressRetention addressRetention) {
         this.addressRetention = addressRetention;
         return this;
     }
+
 
     public MessageCreator setSmartEncoded(final Boolean smartEncoded) {
         this.smartEncoded = smartEncoded;
         return this;
     }
 
-    public MessageCreator setPersistentAction(
-        final List<String> persistentAction
-    ) {
+
+    public MessageCreator setPersistentAction(final List<String> persistentAction) {
         this.persistentAction = persistentAction;
         return this;
     }
@@ -227,44 +193,47 @@ public class MessageCreator extends Creator<Message> {
         return setPersistentAction(Promoter.listOfOne(persistentAction));
     }
 
-    public MessageCreator setTrafficType(
-        final Message.TrafficType trafficType
-    ) {
+    public MessageCreator setTrafficType(final Message.TrafficType trafficType) {
         this.trafficType = trafficType;
         return this;
     }
+
 
     public MessageCreator setShortenUrls(final Boolean shortenUrls) {
         this.shortenUrls = shortenUrls;
         return this;
     }
 
-    public MessageCreator setScheduleType(
-        final Message.ScheduleType scheduleType
-    ) {
+
+    public MessageCreator setScheduleType(final Message.ScheduleType scheduleType) {
         this.scheduleType = scheduleType;
         return this;
     }
+
 
     public MessageCreator setSendAt(final ZonedDateTime sendAt) {
         this.sendAt = sendAt;
         return this;
     }
 
+
     public MessageCreator setSendAsMms(final Boolean sendAsMms) {
         this.sendAsMms = sendAsMms;
         return this;
     }
+
 
     public MessageCreator setContentVariables(final String contentVariables) {
         this.contentVariables = contentVariables;
         return this;
     }
 
+
     public MessageCreator setRiskCheck(final Message.RiskCheck riskCheck) {
         this.riskCheck = riskCheck;
         return this;
     }
+
 
     public MessageCreator setFrom(final com.twilio.type.PhoneNumber from) {
         this.from = from;
@@ -275,17 +244,17 @@ public class MessageCreator extends Creator<Message> {
         return setFrom(Promoter.phoneNumberFromString(from));
     }
 
-    public MessageCreator setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
+    public MessageCreator setMessagingServiceSid(final String messagingServiceSid) {
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
+
 
     public MessageCreator setBody(final String body) {
         this.body = body;
         return this;
     }
+
 
     public MessageCreator setMediaUrl(final List<URI> mediaUrl) {
         this.mediaUrl = mediaUrl;
@@ -296,52 +265,40 @@ public class MessageCreator extends Creator<Message> {
         return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
-    public MessageCreator setMediaUrl(final String mediaUrl) {
-        return setMediaUrl(Promoter.uriFromString(mediaUrl));
-    }
-
     public MessageCreator setContentSid(final String contentSid) {
         this.contentSid = contentSid;
         return this;
     }
 
+
     @Override
     public Message create(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "To" + "}", this.to.encode("utf-8"));
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Message creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -350,87 +307,130 @@ public class MessageCreator extends Creator<Message> {
     }
 
     private void addPostParams(final Request request) {
+
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (applicationSid != null) {
-            request.addPostParam("ApplicationSid", applicationSid);
+            Serializer.toString(request, "ApplicationSid", applicationSid, ParameterType.URLENCODED);
         }
+
+
         if (maxPrice != null) {
-            request.addPostParam("MaxPrice", maxPrice.toString());
+            Serializer.toString(request, "MaxPrice", maxPrice, ParameterType.URLENCODED);
         }
+
+
         if (provideFeedback != null) {
-            request.addPostParam("ProvideFeedback", provideFeedback.toString());
+            Serializer.toString(request, "ProvideFeedback", provideFeedback, ParameterType.URLENCODED);
         }
+
+
         if (attempt != null) {
-            request.addPostParam("Attempt", attempt.toString());
+            Serializer.toString(request, "Attempt", attempt, ParameterType.URLENCODED);
         }
+
+
         if (validityPeriod != null) {
-            request.addPostParam("ValidityPeriod", validityPeriod.toString());
+            Serializer.toString(request, "ValidityPeriod", validityPeriod, ParameterType.URLENCODED);
         }
+
+
         if (forceDelivery != null) {
-            request.addPostParam("ForceDelivery", forceDelivery.toString());
+            Serializer.toString(request, "ForceDelivery", forceDelivery, ParameterType.URLENCODED);
         }
+
+
         if (contentRetention != null) {
-            request.addPostParam(
-                "ContentRetention",
-                contentRetention.toString()
-            );
+            Serializer.toString(request, "ContentRetention", contentRetention, ParameterType.URLENCODED);
         }
+
+
         if (addressRetention != null) {
-            request.addPostParam(
-                "AddressRetention",
-                addressRetention.toString()
-            );
+            Serializer.toString(request, "AddressRetention", addressRetention, ParameterType.URLENCODED);
         }
+
+
         if (smartEncoded != null) {
-            request.addPostParam("SmartEncoded", smartEncoded.toString());
+            Serializer.toString(request, "SmartEncoded", smartEncoded, ParameterType.URLENCODED);
         }
+
+
         if (persistentAction != null) {
-            for (String prop : persistentAction) {
-                request.addPostParam("PersistentAction", prop);
+            for (String param : persistentAction) {
+                Serializer.toString(request, "PersistentAction", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (trafficType != null) {
-            request.addPostParam("TrafficType", trafficType.toString());
+            Serializer.toString(request, "TrafficType", trafficType, ParameterType.URLENCODED);
         }
+
+
         if (shortenUrls != null) {
-            request.addPostParam("ShortenUrls", shortenUrls.toString());
+            Serializer.toString(request, "ShortenUrls", shortenUrls, ParameterType.URLENCODED);
         }
+
+
         if (scheduleType != null) {
-            request.addPostParam("ScheduleType", scheduleType.toString());
+            Serializer.toString(request, "ScheduleType", scheduleType, ParameterType.URLENCODED);
         }
+
+
         if (sendAt != null) {
-            request.addPostParam("SendAt", sendAt.toInstant().toString());
+            Serializer.toString(request, "SendAt", sendAt, ParameterType.URLENCODED);
         }
+
+
         if (sendAsMms != null) {
-            request.addPostParam("SendAsMms", sendAsMms.toString());
+            Serializer.toString(request, "SendAsMms", sendAsMms, ParameterType.URLENCODED);
         }
+
+
         if (contentVariables != null) {
-            request.addPostParam("ContentVariables", contentVariables);
+            Serializer.toString(request, "ContentVariables", contentVariables, ParameterType.URLENCODED);
         }
+
+
         if (riskCheck != null) {
-            request.addPostParam("RiskCheck", riskCheck.toString());
+            Serializer.toString(request, "RiskCheck", riskCheck, ParameterType.URLENCODED);
         }
+
+
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
         }
+
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
         }
+
+
         if (body != null) {
-            request.addPostParam("Body", body);
+            Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
         }
+
+
         if (mediaUrl != null) {
-            for (URI prop : mediaUrl) {
-                request.addPostParam("MediaUrl", prop.toString());
+            for (URI param : mediaUrl) {
+                Serializer.toString(request, "MediaUrl", param, ParameterType.URLENCODED);
             }
         }
+
+
         if (contentSid != null) {
-            request.addPostParam("ContentSid", contentSid);
+            Serializer.toString(request, "ContentSid", contentSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

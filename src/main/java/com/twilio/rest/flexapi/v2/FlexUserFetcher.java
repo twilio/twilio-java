@@ -15,7 +15,6 @@
 package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,61 +26,44 @@ import com.twilio.rest.Domains;
 
 public class FlexUserFetcher extends Fetcher<FlexUser> {
 
-    private String pathInstanceSid;
-    private String pathFlexUserSid;
+    private String pathinstanceSid;
+    private String pathflexUserSid;
 
-    public FlexUserFetcher(
-        final String pathInstanceSid,
-        final String pathFlexUserSid
-    ) {
-        this.pathInstanceSid = pathInstanceSid;
-        this.pathFlexUserSid = pathFlexUserSid;
+    public FlexUserFetcher(final String pathinstanceSid, final String pathflexUserSid) {
+        this.pathinstanceSid = pathinstanceSid;
+        this.pathflexUserSid = pathflexUserSid;
     }
+
 
     @Override
     public FlexUser fetch(final TwilioRestClient client) {
+
         String path = "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}";
 
-        path =
-            path.replace(
-                "{" + "InstanceSid" + "}",
-                this.pathInstanceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FlexUserSid" + "}",
-                this.pathFlexUserSid.toString()
-            );
+        path = path.replace("{" + "InstanceSid" + "}", this.pathinstanceSid.toString());
+        path = path.replace("{" + "FlexUserSid" + "}", this.pathflexUserSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.GET,
+                Domains.FLEXAPI.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "FlexUser fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FlexUser fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return FlexUser.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return FlexUser.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

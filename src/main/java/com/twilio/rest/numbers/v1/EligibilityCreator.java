@@ -30,47 +30,46 @@ public class EligibilityCreator extends Creator<Eligibility> {
 
     private Object body;
 
-    public EligibilityCreator() {}
+    public EligibilityCreator() {
+    }
+
 
     public EligibilityCreator setBody(final Object body) {
         this.body = body;
         return this;
     }
 
+
     @Override
     public Eligibility create(final TwilioRestClient client) {
+
         String path = "/v1/HostedNumber/Eligibility";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.NUMBERS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Eligibility creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Eligibility creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Eligibility.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Eligibility.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

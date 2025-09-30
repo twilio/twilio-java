@@ -15,7 +15,6 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,57 +26,44 @@ import com.twilio.rest.Domains;
 
 public class WorkflowFetcher extends Fetcher<Workflow> {
 
-    private String pathWorkspaceSid;
-    private String pathSid;
+    private String pathworkspaceSid;
+    private String pathsid;
 
-    public WorkflowFetcher(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathSid = pathSid;
+    public WorkflowFetcher(final String pathworkspaceSid, final String pathsid) {
+        this.pathworkspaceSid = pathworkspaceSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public Workflow fetch(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TASKROUTER.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Workflow fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Workflow fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Workflow.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Workflow.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

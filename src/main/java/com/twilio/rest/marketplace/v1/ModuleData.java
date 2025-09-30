@@ -18,46 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ModuleData extends Resource {
 
-    private static final long serialVersionUID = 132859226086963L;
 
     public static ModuleDataCreator creator() {
-        return new ModuleDataCreator();
+        return new ModuleDataCreator(
+
+        );
     }
 
+
     public static ModuleDataFetcher fetcher() {
-        return new ModuleDataFetcher();
+        return new ModuleDataFetcher(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a ModuleData object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ModuleData object represented by the provided JSON
      */
-    public static ModuleData fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ModuleData fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ModuleData.class);
@@ -72,14 +74,11 @@ public class ModuleData extends Resource {
      * Converts a JSON InputStream into a ModuleData object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ModuleData object represented by the provided JSON
      */
-    public static ModuleData fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static ModuleData fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ModuleData.class);
@@ -90,80 +89,63 @@ public class ModuleData extends Resource {
         }
     }
 
-    private final URI url;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final Object configuration;
+    @Getter
+    private final Object description;
+    @Getter
+    private final Object documentation;
+    @Getter
+    private final List<Object> listings;
+    @Getter
+    private final Object moduleInfo;
+    @Getter
+    private final Object policies;
+    @Getter
+    private final Object pricing;
+    @Getter
     private final String sid;
-    private final Map<String, Object> description;
-    private final Map<String, Object> support;
-    private final Map<String, Object> policies;
-    private final Map<String, Object> moduleInfo;
-    private final Map<String, Object> documentation;
-    private final Map<String, Object> configuration;
-    private final Map<String, Object> pricing;
-    private final List<Map<String, Object>> listings;
+    @Getter
+    private final Object support;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private ModuleData(
-        @JsonProperty("url") final URI url,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("description") final Map<String, Object> description,
-        @JsonProperty("support") final Map<String, Object> support,
-        @JsonProperty("policies") final Map<String, Object> policies,
-        @JsonProperty("module_info") final Map<String, Object> moduleInfo,
-        @JsonProperty("documentation") final Map<String, Object> documentation,
-        @JsonProperty("configuration") final Map<String, Object> configuration,
-        @JsonProperty("pricing") final Map<String, Object> pricing,
-        @JsonProperty("listings") final List<Map<String, Object>> listings
+            @JsonProperty("configuration") final Object configuration,
+            @JsonProperty("description") final Object description,
+            @JsonProperty("documentation") final Object documentation,
+            @JsonProperty("listings") final List<Object> listings,
+            @JsonProperty("module_info") final Object moduleInfo,
+            @JsonProperty("policies") final Object policies,
+            @JsonProperty("pricing") final Object pricing,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("support") final Object support,
+            @JsonProperty("url") final URI url
     ) {
-        this.url = url;
-        this.sid = sid;
-        this.description = description;
-        this.support = support;
-        this.policies = policies;
-        this.moduleInfo = moduleInfo;
-        this.documentation = documentation;
         this.configuration = configuration;
-        this.pricing = pricing;
+        this.description = description;
+        this.documentation = documentation;
         this.listings = listings;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Map<String, Object> getDescription() {
-        return this.description;
-    }
-
-    public final Map<String, Object> getSupport() {
-        return this.support;
-    }
-
-    public final Map<String, Object> getPolicies() {
-        return this.policies;
-    }
-
-    public final Map<String, Object> getModuleInfo() {
-        return this.moduleInfo;
-    }
-
-    public final Map<String, Object> getDocumentation() {
-        return this.documentation;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
-    }
-
-    public final Map<String, Object> getPricing() {
-        return this.pricing;
-    }
-
-    public final List<Map<String, Object>> getListings() {
-        return this.listings;
+        this.moduleInfo = moduleInfo;
+        this.policies = policies;
+        this.pricing = pricing;
+        this.sid = sid;
+        this.support = support;
+        this.url = url;
     }
 
     @Override
@@ -177,34 +159,36 @@ public class ModuleData extends Resource {
         }
 
         ModuleData other = (ModuleData) o;
-
         return (
-            Objects.equals(url, other.url) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(support, other.support) &&
-            Objects.equals(policies, other.policies) &&
-            Objects.equals(moduleInfo, other.moduleInfo) &&
-            Objects.equals(documentation, other.documentation) &&
-            Objects.equals(configuration, other.configuration) &&
-            Objects.equals(pricing, other.pricing) &&
-            Objects.equals(listings, other.listings)
+                Objects.equals(configuration, other.configuration) &&
+                        Objects.equals(description, other.description) &&
+                        Objects.equals(documentation, other.documentation) &&
+                        Objects.equals(listings, other.listings) &&
+                        Objects.equals(moduleInfo, other.moduleInfo) &&
+                        Objects.equals(policies, other.policies) &&
+                        Objects.equals(pricing, other.pricing) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(support, other.support) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            url,
-            sid,
-            description,
-            support,
-            policies,
-            moduleInfo,
-            documentation,
-            configuration,
-            pricing,
-            listings
+                configuration,
+                description,
+                documentation,
+                listings,
+                moduleInfo,
+                policies,
+                pricing,
+                sid,
+                support,
+                url
         );
     }
+
+
 }
+

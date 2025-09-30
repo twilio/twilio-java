@@ -18,47 +18,46 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
 
-    private static final long serialVersionUID = 87960678380335L;
 
-    public static EventReader reader(final String pathCallSid) {
-        return new EventReader(pathCallSid);
+    public static EventReader reader(final String pathcallSid) {
+        return new EventReader(
+                pathcallSid
+        );
     }
 
-    public static EventReader reader(
-        final String pathAccountSid,
-        final String pathCallSid
-    ) {
-        return new EventReader(pathAccountSid, pathCallSid);
+
+    public static EventReader reader(final String pathaccountSid, final String pathcallSid) {
+        return new EventReader(
+                pathaccountSid, pathcallSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Event object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
      */
-    public static Event fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Event fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -73,14 +72,11 @@ public class Event extends Resource {
      * Converts a JSON InputStream into a Event object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
      */
-    public static Event fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Event fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -91,24 +87,31 @@ public class Event extends Resource {
         }
     }
 
-    private final Map<String, Object> request;
-    private final Map<String, Object> response;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final Object request;
+    @Getter
+    private final Object response;
 
     @JsonCreator
     private Event(
-        @JsonProperty("request") final Map<String, Object> request,
-        @JsonProperty("response") final Map<String, Object> response
+            @JsonProperty("request") final Object request,
+            @JsonProperty("response") final Object response
     ) {
         this.request = request;
         this.response = response;
-    }
-
-    public final Map<String, Object> getRequest() {
-        return this.request;
-    }
-
-    public final Map<String, Object> getResponse() {
-        return this.response;
     }
 
     @Override
@@ -122,15 +125,20 @@ public class Event extends Resource {
         }
 
         Event other = (Event) o;
-
         return (
-            Objects.equals(request, other.request) &&
-            Objects.equals(response, other.response)
+                Objects.equals(request, other.request) &&
+                        Objects.equals(response, other.response)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(request, response);
+        return Objects.hash(
+                request,
+                response
+        );
     }
+
+
 }
+

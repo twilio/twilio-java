@@ -15,7 +15,6 @@
 package com.twilio.rest.studio.v1.flow.engagement;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,57 +26,44 @@ import com.twilio.rest.Domains;
 
 public class EngagementContextFetcher extends Fetcher<EngagementContext> {
 
-    private String pathFlowSid;
-    private String pathEngagementSid;
+    private String pathflowSid;
+    private String pathengagementSid;
 
-    public EngagementContextFetcher(
-        final String pathFlowSid,
-        final String pathEngagementSid
-    ) {
-        this.pathFlowSid = pathFlowSid;
-        this.pathEngagementSid = pathEngagementSid;
+    public EngagementContextFetcher(final String pathflowSid, final String pathengagementSid) {
+        this.pathflowSid = pathflowSid;
+        this.pathengagementSid = pathengagementSid;
     }
+
 
     @Override
     public EngagementContext fetch(final TwilioRestClient client) {
+
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "EngagementSid" + "}",
-                this.pathEngagementSid.toString()
-            );
+        path = path.replace("{" + "FlowSid" + "}", this.pathflowSid.toString());
+        path = path.replace("{" + "EngagementSid" + "}", this.pathengagementSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.STUDIO.toString(),
-            path
+                HttpMethod.GET,
+                Domains.STUDIO.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "EngagementContext fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("EngagementContext fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return EngagementContext.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return EngagementContext.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

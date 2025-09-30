@@ -15,7 +15,6 @@
 package com.twilio.rest.proxy.v1.service.session.participant;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,74 +26,50 @@ import com.twilio.rest.Domains;
 
 public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
 
-    private String pathServiceSid;
-    private String pathSessionSid;
-    private String pathParticipantSid;
-    private String pathSid;
+    private String pathserviceSid;
+    private String pathsessionSid;
+    private String pathparticipantSid;
+    private String pathsid;
 
-    public MessageInteractionFetcher(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathParticipantSid,
-        final String pathSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSessionSid = pathSessionSid;
-        this.pathParticipantSid = pathParticipantSid;
-        this.pathSid = pathSid;
+    public MessageInteractionFetcher(final String pathserviceSid, final String pathsessionSid, final String pathparticipantSid, final String pathsid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathsessionSid = pathsessionSid;
+        this.pathparticipantSid = pathparticipantSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public MessageInteraction fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "SessionSid" + "}", this.pathsessionSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.GET,
+                Domains.PROXY.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessageInteraction fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MessageInteraction fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return MessageInteraction.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return MessageInteraction.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

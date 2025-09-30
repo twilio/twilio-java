@@ -14,9 +14,11 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,123 +27,99 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
-public class UserDefinedMessageSubscriptionCreator
-    extends Creator<UserDefinedMessageSubscription> {
+public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMessageSubscription> {
 
-    private String pathCallSid;
+    private String pathaccountSid;
+    private String pathcallSid;
     private URI callback;
-    private String pathAccountSid;
     private String idempotencyKey;
     private HttpMethod method;
 
-    public UserDefinedMessageSubscriptionCreator(
-        final String pathCallSid,
-        final URI callback
-    ) {
-        this.pathCallSid = pathCallSid;
+    public UserDefinedMessageSubscriptionCreator(final String pathcallSid, final URI callback) {
+        this.pathcallSid = pathcallSid;
         this.callback = callback;
     }
 
-    public UserDefinedMessageSubscriptionCreator(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final URI callback
-    ) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathCallSid = pathCallSid;
+    public UserDefinedMessageSubscriptionCreator(final String pathaccountSid, final String pathcallSid, final URI callback) {
+        this.pathaccountSid = pathaccountSid;
+        this.pathcallSid = pathcallSid;
         this.callback = callback;
     }
 
-    public UserDefinedMessageSubscriptionCreator setCallback(
-        final URI callback
-    ) {
+
+    public UserDefinedMessageSubscriptionCreator setCallback(final URI callback) {
         this.callback = callback;
         return this;
     }
 
-    public UserDefinedMessageSubscriptionCreator setCallback(
-        final String callback
-    ) {
-        return setCallback(Promoter.uriFromString(callback));
-    }
 
-    public UserDefinedMessageSubscriptionCreator setIdempotencyKey(
-        final String idempotencyKey
-    ) {
+    public UserDefinedMessageSubscriptionCreator setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         return this;
     }
 
-    public UserDefinedMessageSubscriptionCreator setMethod(
-        final HttpMethod method
-    ) {
+
+    public UserDefinedMessageSubscriptionCreator setMethod(final HttpMethod method) {
         this.method = method;
         return this;
     }
 
-    @Override
-    public UserDefinedMessageSubscription create(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Callback" + "}", this.callback.toString());
+    @Override
+    public UserDefinedMessageSubscription create(final TwilioRestClient client) {
+
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json";
+
+        this.pathaccountSid = this.pathaccountSid == null ? client.getAccountSid() : this.pathaccountSid;
+        path = path.replace("{" + "AccountSid" + "}", this.pathaccountSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathcallSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.API.toString(),
-            path
+                HttpMethod.POST,
+                Domains.API.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserDefinedMessageSubscription creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserDefinedMessageSubscription creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return UserDefinedMessageSubscription.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UserDefinedMessageSubscription.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (callback != null) {
-            request.addPostParam("Callback", callback.toString());
+            Serializer.toString(request, "Callback", callback, ParameterType.URLENCODED);
         }
+
+
         if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
+            Serializer.toString(request, "IdempotencyKey", idempotencyKey, ParameterType.URLENCODED);
         }
+
+
         if (method != null) {
-            request.addPostParam("Method", method.toString());
+            Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
         }
+
+
     }
 }

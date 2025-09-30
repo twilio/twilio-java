@@ -15,7 +15,6 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +26,44 @@ import com.twilio.rest.Domains;
 
 public class TaskFetcher extends Fetcher<Task> {
 
-    private String pathWorkspaceSid;
-    private String pathSid;
+    private String pathworkspaceSid;
+    private String pathsid;
 
-    public TaskFetcher(final String pathWorkspaceSid, final String pathSid) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathSid = pathSid;
+    public TaskFetcher(final String pathworkspaceSid, final String pathsid) {
+        this.pathworkspaceSid = pathworkspaceSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public Task fetch(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TASKROUTER.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Task fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Task fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Task.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

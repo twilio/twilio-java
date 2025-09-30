@@ -15,7 +15,6 @@
 package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,66 +26,47 @@ import com.twilio.rest.Domains;
 
 public class InteractionTransferFetcher extends Fetcher<InteractionTransfer> {
 
-    private String pathInteractionSid;
-    private String pathChannelSid;
-    private String pathSid;
+    private String pathinteractionSid;
+    private String pathchannelSid;
+    private String pathsid;
 
-    public InteractionTransferFetcher(
-        final String pathInteractionSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        this.pathInteractionSid = pathInteractionSid;
-        this.pathChannelSid = pathChannelSid;
-        this.pathSid = pathSid;
+    public InteractionTransferFetcher(final String pathinteractionSid, final String pathchannelSid, final String pathsid) {
+        this.pathinteractionSid = pathinteractionSid;
+        this.pathchannelSid = pathchannelSid;
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public InteractionTransfer fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "InteractionSid" + "}",
-                this.pathInteractionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}";
+
+        path = path.replace("{" + "InteractionSid" + "}", this.pathinteractionSid.toString());
+        path = path.replace("{" + "ChannelSid" + "}", this.pathchannelSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.GET,
+                Domains.FLEXAPI.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "InteractionTransfer fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InteractionTransfer fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return InteractionTransfer.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InteractionTransfer.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

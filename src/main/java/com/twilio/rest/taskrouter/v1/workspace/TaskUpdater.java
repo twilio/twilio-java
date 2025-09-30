@@ -16,6 +16,8 @@ package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 
 public class TaskUpdater extends Updater<Task> {
-
-    private String pathWorkspaceSid;
-    private String pathSid;
+    private String pathworkspaceSid;
+    private String pathsid;
     private String ifMatch;
     private String attributes;
     private Task.Status assignmentStatus;
@@ -38,82 +40,83 @@ public class TaskUpdater extends Updater<Task> {
     private String taskChannel;
     private ZonedDateTime virtualStartTime;
 
-    public TaskUpdater(final String pathWorkspaceSid, final String pathSid) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathSid = pathSid;
+    public TaskUpdater(final String pathworkspaceSid, final String pathsid) {
+        this.pathworkspaceSid = pathworkspaceSid;
+        this.pathsid = pathsid;
     }
 
-    public TaskUpdater setIfMatch(final String ifMatch) {
-        this.ifMatch = ifMatch;
-        return this;
-    }
 
     public TaskUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
+
     public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus) {
         this.assignmentStatus = assignmentStatus;
         return this;
     }
+
 
     public TaskUpdater setReason(final String reason) {
         this.reason = reason;
         return this;
     }
 
+
     public TaskUpdater setPriority(final Integer priority) {
         this.priority = priority;
         return this;
     }
+
 
     public TaskUpdater setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
-    public TaskUpdater setVirtualStartTime(
-        final ZonedDateTime virtualStartTime
-    ) {
+
+    public TaskUpdater setVirtualStartTime(final ZonedDateTime virtualStartTime) {
         this.virtualStartTime = virtualStartTime;
         return this;
     }
 
+
+    public TaskUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+
     @Override
     public Task update(final TwilioRestClient client) {
+
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "WorkspaceSid" + "}", this.pathworkspaceSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TASKROUTER.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TASKROUTER.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Task update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Task update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -122,35 +125,44 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     private void addPostParams(final Request request) {
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
         }
+
+
         if (assignmentStatus != null) {
-            request.addPostParam(
-                "AssignmentStatus",
-                assignmentStatus.toString()
-            );
+            Serializer.toString(request, "AssignmentStatus", assignmentStatus, ParameterType.URLENCODED);
         }
+
+
         if (reason != null) {
-            request.addPostParam("Reason", reason);
+            Serializer.toString(request, "Reason", reason, ParameterType.URLENCODED);
         }
+
+
         if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
+            Serializer.toString(request, "Priority", priority, ParameterType.URLENCODED);
         }
+
+
         if (taskChannel != null) {
-            request.addPostParam("TaskChannel", taskChannel);
+            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.URLENCODED);
         }
+
+
         if (virtualStartTime != null) {
-            request.addPostParam(
-                "VirtualStartTime",
-                virtualStartTime.toInstant().toString()
-            );
+            Serializer.toString(request, "VirtualStartTime", virtualStartTime, ParameterType.URLENCODED);
         }
+
+
     }
 
     private void addHeaderParams(final Request request) {
+
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
         }
+
     }
 }

@@ -16,7 +16,8 @@ package com.twilio.rest.proxy.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
-
-    private String pathSid;
+    private String pathsid;
     private String uniqueName;
     private Integer defaultTtl;
     private URI callbackUrl;
@@ -39,106 +40,86 @@ public class ServiceUpdater extends Updater<Service> {
     private URI outOfSessionCallbackUrl;
     private String chatInstanceSid;
 
-    public ServiceUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public ServiceUpdater(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public ServiceUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
+
     public ServiceUpdater setDefaultTtl(final Integer defaultTtl) {
         this.defaultTtl = defaultTtl;
         return this;
     }
+
 
     public ServiceUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public ServiceUpdater setCallbackUrl(final String callbackUrl) {
-        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
-    }
 
-    public ServiceUpdater setGeoMatchLevel(
-        final Service.GeoMatchLevel geoMatchLevel
-    ) {
+    public ServiceUpdater setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
         this.geoMatchLevel = geoMatchLevel;
         return this;
     }
 
-    public ServiceUpdater setNumberSelectionBehavior(
-        final Service.NumberSelectionBehavior numberSelectionBehavior
-    ) {
+
+    public ServiceUpdater setNumberSelectionBehavior(final Service.NumberSelectionBehavior numberSelectionBehavior) {
         this.numberSelectionBehavior = numberSelectionBehavior;
         return this;
     }
 
-    public ServiceUpdater setInterceptCallbackUrl(
-        final URI interceptCallbackUrl
-    ) {
+
+    public ServiceUpdater setInterceptCallbackUrl(final URI interceptCallbackUrl) {
         this.interceptCallbackUrl = interceptCallbackUrl;
         return this;
     }
 
-    public ServiceUpdater setInterceptCallbackUrl(
-        final String interceptCallbackUrl
-    ) {
-        return setInterceptCallbackUrl(
-            Promoter.uriFromString(interceptCallbackUrl)
-        );
-    }
 
-    public ServiceUpdater setOutOfSessionCallbackUrl(
-        final URI outOfSessionCallbackUrl
-    ) {
+    public ServiceUpdater setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl) {
         this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
         return this;
     }
 
-    public ServiceUpdater setOutOfSessionCallbackUrl(
-        final String outOfSessionCallbackUrl
-    ) {
-        return setOutOfSessionCallbackUrl(
-            Promoter.uriFromString(outOfSessionCallbackUrl)
-        );
-    }
 
     public ServiceUpdater setChatInstanceSid(final String chatInstanceSid) {
         this.chatInstanceSid = chatInstanceSid;
         return this;
     }
 
+
     @Override
     public Service update(final TwilioRestClient client) {
+
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PROXY.toString(),
-            path
+                HttpMethod.POST,
+                Domains.PROXY.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -147,38 +128,46 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     private void addPostParams(final Request request) {
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
         }
+
+
         if (defaultTtl != null) {
-            request.addPostParam("DefaultTtl", defaultTtl.toString());
+            Serializer.toString(request, "DefaultTtl", defaultTtl, ParameterType.URLENCODED);
         }
+
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (geoMatchLevel != null) {
-            request.addPostParam("GeoMatchLevel", geoMatchLevel.toString());
+            Serializer.toString(request, "GeoMatchLevel", geoMatchLevel, ParameterType.URLENCODED);
         }
+
+
         if (numberSelectionBehavior != null) {
-            request.addPostParam(
-                "NumberSelectionBehavior",
-                numberSelectionBehavior.toString()
-            );
+            Serializer.toString(request, "NumberSelectionBehavior", numberSelectionBehavior, ParameterType.URLENCODED);
         }
+
+
         if (interceptCallbackUrl != null) {
-            request.addPostParam(
-                "InterceptCallbackUrl",
-                interceptCallbackUrl.toString()
-            );
+            Serializer.toString(request, "InterceptCallbackUrl", interceptCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (outOfSessionCallbackUrl != null) {
-            request.addPostParam(
-                "OutOfSessionCallbackUrl",
-                outOfSessionCallbackUrl.toString()
-            );
+            Serializer.toString(request, "OutOfSessionCallbackUrl", outOfSessionCallbackUrl, ParameterType.URLENCODED);
         }
+
+
         if (chatInstanceSid != null) {
-            request.addPostParam("ChatInstanceSid", chatInstanceSid);
+            Serializer.toString(request, "ChatInstanceSid", chatInstanceSid, ParameterType.URLENCODED);
         }
+
+
     }
 }

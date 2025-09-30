@@ -14,9 +14,11 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Promoter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+
 import java.net.URI;
 
 public class BundleCreator extends Creator<Bundle> {
@@ -44,83 +46,80 @@ public class BundleCreator extends Creator<Bundle> {
         this.email = email;
     }
 
+
     public BundleCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
+
 
     public BundleCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
 
+
     public BundleCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public BundleCreator setStatusCallback(final String statusCallback) {
-        return setStatusCallback(Promoter.uriFromString(statusCallback));
-    }
 
     public BundleCreator setRegulationSid(final String regulationSid) {
         this.regulationSid = regulationSid;
         return this;
     }
 
+
     public BundleCreator setIsoCountry(final String isoCountry) {
         this.isoCountry = isoCountry;
         return this;
     }
+
 
     public BundleCreator setEndUserType(final Bundle.EndUserType endUserType) {
         this.endUserType = endUserType;
         return this;
     }
 
+
     public BundleCreator setNumberType(final String numberType) {
         this.numberType = numberType;
         return this;
     }
+
 
     public BundleCreator setIsTest(final Boolean isTest) {
         this.isTest = isTest;
         return this;
     }
 
+
     @Override
     public Bundle create(final TwilioRestClient client) {
+
         String path = "/v2/RegulatoryCompliance/Bundles";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Email" + "}", this.email.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.NUMBERS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bundle creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bundle creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -129,29 +128,46 @@ public class BundleCreator extends Creator<Bundle> {
     }
 
     private void addPostParams(final Request request) {
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
         }
+
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
         }
+
+
         if (regulationSid != null) {
-            request.addPostParam("RegulationSid", regulationSid);
+            Serializer.toString(request, "RegulationSid", regulationSid, ParameterType.URLENCODED);
         }
+
+
         if (isoCountry != null) {
-            request.addPostParam("IsoCountry", isoCountry);
+            Serializer.toString(request, "IsoCountry", isoCountry, ParameterType.URLENCODED);
         }
+
+
         if (endUserType != null) {
-            request.addPostParam("EndUserType", endUserType.toString());
+            Serializer.toString(request, "EndUserType", endUserType, ParameterType.URLENCODED);
         }
+
+
         if (numberType != null) {
-            request.addPostParam("NumberType", numberType);
+            Serializer.toString(request, "NumberType", numberType, ParameterType.URLENCODED);
         }
+
+
         if (isTest != null) {
-            request.addPostParam("IsTest", isTest.toString());
+            Serializer.toString(request, "IsTest", isTest, ParameterType.URLENCODED);
         }
+
+
     }
 }

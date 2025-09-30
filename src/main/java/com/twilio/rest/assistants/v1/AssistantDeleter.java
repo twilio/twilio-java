@@ -15,7 +15,6 @@
 package com.twilio.rest.assistants.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,40 +26,38 @@ import com.twilio.rest.Domains;
 
 public class AssistantDeleter extends Deleter<Assistant> {
 
-    private String pathId;
+    private String pathid;
 
-    public AssistantDeleter(final String pathId) {
-        this.pathId = pathId;
+    public AssistantDeleter(final String pathid) {
+        this.pathid = pathid;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
+
         String path = "/v1/Assistants/{id}";
 
-        path = path.replace("{" + "id" + "}", this.pathId.toString());
+        path = path.replace("{" + "id" + "}", this.pathid.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.ASSISTANTS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.ASSISTANTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Assistant delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Assistant delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

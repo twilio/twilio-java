@@ -27,50 +27,48 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class ConfigurationUpdater extends Updater<Configuration> {
-
     private Object body;
 
-    public ConfigurationUpdater() {}
+    public ConfigurationUpdater() {
+    }
+
 
     public ConfigurationUpdater setBody(final Object body) {
         this.body = body;
         return this;
     }
 
+
     @Override
     public Configuration update(final TwilioRestClient client) {
+
         String path = "/v1/Configuration";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.FLEXAPI.toString(),
-            path
+                HttpMethod.POST,
+                Domains.FLEXAPI.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "Configuration update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Configuration update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Configuration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

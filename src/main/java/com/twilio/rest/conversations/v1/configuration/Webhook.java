@@ -18,167 +18,40 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
-    private static final long serialVersionUID = 64791700237770L;
 
     public static WebhookFetcher fetcher() {
-        return new WebhookFetcher();
+        return new WebhookFetcher(
+
+        );
     }
+
 
     public static WebhookUpdater updater() {
-        return new WebhookUpdater();
-    }
+        return new WebhookUpdater(
 
-    /**
-     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Webhook object represented by the provided JSON
-     */
-    public static Webhook fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Webhook.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Webhook object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Webhook object represented by the provided JSON
-     */
-    public static Webhook fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Webhook.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String accountSid;
-    private final Webhook.Method method;
-    private final List<String> filters;
-    private final String preWebhookUrl;
-    private final String postWebhookUrl;
-    private final Webhook.Target target;
-    private final URI url;
-
-    @JsonCreator
-    private Webhook(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("method") final Webhook.Method method,
-        @JsonProperty("filters") final List<String> filters,
-        @JsonProperty("pre_webhook_url") final String preWebhookUrl,
-        @JsonProperty("post_webhook_url") final String postWebhookUrl,
-        @JsonProperty("target") final Webhook.Target target,
-        @JsonProperty("url") final URI url
-    ) {
-        this.accountSid = accountSid;
-        this.method = method;
-        this.filters = filters;
-        this.preWebhookUrl = preWebhookUrl;
-        this.postWebhookUrl = postWebhookUrl;
-        this.target = target;
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Webhook.Method getMethod() {
-        return this.method;
-    }
-
-    public final List<String> getFilters() {
-        return this.filters;
-    }
-
-    public final String getPreWebhookUrl() {
-        return this.preWebhookUrl;
-    }
-
-    public final String getPostWebhookUrl() {
-        return this.postWebhookUrl;
-    }
-
-    public final Webhook.Target getTarget() {
-        return this.target;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Webhook other = (Webhook) o;
-
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(method, other.method) &&
-            Objects.equals(filters, other.filters) &&
-            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
-            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
-            Objects.equals(target, other.target) &&
-            Objects.equals(url, other.url)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            method,
-            filters,
-            preWebhookUrl,
-            postWebhookUrl,
-            target,
-            url
-        );
-    }
 
     public enum Target {
         WEBHOOK("webhook"),
@@ -219,4 +92,127 @@ public class Webhook extends Resource {
             return Promoter.enumFromString(value, Method.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Webhook.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Webhook object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Webhook.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final List<String> filters;
+    @Getter
+    private final Webhook.Method method;
+    @Getter
+    private final String postWebhookUrl;
+    @Getter
+    private final String preWebhookUrl;
+    @Getter
+    private final Webhook.Target target;
+    @Getter
+    private final URI url;
+
+    @JsonCreator
+    private Webhook(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("filters") final List<String> filters,
+            @JsonProperty("method") final Webhook.Method method,
+            @JsonProperty("post_webhook_url") final String postWebhookUrl,
+            @JsonProperty("pre_webhook_url") final String preWebhookUrl,
+            @JsonProperty("target") final Webhook.Target target,
+            @JsonProperty("url") final URI url
+    ) {
+        this.accountSid = accountSid;
+        this.filters = filters;
+        this.method = method;
+        this.postWebhookUrl = postWebhookUrl;
+        this.preWebhookUrl = preWebhookUrl;
+        this.target = target;
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Webhook other = (Webhook) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(filters, other.filters) &&
+                        Objects.equals(method, other.method) &&
+                        Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+                        Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+                        Objects.equals(target, other.target) &&
+                        Objects.equals(url, other.url)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                filters,
+                method,
+                postWebhookUrl,
+                preWebhookUrl,
+                target,
+                url
+        );
+    }
+
+
 }
+

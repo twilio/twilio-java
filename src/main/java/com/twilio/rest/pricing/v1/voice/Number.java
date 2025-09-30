@@ -18,46 +18,44 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.InboundCallPrice;
 import com.twilio.type.OutboundCallPrice;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Number extends Resource {
 
-    private static final long serialVersionUID = 23882142179085L;
 
-    public static NumberFetcher fetcher(
-        final com.twilio.type.PhoneNumber pathNumber
-    ) {
-        return new NumberFetcher(pathNumber);
+    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathnumber) {
+        return new NumberFetcher(
+                pathnumber
+        );
     }
+
 
     /**
      * Converts a JSON String into a Number object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Number object represented by the provided JSON
      */
-    public static Number fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Number fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Number.class);
@@ -72,14 +70,11 @@ public class Number extends Resource {
      * Converts a JSON InputStream into a Number object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Number object represented by the provided JSON
      */
-    public static Number fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Number fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Number.class);
@@ -90,65 +85,52 @@ public class Number extends Resource {
         }
     }
 
-    private final com.twilio.type.PhoneNumber number;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String country;
-    private final String isoCountry;
-    private final OutboundCallPrice outboundCallPrice;
+    @Getter
     private final InboundCallPrice inboundCallPrice;
+    @Getter
+    private final String isoCountry;
+    @Getter
+    private final com.twilio.type.PhoneNumber number;
+    @Getter
+    private final OutboundCallPrice outboundCallPrice;
+    @Getter
     private final Currency priceUnit;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Number(
-        @JsonProperty("number") final com.twilio.type.PhoneNumber number,
-        @JsonProperty("country") final String country,
-        @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "outbound_call_price"
-        ) final OutboundCallPrice outboundCallPrice,
-        @JsonProperty(
-            "inbound_call_price"
-        ) final InboundCallPrice inboundCallPrice,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("url") final URI url
+            @JsonProperty("country") final String country,
+            @JsonProperty("inbound_call_price") final InboundCallPrice inboundCallPrice,
+            @JsonProperty("iso_country") final String isoCountry,
+            @JsonProperty("number") final com.twilio.type.PhoneNumber number,
+            @JsonProperty("outbound_call_price") final OutboundCallPrice outboundCallPrice,
+            @JsonProperty("price_unit")
+            @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class) final Currency priceUnit,
+            @JsonProperty("url") final URI url
     ) {
-        this.number = number;
         this.country = country;
-        this.isoCountry = isoCountry;
-        this.outboundCallPrice = outboundCallPrice;
         this.inboundCallPrice = inboundCallPrice;
+        this.isoCountry = isoCountry;
+        this.number = number;
+        this.outboundCallPrice = outboundCallPrice;
         this.priceUnit = priceUnit;
         this.url = url;
-    }
-
-    public final com.twilio.type.PhoneNumber getNumber() {
-        return this.number;
-    }
-
-    public final String getCountry() {
-        return this.country;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final OutboundCallPrice getOutboundCallPrice() {
-        return this.outboundCallPrice;
-    }
-
-    public final InboundCallPrice getInboundCallPrice() {
-        return this.inboundCallPrice;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -162,28 +144,30 @@ public class Number extends Resource {
         }
 
         Number other = (Number) o;
-
         return (
-            Objects.equals(number, other.number) &&
-            Objects.equals(country, other.country) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(outboundCallPrice, other.outboundCallPrice) &&
-            Objects.equals(inboundCallPrice, other.inboundCallPrice) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(url, other.url)
+                Objects.equals(country, other.country) &&
+                        Objects.equals(inboundCallPrice, other.inboundCallPrice) &&
+                        Objects.equals(isoCountry, other.isoCountry) &&
+                        Objects.equals(number, other.number) &&
+                        Objects.equals(outboundCallPrice, other.outboundCallPrice) &&
+                        Objects.equals(priceUnit, other.priceUnit) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            number,
-            country,
-            isoCountry,
-            outboundCallPrice,
-            inboundCallPrice,
-            priceUnit,
-            url
+                country,
+                inboundCallPrice,
+                isoCountry,
+                number,
+                outboundCallPrice,
+                priceUnit,
+                url
         );
     }
+
+
 }
+

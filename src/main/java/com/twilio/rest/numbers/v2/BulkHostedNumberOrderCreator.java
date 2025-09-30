@@ -26,52 +26,50 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class BulkHostedNumberOrderCreator
-    extends Creator<BulkHostedNumberOrder> {
+public class BulkHostedNumberOrderCreator extends Creator<BulkHostedNumberOrder> {
 
     private Object body;
 
-    public BulkHostedNumberOrderCreator() {}
+    public BulkHostedNumberOrderCreator() {
+    }
+
 
     public BulkHostedNumberOrderCreator setBody(final Object body) {
         this.body = body;
         return this;
     }
 
+
     @Override
     public BulkHostedNumberOrder create(final TwilioRestClient client) {
+
         String path = "/v2/HostedNumber/Orders/Bulk";
 
+
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.POST,
+                Domains.NUMBERS.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "BulkHostedNumberOrder creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BulkHostedNumberOrder creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return BulkHostedNumberOrder.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return BulkHostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

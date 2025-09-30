@@ -15,7 +15,6 @@
 package com.twilio.rest.events.v1.subscription;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,51 +26,41 @@ import com.twilio.rest.Domains;
 
 public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
 
-    private String pathSubscriptionSid;
-    private String pathType;
+    private String pathsubscriptionSid;
+    private String pathtype;
 
-    public SubscribedEventDeleter(
-        final String pathSubscriptionSid,
-        final String pathType
-    ) {
-        this.pathSubscriptionSid = pathSubscriptionSid;
-        this.pathType = pathType;
+    public SubscribedEventDeleter(final String pathsubscriptionSid, final String pathtype) {
+        this.pathsubscriptionSid = pathsubscriptionSid;
+        this.pathtype = pathtype;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        path =
-            path.replace(
-                "{" + "SubscriptionSid" + "}",
-                this.pathSubscriptionSid.toString()
-            );
-        path = path.replace("{" + "Type" + "}", this.pathType.toString());
+        String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
+
+        path = path.replace("{" + "SubscriptionSid" + "}", this.pathsubscriptionSid.toString());
+        path = path.replace("{" + "Type" + "}", this.pathtype.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.EVENTS.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.EVENTS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SubscribedEvent delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SubscribedEvent delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

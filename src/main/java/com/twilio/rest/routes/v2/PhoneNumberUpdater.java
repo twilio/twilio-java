@@ -16,6 +16,8 @@ package com.twilio.rest.routes.v2;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,73 +28,72 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class PhoneNumberUpdater extends Updater<PhoneNumber> {
-
-    private String pathPhoneNumber;
+    private String pathphoneNumber;
     private String voiceRegion;
     private String friendlyName;
 
-    public PhoneNumberUpdater(final String pathPhoneNumber) {
-        this.pathPhoneNumber = pathPhoneNumber;
+    public PhoneNumberUpdater(final String pathphoneNumber) {
+        this.pathphoneNumber = pathphoneNumber;
     }
+
 
     public PhoneNumberUpdater setVoiceRegion(final String voiceRegion) {
         this.voiceRegion = voiceRegion;
         return this;
     }
 
+
     public PhoneNumberUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
+
     @Override
     public PhoneNumber update(final TwilioRestClient client) {
+
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.toString()
-            );
+        path = path.replace("{" + "PhoneNumber" + "}", this.pathphoneNumber.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.ROUTES.toString(),
-            path
+                HttpMethod.POST,
+                Domains.ROUTES.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "PhoneNumber update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PhoneNumber update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return PhoneNumber.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (voiceRegion != null) {
-            request.addPostParam("VoiceRegion", voiceRegion);
+            Serializer.toString(request, "VoiceRegion", voiceRegion, ParameterType.URLENCODED);
         }
+
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
         }
+
+
     }
 }

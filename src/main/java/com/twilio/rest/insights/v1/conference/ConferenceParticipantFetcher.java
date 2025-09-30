@@ -15,7 +15,8 @@
 package com.twilio.rest.insights.v1.conference;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,87 +26,76 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ConferenceParticipantFetcher
-    extends Fetcher<ConferenceParticipant> {
+public class ConferenceParticipantFetcher extends Fetcher<ConferenceParticipant> {
 
-    private String pathConferenceSid;
-    private String pathParticipantSid;
+    private String pathconferenceSid;
+    private String pathparticipantSid;
     private String events;
     private String metrics;
 
-    public ConferenceParticipantFetcher(
-        final String pathConferenceSid,
-        final String pathParticipantSid
-    ) {
-        this.pathConferenceSid = pathConferenceSid;
-        this.pathParticipantSid = pathParticipantSid;
+    public ConferenceParticipantFetcher(final String pathconferenceSid, final String pathparticipantSid) {
+        this.pathconferenceSid = pathconferenceSid;
+        this.pathparticipantSid = pathparticipantSid;
     }
+
 
     public ConferenceParticipantFetcher setEvents(final String events) {
         this.events = events;
         return this;
     }
 
+
     public ConferenceParticipantFetcher setMetrics(final String metrics) {
         this.metrics = metrics;
         return this;
     }
 
+
     @Override
     public ConferenceParticipant fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
 
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
+        String path = "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
+
+        path = path.replace("{" + "ConferenceSid" + "}", this.pathconferenceSid.toString());
+        path = path.replace("{" + "ParticipantSid" + "}", this.pathparticipantSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INSIGHTS.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConferenceParticipant fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConferenceParticipant fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return ConferenceParticipant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ConferenceParticipant.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (events != null) {
-            request.addQueryParam("Events", events);
+            Serializer.toString(request, "Events", events, ParameterType.QUERY);
         }
+
+
         if (metrics != null) {
-            request.addQueryParam("Metrics", metrics);
+            Serializer.toString(request, "Metrics", metrics, ParameterType.QUERY);
         }
+
+
     }
 }

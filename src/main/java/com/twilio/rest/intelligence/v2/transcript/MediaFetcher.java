@@ -15,7 +15,8 @@
 package com.twilio.rest.intelligence.v2.transcript;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,57 +28,59 @@ import com.twilio.rest.Domains;
 
 public class MediaFetcher extends Fetcher<Media> {
 
-    private String pathSid;
+    private String pathsid;
     private Boolean redacted;
 
-    public MediaFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public MediaFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     public MediaFetcher setRedacted(final Boolean redacted) {
         this.redacted = redacted;
         return this;
     }
 
+
     @Override
     public Media fetch(final TwilioRestClient client) {
+
         String path = "/v2/Transcripts/{Sid}/Media";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.INTELLIGENCE.toString(),
-            path
+                HttpMethod.GET,
+                Domains.INTELLIGENCE.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Media fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Media fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Media.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
+            Serializer.toString(request, "Redacted", redacted, ParameterType.QUERY);
         }
+
+
     }
 }

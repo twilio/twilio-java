@@ -18,45 +18,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CompositionSettings extends Resource {
 
-    private static final long serialVersionUID = 265748091067113L;
 
-    public static CompositionSettingsCreator creator(
-        final String friendlyName
-    ) {
-        return new CompositionSettingsCreator(friendlyName);
+    public static CompositionSettingsCreator creator(final String friendlyName) {
+        return new CompositionSettingsCreator(
+                friendlyName
+        );
     }
+
 
     public static CompositionSettingsFetcher fetcher() {
-        return new CompositionSettingsFetcher();
+        return new CompositionSettingsFetcher(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a CompositionSettings object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CompositionSettings object represented by the provided JSON
      */
-    public static CompositionSettings fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static CompositionSettings fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CompositionSettings.class);
@@ -71,14 +73,11 @@ public class CompositionSettings extends Resource {
      * Converts a JSON InputStream into a CompositionSettings object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CompositionSettings object represented by the provided JSON
      */
-    public static CompositionSettings fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static CompositionSettings fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CompositionSettings.class);
@@ -89,66 +88,55 @@ public class CompositionSettings extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
+    @Getter
     private final String awsCredentialsSid;
+    @Getter
     private final URI awsS3Url;
+    @Getter
     private final Boolean awsStorageEnabled;
-    private final String encryptionKeySid;
+    @Getter
     private final Boolean encryptionEnabled;
+    @Getter
+    private final String encryptionKeySid;
+    @Getter
+    private final String friendlyName;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private CompositionSettings(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("aws_credentials_sid") final String awsCredentialsSid,
-        @JsonProperty("aws_s3_url") final URI awsS3Url,
-        @JsonProperty("aws_storage_enabled") final Boolean awsStorageEnabled,
-        @JsonProperty("encryption_key_sid") final String encryptionKeySid,
-        @JsonProperty("encryption_enabled") final Boolean encryptionEnabled,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("aws_credentials_sid") final String awsCredentialsSid,
+            @JsonProperty("aws_s3_url") final URI awsS3Url,
+            @JsonProperty("aws_storage_enabled") final Boolean awsStorageEnabled,
+            @JsonProperty("encryption_enabled") final Boolean encryptionEnabled,
+            @JsonProperty("encryption_key_sid") final String encryptionKeySid,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
         this.awsCredentialsSid = awsCredentialsSid;
         this.awsS3Url = awsS3Url;
         this.awsStorageEnabled = awsStorageEnabled;
-        this.encryptionKeySid = encryptionKeySid;
         this.encryptionEnabled = encryptionEnabled;
+        this.encryptionKeySid = encryptionKeySid;
+        this.friendlyName = friendlyName;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getAwsCredentialsSid() {
-        return this.awsCredentialsSid;
-    }
-
-    public final URI getAwsS3Url() {
-        return this.awsS3Url;
-    }
-
-    public final Boolean getAwsStorageEnabled() {
-        return this.awsStorageEnabled;
-    }
-
-    public final String getEncryptionKeySid() {
-        return this.encryptionKeySid;
-    }
-
-    public final Boolean getEncryptionEnabled() {
-        return this.encryptionEnabled;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -162,30 +150,32 @@ public class CompositionSettings extends Resource {
         }
 
         CompositionSettings other = (CompositionSettings) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(awsCredentialsSid, other.awsCredentialsSid) &&
-            Objects.equals(awsS3Url, other.awsS3Url) &&
-            Objects.equals(awsStorageEnabled, other.awsStorageEnabled) &&
-            Objects.equals(encryptionKeySid, other.encryptionKeySid) &&
-            Objects.equals(encryptionEnabled, other.encryptionEnabled) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(awsCredentialsSid, other.awsCredentialsSid) &&
+                        Objects.equals(awsS3Url, other.awsS3Url) &&
+                        Objects.equals(awsStorageEnabled, other.awsStorageEnabled) &&
+                        Objects.equals(encryptionEnabled, other.encryptionEnabled) &&
+                        Objects.equals(encryptionKeySid, other.encryptionKeySid) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            friendlyName,
-            awsCredentialsSid,
-            awsS3Url,
-            awsStorageEnabled,
-            encryptionKeySid,
-            encryptionEnabled,
-            url
+                accountSid,
+                awsCredentialsSid,
+                awsS3Url,
+                awsStorageEnabled,
+                encryptionEnabled,
+                encryptionKeySid,
+                friendlyName,
+                url
         );
     }
+
+
 }
+

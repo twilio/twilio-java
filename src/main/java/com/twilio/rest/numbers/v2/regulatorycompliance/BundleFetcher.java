@@ -15,7 +15,6 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,44 +26,41 @@ import com.twilio.rest.Domains;
 
 public class BundleFetcher extends Fetcher<Bundle> {
 
-    private String pathSid;
+    private String pathsid;
 
-    public BundleFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public BundleFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
+
 
     @Override
     public Bundle fetch(final TwilioRestClient client) {
+
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.NUMBERS.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bundle fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bundle fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Bundle.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

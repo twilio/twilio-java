@@ -15,7 +15,6 @@
 package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,48 +26,41 @@ import com.twilio.rest.Domains;
 
 public class RecordingFetcher extends Fetcher<Recording> {
 
-    private String pathTrunkSid;
+    private String pathtrunkSid;
 
-    public RecordingFetcher(final String pathTrunkSid) {
-        this.pathTrunkSid = pathTrunkSid;
+    public RecordingFetcher(final String pathtrunkSid) {
+        this.pathtrunkSid = pathtrunkSid;
     }
+
 
     @Override
     public Recording fetch(final TwilioRestClient client) {
+
         String path = "/v1/Trunks/{TrunkSid}/Recording";
 
-        path =
-            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path = path.replace("{" + "TrunkSid" + "}", this.pathtrunkSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.TRUNKING.toString(),
-            path
+                HttpMethod.GET,
+                Domains.TRUNKING.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Recording fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Recording fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Recording.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

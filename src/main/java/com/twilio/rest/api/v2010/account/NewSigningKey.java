@@ -18,44 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewSigningKey extends Resource {
 
-    private static final long serialVersionUID = 142441509867514L;
 
     public static NewSigningKeyCreator creator() {
-        return new NewSigningKeyCreator();
+        return new NewSigningKeyCreator(
+
+        );
     }
 
-    public static NewSigningKeyCreator creator(final String pathAccountSid) {
-        return new NewSigningKeyCreator(pathAccountSid);
+
+    public static NewSigningKeyCreator creator(final String pathaccountSid) {
+        return new NewSigningKeyCreator(
+                pathaccountSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a NewSigningKey object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return NewSigningKey object represented by the provided JSON
      */
-    public static NewSigningKey fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static NewSigningKey fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewSigningKey.class);
@@ -70,14 +74,11 @@ public class NewSigningKey extends Resource {
      * Converts a JSON InputStream into a NewSigningKey object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return NewSigningKey object represented by the provided JSON
      */
-    public static NewSigningKey fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static NewSigningKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewSigningKey.class);
@@ -88,45 +89,45 @@ public class NewSigningKey extends Resource {
         }
     }
 
-    private final String sid;
-    private final String friendlyName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
     private final String secret;
+    @Getter
+    private final String sid;
 
     @JsonCreator
     private NewSigningKey(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("secret") final String secret
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("secret") final String secret,
+            @JsonProperty("sid") final String sid
     ) {
-        this.sid = sid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
         this.secret = secret;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSecret() {
-        return this.secret;
+        this.sid = sid;
     }
 
     @Override
@@ -140,24 +141,26 @@ public class NewSigningKey extends Resource {
         }
 
         NewSigningKey other = (NewSigningKey) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(secret, other.secret)
+                Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(secret, other.secret) &&
+                        Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            friendlyName,
-            dateCreated,
-            dateUpdated,
-            secret
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                secret,
+                sid
         );
     }
+
+
 }
+

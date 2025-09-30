@@ -22,31 +22,154 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Assistant extends Resource {
 
-    private static final long serialVersionUID = 5177924616338L;
 
+    public static AssistantCreator creator(final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest) {
+        return new AssistantCreator(
+                assistantsV1ServiceCreateAssistantRequest
+        );
+    }
+
+
+    public static AssistantDeleter deleter(final String pathid) {
+        return new AssistantDeleter(
+                pathid
+        );
+    }
+
+
+    public static AssistantFetcher fetcher(final String pathid) {
+        return new AssistantFetcher(
+                pathid
+        );
+    }
+
+
+    public static AssistantReader reader() {
+        return new AssistantReader(
+
+        );
+    }
+
+
+    public static AssistantUpdater updater(final String pathid) {
+        return new AssistantUpdater(
+                pathid
+        );
+    }
+
+
+    //@JsonDeserialize(builder = AssistantsV1ServiceTool.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceTool {
+        public AssistantsV1ServiceTool(final String description, final Boolean enabled, final String id, final Object meta, final String name, final Boolean requiresAuth, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
+            this.description = description;
+            this.enabled = enabled;
+            this.id = id;
+            this.meta = meta;
+            this.name = name;
+            this.requiresAuth = requiresAuth;
+            this.type = type;
+            this.dateCreated = dateCreated;
+            this.dateUpdated = dateUpdated;
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("account_sid")
+        @Getter
+        @Setter
+        private String accountSid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("description")
+        @Getter
+        @Setter
+        private String description;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("enabled")
+        @Getter
+        @Setter
+        private Boolean enabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("id")
+        @Getter
+        @Setter
+        private String id;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("meta")
+        @Getter
+        @Setter
+        private Object meta;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("requires_auth")
+        @Getter
+        @Setter
+        private Boolean requiresAuth;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("url")
+        @Getter
+        @Setter
+        private String url;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("date_created")
+        @Getter
+        @Setter
+        private ZonedDateTime dateCreated;
+
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("date_updated")
+        @Getter
+        @Setter
+        private ZonedDateTime dateUpdated;
+
+    }
+
+    //@JsonDeserialize(builder = AssistantsV1ServiceCustomerAi.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCustomerAi {
+        public AssistantsV1ServiceCustomerAi(final Boolean perceptionEngineEnabled, final Boolean personalizationEngineEnabled) {
+            this.perceptionEngineEnabled = perceptionEngineEnabled;
+            this.personalizationEngineEnabled = personalizationEngineEnabled;
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("perception_engine_enabled")
@@ -60,95 +183,10 @@ public class Assistant extends Resource {
         @Setter
         private Boolean personalizationEngineEnabled;
 
-        public static AssistantsV1ServiceCustomerAi fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceCustomerAi.class
-            );
-        }
     }
 
-    @ToString
-    public static class AssistantsV1ServiceSegmentCredential {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("profile_api_key")
-        @Getter
-        @Setter
-        private String profileApiKey;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("space_id")
-        @Getter
-        @Setter
-        private String spaceId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("write_key")
-        @Getter
-        @Setter
-        private String writeKey;
-
-        public static AssistantsV1ServiceSegmentCredential fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceSegmentCredential.class
-            );
-        }
-    }
-
-    @ToString
-    public static class AssistantsV1ServiceCreateAssistantRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("customer_ai")
-        @Getter
-        @Setter
-        private AssistantsV1ServiceCustomerAi customerAi;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("owner")
-        @Getter
-        @Setter
-        private String owner;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("personality_prompt")
-        @Getter
-        @Setter
-        private String personalityPrompt;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("segment_credential")
-        @Getter
-        @Setter
-        private AssistantsV1ServiceSegmentCredential segmentCredential;
-
-        public AssistantsV1ServiceCreateAssistantRequest() {}
-
-        public static AssistantsV1ServiceCreateAssistantRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceCreateAssistantRequest.class
-            );
-        }
-    }
-
+    //@JsonDeserialize(builder = AssistantsV1ServiceUpdateAssistantRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateAssistantRequest {
 
@@ -182,21 +220,84 @@ public class Assistant extends Resource {
         @Setter
         private AssistantsV1ServiceSegmentCredential segmentCredential;
 
-        public AssistantsV1ServiceUpdateAssistantRequest() {}
-
-        public static AssistantsV1ServiceUpdateAssistantRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceUpdateAssistantRequest.class
-            );
-        }
     }
 
+    //@JsonDeserialize(builder = AssistantsV1ServiceCreateAssistantRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceCreateAssistantRequest {
+        public AssistantsV1ServiceCreateAssistantRequest(final String name) {
+            this.name = name;
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("customer_ai")
+        @Getter
+        @Setter
+        private AssistantsV1ServiceCustomerAi customerAi;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("owner")
+        @Getter
+        @Setter
+        private String owner;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("personality_prompt")
+        @Getter
+        @Setter
+        private String personalityPrompt;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("segment_credential")
+        @Getter
+        @Setter
+        private AssistantsV1ServiceSegmentCredential segmentCredential;
+
+    }
+
+    //@JsonDeserialize(builder = AssistantsV1ServiceSegmentCredential.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class AssistantsV1ServiceSegmentCredential {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("profile_api_key")
+        @Getter
+        @Setter
+        private String profileApiKey;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("space_id")
+        @Getter
+        @Setter
+        private String spaceId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("write_key")
+        @Getter
+        @Setter
+        private String writeKey;
+
+    }
+
+    //@JsonDeserialize(builder = AssistantsV1ServiceKnowledge.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceKnowledge {
+        public AssistantsV1ServiceKnowledge(final String id, final String name, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
+            this.id = id;
+            this.name = name;
+            this.type = type;
+            this.dateCreated = dateCreated;
+            this.dateUpdated = dateUpdated;
+        }
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("description")
@@ -220,11 +321,7 @@ public class Assistant extends Resource {
         @JsonProperty("knowledge_source_details")
         @Getter
         @Setter
-        private Map<String, Object> knowledgeSourceDetails;
-
-        public String getKnowledgeSourceDetails() {
-            return Converter.mapToJson(knowledgeSourceDetails);
-        }
+        private Object knowledgeSourceDetails;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("name")
@@ -256,159 +353,30 @@ public class Assistant extends Resource {
         @Setter
         private String embeddingModel;
 
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_created")
         @Getter
         @Setter
         private ZonedDateTime dateCreated;
 
-        public String getDateCreated() {
-            return dateCreated.toInstant().toString();
-        }
-
+        @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("date_updated")
         @Getter
         @Setter
         private ZonedDateTime dateUpdated;
 
-        public String getDateUpdated() {
-            return dateUpdated.toInstant().toString();
-        }
-
-        public static AssistantsV1ServiceKnowledge fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                AssistantsV1ServiceKnowledge.class
-            );
-        }
-    }
-
-    @ToString
-    public static class AssistantsV1ServiceTool {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("account_sid")
-        @Getter
-        @Setter
-        private String accountSid;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("description")
-        @Getter
-        @Setter
-        private String description;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("enabled")
-        @Getter
-        @Setter
-        private Boolean enabled;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("id")
-        @Getter
-        @Setter
-        private String id;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("meta")
-        @Getter
-        @Setter
-        private Map<String, Object> meta;
-
-        public String getMeta() {
-            return Converter.mapToJson(meta);
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("name")
-        @Getter
-        @Setter
-        private String name;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("requires_auth")
-        @Getter
-        @Setter
-        private Boolean requiresAuth;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        @Setter
-        private String type;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("url")
-        @Getter
-        @Setter
-        private String url;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("date_created")
-        @Getter
-        @Setter
-        private ZonedDateTime dateCreated;
-
-        public String getDateCreated() {
-            return dateCreated.toInstant().toString();
-        }
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("date_updated")
-        @Getter
-        @Setter
-        private ZonedDateTime dateUpdated;
-
-        public String getDateUpdated() {
-            return dateUpdated.toInstant().toString();
-        }
-
-        public static AssistantsV1ServiceTool fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceTool.class);
-        }
-    }
-
-    public static AssistantCreator creator(
-        final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
-    ) {
-        return new AssistantCreator(assistantsV1ServiceCreateAssistantRequest);
-    }
-
-    public static AssistantDeleter deleter(final String pathId) {
-        return new AssistantDeleter(pathId);
-    }
-
-    public static AssistantFetcher fetcher(final String pathId) {
-        return new AssistantFetcher(pathId);
-    }
-
-    public static AssistantReader reader() {
-        return new AssistantReader();
-    }
-
-    public static AssistantUpdater updater(final String pathId) {
-        return new AssistantUpdater(pathId);
     }
 
     /**
      * Converts a JSON String into a Assistant object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Assistant object represented by the provided JSON
      */
-    public static Assistant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Assistant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assistant.class);
@@ -423,14 +391,11 @@ public class Assistant extends Resource {
      * Converts a JSON InputStream into a Assistant object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Assistant object represented by the provided JSON
      */
-    public static Assistant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Assistant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assistant.class);
@@ -453,96 +418,61 @@ public class Assistant extends Resource {
         }
     }
 
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> customerAi;
-    private final String id;
-    private final String model;
-    private final String name;
-    private final String owner;
-    private final String url;
-    private final String personalityPrompt;
+    @Getter
+    private final Object customerAi;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
     private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String id;
+    @Getter
     private final List<AssistantsV1ServiceKnowledge> knowledge;
+    @Getter
+    private final String model;
+    @Getter
+    private final String name;
+    @Getter
+    private final String owner;
+    @Getter
+    private final String personalityPrompt;
+    @Getter
     private final List<AssistantsV1ServiceTool> tools;
+    @Getter
+    private final String url;
 
     @JsonCreator
     private Assistant(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("customer_ai") final Map<String, Object> customerAi,
-        @JsonProperty("id") final String id,
-        @JsonProperty("model") final String model,
-        @JsonProperty("name") final String name,
-        @JsonProperty("owner") final String owner,
-        @JsonProperty("url") final String url,
-        @JsonProperty("personality_prompt") final String personalityPrompt,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("knowledge") final List<
-            AssistantsV1ServiceKnowledge
-        > knowledge,
-        @JsonProperty("tools") final List<AssistantsV1ServiceTool> tools
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("customer_ai") final Object customerAi,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("id") final String id,
+            @JsonProperty("knowledge") final List<AssistantsV1ServiceKnowledge> knowledge,
+            @JsonProperty("model") final String model,
+            @JsonProperty("name") final String name,
+            @JsonProperty("owner") final String owner,
+            @JsonProperty("personality_prompt") final String personalityPrompt,
+            @JsonProperty("tools") final List<AssistantsV1ServiceTool> tools,
+            @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
         this.customerAi = customerAi;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.id = id;
+        this.knowledge = knowledge;
         this.model = model;
         this.name = name;
         this.owner = owner;
-        this.url = url;
         this.personalityPrompt = personalityPrompt;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.knowledge = knowledge;
         this.tools = tools;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getCustomerAi() {
-        return this.customerAi;
-    }
-
-    public final String getId() {
-        return this.id;
-    }
-
-    public final String getModel() {
-        return this.model;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final String getOwner() {
-        return this.owner;
-    }
-
-    public final String getUrl() {
-        return this.url;
-    }
-
-    public final String getPersonalityPrompt() {
-        return this.personalityPrompt;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final List<AssistantsV1ServiceKnowledge> getKnowledge() {
-        return this.knowledge;
-    }
-
-    public final List<AssistantsV1ServiceTool> getTools() {
-        return this.tools;
+        this.url = url;
     }
 
     @Override
@@ -556,38 +486,40 @@ public class Assistant extends Resource {
         }
 
         Assistant other = (Assistant) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(customerAi, other.customerAi) &&
-            Objects.equals(id, other.id) &&
-            Objects.equals(model, other.model) &&
-            Objects.equals(name, other.name) &&
-            Objects.equals(owner, other.owner) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(personalityPrompt, other.personalityPrompt) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(knowledge, other.knowledge) &&
-            Objects.equals(tools, other.tools)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(customerAi, other.customerAi) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(id, other.id) &&
+                        Objects.equals(knowledge, other.knowledge) &&
+                        Objects.equals(model, other.model) &&
+                        Objects.equals(name, other.name) &&
+                        Objects.equals(owner, other.owner) &&
+                        Objects.equals(personalityPrompt, other.personalityPrompt) &&
+                        Objects.equals(tools, other.tools) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            customerAi,
-            id,
-            model,
-            name,
-            owner,
-            url,
-            personalityPrompt,
-            dateCreated,
-            dateUpdated,
-            knowledge,
-            tools
+                accountSid,
+                customerAi,
+                dateCreated,
+                dateUpdated,
+                id,
+                knowledge,
+                model,
+                name,
+                owner,
+                personalityPrompt,
+                tools,
+                url
         );
     }
+
+
 }
+

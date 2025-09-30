@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,48 +26,45 @@ import com.twilio.rest.Domains;
 
 public class AccountFetcher extends Fetcher<Account> {
 
-    private String pathSid;
+    private String pathsid;
 
-    public AccountFetcher() {}
-
-    public AccountFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public AccountFetcher() {
     }
+
+    public AccountFetcher(final String pathsid) {
+        this.pathsid = pathsid;
+    }
+
 
     @Override
     public Account fetch(final TwilioRestClient client) {
+
         String path = "/2010-04-01/Accounts/{Sid}.json";
 
-        this.pathSid =
-            this.pathSid == null ? client.getAccountSid() : this.pathSid;
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathsid = this.pathsid == null ? client.getAccountSid() : this.pathsid;
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.API.toString(),
-            path
+                HttpMethod.GET,
+                Domains.API.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Account fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Account fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
         return Account.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

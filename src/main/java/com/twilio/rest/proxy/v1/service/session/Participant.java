@@ -18,74 +18,64 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
 
-    private static final long serialVersionUID = 85413043665121L;
 
-    public static ParticipantCreator creator(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String identifier
-    ) {
+    public static ParticipantCreator creator(final String pathserviceSid, final String pathsessionSid, final String identifier) {
         return new ParticipantCreator(
-            pathServiceSid,
-            pathSessionSid,
-            identifier
+                pathserviceSid, pathsessionSid, identifier
         );
     }
 
-    public static ParticipantDeleter deleter(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathSid
-    ) {
-        return new ParticipantDeleter(pathServiceSid, pathSessionSid, pathSid);
+
+    public static ParticipantDeleter deleter(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+        return new ParticipantDeleter(
+                pathserviceSid, pathsessionSid, pathsid
+        );
     }
 
-    public static ParticipantFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathSid
-    ) {
-        return new ParticipantFetcher(pathServiceSid, pathSessionSid, pathSid);
+
+    public static ParticipantFetcher fetcher(final String pathserviceSid, final String pathsessionSid, final String pathsid) {
+        return new ParticipantFetcher(
+                pathserviceSid, pathsessionSid, pathsid
+        );
     }
 
-    public static ParticipantReader reader(
-        final String pathServiceSid,
-        final String pathSessionSid
-    ) {
-        return new ParticipantReader(pathServiceSid, pathSessionSid);
+
+    public static ParticipantReader reader(final String pathserviceSid, final String pathsessionSid) {
+        return new ParticipantReader(
+                pathserviceSid, pathsessionSid
+        );
     }
+
 
     /**
      * Converts a JSON String into a Participant object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
      */
-    public static Participant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -100,14 +90,11 @@ public class Participant extends Resource {
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
      */
-    public static Participant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -118,101 +105,78 @@ public class Participant extends Resource {
         }
     }
 
-    private final String sid;
-    private final String sessionSid;
-    private final String serviceSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final String identifier;
-    private final String proxyIdentifier;
-    private final String proxyIdentifierSid;
-    private final ZonedDateTime dateDeleted;
+    @Getter
     private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateDeleted;
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final String identifier;
+    @Getter
     private final Map<String, String> links;
+    @Getter
+    private final String proxyIdentifier;
+    @Getter
+    private final String proxyIdentifierSid;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sessionSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Participant(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("session_sid") final String sessionSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("identifier") final String identifier,
-        @JsonProperty("proxy_identifier") final String proxyIdentifier,
-        @JsonProperty("proxy_identifier_sid") final String proxyIdentifierSid,
-        @JsonProperty("date_deleted") final String dateDeleted,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_deleted")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateDeleted,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("identifier") final String identifier,
+            @JsonProperty("links") final Map<String, String> links,
+            @JsonProperty("proxy_identifier") final String proxyIdentifier,
+            @JsonProperty("proxy_identifier_sid") final String proxyIdentifierSid,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("session_sid") final String sessionSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.sessionSid = sessionSid;
-        this.serviceSid = serviceSid;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateDeleted = dateDeleted;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
         this.identifier = identifier;
+        this.links = links;
         this.proxyIdentifier = proxyIdentifier;
         this.proxyIdentifierSid = proxyIdentifierSid;
-        this.dateDeleted = DateConverter.iso8601DateTimeFromString(dateDeleted);
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.serviceSid = serviceSid;
+        this.sessionSid = sessionSid;
+        this.sid = sid;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSessionSid() {
-        return this.sessionSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getIdentifier() {
-        return this.identifier;
-    }
-
-    public final String getProxyIdentifier() {
-        return this.proxyIdentifier;
-    }
-
-    public final String getProxyIdentifierSid() {
-        return this.proxyIdentifierSid;
-    }
-
-    public final ZonedDateTime getDateDeleted() {
-        return this.dateDeleted;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -226,40 +190,42 @@ public class Participant extends Resource {
         }
 
         Participant other = (Participant) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(sessionSid, other.sessionSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(identifier, other.identifier) &&
-            Objects.equals(proxyIdentifier, other.proxyIdentifier) &&
-            Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) &&
-            Objects.equals(dateDeleted, other.dateDeleted) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateDeleted, other.dateDeleted) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(identifier, other.identifier) &&
+                        Objects.equals(links, other.links) &&
+                        Objects.equals(proxyIdentifier, other.proxyIdentifier) &&
+                        Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sessionSid, other.sessionSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            sessionSid,
-            serviceSid,
-            accountSid,
-            friendlyName,
-            identifier,
-            proxyIdentifier,
-            proxyIdentifierSid,
-            dateDeleted,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
+                accountSid,
+                dateCreated,
+                dateDeleted,
+                dateUpdated,
+                friendlyName,
+                identifier,
+                links,
+                proxyIdentifier,
+                proxyIdentifierSid,
+                serviceSid,
+                sessionSid,
+                sid,
+                url
         );
     }
+
+
 }
+

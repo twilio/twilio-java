@@ -14,8 +14,11 @@
 
 package com.twilio.rest.trusthub.v1.customerprofiles;
 
+
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,73 +28,63 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class CustomerProfilesEvaluationsCreator
-    extends Creator<CustomerProfilesEvaluations> {
+public class CustomerProfilesEvaluationsCreator extends Creator<CustomerProfilesEvaluations> {
 
-    private String pathCustomerProfileSid;
+    private String pathcustomerProfileSid;
     private String policySid;
 
-    public CustomerProfilesEvaluationsCreator(
-        final String pathCustomerProfileSid,
-        final String policySid
-    ) {
-        this.pathCustomerProfileSid = pathCustomerProfileSid;
+    public CustomerProfilesEvaluationsCreator(final String pathcustomerProfileSid, final String policySid) {
+        this.pathcustomerProfileSid = pathcustomerProfileSid;
         this.policySid = policySid;
     }
 
-    public CustomerProfilesEvaluationsCreator setPolicySid(
-        final String policySid
-    ) {
+
+    public CustomerProfilesEvaluationsCreator setPolicySid(final String policySid) {
         this.policySid = policySid;
         return this;
     }
 
+
     @Override
     public CustomerProfilesEvaluations create(final TwilioRestClient client) {
+
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations";
 
-        path =
-            path.replace(
-                "{" + "CustomerProfileSid" + "}",
-                this.pathCustomerProfileSid.toString()
-            );
-        path = path.replace("{" + "PolicySid" + "}", this.policySid.toString());
+        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathcustomerProfileSid.toString());
+
 
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.TRUSTHUB.toString(),
-            path
+                HttpMethod.POST,
+                Domains.TRUSTHUB.toString(),
+                path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException(
-                "CustomerProfilesEvaluations creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("CustomerProfilesEvaluations creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return CustomerProfilesEvaluations.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return CustomerProfilesEvaluations.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addPostParams(final Request request) {
+
         if (policySid != null) {
-            request.addPostParam("PolicySid", policySid);
+            Serializer.toString(request, "PolicySid", policySid, ParameterType.URLENCODED);
         }
+
+
     }
 }

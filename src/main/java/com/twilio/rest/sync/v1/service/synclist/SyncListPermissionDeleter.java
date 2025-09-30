@@ -15,7 +15,6 @@
 package com.twilio.rest.sync.v1.service.synclist;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,56 +26,44 @@ import com.twilio.rest.Domains;
 
 public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
 
-    private String pathServiceSid;
-    private String pathListSid;
-    private String pathIdentity;
+    private String pathserviceSid;
+    private String pathlistSid;
+    private String pathidentity;
 
-    public SyncListPermissionDeleter(
-        final String pathServiceSid,
-        final String pathListSid,
-        final String pathIdentity
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathListSid = pathListSid;
-        this.pathIdentity = pathIdentity;
+    public SyncListPermissionDeleter(final String pathserviceSid, final String pathlistSid, final String pathidentity) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathlistSid = pathlistSid;
+        this.pathidentity = pathidentity;
     }
+
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "ListSid" + "}", this.pathlistSid.toString());
+        path = path.replace("{" + "Identity" + "}", this.pathidentity.toString());
+
 
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.SYNC.toString(),
-            path
+                HttpMethod.DELETE,
+                Domains.SYNC.toString(),
+                path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SyncListPermission delete failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SyncListPermission delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

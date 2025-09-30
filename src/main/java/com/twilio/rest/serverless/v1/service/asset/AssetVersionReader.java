@@ -17,7 +17,8 @@ package com.twilio.rest.serverless.v1.service.asset;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -29,22 +30,21 @@ import com.twilio.rest.Domains;
 
 public class AssetVersionReader extends Reader<AssetVersion> {
 
-    private String pathServiceSid;
-    private String pathAssetSid;
+    private String pathserviceSid;
+    private String pathassetSid;
     private Long pageSize;
 
-    public AssetVersionReader(
-        final String pathServiceSid,
-        final String pathAssetSid
-    ) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathAssetSid = pathAssetSid;
+    public AssetVersionReader(final String pathserviceSid, final String pathassetSid) {
+        this.pathserviceSid = pathserviceSid;
+        this.pathassetSid = pathassetSid;
     }
+
 
     public AssetVersionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
+
 
     @Override
     public ResourceSet<AssetVersion> read(final TwilioRestClient client) {
@@ -52,99 +52,69 @@ public class AssetVersionReader extends Reader<AssetVersion> {
     }
 
     public Page<AssetVersion> firstPage(final TwilioRestClient client) {
+
         String path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions";
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace("{" + "AssetSid" + "}", this.pathAssetSid.toString());
+
+        path = path.replace("{" + "ServiceSid" + "}", this.pathserviceSid.toString());
+        path = path.replace("{" + "AssetSid" + "}", this.pathassetSid.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.SERVERLESS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.SERVERLESS.toString(),
+                path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
-    private Page<AssetVersion> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<AssetVersion> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
-
         if (response == null) {
-            throw new ApiConnectionException(
-                "AssetVersion read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AssetVersion read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+                    response.getStream(),
+                    client.getObjectMapper());
+
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-            "asset_versions",
-            response.getContent(),
-            AssetVersion.class,
-            client.getObjectMapper()
-        );
+                "asset_versions",
+                response.getContent(),
+                AssetVersion.class,
+                client.getObjectMapper());
     }
 
     @Override
-    public Page<AssetVersion> previousPage(
-        final Page<AssetVersion> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
-        );
+    public Page<AssetVersion> previousPage(final Page<AssetVersion> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AssetVersion> nextPage(
-        final Page<AssetVersion> page,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(
-            HttpMethod.GET,
-            page.getNextPageUrl(Domains.SERVERLESS.toString())
-        );
+    public Page<AssetVersion> nextPage(final Page<AssetVersion> page, final TwilioRestClient client) {
+        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AssetVersion> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
+    public Page<AssetVersion> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
-        }
+
     }
 }

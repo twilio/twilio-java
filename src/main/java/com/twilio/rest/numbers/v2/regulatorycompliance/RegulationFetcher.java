@@ -15,7 +15,8 @@
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,65 +28,59 @@ import com.twilio.rest.Domains;
 
 public class RegulationFetcher extends Fetcher<Regulation> {
 
-    private String pathSid;
+    private String pathsid;
     private Boolean includeConstraints;
 
-    public RegulationFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public RegulationFetcher(final String pathsid) {
+        this.pathsid = pathsid;
     }
 
-    public RegulationFetcher setIncludeConstraints(
-        final Boolean includeConstraints
-    ) {
+
+    public RegulationFetcher setIncludeConstraints(final Boolean includeConstraints) {
         this.includeConstraints = includeConstraints;
         return this;
     }
 
+
     @Override
     public Regulation fetch(final TwilioRestClient client) {
+
         String path = "/v2/RegulatoryCompliance/Regulations/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathsid.toString());
+
 
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            path
+                HttpMethod.GET,
+                Domains.NUMBERS.toString(),
+                path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Regulation fetch failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Regulation fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
+                    response.getStream(),
+                    client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
-
-        return Regulation.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Regulation.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
+
+
         if (includeConstraints != null) {
-            request.addQueryParam(
-                "IncludeConstraints",
-                includeConstraints.toString()
-            );
+            Serializer.toString(request, "IncludeConstraints", includeConstraints, ParameterType.QUERY);
         }
+
+
     }
 }

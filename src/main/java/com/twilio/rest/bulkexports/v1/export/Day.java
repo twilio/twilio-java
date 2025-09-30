@@ -18,46 +18,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Day extends Resource {
 
-    private static final long serialVersionUID = 277630118297206L;
 
-    public static DayFetcher fetcher(
-        final String pathResourceType,
-        final String pathDay
-    ) {
-        return new DayFetcher(pathResourceType, pathDay);
+    public static DayFetcher fetcher(final String pathresourceType, final String pathday) {
+        return new DayFetcher(
+                pathresourceType, pathday
+        );
     }
 
-    public static DayReader reader(final String pathResourceType) {
-        return new DayReader(pathResourceType);
+
+    public static DayReader reader(final String pathresourceType) {
+        return new DayReader(
+                pathresourceType
+        );
     }
+
 
     /**
      * Converts a JSON String into a Day object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Day object represented by the provided JSON
      */
-    public static Day fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Day fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Day.class);
@@ -72,14 +73,11 @@ public class Day extends Resource {
      * Converts a JSON InputStream into a Day object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Day object represented by the provided JSON
      */
-    public static Day fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static Day fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Day.class);
@@ -90,52 +88,47 @@ public class Day extends Resource {
         }
     }
 
-    private final URI redirectTo;
-    private final String day;
-    private final Integer size;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String createDate;
+    @Getter
+    private final String day;
+    @Getter
     private final String friendlyName;
+    @Getter
+    private final URI redirectTo;
+    @Getter
     private final String resourceType;
+    @Getter
+    private final Integer size;
 
     @JsonCreator
     private Day(
-        @JsonProperty("redirect_to") final URI redirectTo,
-        @JsonProperty("day") final String day,
-        @JsonProperty("size") final Integer size,
-        @JsonProperty("create_date") final String createDate,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("resource_type") final String resourceType
+            @JsonProperty("create_date") final String createDate,
+            @JsonProperty("day") final String day,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("redirect_to") final URI redirectTo,
+            @JsonProperty("resource_type") final String resourceType,
+            @JsonProperty("size") final Integer size
     ) {
-        this.redirectTo = redirectTo;
-        this.day = day;
-        this.size = size;
         this.createDate = createDate;
+        this.day = day;
         this.friendlyName = friendlyName;
+        this.redirectTo = redirectTo;
         this.resourceType = resourceType;
-    }
-
-    public final URI getRedirectTo() {
-        return this.redirectTo;
-    }
-
-    public final String getDay() {
-        return this.day;
-    }
-
-    public final Integer getSize() {
-        return this.size;
-    }
-
-    public final String getCreateDate() {
-        return this.createDate;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
+        this.size = size;
     }
 
     @Override
@@ -149,26 +142,28 @@ public class Day extends Resource {
         }
 
         Day other = (Day) o;
-
         return (
-            Objects.equals(redirectTo, other.redirectTo) &&
-            Objects.equals(day, other.day) &&
-            Objects.equals(size, other.size) &&
-            Objects.equals(createDate, other.createDate) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(resourceType, other.resourceType)
+                Objects.equals(createDate, other.createDate) &&
+                        Objects.equals(day, other.day) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(redirectTo, other.redirectTo) &&
+                        Objects.equals(resourceType, other.resourceType) &&
+                        Objects.equals(size, other.size)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            redirectTo,
-            day,
-            size,
-            createDate,
-            friendlyName,
-            resourceType
+                createDate,
+                day,
+                friendlyName,
+                redirectTo,
+                resourceType,
+                size
         );
     }
+
+
 }
+

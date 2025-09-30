@@ -18,279 +18,63 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RatePlan extends Resource {
 
-    private static final long serialVersionUID = 28369111129985L;
 
     public static RatePlanCreator creator() {
-        return new RatePlanCreator();
+        return new RatePlanCreator(
+
+        );
     }
 
-    public static RatePlanDeleter deleter(final String pathSid) {
-        return new RatePlanDeleter(pathSid);
+
+    public static RatePlanDeleter deleter(final String pathsid) {
+        return new RatePlanDeleter(
+                pathsid
+        );
     }
 
-    public static RatePlanFetcher fetcher(final String pathSid) {
-        return new RatePlanFetcher(pathSid);
+
+    public static RatePlanFetcher fetcher(final String pathsid) {
+        return new RatePlanFetcher(
+                pathsid
+        );
     }
+
 
     public static RatePlanReader reader() {
-        return new RatePlanReader();
-    }
+        return new RatePlanReader(
 
-    public static RatePlanUpdater updater(final String pathSid) {
-        return new RatePlanUpdater(pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a RatePlan object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return RatePlan object represented by the provided JSON
-     */
-    public static RatePlan fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, RatePlan.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a RatePlan object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return RatePlan object represented by the provided JSON
-     */
-    public static RatePlan fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, RatePlan.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String uniqueName;
-    private final String accountSid;
-    private final String friendlyName;
-    private final Boolean dataEnabled;
-    private final String dataMetering;
-    private final Integer dataLimit;
-    private final Boolean messagingEnabled;
-    private final Boolean voiceEnabled;
-    private final Boolean nationalRoamingEnabled;
-    private final Integer nationalRoamingDataLimit;
-    private final List<String> internationalRoaming;
-    private final Integer internationalRoamingDataLimit;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
-
-    @JsonCreator
-    private RatePlan(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("data_enabled") final Boolean dataEnabled,
-        @JsonProperty("data_metering") final String dataMetering,
-        @JsonProperty("data_limit") final Integer dataLimit,
-        @JsonProperty("messaging_enabled") final Boolean messagingEnabled,
-        @JsonProperty("voice_enabled") final Boolean voiceEnabled,
-        @JsonProperty(
-            "national_roaming_enabled"
-        ) final Boolean nationalRoamingEnabled,
-        @JsonProperty(
-            "national_roaming_data_limit"
-        ) final Integer nationalRoamingDataLimit,
-        @JsonProperty("international_roaming") final List<
-            String
-        > internationalRoaming,
-        @JsonProperty(
-            "international_roaming_data_limit"
-        ) final Integer internationalRoamingDataLimit,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
-    ) {
-        this.sid = sid;
-        this.uniqueName = uniqueName;
-        this.accountSid = accountSid;
-        this.friendlyName = friendlyName;
-        this.dataEnabled = dataEnabled;
-        this.dataMetering = dataMetering;
-        this.dataLimit = dataLimit;
-        this.messagingEnabled = messagingEnabled;
-        this.voiceEnabled = voiceEnabled;
-        this.nationalRoamingEnabled = nationalRoamingEnabled;
-        this.nationalRoamingDataLimit = nationalRoamingDataLimit;
-        this.internationalRoaming = internationalRoaming;
-        this.internationalRoamingDataLimit = internationalRoamingDataLimit;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Boolean getDataEnabled() {
-        return this.dataEnabled;
-    }
-
-    public final String getDataMetering() {
-        return this.dataMetering;
-    }
-
-    public final Integer getDataLimit() {
-        return this.dataLimit;
-    }
-
-    public final Boolean getMessagingEnabled() {
-        return this.messagingEnabled;
-    }
-
-    public final Boolean getVoiceEnabled() {
-        return this.voiceEnabled;
-    }
-
-    public final Boolean getNationalRoamingEnabled() {
-        return this.nationalRoamingEnabled;
-    }
-
-    public final Integer getNationalRoamingDataLimit() {
-        return this.nationalRoamingDataLimit;
-    }
-
-    public final List<String> getInternationalRoaming() {
-        return this.internationalRoaming;
-    }
-
-    public final Integer getInternationalRoamingDataLimit() {
-        return this.internationalRoamingDataLimit;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        RatePlan other = (RatePlan) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dataEnabled, other.dataEnabled) &&
-            Objects.equals(dataMetering, other.dataMetering) &&
-            Objects.equals(dataLimit, other.dataLimit) &&
-            Objects.equals(messagingEnabled, other.messagingEnabled) &&
-            Objects.equals(voiceEnabled, other.voiceEnabled) &&
-            Objects.equals(
-                nationalRoamingEnabled,
-                other.nationalRoamingEnabled
-            ) &&
-            Objects.equals(
-                nationalRoamingDataLimit,
-                other.nationalRoamingDataLimit
-            ) &&
-            Objects.equals(internationalRoaming, other.internationalRoaming) &&
-            Objects.equals(
-                internationalRoamingDataLimit,
-                other.internationalRoamingDataLimit
-            ) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            uniqueName,
-            accountSid,
-            friendlyName,
-            dataEnabled,
-            dataMetering,
-            dataLimit,
-            messagingEnabled,
-            voiceEnabled,
-            nationalRoamingEnabled,
-            nationalRoamingDataLimit,
-            internationalRoaming,
-            internationalRoamingDataLimit,
-            dateCreated,
-            dateUpdated,
-            url
+
+    public static RatePlanUpdater updater(final String pathsid) {
+        return new RatePlanUpdater(
+                pathsid
         );
     }
+
 
     public enum DataLimitStrategy {
         BLOCK("block"),
@@ -311,4 +95,183 @@ public class RatePlan extends Resource {
             return Promoter.enumFromString(value, DataLimitStrategy.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a RatePlan object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return RatePlan object represented by the provided JSON
+     */
+    public static RatePlan fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, RatePlan.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a RatePlan object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return RatePlan object represented by the provided JSON
+     */
+    public static RatePlan fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, RatePlan.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final Boolean dataEnabled;
+    @Getter
+    private final Integer dataLimit;
+    @Getter
+    private final String dataMetering;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String friendlyName;
+    @Getter
+    private final List<String> internationalRoaming;
+    @Getter
+    private final Integer internationalRoamingDataLimit;
+    @Getter
+    private final Boolean messagingEnabled;
+    @Getter
+    private final Integer nationalRoamingDataLimit;
+    @Getter
+    private final Boolean nationalRoamingEnabled;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String uniqueName;
+    @Getter
+    private final URI url;
+    @Getter
+    private final Boolean voiceEnabled;
+
+    @JsonCreator
+    private RatePlan(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("data_enabled") final Boolean dataEnabled,
+            @JsonProperty("data_limit") final Integer dataLimit,
+            @JsonProperty("data_metering") final String dataMetering,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("friendly_name") final String friendlyName,
+            @JsonProperty("international_roaming") final List<String> internationalRoaming,
+            @JsonProperty("international_roaming_data_limit") final Integer internationalRoamingDataLimit,
+            @JsonProperty("messaging_enabled") final Boolean messagingEnabled,
+            @JsonProperty("national_roaming_data_limit") final Integer nationalRoamingDataLimit,
+            @JsonProperty("national_roaming_enabled") final Boolean nationalRoamingEnabled,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("unique_name") final String uniqueName,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("voice_enabled") final Boolean voiceEnabled
+    ) {
+        this.accountSid = accountSid;
+        this.dataEnabled = dataEnabled;
+        this.dataLimit = dataLimit;
+        this.dataMetering = dataMetering;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.internationalRoaming = internationalRoaming;
+        this.internationalRoamingDataLimit = internationalRoamingDataLimit;
+        this.messagingEnabled = messagingEnabled;
+        this.nationalRoamingDataLimit = nationalRoamingDataLimit;
+        this.nationalRoamingEnabled = nationalRoamingEnabled;
+        this.sid = sid;
+        this.uniqueName = uniqueName;
+        this.url = url;
+        this.voiceEnabled = voiceEnabled;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        RatePlan other = (RatePlan) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(dataEnabled, other.dataEnabled) &&
+                        Objects.equals(dataLimit, other.dataLimit) &&
+                        Objects.equals(dataMetering, other.dataMetering) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(friendlyName, other.friendlyName) &&
+                        Objects.equals(internationalRoaming, other.internationalRoaming) &&
+                        Objects.equals(internationalRoamingDataLimit, other.internationalRoamingDataLimit) &&
+                        Objects.equals(messagingEnabled, other.messagingEnabled) &&
+                        Objects.equals(nationalRoamingDataLimit, other.nationalRoamingDataLimit) &&
+                        Objects.equals(nationalRoamingEnabled, other.nationalRoamingEnabled) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(uniqueName, other.uniqueName) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(voiceEnabled, other.voiceEnabled)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                dataEnabled,
+                dataLimit,
+                dataMetering,
+                dateCreated,
+                dateUpdated,
+                friendlyName,
+                internationalRoaming,
+                internationalRoamingDataLimit,
+                messagingEnabled,
+                nationalRoamingDataLimit,
+                nationalRoamingEnabled,
+                sid,
+                uniqueName,
+                url,
+                voiceEnabled
+        );
+    }
+
+
 }
+

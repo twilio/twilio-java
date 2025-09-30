@@ -18,53 +18,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkflowRealTimeStatistics extends Resource {
 
-    private static final long serialVersionUID = 5030697729646L;
 
-    public static WorkflowRealTimeStatisticsFetcher fetcher(
-        final String pathWorkspaceSid,
-        final String pathWorkflowSid
-    ) {
+    public static WorkflowRealTimeStatisticsFetcher fetcher(final String pathworkspaceSid, final String pathworkflowSid) {
         return new WorkflowRealTimeStatisticsFetcher(
-            pathWorkspaceSid,
-            pathWorkflowSid
+                pathworkspaceSid, pathworkflowSid
         );
     }
+
 
     /**
      * Converts a JSON String into a WorkflowRealTimeStatistics object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkflowRealTimeStatistics object represented by the provided JSON
      */
-    public static WorkflowRealTimeStatistics fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static WorkflowRealTimeStatistics fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                WorkflowRealTimeStatistics.class
-            );
+            return objectMapper.readValue(json, WorkflowRealTimeStatistics.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -76,20 +66,14 @@ public class WorkflowRealTimeStatistics extends Resource {
      * Converts a JSON InputStream into a WorkflowRealTimeStatistics object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkflowRealTimeStatistics object represented by the provided JSON
      */
-    public static WorkflowRealTimeStatistics fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static WorkflowRealTimeStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                WorkflowRealTimeStatistics.class
-            );
+            return objectMapper.readValue(json, WorkflowRealTimeStatistics.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -97,37 +81,49 @@ public class WorkflowRealTimeStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final String accountSid;
+    @Getter
     private final Integer longestTaskWaitingAge;
+    @Getter
     private final String longestTaskWaitingSid;
-    private final Map<String, Object> tasksByPriority;
-    private final Map<String, Object> tasksByStatus;
+    @Getter
+    private final Object tasksByPriority;
+    @Getter
+    private final Object tasksByStatus;
+    @Getter
     private final Integer totalTasks;
-    private final String workflowSid;
-    private final String workspaceSid;
+    @Getter
     private final URI url;
+    @Getter
+    private final String workflowSid;
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkflowRealTimeStatistics(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "longest_task_waiting_age"
-        ) final Integer longestTaskWaitingAge,
-        @JsonProperty(
-            "longest_task_waiting_sid"
-        ) final String longestTaskWaitingSid,
-        @JsonProperty("tasks_by_priority") final Map<
-            String,
-            Object
-        > tasksByPriority,
-        @JsonProperty("tasks_by_status") final Map<
-            String,
-            Object
-        > tasksByStatus,
-        @JsonProperty("total_tasks") final Integer totalTasks,
-        @JsonProperty("workflow_sid") final String workflowSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("longest_task_waiting_age") final Integer longestTaskWaitingAge,
+            @JsonProperty("longest_task_waiting_sid") final String longestTaskWaitingSid,
+            @JsonProperty("tasks_by_priority") final Object tasksByPriority,
+            @JsonProperty("tasks_by_status") final Object tasksByStatus,
+            @JsonProperty("total_tasks") final Integer totalTasks,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("workflow_sid") final String workflowSid,
+            @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.longestTaskWaitingAge = longestTaskWaitingAge;
@@ -135,45 +131,9 @@ public class WorkflowRealTimeStatistics extends Resource {
         this.tasksByPriority = tasksByPriority;
         this.tasksByStatus = tasksByStatus;
         this.totalTasks = totalTasks;
+        this.url = url;
         this.workflowSid = workflowSid;
         this.workspaceSid = workspaceSid;
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Integer getLongestTaskWaitingAge() {
-        return this.longestTaskWaitingAge;
-    }
-
-    public final String getLongestTaskWaitingSid() {
-        return this.longestTaskWaitingSid;
-    }
-
-    public final Map<String, Object> getTasksByPriority() {
-        return this.tasksByPriority;
-    }
-
-    public final Map<String, Object> getTasksByStatus() {
-        return this.tasksByStatus;
-    }
-
-    public final Integer getTotalTasks() {
-        return this.totalTasks;
-    }
-
-    public final String getWorkflowSid() {
-        return this.workflowSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -187,38 +147,34 @@ public class WorkflowRealTimeStatistics extends Resource {
         }
 
         WorkflowRealTimeStatistics other = (WorkflowRealTimeStatistics) o;
-
         return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(
-                longestTaskWaitingAge,
-                other.longestTaskWaitingAge
-            ) &&
-            Objects.equals(
-                longestTaskWaitingSid,
-                other.longestTaskWaitingSid
-            ) &&
-            Objects.equals(tasksByPriority, other.tasksByPriority) &&
-            Objects.equals(tasksByStatus, other.tasksByStatus) &&
-            Objects.equals(totalTasks, other.totalTasks) &&
-            Objects.equals(workflowSid, other.workflowSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(longestTaskWaitingAge, other.longestTaskWaitingAge) &&
+                        Objects.equals(longestTaskWaitingSid, other.longestTaskWaitingSid) &&
+                        Objects.equals(tasksByPriority, other.tasksByPriority) &&
+                        Objects.equals(tasksByStatus, other.tasksByStatus) &&
+                        Objects.equals(totalTasks, other.totalTasks) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(workflowSid, other.workflowSid) &&
+                        Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountSid,
-            longestTaskWaitingAge,
-            longestTaskWaitingSid,
-            tasksByPriority,
-            tasksByStatus,
-            totalTasks,
-            workflowSid,
-            workspaceSid,
-            url
+                accountSid,
+                longestTaskWaitingAge,
+                longestTaskWaitingSid,
+                tasksByPriority,
+                tasksByStatus,
+                totalTasks,
+                url,
+                workflowSid,
+                workspaceSid
         );
     }
+
+
 }
+

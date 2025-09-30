@@ -18,253 +18,62 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 148235601690422L;
 
-    public static MessageCreator creator(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String body
-    ) {
-        return new MessageCreator(pathServiceSid, pathChannelSid, body);
-    }
-
-    public static MessageDeleter deleter(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        return new MessageDeleter(pathServiceSid, pathChannelSid, pathSid);
-    }
-
-    public static MessageFetcher fetcher(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
-    }
-
-    public static MessageReader reader(
-        final String pathServiceSid,
-        final String pathChannelSid
-    ) {
-        return new MessageReader(pathServiceSid, pathChannelSid);
-    }
-
-    public static MessageUpdater updater(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
-        return new MessageUpdater(pathServiceSid, pathChannelSid, pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Message object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Message object represented by the provided JSON
-     */
-    public static Message fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Message.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Converts a JSON InputStream into a Message object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Message object represented by the provided JSON
-     */
-    public static Message fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
-        // Convert all checked exceptions to Runtime
-        try {
-            return objectMapper.readValue(json, Message.class);
-        } catch (final JsonMappingException | JsonParseException e) {
-            throw new ApiException(e.getMessage(), e);
-        } catch (final IOException e) {
-            throw new ApiConnectionException(e.getMessage(), e);
-        }
-    }
-
-    private final String sid;
-    private final String accountSid;
-    private final String attributes;
-    private final String serviceSid;
-    private final String to;
-    private final String channelSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final Boolean wasEdited;
-    private final String from;
-    private final String body;
-    private final Integer index;
-    private final URI url;
-
-    @JsonCreator
-    private Message(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("to") final String to,
-        @JsonProperty("channel_sid") final String channelSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("was_edited") final Boolean wasEdited,
-        @JsonProperty("from") final String from,
-        @JsonProperty("body") final String body,
-        @JsonProperty("index") final Integer index,
-        @JsonProperty("url") final URI url
-    ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
-        this.attributes = attributes;
-        this.serviceSid = serviceSid;
-        this.to = to;
-        this.channelSid = channelSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.wasEdited = wasEdited;
-        this.from = from;
-        this.body = body;
-        this.index = index;
-        this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getTo() {
-        return this.to;
-    }
-
-    public final String getChannelSid() {
-        return this.channelSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Boolean getWasEdited() {
-        return this.wasEdited;
-    }
-
-    public final String getFrom() {
-        return this.from;
-    }
-
-    public final String getBody() {
-        return this.body;
-    }
-
-    public final Integer getIndex() {
-        return this.index;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Message other = (Message) o;
-
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(to, other.to) &&
-            Objects.equals(channelSid, other.channelSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(wasEdited, other.wasEdited) &&
-            Objects.equals(from, other.from) &&
-            Objects.equals(body, other.body) &&
-            Objects.equals(index, other.index) &&
-            Objects.equals(url, other.url)
+    public static MessageCreator creator(final String pathserviceSid, final String pathchannelSid, final String body) {
+        return new MessageCreator(
+                pathserviceSid, pathchannelSid, body
         );
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            attributes,
-            serviceSid,
-            to,
-            channelSid,
-            dateCreated,
-            dateUpdated,
-            wasEdited,
-            from,
-            body,
-            index,
-            url
+
+    public static MessageDeleter deleter(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        return new MessageDeleter(
+                pathserviceSid, pathchannelSid, pathsid
         );
     }
+
+
+    public static MessageFetcher fetcher(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        return new MessageFetcher(
+                pathserviceSid, pathchannelSid, pathsid
+        );
+    }
+
+
+    public static MessageReader reader(final String pathserviceSid, final String pathchannelSid) {
+        return new MessageReader(
+                pathserviceSid, pathchannelSid
+        );
+    }
+
+
+    public static MessageUpdater updater(final String pathserviceSid, final String pathchannelSid, final String pathsid) {
+        return new MessageUpdater(
+                pathserviceSid, pathchannelSid, pathsid
+        );
+    }
+
 
     public enum OrderType {
         ASC("asc"),
@@ -285,4 +94,165 @@ public class Message extends Resource {
             return Promoter.enumFromString(value, OrderType.values());
         }
     }
+
+
+    /**
+     * Converts a JSON String into a Message object using the provided ObjectMapper.
+     *
+     * @param json         Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Message object represented by the provided JSON
+     */
+    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Message.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Converts a JSON InputStream into a Message object using the provided
+     * ObjectMapper.
+     *
+     * @param json         Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Message object represented by the provided JSON
+     */
+    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
+        // Convert all checked exceptions to Runtime
+        try {
+            return objectMapper.readValue(json, Message.class);
+        } catch (final JsonMappingException | JsonParseException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
+    private final String accountSid;
+    @Getter
+    private final String attributes;
+    @Getter
+    private final String body;
+    @Getter
+    private final String channelSid;
+    @Getter
+    private final ZonedDateTime dateCreated;
+    @Getter
+    private final ZonedDateTime dateUpdated;
+    @Getter
+    private final String from;
+    @Getter
+    private final Integer index;
+    @Getter
+    private final String serviceSid;
+    @Getter
+    private final String sid;
+    @Getter
+    private final String to;
+    @Getter
+    private final URI url;
+    @Getter
+    private final Boolean wasEdited;
+
+    @JsonCreator
+    private Message(
+            @JsonProperty("account_sid") final String accountSid,
+            @JsonProperty("attributes") final String attributes,
+            @JsonProperty("body") final String body,
+            @JsonProperty("channel_sid") final String channelSid,
+            @JsonProperty("date_created")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
+            @JsonProperty("date_updated")
+            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
+            @JsonProperty("from") final String from,
+            @JsonProperty("index") final Integer index,
+            @JsonProperty("service_sid") final String serviceSid,
+            @JsonProperty("sid") final String sid,
+            @JsonProperty("to") final String to,
+            @JsonProperty("url") final URI url,
+            @JsonProperty("was_edited") final Boolean wasEdited
+    ) {
+        this.accountSid = accountSid;
+        this.attributes = attributes;
+        this.body = body;
+        this.channelSid = channelSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.from = from;
+        this.index = index;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.to = to;
+        this.url = url;
+        this.wasEdited = wasEdited;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Message other = (Message) o;
+        return (
+                Objects.equals(accountSid, other.accountSid) &&
+                        Objects.equals(attributes, other.attributes) &&
+                        Objects.equals(body, other.body) &&
+                        Objects.equals(channelSid, other.channelSid) &&
+                        Objects.equals(dateCreated, other.dateCreated) &&
+                        Objects.equals(dateUpdated, other.dateUpdated) &&
+                        Objects.equals(from, other.from) &&
+                        Objects.equals(index, other.index) &&
+                        Objects.equals(serviceSid, other.serviceSid) &&
+                        Objects.equals(sid, other.sid) &&
+                        Objects.equals(to, other.to) &&
+                        Objects.equals(url, other.url) &&
+                        Objects.equals(wasEdited, other.wasEdited)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                accountSid,
+                attributes,
+                body,
+                channelSid,
+                dateCreated,
+                dateUpdated,
+                from,
+                index,
+                serviceSid,
+                sid,
+                to,
+                url,
+                wasEdited
+        );
+    }
+
+
 }
+

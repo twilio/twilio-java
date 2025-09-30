@@ -18,40 +18,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsUserRoles extends Resource {
 
-    private static final long serialVersionUID = 154216272914379L;
 
     public static InsightsUserRolesFetcher fetcher() {
-        return new InsightsUserRolesFetcher();
+        return new InsightsUserRolesFetcher(
+
+        );
     }
+
 
     /**
      * Converts a JSON String into a InsightsUserRoles object using the provided ObjectMapper.
      *
-     * @param json Raw JSON String
+     * @param json         Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsUserRoles object represented by the provided JSON
      */
-    public static InsightsUserRoles fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    public static InsightsUserRoles fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsUserRoles.class);
@@ -66,14 +67,11 @@ public class InsightsUserRoles extends Resource {
      * Converts a JSON InputStream into a InsightsUserRoles object using the provided
      * ObjectMapper.
      *
-     * @param json Raw JSON InputStream
+     * @param json         Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsUserRoles object represented by the provided JSON
      */
-    public static InsightsUserRoles fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    public static InsightsUserRoles fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsUserRoles.class);
@@ -84,24 +82,31 @@ public class InsightsUserRoles extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+
+    @Getter
     private final List<String> roles;
+    @Getter
     private final URI url;
 
     @JsonCreator
     private InsightsUserRoles(
-        @JsonProperty("roles") final List<String> roles,
-        @JsonProperty("url") final URI url
+            @JsonProperty("roles") final List<String> roles,
+            @JsonProperty("url") final URI url
     ) {
         this.roles = roles;
         this.url = url;
-    }
-
-    public final List<String> getRoles() {
-        return this.roles;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -115,14 +120,20 @@ public class InsightsUserRoles extends Resource {
         }
 
         InsightsUserRoles other = (InsightsUserRoles) o;
-
         return (
-            Objects.equals(roles, other.roles) && Objects.equals(url, other.url)
+                Objects.equals(roles, other.roles) &&
+                        Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roles, url);
+        return Objects.hash(
+                roles,
+                url
+        );
     }
+
+
 }
+

@@ -1,13 +1,22 @@
 ```
+import com.twilio.Twilio;
+import com.twilio.credential.ClientCredentialProvider;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.http.bearertoken.ApiTokenManager;
+import com.twilio.http.bearertoken.TokenManager;
+import com.twilio.auth_strategy.TokenAuthStrategy;
+
 class PublicOAuthExample {
-    public static void main {
+    private static final String GRANT_TYPE = "client_credentials";
+    private static final String OAUTH_CLIENT_SID = System.getenv("OAUTH_CLIENT_ID");
+    private static final String OAUTH_CLIENT_SECRET = System.getenv("OAUTH_CLIENT_SECRET");
+    private static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+    private static final String MESSAGE_SID = System.getenv("MESSAGE_SID");
 
-        private static final String GRANT_TYPE = "grant_type_to_be_used";
-        private static final String OAUTH_CLIENT_SID = "client_id";
-        private static final String OAUTH_CLIENT_SECRET = "client_secret";
-        private static final String ACCOUNT_SID = "account_sid";
-        private static final String MESSAGE_SID = "message_sid";
+    public static void main(String[] args) {
 
+        
         //Getting access token - Method #1
         Twilio.init(new ClientCredentialProvider(OAUTH_CLIENT_SID, OAUTH_CLIENT_SECRET), ACCOUNT_SID);
         fetchMessage(MESSAGE_SID);

@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
@@ -26,9 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
-import com.twilio.type.*;
 
 public class NewVerifyFactorUpdater extends Updater<NewVerifyFactor> {
     private String pathServiceSid;

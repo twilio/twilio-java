@@ -26,9 +26,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-import com.twilio.type.*;
-
 public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeStatistics> {
 
     private String pathWorkspaceSid;

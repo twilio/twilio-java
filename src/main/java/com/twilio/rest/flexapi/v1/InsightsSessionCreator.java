@@ -27,9 +27,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-import com.twilio.type.*;
-
 public class InsightsSessionCreator extends Creator<InsightsSession> {
 
     private String authorization;

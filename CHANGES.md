@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2025-10-15] Version 11.0.1
+----------------------------
+
+**Api**
+
+- Updated description for property CallerDisplayName for participant create request
+- Updated description for property CallerDisplayName for participant create request
+
+
 [2025-09-30] Version 11.0.0
 ------------------------------------
 

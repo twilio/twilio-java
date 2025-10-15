@@ -24,9 +24,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-import com.twilio.type.*;
-
 public class FlexUserFetcher extends Fetcher<FlexUser> {
 
     private String pathInstanceSid;

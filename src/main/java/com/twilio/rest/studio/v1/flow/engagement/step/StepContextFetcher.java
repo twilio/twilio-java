@@ -24,9 +24,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-import com.twilio.type.*;
-
 public class StepContextFetcher extends Fetcher<StepContext> {
 
     private String pathFlowSid;

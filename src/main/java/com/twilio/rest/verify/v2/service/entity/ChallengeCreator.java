@@ -29,11 +29,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
 
 public class ChallengeCreator extends Creator<Challenge> {
 

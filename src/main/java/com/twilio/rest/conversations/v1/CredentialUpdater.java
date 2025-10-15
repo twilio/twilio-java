@@ -27,9 +27,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-import com.twilio.type.*;
-
 public class CredentialUpdater extends Updater<Credential> {
     private String pathSid;
     private Credential.PushType type;

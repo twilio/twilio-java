@@ -28,10 +28,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
 import java.util.List;
-
-import com.twilio.type.*;
 
 public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private String pathSid;
@@ -56,6 +53,18 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private String businessContactEmail;
     private com.twilio.type.PhoneNumber businessContactPhone;
     private String editReason;
+    private String businessRegistrationNumber;
+    private String businessRegistrationAuthority;
+    private String businessRegistrationCountry;
+    private String businessType;
+    private String businessRegistrationPhoneNumber;
+    private String doingBusinessAs;
+    private String optInConfirmationMessage;
+    private String helpMessageSample;
+    private String privacyPolicyUrl;
+    private String termsAndConditionsUrl;
+    private Boolean ageGatedContent;
+    private List<String> optInKeywords;
 
     public TollfreeVerificationUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -196,6 +205,81 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         return this;
     }
 
+
+    public TollfreeVerificationUpdater setBusinessRegistrationNumber(final String businessRegistrationNumber) {
+        this.businessRegistrationNumber = businessRegistrationNumber;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setBusinessRegistrationAuthority(final String businessRegistrationAuthority) {
+        this.businessRegistrationAuthority = businessRegistrationAuthority;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setBusinessRegistrationCountry(final String businessRegistrationCountry) {
+        this.businessRegistrationCountry = businessRegistrationCountry;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setBusinessType(final String businessType) {
+        this.businessType = businessType;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setBusinessRegistrationPhoneNumber(final String businessRegistrationPhoneNumber) {
+        this.businessRegistrationPhoneNumber = businessRegistrationPhoneNumber;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setDoingBusinessAs(final String doingBusinessAs) {
+        this.doingBusinessAs = doingBusinessAs;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setOptInConfirmationMessage(final String optInConfirmationMessage) {
+        this.optInConfirmationMessage = optInConfirmationMessage;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setHelpMessageSample(final String helpMessageSample) {
+        this.helpMessageSample = helpMessageSample;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setPrivacyPolicyUrl(final String privacyPolicyUrl) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setTermsAndConditionsUrl(final String termsAndConditionsUrl) {
+        this.termsAndConditionsUrl = termsAndConditionsUrl;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setAgeGatedContent(final Boolean ageGatedContent) {
+        this.ageGatedContent = ageGatedContent;
+        return this;
+    }
+
+
+    public TollfreeVerificationUpdater setOptInKeywords(final List<String> optInKeywords) {
+        this.optInKeywords = optInKeywords;
+        return this;
+    }
+
+    public TollfreeVerificationUpdater setOptInKeywords(final String optInKeywords) {
+        return setOptInKeywords(Promoter.listOfOne(optInKeywords));
+    }
 
     @Override
     public TollfreeVerification update(final TwilioRestClient client) {
@@ -341,6 +425,67 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
             Serializer.toString(request, "EditReason", editReason, ParameterType.URLENCODED);
         }
 
+
+        if (businessRegistrationNumber != null) {
+            Serializer.toString(request, "BusinessRegistrationNumber", businessRegistrationNumber, ParameterType.URLENCODED);
+        }
+
+
+        if (businessRegistrationAuthority != null) {
+            Serializer.toString(request, "BusinessRegistrationAuthority", businessRegistrationAuthority, ParameterType.URLENCODED);
+        }
+
+
+        if (businessRegistrationCountry != null) {
+            Serializer.toString(request, "BusinessRegistrationCountry", businessRegistrationCountry, ParameterType.URLENCODED);
+        }
+
+
+        if (businessType != null) {
+            Serializer.toString(request, "BusinessType", businessType, ParameterType.URLENCODED);
+        }
+
+
+        if (businessRegistrationPhoneNumber != null) {
+            Serializer.toString(request, "BusinessRegistrationPhoneNumber", businessRegistrationPhoneNumber, ParameterType.URLENCODED);
+        }
+
+
+        if (doingBusinessAs != null) {
+            Serializer.toString(request, "DoingBusinessAs", doingBusinessAs, ParameterType.URLENCODED);
+        }
+
+
+        if (optInConfirmationMessage != null) {
+            Serializer.toString(request, "OptInConfirmationMessage", optInConfirmationMessage, ParameterType.URLENCODED);
+        }
+
+
+        if (helpMessageSample != null) {
+            Serializer.toString(request, "HelpMessageSample", helpMessageSample, ParameterType.URLENCODED);
+        }
+
+
+        if (privacyPolicyUrl != null) {
+            Serializer.toString(request, "PrivacyPolicyUrl", privacyPolicyUrl, ParameterType.URLENCODED);
+        }
+
+
+        if (termsAndConditionsUrl != null) {
+            Serializer.toString(request, "TermsAndConditionsUrl", termsAndConditionsUrl, ParameterType.URLENCODED);
+        }
+
+
+        if (ageGatedContent != null) {
+            Serializer.toString(request, "AgeGatedContent", ageGatedContent, ParameterType.URLENCODED);
+        }
+
+
+        if (optInKeywords != null) {
+            for (String param : optInKeywords) {
+                Serializer.toString(request, "OptInKeywords", param, ParameterType.URLENCODED);
+            }
+        }
 
     }
 }

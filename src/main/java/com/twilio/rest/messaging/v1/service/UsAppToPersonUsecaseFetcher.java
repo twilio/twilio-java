@@ -26,9 +26,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-import com.twilio.type.*;
-
 public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
 
     private String pathMessagingServiceSid;

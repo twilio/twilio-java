@@ -16,42 +16,28 @@ package com.twilio.rest.numbers.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import com.twilio.type.*;
-
 import java.util.Objects;
-
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twilio.base.Resource;
-
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -1088,6 +1074,8 @@ public class PortingPortIn extends Resource {
     @Getter
     private final String portabilityAdvanceCarrier;
     @Getter
+    private final Integer supportTicketId;
+    @Getter
     private final LocalDate targetPortInDate;
     @Getter
     private final String targetPortInTimeRangeEnd;
@@ -1111,6 +1099,7 @@ public class PortingPortIn extends Resource {
             @JsonProperty("port_in_request_sid") final String portInRequestSid,
             @JsonProperty("port_in_request_status") final String portInRequestStatus,
             @JsonProperty("portability_advance_carrier") final String portabilityAdvanceCarrier,
+            @JsonProperty("support_ticket_id") final Integer supportTicketId,
             @JsonProperty("target_port_in_date")
             @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class) final LocalDate targetPortInDate,
             @JsonProperty("target_port_in_time_range_end") final String targetPortInTimeRangeEnd,
@@ -1129,6 +1118,7 @@ public class PortingPortIn extends Resource {
         this.portInRequestSid = portInRequestSid;
         this.portInRequestStatus = portInRequestStatus;
         this.portabilityAdvanceCarrier = portabilityAdvanceCarrier;
+        this.supportTicketId = supportTicketId;
         this.targetPortInDate = targetPortInDate;
         this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
         this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
@@ -1159,6 +1149,7 @@ public class PortingPortIn extends Resource {
                         Objects.equals(portInRequestSid, other.portInRequestSid) &&
                         Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
                         Objects.equals(portabilityAdvanceCarrier, other.portabilityAdvanceCarrier) &&
+                        Objects.equals(supportTicketId, other.supportTicketId) &&
                         Objects.equals(targetPortInDate, other.targetPortInDate) &&
                         Objects.equals(targetPortInTimeRangeEnd, other.targetPortInTimeRangeEnd) &&
                         Objects.equals(targetPortInTimeRangeStart, other.targetPortInTimeRangeStart) &&
@@ -1181,6 +1172,7 @@ public class PortingPortIn extends Resource {
                 portInRequestSid,
                 portInRequestStatus,
                 portabilityAdvanceCarrier,
+                supportTicketId,
                 targetPortInDate,
                 targetPortInTimeRangeEnd,
                 targetPortInTimeRangeStart,

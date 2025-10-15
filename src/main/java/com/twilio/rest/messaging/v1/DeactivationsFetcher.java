@@ -26,10 +26,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
 import java.time.LocalDate;
-
-import com.twilio.type.*;
 
 public class DeactivationsFetcher extends Fetcher<Deactivations> {
 

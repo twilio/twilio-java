@@ -353,6 +353,9 @@
           <target>8</target>
           <showDeprecation>true</showDeprecation>
           <forceJavacCompilerUse>true</forceJavacCompilerUse>
+          <compilerArgs>
+              <arg>-parameters</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>

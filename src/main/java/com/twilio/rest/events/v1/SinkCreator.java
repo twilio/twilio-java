@@ -14,7 +14,6 @@
 
 package com.twilio.rest.events.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SinkCreator extends Creator<Sink> {
 
@@ -34,41 +34,39 @@ public class SinkCreator extends Creator<Sink> {
     private Object sinkConfiguration;
     private Sink.SinkType sinkType;
 
-    public SinkCreator(final String description, final Object sinkConfiguration, final Sink.SinkType sinkType) {
+    public SinkCreator(
+        final String description,
+        final Object sinkConfiguration,
+        final Sink.SinkType sinkType
+    ) {
         this.description = description;
         this.sinkConfiguration = sinkConfiguration;
         this.sinkType = sinkType;
     }
-
 
     public SinkCreator setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-
     public SinkCreator setSinkConfiguration(final Object sinkConfiguration) {
         this.sinkConfiguration = sinkConfiguration;
         return this;
     }
-
 
     public SinkCreator setSinkType(final Sink.SinkType sinkType) {
         this.sinkType = sinkType;
         return this;
     }
 
-
     @Override
     public Sink create(final TwilioRestClient client) {
-
         String path = "/v1/Sinks";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.EVENTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.EVENTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -76,14 +74,19 @@ public class SinkCreator extends Creator<Sink> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Sink creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sink creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -92,21 +95,31 @@ public class SinkCreator extends Creator<Sink> {
     }
 
     private void addPostParams(final Request request) {
-
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sinkConfiguration != null) {
-            Serializer.toString(request, "SinkConfiguration", sinkConfiguration, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SinkConfiguration",
+                sinkConfiguration,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sinkType != null) {
-            Serializer.toString(request, "SinkType", sinkType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SinkType",
+                sinkType,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

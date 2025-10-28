@@ -18,104 +18,118 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Address extends Resource {
 
-
-    public static AddressCreator creator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+    public static AddressCreator creator(
+        final String customerName,
+        final String street,
+        final String city,
+        final String region,
+        final String postalCode,
+        final String isoCountry
+    ) {
         return new AddressCreator(
-                customerName, street, city, region, postalCode, isoCountry
+            customerName,
+            street,
+            city,
+            region,
+            postalCode,
+            isoCountry
         );
     }
 
-
-    public static AddressCreator creator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+    public static AddressCreator creator(
+        final String pathAccountSid,
+        final String customerName,
+        final String street,
+        final String city,
+        final String region,
+        final String postalCode,
+        final String isoCountry
+    ) {
         return new AddressCreator(
-                pathAccountSid, customerName, street, city, region, postalCode, isoCountry
+            pathAccountSid,
+            customerName,
+            street,
+            city,
+            region,
+            postalCode,
+            isoCountry
         );
     }
-
 
     public static AddressDeleter deleter(final String pathSid) {
-        return new AddressDeleter(
-                pathSid
-        );
+        return new AddressDeleter(pathSid);
     }
 
-
-    public static AddressDeleter deleter(final String pathAccountSid, final String pathSid) {
-        return new AddressDeleter(
-                pathAccountSid, pathSid
-        );
+    public static AddressDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new AddressDeleter(pathAccountSid, pathSid);
     }
-
 
     public static AddressFetcher fetcher(final String pathSid) {
-        return new AddressFetcher(
-                pathSid
-        );
+        return new AddressFetcher(pathSid);
     }
 
-
-    public static AddressFetcher fetcher(final String pathAccountSid, final String pathSid) {
-        return new AddressFetcher(
-                pathAccountSid, pathSid
-        );
+    public static AddressFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new AddressFetcher(pathAccountSid, pathSid);
     }
-
 
     public static AddressReader reader() {
-        return new AddressReader(
-
-        );
+        return new AddressReader();
     }
-
 
     public static AddressReader reader(final String pathAccountSid) {
-        return new AddressReader(
-                pathAccountSid
-        );
+        return new AddressReader(pathAccountSid);
     }
-
 
     public static AddressUpdater updater(final String pathSid) {
-        return new AddressUpdater(
-                pathSid
-        );
+        return new AddressUpdater(pathSid);
     }
 
-
-    public static AddressUpdater updater(final String pathAccountSid, final String pathSid) {
-        return new AddressUpdater(
-                pathAccountSid, pathSid
-        );
+    public static AddressUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new AddressUpdater(pathAccountSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Address object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Address object represented by the provided JSON
      */
-    public static Address fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Address fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Address.class);
@@ -130,11 +144,14 @@ public class Address extends Resource {
      * Converts a JSON InputStream into a Address object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Address object represented by the provided JSON
      */
-    public static Address fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Address fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Address.class);
@@ -157,60 +174,76 @@ public class Address extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String city;
+
     @Getter
     private final String customerName;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Boolean emergencyEnabled;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String isoCountry;
+
     @Getter
     private final String postalCode;
+
     @Getter
     private final String region;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String street;
+
     @Getter
     private final String streetSecondary;
+
     @Getter
     private final String uri;
+
     @Getter
     private final Boolean validated;
+
     @Getter
     private final Boolean verified;
 
     @JsonCreator
     private Address(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("city") final String city,
-            @JsonProperty("customer_name") final String customerName,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("emergency_enabled") final Boolean emergencyEnabled,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("iso_country") final String isoCountry,
-            @JsonProperty("postal_code") final String postalCode,
-            @JsonProperty("region") final String region,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("street") final String street,
-            @JsonProperty("street_secondary") final String streetSecondary,
-            @JsonProperty("uri") final String uri,
-            @JsonProperty("validated") final Boolean validated,
-            @JsonProperty("verified") final Boolean verified
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("city") final String city,
+        @JsonProperty("customer_name") final String customerName,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("emergency_enabled") final Boolean emergencyEnabled,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("postal_code") final String postalCode,
+        @JsonProperty("region") final String region,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("street") final String street,
+        @JsonProperty("street_secondary") final String streetSecondary,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty("validated") final Boolean validated,
+        @JsonProperty("verified") final Boolean verified
     ) {
         this.accountSid = accountSid;
         this.city = city;
@@ -242,47 +275,44 @@ public class Address extends Resource {
 
         Address other = (Address) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(city, other.city) &&
-                        Objects.equals(customerName, other.customerName) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(emergencyEnabled, other.emergencyEnabled) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(isoCountry, other.isoCountry) &&
-                        Objects.equals(postalCode, other.postalCode) &&
-                        Objects.equals(region, other.region) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(street, other.street) &&
-                        Objects.equals(streetSecondary, other.streetSecondary) &&
-                        Objects.equals(uri, other.uri) &&
-                        Objects.equals(validated, other.validated) &&
-                        Objects.equals(verified, other.verified)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(city, other.city) &&
+            Objects.equals(customerName, other.customerName) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(emergencyEnabled, other.emergencyEnabled) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(postalCode, other.postalCode) &&
+            Objects.equals(region, other.region) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(street, other.street) &&
+            Objects.equals(streetSecondary, other.streetSecondary) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(validated, other.validated) &&
+            Objects.equals(verified, other.verified)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                city,
-                customerName,
-                dateCreated,
-                dateUpdated,
-                emergencyEnabled,
-                friendlyName,
-                isoCountry,
-                postalCode,
-                region,
-                sid,
-                street,
-                streetSecondary,
-                uri,
-                validated,
-                verified
+            accountSid,
+            city,
+            customerName,
+            dateCreated,
+            dateUpdated,
+            emergencyEnabled,
+            friendlyName,
+            isoCountry,
+            postalCode,
+            region,
+            sid,
+            street,
+            streetSecondary,
+            uri,
+            validated,
+            verified
         );
     }
-
-
 }
-

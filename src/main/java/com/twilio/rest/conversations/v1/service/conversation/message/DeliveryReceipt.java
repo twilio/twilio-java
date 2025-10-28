@@ -18,41 +18,55 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeliveryReceipt extends Resource {
 
-
-    public static DeliveryReceiptFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid, final String pathSid) {
+    public static DeliveryReceiptFetcher fetcher(
+        final String pathChatServiceSid,
+        final String pathConversationSid,
+        final String pathMessageSid,
+        final String pathSid
+    ) {
         return new DeliveryReceiptFetcher(
-                pathChatServiceSid, pathConversationSid, pathMessageSid, pathSid
+            pathChatServiceSid,
+            pathConversationSid,
+            pathMessageSid,
+            pathSid
         );
     }
 
-
-    public static DeliveryReceiptReader reader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid) {
+    public static DeliveryReceiptReader reader(
+        final String pathChatServiceSid,
+        final String pathConversationSid,
+        final String pathMessageSid
+    ) {
         return new DeliveryReceiptReader(
-                pathChatServiceSid, pathConversationSid, pathMessageSid
+            pathChatServiceSid,
+            pathConversationSid,
+            pathMessageSid
         );
     }
-
 
     public enum DeliveryStatus {
         READ("read"),
@@ -77,15 +91,17 @@ public class DeliveryReceipt extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a DeliveryReceipt object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DeliveryReceipt object represented by the provided JSON
      */
-    public static DeliveryReceipt fromJson(final String json, final ObjectMapper objectMapper) {
+    public static DeliveryReceipt fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeliveryReceipt.class);
@@ -100,11 +116,14 @@ public class DeliveryReceipt extends Resource {
      * Converts a JSON InputStream into a DeliveryReceipt object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DeliveryReceipt object represented by the provided JSON
      */
-    public static DeliveryReceipt fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static DeliveryReceipt fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeliveryReceipt.class);
@@ -127,48 +146,60 @@ public class DeliveryReceipt extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String channelMessageSid;
+
     @Getter
     private final String chatServiceSid;
+
     @Getter
     private final String conversationSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Integer errorCode;
+
     @Getter
     private final String messageSid;
+
     @Getter
     private final String participantSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final DeliveryReceipt.DeliveryStatus status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private DeliveryReceipt(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("channel_message_sid") final String channelMessageSid,
-            @JsonProperty("chat_service_sid") final String chatServiceSid,
-            @JsonProperty("conversation_sid") final String conversationSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("error_code") final Integer errorCode,
-            @JsonProperty("message_sid") final String messageSid,
-            @JsonProperty("participant_sid") final String participantSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final DeliveryReceipt.DeliveryStatus status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("channel_message_sid") final String channelMessageSid,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("conversation_sid") final String conversationSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("error_code") final Integer errorCode,
+        @JsonProperty("message_sid") final String messageSid,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final DeliveryReceipt.DeliveryStatus status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.channelMessageSid = channelMessageSid;
@@ -196,39 +227,36 @@ public class DeliveryReceipt extends Resource {
 
         DeliveryReceipt other = (DeliveryReceipt) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(channelMessageSid, other.channelMessageSid) &&
-                        Objects.equals(chatServiceSid, other.chatServiceSid) &&
-                        Objects.equals(conversationSid, other.conversationSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(errorCode, other.errorCode) &&
-                        Objects.equals(messageSid, other.messageSid) &&
-                        Objects.equals(participantSid, other.participantSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(channelMessageSid, other.channelMessageSid) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(conversationSid, other.conversationSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(errorCode, other.errorCode) &&
+            Objects.equals(messageSid, other.messageSid) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                channelMessageSid,
-                chatServiceSid,
-                conversationSid,
-                dateCreated,
-                dateUpdated,
-                errorCode,
-                messageSid,
-                participantSid,
-                sid,
-                status,
-                url
+            accountSid,
+            channelMessageSid,
+            chatServiceSid,
+            conversationSid,
+            dateCreated,
+            dateUpdated,
+            errorCode,
+            messageSid,
+            participantSid,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

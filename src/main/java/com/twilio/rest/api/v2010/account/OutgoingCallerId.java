@@ -18,90 +18,80 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OutgoingCallerId extends Resource {
 
-
     public static OutgoingCallerIdDeleter deleter(final String pathSid) {
-        return new OutgoingCallerIdDeleter(
-                pathSid
-        );
+        return new OutgoingCallerIdDeleter(pathSid);
     }
 
-
-    public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, final String pathSid) {
-        return new OutgoingCallerIdDeleter(
-                pathAccountSid, pathSid
-        );
+    public static OutgoingCallerIdDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new OutgoingCallerIdDeleter(pathAccountSid, pathSid);
     }
-
 
     public static OutgoingCallerIdFetcher fetcher(final String pathSid) {
-        return new OutgoingCallerIdFetcher(
-                pathSid
-        );
+        return new OutgoingCallerIdFetcher(pathSid);
     }
 
-
-    public static OutgoingCallerIdFetcher fetcher(final String pathAccountSid, final String pathSid) {
-        return new OutgoingCallerIdFetcher(
-                pathAccountSid, pathSid
-        );
+    public static OutgoingCallerIdFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new OutgoingCallerIdFetcher(pathAccountSid, pathSid);
     }
-
 
     public static OutgoingCallerIdReader reader() {
-        return new OutgoingCallerIdReader(
-
-        );
+        return new OutgoingCallerIdReader();
     }
-
 
     public static OutgoingCallerIdReader reader(final String pathAccountSid) {
-        return new OutgoingCallerIdReader(
-                pathAccountSid
-        );
+        return new OutgoingCallerIdReader(pathAccountSid);
     }
-
 
     public static OutgoingCallerIdUpdater updater(final String pathSid) {
-        return new OutgoingCallerIdUpdater(
-                pathSid
-        );
+        return new OutgoingCallerIdUpdater(pathSid);
     }
 
-
-    public static OutgoingCallerIdUpdater updater(final String pathAccountSid, final String pathSid) {
-        return new OutgoingCallerIdUpdater(
-                pathAccountSid, pathSid
-        );
+    public static OutgoingCallerIdUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new OutgoingCallerIdUpdater(pathAccountSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a OutgoingCallerId object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return OutgoingCallerId object represented by the provided JSON
      */
-    public static OutgoingCallerId fromJson(final String json, final ObjectMapper objectMapper) {
+    public static OutgoingCallerId fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OutgoingCallerId.class);
@@ -116,11 +106,14 @@ public class OutgoingCallerId extends Resource {
      * Converts a JSON InputStream into a OutgoingCallerId object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return OutgoingCallerId object represented by the provided JSON
      */
-    public static OutgoingCallerId fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static OutgoingCallerId fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OutgoingCallerId.class);
@@ -143,33 +136,42 @@ public class OutgoingCallerId extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private OutgoingCallerId(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("phone_number") final com.twilio.type.PhoneNumber phoneNumber,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -192,29 +194,26 @@ public class OutgoingCallerId extends Resource {
 
         OutgoingCallerId other = (OutgoingCallerId) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(phoneNumber, other.phoneNumber) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                phoneNumber,
-                sid,
-                uri
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            phoneNumber,
+            sid,
+            uri
         );
     }
-
-
 }
-

@@ -27,20 +27,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RatePlanReader extends Reader<RatePlan> {
 
     private Long pageSize;
 
-    public RatePlanReader() {
-    }
-
+    public RatePlanReader() {}
 
     public RatePlanReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<RatePlan> read(final TwilioRestClient client) {
@@ -48,67 +46,91 @@ public class RatePlanReader extends Reader<RatePlan> {
     }
 
     public Page<RatePlan> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/RatePlans";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.WIRELESS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.WIRELESS.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<RatePlan> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<RatePlan> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("RatePlan read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "RatePlan read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "rate_plans",
-                response.getContent(),
-                RatePlan.class,
-                client.getObjectMapper());
+            "rate_plans",
+            response.getContent(),
+            RatePlan.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<RatePlan> previousPage(final Page<RatePlan> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<RatePlan> previousPage(
+        final Page<RatePlan> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<RatePlan> nextPage(final Page<RatePlan> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<RatePlan> nextPage(
+        final Page<RatePlan> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<RatePlan> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<RatePlan> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

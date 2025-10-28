@@ -18,56 +18,52 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Command extends Resource {
 
-
     public static CommandCreator creator(final String command) {
-        return new CommandCreator(
-                command
-        );
+        return new CommandCreator(command);
     }
-
 
     public static CommandFetcher fetcher(final String pathSid) {
-        return new CommandFetcher(
-                pathSid
-        );
+        return new CommandFetcher(pathSid);
     }
-
 
     public static CommandReader reader() {
-        return new CommandReader(
-
-        );
+        return new CommandReader();
     }
-
 
     /**
      * Converts a JSON String into a Command object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Command object represented by the provided JSON
      */
-    public static Command fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Command fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Command.class);
@@ -82,11 +78,14 @@ public class Command extends Resource {
      * Converts a JSON InputStream into a Command object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Command object represented by the provided JSON
      */
-    public static Command fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Command fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Command.class);
@@ -109,45 +108,56 @@ public class Command extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String command;
+
     @Getter
     private final String commandMode;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String deviceSid;
+
     @Getter
     private final String direction;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String simSid;
+
     @Getter
     private final String status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Command(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("command") final String command,
-            @JsonProperty("command_mode") final String commandMode,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("device_sid") final String deviceSid,
-            @JsonProperty("direction") final String direction,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sim_sid") final String simSid,
-            @JsonProperty("status") final String status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("command") final String command,
+        @JsonProperty("command_mode") final String commandMode,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("device_sid") final String deviceSid,
+        @JsonProperty("direction") final String direction,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("status") final String status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.command = command;
@@ -174,37 +184,34 @@ public class Command extends Resource {
 
         Command other = (Command) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(command, other.command) &&
-                        Objects.equals(commandMode, other.commandMode) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(deviceSid, other.deviceSid) &&
-                        Objects.equals(direction, other.direction) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(simSid, other.simSid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(command, other.command) &&
+            Objects.equals(commandMode, other.commandMode) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(deviceSid, other.deviceSid) &&
+            Objects.equals(direction, other.direction) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                command,
-                commandMode,
-                dateCreated,
-                dateUpdated,
-                deviceSid,
-                direction,
-                sid,
-                simSid,
-                status,
-                url
+            accountSid,
+            command,
+            commandMode,
+            dateCreated,
+            dateUpdated,
+            deviceSid,
+            direction,
+            sid,
+            simSid,
+            status,
+            url
         );
     }
-
-
 }
-

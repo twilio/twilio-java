@@ -14,7 +14,6 @@
 
 package com.twilio.rest.serverless.v1.service.environment;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DeploymentCreator extends Creator<Deployment> {
 
@@ -35,37 +35,44 @@ public class DeploymentCreator extends Creator<Deployment> {
     private String buildSid;
     private Boolean isPlugin;
 
-    public DeploymentCreator(final String pathServiceSid, final String pathEnvironmentSid) {
+    public DeploymentCreator(
+        final String pathServiceSid,
+        final String pathEnvironmentSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
-
 
     public DeploymentCreator setBuildSid(final String buildSid) {
         this.buildSid = buildSid;
         return this;
     }
 
-
     public DeploymentCreator setIsPlugin(final Boolean isPlugin) {
         this.isPlugin = isPlugin;
         return this;
     }
 
-
     @Override
     public Deployment create(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
-        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "EnvironmentSid" + "}", this.pathEnvironmentSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "EnvironmentSid" + "}",
+                this.pathEnvironmentSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SERVERLESS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -73,32 +80,46 @@ public class DeploymentCreator extends Creator<Deployment> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Deployment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Deployment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Deployment.fromJson(response.getStream(), client.getObjectMapper());
+        return Deployment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (buildSid != null) {
-            Serializer.toString(request, "BuildSid", buildSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BuildSid",
+                buildSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (isPlugin != null) {
-            Serializer.toString(request, "IsPlugin", isPlugin, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IsPlugin",
+                isPlugin,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

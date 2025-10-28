@@ -28,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class ChannelReader extends Reader<Channel> {
@@ -40,7 +40,6 @@ public class ChannelReader extends Reader<Channel> {
     public ChannelReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
-
 
     public ChannelReader setType(final List<Channel.ChannelType> type) {
         this.type = type;
@@ -56,82 +55,114 @@ public class ChannelReader extends Reader<Channel> {
         return this;
     }
 
-
     @Override
     public ResourceSet<Channel> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<Channel> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.IPMESSAGING.toString(),
-                path
+            HttpMethod.GET,
+            Domains.IPMESSAGING.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Channel> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Channel> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Channel read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Channel read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "channels",
-                response.getContent(),
-                Channel.class,
-                client.getObjectMapper());
+            "channels",
+            response.getContent(),
+            Channel.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Channel> previousPage(final Page<Channel> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Channel> previousPage(
+        final Page<Channel> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Channel> nextPage(final Page<Channel> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Channel> nextPage(
+        final Page<Channel> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Channel> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Channel> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (type != null) {
             for (Channel.ChannelType param : type) {
-                Serializer.toString(request, "Type", param, ParameterType.QUERY);
+                Serializer.toString(
+                    request,
+                    "Type",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

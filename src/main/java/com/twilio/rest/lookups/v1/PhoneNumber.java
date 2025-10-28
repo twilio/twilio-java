@@ -18,40 +18,42 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
 
-
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
-        return new PhoneNumberFetcher(
-                pathPhoneNumber
-        );
+        return new PhoneNumberFetcher(pathPhoneNumber);
     }
-
 
     /**
      * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
      */
-    public static PhoneNumber fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PhoneNumber fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -66,11 +68,14 @@ public class PhoneNumber extends Resource {
      * Converts a JSON InputStream into a PhoneNumber object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
      */
-    public static PhoneNumber fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PhoneNumber fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -93,31 +98,38 @@ public class PhoneNumber extends Resource {
         }
     }
 
-
     @Getter
     private final Object addOns;
+
     @Getter
     private final Object callerName;
+
     @Getter
     private final Object carrier;
+
     @Getter
     private final String countryCode;
+
     @Getter
     private final String nationalFormat;
+
     @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private PhoneNumber(
-            @JsonProperty("add_ons") final Object addOns,
-            @JsonProperty("caller_name") final Object callerName,
-            @JsonProperty("carrier") final Object carrier,
-            @JsonProperty("country_code") final String countryCode,
-            @JsonProperty("national_format") final String nationalFormat,
-            @JsonProperty("phone_number") final com.twilio.type.PhoneNumber phoneNumber,
-            @JsonProperty("url") final URI url
+        @JsonProperty("add_ons") final Object addOns,
+        @JsonProperty("caller_name") final Object callerName,
+        @JsonProperty("carrier") final Object carrier,
+        @JsonProperty("country_code") final String countryCode,
+        @JsonProperty("national_format") final String nationalFormat,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("url") final URI url
     ) {
         this.addOns = addOns;
         this.callerName = callerName;
@@ -140,29 +152,26 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
         return (
-                Objects.equals(addOns, other.addOns) &&
-                        Objects.equals(callerName, other.callerName) &&
-                        Objects.equals(carrier, other.carrier) &&
-                        Objects.equals(countryCode, other.countryCode) &&
-                        Objects.equals(nationalFormat, other.nationalFormat) &&
-                        Objects.equals(phoneNumber, other.phoneNumber) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(addOns, other.addOns) &&
+            Objects.equals(callerName, other.callerName) &&
+            Objects.equals(carrier, other.carrier) &&
+            Objects.equals(countryCode, other.countryCode) &&
+            Objects.equals(nationalFormat, other.nationalFormat) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                addOns,
-                callerName,
-                carrier,
-                countryCode,
-                nationalFormat,
-                phoneNumber,
-                url
+            addOns,
+            callerName,
+            carrier,
+            countryCode,
+            nationalFormat,
+            phoneNumber,
+            url
         );
     }
-
-
 }
-

@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserChannelDeleter extends Deleter<UserChannel> {
 
@@ -33,47 +34,63 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     private String pathChannelSid;
     private UserChannel.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public UserChannelDeleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid) {
+    public UserChannelDeleter(
+        final String pathServiceSid,
+        final String pathUserSid,
+        final String pathChannelSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
         this.pathChannelSid = pathChannelSid;
     }
 
-
-    public UserChannelDeleter setXTwilioWebhookEnabled(final UserChannel.WebhookEnabledType xTwilioWebhookEnabled) {
+    public UserChannelDeleter setXTwilioWebhookEnabled(
+        final UserChannel.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.CHAT.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.CHAT.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UserChannel delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserChannel delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -81,10 +98,13 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     }
 
     private void addHeaderParams(final Request request) {
-
         if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "X-Twilio-Webhook-Enabled",
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

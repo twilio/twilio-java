@@ -18,39 +18,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Regulation extends Resource {
 
-
     public static RegulationFetcher fetcher(final String pathSid) {
-        return new RegulationFetcher(
-                pathSid
-        );
+        return new RegulationFetcher(pathSid);
     }
-
 
     public static RegulationReader reader() {
-        return new RegulationReader(
-
-        );
+        return new RegulationReader();
     }
-
 
     public enum EndUserType {
         INDIVIDUAL("individual"),
@@ -72,15 +68,17 @@ public class Regulation extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Regulation object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Regulation object represented by the provided JSON
      */
-    public static Regulation fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Regulation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Regulation.class);
@@ -95,11 +93,14 @@ public class Regulation extends Resource {
      * Converts a JSON InputStream into a Regulation object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Regulation object represented by the provided JSON
      */
-    public static Regulation fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Regulation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Regulation.class);
@@ -122,31 +123,36 @@ public class Regulation extends Resource {
         }
     }
 
-
     @Getter
     private final Regulation.EndUserType endUserType;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String isoCountry;
+
     @Getter
     private final String numberType;
+
     @Getter
     private final Object requirements;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Regulation(
-            @JsonProperty("end_user_type") final Regulation.EndUserType endUserType,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("iso_country") final String isoCountry,
-            @JsonProperty("number_type") final String numberType,
-            @JsonProperty("requirements") final Object requirements,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("end_user_type") final Regulation.EndUserType endUserType,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("number_type") final String numberType,
+        @JsonProperty("requirements") final Object requirements,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.endUserType = endUserType;
         this.friendlyName = friendlyName;
@@ -169,29 +175,26 @@ public class Regulation extends Resource {
 
         Regulation other = (Regulation) o;
         return (
-                Objects.equals(endUserType, other.endUserType) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(isoCountry, other.isoCountry) &&
-                        Objects.equals(numberType, other.numberType) &&
-                        Objects.equals(requirements, other.requirements) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(endUserType, other.endUserType) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(numberType, other.numberType) &&
+            Objects.equals(requirements, other.requirements) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                endUserType,
-                friendlyName,
-                isoCountry,
-                numberType,
-                requirements,
-                sid,
-                url
+            endUserType,
+            friendlyName,
+            isoCountry,
+            numberType,
+            requirements,
+            sid,
+            url
         );
     }
-
-
 }
-

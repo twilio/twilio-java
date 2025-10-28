@@ -14,7 +14,6 @@
 
 package com.twilio.rest.accounts.v1.credential;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AwsCreator extends Creator<Aws> {
 
@@ -38,35 +38,29 @@ public class AwsCreator extends Creator<Aws> {
         this.credentials = credentials;
     }
 
-
     public AwsCreator setCredentials(final String credentials) {
         this.credentials = credentials;
         return this;
     }
-
 
     public AwsCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public AwsCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-
     @Override
     public Aws create(final TwilioRestClient client) {
-
         String path = "/v1/Credentials/AWS";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ACCOUNTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -74,14 +68,19 @@ public class AwsCreator extends Creator<Aws> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Aws creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Aws creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -90,21 +89,31 @@ public class AwsCreator extends Creator<Aws> {
     }
 
     private void addPostParams(final Request request) {
-
         if (credentials != null) {
-            Serializer.toString(request, "Credentials", credentials, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Credentials",
+                credentials,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

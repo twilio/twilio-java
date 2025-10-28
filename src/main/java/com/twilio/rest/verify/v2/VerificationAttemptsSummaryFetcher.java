@@ -25,10 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
-public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAttemptsSummary> {
+public class VerificationAttemptsSummaryFetcher
+    extends Fetcher<VerificationAttemptsSummary> {
 
     private String verifyServiceSid;
     private ZonedDateTime dateCreatedAfter;
@@ -37,108 +38,137 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
     private VerificationAttemptsSummary.Channels channel;
     private String destinationPrefix;
 
-    public VerificationAttemptsSummaryFetcher() {
-    }
+    public VerificationAttemptsSummaryFetcher() {}
 
-
-    public VerificationAttemptsSummaryFetcher setVerifyServiceSid(final String verifyServiceSid) {
+    public VerificationAttemptsSummaryFetcher setVerifyServiceSid(
+        final String verifyServiceSid
+    ) {
         this.verifyServiceSid = verifyServiceSid;
         return this;
     }
 
-
-    public VerificationAttemptsSummaryFetcher setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
+    public VerificationAttemptsSummaryFetcher setDateCreatedAfter(
+        final ZonedDateTime dateCreatedAfter
+    ) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
-
-    public VerificationAttemptsSummaryFetcher setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
+    public VerificationAttemptsSummaryFetcher setDateCreatedBefore(
+        final ZonedDateTime dateCreatedBefore
+    ) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
-
 
     public VerificationAttemptsSummaryFetcher setCountry(final String country) {
         this.country = country;
         return this;
     }
 
-
-    public VerificationAttemptsSummaryFetcher setChannel(final VerificationAttemptsSummary.Channels channel) {
+    public VerificationAttemptsSummaryFetcher setChannel(
+        final VerificationAttemptsSummary.Channels channel
+    ) {
         this.channel = channel;
         return this;
     }
 
-
-    public VerificationAttemptsSummaryFetcher setDestinationPrefix(final String destinationPrefix) {
+    public VerificationAttemptsSummaryFetcher setDestinationPrefix(
+        final String destinationPrefix
+    ) {
         this.destinationPrefix = destinationPrefix;
         return this;
     }
 
-
     @Override
     public VerificationAttemptsSummary fetch(final TwilioRestClient client) {
-
         String path = "/v2/Attempts/Summary";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.GET,
+            Domains.VERIFY.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationAttemptsSummary fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "VerificationAttemptsSummary fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return VerificationAttemptsSummary.fromJson(response.getStream(), client.getObjectMapper());
+        return VerificationAttemptsSummary.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (verifyServiceSid != null) {
-            Serializer.toString(request, "VerifyServiceSid", verifyServiceSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "VerifyServiceSid",
+                verifyServiceSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (dateCreatedAfter != null) {
-            Serializer.toString(request, "DateCreatedAfter", dateCreatedAfter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DateCreatedAfter",
+                dateCreatedAfter,
+                ParameterType.QUERY
+            );
         }
-
 
         if (dateCreatedBefore != null) {
-            Serializer.toString(request, "DateCreatedBefore", dateCreatedBefore, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DateCreatedBefore",
+                dateCreatedBefore,
+                ParameterType.QUERY
+            );
         }
-
 
         if (country != null) {
-            Serializer.toString(request, "Country", country, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Country",
+                country,
+                ParameterType.QUERY
+            );
         }
-
 
         if (channel != null) {
-            Serializer.toString(request, "Channel", channel, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.QUERY
+            );
         }
-
 
         if (destinationPrefix != null) {
-            Serializer.toString(request, "DestinationPrefix", destinationPrefix, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DestinationPrefix",
+                destinationPrefix,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

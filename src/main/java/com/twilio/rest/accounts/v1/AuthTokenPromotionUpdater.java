@@ -23,40 +23,45 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AuthTokenPromotionUpdater extends Updater<AuthTokenPromotion> {
 
-    public AuthTokenPromotionUpdater() {
-    }
-
+    public AuthTokenPromotionUpdater() {}
 
     @Override
     public AuthTokenPromotion update(final TwilioRestClient client) {
-
         String path = "/v1/AuthTokens/Promote";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ACCOUNTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AuthTokenPromotion update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthTokenPromotion update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return AuthTokenPromotion.fromJson(response.getStream(), client.getObjectMapper());
+        return AuthTokenPromotion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class TrustProductsUpdater extends Updater<TrustProducts> {
+
     private String pathSid;
     private TrustProducts.Status status;
     private URI statusCallback;
@@ -41,12 +42,10 @@ public class TrustProductsUpdater extends Updater<TrustProducts> {
         this.pathSid = pathSid;
     }
 
-
     public TrustProductsUpdater setStatus(final TrustProducts.Status status) {
         this.status = status;
         return this;
     }
-
 
     public TrustProductsUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
@@ -62,25 +61,21 @@ public class TrustProductsUpdater extends Updater<TrustProducts> {
         return this;
     }
 
-
     public TrustProductsUpdater setEmail(final String email) {
         this.email = email;
         return this;
     }
 
-
     @Override
     public TrustProducts update(final TwilioRestClient client) {
-
         String path = "/v1/TrustProducts/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -88,42 +83,64 @@ public class TrustProductsUpdater extends Updater<TrustProducts> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TrustProducts update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProducts update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return TrustProducts.fromJson(response.getStream(), client.getObjectMapper());
+        return TrustProducts.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (email != null) {
-            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

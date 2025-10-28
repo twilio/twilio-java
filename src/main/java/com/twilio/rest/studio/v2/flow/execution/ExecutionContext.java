@@ -18,40 +18,45 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExecutionContext extends Resource {
 
-
-    public static ExecutionContextFetcher fetcher(final String pathFlowSid, final String pathExecutionSid) {
-        return new ExecutionContextFetcher(
-                pathFlowSid, pathExecutionSid
-        );
+    public static ExecutionContextFetcher fetcher(
+        final String pathFlowSid,
+        final String pathExecutionSid
+    ) {
+        return new ExecutionContextFetcher(pathFlowSid, pathExecutionSid);
     }
-
 
     /**
      * Converts a JSON String into a ExecutionContext object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionContext object represented by the provided JSON
      */
-    public static ExecutionContext fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ExecutionContext fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExecutionContext.class);
@@ -66,11 +71,14 @@ public class ExecutionContext extends Resource {
      * Converts a JSON InputStream into a ExecutionContext object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionContext object represented by the provided JSON
      */
-    public static ExecutionContext fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ExecutionContext fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ExecutionContext.class);
@@ -93,25 +101,28 @@ public class ExecutionContext extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object context;
+
     @Getter
     private final String executionSid;
+
     @Getter
     private final String flowSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ExecutionContext(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("context") final Object context,
-            @JsonProperty("execution_sid") final String executionSid,
-            @JsonProperty("flow_sid") final String flowSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("context") final Object context,
+        @JsonProperty("execution_sid") final String executionSid,
+        @JsonProperty("flow_sid") final String flowSid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.context = context;
@@ -132,25 +143,16 @@ public class ExecutionContext extends Resource {
 
         ExecutionContext other = (ExecutionContext) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(context, other.context) &&
-                        Objects.equals(executionSid, other.executionSid) &&
-                        Objects.equals(flowSid, other.flowSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(context, other.context) &&
+            Objects.equals(executionSid, other.executionSid) &&
+            Objects.equals(flowSid, other.flowSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                accountSid,
-                context,
-                executionSid,
-                flowSid,
-                url
-        );
+        return Objects.hash(accountSid, context, executionSid, flowSid, url);
     }
-
-
 }
-

@@ -18,90 +18,112 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CredentialListMapping extends Resource {
 
-
-    public static CredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator creator(
+        final String pathDomainSid,
+        final String credentialListSid
+    ) {
         return new CredentialListMappingCreator(
-                pathDomainSid, credentialListSid
+            pathDomainSid,
+            credentialListSid
         );
     }
 
-
-    public static CredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+    public static CredentialListMappingCreator creator(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String credentialListSid
+    ) {
         return new CredentialListMappingCreator(
-                pathAccountSid, pathDomainSid, credentialListSid
+            pathAccountSid,
+            pathDomainSid,
+            credentialListSid
         );
     }
 
+    public static CredentialListMappingDeleter deleter(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
+        return new CredentialListMappingDeleter(pathDomainSid, pathSid);
+    }
 
-    public static CredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
+    public static CredentialListMappingDeleter deleter(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         return new CredentialListMappingDeleter(
-                pathDomainSid, pathSid
+            pathAccountSid,
+            pathDomainSid,
+            pathSid
         );
     }
 
-
-    public static CredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
-        return new CredentialListMappingDeleter(
-                pathAccountSid, pathDomainSid, pathSid
-        );
+    public static CredentialListMappingFetcher fetcher(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
+        return new CredentialListMappingFetcher(pathDomainSid, pathSid);
     }
 
-
-    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
+    public static CredentialListMappingFetcher fetcher(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         return new CredentialListMappingFetcher(
-                pathDomainSid, pathSid
+            pathAccountSid,
+            pathDomainSid,
+            pathSid
         );
     }
 
-
-    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
-        return new CredentialListMappingFetcher(
-                pathAccountSid, pathDomainSid, pathSid
-        );
+    public static CredentialListMappingReader reader(
+        final String pathDomainSid
+    ) {
+        return new CredentialListMappingReader(pathDomainSid);
     }
 
-
-    public static CredentialListMappingReader reader(final String pathDomainSid) {
-        return new CredentialListMappingReader(
-                pathDomainSid
-        );
+    public static CredentialListMappingReader reader(
+        final String pathAccountSid,
+        final String pathDomainSid
+    ) {
+        return new CredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
-
-
-    public static CredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
-        return new CredentialListMappingReader(
-                pathAccountSid, pathDomainSid
-        );
-    }
-
 
     /**
      * Converts a JSON String into a CredentialListMapping object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CredentialListMapping object represented by the provided JSON
      */
-    public static CredentialListMapping fromJson(final String json, final ObjectMapper objectMapper) {
+    public static CredentialListMapping fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CredentialListMapping.class);
@@ -116,11 +138,14 @@ public class CredentialListMapping extends Resource {
      * Converts a JSON InputStream into a CredentialListMapping object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CredentialListMapping object represented by the provided JSON
      */
-    public static CredentialListMapping fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static CredentialListMapping fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CredentialListMapping.class);
@@ -143,33 +168,40 @@ public class CredentialListMapping extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String domainSid;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private CredentialListMapping(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("domain_sid") final String domainSid,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -192,29 +224,26 @@ public class CredentialListMapping extends Resource {
 
         CredentialListMapping other = (CredentialListMapping) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(domainSid, other.domainSid) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                domainSid,
-                friendlyName,
-                sid,
-                uri
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            domainSid,
+            friendlyName,
+            sid,
+            uri
         );
     }
-
-
 }
-

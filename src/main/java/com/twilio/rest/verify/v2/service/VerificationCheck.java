@@ -18,34 +18,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationCheck extends Resource {
 
-
-    public static VerificationCheckCreator creator(final String pathServiceSid) {
-        return new VerificationCheckCreator(
-                pathServiceSid
-        );
+    public static VerificationCheckCreator creator(
+        final String pathServiceSid
+    ) {
+        return new VerificationCheckCreator(pathServiceSid);
     }
-
 
     public enum Channel {
         SMS("sms"),
@@ -70,15 +71,17 @@ public class VerificationCheck extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a VerificationCheck object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationCheck object represented by the provided JSON
      */
-    public static VerificationCheck fromJson(final String json, final ObjectMapper objectMapper) {
+    public static VerificationCheck fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, VerificationCheck.class);
@@ -93,11 +96,14 @@ public class VerificationCheck extends Resource {
      * Converts a JSON InputStream into a VerificationCheck object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationCheck object represented by the provided JSON
      */
-    public static VerificationCheck fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static VerificationCheck fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, VerificationCheck.class);
@@ -120,48 +126,62 @@ public class VerificationCheck extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String amount;
+
     @Getter
     private final VerificationCheck.Channel channel;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String payee;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final List<Object> snaAttemptsErrorCodes;
+
     @Getter
     private final String status;
+
     @Getter
     private final String to;
+
     @Getter
     private final Boolean valid;
 
     @JsonCreator
     private VerificationCheck(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("amount") final String amount,
-            @JsonProperty("channel") final VerificationCheck.Channel channel,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("payee") final String payee,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sna_attempts_error_codes") final List<Object> snaAttemptsErrorCodes,
-            @JsonProperty("status") final String status,
-            @JsonProperty("to") final String to,
-            @JsonProperty("valid") final Boolean valid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("amount") final String amount,
+        @JsonProperty("channel") final VerificationCheck.Channel channel,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("payee") final String payee,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sna_attempts_error_codes") final List<
+            Object
+        > snaAttemptsErrorCodes,
+        @JsonProperty("status") final String status,
+        @JsonProperty("to") final String to,
+        @JsonProperty("valid") final Boolean valid
     ) {
         this.accountSid = accountSid;
         this.amount = amount;
@@ -189,39 +209,39 @@ public class VerificationCheck extends Resource {
 
         VerificationCheck other = (VerificationCheck) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(amount, other.amount) &&
-                        Objects.equals(channel, other.channel) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(payee, other.payee) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(snaAttemptsErrorCodes, other.snaAttemptsErrorCodes) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(to, other.to) &&
-                        Objects.equals(valid, other.valid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(amount, other.amount) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(payee, other.payee) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(
+                snaAttemptsErrorCodes,
+                other.snaAttemptsErrorCodes
+            ) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(to, other.to) &&
+            Objects.equals(valid, other.valid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                amount,
-                channel,
-                dateCreated,
-                dateUpdated,
-                payee,
-                serviceSid,
-                sid,
-                snaAttemptsErrorCodes,
-                status,
-                to,
-                valid
+            accountSid,
+            amount,
+            channel,
+            dateCreated,
+            dateUpdated,
+            payee,
+            serviceSid,
+            sid,
+            snaAttemptsErrorCodes,
+            status,
+            to,
+            valid
         );
     }
-
-
 }
-

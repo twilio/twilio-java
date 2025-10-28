@@ -18,49 +18,51 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
 
-
-    public static EventFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
-        return new EventFetcher(
-                pathWorkspaceSid, pathSid
-        );
+    public static EventFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new EventFetcher(pathWorkspaceSid, pathSid);
     }
-
 
     public static EventReader reader(final String pathWorkspaceSid) {
-        return new EventReader(
-                pathWorkspaceSid
-        );
+        return new EventReader(pathWorkspaceSid);
     }
-
 
     /**
      * Converts a JSON String into a Event object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
      */
-    public static Event fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Event fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -75,11 +77,14 @@ public class Event extends Resource {
      * Converts a JSON InputStream into a Event object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
      */
-    public static Event fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Event fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -102,62 +107,78 @@ public class Event extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String actorSid;
+
     @Getter
     private final String actorType;
+
     @Getter
     private final URI actorUrl;
+
     @Getter
     private final String description;
+
     @Getter
     private final Object eventData;
+
     @Getter
     private final ZonedDateTime eventDate;
+
     @Getter
     private final Long eventDateMs;
+
     @Getter
     private final String eventType;
+
     @Getter
     private final String resourceSid;
+
     @Getter
     private final String resourceType;
+
     @Getter
     private final URI resourceUrl;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String source;
+
     @Getter
     private final String sourceIpAddress;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private Event(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("actor_sid") final String actorSid,
-            @JsonProperty("actor_type") final String actorType,
-            @JsonProperty("actor_url") final URI actorUrl,
-            @JsonProperty("description") final String description,
-            @JsonProperty("event_data") final Object eventData,
-            @JsonProperty("event_date")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime eventDate,
-            @JsonProperty("event_date_ms") final Long eventDateMs,
-            @JsonProperty("event_type") final String eventType,
-            @JsonProperty("resource_sid") final String resourceSid,
-            @JsonProperty("resource_type") final String resourceType,
-            @JsonProperty("resource_url") final URI resourceUrl,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("source") final String source,
-            @JsonProperty("source_ip_address") final String sourceIpAddress,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("actor_sid") final String actorSid,
+        @JsonProperty("actor_type") final String actorType,
+        @JsonProperty("actor_url") final URI actorUrl,
+        @JsonProperty("description") final String description,
+        @JsonProperty("event_data") final Object eventData,
+        @JsonProperty("event_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime eventDate,
+        @JsonProperty("event_date_ms") final Long eventDateMs,
+        @JsonProperty("event_type") final String eventType,
+        @JsonProperty("resource_sid") final String resourceSid,
+        @JsonProperty("resource_type") final String resourceType,
+        @JsonProperty("resource_url") final URI resourceUrl,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("source") final String source,
+        @JsonProperty("source_ip_address") final String sourceIpAddress,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
@@ -190,49 +211,46 @@ public class Event extends Resource {
 
         Event other = (Event) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(actorSid, other.actorSid) &&
-                        Objects.equals(actorType, other.actorType) &&
-                        Objects.equals(actorUrl, other.actorUrl) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(eventData, other.eventData) &&
-                        Objects.equals(eventDate, other.eventDate) &&
-                        Objects.equals(eventDateMs, other.eventDateMs) &&
-                        Objects.equals(eventType, other.eventType) &&
-                        Objects.equals(resourceSid, other.resourceSid) &&
-                        Objects.equals(resourceType, other.resourceType) &&
-                        Objects.equals(resourceUrl, other.resourceUrl) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(source, other.source) &&
-                        Objects.equals(sourceIpAddress, other.sourceIpAddress) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(actorSid, other.actorSid) &&
+            Objects.equals(actorType, other.actorType) &&
+            Objects.equals(actorUrl, other.actorUrl) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(eventData, other.eventData) &&
+            Objects.equals(eventDate, other.eventDate) &&
+            Objects.equals(eventDateMs, other.eventDateMs) &&
+            Objects.equals(eventType, other.eventType) &&
+            Objects.equals(resourceSid, other.resourceSid) &&
+            Objects.equals(resourceType, other.resourceType) &&
+            Objects.equals(resourceUrl, other.resourceUrl) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(source, other.source) &&
+            Objects.equals(sourceIpAddress, other.sourceIpAddress) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                actorSid,
-                actorType,
-                actorUrl,
-                description,
-                eventData,
-                eventDate,
-                eventDateMs,
-                eventType,
-                resourceSid,
-                resourceType,
-                resourceUrl,
-                sid,
-                source,
-                sourceIpAddress,
-                url,
-                workspaceSid
+            accountSid,
+            actorSid,
+            actorType,
+            actorUrl,
+            description,
+            eventData,
+            eventDate,
+            eventDateMs,
+            eventType,
+            resourceSid,
+            resourceType,
+            resourceUrl,
+            sid,
+            source,
+            sourceIpAddress,
+            url,
+            workspaceSid
         );
     }
-
-
 }
-

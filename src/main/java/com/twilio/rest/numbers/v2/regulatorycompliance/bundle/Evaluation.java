@@ -18,49 +18,45 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Evaluation extends Resource {
 
-
     public static EvaluationCreator creator(final String pathBundleSid) {
-        return new EvaluationCreator(
-                pathBundleSid
-        );
+        return new EvaluationCreator(pathBundleSid);
     }
 
-
-    public static EvaluationFetcher fetcher(final String pathBundleSid, final String pathSid) {
-        return new EvaluationFetcher(
-                pathBundleSid, pathSid
-        );
+    public static EvaluationFetcher fetcher(
+        final String pathBundleSid,
+        final String pathSid
+    ) {
+        return new EvaluationFetcher(pathBundleSid, pathSid);
     }
-
 
     public static EvaluationReader reader(final String pathBundleSid) {
-        return new EvaluationReader(
-                pathBundleSid
-        );
+        return new EvaluationReader(pathBundleSid);
     }
-
 
     public enum Status {
         COMPLIANT("compliant"),
@@ -82,15 +78,17 @@ public class Evaluation extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Evaluation object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Evaluation object represented by the provided JSON
      */
-    public static Evaluation fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Evaluation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Evaluation.class);
@@ -105,11 +103,14 @@ public class Evaluation extends Resource {
      * Converts a JSON InputStream into a Evaluation object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Evaluation object represented by the provided JSON
      */
-    public static Evaluation fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Evaluation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Evaluation.class);
@@ -132,35 +133,42 @@ public class Evaluation extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String bundleSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final String regulationSid;
+
     @Getter
     private final List<Object> results;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Evaluation.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Evaluation(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("bundle_sid") final String bundleSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("regulation_sid") final String regulationSid,
-            @JsonProperty("results") final List<Object> results,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Evaluation.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("bundle_sid") final String bundleSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("regulation_sid") final String regulationSid,
+        @JsonProperty("results") final List<Object> results,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Evaluation.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.bundleSid = bundleSid;
@@ -184,31 +192,28 @@ public class Evaluation extends Resource {
 
         Evaluation other = (Evaluation) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(bundleSid, other.bundleSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(regulationSid, other.regulationSid) &&
-                        Objects.equals(results, other.results) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(bundleSid, other.bundleSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(regulationSid, other.regulationSid) &&
+            Objects.equals(results, other.results) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                bundleSid,
-                dateCreated,
-                regulationSid,
-                results,
-                sid,
-                status,
-                url
+            accountSid,
+            bundleSid,
+            dateCreated,
+            regulationSid,
+            results,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

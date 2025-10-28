@@ -23,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PayloadDeleter extends Deleter<Payload> {
 
@@ -31,49 +32,76 @@ public class PayloadDeleter extends Deleter<Payload> {
     private String pathAddOnResultSid;
     private String pathSid;
 
-    public PayloadDeleter(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid) {
+    public PayloadDeleter(
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathSid
+    ) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathAddOnResultSid = pathAddOnResultSid;
         this.pathSid = pathSid;
     }
 
-    public PayloadDeleter(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid) {
+    public PayloadDeleter(
+        final String pathAccountSid,
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
         this.pathAddOnResultSid = pathAddOnResultSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "ReferenceSid" + "}", this.pathReferenceSid.toString());
-        path = path.replace("{" + "AddOnResultSid" + "}", this.pathAddOnResultSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ReferenceSid" + "}",
+                this.pathReferenceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "AddOnResultSid" + "}",
+                this.pathAddOnResultSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.API.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.API.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Payload delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Payload delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

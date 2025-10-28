@@ -27,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
 public class ReservationUpdater extends Updater<Reservation> {
+
     private String pathWorkspaceSid;
     private String pathWorkerSid;
     private String pathSid;
@@ -89,68 +90,75 @@ public class ReservationUpdater extends Updater<Reservation> {
     private Boolean beepOnCustomerEntrance;
     private String jitterBufferSize;
 
-    public ReservationUpdater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid) {
+    public ReservationUpdater(
+        final String pathWorkspaceSid,
+        final String pathWorkerSid,
+        final String pathSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
         this.pathSid = pathSid;
     }
 
-
-    public ReservationUpdater setReservationStatus(final Reservation.Status reservationStatus) {
+    public ReservationUpdater setReservationStatus(
+        final Reservation.Status reservationStatus
+    ) {
         this.reservationStatus = reservationStatus;
         return this;
     }
 
-
-    public ReservationUpdater setWorkerActivitySid(final String workerActivitySid) {
+    public ReservationUpdater setWorkerActivitySid(
+        final String workerActivitySid
+    ) {
         this.workerActivitySid = workerActivitySid;
         return this;
     }
-
 
     public ReservationUpdater setInstruction(final String instruction) {
         this.instruction = instruction;
         return this;
     }
 
-
-    public ReservationUpdater setDequeuePostWorkActivitySid(final String dequeuePostWorkActivitySid) {
+    public ReservationUpdater setDequeuePostWorkActivitySid(
+        final String dequeuePostWorkActivitySid
+    ) {
         this.dequeuePostWorkActivitySid = dequeuePostWorkActivitySid;
         return this;
     }
-
 
     public ReservationUpdater setDequeueFrom(final String dequeueFrom) {
         this.dequeueFrom = dequeueFrom;
         return this;
     }
 
-
     public ReservationUpdater setDequeueRecord(final String dequeueRecord) {
         this.dequeueRecord = dequeueRecord;
         return this;
     }
-
 
     public ReservationUpdater setDequeueTimeout(final Integer dequeueTimeout) {
         this.dequeueTimeout = dequeueTimeout;
         return this;
     }
 
-
     public ReservationUpdater setDequeueTo(final String dequeueTo) {
         this.dequeueTo = dequeueTo;
         return this;
     }
 
-
-    public ReservationUpdater setDequeueStatusCallbackUrl(final URI dequeueStatusCallbackUrl) {
+    public ReservationUpdater setDequeueStatusCallbackUrl(
+        final URI dequeueStatusCallbackUrl
+    ) {
         this.dequeueStatusCallbackUrl = dequeueStatusCallbackUrl;
         return this;
     }
 
-    public ReservationUpdater setDequeueStatusCallbackUrl(final String dequeueStatusCallbackUrl) {
-        return setDequeueStatusCallbackUrl(Promoter.uriFromString(dequeueStatusCallbackUrl));
+    public ReservationUpdater setDequeueStatusCallbackUrl(
+        final String dequeueStatusCallbackUrl
+    ) {
+        return setDequeueStatusCallbackUrl(
+            Promoter.uriFromString(dequeueStatusCallbackUrl)
+        );
     }
 
     public ReservationUpdater setCallFrom(final String callFrom) {
@@ -158,24 +166,20 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
-
     public ReservationUpdater setCallRecord(final String callRecord) {
         this.callRecord = callRecord;
         return this;
     }
-
 
     public ReservationUpdater setCallTimeout(final Integer callTimeout) {
         this.callTimeout = callTimeout;
         return this;
     }
 
-
     public ReservationUpdater setCallTo(final String callTo) {
         this.callTo = callTo;
         return this;
     }
-
 
     public ReservationUpdater setCallUrl(final URI callUrl) {
         this.callUrl = callUrl;
@@ -186,13 +190,19 @@ public class ReservationUpdater extends Updater<Reservation> {
         return setCallUrl(Promoter.uriFromString(callUrl));
     }
 
-    public ReservationUpdater setCallStatusCallbackUrl(final URI callStatusCallbackUrl) {
+    public ReservationUpdater setCallStatusCallbackUrl(
+        final URI callStatusCallbackUrl
+    ) {
         this.callStatusCallbackUrl = callStatusCallbackUrl;
         return this;
     }
 
-    public ReservationUpdater setCallStatusCallbackUrl(final String callStatusCallbackUrl) {
-        return setCallStatusCallbackUrl(Promoter.uriFromString(callStatusCallbackUrl));
+    public ReservationUpdater setCallStatusCallbackUrl(
+        final String callStatusCallbackUrl
+    ) {
+        return setCallStatusCallbackUrl(
+            Promoter.uriFromString(callStatusCallbackUrl)
+        );
     }
 
     public ReservationUpdater setCallAccept(final Boolean callAccept) {
@@ -200,18 +210,15 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
-
     public ReservationUpdater setRedirectCallSid(final String redirectCallSid) {
         this.redirectCallSid = redirectCallSid;
         return this;
     }
 
-
     public ReservationUpdater setRedirectAccept(final Boolean redirectAccept) {
         this.redirectAccept = redirectAccept;
         return this;
     }
-
 
     public ReservationUpdater setRedirectUrl(final URI redirectUrl) {
         this.redirectUrl = redirectUrl;
@@ -227,12 +234,10 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
-
     public ReservationUpdater setFrom(final String from) {
         this.from = from;
         return this;
     }
-
 
     public ReservationUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
@@ -243,18 +248,23 @@ public class ReservationUpdater extends Updater<Reservation> {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    public ReservationUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public ReservationUpdater setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-
-    public ReservationUpdater setStatusCallbackEvent(final List<Reservation.CallStatus> statusCallbackEvent) {
+    public ReservationUpdater setStatusCallbackEvent(
+        final List<Reservation.CallStatus> statusCallbackEvent
+    ) {
         this.statusCallbackEvent = statusCallbackEvent;
         return this;
     }
 
-    public ReservationUpdater setStatusCallbackEvent(final Reservation.CallStatus statusCallbackEvent) {
+    public ReservationUpdater setStatusCallbackEvent(
+        final Reservation.CallStatus statusCallbackEvent
+    ) {
         return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
     }
 
@@ -263,36 +273,34 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
-
     public ReservationUpdater setRecord(final Boolean record) {
         this.record = record;
         return this;
     }
-
 
     public ReservationUpdater setMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
 
-
     public ReservationUpdater setBeep(final String beep) {
         this.beep = beep;
         return this;
     }
 
-
-    public ReservationUpdater setStartConferenceOnEnter(final Boolean startConferenceOnEnter) {
+    public ReservationUpdater setStartConferenceOnEnter(
+        final Boolean startConferenceOnEnter
+    ) {
         this.startConferenceOnEnter = startConferenceOnEnter;
         return this;
     }
 
-
-    public ReservationUpdater setEndConferenceOnExit(final Boolean endConferenceOnExit) {
+    public ReservationUpdater setEndConferenceOnExit(
+        final Boolean endConferenceOnExit
+    ) {
         this.endConferenceOnExit = endConferenceOnExit;
         return this;
     }
-
 
     public ReservationUpdater setWaitUrl(final URI waitUrl) {
         this.waitUrl = waitUrl;
@@ -308,162 +316,204 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
-
     public ReservationUpdater setEarlyMedia(final Boolean earlyMedia) {
         this.earlyMedia = earlyMedia;
         return this;
     }
 
-
-    public ReservationUpdater setMaxParticipants(final Integer maxParticipants) {
+    public ReservationUpdater setMaxParticipants(
+        final Integer maxParticipants
+    ) {
         this.maxParticipants = maxParticipants;
         return this;
     }
 
-
-    public ReservationUpdater setConferenceStatusCallback(final URI conferenceStatusCallback) {
+    public ReservationUpdater setConferenceStatusCallback(
+        final URI conferenceStatusCallback
+    ) {
         this.conferenceStatusCallback = conferenceStatusCallback;
         return this;
     }
 
-    public ReservationUpdater setConferenceStatusCallback(final String conferenceStatusCallback) {
-        return setConferenceStatusCallback(Promoter.uriFromString(conferenceStatusCallback));
+    public ReservationUpdater setConferenceStatusCallback(
+        final String conferenceStatusCallback
+    ) {
+        return setConferenceStatusCallback(
+            Promoter.uriFromString(conferenceStatusCallback)
+        );
     }
 
-    public ReservationUpdater setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
+    public ReservationUpdater setConferenceStatusCallbackMethod(
+        final HttpMethod conferenceStatusCallbackMethod
+    ) {
         this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
         return this;
     }
 
-
-    public ReservationUpdater setConferenceStatusCallbackEvent(final List<Reservation.ConferenceEvent> conferenceStatusCallbackEvent) {
+    public ReservationUpdater setConferenceStatusCallbackEvent(
+        final List<Reservation.ConferenceEvent> conferenceStatusCallbackEvent
+    ) {
         this.conferenceStatusCallbackEvent = conferenceStatusCallbackEvent;
         return this;
     }
 
-    public ReservationUpdater setConferenceStatusCallbackEvent(final Reservation.ConferenceEvent conferenceStatusCallbackEvent) {
-        return setConferenceStatusCallbackEvent(Promoter.listOfOne(conferenceStatusCallbackEvent));
+    public ReservationUpdater setConferenceStatusCallbackEvent(
+        final Reservation.ConferenceEvent conferenceStatusCallbackEvent
+    ) {
+        return setConferenceStatusCallbackEvent(
+            Promoter.listOfOne(conferenceStatusCallbackEvent)
+        );
     }
 
-    public ReservationUpdater setConferenceRecord(final String conferenceRecord) {
+    public ReservationUpdater setConferenceRecord(
+        final String conferenceRecord
+    ) {
         this.conferenceRecord = conferenceRecord;
         return this;
     }
-
 
     public ReservationUpdater setConferenceTrim(final String conferenceTrim) {
         this.conferenceTrim = conferenceTrim;
         return this;
     }
 
-
-    public ReservationUpdater setRecordingChannels(final String recordingChannels) {
+    public ReservationUpdater setRecordingChannels(
+        final String recordingChannels
+    ) {
         this.recordingChannels = recordingChannels;
         return this;
     }
 
-
-    public ReservationUpdater setRecordingStatusCallback(final URI recordingStatusCallback) {
+    public ReservationUpdater setRecordingStatusCallback(
+        final URI recordingStatusCallback
+    ) {
         this.recordingStatusCallback = recordingStatusCallback;
         return this;
     }
 
-    public ReservationUpdater setRecordingStatusCallback(final String recordingStatusCallback) {
-        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
+    public ReservationUpdater setRecordingStatusCallback(
+        final String recordingStatusCallback
+    ) {
+        return setRecordingStatusCallback(
+            Promoter.uriFromString(recordingStatusCallback)
+        );
     }
 
-    public ReservationUpdater setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
+    public ReservationUpdater setRecordingStatusCallbackMethod(
+        final HttpMethod recordingStatusCallbackMethod
+    ) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
         return this;
     }
 
-
-    public ReservationUpdater setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
-        this.conferenceRecordingStatusCallback = conferenceRecordingStatusCallback;
+    public ReservationUpdater setConferenceRecordingStatusCallback(
+        final URI conferenceRecordingStatusCallback
+    ) {
+        this.conferenceRecordingStatusCallback =
+            conferenceRecordingStatusCallback;
         return this;
     }
 
-    public ReservationUpdater setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
-        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
+    public ReservationUpdater setConferenceRecordingStatusCallback(
+        final String conferenceRecordingStatusCallback
+    ) {
+        return setConferenceRecordingStatusCallback(
+            Promoter.uriFromString(conferenceRecordingStatusCallback)
+        );
     }
 
-    public ReservationUpdater setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
-        this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
+    public ReservationUpdater setConferenceRecordingStatusCallbackMethod(
+        final HttpMethod conferenceRecordingStatusCallbackMethod
+    ) {
+        this.conferenceRecordingStatusCallbackMethod =
+            conferenceRecordingStatusCallbackMethod;
         return this;
     }
-
 
     public ReservationUpdater setRegion(final String region) {
         this.region = region;
         return this;
     }
 
-
     public ReservationUpdater setSipAuthUsername(final String sipAuthUsername) {
         this.sipAuthUsername = sipAuthUsername;
         return this;
     }
-
 
     public ReservationUpdater setSipAuthPassword(final String sipAuthPassword) {
         this.sipAuthPassword = sipAuthPassword;
         return this;
     }
 
-
-    public ReservationUpdater setDequeueStatusCallbackEvent(final List<String> dequeueStatusCallbackEvent) {
+    public ReservationUpdater setDequeueStatusCallbackEvent(
+        final List<String> dequeueStatusCallbackEvent
+    ) {
         this.dequeueStatusCallbackEvent = dequeueStatusCallbackEvent;
         return this;
     }
 
-    public ReservationUpdater setDequeueStatusCallbackEvent(final String dequeueStatusCallbackEvent) {
-        return setDequeueStatusCallbackEvent(Promoter.listOfOne(dequeueStatusCallbackEvent));
+    public ReservationUpdater setDequeueStatusCallbackEvent(
+        final String dequeueStatusCallbackEvent
+    ) {
+        return setDequeueStatusCallbackEvent(
+            Promoter.listOfOne(dequeueStatusCallbackEvent)
+        );
     }
 
-    public ReservationUpdater setPostWorkActivitySid(final String postWorkActivitySid) {
+    public ReservationUpdater setPostWorkActivitySid(
+        final String postWorkActivitySid
+    ) {
         this.postWorkActivitySid = postWorkActivitySid;
         return this;
     }
 
-
-    public ReservationUpdater setEndConferenceOnCustomerExit(final Boolean endConferenceOnCustomerExit) {
+    public ReservationUpdater setEndConferenceOnCustomerExit(
+        final Boolean endConferenceOnCustomerExit
+    ) {
         this.endConferenceOnCustomerExit = endConferenceOnCustomerExit;
         return this;
     }
 
-
-    public ReservationUpdater setBeepOnCustomerEntrance(final Boolean beepOnCustomerEntrance) {
+    public ReservationUpdater setBeepOnCustomerEntrance(
+        final Boolean beepOnCustomerEntrance
+    ) {
         this.beepOnCustomerEntrance = beepOnCustomerEntrance;
         return this;
     }
 
-
-    public ReservationUpdater setJitterBufferSize(final String jitterBufferSize) {
+    public ReservationUpdater setJitterBufferSize(
+        final String jitterBufferSize
+    ) {
         this.jitterBufferSize = jitterBufferSize;
         return this;
     }
-
 
     public ReservationUpdater setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
-
     @Override
     public Reservation update(final TwilioRestClient client) {
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}";
 
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}";
-
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
-        path = path.replace("{" + "WorkerSid" + "}", this.pathWorkerSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkerSid" + "}",
+                this.pathWorkerSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TASKROUTER.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -472,296 +522,508 @@ public class ReservationUpdater extends Updater<Reservation> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Reservation update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Reservation update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Reservation.fromJson(response.getStream(), client.getObjectMapper());
+        return Reservation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (reservationStatus != null) {
-            Serializer.toString(request, "ReservationStatus", reservationStatus, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ReservationStatus",
+                reservationStatus,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (workerActivitySid != null) {
-            Serializer.toString(request, "WorkerActivitySid", workerActivitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WorkerActivitySid",
+                workerActivitySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (instruction != null) {
-            Serializer.toString(request, "Instruction", instruction, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Instruction",
+                instruction,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeuePostWorkActivitySid != null) {
-            Serializer.toString(request, "DequeuePostWorkActivitySid", dequeuePostWorkActivitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DequeuePostWorkActivitySid",
+                dequeuePostWorkActivitySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeueFrom != null) {
-            Serializer.toString(request, "DequeueFrom", dequeueFrom, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DequeueFrom",
+                dequeueFrom,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeueRecord != null) {
-            Serializer.toString(request, "DequeueRecord", dequeueRecord, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DequeueRecord",
+                dequeueRecord,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeueTimeout != null) {
-            Serializer.toString(request, "DequeueTimeout", dequeueTimeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DequeueTimeout",
+                dequeueTimeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeueTo != null) {
-            Serializer.toString(request, "DequeueTo", dequeueTo, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DequeueTo",
+                dequeueTo,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeueStatusCallbackUrl != null) {
-            Serializer.toString(request, "DequeueStatusCallbackUrl", dequeueStatusCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DequeueStatusCallbackUrl",
+                dequeueStatusCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callFrom != null) {
-            Serializer.toString(request, "CallFrom", callFrom, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallFrom",
+                callFrom,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callRecord != null) {
-            Serializer.toString(request, "CallRecord", callRecord, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallRecord",
+                callRecord,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callTimeout != null) {
-            Serializer.toString(request, "CallTimeout", callTimeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallTimeout",
+                callTimeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callTo != null) {
-            Serializer.toString(request, "CallTo", callTo, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallTo",
+                callTo,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callUrl != null) {
-            Serializer.toString(request, "CallUrl", callUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallUrl",
+                callUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callStatusCallbackUrl != null) {
-            Serializer.toString(request, "CallStatusCallbackUrl", callStatusCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallStatusCallbackUrl",
+                callStatusCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callAccept != null) {
-            Serializer.toString(request, "CallAccept", callAccept, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallAccept",
+                callAccept,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (redirectCallSid != null) {
-            Serializer.toString(request, "RedirectCallSid", redirectCallSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RedirectCallSid",
+                redirectCallSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (redirectAccept != null) {
-            Serializer.toString(request, "RedirectAccept", redirectAccept, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RedirectAccept",
+                redirectAccept,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (redirectUrl != null) {
-            Serializer.toString(request, "RedirectUrl", redirectUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RedirectUrl",
+                redirectUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (to != null) {
             Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
 
-
         if (from != null) {
-            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackEvent != null) {
             for (Reservation.CallStatus param : statusCallbackEvent) {
-                Serializer.toString(request, "StatusCallbackEvent", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "StatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (timeout != null) {
-            Serializer.toString(request, "Timeout", timeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Timeout",
+                timeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (record != null) {
-            Serializer.toString(request, "Record", record, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Record",
+                record,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (muted != null) {
-            Serializer.toString(request, "Muted", muted, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Muted",
+                muted,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (beep != null) {
-            Serializer.toString(request, "Beep", beep, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Beep",
+                beep,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (startConferenceOnEnter != null) {
-            Serializer.toString(request, "StartConferenceOnEnter", startConferenceOnEnter, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StartConferenceOnEnter",
+                startConferenceOnEnter,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (endConferenceOnExit != null) {
-            Serializer.toString(request, "EndConferenceOnExit", endConferenceOnExit, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EndConferenceOnExit",
+                endConferenceOnExit,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (waitUrl != null) {
-            Serializer.toString(request, "WaitUrl", waitUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WaitUrl",
+                waitUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (waitMethod != null) {
-            Serializer.toString(request, "WaitMethod", waitMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WaitMethod",
+                waitMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (earlyMedia != null) {
-            Serializer.toString(request, "EarlyMedia", earlyMedia, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EarlyMedia",
+                earlyMedia,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (maxParticipants != null) {
-            Serializer.toString(request, "MaxParticipants", maxParticipants, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MaxParticipants",
+                maxParticipants,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (conferenceStatusCallback != null) {
-            Serializer.toString(request, "ConferenceStatusCallback", conferenceStatusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConferenceStatusCallback",
+                conferenceStatusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (conferenceStatusCallbackMethod != null) {
-            Serializer.toString(request, "ConferenceStatusCallbackMethod", conferenceStatusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConferenceStatusCallbackMethod",
+                conferenceStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (conferenceStatusCallbackEvent != null) {
             for (Reservation.ConferenceEvent param : conferenceStatusCallbackEvent) {
-                Serializer.toString(request, "ConferenceStatusCallbackEvent", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "ConferenceStatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (conferenceRecord != null) {
-            Serializer.toString(request, "ConferenceRecord", conferenceRecord, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConferenceRecord",
+                conferenceRecord,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (conferenceTrim != null) {
-            Serializer.toString(request, "ConferenceTrim", conferenceTrim, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConferenceTrim",
+                conferenceTrim,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingChannels != null) {
-            Serializer.toString(request, "RecordingChannels", recordingChannels, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingChannels",
+                recordingChannels,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingStatusCallback != null) {
-            Serializer.toString(request, "RecordingStatusCallback", recordingStatusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingStatusCallback",
+                recordingStatusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingStatusCallbackMethod != null) {
-            Serializer.toString(request, "RecordingStatusCallbackMethod", recordingStatusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingStatusCallbackMethod",
+                recordingStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (conferenceRecordingStatusCallback != null) {
-            Serializer.toString(request, "ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConferenceRecordingStatusCallback",
+                conferenceRecordingStatusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (conferenceRecordingStatusCallbackMethod != null) {
-            Serializer.toString(request, "ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ConferenceRecordingStatusCallbackMethod",
+                conferenceRecordingStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (region != null) {
-            Serializer.toString(request, "Region", region, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Region",
+                region,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sipAuthUsername != null) {
-            Serializer.toString(request, "SipAuthUsername", sipAuthUsername, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SipAuthUsername",
+                sipAuthUsername,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sipAuthPassword != null) {
-            Serializer.toString(request, "SipAuthPassword", sipAuthPassword, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SipAuthPassword",
+                sipAuthPassword,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dequeueStatusCallbackEvent != null) {
             for (String param : dequeueStatusCallbackEvent) {
-                Serializer.toString(request, "DequeueStatusCallbackEvent", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "DequeueStatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (postWorkActivitySid != null) {
-            Serializer.toString(request, "PostWorkActivitySid", postWorkActivitySid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PostWorkActivitySid",
+                postWorkActivitySid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (endConferenceOnCustomerExit != null) {
-            Serializer.toString(request, "EndConferenceOnCustomerExit", endConferenceOnCustomerExit, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EndConferenceOnCustomerExit",
+                endConferenceOnCustomerExit,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (beepOnCustomerEntrance != null) {
-            Serializer.toString(request, "BeepOnCustomerEntrance", beepOnCustomerEntrance, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BeepOnCustomerEntrance",
+                beepOnCustomerEntrance,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (jitterBufferSize != null) {
-            Serializer.toString(request, "JitterBufferSize", jitterBufferSize, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "JitterBufferSize",
+                jitterBufferSize,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (ifMatch != null) {
-            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

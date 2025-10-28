@@ -14,7 +14,6 @@
 
 package com.twilio.rest.events.v1.sink;
 
-
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SinkTestCreator extends Creator<SinkTest> {
 
@@ -33,36 +33,41 @@ public class SinkTestCreator extends Creator<SinkTest> {
         this.pathSid = pathSid;
     }
 
-
     @Override
     public SinkTest create(final TwilioRestClient client) {
-
         String path = "/v1/Sinks/{Sid}/Test";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.EVENTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.EVENTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SinkTest creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SinkTest creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SinkTest.fromJson(response.getStream(), client.getObjectMapper());
+        return SinkTest.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

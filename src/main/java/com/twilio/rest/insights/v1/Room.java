@@ -18,18 +18,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -37,25 +38,20 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
 
-
     public static RoomFetcher fetcher(final String pathRoomSid) {
-        return new RoomFetcher(
-                pathRoomSid
-        );
+        return new RoomFetcher(pathRoomSid);
     }
-
 
     public static RoomReader reader() {
-        return new RoomReader(
-
-        );
+        return new RoomReader();
     }
-
 
     public enum Codec {
         VP8("VP8"),
@@ -261,15 +257,17 @@ public class Room extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Room object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Room object represented by the provided JSON
      */
-    public static Room fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Room fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -284,11 +282,14 @@ public class Room extends Resource {
      * Converts a JSON InputStream into a Room object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Room object represented by the provided JSON
      */
-    public static Room fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Room fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -311,90 +312,130 @@ public class Room extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final List<Room.Codec> codecs;
+
     @Getter
     private final Integer concurrentParticipants;
+
     @Getter
     private final ZonedDateTime createTime;
+
     @Getter
     private final Room.CreatedMethod createdMethod;
+
     @Getter
     private final Long durationSec;
+
     @Getter
     private final Room.EdgeLocation edgeLocation;
+
     @Getter
     private final Room.EndReason endReason;
+
     @Getter
     private final ZonedDateTime endTime;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Integer maxConcurrentParticipants;
+
     @Getter
     private final Integer maxParticipants;
+
     @Getter
     private final Room.TwilioRealm mediaRegion;
+
     @Getter
     private final Room.ProcessingState processingState;
+
     @Getter
     private final Boolean recordingEnabled;
+
     @Getter
     private final String roomName;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final Room.RoomStatus roomStatus;
+
     @Getter
     private final Room.RoomType roomType;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final HttpMethod statusCallbackMethod;
+
     @Getter
     private final Long totalParticipantDurationSec;
+
     @Getter
     private final Long totalRecordingDurationSec;
+
     @Getter
     private final Integer uniqueParticipantIdentities;
+
     @Getter
     private final Integer uniqueParticipants;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Room(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("codecs") final List<Room.Codec> codecs,
-            @JsonProperty("concurrent_participants") final Integer concurrentParticipants,
-            @JsonProperty("create_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime createTime,
-            @JsonProperty("created_method") final Room.CreatedMethod createdMethod,
-            @JsonProperty("duration_sec") final Long durationSec,
-            @JsonProperty("edge_location") final Room.EdgeLocation edgeLocation,
-            @JsonProperty("end_reason") final Room.EndReason endReason,
-            @JsonProperty("end_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("max_concurrent_participants") final Integer maxConcurrentParticipants,
-            @JsonProperty("max_participants") final Integer maxParticipants,
-            @JsonProperty("media_region") final Room.TwilioRealm mediaRegion,
-            @JsonProperty("processing_state") final Room.ProcessingState processingState,
-            @JsonProperty("recording_enabled") final Boolean recordingEnabled,
-            @JsonProperty("room_name") final String roomName,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("room_status") final Room.RoomStatus roomStatus,
-            @JsonProperty("room_type") final Room.RoomType roomType,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
-            @JsonProperty("total_participant_duration_sec") final Long totalParticipantDurationSec,
-            @JsonProperty("total_recording_duration_sec") final Long totalRecordingDurationSec,
-            @JsonProperty("unique_participant_identities") final Integer uniqueParticipantIdentities,
-            @JsonProperty("unique_participants") final Integer uniqueParticipants,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("codecs") final List<Room.Codec> codecs,
+        @JsonProperty(
+            "concurrent_participants"
+        ) final Integer concurrentParticipants,
+        @JsonProperty("create_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime createTime,
+        @JsonProperty("created_method") final Room.CreatedMethod createdMethod,
+        @JsonProperty("duration_sec") final Long durationSec,
+        @JsonProperty("edge_location") final Room.EdgeLocation edgeLocation,
+        @JsonProperty("end_reason") final Room.EndReason endReason,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "max_concurrent_participants"
+        ) final Integer maxConcurrentParticipants,
+        @JsonProperty("max_participants") final Integer maxParticipants,
+        @JsonProperty("media_region") final Room.TwilioRealm mediaRegion,
+        @JsonProperty(
+            "processing_state"
+        ) final Room.ProcessingState processingState,
+        @JsonProperty("recording_enabled") final Boolean recordingEnabled,
+        @JsonProperty("room_name") final String roomName,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("room_status") final Room.RoomStatus roomStatus,
+        @JsonProperty("room_type") final Room.RoomType roomType,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty(
+            "total_participant_duration_sec"
+        ) final Long totalParticipantDurationSec,
+        @JsonProperty(
+            "total_recording_duration_sec"
+        ) final Long totalRecordingDurationSec,
+        @JsonProperty(
+            "unique_participant_identities"
+        ) final Integer uniqueParticipantIdentities,
+        @JsonProperty("unique_participants") final Integer uniqueParticipants,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.codecs = codecs;
@@ -436,67 +477,79 @@ public class Room extends Resource {
 
         Room other = (Room) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(codecs, other.codecs) &&
-                        Objects.equals(concurrentParticipants, other.concurrentParticipants) &&
-                        Objects.equals(createTime, other.createTime) &&
-                        Objects.equals(createdMethod, other.createdMethod) &&
-                        Objects.equals(durationSec, other.durationSec) &&
-                        Objects.equals(edgeLocation, other.edgeLocation) &&
-                        Objects.equals(endReason, other.endReason) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(maxConcurrentParticipants, other.maxConcurrentParticipants) &&
-                        Objects.equals(maxParticipants, other.maxParticipants) &&
-                        Objects.equals(mediaRegion, other.mediaRegion) &&
-                        Objects.equals(processingState, other.processingState) &&
-                        Objects.equals(recordingEnabled, other.recordingEnabled) &&
-                        Objects.equals(roomName, other.roomName) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(roomStatus, other.roomStatus) &&
-                        Objects.equals(roomType, other.roomType) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-                        Objects.equals(totalParticipantDurationSec, other.totalParticipantDurationSec) &&
-                        Objects.equals(totalRecordingDurationSec, other.totalRecordingDurationSec) &&
-                        Objects.equals(uniqueParticipantIdentities, other.uniqueParticipantIdentities) &&
-                        Objects.equals(uniqueParticipants, other.uniqueParticipants) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(codecs, other.codecs) &&
+            Objects.equals(
+                concurrentParticipants,
+                other.concurrentParticipants
+            ) &&
+            Objects.equals(createTime, other.createTime) &&
+            Objects.equals(createdMethod, other.createdMethod) &&
+            Objects.equals(durationSec, other.durationSec) &&
+            Objects.equals(edgeLocation, other.edgeLocation) &&
+            Objects.equals(endReason, other.endReason) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                maxConcurrentParticipants,
+                other.maxConcurrentParticipants
+            ) &&
+            Objects.equals(maxParticipants, other.maxParticipants) &&
+            Objects.equals(mediaRegion, other.mediaRegion) &&
+            Objects.equals(processingState, other.processingState) &&
+            Objects.equals(recordingEnabled, other.recordingEnabled) &&
+            Objects.equals(roomName, other.roomName) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(roomStatus, other.roomStatus) &&
+            Objects.equals(roomType, other.roomType) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(
+                totalParticipantDurationSec,
+                other.totalParticipantDurationSec
+            ) &&
+            Objects.equals(
+                totalRecordingDurationSec,
+                other.totalRecordingDurationSec
+            ) &&
+            Objects.equals(
+                uniqueParticipantIdentities,
+                other.uniqueParticipantIdentities
+            ) &&
+            Objects.equals(uniqueParticipants, other.uniqueParticipants) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                codecs,
-                concurrentParticipants,
-                createTime,
-                createdMethod,
-                durationSec,
-                edgeLocation,
-                endReason,
-                endTime,
-                links,
-                maxConcurrentParticipants,
-                maxParticipants,
-                mediaRegion,
-                processingState,
-                recordingEnabled,
-                roomName,
-                roomSid,
-                roomStatus,
-                roomType,
-                statusCallback,
-                statusCallbackMethod,
-                totalParticipantDurationSec,
-                totalRecordingDurationSec,
-                uniqueParticipantIdentities,
-                uniqueParticipants,
-                url
+            accountSid,
+            codecs,
+            concurrentParticipants,
+            createTime,
+            createdMethod,
+            durationSec,
+            edgeLocation,
+            endReason,
+            endTime,
+            links,
+            maxConcurrentParticipants,
+            maxParticipants,
+            mediaRegion,
+            processingState,
+            recordingEnabled,
+            roomName,
+            roomSid,
+            roomStatus,
+            roomType,
+            statusCallback,
+            statusCallbackMethod,
+            totalParticipantDurationSec,
+            totalRecordingDurationSec,
+            uniqueParticipantIdentities,
+            uniqueParticipants,
+            url
         );
     }
-
-
 }
-

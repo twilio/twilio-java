@@ -23,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BucketDeleter extends Deleter<Bucket> {
 
@@ -34,33 +35,35 @@ public class BucketDeleter extends Deleter<Bucket> {
         this.pathBucket = pathBucket;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
 
         path = path.replace("{" + "Field" + "}", this.pathField.toString());
         path = path.replace("{" + "Bucket" + "}", this.pathBucket.toString());
 
-
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.LOOKUPS.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.LOOKUPS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Bucket delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Bucket delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

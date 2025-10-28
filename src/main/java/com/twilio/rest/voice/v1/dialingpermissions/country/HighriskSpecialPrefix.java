@@ -18,39 +18,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class HighriskSpecialPrefix extends Resource {
 
-
     public static HighriskSpecialPrefixReader reader(final String pathIsoCode) {
-        return new HighriskSpecialPrefixReader(
-                pathIsoCode
-        );
+        return new HighriskSpecialPrefixReader(pathIsoCode);
     }
-
 
     /**
      * Converts a JSON String into a HighriskSpecialPrefix object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return HighriskSpecialPrefix object represented by the provided JSON
      */
-    public static HighriskSpecialPrefix fromJson(final String json, final ObjectMapper objectMapper) {
+    public static HighriskSpecialPrefix fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HighriskSpecialPrefix.class);
@@ -65,11 +67,14 @@ public class HighriskSpecialPrefix extends Resource {
      * Converts a JSON InputStream into a HighriskSpecialPrefix object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return HighriskSpecialPrefix object represented by the provided JSON
      */
-    public static HighriskSpecialPrefix fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static HighriskSpecialPrefix fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, HighriskSpecialPrefix.class);
@@ -92,14 +97,11 @@ public class HighriskSpecialPrefix extends Resource {
         }
     }
 
-
     @Getter
     private final String prefix;
 
     @JsonCreator
-    private HighriskSpecialPrefix(
-            @JsonProperty("prefix") final String prefix
-    ) {
+    private HighriskSpecialPrefix(@JsonProperty("prefix") final String prefix) {
         this.prefix = prefix;
     }
 
@@ -114,18 +116,11 @@ public class HighriskSpecialPrefix extends Resource {
         }
 
         HighriskSpecialPrefix other = (HighriskSpecialPrefix) o;
-        return (
-                Objects.equals(prefix, other.prefix)
-        );
+        return (Objects.equals(prefix, other.prefix));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                prefix
-        );
+        return Objects.hash(prefix);
     }
-
-
 }
-

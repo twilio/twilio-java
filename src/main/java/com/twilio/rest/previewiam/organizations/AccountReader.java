@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AccountReader extends Reader<Account> {
 
@@ -37,12 +38,10 @@ public class AccountReader extends Reader<Account> {
         this.pathOrganizationSid = pathOrganizationSid;
     }
 
-
     public AccountReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Account> read(final TwilioRestClient client) {
@@ -50,68 +49,97 @@ public class AccountReader extends Reader<Account> {
     }
 
     public Page<Account> firstPage(final TwilioRestClient client) {
-
         String path = "/Organizations/{OrganizationSid}/Accounts";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.PREVIEWIAM.toString(),
-                path
+            HttpMethod.GET,
+            Domains.PREVIEWIAM.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Account> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Account> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Account read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Account read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "content",
-                response.getContent(),
-                Account.class,
-                client.getObjectMapper());
+            "content",
+            response.getContent(),
+            Account.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Account> previousPage(final Page<Account> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Account> previousPage(
+        final Page<Account> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Account> nextPage(final Page<Account> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Account> nextPage(
+        final Page<Account> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Account> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Account> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

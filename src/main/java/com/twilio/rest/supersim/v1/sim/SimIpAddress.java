@@ -18,31 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SimIpAddress extends Resource {
 
-
     public static SimIpAddressReader reader(final String pathSimSid) {
-        return new SimIpAddressReader(
-                pathSimSid
-        );
+        return new SimIpAddressReader(pathSimSid);
     }
-
 
     public enum IpAddressVersion {
         I_PV4("IPv4"),
@@ -64,15 +63,17 @@ public class SimIpAddress extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a SimIpAddress object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SimIpAddress object represented by the provided JSON
      */
-    public static SimIpAddress fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SimIpAddress fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SimIpAddress.class);
@@ -87,11 +88,14 @@ public class SimIpAddress extends Resource {
      * Converts a JSON InputStream into a SimIpAddress object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SimIpAddress object represented by the provided JSON
      */
-    public static SimIpAddress fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SimIpAddress fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SimIpAddress.class);
@@ -114,16 +118,18 @@ public class SimIpAddress extends Resource {
         }
     }
 
-
     @Getter
     private final String ipAddress;
+
     @Getter
     private final SimIpAddress.IpAddressVersion ipAddressVersion;
 
     @JsonCreator
     private SimIpAddress(
-            @JsonProperty("ip_address") final String ipAddress,
-            @JsonProperty("ip_address_version") final SimIpAddress.IpAddressVersion ipAddressVersion
+        @JsonProperty("ip_address") final String ipAddress,
+        @JsonProperty(
+            "ip_address_version"
+        ) final SimIpAddress.IpAddressVersion ipAddressVersion
     ) {
         this.ipAddress = ipAddress;
         this.ipAddressVersion = ipAddressVersion;
@@ -141,19 +147,13 @@ public class SimIpAddress extends Resource {
 
         SimIpAddress other = (SimIpAddress) o;
         return (
-                Objects.equals(ipAddress, other.ipAddress) &&
-                        Objects.equals(ipAddressVersion, other.ipAddressVersion)
+            Objects.equals(ipAddress, other.ipAddress) &&
+            Objects.equals(ipAddressVersion, other.ipAddressVersion)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                ipAddress,
-                ipAddressVersion
-        );
+        return Objects.hash(ipAddress, ipAddressVersion);
     }
-
-
 }
-

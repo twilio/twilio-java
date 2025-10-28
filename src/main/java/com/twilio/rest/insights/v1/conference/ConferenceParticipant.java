@@ -18,42 +18,46 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConferenceParticipant extends Resource {
 
-
-    public static ConferenceParticipantFetcher fetcher(final String pathConferenceSid, final String pathParticipantSid) {
+    public static ConferenceParticipantFetcher fetcher(
+        final String pathConferenceSid,
+        final String pathParticipantSid
+    ) {
         return new ConferenceParticipantFetcher(
-                pathConferenceSid, pathParticipantSid
+            pathConferenceSid,
+            pathParticipantSid
         );
     }
 
-
-    public static ConferenceParticipantReader reader(final String pathConferenceSid) {
-        return new ConferenceParticipantReader(
-                pathConferenceSid
-        );
+    public static ConferenceParticipantReader reader(
+        final String pathConferenceSid
+    ) {
+        return new ConferenceParticipantReader(pathConferenceSid);
     }
-
 
     public enum CallDirection {
         INBOUND("inbound"),
@@ -191,15 +195,17 @@ public class ConferenceParticipant extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a ConferenceParticipant object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ConferenceParticipant object represented by the provided JSON
      */
-    public static ConferenceParticipant fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ConferenceParticipant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConferenceParticipant.class);
@@ -214,11 +220,14 @@ public class ConferenceParticipant extends Resource {
      * Converts a JSON InputStream into a ConferenceParticipant object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ConferenceParticipant object represented by the provided JSON
      */
-    public static ConferenceParticipant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ConferenceParticipant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConferenceParticipant.class);
@@ -241,93 +250,140 @@ public class ConferenceParticipant extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ConferenceParticipant.CallDirection callDirection;
+
     @Getter
     private final String callSid;
+
     @Getter
     private final ConferenceParticipant.CallStatus callStatus;
+
     @Getter
     private final ConferenceParticipant.CallType callType;
+
     @Getter
     private final List<String> coachedParticipants;
+
     @Getter
     private final ConferenceParticipant.Region conferenceRegion;
+
     @Getter
     private final String conferenceSid;
+
     @Getter
     private final String countryCode;
+
     @Getter
     private final Integer durationSeconds;
+
     @Getter
     private final Object events;
+
     @Getter
     private final String from;
+
     @Getter
     private final Boolean isCoach;
+
     @Getter
     private final Boolean isModerator;
+
     @Getter
     private final ConferenceParticipant.JitterBufferSize jitterBufferSize;
+
     @Getter
     private final ZonedDateTime joinTime;
+
     @Getter
     private final String label;
+
     @Getter
     private final ZonedDateTime leaveTime;
+
     @Getter
     private final Object metrics;
+
     @Getter
     private final Integer outboundQueueLength;
+
     @Getter
     private final Integer outboundTimeInQueue;
+
     @Getter
     private final ConferenceParticipant.Region participantRegion;
+
     @Getter
     private final String participantSid;
+
     @Getter
     private final ConferenceParticipant.ProcessingState processingState;
+
     @Getter
     private final Object properties;
+
     @Getter
     private final String to;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ConferenceParticipant(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("call_direction") final ConferenceParticipant.CallDirection callDirection,
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("call_status") final ConferenceParticipant.CallStatus callStatus,
-            @JsonProperty("call_type") final ConferenceParticipant.CallType callType,
-            @JsonProperty("coached_participants") final List<String> coachedParticipants,
-            @JsonProperty("conference_region") final ConferenceParticipant.Region conferenceRegion,
-            @JsonProperty("conference_sid") final String conferenceSid,
-            @JsonProperty("country_code") final String countryCode,
-            @JsonProperty("duration_seconds") final Integer durationSeconds,
-            @JsonProperty("events") final Object events,
-            @JsonProperty("from") final String from,
-            @JsonProperty("is_coach") final Boolean isCoach,
-            @JsonProperty("is_moderator") final Boolean isModerator,
-            @JsonProperty("jitter_buffer_size") final ConferenceParticipant.JitterBufferSize jitterBufferSize,
-            @JsonProperty("join_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime joinTime,
-            @JsonProperty("label") final String label,
-            @JsonProperty("leave_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime leaveTime,
-            @JsonProperty("metrics") final Object metrics,
-            @JsonProperty("outbound_queue_length") final Integer outboundQueueLength,
-            @JsonProperty("outbound_time_in_queue") final Integer outboundTimeInQueue,
-            @JsonProperty("participant_region") final ConferenceParticipant.Region participantRegion,
-            @JsonProperty("participant_sid") final String participantSid,
-            @JsonProperty("processing_state") final ConferenceParticipant.ProcessingState processingState,
-            @JsonProperty("properties") final Object properties,
-            @JsonProperty("to") final String to,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "call_direction"
+        ) final ConferenceParticipant.CallDirection callDirection,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty(
+            "call_status"
+        ) final ConferenceParticipant.CallStatus callStatus,
+        @JsonProperty(
+            "call_type"
+        ) final ConferenceParticipant.CallType callType,
+        @JsonProperty("coached_participants") final List<
+            String
+        > coachedParticipants,
+        @JsonProperty(
+            "conference_region"
+        ) final ConferenceParticipant.Region conferenceRegion,
+        @JsonProperty("conference_sid") final String conferenceSid,
+        @JsonProperty("country_code") final String countryCode,
+        @JsonProperty("duration_seconds") final Integer durationSeconds,
+        @JsonProperty("events") final Object events,
+        @JsonProperty("from") final String from,
+        @JsonProperty("is_coach") final Boolean isCoach,
+        @JsonProperty("is_moderator") final Boolean isModerator,
+        @JsonProperty(
+            "jitter_buffer_size"
+        ) final ConferenceParticipant.JitterBufferSize jitterBufferSize,
+        @JsonProperty("join_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime joinTime,
+        @JsonProperty("label") final String label,
+        @JsonProperty("leave_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime leaveTime,
+        @JsonProperty("metrics") final Object metrics,
+        @JsonProperty(
+            "outbound_queue_length"
+        ) final Integer outboundQueueLength,
+        @JsonProperty(
+            "outbound_time_in_queue"
+        ) final Integer outboundTimeInQueue,
+        @JsonProperty(
+            "participant_region"
+        ) final ConferenceParticipant.Region participantRegion,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty(
+            "processing_state"
+        ) final ConferenceParticipant.ProcessingState processingState,
+        @JsonProperty("properties") final Object properties,
+        @JsonProperty("to") final String to,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.callDirection = callDirection;
@@ -370,69 +426,66 @@ public class ConferenceParticipant extends Resource {
 
         ConferenceParticipant other = (ConferenceParticipant) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(callDirection, other.callDirection) &&
-                        Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(callStatus, other.callStatus) &&
-                        Objects.equals(callType, other.callType) &&
-                        Objects.equals(coachedParticipants, other.coachedParticipants) &&
-                        Objects.equals(conferenceRegion, other.conferenceRegion) &&
-                        Objects.equals(conferenceSid, other.conferenceSid) &&
-                        Objects.equals(countryCode, other.countryCode) &&
-                        Objects.equals(durationSeconds, other.durationSeconds) &&
-                        Objects.equals(events, other.events) &&
-                        Objects.equals(from, other.from) &&
-                        Objects.equals(isCoach, other.isCoach) &&
-                        Objects.equals(isModerator, other.isModerator) &&
-                        Objects.equals(jitterBufferSize, other.jitterBufferSize) &&
-                        Objects.equals(joinTime, other.joinTime) &&
-                        Objects.equals(label, other.label) &&
-                        Objects.equals(leaveTime, other.leaveTime) &&
-                        Objects.equals(metrics, other.metrics) &&
-                        Objects.equals(outboundQueueLength, other.outboundQueueLength) &&
-                        Objects.equals(outboundTimeInQueue, other.outboundTimeInQueue) &&
-                        Objects.equals(participantRegion, other.participantRegion) &&
-                        Objects.equals(participantSid, other.participantSid) &&
-                        Objects.equals(processingState, other.processingState) &&
-                        Objects.equals(properties, other.properties) &&
-                        Objects.equals(to, other.to) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callDirection, other.callDirection) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(callStatus, other.callStatus) &&
+            Objects.equals(callType, other.callType) &&
+            Objects.equals(coachedParticipants, other.coachedParticipants) &&
+            Objects.equals(conferenceRegion, other.conferenceRegion) &&
+            Objects.equals(conferenceSid, other.conferenceSid) &&
+            Objects.equals(countryCode, other.countryCode) &&
+            Objects.equals(durationSeconds, other.durationSeconds) &&
+            Objects.equals(events, other.events) &&
+            Objects.equals(from, other.from) &&
+            Objects.equals(isCoach, other.isCoach) &&
+            Objects.equals(isModerator, other.isModerator) &&
+            Objects.equals(jitterBufferSize, other.jitterBufferSize) &&
+            Objects.equals(joinTime, other.joinTime) &&
+            Objects.equals(label, other.label) &&
+            Objects.equals(leaveTime, other.leaveTime) &&
+            Objects.equals(metrics, other.metrics) &&
+            Objects.equals(outboundQueueLength, other.outboundQueueLength) &&
+            Objects.equals(outboundTimeInQueue, other.outboundTimeInQueue) &&
+            Objects.equals(participantRegion, other.participantRegion) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(processingState, other.processingState) &&
+            Objects.equals(properties, other.properties) &&
+            Objects.equals(to, other.to) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                callDirection,
-                callSid,
-                callStatus,
-                callType,
-                coachedParticipants,
-                conferenceRegion,
-                conferenceSid,
-                countryCode,
-                durationSeconds,
-                events,
-                from,
-                isCoach,
-                isModerator,
-                jitterBufferSize,
-                joinTime,
-                label,
-                leaveTime,
-                metrics,
-                outboundQueueLength,
-                outboundTimeInQueue,
-                participantRegion,
-                participantSid,
-                processingState,
-                properties,
-                to,
-                url
+            accountSid,
+            callDirection,
+            callSid,
+            callStatus,
+            callType,
+            coachedParticipants,
+            conferenceRegion,
+            conferenceSid,
+            countryCode,
+            durationSeconds,
+            events,
+            from,
+            isCoach,
+            isModerator,
+            jitterBufferSize,
+            joinTime,
+            label,
+            leaveTime,
+            metrics,
+            outboundQueueLength,
+            outboundTimeInQueue,
+            participantRegion,
+            participantSid,
+            processingState,
+            properties,
+            to,
+            url
         );
     }
-
-
 }
-

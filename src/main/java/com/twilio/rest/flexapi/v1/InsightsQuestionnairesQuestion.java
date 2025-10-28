@@ -18,64 +18,78 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesQuestion extends Resource {
 
-
-    public static InsightsQuestionnairesQuestionCreator creator(final String categorySid, final String question, final String answerSetId, final Boolean allowNa) {
+    public static InsightsQuestionnairesQuestionCreator creator(
+        final String categorySid,
+        final String question,
+        final String answerSetId,
+        final Boolean allowNa
+    ) {
         return new InsightsQuestionnairesQuestionCreator(
-                categorySid, question, answerSetId, allowNa
+            categorySid,
+            question,
+            answerSetId,
+            allowNa
         );
     }
 
-
-    public static InsightsQuestionnairesQuestionDeleter deleter(final String pathQuestionSid) {
-        return new InsightsQuestionnairesQuestionDeleter(
-                pathQuestionSid
-        );
+    public static InsightsQuestionnairesQuestionDeleter deleter(
+        final String pathQuestionSid
+    ) {
+        return new InsightsQuestionnairesQuestionDeleter(pathQuestionSid);
     }
-
 
     public static InsightsQuestionnairesQuestionReader reader() {
-        return new InsightsQuestionnairesQuestionReader(
-
-        );
+        return new InsightsQuestionnairesQuestionReader();
     }
 
-
-    public static InsightsQuestionnairesQuestionUpdater updater(final String pathQuestionSid, final Boolean allowNa) {
+    public static InsightsQuestionnairesQuestionUpdater updater(
+        final String pathQuestionSid,
+        final Boolean allowNa
+    ) {
         return new InsightsQuestionnairesQuestionUpdater(
-                pathQuestionSid, allowNa
+            pathQuestionSid,
+            allowNa
         );
     }
-
 
     /**
      * Converts a JSON String into a InsightsQuestionnairesQuestion object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsQuestionnairesQuestion object represented by the provided JSON
      */
-    public static InsightsQuestionnairesQuestion fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsQuestionnairesQuestion fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsQuestionnairesQuestion.class);
+            return objectMapper.readValue(
+                json,
+                InsightsQuestionnairesQuestion.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -87,14 +101,20 @@ public class InsightsQuestionnairesQuestion extends Resource {
      * Converts a JSON InputStream into a InsightsQuestionnairesQuestion object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsQuestionnairesQuestion object represented by the provided JSON
      */
-    public static InsightsQuestionnairesQuestion fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsQuestionnairesQuestion fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsQuestionnairesQuestion.class);
+            return objectMapper.readValue(
+                json,
+                InsightsQuestionnairesQuestion.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -114,40 +134,48 @@ public class InsightsQuestionnairesQuestion extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Boolean allowNa;
+
     @Getter
     private final Object answerSet;
+
     @Getter
     private final String answerSetId;
+
     @Getter
     private final Object category;
+
     @Getter
     private final String description;
+
     @Getter
     private final String question;
+
     @Getter
     private final String questionSid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Integer usage;
 
     @JsonCreator
     private InsightsQuestionnairesQuestion(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("allow_na") final Boolean allowNa,
-            @JsonProperty("answer_set") final Object answerSet,
-            @JsonProperty("answer_set_id") final String answerSetId,
-            @JsonProperty("category") final Object category,
-            @JsonProperty("description") final String description,
-            @JsonProperty("question") final String question,
-            @JsonProperty("question_sid") final String questionSid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("usage") final Integer usage
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("allow_na") final Boolean allowNa,
+        @JsonProperty("answer_set") final Object answerSet,
+        @JsonProperty("answer_set_id") final String answerSetId,
+        @JsonProperty("category") final Object category,
+        @JsonProperty("description") final String description,
+        @JsonProperty("question") final String question,
+        @JsonProperty("question_sid") final String questionSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("usage") final Integer usage
     ) {
         this.accountSid = accountSid;
         this.allowNa = allowNa;
@@ -171,37 +199,35 @@ public class InsightsQuestionnairesQuestion extends Resource {
             return false;
         }
 
-        InsightsQuestionnairesQuestion other = (InsightsQuestionnairesQuestion) o;
+        InsightsQuestionnairesQuestion other =
+            (InsightsQuestionnairesQuestion) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(allowNa, other.allowNa) &&
-                        Objects.equals(answerSet, other.answerSet) &&
-                        Objects.equals(answerSetId, other.answerSetId) &&
-                        Objects.equals(category, other.category) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(question, other.question) &&
-                        Objects.equals(questionSid, other.questionSid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(usage, other.usage)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(allowNa, other.allowNa) &&
+            Objects.equals(answerSet, other.answerSet) &&
+            Objects.equals(answerSetId, other.answerSetId) &&
+            Objects.equals(category, other.category) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(question, other.question) &&
+            Objects.equals(questionSid, other.questionSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(usage, other.usage)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                allowNa,
-                answerSet,
-                answerSetId,
-                category,
-                description,
-                question,
-                questionSid,
-                url,
-                usage
+            accountSid,
+            allowNa,
+            answerSet,
+            answerSetId,
+            category,
+            description,
+            question,
+            questionSid,
+            url,
+            usage
         );
     }
-
-
 }
-

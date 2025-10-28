@@ -18,39 +18,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkCountryUpdate extends Resource {
 
-
     public static BulkCountryUpdateCreator creator(final String updateRequest) {
-        return new BulkCountryUpdateCreator(
-                updateRequest
-        );
+        return new BulkCountryUpdateCreator(updateRequest);
     }
-
 
     /**
      * Converts a JSON String into a BulkCountryUpdate object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return BulkCountryUpdate object represented by the provided JSON
      */
-    public static BulkCountryUpdate fromJson(final String json, final ObjectMapper objectMapper) {
+    public static BulkCountryUpdate fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BulkCountryUpdate.class);
@@ -65,11 +67,14 @@ public class BulkCountryUpdate extends Resource {
      * Converts a JSON InputStream into a BulkCountryUpdate object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return BulkCountryUpdate object represented by the provided JSON
      */
-    public static BulkCountryUpdate fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static BulkCountryUpdate fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BulkCountryUpdate.class);
@@ -92,16 +97,16 @@ public class BulkCountryUpdate extends Resource {
         }
     }
 
-
     @Getter
     private final Integer updateCount;
+
     @Getter
     private final String updateRequest;
 
     @JsonCreator
     private BulkCountryUpdate(
-            @JsonProperty("update_count") final Integer updateCount,
-            @JsonProperty("update_request") final String updateRequest
+        @JsonProperty("update_count") final Integer updateCount,
+        @JsonProperty("update_request") final String updateRequest
     ) {
         this.updateCount = updateCount;
         this.updateRequest = updateRequest;
@@ -119,19 +124,13 @@ public class BulkCountryUpdate extends Resource {
 
         BulkCountryUpdate other = (BulkCountryUpdate) o;
         return (
-                Objects.equals(updateCount, other.updateCount) &&
-                        Objects.equals(updateRequest, other.updateRequest)
+            Objects.equals(updateCount, other.updateCount) &&
+            Objects.equals(updateRequest, other.updateRequest)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                updateCount,
-                updateRequest
-        );
+        return Objects.hash(updateCount, updateRequest);
     }
-
-
 }
-

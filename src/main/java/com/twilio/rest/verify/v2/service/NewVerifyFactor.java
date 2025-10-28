@@ -19,36 +19,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewVerifyFactor extends Resource {
 
-
-    public static NewVerifyFactorUpdater updater(final String pathServiceSid, final NewVerifyFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest) {
+    public static NewVerifyFactorUpdater updater(
+        final String pathServiceSid,
+        final NewVerifyFactor.VerifyPasskeysFactorRequest verifyPasskeysFactorRequest
+    ) {
         return new NewVerifyFactorUpdater(
-                pathServiceSid, verifyPasskeysFactorRequest
+            pathServiceSid,
+            verifyPasskeysFactorRequest
         );
     }
-
 
     public enum Status {
         UNVERIFIED("unverified"),
@@ -105,7 +111,10 @@ public class NewVerifyFactor extends Resource {
 
         @JsonCreator
         public static AuthenticatorAttachment forValue(final String value) {
-            return Promoter.enumFromString(value, AuthenticatorAttachment.values());
+            return Promoter.enumFromString(
+                value,
+                AuthenticatorAttachment.values()
+            );
         }
     }
 
@@ -154,7 +163,6 @@ public class NewVerifyFactor extends Resource {
         }
     }
 
-
     @JsonDeserialize(builder = VerifyPasskeysFactorRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
@@ -185,7 +193,6 @@ public class NewVerifyFactor extends Resource {
         @Getter
         private final VerifyPasskeysFactorRequestResponse response;
 
-
         private VerifyPasskeysFactorRequest(Builder builder) {
             this.id = builder.id;
             this.rawId = builder.rawId;
@@ -194,16 +201,25 @@ public class NewVerifyFactor extends Resource {
             this.response = builder.response;
         }
 
-        public static Builder builder(final VerifyPasskeysFactorRequestResponse response) {
+        public static Builder builder(
+            final VerifyPasskeysFactorRequestResponse response
+        ) {
             return new Builder(response);
         }
 
-        public static VerifyPasskeysFactorRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, VerifyPasskeysFactorRequest.class);
+        public static VerifyPasskeysFactorRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                VerifyPasskeysFactorRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("id")
             private String id;
 
@@ -219,12 +235,14 @@ public class NewVerifyFactor extends Resource {
             @JsonProperty("response")
             private VerifyPasskeysFactorRequestResponse response;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("response") final VerifyPasskeysFactorRequestResponse response) {
+            public Builder(
+                @JsonProperty(
+                    "response"
+                ) final VerifyPasskeysFactorRequestResponse response
+            ) {
                 this.response = response;
             }
-
 
             public VerifyPasskeysFactorRequest build() {
                 return new VerifyPasskeysFactorRequest(this);
@@ -243,29 +261,32 @@ public class NewVerifyFactor extends Resource {
 
             VerifyPasskeysFactorRequest other = (VerifyPasskeysFactorRequest) o;
             return (
-                    Objects.equals(id, other.id) &&
-                            Objects.equals(rawId, other.rawId) &&
-                            Objects.equals(authenticatorAttachment, other.authenticatorAttachment) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(response, other.response)
+                Objects.equals(id, other.id) &&
+                Objects.equals(rawId, other.rawId) &&
+                Objects.equals(
+                    authenticatorAttachment,
+                    other.authenticatorAttachment
+                ) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(response, other.response)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    id,
-                    rawId,
-                    authenticatorAttachment,
-                    type,
-                    response
+                id,
+                rawId,
+                authenticatorAttachment,
+                type,
+                response
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = VerifyPasskeysFactorRequestResponse.Builder.class)
+    @JsonDeserialize(
+        builder = VerifyPasskeysFactorRequestResponse.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class VerifyPasskeysFactorRequestResponse {
@@ -285,7 +306,6 @@ public class NewVerifyFactor extends Resource {
         @Getter
         private final List<NewVerifyFactor.Transports> transports;
 
-
         private VerifyPasskeysFactorRequestResponse(Builder builder) {
             this.attestationObject = builder.attestationObject;
             this.clientDataJSON = builder.clientDataJSON;
@@ -296,12 +316,19 @@ public class NewVerifyFactor extends Resource {
             return new Builder();
         }
 
-        public static VerifyPasskeysFactorRequestResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, VerifyPasskeysFactorRequestResponse.class);
+        public static VerifyPasskeysFactorRequestResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                VerifyPasskeysFactorRequestResponse.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("attestationObject")
             private String attestationObject;
 
@@ -310,7 +337,6 @@ public class NewVerifyFactor extends Resource {
 
             @JsonProperty("transports")
             private List<NewVerifyFactor.Transports> transports;
-
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("attestationObject")
@@ -328,7 +354,9 @@ public class NewVerifyFactor extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("transports")
-            public Builder transports(List<NewVerifyFactor.Transports> transports) {
+            public Builder transports(
+                List<NewVerifyFactor.Transports> transports
+            ) {
                 this.transports = transports;
                 return this;
             }
@@ -348,34 +376,32 @@ public class NewVerifyFactor extends Resource {
                 return false;
             }
 
-            VerifyPasskeysFactorRequestResponse other = (VerifyPasskeysFactorRequestResponse) o;
+            VerifyPasskeysFactorRequestResponse other =
+                (VerifyPasskeysFactorRequestResponse) o;
             return (
-                    Objects.equals(attestationObject, other.attestationObject) &&
-                            Objects.equals(clientDataJSON, other.clientDataJSON) &&
-                            Objects.equals(transports, other.transports)
+                Objects.equals(attestationObject, other.attestationObject) &&
+                Objects.equals(clientDataJSON, other.clientDataJSON) &&
+                Objects.equals(transports, other.transports)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    attestationObject,
-                    clientDataJSON,
-                    transports
-            );
+            return Objects.hash(attestationObject, clientDataJSON, transports);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a NewVerifyFactor object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return NewVerifyFactor object represented by the provided JSON
      */
-    public static NewVerifyFactor fromJson(final String json, final ObjectMapper objectMapper) {
+    public static NewVerifyFactor fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewVerifyFactor.class);
@@ -390,11 +416,14 @@ public class NewVerifyFactor extends Resource {
      * Converts a JSON InputStream into a NewVerifyFactor object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return NewVerifyFactor object represented by the provided JSON
      */
-    public static NewVerifyFactor fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static NewVerifyFactor fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewVerifyFactor.class);
@@ -417,51 +446,66 @@ public class NewVerifyFactor extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object config;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String entitySid;
+
     @Getter
     private final NewVerifyFactor.FactorType factorType;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Object metadata;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final NewVerifyFactor.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private NewVerifyFactor(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("config") final Object config,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("entity_sid") final String entitySid,
-            @JsonProperty("factor_type") final NewVerifyFactor.FactorType factorType,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("metadata") final Object metadata,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final NewVerifyFactor.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("config") final Object config,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("entity_sid") final String entitySid,
+        @JsonProperty(
+            "factor_type"
+        ) final NewVerifyFactor.FactorType factorType,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("metadata") final Object metadata,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final NewVerifyFactor.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.config = config;
@@ -490,41 +534,38 @@ public class NewVerifyFactor extends Resource {
 
         NewVerifyFactor other = (NewVerifyFactor) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(config, other.config) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(entitySid, other.entitySid) &&
-                        Objects.equals(factorType, other.factorType) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(metadata, other.metadata) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(config, other.config) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(entitySid, other.entitySid) &&
+            Objects.equals(factorType, other.factorType) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(metadata, other.metadata) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                config,
-                dateCreated,
-                dateUpdated,
-                entitySid,
-                factorType,
-                friendlyName,
-                identity,
-                metadata,
-                serviceSid,
-                sid,
-                status,
-                url
+            accountSid,
+            config,
+            dateCreated,
+            dateUpdated,
+            entitySid,
+            factorType,
+            friendlyName,
+            identity,
+            metadata,
+            serviceSid,
+            sid,
+            status,
+            url
         );
     }
-
-
 }
-

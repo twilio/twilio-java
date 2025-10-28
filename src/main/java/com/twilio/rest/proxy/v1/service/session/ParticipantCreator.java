@@ -14,7 +14,6 @@
 
 package com.twilio.rest.proxy.v1.service.session;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ParticipantCreator extends Creator<Participant> {
 
@@ -37,50 +37,58 @@ public class ParticipantCreator extends Creator<Participant> {
     private String proxyIdentifier;
     private String proxyIdentifierSid;
 
-    public ParticipantCreator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
+    public ParticipantCreator(
+        final String pathServiceSid,
+        final String pathSessionSid,
+        final String identifier
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
         this.identifier = identifier;
     }
-
 
     public ParticipantCreator setIdentifier(final String identifier) {
         this.identifier = identifier;
         return this;
     }
 
-
     public ParticipantCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public ParticipantCreator setProxyIdentifier(final String proxyIdentifier) {
         this.proxyIdentifier = proxyIdentifier;
         return this;
     }
 
-
-    public ParticipantCreator setProxyIdentifierSid(final String proxyIdentifierSid) {
+    public ParticipantCreator setProxyIdentifierSid(
+        final String proxyIdentifierSid
+    ) {
         this.proxyIdentifierSid = proxyIdentifierSid;
         return this;
     }
 
-
     @Override
     public Participant create(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
-        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "SessionSid" + "}", this.pathSessionSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "SessionSid" + "}",
+                this.pathSessionSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.PROXY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.PROXY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -88,42 +96,64 @@ public class ParticipantCreator extends Creator<Participant> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Participant creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Participant creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Participant.fromJson(response.getStream(), client.getObjectMapper());
+        return Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (identifier != null) {
-            Serializer.toString(request, "Identifier", identifier, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Identifier",
+                identifier,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (proxyIdentifier != null) {
-            Serializer.toString(request, "ProxyIdentifier", proxyIdentifier, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ProxyIdentifier",
+                proxyIdentifier,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (proxyIdentifierSid != null) {
-            Serializer.toString(request, "ProxyIdentifierSid", proxyIdentifierSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ProxyIdentifierSid",
+                proxyIdentifierSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

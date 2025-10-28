@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
 
@@ -35,52 +36,61 @@ public class EncryptedSentencesFetcher extends Fetcher<EncryptedSentences> {
         this.pathTranscriptSid = pathTranscriptSid;
     }
 
-
     public EncryptedSentencesFetcher setRedacted(final Boolean redacted) {
         this.redacted = redacted;
         return this;
     }
 
-
     @Override
     public EncryptedSentences fetch(final TwilioRestClient client) {
-
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences/Encrypted";
 
-        path = path.replace("{" + "TranscriptSid" + "}", this.pathTranscriptSid.toString());
-
+        path =
+            path.replace(
+                "{" + "TranscriptSid" + "}",
+                this.pathTranscriptSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("EncryptedSentences fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "EncryptedSentences fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return EncryptedSentences.fromJson(response.getStream(), client.getObjectMapper());
+        return EncryptedSentences.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (redacted != null) {
-            Serializer.toString(request, "Redacted", redacted, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Redacted",
+                redacted,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

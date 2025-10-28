@@ -25,10 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
-public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulativeStatistics> {
+public class WorkflowCumulativeStatisticsFetcher
+    extends Fetcher<WorkflowCumulativeStatistics> {
 
     private String pathWorkspaceSid;
     private String pathWorkflowSid;
@@ -38,102 +39,141 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkflowCumulativeStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkflowSid) {
+    public WorkflowCumulativeStatisticsFetcher(
+        final String pathWorkspaceSid,
+        final String pathWorkflowSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkflowSid = pathWorkflowSid;
     }
 
-
-    public WorkflowCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
+    public WorkflowCumulativeStatisticsFetcher setEndDate(
+        final ZonedDateTime endDate
+    ) {
         this.endDate = endDate;
         return this;
     }
 
-
-    public WorkflowCumulativeStatisticsFetcher setMinutes(final Integer minutes) {
+    public WorkflowCumulativeStatisticsFetcher setMinutes(
+        final Integer minutes
+    ) {
         this.minutes = minutes;
         return this;
     }
 
-
-    public WorkflowCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
+    public WorkflowCumulativeStatisticsFetcher setStartDate(
+        final ZonedDateTime startDate
+    ) {
         this.startDate = startDate;
         return this;
     }
 
-
-    public WorkflowCumulativeStatisticsFetcher setTaskChannel(final String taskChannel) {
+    public WorkflowCumulativeStatisticsFetcher setTaskChannel(
+        final String taskChannel
+    ) {
         this.taskChannel = taskChannel;
         return this;
     }
 
-
-    public WorkflowCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {
+    public WorkflowCumulativeStatisticsFetcher setSplitByWaitTime(
+        final String splitByWaitTime
+    ) {
         this.splitByWaitTime = splitByWaitTime;
         return this;
     }
 
-
     @Override
     public WorkflowCumulativeStatistics fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics";
 
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics";
-
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
-        path = path.replace("{" + "WorkflowSid" + "}", this.pathWorkflowSid.toString());
-
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkflowSid" + "}",
+                this.pathWorkflowSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TASKROUTER.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("WorkflowCumulativeStatistics fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WorkflowCumulativeStatistics fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return WorkflowCumulativeStatistics.fromJson(response.getStream(), client.getObjectMapper());
+        return WorkflowCumulativeStatistics.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (endDate != null) {
-            Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (minutes != null) {
-            Serializer.toString(request, "Minutes", minutes, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Minutes",
+                minutes,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startDate != null) {
-            Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartDate",
+                startDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (taskChannel != null) {
-            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
-
 
         if (splitByWaitTime != null) {
-            Serializer.toString(request, "SplitByWaitTime", splitByWaitTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SplitByWaitTime",
+                splitByWaitTime,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

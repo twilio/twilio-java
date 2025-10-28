@@ -26,47 +26,57 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MessageUpdater extends Updater<Message> {
+
     private String pathServiceSid;
     private String pathChannelSid;
     private String pathSid;
     private String body;
     private String attributes;
 
-    public MessageUpdater(final String pathServiceSid, final String pathChannelSid, final String pathSid) {
+    public MessageUpdater(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
     }
-
 
     public MessageUpdater setBody(final String body) {
         this.body = body;
         return this;
     }
 
-
     public MessageUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
-
     @Override
     public Message update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
-        String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CHAT.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CHAT.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -74,14 +84,19 @@ public class MessageUpdater extends Updater<Message> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -90,16 +105,22 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     private void addPostParams(final Request request) {
-
         if (body != null) {
-            Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (attributes != null) {
-            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class DomainConfigUpdater extends Updater<DomainConfig> {
+
     private String pathDomainSid;
     private URI fallbackUrl;
     private URI callbackUrl;
@@ -40,7 +41,6 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
     public DomainConfigUpdater(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
     }
-
 
     public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
@@ -60,30 +60,32 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
 
-    public DomainConfigUpdater setContinueOnFailure(final Boolean continueOnFailure) {
+    public DomainConfigUpdater setContinueOnFailure(
+        final Boolean continueOnFailure
+    ) {
         this.continueOnFailure = continueOnFailure;
         return this;
     }
-
 
     public DomainConfigUpdater setDisableHttps(final Boolean disableHttps) {
         this.disableHttps = disableHttps;
         return this;
     }
 
-
     @Override
     public DomainConfig update(final TwilioRestClient client) {
-
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
-
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -91,42 +93,64 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("DomainConfig update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "DomainConfig update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return DomainConfig.fromJson(response.getStream(), client.getObjectMapper());
+        return DomainConfig.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (fallbackUrl != null) {
-            Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackUrl != null) {
-            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (continueOnFailure != null) {
-            Serializer.toString(request, "ContinueOnFailure", continueOnFailure, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContinueOnFailure",
+                continueOnFailure,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (disableHttps != null) {
-            Serializer.toString(request, "DisableHttps", disableHttps, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DisableHttps",
+                disableHttps,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

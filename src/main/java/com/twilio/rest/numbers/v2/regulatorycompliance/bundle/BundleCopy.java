@@ -18,41 +18,37 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BundleCopy extends Resource {
 
-
     public static BundleCopyCreator creator(final String pathBundleSid) {
-        return new BundleCopyCreator(
-                pathBundleSid
-        );
+        return new BundleCopyCreator(pathBundleSid);
     }
-
 
     public static BundleCopyReader reader(final String pathBundleSid) {
-        return new BundleCopyReader(
-                pathBundleSid
-        );
+        return new BundleCopyReader(pathBundleSid);
     }
-
 
     public enum Status {
         DRAFT("draft"),
@@ -78,15 +74,17 @@ public class BundleCopy extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a BundleCopy object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return BundleCopy object represented by the provided JSON
      */
-    public static BundleCopy fromJson(final String json, final ObjectMapper objectMapper) {
+    public static BundleCopy fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BundleCopy.class);
@@ -101,11 +99,14 @@ public class BundleCopy extends Resource {
      * Converts a JSON InputStream into a BundleCopy object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return BundleCopy object represented by the provided JSON
      */
-    public static BundleCopy fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static BundleCopy fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BundleCopy.class);
@@ -128,43 +129,54 @@ public class BundleCopy extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String email;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String regulationSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final BundleCopy.Status status;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final ZonedDateTime validUntil;
 
     @JsonCreator
     private BundleCopy(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("email") final String email,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("regulation_sid") final String regulationSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final BundleCopy.Status status,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("valid_until")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime validUntil
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("email") final String email,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("regulation_sid") final String regulationSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final BundleCopy.Status status,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty("valid_until") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime validUntil
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -190,35 +202,32 @@ public class BundleCopy extends Resource {
 
         BundleCopy other = (BundleCopy) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(email, other.email) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(regulationSid, other.regulationSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(validUntil, other.validUntil)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(regulationSid, other.regulationSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(validUntil, other.validUntil)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                email,
-                friendlyName,
-                regulationSid,
-                sid,
-                status,
-                statusCallback,
-                validUntil
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            email,
+            friendlyName,
+            regulationSid,
+            sid,
+            status,
+            statusCallback,
+            validUntil
         );
     }
-
-
 }
-

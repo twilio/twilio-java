@@ -18,17 +18,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,46 +37,41 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-
     public static MessageCreator creator(final String pathConversationSid) {
-        return new MessageCreator(
-                pathConversationSid
-        );
+        return new MessageCreator(pathConversationSid);
     }
 
-
-    public static MessageDeleter deleter(final String pathConversationSid, final String pathSid) {
-        return new MessageDeleter(
-                pathConversationSid, pathSid
-        );
+    public static MessageDeleter deleter(
+        final String pathConversationSid,
+        final String pathSid
+    ) {
+        return new MessageDeleter(pathConversationSid, pathSid);
     }
 
-
-    public static MessageFetcher fetcher(final String pathConversationSid, final String pathSid) {
-        return new MessageFetcher(
-                pathConversationSid, pathSid
-        );
+    public static MessageFetcher fetcher(
+        final String pathConversationSid,
+        final String pathSid
+    ) {
+        return new MessageFetcher(pathConversationSid, pathSid);
     }
-
 
     public static MessageReader reader(final String pathConversationSid) {
-        return new MessageReader(
-                pathConversationSid
-        );
+        return new MessageReader(pathConversationSid);
     }
 
-
-    public static MessageUpdater updater(final String pathConversationSid, final String pathSid) {
-        return new MessageUpdater(
-                pathConversationSid, pathSid
-        );
+    public static MessageUpdater updater(
+        final String pathConversationSid,
+        final String pathSid
+    ) {
+        return new MessageUpdater(pathConversationSid, pathSid);
     }
-
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -117,15 +113,17 @@ public class Message extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Message fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -140,11 +138,14 @@ public class Message extends Resource {
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Message fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -167,57 +168,72 @@ public class Message extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String attributes;
+
     @Getter
     private final String author;
+
     @Getter
     private final String body;
+
     @Getter
     private final String contentSid;
+
     @Getter
     private final String conversationSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object delivery;
+
     @Getter
     private final Integer index;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final List<Object> media;
+
     @Getter
     private final String participantSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Message(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("attributes") final String attributes,
-            @JsonProperty("author") final String author,
-            @JsonProperty("body") final String body,
-            @JsonProperty("content_sid") final String contentSid,
-            @JsonProperty("conversation_sid") final String conversationSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("delivery") final Object delivery,
-            @JsonProperty("index") final Integer index,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("media") final List<Object> media,
-            @JsonProperty("participant_sid") final String participantSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final String attributes,
+        @JsonProperty("author") final String author,
+        @JsonProperty("body") final String body,
+        @JsonProperty("content_sid") final String contentSid,
+        @JsonProperty("conversation_sid") final String conversationSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("delivery") final Object delivery,
+        @JsonProperty("index") final Integer index,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("media") final List<Object> media,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.attributes = attributes;
@@ -248,45 +264,42 @@ public class Message extends Resource {
 
         Message other = (Message) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(attributes, other.attributes) &&
-                        Objects.equals(author, other.author) &&
-                        Objects.equals(body, other.body) &&
-                        Objects.equals(contentSid, other.contentSid) &&
-                        Objects.equals(conversationSid, other.conversationSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(delivery, other.delivery) &&
-                        Objects.equals(index, other.index) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(media, other.media) &&
-                        Objects.equals(participantSid, other.participantSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(author, other.author) &&
+            Objects.equals(body, other.body) &&
+            Objects.equals(contentSid, other.contentSid) &&
+            Objects.equals(conversationSid, other.conversationSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(delivery, other.delivery) &&
+            Objects.equals(index, other.index) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(media, other.media) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                attributes,
-                author,
-                body,
-                contentSid,
-                conversationSid,
-                dateCreated,
-                dateUpdated,
-                delivery,
-                index,
-                links,
-                media,
-                participantSid,
-                sid,
-                url
+            accountSid,
+            attributes,
+            author,
+            body,
+            contentSid,
+            conversationSid,
+            dateCreated,
+            dateUpdated,
+            delivery,
+            index,
+            links,
+            media,
+            participantSid,
+            sid,
+            url
         );
     }
-
-
 }
-

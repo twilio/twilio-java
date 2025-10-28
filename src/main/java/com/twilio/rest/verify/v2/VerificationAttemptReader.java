@@ -27,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class VerificationAttemptReader extends Reader<VerificationAttempt> {
@@ -42,171 +42,227 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     private VerificationAttempt.ConversionStatus status;
     private Long pageSize;
 
-    public VerificationAttemptReader() {
-    }
+    public VerificationAttemptReader() {}
 
-
-    public VerificationAttemptReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
+    public VerificationAttemptReader setDateCreatedAfter(
+        final ZonedDateTime dateCreatedAfter
+    ) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
-
-    public VerificationAttemptReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
+    public VerificationAttemptReader setDateCreatedBefore(
+        final ZonedDateTime dateCreatedBefore
+    ) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
-
-    public VerificationAttemptReader setChannelDataTo(final String channelDataTo) {
+    public VerificationAttemptReader setChannelDataTo(
+        final String channelDataTo
+    ) {
         this.channelDataTo = channelDataTo;
         return this;
     }
-
 
     public VerificationAttemptReader setCountry(final String country) {
         this.country = country;
         return this;
     }
 
-
-    public VerificationAttemptReader setChannel(final VerificationAttempt.Channels channel) {
+    public VerificationAttemptReader setChannel(
+        final VerificationAttempt.Channels channel
+    ) {
         this.channel = channel;
         return this;
     }
 
-
-    public VerificationAttemptReader setVerifyServiceSid(final String verifyServiceSid) {
+    public VerificationAttemptReader setVerifyServiceSid(
+        final String verifyServiceSid
+    ) {
         this.verifyServiceSid = verifyServiceSid;
         return this;
     }
 
-
-    public VerificationAttemptReader setVerificationSid(final String verificationSid) {
+    public VerificationAttemptReader setVerificationSid(
+        final String verificationSid
+    ) {
         this.verificationSid = verificationSid;
         return this;
     }
 
-
-    public VerificationAttemptReader setStatus(final VerificationAttempt.ConversionStatus status) {
+    public VerificationAttemptReader setStatus(
+        final VerificationAttempt.ConversionStatus status
+    ) {
         this.status = status;
         return this;
     }
-
 
     public VerificationAttemptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<VerificationAttempt> read(final TwilioRestClient client) {
+    public ResourceSet<VerificationAttempt> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<VerificationAttempt> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Attempts";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.GET,
+            Domains.VERIFY.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<VerificationAttempt> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<VerificationAttempt> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("VerificationAttempt read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "VerificationAttempt read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "attempts",
-                response.getContent(),
-                VerificationAttempt.class,
-                client.getObjectMapper());
+            "attempts",
+            response.getContent(),
+            VerificationAttempt.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<VerificationAttempt> previousPage(final Page<VerificationAttempt> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<VerificationAttempt> previousPage(
+        final Page<VerificationAttempt> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<VerificationAttempt> nextPage(final Page<VerificationAttempt> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<VerificationAttempt> nextPage(
+        final Page<VerificationAttempt> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<VerificationAttempt> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<VerificationAttempt> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (dateCreatedAfter != null) {
-            Serializer.toString(request, "DateCreatedAfter", dateCreatedAfter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DateCreatedAfter",
+                dateCreatedAfter,
+                ParameterType.QUERY
+            );
         }
-
 
         if (dateCreatedBefore != null) {
-            Serializer.toString(request, "DateCreatedBefore", dateCreatedBefore, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "DateCreatedBefore",
+                dateCreatedBefore,
+                ParameterType.QUERY
+            );
         }
-
 
         if (channelDataTo != null) {
-            Serializer.toString(request, "ChannelData.To", channelDataTo, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ChannelData.To",
+                channelDataTo,
+                ParameterType.QUERY
+            );
         }
-
 
         if (country != null) {
-            Serializer.toString(request, "Country", country, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Country",
+                country,
+                ParameterType.QUERY
+            );
         }
-
 
         if (channel != null) {
-            Serializer.toString(request, "Channel", channel, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.QUERY
+            );
         }
-
 
         if (verifyServiceSid != null) {
-            Serializer.toString(request, "VerifyServiceSid", verifyServiceSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "VerifyServiceSid",
+                verifyServiceSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (verificationSid != null) {
-            Serializer.toString(request, "VerificationSid", verificationSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "VerificationSid",
+                verificationSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (status != null) {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

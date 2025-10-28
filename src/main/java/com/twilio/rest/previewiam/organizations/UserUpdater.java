@@ -27,45 +27,50 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserUpdater extends Updater<User> {
+
     private String pathOrganizationSid;
     private String pathUserSid;
     private String ifMatch;
     private User.ScimUser scimUser;
 
-    public UserUpdater(final String pathOrganizationSid, final String pathUserSid, final User.ScimUser scimUser) {
+    public UserUpdater(
+        final String pathOrganizationSid,
+        final String pathUserSid,
+        final User.ScimUser scimUser
+    ) {
         this.pathOrganizationSid = pathOrganizationSid;
         this.pathUserSid = pathUserSid;
         this.scimUser = scimUser;
     }
-
 
     public UserUpdater setScimUser(final User.ScimUser scimUser) {
         this.scimUser = scimUser;
         return this;
     }
 
-
     public UserUpdater setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
-
     @Override
     public User update(final TwilioRestClient client) {
-
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
-        path = path.replace("{" + "OrganizationSid" + "}", this.pathOrganizationSid.toString());
+        path =
+            path.replace(
+                "{" + "OrganizationSid" + "}",
+                this.pathOrganizationSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.PUT,
-                Domains.PREVIEWIAM.toString(),
-                path
+            HttpMethod.PUT,
+            Domains.PREVIEWIAM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addHeaderParams(request);
@@ -74,14 +79,19 @@ public class UserUpdater extends Updater<User> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("User update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "User update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -90,11 +100,14 @@ public class UserUpdater extends Updater<User> {
     }
 
     private void addHeaderParams(final Request request) {
-
         if (ifMatch != null) {
-            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
-
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

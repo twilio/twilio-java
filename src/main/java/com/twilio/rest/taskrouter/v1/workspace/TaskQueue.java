@@ -18,63 +18,62 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueue extends Resource {
 
-
-    public static TaskQueueCreator creator(final String pathWorkspaceSid, final String friendlyName) {
-        return new TaskQueueCreator(
-                pathWorkspaceSid, friendlyName
-        );
+    public static TaskQueueCreator creator(
+        final String pathWorkspaceSid,
+        final String friendlyName
+    ) {
+        return new TaskQueueCreator(pathWorkspaceSid, friendlyName);
     }
 
-
-    public static TaskQueueDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskQueueDeleter(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskQueueDeleter deleter(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskQueueDeleter(pathWorkspaceSid, pathSid);
     }
 
-
-    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskQueueFetcher(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskQueueFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskQueueFetcher(pathWorkspaceSid, pathSid);
     }
-
 
     public static TaskQueueReader reader(final String pathWorkspaceSid) {
-        return new TaskQueueReader(
-                pathWorkspaceSid
-        );
+        return new TaskQueueReader(pathWorkspaceSid);
     }
 
-
-    public static TaskQueueUpdater updater(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskQueueUpdater(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskQueueUpdater updater(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskQueueUpdater(pathWorkspaceSid, pathSid);
     }
-
 
     public enum TaskOrder {
         FIFO("FIFO"),
@@ -96,15 +95,17 @@ public class TaskQueue extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a TaskQueue object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueue object represented by the provided JSON
      */
-    public static TaskQueue fromJson(final String json, final ObjectMapper objectMapper) {
+    public static TaskQueue fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskQueue.class);
@@ -119,11 +120,14 @@ public class TaskQueue extends Resource {
      * Converts a JSON InputStream into a TaskQueue object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueue object represented by the provided JSON
      */
-    public static TaskQueue fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static TaskQueue fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskQueue.class);
@@ -146,57 +150,80 @@ public class TaskQueue extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String assignmentActivityName;
+
     @Getter
     private final String assignmentActivitySid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Integer maxReservedWorkers;
+
     @Getter
     private final String reservationActivityName;
+
     @Getter
     private final String reservationActivitySid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String targetWorkers;
+
     @Getter
     private final TaskQueue.TaskOrder taskOrder;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private TaskQueue(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("assignment_activity_name") final String assignmentActivityName,
-            @JsonProperty("assignment_activity_sid") final String assignmentActivitySid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("max_reserved_workers") final Integer maxReservedWorkers,
-            @JsonProperty("reservation_activity_name") final String reservationActivityName,
-            @JsonProperty("reservation_activity_sid") final String reservationActivitySid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("target_workers") final String targetWorkers,
-            @JsonProperty("task_order") final TaskQueue.TaskOrder taskOrder,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "assignment_activity_name"
+        ) final String assignmentActivityName,
+        @JsonProperty(
+            "assignment_activity_sid"
+        ) final String assignmentActivitySid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("max_reserved_workers") final Integer maxReservedWorkers,
+        @JsonProperty(
+            "reservation_activity_name"
+        ) final String reservationActivityName,
+        @JsonProperty(
+            "reservation_activity_sid"
+        ) final String reservationActivitySid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("target_workers") final String targetWorkers,
+        @JsonProperty("task_order") final TaskQueue.TaskOrder taskOrder,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.assignmentActivityName = assignmentActivityName;
@@ -227,45 +254,54 @@ public class TaskQueue extends Resource {
 
         TaskQueue other = (TaskQueue) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(assignmentActivityName, other.assignmentActivityName) &&
-                        Objects.equals(assignmentActivitySid, other.assignmentActivitySid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(maxReservedWorkers, other.maxReservedWorkers) &&
-                        Objects.equals(reservationActivityName, other.reservationActivityName) &&
-                        Objects.equals(reservationActivitySid, other.reservationActivitySid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(targetWorkers, other.targetWorkers) &&
-                        Objects.equals(taskOrder, other.taskOrder) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                assignmentActivityName,
+                other.assignmentActivityName
+            ) &&
+            Objects.equals(
+                assignmentActivitySid,
+                other.assignmentActivitySid
+            ) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(maxReservedWorkers, other.maxReservedWorkers) &&
+            Objects.equals(
+                reservationActivityName,
+                other.reservationActivityName
+            ) &&
+            Objects.equals(
+                reservationActivitySid,
+                other.reservationActivitySid
+            ) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(targetWorkers, other.targetWorkers) &&
+            Objects.equals(taskOrder, other.taskOrder) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                assignmentActivityName,
-                assignmentActivitySid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                links,
-                maxReservedWorkers,
-                reservationActivityName,
-                reservationActivitySid,
-                sid,
-                targetWorkers,
-                taskOrder,
-                url,
-                workspaceSid
+            accountSid,
+            assignmentActivityName,
+            assignmentActivitySid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            links,
+            maxReservedWorkers,
+            reservationActivityName,
+            reservationActivitySid,
+            sid,
+            targetWorkers,
+            taskOrder,
+            url,
+            workspaceSid
         );
     }
-
-
 }
-

@@ -28,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SharedCostReader extends Reader<SharedCost> {
 
@@ -57,67 +58,68 @@ public class SharedCostReader extends Reader<SharedCost> {
         this.pathCountryCode = pathCountryCode;
     }
 
-    public SharedCostReader(final String pathAccountSid, final String pathCountryCode) {
+    public SharedCostReader(
+        final String pathAccountSid,
+        final String pathCountryCode
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
     }
-
 
     public SharedCostReader setAreaCode(final Integer areaCode) {
         this.areaCode = areaCode;
         return this;
     }
 
-
     public SharedCostReader setContains(final String contains) {
         this.contains = contains;
         return this;
     }
-
 
     public SharedCostReader setSmsEnabled(final Boolean smsEnabled) {
         this.smsEnabled = smsEnabled;
         return this;
     }
 
-
     public SharedCostReader setMmsEnabled(final Boolean mmsEnabled) {
         this.mmsEnabled = mmsEnabled;
         return this;
     }
-
 
     public SharedCostReader setVoiceEnabled(final Boolean voiceEnabled) {
         this.voiceEnabled = voiceEnabled;
         return this;
     }
 
-
-    public SharedCostReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
+    public SharedCostReader setExcludeAllAddressRequired(
+        final Boolean excludeAllAddressRequired
+    ) {
         this.excludeAllAddressRequired = excludeAllAddressRequired;
         return this;
     }
 
-
-    public SharedCostReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
+    public SharedCostReader setExcludeLocalAddressRequired(
+        final Boolean excludeLocalAddressRequired
+    ) {
         this.excludeLocalAddressRequired = excludeLocalAddressRequired;
         return this;
     }
 
-
-    public SharedCostReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
+    public SharedCostReader setExcludeForeignAddressRequired(
+        final Boolean excludeForeignAddressRequired
+    ) {
         this.excludeForeignAddressRequired = excludeForeignAddressRequired;
         return this;
     }
-
 
     public SharedCostReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
 
-
-    public SharedCostReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
+    public SharedCostReader setNearNumber(
+        final com.twilio.type.PhoneNumber nearNumber
+    ) {
         this.nearNumber = nearNumber;
         return this;
     }
@@ -131,54 +133,45 @@ public class SharedCostReader extends Reader<SharedCost> {
         return this;
     }
 
-
     public SharedCostReader setDistance(final Integer distance) {
         this.distance = distance;
         return this;
     }
-
 
     public SharedCostReader setInPostalCode(final String inPostalCode) {
         this.inPostalCode = inPostalCode;
         return this;
     }
 
-
     public SharedCostReader setInRegion(final String inRegion) {
         this.inRegion = inRegion;
         return this;
     }
-
 
     public SharedCostReader setInRateCenter(final String inRateCenter) {
         this.inRateCenter = inRateCenter;
         return this;
     }
 
-
     public SharedCostReader setInLata(final String inLata) {
         this.inLata = inLata;
         return this;
     }
-
 
     public SharedCostReader setInLocality(final String inLocality) {
         this.inLocality = inLocality;
         return this;
     }
 
-
     public SharedCostReader setFaxEnabled(final Boolean faxEnabled) {
         this.faxEnabled = faxEnabled;
         return this;
     }
 
-
     public SharedCostReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<SharedCost> read(final TwilioRestClient client) {
@@ -186,160 +179,259 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     public Page<SharedCost> firstPage(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "CountryCode" + "}", this.pathCountryCode.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "CountryCode" + "}",
+                this.pathCountryCode.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<SharedCost> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<SharedCost> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SharedCost read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SharedCost read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "available_phone_numbers",
-                response.getContent(),
-                SharedCost.class,
-                client.getObjectMapper());
+            "available_phone_numbers",
+            response.getContent(),
+            SharedCost.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<SharedCost> previousPage(final Page<SharedCost> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<SharedCost> previousPage(
+        final Page<SharedCost> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<SharedCost> nextPage(final Page<SharedCost> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<SharedCost> nextPage(
+        final Page<SharedCost> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<SharedCost> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<SharedCost> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (areaCode != null) {
-            Serializer.toString(request, "AreaCode", areaCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "AreaCode",
+                areaCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (contains != null) {
-            Serializer.toString(request, "Contains", contains, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Contains",
+                contains,
+                ParameterType.QUERY
+            );
         }
-
 
         if (smsEnabled != null) {
-            Serializer.toString(request, "SmsEnabled", smsEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SmsEnabled",
+                smsEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (mmsEnabled != null) {
-            Serializer.toString(request, "MmsEnabled", mmsEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "MmsEnabled",
+                mmsEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (voiceEnabled != null) {
-            Serializer.toString(request, "VoiceEnabled", voiceEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "VoiceEnabled",
+                voiceEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (excludeAllAddressRequired != null) {
-            Serializer.toString(request, "ExcludeAllAddressRequired", excludeAllAddressRequired, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ExcludeAllAddressRequired",
+                excludeAllAddressRequired,
+                ParameterType.QUERY
+            );
         }
-
 
         if (excludeLocalAddressRequired != null) {
-            Serializer.toString(request, "ExcludeLocalAddressRequired", excludeLocalAddressRequired, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ExcludeLocalAddressRequired",
+                excludeLocalAddressRequired,
+                ParameterType.QUERY
+            );
         }
-
 
         if (excludeForeignAddressRequired != null) {
-            Serializer.toString(request, "ExcludeForeignAddressRequired", excludeForeignAddressRequired, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ExcludeForeignAddressRequired",
+                excludeForeignAddressRequired,
+                ParameterType.QUERY
+            );
         }
-
 
         if (beta != null) {
             Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
         }
 
-
         if (nearNumber != null) {
-            Serializer.toString(request, "NearNumber", nearNumber, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "NearNumber",
+                nearNumber,
+                ParameterType.QUERY
+            );
         }
-
 
         if (nearLatLong != null) {
-            Serializer.toString(request, "NearLatLong", nearLatLong, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "NearLatLong",
+                nearLatLong,
+                ParameterType.QUERY
+            );
         }
-
 
         if (distance != null) {
-            Serializer.toString(request, "Distance", distance, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Distance",
+                distance,
+                ParameterType.QUERY
+            );
         }
-
 
         if (inPostalCode != null) {
-            Serializer.toString(request, "InPostalCode", inPostalCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "InPostalCode",
+                inPostalCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (inRegion != null) {
-            Serializer.toString(request, "InRegion", inRegion, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "InRegion",
+                inRegion,
+                ParameterType.QUERY
+            );
         }
-
 
         if (inRateCenter != null) {
-            Serializer.toString(request, "InRateCenter", inRateCenter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "InRateCenter",
+                inRateCenter,
+                ParameterType.QUERY
+            );
         }
-
 
         if (inLata != null) {
             Serializer.toString(request, "InLata", inLata, ParameterType.QUERY);
         }
 
-
         if (inLocality != null) {
-            Serializer.toString(request, "InLocality", inLocality, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "InLocality",
+                inLocality,
+                ParameterType.QUERY
+            );
         }
-
 
         if (faxEnabled != null) {
-            Serializer.toString(request, "FaxEnabled", faxEnabled, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "FaxEnabled",
+                faxEnabled,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

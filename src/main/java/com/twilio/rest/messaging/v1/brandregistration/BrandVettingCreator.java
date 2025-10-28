@@ -14,7 +14,6 @@
 
 package com.twilio.rest.messaging.v1.brandregistration;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BrandVettingCreator extends Creator<BrandVetting> {
 
@@ -34,36 +34,37 @@ public class BrandVettingCreator extends Creator<BrandVetting> {
     private BrandVetting.VettingProvider vettingProvider;
     private String vettingId;
 
-    public BrandVettingCreator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider) {
+    public BrandVettingCreator(
+        final String pathBrandSid,
+        final BrandVetting.VettingProvider vettingProvider
+    ) {
         this.pathBrandSid = pathBrandSid;
         this.vettingProvider = vettingProvider;
     }
 
-
-    public BrandVettingCreator setVettingProvider(final BrandVetting.VettingProvider vettingProvider) {
+    public BrandVettingCreator setVettingProvider(
+        final BrandVetting.VettingProvider vettingProvider
+    ) {
         this.vettingProvider = vettingProvider;
         return this;
     }
-
 
     public BrandVettingCreator setVettingId(final String vettingId) {
         this.vettingId = vettingId;
         return this;
     }
 
-
     @Override
     public BrandVetting create(final TwilioRestClient client) {
-
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
 
-        path = path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
-
+        path =
+            path.replace("{" + "BrandSid" + "}", this.pathBrandSid.toString());
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -71,32 +72,46 @@ public class BrandVettingCreator extends Creator<BrandVetting> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("BrandVetting creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BrandVetting creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return BrandVetting.fromJson(response.getStream(), client.getObjectMapper());
+        return BrandVetting.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (vettingProvider != null) {
-            Serializer.toString(request, "VettingProvider", vettingProvider, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VettingProvider",
+                vettingProvider,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (vettingId != null) {
-            Serializer.toString(request, "VettingId", vettingId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VettingId",
+                vettingId,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

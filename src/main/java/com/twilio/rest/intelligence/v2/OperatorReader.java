@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OperatorReader extends Reader<Operator> {
 
@@ -34,27 +35,24 @@ public class OperatorReader extends Reader<Operator> {
     private String languageCode;
     private Long pageSize;
 
-    public OperatorReader() {
-    }
+    public OperatorReader() {}
 
-
-    public OperatorReader setAvailability(final Operator.Availability availability) {
+    public OperatorReader setAvailability(
+        final Operator.Availability availability
+    ) {
         this.availability = availability;
         return this;
     }
-
 
     public OperatorReader setLanguageCode(final String languageCode) {
         this.languageCode = languageCode;
         return this;
     }
 
-
     public OperatorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Operator> read(final TwilioRestClient client) {
@@ -62,77 +60,109 @@ public class OperatorReader extends Reader<Operator> {
     }
 
     public Page<Operator> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Operators";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Operator> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Operator> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Operator read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Operator read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "operators",
-                response.getContent(),
-                Operator.class,
-                client.getObjectMapper());
+            "operators",
+            response.getContent(),
+            Operator.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Operator> previousPage(final Page<Operator> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Operator> previousPage(
+        final Page<Operator> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Operator> nextPage(final Page<Operator> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Operator> nextPage(
+        final Page<Operator> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Operator> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Operator> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (availability != null) {
-            Serializer.toString(request, "Availability", availability, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Availability",
+                availability,
+                ParameterType.QUERY
+            );
         }
-
 
         if (languageCode != null) {
-            Serializer.toString(request, "LanguageCode", languageCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

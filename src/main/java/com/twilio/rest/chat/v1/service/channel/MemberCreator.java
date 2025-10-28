@@ -14,7 +14,6 @@
 
 package com.twilio.rest.chat.v1.service.channel;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MemberCreator extends Creator<Member> {
 
@@ -35,38 +35,45 @@ public class MemberCreator extends Creator<Member> {
     private String identity;
     private String roleSid;
 
-    public MemberCreator(final String pathServiceSid, final String pathChannelSid, final String identity) {
+    public MemberCreator(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String identity
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.identity = identity;
     }
-
 
     public MemberCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
 
-
     public MemberCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
 
-
     @Override
     public Member create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CHAT.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CHAT.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -74,14 +81,19 @@ public class MemberCreator extends Creator<Member> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Member creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Member creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -90,16 +102,22 @@ public class MemberCreator extends Creator<Member> {
     }
 
     private void addPostParams(final Request request) {
-
         if (identity != null) {
-            Serializer.toString(request, "Identity", identity, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (roleSid != null) {
-            Serializer.toString(request, "RoleSid", roleSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

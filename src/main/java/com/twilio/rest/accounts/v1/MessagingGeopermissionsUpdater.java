@@ -27,36 +27,39 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
-public class MessagingGeopermissionsUpdater extends Updater<MessagingGeopermissions> {
+public class MessagingGeopermissionsUpdater
+    extends Updater<MessagingGeopermissions> {
+
     private List<Object> permissions;
 
     public MessagingGeopermissionsUpdater(final List<Object> permissions) {
         this.permissions = permissions;
     }
 
-
-    public MessagingGeopermissionsUpdater setPermissions(final List<Object> permissions) {
+    public MessagingGeopermissionsUpdater setPermissions(
+        final List<Object> permissions
+    ) {
         this.permissions = permissions;
         return this;
     }
 
-    public MessagingGeopermissionsUpdater setPermissions(final Object permissions) {
+    public MessagingGeopermissionsUpdater setPermissions(
+        final Object permissions
+    ) {
         return setPermissions(Promoter.listOfOne(permissions));
     }
 
     @Override
     public MessagingGeopermissions update(final TwilioRestClient client) {
-
         String path = "/v1/Messaging/GeoPermissions";
 
-
         Request request = new Request(
-                HttpMethod.PATCH,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.PATCH,
+            Domains.ACCOUNTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -64,29 +67,39 @@ public class MessagingGeopermissionsUpdater extends Updater<MessagingGeopermissi
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("MessagingGeopermissions update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "MessagingGeopermissions update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return MessagingGeopermissions.fromJson(response.getStream(), client.getObjectMapper());
+        return MessagingGeopermissions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
-
         if (permissions != null) {
             for (Object param : permissions) {
-                Serializer.toString(request, "Permissions", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Permissions",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
     }
 }

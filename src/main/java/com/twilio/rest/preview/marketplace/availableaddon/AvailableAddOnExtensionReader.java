@@ -27,8 +27,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtension> {
+public class AvailableAddOnExtensionReader
+    extends Reader<AvailableAddOnExtension> {
 
     private String pathAvailableAddOnSid;
     private Long pageSize;
@@ -37,81 +39,113 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
         this.pathAvailableAddOnSid = pathAvailableAddOnSid;
     }
 
-
     public AvailableAddOnExtensionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<AvailableAddOnExtension> read(final TwilioRestClient client) {
+    public ResourceSet<AvailableAddOnExtension> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<AvailableAddOnExtension> firstPage(final TwilioRestClient client) {
+    public Page<AvailableAddOnExtension> firstPage(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions";
 
-        String path = "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions";
-
-        path = path.replace("{" + "AvailableAddOnSid" + "}", this.pathAvailableAddOnSid.toString());
+        path =
+            path.replace(
+                "{" + "AvailableAddOnSid" + "}",
+                this.pathAvailableAddOnSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.PREVIEW.toString(),
-                path
+            HttpMethod.GET,
+            Domains.PREVIEW.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<AvailableAddOnExtension> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<AvailableAddOnExtension> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AvailableAddOnExtension read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AvailableAddOnExtension read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "extensions",
-                response.getContent(),
-                AvailableAddOnExtension.class,
-                client.getObjectMapper());
+            "extensions",
+            response.getContent(),
+            AvailableAddOnExtension.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<AvailableAddOnExtension> previousPage(final Page<AvailableAddOnExtension> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<AvailableAddOnExtension> previousPage(
+        final Page<AvailableAddOnExtension> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AvailableAddOnExtension> nextPage(final Page<AvailableAddOnExtension> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<AvailableAddOnExtension> nextPage(
+        final Page<AvailableAddOnExtension> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AvailableAddOnExtension> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<AvailableAddOnExtension> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

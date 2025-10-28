@@ -27,27 +27,24 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class KnowledgeReader extends Reader<Knowledge> {
 
     private Integer pageSize;
     private String tags;
 
-    public KnowledgeReader() {
-    }
-
+    public KnowledgeReader() {}
 
     public KnowledgeReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     public KnowledgeReader setTags(final String tags) {
         this.tags = tags;
         return this;
     }
-
 
     @Override
     public ResourceSet<Knowledge> read(final TwilioRestClient client) {
@@ -55,72 +52,95 @@ public class KnowledgeReader extends Reader<Knowledge> {
     }
 
     public Page<Knowledge> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Knowledge";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.KNOWLEDGE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.KNOWLEDGE.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Knowledge> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Knowledge> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Knowledge read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Knowledge read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "knowledge",
-                response.getContent(),
-                Knowledge.class,
-                client.getObjectMapper());
+            "knowledge",
+            response.getContent(),
+            Knowledge.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Knowledge> previousPage(final Page<Knowledge> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Knowledge> previousPage(
+        final Page<Knowledge> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Knowledge> nextPage(final Page<Knowledge> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Knowledge> nextPage(
+        final Page<Knowledge> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Knowledge> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Knowledge> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
 
         if (tags != null) {
             Serializer.toString(request, "Tags", tags, ParameterType.QUERY);
         }
-
-
     }
 }

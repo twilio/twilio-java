@@ -27,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.LocalDate;
 
 public class DailyReader extends Reader<Daily> {
@@ -39,43 +39,36 @@ public class DailyReader extends Reader<Daily> {
     private Boolean includeSubaccounts;
     private Long pageSize;
 
-    public DailyReader() {
-    }
+    public DailyReader() {}
 
     public DailyReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
-
 
     public DailyReader setCategory(final String category) {
         this.category = category;
         return this;
     }
 
-
     public DailyReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
-
 
     public DailyReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
 
-
     public DailyReader setIncludeSubaccounts(final Boolean includeSubaccounts) {
         this.includeSubaccounts = includeSubaccounts;
         return this;
     }
 
-
     public DailyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Daily> read(final TwilioRestClient client) {
@@ -83,89 +76,138 @@ public class DailyReader extends Reader<Daily> {
     }
 
     public Page<Daily> firstPage(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Daily> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Daily> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Daily read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Daily read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "usage_records",
-                response.getContent(),
-                Daily.class,
-                client.getObjectMapper());
+            "usage_records",
+            response.getContent(),
+            Daily.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Daily> previousPage(final Page<Daily> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Daily> previousPage(
+        final Page<Daily> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Daily> nextPage(final Page<Daily> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Daily> nextPage(
+        final Page<Daily> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Daily> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Daily> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (category != null) {
-            Serializer.toString(request, "Category", category, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Category",
+                category,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startDate != null) {
-            Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartDate",
+                startDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (endDate != null) {
-            Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (includeSubaccounts != null) {
-            Serializer.toString(request, "IncludeSubaccounts", includeSubaccounts, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "IncludeSubaccounts",
+                includeSubaccounts,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

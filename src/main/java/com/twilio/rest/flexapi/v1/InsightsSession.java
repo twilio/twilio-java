@@ -18,40 +18,42 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSession extends Resource {
 
-
     public static InsightsSessionCreator creator() {
-        return new InsightsSessionCreator(
-
-        );
+        return new InsightsSessionCreator();
     }
-
 
     /**
      * Converts a JSON String into a InsightsSession object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsSession object represented by the provided JSON
      */
-    public static InsightsSession fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsSession fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSession.class);
@@ -66,11 +68,14 @@ public class InsightsSession extends Resource {
      * Converts a JSON InputStream into a InsightsSession object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsSession object represented by the provided JSON
      */
-    public static InsightsSession fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsSession fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSession.class);
@@ -93,25 +98,28 @@ public class InsightsSession extends Resource {
         }
     }
 
-
     @Getter
     private final String baseUrl;
+
     @Getter
     private final String sessionExpiry;
+
     @Getter
     private final String sessionId;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String workspaceId;
 
     @JsonCreator
     private InsightsSession(
-            @JsonProperty("base_url") final String baseUrl,
-            @JsonProperty("session_expiry") final String sessionExpiry,
-            @JsonProperty("session_id") final String sessionId,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("workspace_id") final String workspaceId
+        @JsonProperty("base_url") final String baseUrl,
+        @JsonProperty("session_expiry") final String sessionExpiry,
+        @JsonProperty("session_id") final String sessionId,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_id") final String workspaceId
     ) {
         this.baseUrl = baseUrl;
         this.sessionExpiry = sessionExpiry;
@@ -132,25 +140,22 @@ public class InsightsSession extends Resource {
 
         InsightsSession other = (InsightsSession) o;
         return (
-                Objects.equals(baseUrl, other.baseUrl) &&
-                        Objects.equals(sessionExpiry, other.sessionExpiry) &&
-                        Objects.equals(sessionId, other.sessionId) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(workspaceId, other.workspaceId)
+            Objects.equals(baseUrl, other.baseUrl) &&
+            Objects.equals(sessionExpiry, other.sessionExpiry) &&
+            Objects.equals(sessionId, other.sessionId) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceId, other.workspaceId)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                baseUrl,
-                sessionExpiry,
-                sessionId,
-                url,
-                workspaceId
+            baseUrl,
+            sessionExpiry,
+            sessionId,
+            url,
+            workspaceId
         );
     }
-
-
 }
-

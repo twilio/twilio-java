@@ -18,48 +18,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.PhoneNumberCapabilities;
-import lombok.Getter;
-import lombok.ToString;
-
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Voip extends Resource {
 
-
     public static VoipReader reader(final String pathCountryCode) {
-        return new VoipReader(
-                pathCountryCode
-        );
+        return new VoipReader(pathCountryCode);
     }
 
-
-    public static VoipReader reader(final String pathAccountSid, final String pathCountryCode) {
-        return new VoipReader(
-                pathAccountSid, pathCountryCode
-        );
+    public static VoipReader reader(
+        final String pathAccountSid,
+        final String pathCountryCode
+    ) {
+        return new VoipReader(pathAccountSid, pathCountryCode);
     }
-
 
     /**
      * Converts a JSON String into a Voip object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Voip object represented by the provided JSON
      */
-    public static Voip fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Voip fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Voip.class);
@@ -74,11 +76,14 @@ public class Voip extends Resource {
      * Converts a JSON InputStream into a Voip object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Voip object represented by the provided JSON
      */
-    public static Voip fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Voip fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Voip.class);
@@ -101,49 +106,66 @@ public class Voip extends Resource {
         }
     }
 
-
     @Getter
     private final String addressRequirements;
+
     @Getter
     private final Boolean beta;
+
     @Getter
     private final PhoneNumberCapabilities capabilities;
+
     @Getter
     private final com.twilio.type.PhoneNumber friendlyName;
+
     @Getter
     private final String isoCountry;
+
     @Getter
     private final String lata;
+
     @Getter
     private final BigDecimal latitude;
+
     @Getter
     private final String locality;
+
     @Getter
     private final BigDecimal longitude;
+
     @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+
     @Getter
     private final String postalCode;
+
     @Getter
     private final String rateCenter;
+
     @Getter
     private final String region;
 
     @JsonCreator
     private Voip(
-            @JsonProperty("address_requirements") final String addressRequirements,
-            @JsonProperty("beta") final Boolean beta,
-            @JsonProperty("capabilities") final PhoneNumberCapabilities capabilities,
-            @JsonProperty("friendly_name") final com.twilio.type.PhoneNumber friendlyName,
-            @JsonProperty("iso_country") final String isoCountry,
-            @JsonProperty("lata") final String lata,
-            @JsonProperty("latitude") final BigDecimal latitude,
-            @JsonProperty("locality") final String locality,
-            @JsonProperty("longitude") final BigDecimal longitude,
-            @JsonProperty("phone_number") final com.twilio.type.PhoneNumber phoneNumber,
-            @JsonProperty("postal_code") final String postalCode,
-            @JsonProperty("rate_center") final String rateCenter,
-            @JsonProperty("region") final String region
+        @JsonProperty("address_requirements") final String addressRequirements,
+        @JsonProperty("beta") final Boolean beta,
+        @JsonProperty(
+            "capabilities"
+        ) final PhoneNumberCapabilities capabilities,
+        @JsonProperty(
+            "friendly_name"
+        ) final com.twilio.type.PhoneNumber friendlyName,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("lata") final String lata,
+        @JsonProperty("latitude") final BigDecimal latitude,
+        @JsonProperty("locality") final String locality,
+        @JsonProperty("longitude") final BigDecimal longitude,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("postal_code") final String postalCode,
+        @JsonProperty("rate_center") final String rateCenter,
+        @JsonProperty("region") final String region
     ) {
         this.addressRequirements = addressRequirements;
         this.beta = beta;
@@ -172,41 +194,38 @@ public class Voip extends Resource {
 
         Voip other = (Voip) o;
         return (
-                Objects.equals(addressRequirements, other.addressRequirements) &&
-                        Objects.equals(beta, other.beta) &&
-                        Objects.equals(capabilities, other.capabilities) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(isoCountry, other.isoCountry) &&
-                        Objects.equals(lata, other.lata) &&
-                        Objects.equals(latitude, other.latitude) &&
-                        Objects.equals(locality, other.locality) &&
-                        Objects.equals(longitude, other.longitude) &&
-                        Objects.equals(phoneNumber, other.phoneNumber) &&
-                        Objects.equals(postalCode, other.postalCode) &&
-                        Objects.equals(rateCenter, other.rateCenter) &&
-                        Objects.equals(region, other.region)
+            Objects.equals(addressRequirements, other.addressRequirements) &&
+            Objects.equals(beta, other.beta) &&
+            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(lata, other.lata) &&
+            Objects.equals(latitude, other.latitude) &&
+            Objects.equals(locality, other.locality) &&
+            Objects.equals(longitude, other.longitude) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(postalCode, other.postalCode) &&
+            Objects.equals(rateCenter, other.rateCenter) &&
+            Objects.equals(region, other.region)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                addressRequirements,
-                beta,
-                capabilities,
-                friendlyName,
-                isoCountry,
-                lata,
-                latitude,
-                locality,
-                longitude,
-                phoneNumber,
-                postalCode,
-                rateCenter,
-                region
+            addressRequirements,
+            beta,
+            capabilities,
+            friendlyName,
+            isoCountry,
+            lata,
+            latitude,
+            locality,
+            longitude,
+            phoneNumber,
+            postalCode,
+            rateCenter,
+            region
         );
     }
-
-
 }
-

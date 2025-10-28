@@ -14,7 +14,6 @@
 
 package com.twilio.rest.messaging.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
@@ -51,7 +50,16 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
     private Boolean ageGated;
     private Boolean directLending;
 
-    public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
+    public UsAppToPersonCreator(
+        final String pathMessagingServiceSid,
+        final String brandRegistrationSid,
+        final String description,
+        final String messageFlow,
+        final List<String> messageSamples,
+        final String usAppToPersonUsecase,
+        final Boolean hasEmbeddedLinks,
+        final Boolean hasEmbeddedPhone
+    ) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.brandRegistrationSid = brandRegistrationSid;
         this.description = description;
@@ -62,26 +70,26 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         this.hasEmbeddedPhone = hasEmbeddedPhone;
     }
 
-
-    public UsAppToPersonCreator setBrandRegistrationSid(final String brandRegistrationSid) {
+    public UsAppToPersonCreator setBrandRegistrationSid(
+        final String brandRegistrationSid
+    ) {
         this.brandRegistrationSid = brandRegistrationSid;
         return this;
     }
-
 
     public UsAppToPersonCreator setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-
     public UsAppToPersonCreator setMessageFlow(final String messageFlow) {
         this.messageFlow = messageFlow;
         return this;
     }
 
-
-    public UsAppToPersonCreator setMessageSamples(final List<String> messageSamples) {
+    public UsAppToPersonCreator setMessageSamples(
+        final List<String> messageSamples
+    ) {
         this.messageSamples = messageSamples;
         return this;
     }
@@ -90,43 +98,45 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return setMessageSamples(Promoter.listOfOne(messageSamples));
     }
 
-    public UsAppToPersonCreator setUsAppToPersonUsecase(final String usAppToPersonUsecase) {
+    public UsAppToPersonCreator setUsAppToPersonUsecase(
+        final String usAppToPersonUsecase
+    ) {
         this.usAppToPersonUsecase = usAppToPersonUsecase;
         return this;
     }
 
-
-    public UsAppToPersonCreator setHasEmbeddedLinks(final Boolean hasEmbeddedLinks) {
+    public UsAppToPersonCreator setHasEmbeddedLinks(
+        final Boolean hasEmbeddedLinks
+    ) {
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         return this;
     }
 
-
-    public UsAppToPersonCreator setHasEmbeddedPhone(final Boolean hasEmbeddedPhone) {
+    public UsAppToPersonCreator setHasEmbeddedPhone(
+        final Boolean hasEmbeddedPhone
+    ) {
         this.hasEmbeddedPhone = hasEmbeddedPhone;
         return this;
     }
-
 
     public UsAppToPersonCreator setOptInMessage(final String optInMessage) {
         this.optInMessage = optInMessage;
         return this;
     }
 
-
     public UsAppToPersonCreator setOptOutMessage(final String optOutMessage) {
         this.optOutMessage = optOutMessage;
         return this;
     }
-
 
     public UsAppToPersonCreator setHelpMessage(final String helpMessage) {
         this.helpMessage = helpMessage;
         return this;
     }
 
-
-    public UsAppToPersonCreator setOptInKeywords(final List<String> optInKeywords) {
+    public UsAppToPersonCreator setOptInKeywords(
+        final List<String> optInKeywords
+    ) {
         this.optInKeywords = optInKeywords;
         return this;
     }
@@ -135,7 +145,9 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return setOptInKeywords(Promoter.listOfOne(optInKeywords));
     }
 
-    public UsAppToPersonCreator setOptOutKeywords(final List<String> optOutKeywords) {
+    public UsAppToPersonCreator setOptOutKeywords(
+        final List<String> optOutKeywords
+    ) {
         this.optOutKeywords = optOutKeywords;
         return this;
     }
@@ -144,7 +156,9 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return setOptOutKeywords(Promoter.listOfOne(optOutKeywords));
     }
 
-    public UsAppToPersonCreator setHelpKeywords(final List<String> helpKeywords) {
+    public UsAppToPersonCreator setHelpKeywords(
+        final List<String> helpKeywords
+    ) {
         this.helpKeywords = helpKeywords;
         return this;
     }
@@ -153,36 +167,37 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         return setHelpKeywords(Promoter.listOfOne(helpKeywords));
     }
 
-    public UsAppToPersonCreator setSubscriberOptIn(final Boolean subscriberOptIn) {
+    public UsAppToPersonCreator setSubscriberOptIn(
+        final Boolean subscriberOptIn
+    ) {
         this.subscriberOptIn = subscriberOptIn;
         return this;
     }
-
 
     public UsAppToPersonCreator setAgeGated(final Boolean ageGated) {
         this.ageGated = ageGated;
         return this;
     }
 
-
     public UsAppToPersonCreator setDirectLending(final Boolean directLending) {
         this.directLending = directLending;
         return this;
     }
 
-
     @Override
     public UsAppToPerson create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -190,110 +205,180 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UsAppToPerson creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UsAppToPerson creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return UsAppToPerson.fromJson(response.getStream(), client.getObjectMapper());
+        return UsAppToPerson.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (brandRegistrationSid != null) {
-            Serializer.toString(request, "BrandRegistrationSid", brandRegistrationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BrandRegistrationSid",
+                brandRegistrationSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (messageFlow != null) {
-            Serializer.toString(request, "MessageFlow", messageFlow, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MessageFlow",
+                messageFlow,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (messageSamples != null) {
             for (String param : messageSamples) {
-                Serializer.toString(request, "MessageSamples", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "MessageSamples",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (usAppToPersonUsecase != null) {
-            Serializer.toString(request, "UsAppToPersonUsecase", usAppToPersonUsecase, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UsAppToPersonUsecase",
+                usAppToPersonUsecase,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (hasEmbeddedLinks != null) {
-            Serializer.toString(request, "HasEmbeddedLinks", hasEmbeddedLinks, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HasEmbeddedLinks",
+                hasEmbeddedLinks,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (hasEmbeddedPhone != null) {
-            Serializer.toString(request, "HasEmbeddedPhone", hasEmbeddedPhone, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HasEmbeddedPhone",
+                hasEmbeddedPhone,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (optInMessage != null) {
-            Serializer.toString(request, "OptInMessage", optInMessage, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "OptInMessage",
+                optInMessage,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (optOutMessage != null) {
-            Serializer.toString(request, "OptOutMessage", optOutMessage, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "OptOutMessage",
+                optOutMessage,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (helpMessage != null) {
-            Serializer.toString(request, "HelpMessage", helpMessage, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HelpMessage",
+                helpMessage,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (optInKeywords != null) {
             for (String param : optInKeywords) {
-                Serializer.toString(request, "OptInKeywords", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "OptInKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
 
         if (optOutKeywords != null) {
             for (String param : optOutKeywords) {
-                Serializer.toString(request, "OptOutKeywords", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "OptOutKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
 
         if (helpKeywords != null) {
             for (String param : helpKeywords) {
-                Serializer.toString(request, "HelpKeywords", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "HelpKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (subscriberOptIn != null) {
-            Serializer.toString(request, "SubscriberOptIn", subscriberOptIn, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SubscriberOptIn",
+                subscriberOptIn,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (ageGated != null) {
-            Serializer.toString(request, "AgeGated", ageGated, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AgeGated",
+                ageGated,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (directLending != null) {
-            Serializer.toString(request, "DirectLending", directLending, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DirectLending",
+                directLending,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

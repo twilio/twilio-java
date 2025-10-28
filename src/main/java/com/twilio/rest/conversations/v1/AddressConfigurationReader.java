@@ -27,100 +27,122 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AddressConfigurationReader extends Reader<AddressConfiguration> {
 
     private String type;
     private Long pageSize;
 
-    public AddressConfigurationReader() {
-    }
-
+    public AddressConfigurationReader() {}
 
     public AddressConfigurationReader setType(final String type) {
         this.type = type;
         return this;
     }
 
-
     public AddressConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<AddressConfiguration> read(final TwilioRestClient client) {
+    public ResourceSet<AddressConfiguration> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<AddressConfiguration> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Configuration/Addresses";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<AddressConfiguration> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<AddressConfiguration> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AddressConfiguration read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AddressConfiguration read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "address_configurations",
-                response.getContent(),
-                AddressConfiguration.class,
-                client.getObjectMapper());
+            "address_configurations",
+            response.getContent(),
+            AddressConfiguration.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<AddressConfiguration> previousPage(final Page<AddressConfiguration> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<AddressConfiguration> previousPage(
+        final Page<AddressConfiguration> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AddressConfiguration> nextPage(final Page<AddressConfiguration> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<AddressConfiguration> nextPage(
+        final Page<AddressConfiguration> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<AddressConfiguration> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<AddressConfiguration> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (type != null) {
             Serializer.toString(request, "Type", type, ParameterType.QUERY);
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

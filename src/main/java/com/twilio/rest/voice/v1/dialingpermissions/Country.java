@@ -18,49 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Country extends Resource {
 
-
     public static CountryFetcher fetcher(final String pathIsoCode) {
-        return new CountryFetcher(
-                pathIsoCode
-        );
+        return new CountryFetcher(pathIsoCode);
     }
-
 
     public static CountryReader reader() {
-        return new CountryReader(
-
-        );
+        return new CountryReader();
     }
-
 
     /**
      * Converts a JSON String into a Country object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Country object represented by the provided JSON
      */
-    public static Country fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Country fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Country.class);
@@ -75,11 +74,14 @@ public class Country extends Resource {
      * Converts a JSON InputStream into a Country object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Country object represented by the provided JSON
      */
-    public static Country fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Country fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Country.class);
@@ -102,37 +104,50 @@ public class Country extends Resource {
         }
     }
 
-
     @Getter
     private final String continent;
+
     @Getter
     private final List<String> countryCodes;
+
     @Getter
     private final Boolean highRiskSpecialNumbersEnabled;
+
     @Getter
     private final Boolean highRiskTollfraudNumbersEnabled;
+
     @Getter
     private final String isoCode;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Boolean lowRiskNumbersEnabled;
+
     @Getter
     private final String name;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Country(
-            @JsonProperty("continent") final String continent,
-            @JsonProperty("country_codes") final List<String> countryCodes,
-            @JsonProperty("high_risk_special_numbers_enabled") final Boolean highRiskSpecialNumbersEnabled,
-            @JsonProperty("high_risk_tollfraud_numbers_enabled") final Boolean highRiskTollfraudNumbersEnabled,
-            @JsonProperty("iso_code") final String isoCode,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("low_risk_numbers_enabled") final Boolean lowRiskNumbersEnabled,
-            @JsonProperty("name") final String name,
-            @JsonProperty("url") final URI url
+        @JsonProperty("continent") final String continent,
+        @JsonProperty("country_codes") final List<String> countryCodes,
+        @JsonProperty(
+            "high_risk_special_numbers_enabled"
+        ) final Boolean highRiskSpecialNumbersEnabled,
+        @JsonProperty(
+            "high_risk_tollfraud_numbers_enabled"
+        ) final Boolean highRiskTollfraudNumbersEnabled,
+        @JsonProperty("iso_code") final String isoCode,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "low_risk_numbers_enabled"
+        ) final Boolean lowRiskNumbersEnabled,
+        @JsonProperty("name") final String name,
+        @JsonProperty("url") final URI url
     ) {
         this.continent = continent;
         this.countryCodes = countryCodes;
@@ -157,33 +172,39 @@ public class Country extends Resource {
 
         Country other = (Country) o;
         return (
-                Objects.equals(continent, other.continent) &&
-                        Objects.equals(countryCodes, other.countryCodes) &&
-                        Objects.equals(highRiskSpecialNumbersEnabled, other.highRiskSpecialNumbersEnabled) &&
-                        Objects.equals(highRiskTollfraudNumbersEnabled, other.highRiskTollfraudNumbersEnabled) &&
-                        Objects.equals(isoCode, other.isoCode) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(lowRiskNumbersEnabled, other.lowRiskNumbersEnabled) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(continent, other.continent) &&
+            Objects.equals(countryCodes, other.countryCodes) &&
+            Objects.equals(
+                highRiskSpecialNumbersEnabled,
+                other.highRiskSpecialNumbersEnabled
+            ) &&
+            Objects.equals(
+                highRiskTollfraudNumbersEnabled,
+                other.highRiskTollfraudNumbersEnabled
+            ) &&
+            Objects.equals(isoCode, other.isoCode) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                lowRiskNumbersEnabled,
+                other.lowRiskNumbersEnabled
+            ) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                continent,
-                countryCodes,
-                highRiskSpecialNumbersEnabled,
-                highRiskTollfraudNumbersEnabled,
-                isoCode,
-                links,
-                lowRiskNumbersEnabled,
-                name,
-                url
+            continent,
+            countryCodes,
+            highRiskSpecialNumbersEnabled,
+            highRiskTollfraudNumbersEnabled,
+            isoCode,
+            links,
+            lowRiskNumbersEnabled,
+            name,
+            url
         );
     }
-
-
 }
-

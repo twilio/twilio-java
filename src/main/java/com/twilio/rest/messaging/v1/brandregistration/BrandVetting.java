@@ -18,48 +18,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandVetting extends Resource {
 
-
-    public static BrandVettingCreator creator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider) {
-        return new BrandVettingCreator(
-                pathBrandSid, vettingProvider
-        );
+    public static BrandVettingCreator creator(
+        final String pathBrandSid,
+        final BrandVetting.VettingProvider vettingProvider
+    ) {
+        return new BrandVettingCreator(pathBrandSid, vettingProvider);
     }
 
-
-    public static BrandVettingFetcher fetcher(final String pathBrandSid, final String pathBrandVettingSid) {
-        return new BrandVettingFetcher(
-                pathBrandSid, pathBrandVettingSid
-        );
+    public static BrandVettingFetcher fetcher(
+        final String pathBrandSid,
+        final String pathBrandVettingSid
+    ) {
+        return new BrandVettingFetcher(pathBrandSid, pathBrandVettingSid);
     }
-
 
     public static BrandVettingReader reader(final String pathBrandSid) {
-        return new BrandVettingReader(
-                pathBrandSid
-        );
+        return new BrandVettingReader(pathBrandSid);
     }
-
 
     public enum VettingProvider {
         CAMPAIGN_VERIFY("campaign-verify"),
@@ -81,15 +80,17 @@ public class BrandVetting extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a BrandVetting object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return BrandVetting object represented by the provided JSON
      */
-    public static BrandVetting fromJson(final String json, final ObjectMapper objectMapper) {
+    public static BrandVetting fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BrandVetting.class);
@@ -104,11 +105,14 @@ public class BrandVetting extends Resource {
      * Converts a JSON InputStream into a BrandVetting object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return BrandVetting object represented by the provided JSON
      */
-    public static BrandVetting fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static BrandVetting fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BrandVetting.class);
@@ -131,42 +135,54 @@ public class BrandVetting extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String brandSid;
+
     @Getter
     private final String brandVettingSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String vettingClass;
+
     @Getter
     private final String vettingId;
+
     @Getter
     private final BrandVetting.VettingProvider vettingProvider;
+
     @Getter
     private final String vettingStatus;
 
     @JsonCreator
     private BrandVetting(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("brand_sid") final String brandSid,
-            @JsonProperty("brand_vetting_sid") final String brandVettingSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("vetting_class") final String vettingClass,
-            @JsonProperty("vetting_id") final String vettingId,
-            @JsonProperty("vetting_provider") final BrandVetting.VettingProvider vettingProvider,
-            @JsonProperty("vetting_status") final String vettingStatus
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("brand_sid") final String brandSid,
+        @JsonProperty("brand_vetting_sid") final String brandVettingSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("vetting_class") final String vettingClass,
+        @JsonProperty("vetting_id") final String vettingId,
+        @JsonProperty(
+            "vetting_provider"
+        ) final BrandVetting.VettingProvider vettingProvider,
+        @JsonProperty("vetting_status") final String vettingStatus
     ) {
         this.accountSid = accountSid;
         this.brandSid = brandSid;
@@ -192,35 +208,32 @@ public class BrandVetting extends Resource {
 
         BrandVetting other = (BrandVetting) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(brandSid, other.brandSid) &&
-                        Objects.equals(brandVettingSid, other.brandVettingSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(vettingClass, other.vettingClass) &&
-                        Objects.equals(vettingId, other.vettingId) &&
-                        Objects.equals(vettingProvider, other.vettingProvider) &&
-                        Objects.equals(vettingStatus, other.vettingStatus)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(brandSid, other.brandSid) &&
+            Objects.equals(brandVettingSid, other.brandVettingSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(vettingClass, other.vettingClass) &&
+            Objects.equals(vettingId, other.vettingId) &&
+            Objects.equals(vettingProvider, other.vettingProvider) &&
+            Objects.equals(vettingStatus, other.vettingStatus)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                brandSid,
-                brandVettingSid,
-                dateCreated,
-                dateUpdated,
-                url,
-                vettingClass,
-                vettingId,
-                vettingProvider,
-                vettingStatus
+            accountSid,
+            brandSid,
+            brandVettingSid,
+            dateCreated,
+            dateUpdated,
+            url,
+            vettingClass,
+            vettingId,
+            vettingProvider,
+            vettingStatus
         );
     }
-
-
 }
-

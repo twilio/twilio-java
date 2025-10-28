@@ -18,17 +18,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,39 +37,34 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
 
-
-    public static BrandRegistrationCreator creator(final String customerProfileBundleSid, final String a2PProfileBundleSid) {
+    public static BrandRegistrationCreator creator(
+        final String customerProfileBundleSid,
+        final String a2PProfileBundleSid
+    ) {
         return new BrandRegistrationCreator(
-                customerProfileBundleSid, a2PProfileBundleSid
+            customerProfileBundleSid,
+            a2PProfileBundleSid
         );
     }
-
 
     public static BrandRegistrationFetcher fetcher(final String pathSid) {
-        return new BrandRegistrationFetcher(
-                pathSid
-        );
+        return new BrandRegistrationFetcher(pathSid);
     }
-
 
     public static BrandRegistrationReader reader() {
-        return new BrandRegistrationReader(
-
-        );
+        return new BrandRegistrationReader();
     }
-
 
     public static BrandRegistrationUpdater updater(final String pathSid) {
-        return new BrandRegistrationUpdater(
-                pathSid
-        );
+        return new BrandRegistrationUpdater(pathSid);
     }
-
 
     public enum Status {
         PENDING("PENDING"),
@@ -113,8 +109,13 @@ public class BrandRegistration extends Resource {
         }
 
         @JsonCreator
-        public static BrandRegistrationBrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandRegistrationBrandFeedback.values());
+        public static BrandRegistrationBrandFeedback forValue(
+            final String value
+        ) {
+            return Promoter.enumFromString(
+                value,
+                BrandRegistrationBrandFeedback.values()
+            );
         }
     }
 
@@ -163,15 +164,17 @@ public class BrandRegistration extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a BrandRegistration object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return BrandRegistration object represented by the provided JSON
      */
-    public static BrandRegistration fromJson(final String json, final ObjectMapper objectMapper) {
+    public static BrandRegistration fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BrandRegistration.class);
@@ -186,11 +189,14 @@ public class BrandRegistration extends Resource {
      * Converts a JSON InputStream into a BrandRegistration object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return BrandRegistration object represented by the provided JSON
      */
-    public static BrandRegistration fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static BrandRegistration fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BrandRegistration.class);
@@ -213,75 +219,106 @@ public class BrandRegistration extends Resource {
         }
     }
 
-
     @Getter
     private final String a2pProfileBundleSid;
+
     @Getter
     private final String accountSid;
+
     @Getter
     private final List<BrandRegistration.BrandFeedback> brandFeedback;
+
     @Getter
     private final Integer brandScore;
+
     @Getter
     private final String brandType;
+
     @Getter
     private final String customerProfileBundleSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final List<Object> errors;
+
     @Getter
     private final String failureReason;
+
     @Getter
     private final Boolean governmentEntity;
+
     @Getter
     private final BrandRegistration.IdentityStatus identityStatus;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Boolean mock;
+
     @Getter
     private final Boolean russell3000;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Boolean skipAutomaticSecVet;
+
     @Getter
     private final BrandRegistration.Status status;
+
     @Getter
     private final String taxExemptStatus;
+
     @Getter
     private final String tcrId;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private BrandRegistration(
-            @JsonProperty("a2p_profile_bundle_sid") final String a2pProfileBundleSid,
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("brand_feedback") final List<BrandRegistration.BrandFeedback> brandFeedback,
-            @JsonProperty("brand_score") final Integer brandScore,
-            @JsonProperty("brand_type") final String brandType,
-            @JsonProperty("customer_profile_bundle_sid") final String customerProfileBundleSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("errors") final List<Object> errors,
-            @JsonProperty("failure_reason") final String failureReason,
-            @JsonProperty("government_entity") final Boolean governmentEntity,
-            @JsonProperty("identity_status") final BrandRegistration.IdentityStatus identityStatus,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("mock") final Boolean mock,
-            @JsonProperty("russell_3000") final Boolean russell3000,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("skip_automatic_sec_vet") final Boolean skipAutomaticSecVet,
-            @JsonProperty("status") final BrandRegistration.Status status,
-            @JsonProperty("tax_exempt_status") final String taxExemptStatus,
-            @JsonProperty("tcr_id") final String tcrId,
-            @JsonProperty("url") final URI url
+        @JsonProperty(
+            "a2p_profile_bundle_sid"
+        ) final String a2pProfileBundleSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("brand_feedback") final List<
+            BrandRegistration.BrandFeedback
+        > brandFeedback,
+        @JsonProperty("brand_score") final Integer brandScore,
+        @JsonProperty("brand_type") final String brandType,
+        @JsonProperty(
+            "customer_profile_bundle_sid"
+        ) final String customerProfileBundleSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("errors") final List<Object> errors,
+        @JsonProperty("failure_reason") final String failureReason,
+        @JsonProperty("government_entity") final Boolean governmentEntity,
+        @JsonProperty(
+            "identity_status"
+        ) final BrandRegistration.IdentityStatus identityStatus,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("mock") final Boolean mock,
+        @JsonProperty("russell_3000") final Boolean russell3000,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty(
+            "skip_automatic_sec_vet"
+        ) final Boolean skipAutomaticSecVet,
+        @JsonProperty("status") final BrandRegistration.Status status,
+        @JsonProperty("tax_exempt_status") final String taxExemptStatus,
+        @JsonProperty("tcr_id") final String tcrId,
+        @JsonProperty("url") final URI url
     ) {
         this.a2pProfileBundleSid = a2pProfileBundleSid;
         this.accountSid = accountSid;
@@ -318,57 +355,57 @@ public class BrandRegistration extends Resource {
 
         BrandRegistration other = (BrandRegistration) o;
         return (
-                Objects.equals(a2pProfileBundleSid, other.a2pProfileBundleSid) &&
-                        Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(brandFeedback, other.brandFeedback) &&
-                        Objects.equals(brandScore, other.brandScore) &&
-                        Objects.equals(brandType, other.brandType) &&
-                        Objects.equals(customerProfileBundleSid, other.customerProfileBundleSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(errors, other.errors) &&
-                        Objects.equals(failureReason, other.failureReason) &&
-                        Objects.equals(governmentEntity, other.governmentEntity) &&
-                        Objects.equals(identityStatus, other.identityStatus) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(mock, other.mock) &&
-                        Objects.equals(russell3000, other.russell3000) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(skipAutomaticSecVet, other.skipAutomaticSecVet) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(taxExemptStatus, other.taxExemptStatus) &&
-                        Objects.equals(tcrId, other.tcrId) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(a2pProfileBundleSid, other.a2pProfileBundleSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(brandFeedback, other.brandFeedback) &&
+            Objects.equals(brandScore, other.brandScore) &&
+            Objects.equals(brandType, other.brandType) &&
+            Objects.equals(
+                customerProfileBundleSid,
+                other.customerProfileBundleSid
+            ) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(errors, other.errors) &&
+            Objects.equals(failureReason, other.failureReason) &&
+            Objects.equals(governmentEntity, other.governmentEntity) &&
+            Objects.equals(identityStatus, other.identityStatus) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(mock, other.mock) &&
+            Objects.equals(russell3000, other.russell3000) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(skipAutomaticSecVet, other.skipAutomaticSecVet) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(taxExemptStatus, other.taxExemptStatus) &&
+            Objects.equals(tcrId, other.tcrId) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                a2pProfileBundleSid,
-                accountSid,
-                brandFeedback,
-                brandScore,
-                brandType,
-                customerProfileBundleSid,
-                dateCreated,
-                dateUpdated,
-                errors,
-                failureReason,
-                governmentEntity,
-                identityStatus,
-                links,
-                mock,
-                russell3000,
-                sid,
-                skipAutomaticSecVet,
-                status,
-                taxExemptStatus,
-                tcrId,
-                url
+            a2pProfileBundleSid,
+            accountSid,
+            brandFeedback,
+            brandScore,
+            brandType,
+            customerProfileBundleSid,
+            dateCreated,
+            dateUpdated,
+            errors,
+            failureReason,
+            governmentEntity,
+            identityStatus,
+            links,
+            mock,
+            russell3000,
+            sid,
+            skipAutomaticSecVet,
+            status,
+            taxExemptStatus,
+            tcrId,
+            url
         );
     }
-
-
 }
-

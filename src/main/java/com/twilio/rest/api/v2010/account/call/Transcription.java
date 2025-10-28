@@ -18,54 +18,61 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
 
-
     public static TranscriptionCreator creator(final String pathCallSid) {
-        return new TranscriptionCreator(
-                pathCallSid
-        );
+        return new TranscriptionCreator(pathCallSid);
     }
 
-
-    public static TranscriptionCreator creator(final String pathAccountSid, final String pathCallSid) {
-        return new TranscriptionCreator(
-                pathAccountSid, pathCallSid
-        );
+    public static TranscriptionCreator creator(
+        final String pathAccountSid,
+        final String pathCallSid
+    ) {
+        return new TranscriptionCreator(pathAccountSid, pathCallSid);
     }
 
+    public static TranscriptionUpdater updater(
+        final String pathCallSid,
+        final String pathSid,
+        final Transcription.UpdateStatus status
+    ) {
+        return new TranscriptionUpdater(pathCallSid, pathSid, status);
+    }
 
-    public static TranscriptionUpdater updater(final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
+    public static TranscriptionUpdater updater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final Transcription.UpdateStatus status
+    ) {
         return new TranscriptionUpdater(
-                pathCallSid, pathSid, status
+            pathAccountSid,
+            pathCallSid,
+            pathSid,
+            status
         );
     }
-
-
-    public static TranscriptionUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Transcription.UpdateStatus status) {
-        return new TranscriptionUpdater(
-                pathAccountSid, pathCallSid, pathSid, status
-        );
-    }
-
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -127,15 +134,17 @@ public class Transcription extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Transcription object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Transcription object represented by the provided JSON
      */
-    public static Transcription fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Transcription fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Transcription.class);
@@ -150,11 +159,14 @@ public class Transcription extends Resource {
      * Converts a JSON InputStream into a Transcription object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Transcription object represented by the provided JSON
      */
-    public static Transcription fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Transcription fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Transcription.class);
@@ -177,32 +189,38 @@ public class Transcription extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String callSid;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String name;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Transcription.Status status;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private Transcription(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("name") final String name,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Transcription.Status status,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("name") final String name,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Transcription.Status status,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -225,29 +243,26 @@ public class Transcription extends Resource {
 
         Transcription other = (Transcription) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                callSid,
-                dateUpdated,
-                name,
-                sid,
-                status,
-                uri
+            accountSid,
+            callSid,
+            dateUpdated,
+            name,
+            sid,
+            status,
+            uri
         );
     }
-
-
 }
-

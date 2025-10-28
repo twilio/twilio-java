@@ -28,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TollFreeReader extends Reader<TollFree> {
 
@@ -38,27 +39,25 @@ public class TollFreeReader extends Reader<TollFree> {
     private String origin;
     private Long pageSize;
 
-    public TollFreeReader() {
-    }
+    public TollFreeReader() {}
 
     public TollFreeReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
-
 
     public TollFreeReader setBeta(final Boolean beta) {
         this.beta = beta;
         return this;
     }
 
-
     public TollFreeReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
-    public TollFreeReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public TollFreeReader setPhoneNumber(
+        final com.twilio.type.PhoneNumber phoneNumber
+    ) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -72,12 +71,10 @@ public class TollFreeReader extends Reader<TollFree> {
         return this;
     }
 
-
     public TollFreeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<TollFree> read(final TwilioRestClient client) {
@@ -85,89 +82,128 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     public Page<TollFree> firstPage(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<TollFree> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TollFree> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("TollFree read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TollFree read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "incoming_phone_numbers",
-                response.getContent(),
-                TollFree.class,
-                client.getObjectMapper());
+            "incoming_phone_numbers",
+            response.getContent(),
+            TollFree.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<TollFree> previousPage(final Page<TollFree> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<TollFree> previousPage(
+        final Page<TollFree> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TollFree> nextPage(final Page<TollFree> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<TollFree> nextPage(
+        final Page<TollFree> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TollFree> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<TollFree> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (beta != null) {
             Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
         }
 
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
-
 
         if (phoneNumber != null) {
-            Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.QUERY
+            );
         }
-
 
         if (origin != null) {
             Serializer.toString(request, "Origin", origin, ParameterType.QUERY);
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

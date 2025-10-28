@@ -14,7 +14,6 @@
 
 package com.twilio.rest.conversations.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
@@ -46,97 +45,113 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
     private Integer autoCreationStudioRetryCount;
     private String addressCountry;
 
-    public AddressConfigurationCreator(final AddressConfiguration.Type type, final String address) {
+    public AddressConfigurationCreator(
+        final AddressConfiguration.Type type,
+        final String address
+    ) {
         this.type = type;
         this.address = address;
     }
 
-
-    public AddressConfigurationCreator setType(final AddressConfiguration.Type type) {
+    public AddressConfigurationCreator setType(
+        final AddressConfiguration.Type type
+    ) {
         this.type = type;
         return this;
     }
-
 
     public AddressConfigurationCreator setAddress(final String address) {
         this.address = address;
         return this;
     }
 
-
-    public AddressConfigurationCreator setFriendlyName(final String friendlyName) {
+    public AddressConfigurationCreator setFriendlyName(
+        final String friendlyName
+    ) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationEnabled(final Boolean autoCreationEnabled) {
+    public AddressConfigurationCreator setAutoCreationEnabled(
+        final Boolean autoCreationEnabled
+    ) {
         this.autoCreationEnabled = autoCreationEnabled;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationType(final AddressConfiguration.AutoCreationType autoCreationType) {
+    public AddressConfigurationCreator setAutoCreationType(
+        final AddressConfiguration.AutoCreationType autoCreationType
+    ) {
         this.autoCreationType = autoCreationType;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationConversationServiceSid(final String autoCreationConversationServiceSid) {
-        this.autoCreationConversationServiceSid = autoCreationConversationServiceSid;
+    public AddressConfigurationCreator setAutoCreationConversationServiceSid(
+        final String autoCreationConversationServiceSid
+    ) {
+        this.autoCreationConversationServiceSid =
+            autoCreationConversationServiceSid;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationWebhookUrl(final String autoCreationWebhookUrl) {
+    public AddressConfigurationCreator setAutoCreationWebhookUrl(
+        final String autoCreationWebhookUrl
+    ) {
         this.autoCreationWebhookUrl = autoCreationWebhookUrl;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationWebhookMethod(final AddressConfiguration.Method autoCreationWebhookMethod) {
+    public AddressConfigurationCreator setAutoCreationWebhookMethod(
+        final AddressConfiguration.Method autoCreationWebhookMethod
+    ) {
         this.autoCreationWebhookMethod = autoCreationWebhookMethod;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationWebhookFilters(final List<String> autoCreationWebhookFilters) {
+    public AddressConfigurationCreator setAutoCreationWebhookFilters(
+        final List<String> autoCreationWebhookFilters
+    ) {
         this.autoCreationWebhookFilters = autoCreationWebhookFilters;
         return this;
     }
 
-    public AddressConfigurationCreator setAutoCreationWebhookFilters(final String autoCreationWebhookFilters) {
-        return setAutoCreationWebhookFilters(Promoter.listOfOne(autoCreationWebhookFilters));
+    public AddressConfigurationCreator setAutoCreationWebhookFilters(
+        final String autoCreationWebhookFilters
+    ) {
+        return setAutoCreationWebhookFilters(
+            Promoter.listOfOne(autoCreationWebhookFilters)
+        );
     }
 
-    public AddressConfigurationCreator setAutoCreationStudioFlowSid(final String autoCreationStudioFlowSid) {
+    public AddressConfigurationCreator setAutoCreationStudioFlowSid(
+        final String autoCreationStudioFlowSid
+    ) {
         this.autoCreationStudioFlowSid = autoCreationStudioFlowSid;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAutoCreationStudioRetryCount(final Integer autoCreationStudioRetryCount) {
+    public AddressConfigurationCreator setAutoCreationStudioRetryCount(
+        final Integer autoCreationStudioRetryCount
+    ) {
         this.autoCreationStudioRetryCount = autoCreationStudioRetryCount;
         return this;
     }
 
-
-    public AddressConfigurationCreator setAddressCountry(final String addressCountry) {
+    public AddressConfigurationCreator setAddressCountry(
+        final String addressCountry
+    ) {
         this.addressCountry = addressCountry;
         return this;
     }
 
-
     @Override
     public AddressConfiguration create(final TwilioRestClient client) {
-
         String path = "/v1/Configuration/Addresses";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -144,84 +159,138 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AddressConfiguration creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AddressConfiguration creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return AddressConfiguration.fromJson(response.getStream(), client.getObjectMapper());
+        return AddressConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (type != null) {
-            Serializer.toString(request, "Type", type, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (address != null) {
-            Serializer.toString(request, "Address", address, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Address",
+                address,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationEnabled != null) {
-            Serializer.toString(request, "AutoCreation.Enabled", autoCreationEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.Enabled",
+                autoCreationEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationType != null) {
-            Serializer.toString(request, "AutoCreation.Type", autoCreationType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.Type",
+                autoCreationType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationConversationServiceSid != null) {
-            Serializer.toString(request, "AutoCreation.ConversationServiceSid", autoCreationConversationServiceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.ConversationServiceSid",
+                autoCreationConversationServiceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationWebhookUrl != null) {
-            Serializer.toString(request, "AutoCreation.WebhookUrl", autoCreationWebhookUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.WebhookUrl",
+                autoCreationWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationWebhookMethod != null) {
-            Serializer.toString(request, "AutoCreation.WebhookMethod", autoCreationWebhookMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.WebhookMethod",
+                autoCreationWebhookMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationWebhookFilters != null) {
             for (String param : autoCreationWebhookFilters) {
-                Serializer.toString(request, "AutoCreation.WebhookFilters", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "AutoCreation.WebhookFilters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (autoCreationStudioFlowSid != null) {
-            Serializer.toString(request, "AutoCreation.StudioFlowSid", autoCreationStudioFlowSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.StudioFlowSid",
+                autoCreationStudioFlowSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoCreationStudioRetryCount != null) {
-            Serializer.toString(request, "AutoCreation.StudioRetryCount", autoCreationStudioRetryCount, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoCreation.StudioRetryCount",
+                autoCreationStudioRetryCount,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (addressCountry != null) {
-            Serializer.toString(request, "AddressCountry", addressCountry, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AddressCountry",
+                addressCountry,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

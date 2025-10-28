@@ -14,7 +14,6 @@
 
 package com.twilio.rest.trusthub.v1.trustproducts;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,44 +26,56 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class TrustProductsChannelEndpointAssignmentCreator extends Creator<TrustProductsChannelEndpointAssignment> {
+public class TrustProductsChannelEndpointAssignmentCreator
+    extends Creator<TrustProductsChannelEndpointAssignment> {
 
     private String pathTrustProductSid;
     private String channelEndpointType;
     private String channelEndpointSid;
 
-    public TrustProductsChannelEndpointAssignmentCreator(final String pathTrustProductSid, final String channelEndpointType, final String channelEndpointSid) {
+    public TrustProductsChannelEndpointAssignmentCreator(
+        final String pathTrustProductSid,
+        final String channelEndpointType,
+        final String channelEndpointSid
+    ) {
         this.pathTrustProductSid = pathTrustProductSid;
         this.channelEndpointType = channelEndpointType;
         this.channelEndpointSid = channelEndpointSid;
     }
 
-
-    public TrustProductsChannelEndpointAssignmentCreator setChannelEndpointType(final String channelEndpointType) {
+    public TrustProductsChannelEndpointAssignmentCreator setChannelEndpointType(
+        final String channelEndpointType
+    ) {
         this.channelEndpointType = channelEndpointType;
         return this;
     }
 
-
-    public TrustProductsChannelEndpointAssignmentCreator setChannelEndpointSid(final String channelEndpointSid) {
+    public TrustProductsChannelEndpointAssignmentCreator setChannelEndpointSid(
+        final String channelEndpointSid
+    ) {
         this.channelEndpointSid = channelEndpointSid;
         return this;
     }
 
-
     @Override
-    public TrustProductsChannelEndpointAssignment create(final TwilioRestClient client) {
+    public TrustProductsChannelEndpointAssignment create(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
-        String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
-
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
-
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -72,32 +83,46 @@ public class TrustProductsChannelEndpointAssignmentCreator extends Creator<Trust
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TrustProductsChannelEndpointAssignment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProductsChannelEndpointAssignment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return TrustProductsChannelEndpointAssignment.fromJson(response.getStream(), client.getObjectMapper());
+        return TrustProductsChannelEndpointAssignment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (channelEndpointType != null) {
-            Serializer.toString(request, "ChannelEndpointType", channelEndpointType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChannelEndpointType",
+                channelEndpointType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (channelEndpointSid != null) {
-            Serializer.toString(request, "ChannelEndpointSid", channelEndpointSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChannelEndpointSid",
+                channelEndpointSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

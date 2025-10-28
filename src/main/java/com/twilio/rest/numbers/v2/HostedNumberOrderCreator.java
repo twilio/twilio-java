@@ -14,7 +14,6 @@
 
 package com.twilio.rest.numbers.v2;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
@@ -51,15 +50,21 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private String smsApplicationSid;
     private String contactTitle;
 
-    public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber, final com.twilio.type.PhoneNumber contactPhoneNumber, final String addressSid, final String email) {
+    public HostedNumberOrderCreator(
+        final com.twilio.type.PhoneNumber phoneNumber,
+        final com.twilio.type.PhoneNumber contactPhoneNumber,
+        final String addressSid,
+        final String email
+    ) {
         this.phoneNumber = phoneNumber;
         this.contactPhoneNumber = contactPhoneNumber;
         this.addressSid = addressSid;
         this.email = email;
     }
 
-
-    public HostedNumberOrderCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
+    public HostedNumberOrderCreator setPhoneNumber(
+        final com.twilio.type.PhoneNumber phoneNumber
+    ) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -68,13 +73,19 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
 
-    public HostedNumberOrderCreator setContactPhoneNumber(final com.twilio.type.PhoneNumber contactPhoneNumber) {
+    public HostedNumberOrderCreator setContactPhoneNumber(
+        final com.twilio.type.PhoneNumber contactPhoneNumber
+    ) {
         this.contactPhoneNumber = contactPhoneNumber;
         return this;
     }
 
-    public HostedNumberOrderCreator setContactPhoneNumber(final String contactPhoneNumber) {
-        return setContactPhoneNumber(Promoter.phoneNumberFromString(contactPhoneNumber));
+    public HostedNumberOrderCreator setContactPhoneNumber(
+        final String contactPhoneNumber
+    ) {
+        return setContactPhoneNumber(
+            Promoter.phoneNumberFromString(contactPhoneNumber)
+        );
     }
 
     public HostedNumberOrderCreator setAddressSid(final String addressSid) {
@@ -82,24 +93,20 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return this;
     }
 
-
     public HostedNumberOrderCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
-
 
     public HostedNumberOrderCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
-
     public HostedNumberOrderCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public HostedNumberOrderCreator setCcEmails(final List<String> ccEmails) {
         this.ccEmails = ccEmails;
@@ -124,65 +131,73 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         return this;
     }
 
-
-    public HostedNumberOrderCreator setSmsFallbackUrl(final URI smsFallbackUrl) {
+    public HostedNumberOrderCreator setSmsFallbackUrl(
+        final URI smsFallbackUrl
+    ) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public HostedNumberOrderCreator setSmsFallbackUrl(final String smsFallbackUrl) {
+    public HostedNumberOrderCreator setSmsFallbackUrl(
+        final String smsFallbackUrl
+    ) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
 
-    public HostedNumberOrderCreator setSmsCapability(final Boolean smsCapability) {
+    public HostedNumberOrderCreator setSmsCapability(
+        final Boolean smsCapability
+    ) {
         this.smsCapability = smsCapability;
         return this;
     }
 
-
-    public HostedNumberOrderCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
+    public HostedNumberOrderCreator setSmsFallbackMethod(
+        final HttpMethod smsFallbackMethod
+    ) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
 
-
-    public HostedNumberOrderCreator setStatusCallbackUrl(final URI statusCallbackUrl) {
+    public HostedNumberOrderCreator setStatusCallbackUrl(
+        final URI statusCallbackUrl
+    ) {
         this.statusCallbackUrl = statusCallbackUrl;
         return this;
     }
 
-    public HostedNumberOrderCreator setStatusCallbackUrl(final String statusCallbackUrl) {
+    public HostedNumberOrderCreator setStatusCallbackUrl(
+        final String statusCallbackUrl
+    ) {
         return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
 
-    public HostedNumberOrderCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public HostedNumberOrderCreator setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
-
-    public HostedNumberOrderCreator setSmsApplicationSid(final String smsApplicationSid) {
+    public HostedNumberOrderCreator setSmsApplicationSid(
+        final String smsApplicationSid
+    ) {
         this.smsApplicationSid = smsApplicationSid;
         return this;
     }
-
 
     public HostedNumberOrderCreator setContactTitle(final String contactTitle) {
         this.contactTitle = contactTitle;
         return this;
     }
 
-
     @Override
     public HostedNumberOrder create(final TwilioRestClient client) {
-
         String path = "/v2/HostedNumber/Orders";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.NUMBERS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.NUMBERS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -190,104 +205,174 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("HostedNumberOrder creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "HostedNumberOrder creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
+        return HostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (phoneNumber != null) {
-            Serializer.toString(request, "PhoneNumber", phoneNumber, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contactPhoneNumber != null) {
-            Serializer.toString(request, "ContactPhoneNumber", contactPhoneNumber, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContactPhoneNumber",
+                contactPhoneNumber,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (addressSid != null) {
-            Serializer.toString(request, "AddressSid", addressSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (email != null) {
-            Serializer.toString(request, "Email", email, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (accountSid != null) {
-            Serializer.toString(request, "AccountSid", accountSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (ccEmails != null) {
             for (String param : ccEmails) {
-                Serializer.toString(request, "CcEmails", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "CcEmails",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (smsUrl != null) {
-            Serializer.toString(request, "SmsUrl", smsUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsMethod != null) {
-            Serializer.toString(request, "SmsMethod", smsMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsFallbackUrl != null) {
-            Serializer.toString(request, "SmsFallbackUrl", smsFallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsCapability != null) {
-            Serializer.toString(request, "SmsCapability", smsCapability, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsCapability",
+                smsCapability,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsFallbackMethod != null) {
-            Serializer.toString(request, "SmsFallbackMethod", smsFallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsFallbackMethod",
+                smsFallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackUrl != null) {
-            Serializer.toString(request, "StatusCallbackUrl", statusCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackUrl",
+                statusCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smsApplicationSid != null) {
-            Serializer.toString(request, "SmsApplicationSid", smsApplicationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmsApplicationSid",
+                smsApplicationSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contactTitle != null) {
-            Serializer.toString(request, "ContactTitle", contactTitle, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContactTitle",
+                contactTitle,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

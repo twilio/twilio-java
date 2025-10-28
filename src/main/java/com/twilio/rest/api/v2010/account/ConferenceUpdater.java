@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ConferenceUpdater extends Updater<Conference> {
+
     private String pathAccountSid;
     private String pathSid;
     private Conference.UpdateStatus status;
@@ -41,17 +42,18 @@ public class ConferenceUpdater extends Updater<Conference> {
         this.pathSid = pathSid;
     }
 
-    public ConferenceUpdater(final String pathAccountSid, final String pathSid) {
+    public ConferenceUpdater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
-
 
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status) {
         this.status = status;
         return this;
     }
-
 
     public ConferenceUpdater setAnnounceUrl(final URI announceUrl) {
         this.announceUrl = announceUrl;
@@ -62,26 +64,33 @@ public class ConferenceUpdater extends Updater<Conference> {
         return setAnnounceUrl(Promoter.uriFromString(announceUrl));
     }
 
-    public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod) {
+    public ConferenceUpdater setAnnounceMethod(
+        final HttpMethod announceMethod
+    ) {
         this.announceMethod = announceMethod;
         return this;
     }
 
-
     @Override
     public Conference update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -89,37 +98,55 @@ public class ConferenceUpdater extends Updater<Conference> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Conference update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Conference update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Conference.fromJson(response.getStream(), client.getObjectMapper());
+        return Conference.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (announceUrl != null) {
-            Serializer.toString(request, "AnnounceUrl", announceUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnnounceUrl",
+                announceUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (announceMethod != null) {
-            Serializer.toString(request, "AnnounceMethod", announceMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnnounceMethod",
+                announceMethod,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

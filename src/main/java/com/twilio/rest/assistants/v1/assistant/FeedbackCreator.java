@@ -25,36 +25,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FeedbackCreator extends Creator<Feedback> {
 
     private String pathId;
     private Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest;
 
-    public FeedbackCreator(final String pathId, final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
+    public FeedbackCreator(
+        final String pathId,
+        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
+    ) {
         this.pathId = pathId;
-        this.assistantsV1ServiceCreateFeedbackRequest = assistantsV1ServiceCreateFeedbackRequest;
+        this.assistantsV1ServiceCreateFeedbackRequest =
+            assistantsV1ServiceCreateFeedbackRequest;
     }
 
-
-    public FeedbackCreator setAssistantsV1ServiceCreateFeedbackRequest(final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest) {
-        this.assistantsV1ServiceCreateFeedbackRequest = assistantsV1ServiceCreateFeedbackRequest;
+    public FeedbackCreator setAssistantsV1ServiceCreateFeedbackRequest(
+        final Feedback.AssistantsV1ServiceCreateFeedbackRequest assistantsV1ServiceCreateFeedbackRequest
+    ) {
+        this.assistantsV1ServiceCreateFeedbackRequest =
+            assistantsV1ServiceCreateFeedbackRequest;
         return this;
     }
 
-
     @Override
     public Feedback create(final TwilioRestClient client) {
-
         String path = "/v1/Assistants/{id}/Feedbacks";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ASSISTANTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ASSISTANTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -62,25 +66,38 @@ public class FeedbackCreator extends Creator<Feedback> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Feedback creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Feedback creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Feedback.fromJson(response.getStream(), client.getObjectMapper());
+        return Feedback.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceCreateFeedbackRequest != null) {
-            request.setBody(Feedback.toJson(assistantsV1ServiceCreateFeedbackRequest, objectMapper));
+            request.setBody(
+                Feedback.toJson(
+                    assistantsV1ServiceCreateFeedbackRequest,
+                    objectMapper
+                )
+            );
         }
     }
 }

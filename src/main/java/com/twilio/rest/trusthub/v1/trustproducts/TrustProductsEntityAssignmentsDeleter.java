@@ -23,44 +23,56 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class TrustProductsEntityAssignmentsDeleter extends Deleter<TrustProductsEntityAssignments> {
+public class TrustProductsEntityAssignmentsDeleter
+    extends Deleter<TrustProductsEntityAssignments> {
 
     private String pathTrustProductSid;
     private String pathSid;
 
-    public TrustProductsEntityAssignmentsDeleter(final String pathTrustProductSid, final String pathSid) {
+    public TrustProductsEntityAssignmentsDeleter(
+        final String pathTrustProductSid,
+        final String pathSid
+    ) {
         this.pathTrustProductSid = pathTrustProductSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
+        String path =
+            "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
 
-        String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}";
-
-        path = path.replace("{" + "TrustProductSid" + "}", this.pathTrustProductSid.toString());
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.TRUSTHUB.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TrustProductsEntityAssignments delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProductsEntityAssignments delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

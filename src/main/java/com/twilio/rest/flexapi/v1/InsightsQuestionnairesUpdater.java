@@ -27,10 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
-public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaires> {
+public class InsightsQuestionnairesUpdater
+    extends Updater<InsightsQuestionnaires> {
+
     private String pathQuestionnaireSid;
     private String authorization;
     private Boolean active;
@@ -38,57 +40,66 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
     private String description;
     private List<String> questionSids;
 
-    public InsightsQuestionnairesUpdater(final String pathQuestionnaireSid, final Boolean active) {
+    public InsightsQuestionnairesUpdater(
+        final String pathQuestionnaireSid,
+        final Boolean active
+    ) {
         this.pathQuestionnaireSid = pathQuestionnaireSid;
         this.active = active;
     }
-
 
     public InsightsQuestionnairesUpdater setActive(final Boolean active) {
         this.active = active;
         return this;
     }
 
-
     public InsightsQuestionnairesUpdater setName(final String name) {
         this.name = name;
         return this;
     }
 
-
-    public InsightsQuestionnairesUpdater setDescription(final String description) {
+    public InsightsQuestionnairesUpdater setDescription(
+        final String description
+    ) {
         this.description = description;
         return this;
     }
 
-
-    public InsightsQuestionnairesUpdater setQuestionSids(final List<String> questionSids) {
+    public InsightsQuestionnairesUpdater setQuestionSids(
+        final List<String> questionSids
+    ) {
         this.questionSids = questionSids;
         return this;
     }
 
-    public InsightsQuestionnairesUpdater setQuestionSids(final String questionSids) {
+    public InsightsQuestionnairesUpdater setQuestionSids(
+        final String questionSids
+    ) {
         return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
-    public InsightsQuestionnairesUpdater setAuthorization(final String authorization) {
+    public InsightsQuestionnairesUpdater setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
     public InsightsQuestionnaires update(final TwilioRestClient client) {
+        String path =
+            "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
-
-        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathQuestionnaireSid.toString());
-
+        path =
+            path.replace(
+                "{" + "QuestionnaireSid" + "}",
+                this.pathQuestionnaireSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -97,51 +108,77 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnaires update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsQuestionnaires update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsQuestionnaires.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (active != null) {
-            Serializer.toString(request, "Active", active, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Active",
+                active,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (name != null) {
-            Serializer.toString(request, "Name", name, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (questionSids != null) {
             for (String param : questionSids) {
-                Serializer.toString(request, "QuestionSids", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "QuestionSids",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

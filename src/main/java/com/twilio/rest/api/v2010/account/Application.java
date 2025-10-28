@@ -18,106 +18,90 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Application extends Resource {
 
-
     public static ApplicationCreator creator() {
-        return new ApplicationCreator(
-
-        );
+        return new ApplicationCreator();
     }
-
 
     public static ApplicationCreator creator(final String pathAccountSid) {
-        return new ApplicationCreator(
-                pathAccountSid
-        );
+        return new ApplicationCreator(pathAccountSid);
     }
-
 
     public static ApplicationDeleter deleter(final String pathSid) {
-        return new ApplicationDeleter(
-                pathSid
-        );
+        return new ApplicationDeleter(pathSid);
     }
 
-
-    public static ApplicationDeleter deleter(final String pathAccountSid, final String pathSid) {
-        return new ApplicationDeleter(
-                pathAccountSid, pathSid
-        );
+    public static ApplicationDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new ApplicationDeleter(pathAccountSid, pathSid);
     }
-
 
     public static ApplicationFetcher fetcher(final String pathSid) {
-        return new ApplicationFetcher(
-                pathSid
-        );
+        return new ApplicationFetcher(pathSid);
     }
 
-
-    public static ApplicationFetcher fetcher(final String pathAccountSid, final String pathSid) {
-        return new ApplicationFetcher(
-                pathAccountSid, pathSid
-        );
+    public static ApplicationFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new ApplicationFetcher(pathAccountSid, pathSid);
     }
-
 
     public static ApplicationReader reader() {
-        return new ApplicationReader(
-
-        );
+        return new ApplicationReader();
     }
-
 
     public static ApplicationReader reader(final String pathAccountSid) {
-        return new ApplicationReader(
-                pathAccountSid
-        );
+        return new ApplicationReader(pathAccountSid);
     }
-
 
     public static ApplicationUpdater updater(final String pathSid) {
-        return new ApplicationUpdater(
-                pathSid
-        );
+        return new ApplicationUpdater(pathSid);
     }
 
-
-    public static ApplicationUpdater updater(final String pathAccountSid, final String pathSid) {
-        return new ApplicationUpdater(
-                pathAccountSid, pathSid
-        );
+    public static ApplicationUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new ApplicationUpdater(pathAccountSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Application object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Application object represented by the provided JSON
      */
-    public static Application fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Application fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Application.class);
@@ -132,11 +116,14 @@ public class Application extends Resource {
      * Converts a JSON InputStream into a Application object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Application object represented by the provided JSON
      */
-    public static Application fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Application fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Application.class);
@@ -159,75 +146,106 @@ public class Application extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String apiVersion;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final URI messageStatusCallback;
+
     @Getter
     private final Boolean publicApplicationConnectEnabled;
+
     @Getter
     private final String sid;
+
     @Getter
     private final HttpMethod smsFallbackMethod;
+
     @Getter
     private final URI smsFallbackUrl;
+
     @Getter
     private final HttpMethod smsMethod;
+
     @Getter
     private final URI smsStatusCallback;
+
     @Getter
     private final URI smsUrl;
+
     @Getter
     private final URI statusCallback;
+
     @Getter
     private final HttpMethod statusCallbackMethod;
+
     @Getter
     private final String uri;
+
     @Getter
     private final Boolean voiceCallerIdLookup;
+
     @Getter
     private final HttpMethod voiceFallbackMethod;
+
     @Getter
     private final URI voiceFallbackUrl;
+
     @Getter
     private final HttpMethod voiceMethod;
+
     @Getter
     private final URI voiceUrl;
 
     @JsonCreator
     private Application(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("api_version") final String apiVersion,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("message_status_callback") final URI messageStatusCallback,
-            @JsonProperty("public_application_connect_enabled") final Boolean publicApplicationConnectEnabled,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod,
-            @JsonProperty("sms_fallback_url") final URI smsFallbackUrl,
-            @JsonProperty("sms_method") final HttpMethod smsMethod,
-            @JsonProperty("sms_status_callback") final URI smsStatusCallback,
-            @JsonProperty("sms_url") final URI smsUrl,
-            @JsonProperty("status_callback") final URI statusCallback,
-            @JsonProperty("status_callback_method") final HttpMethod statusCallbackMethod,
-            @JsonProperty("uri") final String uri,
-            @JsonProperty("voice_caller_id_lookup") final Boolean voiceCallerIdLookup,
-            @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
-            @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
-            @JsonProperty("voice_method") final HttpMethod voiceMethod,
-            @JsonProperty("voice_url") final URI voiceUrl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("api_version") final String apiVersion,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty(
+            "message_status_callback"
+        ) final URI messageStatusCallback,
+        @JsonProperty(
+            "public_application_connect_enabled"
+        ) final Boolean publicApplicationConnectEnabled,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod,
+        @JsonProperty("sms_fallback_url") final URI smsFallbackUrl,
+        @JsonProperty("sms_method") final HttpMethod smsMethod,
+        @JsonProperty("sms_status_callback") final URI smsStatusCallback,
+        @JsonProperty("sms_url") final URI smsUrl,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty(
+            "voice_caller_id_lookup"
+        ) final Boolean voiceCallerIdLookup,
+        @JsonProperty(
+            "voice_fallback_method"
+        ) final HttpMethod voiceFallbackMethod,
+        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
+        @JsonProperty("voice_method") final HttpMethod voiceMethod,
+        @JsonProperty("voice_url") final URI voiceUrl
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -264,57 +282,60 @@ public class Application extends Resource {
 
         Application other = (Application) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(apiVersion, other.apiVersion) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(messageStatusCallback, other.messageStatusCallback) &&
-                        Objects.equals(publicApplicationConnectEnabled, other.publicApplicationConnectEnabled) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
-                        Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
-                        Objects.equals(smsMethod, other.smsMethod) &&
-                        Objects.equals(smsStatusCallback, other.smsStatusCallback) &&
-                        Objects.equals(smsUrl, other.smsUrl) &&
-                        Objects.equals(statusCallback, other.statusCallback) &&
-                        Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-                        Objects.equals(uri, other.uri) &&
-                        Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
-                        Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
-                        Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
-                        Objects.equals(voiceMethod, other.voiceMethod) &&
-                        Objects.equals(voiceUrl, other.voiceUrl)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(apiVersion, other.apiVersion) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(
+                messageStatusCallback,
+                other.messageStatusCallback
+            ) &&
+            Objects.equals(
+                publicApplicationConnectEnabled,
+                other.publicApplicationConnectEnabled
+            ) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+            Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+            Objects.equals(smsMethod, other.smsMethod) &&
+            Objects.equals(smsStatusCallback, other.smsStatusCallback) &&
+            Objects.equals(smsUrl, other.smsUrl) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
+            Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+            Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+            Objects.equals(voiceMethod, other.voiceMethod) &&
+            Objects.equals(voiceUrl, other.voiceUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                apiVersion,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                messageStatusCallback,
-                publicApplicationConnectEnabled,
-                sid,
-                smsFallbackMethod,
-                smsFallbackUrl,
-                smsMethod,
-                smsStatusCallback,
-                smsUrl,
-                statusCallback,
-                statusCallbackMethod,
-                uri,
-                voiceCallerIdLookup,
-                voiceFallbackMethod,
-                voiceFallbackUrl,
-                voiceMethod,
-                voiceUrl
+            accountSid,
+            apiVersion,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            messageStatusCallback,
+            publicApplicationConnectEnabled,
+            sid,
+            smsFallbackMethod,
+            smsFallbackUrl,
+            smsMethod,
+            smsStatusCallback,
+            smsUrl,
+            statusCallback,
+            statusCallbackMethod,
+            uri,
+            voiceCallerIdLookup,
+            voiceFallbackMethod,
+            voiceFallbackUrl,
+            voiceMethod,
+            voiceUrl
         );
     }
-
-
 }
-

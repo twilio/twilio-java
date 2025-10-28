@@ -18,44 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingWebhookConfiguration extends Resource {
 
-
     public static PortingWebhookConfigurationCreator creator() {
-        return new PortingWebhookConfigurationCreator(
-
-        );
+        return new PortingWebhookConfigurationCreator();
     }
-
 
     /**
      * Converts a JSON String into a PortingWebhookConfiguration object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PortingWebhookConfiguration object represented by the provided JSON
      */
-    public static PortingWebhookConfiguration fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PortingWebhookConfiguration fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, PortingWebhookConfiguration.class);
+            return objectMapper.readValue(
+                json,
+                PortingWebhookConfiguration.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -67,14 +72,20 @@ public class PortingWebhookConfiguration extends Resource {
      * Converts a JSON InputStream into a PortingWebhookConfiguration object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PortingWebhookConfiguration object represented by the provided JSON
      */
-    public static PortingWebhookConfiguration fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PortingWebhookConfiguration fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, PortingWebhookConfiguration.class);
+            return objectMapper.readValue(
+                json,
+                PortingWebhookConfiguration.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -94,22 +105,24 @@ public class PortingWebhookConfiguration extends Resource {
         }
     }
 
-
     @Getter
     private final List<String> notificationsOf;
+
     @Getter
     private final URI portInTargetUrl;
+
     @Getter
     private final URI portOutTargetUrl;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private PortingWebhookConfiguration(
-            @JsonProperty("notifications_of") final List<String> notificationsOf,
-            @JsonProperty("port_in_target_url") final URI portInTargetUrl,
-            @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
-            @JsonProperty("url") final URI url
+        @JsonProperty("notifications_of") final List<String> notificationsOf,
+        @JsonProperty("port_in_target_url") final URI portInTargetUrl,
+        @JsonProperty("port_out_target_url") final URI portOutTargetUrl,
+        @JsonProperty("url") final URI url
     ) {
         this.notificationsOf = notificationsOf;
         this.portInTargetUrl = portInTargetUrl;
@@ -129,23 +142,20 @@ public class PortingWebhookConfiguration extends Resource {
 
         PortingWebhookConfiguration other = (PortingWebhookConfiguration) o;
         return (
-                Objects.equals(notificationsOf, other.notificationsOf) &&
-                        Objects.equals(portInTargetUrl, other.portInTargetUrl) &&
-                        Objects.equals(portOutTargetUrl, other.portOutTargetUrl) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(notificationsOf, other.notificationsOf) &&
+            Objects.equals(portInTargetUrl, other.portInTargetUrl) &&
+            Objects.equals(portOutTargetUrl, other.portOutTargetUrl) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                notificationsOf,
-                portInTargetUrl,
-                portOutTargetUrl,
-                url
+            notificationsOf,
+            portInTargetUrl,
+            portOutTargetUrl,
+            url
         );
     }
-
-
 }
-

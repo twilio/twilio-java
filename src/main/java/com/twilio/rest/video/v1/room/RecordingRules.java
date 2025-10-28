@@ -18,50 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.RecordingRule;
-import lombok.Getter;
-import lombok.ToString;
-
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RecordingRules extends Resource {
 
-
     public static RecordingRulesFetcher fetcher(final String pathRoomSid) {
-        return new RecordingRulesFetcher(
-                pathRoomSid
-        );
+        return new RecordingRulesFetcher(pathRoomSid);
     }
-
 
     public static RecordingRulesUpdater updater(final String pathRoomSid) {
-        return new RecordingRulesUpdater(
-                pathRoomSid
-        );
+        return new RecordingRulesUpdater(pathRoomSid);
     }
-
 
     /**
      * Converts a JSON String into a RecordingRules object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return RecordingRules object represented by the provided JSON
      */
-    public static RecordingRules fromJson(final String json, final ObjectMapper objectMapper) {
+    public static RecordingRules fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RecordingRules.class);
@@ -76,11 +75,14 @@ public class RecordingRules extends Resource {
      * Converts a JSON InputStream into a RecordingRules object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return RecordingRules object represented by the provided JSON
      */
-    public static RecordingRules fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static RecordingRules fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RecordingRules.class);
@@ -103,24 +105,28 @@ public class RecordingRules extends Resource {
         }
     }
 
-
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final List<RecordingRule> rules;
 
     @JsonCreator
     private RecordingRules(
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("rules") final List<RecordingRule> rules
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("rules") final List<RecordingRule> rules
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -140,23 +146,15 @@ public class RecordingRules extends Resource {
 
         RecordingRules other = (RecordingRules) o;
         return (
-                Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(rules, other.rules)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(rules, other.rules)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                dateCreated,
-                dateUpdated,
-                roomSid,
-                rules
-        );
+        return Objects.hash(dateCreated, dateUpdated, roomSid, rules);
     }
-
-
 }
-

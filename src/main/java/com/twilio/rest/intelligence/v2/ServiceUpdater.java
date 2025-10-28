@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ServiceUpdater extends Updater<Service> {
+
     private String pathSid;
     private String ifMatch;
     private Boolean autoTranscribe;
@@ -44,79 +46,70 @@ public class ServiceUpdater extends Updater<Service> {
         this.pathSid = pathSid;
     }
 
-
     public ServiceUpdater setAutoTranscribe(final Boolean autoTranscribe) {
         this.autoTranscribe = autoTranscribe;
         return this;
     }
-
 
     public ServiceUpdater setDataLogging(final Boolean dataLogging) {
         this.dataLogging = dataLogging;
         return this;
     }
 
-
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public ServiceUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-
     public ServiceUpdater setAutoRedaction(final Boolean autoRedaction) {
         this.autoRedaction = autoRedaction;
         return this;
     }
-
 
     public ServiceUpdater setMediaRedaction(final Boolean mediaRedaction) {
         this.mediaRedaction = mediaRedaction;
         return this;
     }
 
-
     public ServiceUpdater setWebhookUrl(final String webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-
-    public ServiceUpdater setWebhookHttpMethod(final Service.HttpMethod webhookHttpMethod) {
+    public ServiceUpdater setWebhookHttpMethod(
+        final Service.HttpMethod webhookHttpMethod
+    ) {
         this.webhookHttpMethod = webhookHttpMethod;
         return this;
     }
 
-
-    public ServiceUpdater setEncryptionCredentialSid(final String encryptionCredentialSid) {
+    public ServiceUpdater setEncryptionCredentialSid(
+        final String encryptionCredentialSid
+    ) {
         this.encryptionCredentialSid = encryptionCredentialSid;
         return this;
     }
-
 
     public ServiceUpdater setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
-
     @Override
     public Service update(final TwilioRestClient client) {
-
         String path = "/v2/Services/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -125,14 +118,19 @@ public class ServiceUpdater extends Updater<Service> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -141,59 +139,96 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     private void addPostParams(final Request request) {
-
         if (autoTranscribe != null) {
-            Serializer.toString(request, "AutoTranscribe", autoTranscribe, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoTranscribe",
+                autoTranscribe,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dataLogging != null) {
-            Serializer.toString(request, "DataLogging", dataLogging, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DataLogging",
+                dataLogging,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (uniqueName != null) {
-            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (autoRedaction != null) {
-            Serializer.toString(request, "AutoRedaction", autoRedaction, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AutoRedaction",
+                autoRedaction,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (mediaRedaction != null) {
-            Serializer.toString(request, "MediaRedaction", mediaRedaction, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MediaRedaction",
+                mediaRedaction,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (webhookUrl != null) {
-            Serializer.toString(request, "WebhookUrl", webhookUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (webhookHttpMethod != null) {
-            Serializer.toString(request, "WebhookHttpMethod", webhookHttpMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WebhookHttpMethod",
+                webhookHttpMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (encryptionCredentialSid != null) {
-            Serializer.toString(request, "EncryptionCredentialSid", encryptionCredentialSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EncryptionCredentialSid",
+                encryptionCredentialSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (ifMatch != null) {
-            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

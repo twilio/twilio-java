@@ -18,42 +18,38 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
 
-
     public static ConfigurationFetcher fetcher() {
-        return new ConfigurationFetcher(
-
-        );
+        return new ConfigurationFetcher();
     }
-
 
     public static ConfigurationUpdater updater() {
-        return new ConfigurationUpdater(
-
-        );
+        return new ConfigurationUpdater();
     }
-
 
     public enum Status {
         OK("ok"),
@@ -76,15 +72,17 @@ public class Configuration extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Configuration object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Configuration object represented by the provided JSON
      */
-    public static Configuration fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Configuration fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Configuration.class);
@@ -99,11 +97,14 @@ public class Configuration extends Resource {
      * Converts a JSON InputStream into a Configuration object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Configuration object represented by the provided JSON
      */
-    public static Configuration fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Configuration fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Configuration.class);
@@ -126,159 +127,244 @@ public class Configuration extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object agentConvEndMethods;
+
     @Getter
     private final Object attributes;
+
     @Getter
     private final Boolean callRecordingEnabled;
+
     @Getter
     private final String callRecordingWebhookUrl;
+
     @Getter
     private final List<Object> channelConfigs;
+
     @Getter
     private final String chatServiceInstanceSid;
+
     @Getter
     private final Object citrixVoiceVdi;
+
     @Getter
     private final Object crmAttributes;
+
     @Getter
     private final String crmCallbackUrl;
+
     @Getter
     private final Boolean crmEnabled;
+
     @Getter
     private final String crmFallbackUrl;
+
     @Getter
     private final String crmType;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object debuggerIntegration;
+
     @Getter
     private final Boolean flexInsightsDrilldown;
+
     @Getter
     private final Object flexInsightsHr;
+
     @Getter
     private final String flexInstanceSid;
+
     @Getter
     private final String flexServiceInstanceSid;
+
     @Getter
     private final Object flexUiStatusReport;
+
     @Getter
     private final String flexUrl;
+
     @Getter
     private final List<Object> integrations;
+
     @Getter
     private final Object markdown;
+
     @Getter
     private final String messagingServiceInstanceSid;
+
     @Getter
     private final Object notifications;
+
     @Getter
     private final Object offlineConfig;
+
     @Getter
     private final Object outboundCallFlows;
+
     @Getter
     private final Object pluginServiceAttributes;
+
     @Getter
     private final Boolean pluginServiceEnabled;
+
     @Getter
     private final Object publicAttributes;
+
     @Getter
     private final Object queueStatsConfiguration;
+
     @Getter
     private final String runtimeDomain;
+
     @Getter
     private final List<String> serverlessServiceSids;
+
     @Getter
     private final String serviceVersion;
+
     @Getter
     private final Configuration.Status status;
+
     @Getter
     private final String taskrouterOfflineActivitySid;
+
     @Getter
     private final List<Object> taskrouterSkills;
+
     @Getter
     private final String taskrouterTargetTaskqueueSid;
+
     @Getter
     private final String taskrouterTargetWorkflowSid;
+
     @Getter
     private final List<Object> taskrouterTaskqueues;
+
     @Getter
     private final Object taskrouterWorkerAttributes;
+
     @Getter
     private final Object taskrouterWorkerChannels;
+
     @Getter
     private final String taskrouterWorkspaceSid;
+
     @Getter
     private final Object uiAttributes;
+
     @Getter
     private final Object uiDependencies;
+
     @Getter
     private final String uiLanguage;
+
     @Getter
     private final String uiVersion;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Configuration(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("agent_conv_end_methods") final Object agentConvEndMethods,
-            @JsonProperty("attributes") final Object attributes,
-            @JsonProperty("call_recording_enabled") final Boolean callRecordingEnabled,
-            @JsonProperty("call_recording_webhook_url") final String callRecordingWebhookUrl,
-            @JsonProperty("channel_configs") final List<Object> channelConfigs,
-            @JsonProperty("chat_service_instance_sid") final String chatServiceInstanceSid,
-            @JsonProperty("citrix_voice_vdi") final Object citrixVoiceVdi,
-            @JsonProperty("crm_attributes") final Object crmAttributes,
-            @JsonProperty("crm_callback_url") final String crmCallbackUrl,
-            @JsonProperty("crm_enabled") final Boolean crmEnabled,
-            @JsonProperty("crm_fallback_url") final String crmFallbackUrl,
-            @JsonProperty("crm_type") final String crmType,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("debugger_integration") final Object debuggerIntegration,
-            @JsonProperty("flex_insights_drilldown") final Boolean flexInsightsDrilldown,
-            @JsonProperty("flex_insights_hr") final Object flexInsightsHr,
-            @JsonProperty("flex_instance_sid") final String flexInstanceSid,
-            @JsonProperty("flex_service_instance_sid") final String flexServiceInstanceSid,
-            @JsonProperty("flex_ui_status_report") final Object flexUiStatusReport,
-            @JsonProperty("flex_url") final String flexUrl,
-            @JsonProperty("integrations") final List<Object> integrations,
-            @JsonProperty("markdown") final Object markdown,
-            @JsonProperty("messaging_service_instance_sid") final String messagingServiceInstanceSid,
-            @JsonProperty("notifications") final Object notifications,
-            @JsonProperty("offline_config") final Object offlineConfig,
-            @JsonProperty("outbound_call_flows") final Object outboundCallFlows,
-            @JsonProperty("plugin_service_attributes") final Object pluginServiceAttributes,
-            @JsonProperty("plugin_service_enabled") final Boolean pluginServiceEnabled,
-            @JsonProperty("public_attributes") final Object publicAttributes,
-            @JsonProperty("queue_stats_configuration") final Object queueStatsConfiguration,
-            @JsonProperty("runtime_domain") final String runtimeDomain,
-            @JsonProperty("serverless_service_sids") final List<String> serverlessServiceSids,
-            @JsonProperty("service_version") final String serviceVersion,
-            @JsonProperty("status") final Configuration.Status status,
-            @JsonProperty("taskrouter_offline_activity_sid") final String taskrouterOfflineActivitySid,
-            @JsonProperty("taskrouter_skills") final List<Object> taskrouterSkills,
-            @JsonProperty("taskrouter_target_taskqueue_sid") final String taskrouterTargetTaskqueueSid,
-            @JsonProperty("taskrouter_target_workflow_sid") final String taskrouterTargetWorkflowSid,
-            @JsonProperty("taskrouter_taskqueues") final List<Object> taskrouterTaskqueues,
-            @JsonProperty("taskrouter_worker_attributes") final Object taskrouterWorkerAttributes,
-            @JsonProperty("taskrouter_worker_channels") final Object taskrouterWorkerChannels,
-            @JsonProperty("taskrouter_workspace_sid") final String taskrouterWorkspaceSid,
-            @JsonProperty("ui_attributes") final Object uiAttributes,
-            @JsonProperty("ui_dependencies") final Object uiDependencies,
-            @JsonProperty("ui_language") final String uiLanguage,
-            @JsonProperty("ui_version") final String uiVersion,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "agent_conv_end_methods"
+        ) final Object agentConvEndMethods,
+        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty(
+            "call_recording_enabled"
+        ) final Boolean callRecordingEnabled,
+        @JsonProperty(
+            "call_recording_webhook_url"
+        ) final String callRecordingWebhookUrl,
+        @JsonProperty("channel_configs") final List<Object> channelConfigs,
+        @JsonProperty(
+            "chat_service_instance_sid"
+        ) final String chatServiceInstanceSid,
+        @JsonProperty("citrix_voice_vdi") final Object citrixVoiceVdi,
+        @JsonProperty("crm_attributes") final Object crmAttributes,
+        @JsonProperty("crm_callback_url") final String crmCallbackUrl,
+        @JsonProperty("crm_enabled") final Boolean crmEnabled,
+        @JsonProperty("crm_fallback_url") final String crmFallbackUrl,
+        @JsonProperty("crm_type") final String crmType,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("debugger_integration") final Object debuggerIntegration,
+        @JsonProperty(
+            "flex_insights_drilldown"
+        ) final Boolean flexInsightsDrilldown,
+        @JsonProperty("flex_insights_hr") final Object flexInsightsHr,
+        @JsonProperty("flex_instance_sid") final String flexInstanceSid,
+        @JsonProperty(
+            "flex_service_instance_sid"
+        ) final String flexServiceInstanceSid,
+        @JsonProperty("flex_ui_status_report") final Object flexUiStatusReport,
+        @JsonProperty("flex_url") final String flexUrl,
+        @JsonProperty("integrations") final List<Object> integrations,
+        @JsonProperty("markdown") final Object markdown,
+        @JsonProperty(
+            "messaging_service_instance_sid"
+        ) final String messagingServiceInstanceSid,
+        @JsonProperty("notifications") final Object notifications,
+        @JsonProperty("offline_config") final Object offlineConfig,
+        @JsonProperty("outbound_call_flows") final Object outboundCallFlows,
+        @JsonProperty(
+            "plugin_service_attributes"
+        ) final Object pluginServiceAttributes,
+        @JsonProperty(
+            "plugin_service_enabled"
+        ) final Boolean pluginServiceEnabled,
+        @JsonProperty("public_attributes") final Object publicAttributes,
+        @JsonProperty(
+            "queue_stats_configuration"
+        ) final Object queueStatsConfiguration,
+        @JsonProperty("runtime_domain") final String runtimeDomain,
+        @JsonProperty("serverless_service_sids") final List<
+            String
+        > serverlessServiceSids,
+        @JsonProperty("service_version") final String serviceVersion,
+        @JsonProperty("status") final Configuration.Status status,
+        @JsonProperty(
+            "taskrouter_offline_activity_sid"
+        ) final String taskrouterOfflineActivitySid,
+        @JsonProperty("taskrouter_skills") final List<Object> taskrouterSkills,
+        @JsonProperty(
+            "taskrouter_target_taskqueue_sid"
+        ) final String taskrouterTargetTaskqueueSid,
+        @JsonProperty(
+            "taskrouter_target_workflow_sid"
+        ) final String taskrouterTargetWorkflowSid,
+        @JsonProperty("taskrouter_taskqueues") final List<
+            Object
+        > taskrouterTaskqueues,
+        @JsonProperty(
+            "taskrouter_worker_attributes"
+        ) final Object taskrouterWorkerAttributes,
+        @JsonProperty(
+            "taskrouter_worker_channels"
+        ) final Object taskrouterWorkerChannels,
+        @JsonProperty(
+            "taskrouter_workspace_sid"
+        ) final String taskrouterWorkspaceSid,
+        @JsonProperty("ui_attributes") final Object uiAttributes,
+        @JsonProperty("ui_dependencies") final Object uiDependencies,
+        @JsonProperty("ui_language") final String uiLanguage,
+        @JsonProperty("ui_version") final String uiVersion,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.agentConvEndMethods = agentConvEndMethods;
@@ -343,113 +429,152 @@ public class Configuration extends Resource {
 
         Configuration other = (Configuration) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(agentConvEndMethods, other.agentConvEndMethods) &&
-                        Objects.equals(attributes, other.attributes) &&
-                        Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&
-                        Objects.equals(callRecordingWebhookUrl, other.callRecordingWebhookUrl) &&
-                        Objects.equals(channelConfigs, other.channelConfigs) &&
-                        Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&
-                        Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi) &&
-                        Objects.equals(crmAttributes, other.crmAttributes) &&
-                        Objects.equals(crmCallbackUrl, other.crmCallbackUrl) &&
-                        Objects.equals(crmEnabled, other.crmEnabled) &&
-                        Objects.equals(crmFallbackUrl, other.crmFallbackUrl) &&
-                        Objects.equals(crmType, other.crmType) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
-                        Objects.equals(flexInsightsDrilldown, other.flexInsightsDrilldown) &&
-                        Objects.equals(flexInsightsHr, other.flexInsightsHr) &&
-                        Objects.equals(flexInstanceSid, other.flexInstanceSid) &&
-                        Objects.equals(flexServiceInstanceSid, other.flexServiceInstanceSid) &&
-                        Objects.equals(flexUiStatusReport, other.flexUiStatusReport) &&
-                        Objects.equals(flexUrl, other.flexUrl) &&
-                        Objects.equals(integrations, other.integrations) &&
-                        Objects.equals(markdown, other.markdown) &&
-                        Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) &&
-                        Objects.equals(notifications, other.notifications) &&
-                        Objects.equals(offlineConfig, other.offlineConfig) &&
-                        Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
-                        Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&
-                        Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&
-                        Objects.equals(publicAttributes, other.publicAttributes) &&
-                        Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&
-                        Objects.equals(runtimeDomain, other.runtimeDomain) &&
-                        Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
-                        Objects.equals(serviceVersion, other.serviceVersion) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(taskrouterOfflineActivitySid, other.taskrouterOfflineActivitySid) &&
-                        Objects.equals(taskrouterSkills, other.taskrouterSkills) &&
-                        Objects.equals(taskrouterTargetTaskqueueSid, other.taskrouterTargetTaskqueueSid) &&
-                        Objects.equals(taskrouterTargetWorkflowSid, other.taskrouterTargetWorkflowSid) &&
-                        Objects.equals(taskrouterTaskqueues, other.taskrouterTaskqueues) &&
-                        Objects.equals(taskrouterWorkerAttributes, other.taskrouterWorkerAttributes) &&
-                        Objects.equals(taskrouterWorkerChannels, other.taskrouterWorkerChannels) &&
-                        Objects.equals(taskrouterWorkspaceSid, other.taskrouterWorkspaceSid) &&
-                        Objects.equals(uiAttributes, other.uiAttributes) &&
-                        Objects.equals(uiDependencies, other.uiDependencies) &&
-                        Objects.equals(uiLanguage, other.uiLanguage) &&
-                        Objects.equals(uiVersion, other.uiVersion) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(agentConvEndMethods, other.agentConvEndMethods) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&
+            Objects.equals(
+                callRecordingWebhookUrl,
+                other.callRecordingWebhookUrl
+            ) &&
+            Objects.equals(channelConfigs, other.channelConfigs) &&
+            Objects.equals(
+                chatServiceInstanceSid,
+                other.chatServiceInstanceSid
+            ) &&
+            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi) &&
+            Objects.equals(crmAttributes, other.crmAttributes) &&
+            Objects.equals(crmCallbackUrl, other.crmCallbackUrl) &&
+            Objects.equals(crmEnabled, other.crmEnabled) &&
+            Objects.equals(crmFallbackUrl, other.crmFallbackUrl) &&
+            Objects.equals(crmType, other.crmType) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
+            Objects.equals(
+                flexInsightsDrilldown,
+                other.flexInsightsDrilldown
+            ) &&
+            Objects.equals(flexInsightsHr, other.flexInsightsHr) &&
+            Objects.equals(flexInstanceSid, other.flexInstanceSid) &&
+            Objects.equals(
+                flexServiceInstanceSid,
+                other.flexServiceInstanceSid
+            ) &&
+            Objects.equals(flexUiStatusReport, other.flexUiStatusReport) &&
+            Objects.equals(flexUrl, other.flexUrl) &&
+            Objects.equals(integrations, other.integrations) &&
+            Objects.equals(markdown, other.markdown) &&
+            Objects.equals(
+                messagingServiceInstanceSid,
+                other.messagingServiceInstanceSid
+            ) &&
+            Objects.equals(notifications, other.notifications) &&
+            Objects.equals(offlineConfig, other.offlineConfig) &&
+            Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
+            Objects.equals(
+                pluginServiceAttributes,
+                other.pluginServiceAttributes
+            ) &&
+            Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&
+            Objects.equals(publicAttributes, other.publicAttributes) &&
+            Objects.equals(
+                queueStatsConfiguration,
+                other.queueStatsConfiguration
+            ) &&
+            Objects.equals(runtimeDomain, other.runtimeDomain) &&
+            Objects.equals(
+                serverlessServiceSids,
+                other.serverlessServiceSids
+            ) &&
+            Objects.equals(serviceVersion, other.serviceVersion) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(
+                taskrouterOfflineActivitySid,
+                other.taskrouterOfflineActivitySid
+            ) &&
+            Objects.equals(taskrouterSkills, other.taskrouterSkills) &&
+            Objects.equals(
+                taskrouterTargetTaskqueueSid,
+                other.taskrouterTargetTaskqueueSid
+            ) &&
+            Objects.equals(
+                taskrouterTargetWorkflowSid,
+                other.taskrouterTargetWorkflowSid
+            ) &&
+            Objects.equals(taskrouterTaskqueues, other.taskrouterTaskqueues) &&
+            Objects.equals(
+                taskrouterWorkerAttributes,
+                other.taskrouterWorkerAttributes
+            ) &&
+            Objects.equals(
+                taskrouterWorkerChannels,
+                other.taskrouterWorkerChannels
+            ) &&
+            Objects.equals(
+                taskrouterWorkspaceSid,
+                other.taskrouterWorkspaceSid
+            ) &&
+            Objects.equals(uiAttributes, other.uiAttributes) &&
+            Objects.equals(uiDependencies, other.uiDependencies) &&
+            Objects.equals(uiLanguage, other.uiLanguage) &&
+            Objects.equals(uiVersion, other.uiVersion) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                agentConvEndMethods,
-                attributes,
-                callRecordingEnabled,
-                callRecordingWebhookUrl,
-                channelConfigs,
-                chatServiceInstanceSid,
-                citrixVoiceVdi,
-                crmAttributes,
-                crmCallbackUrl,
-                crmEnabled,
-                crmFallbackUrl,
-                crmType,
-                dateCreated,
-                dateUpdated,
-                debuggerIntegration,
-                flexInsightsDrilldown,
-                flexInsightsHr,
-                flexInstanceSid,
-                flexServiceInstanceSid,
-                flexUiStatusReport,
-                flexUrl,
-                integrations,
-                markdown,
-                messagingServiceInstanceSid,
-                notifications,
-                offlineConfig,
-                outboundCallFlows,
-                pluginServiceAttributes,
-                pluginServiceEnabled,
-                publicAttributes,
-                queueStatsConfiguration,
-                runtimeDomain,
-                serverlessServiceSids,
-                serviceVersion,
-                status,
-                taskrouterOfflineActivitySid,
-                taskrouterSkills,
-                taskrouterTargetTaskqueueSid,
-                taskrouterTargetWorkflowSid,
-                taskrouterTaskqueues,
-                taskrouterWorkerAttributes,
-                taskrouterWorkerChannels,
-                taskrouterWorkspaceSid,
-                uiAttributes,
-                uiDependencies,
-                uiLanguage,
-                uiVersion,
-                url
+            accountSid,
+            agentConvEndMethods,
+            attributes,
+            callRecordingEnabled,
+            callRecordingWebhookUrl,
+            channelConfigs,
+            chatServiceInstanceSid,
+            citrixVoiceVdi,
+            crmAttributes,
+            crmCallbackUrl,
+            crmEnabled,
+            crmFallbackUrl,
+            crmType,
+            dateCreated,
+            dateUpdated,
+            debuggerIntegration,
+            flexInsightsDrilldown,
+            flexInsightsHr,
+            flexInstanceSid,
+            flexServiceInstanceSid,
+            flexUiStatusReport,
+            flexUrl,
+            integrations,
+            markdown,
+            messagingServiceInstanceSid,
+            notifications,
+            offlineConfig,
+            outboundCallFlows,
+            pluginServiceAttributes,
+            pluginServiceEnabled,
+            publicAttributes,
+            queueStatsConfiguration,
+            runtimeDomain,
+            serverlessServiceSids,
+            serviceVersion,
+            status,
+            taskrouterOfflineActivitySid,
+            taskrouterSkills,
+            taskrouterTargetTaskqueueSid,
+            taskrouterTargetWorkflowSid,
+            taskrouterTaskqueues,
+            taskrouterWorkerAttributes,
+            taskrouterWorkerChannels,
+            taskrouterWorkspaceSid,
+            uiAttributes,
+            uiDependencies,
+            uiLanguage,
+            uiVersion,
+            url
         );
     }
-
-
 }
-

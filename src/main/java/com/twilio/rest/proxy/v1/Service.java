@@ -18,63 +18,50 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-
     public static ServiceCreator creator(final String uniqueName) {
-        return new ServiceCreator(
-                uniqueName
-        );
+        return new ServiceCreator(uniqueName);
     }
-
 
     public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(
-                pathSid
-        );
+        return new ServiceDeleter(pathSid);
     }
-
 
     public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(
-                pathSid
-        );
+        return new ServiceFetcher(pathSid);
     }
-
 
     public static ServiceReader reader() {
-        return new ServiceReader(
-
-        );
+        return new ServiceReader();
     }
-
 
     public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(
-                pathSid
-        );
+        return new ServiceUpdater(pathSid);
     }
-
 
     public enum GeoMatchLevel {
         AREA_CODE("area-code"),
@@ -114,19 +101,24 @@ public class Service extends Resource {
 
         @JsonCreator
         public static NumberSelectionBehavior forValue(final String value) {
-            return Promoter.enumFromString(value, NumberSelectionBehavior.values());
+            return Promoter.enumFromString(
+                value,
+                NumberSelectionBehavior.values()
+            );
         }
     }
-
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Service fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -141,11 +133,14 @@ public class Service extends Resource {
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Service fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -168,54 +163,74 @@ public class Service extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final URI callbackUrl;
+
     @Getter
     private final String chatInstanceSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Integer defaultTtl;
+
     @Getter
     private final Service.GeoMatchLevel geoMatchLevel;
+
     @Getter
     private final URI interceptCallbackUrl;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Service.NumberSelectionBehavior numberSelectionBehavior;
+
     @Getter
     private final URI outOfSessionCallbackUrl;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Service(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("callback_url") final URI callbackUrl,
-            @JsonProperty("chat_instance_sid") final String chatInstanceSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("default_ttl") final Integer defaultTtl,
-            @JsonProperty("geo_match_level") final Service.GeoMatchLevel geoMatchLevel,
-            @JsonProperty("intercept_callback_url") final URI interceptCallbackUrl,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("number_selection_behavior") final Service.NumberSelectionBehavior numberSelectionBehavior,
-            @JsonProperty("out_of_session_callback_url") final URI outOfSessionCallbackUrl,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("callback_url") final URI callbackUrl,
+        @JsonProperty("chat_instance_sid") final String chatInstanceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("default_ttl") final Integer defaultTtl,
+        @JsonProperty(
+            "geo_match_level"
+        ) final Service.GeoMatchLevel geoMatchLevel,
+        @JsonProperty("intercept_callback_url") final URI interceptCallbackUrl,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "number_selection_behavior"
+        ) final Service.NumberSelectionBehavior numberSelectionBehavior,
+        @JsonProperty(
+            "out_of_session_callback_url"
+        ) final URI outOfSessionCallbackUrl,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.callbackUrl = callbackUrl;
@@ -245,43 +260,46 @@ public class Service extends Resource {
 
         Service other = (Service) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(callbackUrl, other.callbackUrl) &&
-                        Objects.equals(chatInstanceSid, other.chatInstanceSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(defaultTtl, other.defaultTtl) &&
-                        Objects.equals(geoMatchLevel, other.geoMatchLevel) &&
-                        Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) &&
-                        Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callbackUrl, other.callbackUrl) &&
+            Objects.equals(chatInstanceSid, other.chatInstanceSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(defaultTtl, other.defaultTtl) &&
+            Objects.equals(geoMatchLevel, other.geoMatchLevel) &&
+            Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(
+                numberSelectionBehavior,
+                other.numberSelectionBehavior
+            ) &&
+            Objects.equals(
+                outOfSessionCallbackUrl,
+                other.outOfSessionCallbackUrl
+            ) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                callbackUrl,
-                chatInstanceSid,
-                dateCreated,
-                dateUpdated,
-                defaultTtl,
-                geoMatchLevel,
-                interceptCallbackUrl,
-                links,
-                numberSelectionBehavior,
-                outOfSessionCallbackUrl,
-                sid,
-                uniqueName,
-                url
+            accountSid,
+            callbackUrl,
+            chatInstanceSid,
+            dateCreated,
+            dateUpdated,
+            defaultTtl,
+            geoMatchLevel,
+            interceptCallbackUrl,
+            links,
+            numberSelectionBehavior,
+            outOfSessionCallbackUrl,
+            sid,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

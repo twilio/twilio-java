@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class CallUpdater extends Updater<Call> {
+
     private String pathAccountSid;
     private String pathSid;
     private URI url;
@@ -52,7 +53,6 @@ public class CallUpdater extends Updater<Call> {
         this.pathSid = pathSid;
     }
 
-
     public CallUpdater setUrl(final URI url) {
         this.url = url;
         return this;
@@ -67,12 +67,10 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
-
     public CallUpdater setStatus(final Call.UpdateStatus status) {
         this.status = status;
         return this;
     }
-
 
     public CallUpdater setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
@@ -88,7 +86,6 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
-
     public CallUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
@@ -98,11 +95,12 @@ public class CallUpdater extends Updater<Call> {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    public CallUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public CallUpdater setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-
 
     public CallUpdater setTwiml(final com.twilio.type.Twiml twiml) {
         this.twiml = twiml;
@@ -118,21 +116,25 @@ public class CallUpdater extends Updater<Call> {
         return this;
     }
 
-
     @Override
     public Call update(final TwilioRestClient client) {
-
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -140,14 +142,19 @@ public class CallUpdater extends Updater<Call> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Call update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Call update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -156,51 +163,80 @@ public class CallUpdater extends Updater<Call> {
     }
 
     private void addPostParams(final Request request) {
-
         if (url != null) {
             Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
 
-
         if (method != null) {
-            Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (status != null) {
-            Serializer.toString(request, "Status", status, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fallbackUrl != null) {
-            Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fallbackMethod != null) {
-            Serializer.toString(request, "FallbackMethod", fallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FallbackMethod",
+                fallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (twiml != null) {
-            Serializer.toString(request, "Twiml", twiml, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Twiml",
+                twiml,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (timeLimit != null) {
-            Serializer.toString(request, "TimeLimit", timeLimit, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TimeLimit",
+                timeLimit,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

@@ -18,43 +18,45 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Content extends Resource {
 
-
     public static ContentReader reader() {
-        return new ContentReader(
-
-        );
+        return new ContentReader();
     }
-
 
     /**
      * Converts a JSON String into a Content object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Content object represented by the provided JSON
      */
-    public static Content fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Content fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Content.class);
@@ -69,11 +71,14 @@ public class Content extends Resource {
      * Converts a JSON InputStream into a Content object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Content object represented by the provided JSON
      */
-    public static Content fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Content fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Content.class);
@@ -96,42 +101,52 @@ public class Content extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String language;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Object types;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Object variables;
 
     @JsonCreator
     private Content(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("language") final String language,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("types") final Object types,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("variables") final Object variables
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("language") final String language,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("types") final Object types,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("variables") final Object variables
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -157,35 +172,32 @@ public class Content extends Resource {
 
         Content other = (Content) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(language, other.language) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(types, other.types) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(variables, other.variables)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(language, other.language) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(types, other.types) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(variables, other.variables)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                language,
-                links,
-                sid,
-                types,
-                url,
-                variables
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            language,
+            links,
+            sid,
+            types,
+            url,
+            variables
         );
     }
-
-
 }
-

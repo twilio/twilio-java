@@ -18,49 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
 
-
-    public static ParticipantFetcher fetcher(final String pathRoomSid, final String pathSid) {
-        return new ParticipantFetcher(
-                pathRoomSid, pathSid
-        );
+    public static ParticipantFetcher fetcher(
+        final String pathRoomSid,
+        final String pathSid
+    ) {
+        return new ParticipantFetcher(pathRoomSid, pathSid);
     }
-
 
     public static ParticipantReader reader(final String pathRoomSid) {
-        return new ParticipantReader(
-                pathRoomSid
-        );
+        return new ParticipantReader(pathRoomSid);
     }
 
-
-    public static ParticipantUpdater updater(final String pathRoomSid, final String pathSid) {
-        return new ParticipantUpdater(
-                pathRoomSid, pathSid
-        );
+    public static ParticipantUpdater updater(
+        final String pathRoomSid,
+        final String pathSid
+    ) {
+        return new ParticipantUpdater(pathRoomSid, pathSid);
     }
-
 
     public enum Status {
         CONNECTED("connected"),
@@ -83,15 +82,17 @@ public class Participant extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Participant object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
      */
-    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Participant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -106,11 +107,14 @@ public class Participant extends Resource {
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
      */
-    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Participant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -133,50 +137,64 @@ public class Participant extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Integer duration;
+
     @Getter
     private final ZonedDateTime endTime;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final ZonedDateTime startTime;
+
     @Getter
     private final Participant.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Participant(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("duration") final Integer duration,
-            @JsonProperty("end_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("start_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime startTime,
-            @JsonProperty("status") final Participant.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime startTime,
+        @JsonProperty("status") final Participant.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -204,39 +222,36 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(duration, other.duration) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(startTime, other.startTime) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                duration,
-                endTime,
-                identity,
-                links,
-                roomSid,
-                sid,
-                startTime,
-                status,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            duration,
+            endTime,
+            identity,
+            links,
+            roomSid,
+            sid,
+            startTime,
+            status,
+            url
         );
     }
-
-
 }
-

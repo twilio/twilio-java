@@ -18,39 +18,41 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SinkTest extends Resource {
 
-
     public static SinkTestCreator creator(final String pathSid) {
-        return new SinkTestCreator(
-                pathSid
-        );
+        return new SinkTestCreator(pathSid);
     }
-
 
     /**
      * Converts a JSON String into a SinkTest object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SinkTest object represented by the provided JSON
      */
-    public static SinkTest fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SinkTest fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SinkTest.class);
@@ -65,11 +67,14 @@ public class SinkTest extends Resource {
      * Converts a JSON InputStream into a SinkTest object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SinkTest object represented by the provided JSON
      */
-    public static SinkTest fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SinkTest fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SinkTest.class);
@@ -92,14 +97,11 @@ public class SinkTest extends Resource {
         }
     }
 
-
     @Getter
     private final String result;
 
     @JsonCreator
-    private SinkTest(
-            @JsonProperty("result") final String result
-    ) {
+    private SinkTest(@JsonProperty("result") final String result) {
         this.result = result;
     }
 
@@ -114,18 +116,11 @@ public class SinkTest extends Resource {
         }
 
         SinkTest other = (SinkTest) o;
-        return (
-                Objects.equals(result, other.result)
-        );
+        return (Objects.equals(result, other.result));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                result
-        );
+        return Objects.hash(result);
     }
-
-
 }
-

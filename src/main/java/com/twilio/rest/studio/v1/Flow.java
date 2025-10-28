@@ -18,49 +18,42 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Flow extends Resource {
 
-
     public static FlowDeleter deleter(final String pathSid) {
-        return new FlowDeleter(
-                pathSid
-        );
+        return new FlowDeleter(pathSid);
     }
-
 
     public static FlowFetcher fetcher(final String pathSid) {
-        return new FlowFetcher(
-                pathSid
-        );
+        return new FlowFetcher(pathSid);
     }
-
 
     public static FlowReader reader() {
-        return new FlowReader(
-
-        );
+        return new FlowReader();
     }
-
 
     public enum Status {
         DRAFT("draft"),
@@ -82,15 +75,17 @@ public class Flow extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Flow object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
      */
-    public static Flow fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Flow fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Flow.class);
@@ -105,11 +100,14 @@ public class Flow extends Resource {
      * Converts a JSON InputStream into a Flow object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
      */
-    public static Flow fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Flow fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Flow.class);
@@ -132,39 +130,48 @@ public class Flow extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Flow.Status status;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Integer version;
 
     @JsonCreator
     private Flow(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final Flow.Status status,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("version") final Integer version
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Flow.Status status,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("version") final Integer version
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -189,33 +196,30 @@ public class Flow extends Resource {
 
         Flow other = (Flow) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(version, other.version)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(version, other.version)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                links,
-                sid,
-                status,
-                url,
-                version
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            links,
+            sid,
+            status,
+            url,
+            version
         );
     }
-
-
 }
-

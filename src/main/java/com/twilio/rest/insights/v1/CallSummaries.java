@@ -18,35 +18,34 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummaries extends Resource {
 
-
     public static CallSummariesReader reader() {
-        return new CallSummariesReader(
-
-        );
+        return new CallSummariesReader();
     }
-
 
     public enum SortBy {
         START_TIME("start_time"),
@@ -109,7 +108,10 @@ public class CallSummaries extends Resource {
 
         @JsonCreator
         public static ProcessingStateRequest forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingStateRequest.values());
+            return Promoter.enumFromString(
+                value,
+                ProcessingStateRequest.values()
+            );
         }
     }
 
@@ -184,15 +186,17 @@ public class CallSummaries extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a CallSummaries object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CallSummaries object represented by the provided JSON
      */
-    public static CallSummaries fromJson(final String json, final ObjectMapper objectMapper) {
+    public static CallSummaries fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CallSummaries.class);
@@ -207,11 +211,14 @@ public class CallSummaries extends Resource {
      * Converts a JSON InputStream into a CallSummaries object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CallSummaries object represented by the provided JSON
      */
-    public static CallSummaries fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static CallSummaries fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CallSummaries.class);
@@ -234,82 +241,108 @@ public class CallSummaries extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object annotation;
+
     @Getter
     private final CallSummaries.AnsweredBy answeredBy;
+
     @Getter
     private final Object attributes;
+
     @Getter
     private final String callSid;
+
     @Getter
     private final CallSummaries.CallState callState;
+
     @Getter
     private final CallSummaries.CallType callType;
+
     @Getter
     private final Object carrierEdge;
+
     @Getter
     private final Object clientEdge;
+
     @Getter
     private final Integer connectDuration;
+
     @Getter
     private final ZonedDateTime createdTime;
+
     @Getter
     private final Integer duration;
+
     @Getter
     private final ZonedDateTime endTime;
+
     @Getter
     private final Object from;
+
     @Getter
     private final CallSummaries.ProcessingState processingState;
+
     @Getter
     private final Object properties;
+
     @Getter
     private final Object sdkEdge;
+
     @Getter
     private final Object sipEdge;
+
     @Getter
     private final ZonedDateTime startTime;
+
     @Getter
     private final List<String> tags;
+
     @Getter
     private final Object to;
+
     @Getter
     private final Object trust;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private CallSummaries(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("annotation") final Object annotation,
-            @JsonProperty("answered_by") final CallSummaries.AnsweredBy answeredBy,
-            @JsonProperty("attributes") final Object attributes,
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("call_state") final CallSummaries.CallState callState,
-            @JsonProperty("call_type") final CallSummaries.CallType callType,
-            @JsonProperty("carrier_edge") final Object carrierEdge,
-            @JsonProperty("client_edge") final Object clientEdge,
-            @JsonProperty("connect_duration") final Integer connectDuration,
-            @JsonProperty("created_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime createdTime,
-            @JsonProperty("duration") final Integer duration,
-            @JsonProperty("end_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
-            @JsonProperty("from") final Object from,
-            @JsonProperty("processing_state") final CallSummaries.ProcessingState processingState,
-            @JsonProperty("properties") final Object properties,
-            @JsonProperty("sdk_edge") final Object sdkEdge,
-            @JsonProperty("sip_edge") final Object sipEdge,
-            @JsonProperty("start_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime startTime,
-            @JsonProperty("tags") final List<String> tags,
-            @JsonProperty("to") final Object to,
-            @JsonProperty("trust") final Object trust,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("annotation") final Object annotation,
+        @JsonProperty("answered_by") final CallSummaries.AnsweredBy answeredBy,
+        @JsonProperty("attributes") final Object attributes,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("call_state") final CallSummaries.CallState callState,
+        @JsonProperty("call_type") final CallSummaries.CallType callType,
+        @JsonProperty("carrier_edge") final Object carrierEdge,
+        @JsonProperty("client_edge") final Object clientEdge,
+        @JsonProperty("connect_duration") final Integer connectDuration,
+        @JsonProperty("created_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime createdTime,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
+        @JsonProperty("from") final Object from,
+        @JsonProperty(
+            "processing_state"
+        ) final CallSummaries.ProcessingState processingState,
+        @JsonProperty("properties") final Object properties,
+        @JsonProperty("sdk_edge") final Object sdkEdge,
+        @JsonProperty("sip_edge") final Object sipEdge,
+        @JsonProperty("start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime startTime,
+        @JsonProperty("tags") final List<String> tags,
+        @JsonProperty("to") final Object to,
+        @JsonProperty("trust") final Object trust,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.annotation = annotation;
@@ -348,61 +381,58 @@ public class CallSummaries extends Resource {
 
         CallSummaries other = (CallSummaries) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(annotation, other.annotation) &&
-                        Objects.equals(answeredBy, other.answeredBy) &&
-                        Objects.equals(attributes, other.attributes) &&
-                        Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(callState, other.callState) &&
-                        Objects.equals(callType, other.callType) &&
-                        Objects.equals(carrierEdge, other.carrierEdge) &&
-                        Objects.equals(clientEdge, other.clientEdge) &&
-                        Objects.equals(connectDuration, other.connectDuration) &&
-                        Objects.equals(createdTime, other.createdTime) &&
-                        Objects.equals(duration, other.duration) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(from, other.from) &&
-                        Objects.equals(processingState, other.processingState) &&
-                        Objects.equals(properties, other.properties) &&
-                        Objects.equals(sdkEdge, other.sdkEdge) &&
-                        Objects.equals(sipEdge, other.sipEdge) &&
-                        Objects.equals(startTime, other.startTime) &&
-                        Objects.equals(tags, other.tags) &&
-                        Objects.equals(to, other.to) &&
-                        Objects.equals(trust, other.trust) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(annotation, other.annotation) &&
+            Objects.equals(answeredBy, other.answeredBy) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(callState, other.callState) &&
+            Objects.equals(callType, other.callType) &&
+            Objects.equals(carrierEdge, other.carrierEdge) &&
+            Objects.equals(clientEdge, other.clientEdge) &&
+            Objects.equals(connectDuration, other.connectDuration) &&
+            Objects.equals(createdTime, other.createdTime) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(from, other.from) &&
+            Objects.equals(processingState, other.processingState) &&
+            Objects.equals(properties, other.properties) &&
+            Objects.equals(sdkEdge, other.sdkEdge) &&
+            Objects.equals(sipEdge, other.sipEdge) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(tags, other.tags) &&
+            Objects.equals(to, other.to) &&
+            Objects.equals(trust, other.trust) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                annotation,
-                answeredBy,
-                attributes,
-                callSid,
-                callState,
-                callType,
-                carrierEdge,
-                clientEdge,
-                connectDuration,
-                createdTime,
-                duration,
-                endTime,
-                from,
-                processingState,
-                properties,
-                sdkEdge,
-                sipEdge,
-                startTime,
-                tags,
-                to,
-                trust,
-                url
+            accountSid,
+            annotation,
+            answeredBy,
+            attributes,
+            callSid,
+            callState,
+            callType,
+            carrierEdge,
+            clientEdge,
+            connectDuration,
+            createdTime,
+            duration,
+            endTime,
+            from,
+            processingState,
+            properties,
+            sdkEdge,
+            sipEdge,
+            startTime,
+            tags,
+            to,
+            trust,
+            url
         );
     }
-
-
 }
-

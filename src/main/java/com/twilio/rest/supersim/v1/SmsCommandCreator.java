@@ -14,7 +14,6 @@
 
 package com.twilio.rest.supersim.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class SmsCommandCreator extends Creator<SmsCommand> {
@@ -43,24 +42,22 @@ public class SmsCommandCreator extends Creator<SmsCommand> {
         this.payload = payload;
     }
 
-
     public SmsCommandCreator setSim(final String sim) {
         this.sim = sim;
         return this;
     }
-
 
     public SmsCommandCreator setPayload(final String payload) {
         this.payload = payload;
         return this;
     }
 
-
-    public SmsCommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
+    public SmsCommandCreator setCallbackMethod(
+        final HttpMethod callbackMethod
+    ) {
         this.callbackMethod = callbackMethod;
         return this;
     }
-
 
     public SmsCommandCreator setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
@@ -73,14 +70,12 @@ public class SmsCommandCreator extends Creator<SmsCommand> {
 
     @Override
     public SmsCommand create(final TwilioRestClient client) {
-
         String path = "/v1/SmsCommands";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SUPERSIM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -88,42 +83,59 @@ public class SmsCommandCreator extends Creator<SmsCommand> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SmsCommand creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SmsCommand creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SmsCommand.fromJson(response.getStream(), client.getObjectMapper());
+        return SmsCommand.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (sim != null) {
             Serializer.toString(request, "Sim", sim, ParameterType.URLENCODED);
         }
 
-
         if (payload != null) {
-            Serializer.toString(request, "Payload", payload, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Payload",
+                payload,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackMethod != null) {
-            Serializer.toString(request, "CallbackMethod", callbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackUrl != null) {
-            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

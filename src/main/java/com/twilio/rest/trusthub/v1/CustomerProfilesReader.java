@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CustomerProfilesReader extends Reader<CustomerProfiles> {
 
@@ -35,33 +36,29 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
     private String policySid;
     private Long pageSize;
 
-    public CustomerProfilesReader() {
-    }
+    public CustomerProfilesReader() {}
 
-
-    public CustomerProfilesReader setStatus(final CustomerProfiles.Status status) {
+    public CustomerProfilesReader setStatus(
+        final CustomerProfiles.Status status
+    ) {
         this.status = status;
         return this;
     }
-
 
     public CustomerProfilesReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public CustomerProfilesReader setPolicySid(final String policySid) {
         this.policySid = policySid;
         return this;
     }
 
-
     public CustomerProfilesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<CustomerProfiles> read(final TwilioRestClient client) {
@@ -69,82 +66,113 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
     }
 
     public Page<CustomerProfiles> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/CustomerProfiles";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<CustomerProfiles> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<CustomerProfiles> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("CustomerProfiles read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CustomerProfiles read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "results",
-                response.getContent(),
-                CustomerProfiles.class,
-                client.getObjectMapper());
+            "results",
+            response.getContent(),
+            CustomerProfiles.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<CustomerProfiles> previousPage(final Page<CustomerProfiles> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<CustomerProfiles> previousPage(
+        final Page<CustomerProfiles> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<CustomerProfiles> nextPage(final Page<CustomerProfiles> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<CustomerProfiles> nextPage(
+        final Page<CustomerProfiles> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<CustomerProfiles> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<CustomerProfiles> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (status != null) {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
-
 
         if (policySid != null) {
-            Serializer.toString(request, "PolicySid", policySid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PolicySid",
+                policySid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

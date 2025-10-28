@@ -14,7 +14,6 @@
 
 package com.twilio.rest.trusthub.v1.customerprofiles;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,36 +26,46 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerProfilesEntityAssignments> {
+public class CustomerProfilesEntityAssignmentsCreator
+    extends Creator<CustomerProfilesEntityAssignments> {
 
     private String pathCustomerProfileSid;
     private String objectSid;
 
-    public CustomerProfilesEntityAssignmentsCreator(final String pathCustomerProfileSid, final String objectSid) {
+    public CustomerProfilesEntityAssignmentsCreator(
+        final String pathCustomerProfileSid,
+        final String objectSid
+    ) {
         this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.objectSid = objectSid;
     }
 
-
-    public CustomerProfilesEntityAssignmentsCreator setObjectSid(final String objectSid) {
+    public CustomerProfilesEntityAssignmentsCreator setObjectSid(
+        final String objectSid
+    ) {
         this.objectSid = objectSid;
         return this;
     }
 
-
     @Override
-    public CustomerProfilesEntityAssignments create(final TwilioRestClient client) {
+    public CustomerProfilesEntityAssignments create(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
-
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
-
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -64,27 +73,37 @@ public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerPr
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CustomerProfilesEntityAssignments creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CustomerProfilesEntityAssignments creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return CustomerProfilesEntityAssignments.fromJson(response.getStream(), client.getObjectMapper());
+        return CustomerProfilesEntityAssignments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (objectSid != null) {
-            Serializer.toString(request, "ObjectSid", objectSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ObjectSid",
+                objectSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

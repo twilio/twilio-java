@@ -14,7 +14,6 @@
 
 package com.twilio.rest.conversations.v1.conversation;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class MessageCreator extends Creator<Message> {
@@ -48,79 +47,72 @@ public class MessageCreator extends Creator<Message> {
         this.pathConversationSid = pathConversationSid;
     }
 
-
     public MessageCreator setAuthor(final String author) {
         this.author = author;
         return this;
     }
-
 
     public MessageCreator setBody(final String body) {
         this.body = body;
         return this;
     }
 
-
     public MessageCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
-
 
     public MessageCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
 
-
     public MessageCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
-
 
     public MessageCreator setMediaSid(final String mediaSid) {
         this.mediaSid = mediaSid;
         return this;
     }
 
-
     public MessageCreator setContentSid(final String contentSid) {
         this.contentSid = contentSid;
         return this;
     }
-
 
     public MessageCreator setContentVariables(final String contentVariables) {
         this.contentVariables = contentVariables;
         return this;
     }
 
-
     public MessageCreator setSubject(final String subject) {
         this.subject = subject;
         return this;
     }
 
-
-    public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled) {
+    public MessageCreator setXTwilioWebhookEnabled(
+        final Message.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
-
     @Override
     public Message create(final TwilioRestClient client) {
-
         String path = "/v1/Conversations/{ConversationSid}/Messages";
 
-        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -129,14 +121,19 @@ public class MessageCreator extends Creator<Message> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -145,59 +142,96 @@ public class MessageCreator extends Creator<Message> {
     }
 
     private void addPostParams(final Request request) {
-
         if (author != null) {
-            Serializer.toString(request, "Author", author, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Author",
+                author,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (body != null) {
-            Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dateCreated != null) {
-            Serializer.toString(request, "DateCreated", dateCreated, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DateCreated",
+                dateCreated,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (dateUpdated != null) {
-            Serializer.toString(request, "DateUpdated", dateUpdated, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DateUpdated",
+                dateUpdated,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (attributes != null) {
-            Serializer.toString(request, "Attributes", attributes, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (mediaSid != null) {
-            Serializer.toString(request, "MediaSid", mediaSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MediaSid",
+                mediaSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contentSid != null) {
-            Serializer.toString(request, "ContentSid", contentSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContentSid",
+                contentSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contentVariables != null) {
-            Serializer.toString(request, "ContentVariables", contentVariables, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContentVariables",
+                contentVariables,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (subject != null) {
-            Serializer.toString(request, "Subject", subject, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Subject",
+                subject,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (xTwilioWebhookEnabled != null) {
-            Serializer.toString(request, "X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "X-Twilio-Webhook-Enabled",
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.accounts.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class BulkContactsCreator extends Creator<BulkContacts> {
@@ -38,7 +37,6 @@ public class BulkContactsCreator extends Creator<BulkContacts> {
     public BulkContactsCreator(final List<Object> items) {
         this.items = items;
     }
-
 
     public BulkContactsCreator setItems(final List<Object> items) {
         this.items = items;
@@ -51,14 +49,12 @@ public class BulkContactsCreator extends Creator<BulkContacts> {
 
     @Override
     public BulkContacts create(final TwilioRestClient client) {
-
         String path = "/v1/Contacts/Bulk";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ACCOUNTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -66,29 +62,39 @@ public class BulkContactsCreator extends Creator<BulkContacts> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("BulkContacts creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BulkContacts creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return BulkContacts.fromJson(response.getStream(), client.getObjectMapper());
+        return BulkContacts.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
-
         if (items != null) {
             for (Object param : items) {
-                Serializer.toString(request, "Items", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Items",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
     }
 }

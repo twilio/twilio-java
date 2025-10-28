@@ -18,71 +18,70 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.PhoneNumberCapabilities;
-import lombok.Getter;
-import lombok.ToString;
-
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
 
-
     public static PhoneNumberCreator creator(final String pathServiceSid) {
-        return new PhoneNumberCreator(
-                pathServiceSid
-        );
+        return new PhoneNumberCreator(pathServiceSid);
     }
 
-
-    public static PhoneNumberDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new PhoneNumberDeleter(
-                pathServiceSid, pathSid
-        );
+    public static PhoneNumberDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new PhoneNumberDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static PhoneNumberFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new PhoneNumberFetcher(
-                pathServiceSid, pathSid
-        );
+    public static PhoneNumberFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new PhoneNumberFetcher(pathServiceSid, pathSid);
     }
-
 
     public static PhoneNumberReader reader(final String pathServiceSid) {
-        return new PhoneNumberReader(
-                pathServiceSid
-        );
+        return new PhoneNumberReader(pathServiceSid);
     }
 
-
-    public static PhoneNumberUpdater updater(final String pathServiceSid, final String pathSid) {
-        return new PhoneNumberUpdater(
-                pathServiceSid, pathSid
-        );
+    public static PhoneNumberUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new PhoneNumberUpdater(pathServiceSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
      */
-    public static PhoneNumber fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PhoneNumber fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -97,11 +96,14 @@ public class PhoneNumber extends Resource {
      * Converts a JSON InputStream into a PhoneNumber object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
      */
-    public static PhoneNumber fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PhoneNumber fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -124,48 +126,64 @@ public class PhoneNumber extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final PhoneNumberCapabilities capabilities;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Integer inUse;
+
     @Getter
     private final Boolean isReserved;
+
     @Getter
     private final String isoCountry;
+
     @Getter
     private final com.twilio.type.PhoneNumber phoneNumber;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private PhoneNumber(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("capabilities") final PhoneNumberCapabilities capabilities,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("in_use") final Integer inUse,
-            @JsonProperty("is_reserved") final Boolean isReserved,
-            @JsonProperty("iso_country") final String isoCountry,
-            @JsonProperty("phone_number") final com.twilio.type.PhoneNumber phoneNumber,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "capabilities"
+        ) final PhoneNumberCapabilities capabilities,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("in_use") final Integer inUse,
+        @JsonProperty("is_reserved") final Boolean isReserved,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.capabilities = capabilities;
@@ -193,39 +211,36 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(capabilities, other.capabilities) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(inUse, other.inUse) &&
-                        Objects.equals(isReserved, other.isReserved) &&
-                        Objects.equals(isoCountry, other.isoCountry) &&
-                        Objects.equals(phoneNumber, other.phoneNumber) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(inUse, other.inUse) &&
+            Objects.equals(isReserved, other.isReserved) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                capabilities,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                inUse,
-                isReserved,
-                isoCountry,
-                phoneNumber,
-                serviceSid,
-                sid,
-                url
+            accountSid,
+            capabilities,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            inUse,
+            isReserved,
+            isoCountry,
+            phoneNumber,
+            serviceSid,
+            sid,
+            url
         );
     }
-
-
 }
-

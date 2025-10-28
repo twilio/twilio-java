@@ -14,7 +14,6 @@
 
 package com.twilio.rest.flexapi.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuestionnairesCategory> {
+public class InsightsQuestionnairesCategoryCreator
+    extends Creator<InsightsQuestionnairesCategory> {
 
     private String authorization;
     private String name;
@@ -37,29 +38,28 @@ public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuest
         this.name = name;
     }
 
-
     public InsightsQuestionnairesCategoryCreator setName(final String name) {
         this.name = name;
         return this;
     }
 
-
-    public InsightsQuestionnairesCategoryCreator setAuthorization(final String authorization) {
+    public InsightsQuestionnairesCategoryCreator setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
-    public InsightsQuestionnairesCategory create(final TwilioRestClient client) {
-
+    public InsightsQuestionnairesCategory create(
+        final TwilioRestClient client
+    ) {
         String path = "/v1/Insights/QualityManagement/Categories";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -68,35 +68,48 @@ public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuest
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnairesCategory creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsQuestionnairesCategory creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnairesCategory.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsQuestionnairesCategory.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (name != null) {
-            Serializer.toString(request, "Name", name, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

@@ -18,55 +18,51 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ApiKey extends Resource {
 
-
     public static ApiKeyDeleter deleter(final String pathSid) {
-        return new ApiKeyDeleter(
-                pathSid
-        );
+        return new ApiKeyDeleter(pathSid);
     }
-
 
     public static ApiKeyFetcher fetcher(final String pathSid) {
-        return new ApiKeyFetcher(
-                pathSid
-        );
+        return new ApiKeyFetcher(pathSid);
     }
-
 
     public static ApiKeyUpdater updater(final String pathSid) {
-        return new ApiKeyUpdater(
-                pathSid
-        );
+        return new ApiKeyUpdater(pathSid);
     }
-
 
     /**
      * Converts a JSON String into a ApiKey object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ApiKey object represented by the provided JSON
      */
-    public static ApiKey fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ApiKey fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApiKey.class);
@@ -81,11 +77,14 @@ public class ApiKey extends Resource {
      * Converts a JSON InputStream into a ApiKey object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ApiKey object represented by the provided JSON
      */
-    public static ApiKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ApiKey fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApiKey.class);
@@ -108,27 +107,32 @@ public class ApiKey extends Resource {
         }
     }
 
-
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Object policy;
+
     @Getter
     private final String sid;
 
     @JsonCreator
     private ApiKey(
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("policy") final Object policy,
-            @JsonProperty("sid") final String sid
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("policy") final Object policy,
+        @JsonProperty("sid") final String sid
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -149,25 +153,22 @@ public class ApiKey extends Resource {
 
         ApiKey other = (ApiKey) o;
         return (
-                Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(policy, other.policy) &&
-                        Objects.equals(sid, other.sid)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(policy, other.policy) &&
+            Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                policy,
-                sid
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            policy,
+            sid
         );
     }
-
-
 }
-

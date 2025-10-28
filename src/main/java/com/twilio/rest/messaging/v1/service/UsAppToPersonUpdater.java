@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
+
     private String pathMessagingServiceSid;
     private String pathSid;
     private Boolean hasEmbeddedLinks;
@@ -41,7 +42,17 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
     private Boolean ageGated;
     private Boolean directLending;
 
-    public UsAppToPersonUpdater(final String pathMessagingServiceSid, final String pathSid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending) {
+    public UsAppToPersonUpdater(
+        final String pathMessagingServiceSid,
+        final String pathSid,
+        final Boolean hasEmbeddedLinks,
+        final Boolean hasEmbeddedPhone,
+        final List<String> messageSamples,
+        final String messageFlow,
+        final String description,
+        final Boolean ageGated,
+        final Boolean directLending
+    ) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.pathSid = pathSid;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
@@ -53,20 +64,23 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
         this.directLending = directLending;
     }
 
-
-    public UsAppToPersonUpdater setHasEmbeddedLinks(final Boolean hasEmbeddedLinks) {
+    public UsAppToPersonUpdater setHasEmbeddedLinks(
+        final Boolean hasEmbeddedLinks
+    ) {
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         return this;
     }
 
-
-    public UsAppToPersonUpdater setHasEmbeddedPhone(final Boolean hasEmbeddedPhone) {
+    public UsAppToPersonUpdater setHasEmbeddedPhone(
+        final Boolean hasEmbeddedPhone
+    ) {
         this.hasEmbeddedPhone = hasEmbeddedPhone;
         return this;
     }
 
-
-    public UsAppToPersonUpdater setMessageSamples(final List<String> messageSamples) {
+    public UsAppToPersonUpdater setMessageSamples(
+        final List<String> messageSamples
+    ) {
         this.messageSamples = messageSamples;
         return this;
     }
@@ -80,38 +94,37 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
         return this;
     }
 
-
     public UsAppToPersonUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
-
 
     public UsAppToPersonUpdater setAgeGated(final Boolean ageGated) {
         this.ageGated = ageGated;
         return this;
     }
 
-
     public UsAppToPersonUpdater setDirectLending(final Boolean directLending) {
         this.directLending = directLending;
         return this;
     }
 
-
     @Override
     public UsAppToPerson update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
-
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -119,59 +132,93 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UsAppToPerson update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UsAppToPerson update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return UsAppToPerson.fromJson(response.getStream(), client.getObjectMapper());
+        return UsAppToPerson.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (hasEmbeddedLinks != null) {
-            Serializer.toString(request, "HasEmbeddedLinks", hasEmbeddedLinks, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HasEmbeddedLinks",
+                hasEmbeddedLinks,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (hasEmbeddedPhone != null) {
-            Serializer.toString(request, "HasEmbeddedPhone", hasEmbeddedPhone, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HasEmbeddedPhone",
+                hasEmbeddedPhone,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (messageSamples != null) {
             for (String param : messageSamples) {
-                Serializer.toString(request, "MessageSamples", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "MessageSamples",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (messageFlow != null) {
-            Serializer.toString(request, "MessageFlow", messageFlow, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MessageFlow",
+                messageFlow,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (description != null) {
-            Serializer.toString(request, "Description", description, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (ageGated != null) {
-            Serializer.toString(request, "AgeGated", ageGated, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AgeGated",
+                ageGated,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (directLending != null) {
-            Serializer.toString(request, "DirectLending", directLending, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DirectLending",
+                directLending,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

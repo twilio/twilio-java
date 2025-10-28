@@ -18,63 +18,72 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TollfreeVerification extends Resource {
 
-
-    public static TollfreeVerificationCreator creator(final String businessName, final String businessWebsite, final String notificationEmail, final List<String> useCaseCategories, final String useCaseSummary, final String productionMessageSample, final List<String> optInImageUrls, final TollfreeVerification.OptInType optInType, final String messageVolume, final String tollfreePhoneNumberSid) {
+    public static TollfreeVerificationCreator creator(
+        final String businessName,
+        final String businessWebsite,
+        final String notificationEmail,
+        final List<String> useCaseCategories,
+        final String useCaseSummary,
+        final String productionMessageSample,
+        final List<String> optInImageUrls,
+        final TollfreeVerification.OptInType optInType,
+        final String messageVolume,
+        final String tollfreePhoneNumberSid
+    ) {
         return new TollfreeVerificationCreator(
-                businessName, businessWebsite, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, tollfreePhoneNumberSid
+            businessName,
+            businessWebsite,
+            notificationEmail,
+            useCaseCategories,
+            useCaseSummary,
+            productionMessageSample,
+            optInImageUrls,
+            optInType,
+            messageVolume,
+            tollfreePhoneNumberSid
         );
     }
-
 
     public static TollfreeVerificationDeleter deleter(final String pathSid) {
-        return new TollfreeVerificationDeleter(
-                pathSid
-        );
+        return new TollfreeVerificationDeleter(pathSid);
     }
-
 
     public static TollfreeVerificationFetcher fetcher(final String pathSid) {
-        return new TollfreeVerificationFetcher(
-                pathSid
-        );
+        return new TollfreeVerificationFetcher(pathSid);
     }
-
 
     public static TollfreeVerificationReader reader() {
-        return new TollfreeVerificationReader(
-
-        );
+        return new TollfreeVerificationReader();
     }
-
 
     public static TollfreeVerificationUpdater updater(final String pathSid) {
-        return new TollfreeVerificationUpdater(
-                pathSid
-        );
+        return new TollfreeVerificationUpdater(pathSid);
     }
-
 
     public enum Status {
         PENDING_REVIEW("PENDING_REVIEW"),
@@ -146,15 +155,17 @@ public class TollfreeVerification extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a TollfreeVerification object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TollfreeVerification object represented by the provided JSON
      */
-    public static TollfreeVerification fromJson(final String json, final ObjectMapper objectMapper) {
+    public static TollfreeVerification fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TollfreeVerification.class);
@@ -169,11 +180,14 @@ public class TollfreeVerification extends Resource {
      * Converts a JSON InputStream into a TollfreeVerification object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TollfreeVerification object represented by the provided JSON
      */
-    public static TollfreeVerification fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static TollfreeVerification fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TollfreeVerification.class);
@@ -196,163 +210,254 @@ public class TollfreeVerification extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String additionalInformation;
+
     @Getter
     private final Boolean ageGatedContent;
+
     @Getter
     private final String businessCity;
+
     @Getter
     private final String businessContactEmail;
+
     @Getter
     private final String businessContactFirstName;
+
     @Getter
     private final String businessContactLastName;
+
     @Getter
     private final com.twilio.type.PhoneNumber businessContactPhone;
+
     @Getter
     private final String businessCountry;
+
     @Getter
     private final String businessName;
+
     @Getter
     private final String businessPostalCode;
+
     @Getter
     private final String businessRegistrationAuthority;
+
     @Getter
     private final String businessRegistrationCountry;
+
     @Getter
     private final String businessRegistrationNumber;
+
     @Getter
     private final String businessRegistrationPhoneNumber;
+
     @Getter
     private final String businessStateProvinceRegion;
+
     @Getter
     private final String businessStreetAddress;
+
     @Getter
     private final String businessStreetAddress2;
+
     @Getter
     private final TollfreeVerification.BusinessType businessType;
+
     @Getter
     private final String businessWebsite;
+
     @Getter
     private final String customerProfileSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String doingBusinessAs;
+
     @Getter
     private final Boolean editAllowed;
+
     @Getter
     private final ZonedDateTime editExpiration;
+
     @Getter
     private final Integer errorCode;
+
     @Getter
     private final String externalReferenceId;
+
     @Getter
     private final String helpMessageSample;
+
     @Getter
     private final String messageVolume;
+
     @Getter
     private final String notificationEmail;
+
     @Getter
     private final String optInConfirmationMessage;
+
     @Getter
     private final List<String> optInImageUrls;
+
     @Getter
     private final List<String> optInKeywords;
+
     @Getter
     private final TollfreeVerification.OptInType optInType;
+
     @Getter
     private final URI privacyPolicyUrl;
+
     @Getter
     private final String productionMessageSample;
+
     @Getter
     private final String regulatedItemSid;
+
     @Getter
     private final String rejectionReason;
+
     @Getter
     private final List<Object> rejectionReasons;
+
     @Getter
     private final Object resourceLinks;
+
     @Getter
     private final String sid;
+
     @Getter
     private final TollfreeVerification.Status status;
+
     @Getter
     private final URI termsAndConditionsUrl;
+
     @Getter
     private final com.twilio.type.PhoneNumber tollfreePhoneNumber;
+
     @Getter
     private final String tollfreePhoneNumberSid;
+
     @Getter
     private final String trustProductSid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final List<String> useCaseCategories;
+
     @Getter
     private final String useCaseSummary;
 
     @JsonCreator
     private TollfreeVerification(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("additional_information") final String additionalInformation,
-            @JsonProperty("age_gated_content") final Boolean ageGatedContent,
-            @JsonProperty("business_city") final String businessCity,
-            @JsonProperty("business_contact_email") final String businessContactEmail,
-            @JsonProperty("business_contact_first_name") final String businessContactFirstName,
-            @JsonProperty("business_contact_last_name") final String businessContactLastName,
-            @JsonProperty("business_contact_phone") final com.twilio.type.PhoneNumber businessContactPhone,
-            @JsonProperty("business_country") final String businessCountry,
-            @JsonProperty("business_name") final String businessName,
-            @JsonProperty("business_postal_code") final String businessPostalCode,
-            @JsonProperty("business_registration_authority") final String businessRegistrationAuthority,
-            @JsonProperty("business_registration_country") final String businessRegistrationCountry,
-            @JsonProperty("business_registration_number") final String businessRegistrationNumber,
-            @JsonProperty("business_registration_phone_number") final String businessRegistrationPhoneNumber,
-            @JsonProperty("business_state_province_region") final String businessStateProvinceRegion,
-            @JsonProperty("business_street_address") final String businessStreetAddress,
-            @JsonProperty("business_street_address2") final String businessStreetAddress2,
-            @JsonProperty("business_type") final TollfreeVerification.BusinessType businessType,
-            @JsonProperty("business_website") final String businessWebsite,
-            @JsonProperty("customer_profile_sid") final String customerProfileSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("doing_business_as") final String doingBusinessAs,
-            @JsonProperty("edit_allowed") final Boolean editAllowed,
-            @JsonProperty("edit_expiration")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime editExpiration,
-            @JsonProperty("error_code") final Integer errorCode,
-            @JsonProperty("external_reference_id") final String externalReferenceId,
-            @JsonProperty("help_message_sample") final String helpMessageSample,
-            @JsonProperty("message_volume") final String messageVolume,
-            @JsonProperty("notification_email") final String notificationEmail,
-            @JsonProperty("opt_in_confirmation_message") final String optInConfirmationMessage,
-            @JsonProperty("opt_in_image_urls") final List<String> optInImageUrls,
-            @JsonProperty("opt_in_keywords") final List<String> optInKeywords,
-            @JsonProperty("opt_in_type") final TollfreeVerification.OptInType optInType,
-            @JsonProperty("privacy_policy_url") final URI privacyPolicyUrl,
-            @JsonProperty("production_message_sample") final String productionMessageSample,
-            @JsonProperty("regulated_item_sid") final String regulatedItemSid,
-            @JsonProperty("rejection_reason") final String rejectionReason,
-            @JsonProperty("rejection_reasons") final List<Object> rejectionReasons,
-            @JsonProperty("resource_links") final Object resourceLinks,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final TollfreeVerification.Status status,
-            @JsonProperty("terms_and_conditions_url") final URI termsAndConditionsUrl,
-            @JsonProperty("tollfree_phone_number") final com.twilio.type.PhoneNumber tollfreePhoneNumber,
-            @JsonProperty("tollfree_phone_number_sid") final String tollfreePhoneNumberSid,
-            @JsonProperty("trust_product_sid") final String trustProductSid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("use_case_categories") final List<String> useCaseCategories,
-            @JsonProperty("use_case_summary") final String useCaseSummary
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "additional_information"
+        ) final String additionalInformation,
+        @JsonProperty("age_gated_content") final Boolean ageGatedContent,
+        @JsonProperty("business_city") final String businessCity,
+        @JsonProperty(
+            "business_contact_email"
+        ) final String businessContactEmail,
+        @JsonProperty(
+            "business_contact_first_name"
+        ) final String businessContactFirstName,
+        @JsonProperty(
+            "business_contact_last_name"
+        ) final String businessContactLastName,
+        @JsonProperty(
+            "business_contact_phone"
+        ) final com.twilio.type.PhoneNumber businessContactPhone,
+        @JsonProperty("business_country") final String businessCountry,
+        @JsonProperty("business_name") final String businessName,
+        @JsonProperty("business_postal_code") final String businessPostalCode,
+        @JsonProperty(
+            "business_registration_authority"
+        ) final String businessRegistrationAuthority,
+        @JsonProperty(
+            "business_registration_country"
+        ) final String businessRegistrationCountry,
+        @JsonProperty(
+            "business_registration_number"
+        ) final String businessRegistrationNumber,
+        @JsonProperty(
+            "business_registration_phone_number"
+        ) final String businessRegistrationPhoneNumber,
+        @JsonProperty(
+            "business_state_province_region"
+        ) final String businessStateProvinceRegion,
+        @JsonProperty(
+            "business_street_address"
+        ) final String businessStreetAddress,
+        @JsonProperty(
+            "business_street_address2"
+        ) final String businessStreetAddress2,
+        @JsonProperty(
+            "business_type"
+        ) final TollfreeVerification.BusinessType businessType,
+        @JsonProperty("business_website") final String businessWebsite,
+        @JsonProperty("customer_profile_sid") final String customerProfileSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("doing_business_as") final String doingBusinessAs,
+        @JsonProperty("edit_allowed") final Boolean editAllowed,
+        @JsonProperty("edit_expiration") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime editExpiration,
+        @JsonProperty("error_code") final Integer errorCode,
+        @JsonProperty("external_reference_id") final String externalReferenceId,
+        @JsonProperty("help_message_sample") final String helpMessageSample,
+        @JsonProperty("message_volume") final String messageVolume,
+        @JsonProperty("notification_email") final String notificationEmail,
+        @JsonProperty(
+            "opt_in_confirmation_message"
+        ) final String optInConfirmationMessage,
+        @JsonProperty("opt_in_image_urls") final List<String> optInImageUrls,
+        @JsonProperty("opt_in_keywords") final List<String> optInKeywords,
+        @JsonProperty(
+            "opt_in_type"
+        ) final TollfreeVerification.OptInType optInType,
+        @JsonProperty("privacy_policy_url") final URI privacyPolicyUrl,
+        @JsonProperty(
+            "production_message_sample"
+        ) final String productionMessageSample,
+        @JsonProperty("regulated_item_sid") final String regulatedItemSid,
+        @JsonProperty("rejection_reason") final String rejectionReason,
+        @JsonProperty("rejection_reasons") final List<Object> rejectionReasons,
+        @JsonProperty("resource_links") final Object resourceLinks,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final TollfreeVerification.Status status,
+        @JsonProperty(
+            "terms_and_conditions_url"
+        ) final URI termsAndConditionsUrl,
+        @JsonProperty(
+            "tollfree_phone_number"
+        ) final com.twilio.type.PhoneNumber tollfreePhoneNumber,
+        @JsonProperty(
+            "tollfree_phone_number_sid"
+        ) final String tollfreePhoneNumberSid,
+        @JsonProperty("trust_product_sid") final String trustProductSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("use_case_categories") final List<
+            String
+        > useCaseCategories,
+        @JsonProperty("use_case_summary") final String useCaseSummary
     ) {
         this.accountSid = accountSid;
         this.additionalInformation = additionalInformation;
@@ -418,115 +523,154 @@ public class TollfreeVerification extends Resource {
 
         TollfreeVerification other = (TollfreeVerification) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(additionalInformation, other.additionalInformation) &&
-                        Objects.equals(ageGatedContent, other.ageGatedContent) &&
-                        Objects.equals(businessCity, other.businessCity) &&
-                        Objects.equals(businessContactEmail, other.businessContactEmail) &&
-                        Objects.equals(businessContactFirstName, other.businessContactFirstName) &&
-                        Objects.equals(businessContactLastName, other.businessContactLastName) &&
-                        Objects.equals(businessContactPhone, other.businessContactPhone) &&
-                        Objects.equals(businessCountry, other.businessCountry) &&
-                        Objects.equals(businessName, other.businessName) &&
-                        Objects.equals(businessPostalCode, other.businessPostalCode) &&
-                        Objects.equals(businessRegistrationAuthority, other.businessRegistrationAuthority) &&
-                        Objects.equals(businessRegistrationCountry, other.businessRegistrationCountry) &&
-                        Objects.equals(businessRegistrationNumber, other.businessRegistrationNumber) &&
-                        Objects.equals(businessRegistrationPhoneNumber, other.businessRegistrationPhoneNumber) &&
-                        Objects.equals(businessStateProvinceRegion, other.businessStateProvinceRegion) &&
-                        Objects.equals(businessStreetAddress, other.businessStreetAddress) &&
-                        Objects.equals(businessStreetAddress2, other.businessStreetAddress2) &&
-                        Objects.equals(businessType, other.businessType) &&
-                        Objects.equals(businessWebsite, other.businessWebsite) &&
-                        Objects.equals(customerProfileSid, other.customerProfileSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(doingBusinessAs, other.doingBusinessAs) &&
-                        Objects.equals(editAllowed, other.editAllowed) &&
-                        Objects.equals(editExpiration, other.editExpiration) &&
-                        Objects.equals(errorCode, other.errorCode) &&
-                        Objects.equals(externalReferenceId, other.externalReferenceId) &&
-                        Objects.equals(helpMessageSample, other.helpMessageSample) &&
-                        Objects.equals(messageVolume, other.messageVolume) &&
-                        Objects.equals(notificationEmail, other.notificationEmail) &&
-                        Objects.equals(optInConfirmationMessage, other.optInConfirmationMessage) &&
-                        Objects.equals(optInImageUrls, other.optInImageUrls) &&
-                        Objects.equals(optInKeywords, other.optInKeywords) &&
-                        Objects.equals(optInType, other.optInType) &&
-                        Objects.equals(privacyPolicyUrl, other.privacyPolicyUrl) &&
-                        Objects.equals(productionMessageSample, other.productionMessageSample) &&
-                        Objects.equals(regulatedItemSid, other.regulatedItemSid) &&
-                        Objects.equals(rejectionReason, other.rejectionReason) &&
-                        Objects.equals(rejectionReasons, other.rejectionReasons) &&
-                        Objects.equals(resourceLinks, other.resourceLinks) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(termsAndConditionsUrl, other.termsAndConditionsUrl) &&
-                        Objects.equals(tollfreePhoneNumber, other.tollfreePhoneNumber) &&
-                        Objects.equals(tollfreePhoneNumberSid, other.tollfreePhoneNumberSid) &&
-                        Objects.equals(trustProductSid, other.trustProductSid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(useCaseCategories, other.useCaseCategories) &&
-                        Objects.equals(useCaseSummary, other.useCaseSummary)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                additionalInformation,
+                other.additionalInformation
+            ) &&
+            Objects.equals(ageGatedContent, other.ageGatedContent) &&
+            Objects.equals(businessCity, other.businessCity) &&
+            Objects.equals(businessContactEmail, other.businessContactEmail) &&
+            Objects.equals(
+                businessContactFirstName,
+                other.businessContactFirstName
+            ) &&
+            Objects.equals(
+                businessContactLastName,
+                other.businessContactLastName
+            ) &&
+            Objects.equals(businessContactPhone, other.businessContactPhone) &&
+            Objects.equals(businessCountry, other.businessCountry) &&
+            Objects.equals(businessName, other.businessName) &&
+            Objects.equals(businessPostalCode, other.businessPostalCode) &&
+            Objects.equals(
+                businessRegistrationAuthority,
+                other.businessRegistrationAuthority
+            ) &&
+            Objects.equals(
+                businessRegistrationCountry,
+                other.businessRegistrationCountry
+            ) &&
+            Objects.equals(
+                businessRegistrationNumber,
+                other.businessRegistrationNumber
+            ) &&
+            Objects.equals(
+                businessRegistrationPhoneNumber,
+                other.businessRegistrationPhoneNumber
+            ) &&
+            Objects.equals(
+                businessStateProvinceRegion,
+                other.businessStateProvinceRegion
+            ) &&
+            Objects.equals(
+                businessStreetAddress,
+                other.businessStreetAddress
+            ) &&
+            Objects.equals(
+                businessStreetAddress2,
+                other.businessStreetAddress2
+            ) &&
+            Objects.equals(businessType, other.businessType) &&
+            Objects.equals(businessWebsite, other.businessWebsite) &&
+            Objects.equals(customerProfileSid, other.customerProfileSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(doingBusinessAs, other.doingBusinessAs) &&
+            Objects.equals(editAllowed, other.editAllowed) &&
+            Objects.equals(editExpiration, other.editExpiration) &&
+            Objects.equals(errorCode, other.errorCode) &&
+            Objects.equals(externalReferenceId, other.externalReferenceId) &&
+            Objects.equals(helpMessageSample, other.helpMessageSample) &&
+            Objects.equals(messageVolume, other.messageVolume) &&
+            Objects.equals(notificationEmail, other.notificationEmail) &&
+            Objects.equals(
+                optInConfirmationMessage,
+                other.optInConfirmationMessage
+            ) &&
+            Objects.equals(optInImageUrls, other.optInImageUrls) &&
+            Objects.equals(optInKeywords, other.optInKeywords) &&
+            Objects.equals(optInType, other.optInType) &&
+            Objects.equals(privacyPolicyUrl, other.privacyPolicyUrl) &&
+            Objects.equals(
+                productionMessageSample,
+                other.productionMessageSample
+            ) &&
+            Objects.equals(regulatedItemSid, other.regulatedItemSid) &&
+            Objects.equals(rejectionReason, other.rejectionReason) &&
+            Objects.equals(rejectionReasons, other.rejectionReasons) &&
+            Objects.equals(resourceLinks, other.resourceLinks) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(
+                termsAndConditionsUrl,
+                other.termsAndConditionsUrl
+            ) &&
+            Objects.equals(tollfreePhoneNumber, other.tollfreePhoneNumber) &&
+            Objects.equals(
+                tollfreePhoneNumberSid,
+                other.tollfreePhoneNumberSid
+            ) &&
+            Objects.equals(trustProductSid, other.trustProductSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(useCaseCategories, other.useCaseCategories) &&
+            Objects.equals(useCaseSummary, other.useCaseSummary)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                additionalInformation,
-                ageGatedContent,
-                businessCity,
-                businessContactEmail,
-                businessContactFirstName,
-                businessContactLastName,
-                businessContactPhone,
-                businessCountry,
-                businessName,
-                businessPostalCode,
-                businessRegistrationAuthority,
-                businessRegistrationCountry,
-                businessRegistrationNumber,
-                businessRegistrationPhoneNumber,
-                businessStateProvinceRegion,
-                businessStreetAddress,
-                businessStreetAddress2,
-                businessType,
-                businessWebsite,
-                customerProfileSid,
-                dateCreated,
-                dateUpdated,
-                doingBusinessAs,
-                editAllowed,
-                editExpiration,
-                errorCode,
-                externalReferenceId,
-                helpMessageSample,
-                messageVolume,
-                notificationEmail,
-                optInConfirmationMessage,
-                optInImageUrls,
-                optInKeywords,
-                optInType,
-                privacyPolicyUrl,
-                productionMessageSample,
-                regulatedItemSid,
-                rejectionReason,
-                rejectionReasons,
-                resourceLinks,
-                sid,
-                status,
-                termsAndConditionsUrl,
-                tollfreePhoneNumber,
-                tollfreePhoneNumberSid,
-                trustProductSid,
-                url,
-                useCaseCategories,
-                useCaseSummary
+            accountSid,
+            additionalInformation,
+            ageGatedContent,
+            businessCity,
+            businessContactEmail,
+            businessContactFirstName,
+            businessContactLastName,
+            businessContactPhone,
+            businessCountry,
+            businessName,
+            businessPostalCode,
+            businessRegistrationAuthority,
+            businessRegistrationCountry,
+            businessRegistrationNumber,
+            businessRegistrationPhoneNumber,
+            businessStateProvinceRegion,
+            businessStreetAddress,
+            businessStreetAddress2,
+            businessType,
+            businessWebsite,
+            customerProfileSid,
+            dateCreated,
+            dateUpdated,
+            doingBusinessAs,
+            editAllowed,
+            editExpiration,
+            errorCode,
+            externalReferenceId,
+            helpMessageSample,
+            messageVolume,
+            notificationEmail,
+            optInConfirmationMessage,
+            optInImageUrls,
+            optInKeywords,
+            optInType,
+            privacyPolicyUrl,
+            productionMessageSample,
+            regulatedItemSid,
+            rejectionReason,
+            rejectionReasons,
+            resourceLinks,
+            sid,
+            status,
+            termsAndConditionsUrl,
+            tollfreePhoneNumber,
+            tollfreePhoneNumberSid,
+            trustProductSid,
+            url,
+            useCaseCategories,
+            useCaseSummary
         );
     }
-
-
 }
-

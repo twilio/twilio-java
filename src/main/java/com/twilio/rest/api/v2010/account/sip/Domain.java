@@ -18,107 +18,94 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Domain extends Resource {
 
-
     public static DomainCreator creator(final String domainName) {
-        return new DomainCreator(
-                domainName
-        );
+        return new DomainCreator(domainName);
     }
 
-
-    public static DomainCreator creator(final String pathAccountSid, final String domainName) {
-        return new DomainCreator(
-                pathAccountSid, domainName
-        );
+    public static DomainCreator creator(
+        final String pathAccountSid,
+        final String domainName
+    ) {
+        return new DomainCreator(pathAccountSid, domainName);
     }
-
 
     public static DomainDeleter deleter(final String pathSid) {
-        return new DomainDeleter(
-                pathSid
-        );
+        return new DomainDeleter(pathSid);
     }
 
-
-    public static DomainDeleter deleter(final String pathAccountSid, final String pathSid) {
-        return new DomainDeleter(
-                pathAccountSid, pathSid
-        );
+    public static DomainDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new DomainDeleter(pathAccountSid, pathSid);
     }
-
 
     public static DomainFetcher fetcher(final String pathSid) {
-        return new DomainFetcher(
-                pathSid
-        );
+        return new DomainFetcher(pathSid);
     }
 
-
-    public static DomainFetcher fetcher(final String pathAccountSid, final String pathSid) {
-        return new DomainFetcher(
-                pathAccountSid, pathSid
-        );
+    public static DomainFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new DomainFetcher(pathAccountSid, pathSid);
     }
-
 
     public static DomainReader reader() {
-        return new DomainReader(
-
-        );
+        return new DomainReader();
     }
-
 
     public static DomainReader reader(final String pathAccountSid) {
-        return new DomainReader(
-                pathAccountSid
-        );
+        return new DomainReader(pathAccountSid);
     }
-
 
     public static DomainUpdater updater(final String pathSid) {
-        return new DomainUpdater(
-                pathSid
-        );
+        return new DomainUpdater(pathSid);
     }
 
-
-    public static DomainUpdater updater(final String pathAccountSid, final String pathSid) {
-        return new DomainUpdater(
-                pathAccountSid, pathSid
-        );
+    public static DomainUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new DomainUpdater(pathAccountSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Domain object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Domain object represented by the provided JSON
      */
-    public static Domain fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Domain fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Domain.class);
@@ -133,11 +120,14 @@ public class Domain extends Resource {
      * Converts a JSON InputStream into a Domain object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Domain object represented by the provided JSON
      */
-    public static Domain fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Domain fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Domain.class);
@@ -160,75 +150,107 @@ public class Domain extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String apiVersion;
+
     @Getter
     private final String authType;
+
     @Getter
     private final String byocTrunkSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String domainName;
+
     @Getter
     private final String emergencyCallerSid;
+
     @Getter
     private final Boolean emergencyCallingEnabled;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Boolean secure;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Boolean sipRegistration;
+
     @Getter
     private final Map<String, String> subresourceUris;
+
     @Getter
     private final String uri;
+
     @Getter
     private final HttpMethod voiceFallbackMethod;
+
     @Getter
     private final URI voiceFallbackUrl;
+
     @Getter
     private final HttpMethod voiceMethod;
+
     @Getter
     private final HttpMethod voiceStatusCallbackMethod;
+
     @Getter
     private final URI voiceStatusCallbackUrl;
+
     @Getter
     private final URI voiceUrl;
 
     @JsonCreator
     private Domain(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("api_version") final String apiVersion,
-            @JsonProperty("auth_type") final String authType,
-            @JsonProperty("byoc_trunk_sid") final String byocTrunkSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("domain_name") final String domainName,
-            @JsonProperty("emergency_caller_sid") final String emergencyCallerSid,
-            @JsonProperty("emergency_calling_enabled") final Boolean emergencyCallingEnabled,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("secure") final Boolean secure,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sip_registration") final Boolean sipRegistration,
-            @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
-            @JsonProperty("uri") final String uri,
-            @JsonProperty("voice_fallback_method") final HttpMethod voiceFallbackMethod,
-            @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
-            @JsonProperty("voice_method") final HttpMethod voiceMethod,
-            @JsonProperty("voice_status_callback_method") final HttpMethod voiceStatusCallbackMethod,
-            @JsonProperty("voice_status_callback_url") final URI voiceStatusCallbackUrl,
-            @JsonProperty("voice_url") final URI voiceUrl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("api_version") final String apiVersion,
+        @JsonProperty("auth_type") final String authType,
+        @JsonProperty("byoc_trunk_sid") final String byocTrunkSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("domain_name") final String domainName,
+        @JsonProperty("emergency_caller_sid") final String emergencyCallerSid,
+        @JsonProperty(
+            "emergency_calling_enabled"
+        ) final Boolean emergencyCallingEnabled,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("secure") final Boolean secure,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sip_registration") final Boolean sipRegistration,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty(
+            "voice_fallback_method"
+        ) final HttpMethod voiceFallbackMethod,
+        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
+        @JsonProperty("voice_method") final HttpMethod voiceMethod,
+        @JsonProperty(
+            "voice_status_callback_method"
+        ) final HttpMethod voiceStatusCallbackMethod,
+        @JsonProperty(
+            "voice_status_callback_url"
+        ) final URI voiceStatusCallbackUrl,
+        @JsonProperty("voice_url") final URI voiceUrl
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -265,57 +287,63 @@ public class Domain extends Resource {
 
         Domain other = (Domain) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(apiVersion, other.apiVersion) &&
-                        Objects.equals(authType, other.authType) &&
-                        Objects.equals(byocTrunkSid, other.byocTrunkSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(domainName, other.domainName) &&
-                        Objects.equals(emergencyCallerSid, other.emergencyCallerSid) &&
-                        Objects.equals(emergencyCallingEnabled, other.emergencyCallingEnabled) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(secure, other.secure) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(sipRegistration, other.sipRegistration) &&
-                        Objects.equals(subresourceUris, other.subresourceUris) &&
-                        Objects.equals(uri, other.uri) &&
-                        Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
-                        Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
-                        Objects.equals(voiceMethod, other.voiceMethod) &&
-                        Objects.equals(voiceStatusCallbackMethod, other.voiceStatusCallbackMethod) &&
-                        Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) &&
-                        Objects.equals(voiceUrl, other.voiceUrl)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(apiVersion, other.apiVersion) &&
+            Objects.equals(authType, other.authType) &&
+            Objects.equals(byocTrunkSid, other.byocTrunkSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(domainName, other.domainName) &&
+            Objects.equals(emergencyCallerSid, other.emergencyCallerSid) &&
+            Objects.equals(
+                emergencyCallingEnabled,
+                other.emergencyCallingEnabled
+            ) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(secure, other.secure) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sipRegistration, other.sipRegistration) &&
+            Objects.equals(subresourceUris, other.subresourceUris) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+            Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+            Objects.equals(voiceMethod, other.voiceMethod) &&
+            Objects.equals(
+                voiceStatusCallbackMethod,
+                other.voiceStatusCallbackMethod
+            ) &&
+            Objects.equals(
+                voiceStatusCallbackUrl,
+                other.voiceStatusCallbackUrl
+            ) &&
+            Objects.equals(voiceUrl, other.voiceUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                apiVersion,
-                authType,
-                byocTrunkSid,
-                dateCreated,
-                dateUpdated,
-                domainName,
-                emergencyCallerSid,
-                emergencyCallingEnabled,
-                friendlyName,
-                secure,
-                sid,
-                sipRegistration,
-                subresourceUris,
-                uri,
-                voiceFallbackMethod,
-                voiceFallbackUrl,
-                voiceMethod,
-                voiceStatusCallbackMethod,
-                voiceStatusCallbackUrl,
-                voiceUrl
+            accountSid,
+            apiVersion,
+            authType,
+            byocTrunkSid,
+            dateCreated,
+            dateUpdated,
+            domainName,
+            emergencyCallerSid,
+            emergencyCallingEnabled,
+            friendlyName,
+            secure,
+            sid,
+            sipRegistration,
+            subresourceUris,
+            uri,
+            voiceFallbackMethod,
+            voiceFallbackUrl,
+            voiceMethod,
+            voiceStatusCallbackMethod,
+            voiceStatusCallbackUrl,
+            voiceUrl
         );
     }
-
-
 }
-

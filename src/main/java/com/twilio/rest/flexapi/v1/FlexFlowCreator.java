@@ -14,7 +14,6 @@
 
 package com.twilio.rest.flexapi.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class FlexFlowCreator extends Creator<FlexFlow> {
@@ -51,54 +50,56 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     private Boolean janitorEnabled;
     private Integer integrationRetryCount;
 
-    public FlexFlowCreator(final String friendlyName, final String chatServiceSid, final FlexFlow.ChannelType channelType) {
+    public FlexFlowCreator(
+        final String friendlyName,
+        final String chatServiceSid,
+        final FlexFlow.ChannelType channelType
+    ) {
         this.friendlyName = friendlyName;
         this.chatServiceSid = chatServiceSid;
         this.channelType = channelType;
     }
-
 
     public FlexFlowCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     public FlexFlowCreator setChatServiceSid(final String chatServiceSid) {
         this.chatServiceSid = chatServiceSid;
         return this;
     }
 
-
-    public FlexFlowCreator setChannelType(final FlexFlow.ChannelType channelType) {
+    public FlexFlowCreator setChannelType(
+        final FlexFlow.ChannelType channelType
+    ) {
         this.channelType = channelType;
         return this;
     }
-
 
     public FlexFlowCreator setContactIdentity(final String contactIdentity) {
         this.contactIdentity = contactIdentity;
         return this;
     }
 
-
     public FlexFlowCreator setEnabled(final Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationType(final FlexFlow.IntegrationType integrationType) {
+    public FlexFlowCreator setIntegrationType(
+        final FlexFlow.IntegrationType integrationType
+    ) {
         this.integrationType = integrationType;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationFlowSid(final String integrationFlowSid) {
+    public FlexFlowCreator setIntegrationFlowSid(
+        final String integrationFlowSid
+    ) {
         this.integrationFlowSid = integrationFlowSid;
         return this;
     }
-
 
     public FlexFlowCreator setIntegrationUrl(final URI integrationUrl) {
         this.integrationUrl = integrationUrl;
@@ -109,70 +110,73 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
         return setIntegrationUrl(Promoter.uriFromString(integrationUrl));
     }
 
-    public FlexFlowCreator setIntegrationWorkspaceSid(final String integrationWorkspaceSid) {
+    public FlexFlowCreator setIntegrationWorkspaceSid(
+        final String integrationWorkspaceSid
+    ) {
         this.integrationWorkspaceSid = integrationWorkspaceSid;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationWorkflowSid(final String integrationWorkflowSid) {
+    public FlexFlowCreator setIntegrationWorkflowSid(
+        final String integrationWorkflowSid
+    ) {
         this.integrationWorkflowSid = integrationWorkflowSid;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationChannel(final String integrationChannel) {
+    public FlexFlowCreator setIntegrationChannel(
+        final String integrationChannel
+    ) {
         this.integrationChannel = integrationChannel;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationTimeout(final Integer integrationTimeout) {
+    public FlexFlowCreator setIntegrationTimeout(
+        final Integer integrationTimeout
+    ) {
         this.integrationTimeout = integrationTimeout;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationPriority(final Integer integrationPriority) {
+    public FlexFlowCreator setIntegrationPriority(
+        final Integer integrationPriority
+    ) {
         this.integrationPriority = integrationPriority;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationCreationOnMessage(final Boolean integrationCreationOnMessage) {
+    public FlexFlowCreator setIntegrationCreationOnMessage(
+        final Boolean integrationCreationOnMessage
+    ) {
         this.integrationCreationOnMessage = integrationCreationOnMessage;
         return this;
     }
-
 
     public FlexFlowCreator setLongLived(final Boolean longLived) {
         this.longLived = longLived;
         return this;
     }
 
-
     public FlexFlowCreator setJanitorEnabled(final Boolean janitorEnabled) {
         this.janitorEnabled = janitorEnabled;
         return this;
     }
 
-
-    public FlexFlowCreator setIntegrationRetryCount(final Integer integrationRetryCount) {
+    public FlexFlowCreator setIntegrationRetryCount(
+        final Integer integrationRetryCount
+    ) {
         this.integrationRetryCount = integrationRetryCount;
         return this;
     }
 
-
     @Override
     public FlexFlow create(final TwilioRestClient client) {
-
         String path = "/v1/FlexFlows";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -180,107 +184,181 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("FlexFlow creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FlexFlow creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return FlexFlow.fromJson(response.getStream(), client.getObjectMapper());
+        return FlexFlow.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (chatServiceSid != null) {
-            Serializer.toString(request, "ChatServiceSid", chatServiceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChatServiceSid",
+                chatServiceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (channelType != null) {
-            Serializer.toString(request, "ChannelType", channelType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChannelType",
+                channelType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contactIdentity != null) {
-            Serializer.toString(request, "ContactIdentity", contactIdentity, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContactIdentity",
+                contactIdentity,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (enabled != null) {
-            Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationType != null) {
-            Serializer.toString(request, "IntegrationType", integrationType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IntegrationType",
+                integrationType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationFlowSid != null) {
-            Serializer.toString(request, "Integration.FlowSid", integrationFlowSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.FlowSid",
+                integrationFlowSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationUrl != null) {
-            Serializer.toString(request, "Integration.Url", integrationUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.Url",
+                integrationUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationWorkspaceSid != null) {
-            Serializer.toString(request, "Integration.WorkspaceSid", integrationWorkspaceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.WorkspaceSid",
+                integrationWorkspaceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationWorkflowSid != null) {
-            Serializer.toString(request, "Integration.WorkflowSid", integrationWorkflowSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.WorkflowSid",
+                integrationWorkflowSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationChannel != null) {
-            Serializer.toString(request, "Integration.Channel", integrationChannel, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.Channel",
+                integrationChannel,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationTimeout != null) {
-            Serializer.toString(request, "Integration.Timeout", integrationTimeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.Timeout",
+                integrationTimeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationPriority != null) {
-            Serializer.toString(request, "Integration.Priority", integrationPriority, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.Priority",
+                integrationPriority,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationCreationOnMessage != null) {
-            Serializer.toString(request, "Integration.CreationOnMessage", integrationCreationOnMessage, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.CreationOnMessage",
+                integrationCreationOnMessage,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (longLived != null) {
-            Serializer.toString(request, "LongLived", longLived, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "LongLived",
+                longLived,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (janitorEnabled != null) {
-            Serializer.toString(request, "JanitorEnabled", janitorEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "JanitorEnabled",
+                janitorEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (integrationRetryCount != null) {
-            Serializer.toString(request, "Integration.RetryCount", integrationRetryCount, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Integration.RetryCount",
+                integrationRetryCount,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

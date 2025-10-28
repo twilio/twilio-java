@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SyncListItemUpdater extends Updater<SyncListItem> {
+
     private String pathServiceSid;
     private String pathListSid;
     private Integer pathIndex;
@@ -37,57 +39,57 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     private Integer itemTtl;
     private Integer collectionTtl;
 
-    public SyncListItemUpdater(final String pathServiceSid, final String pathListSid, final Integer pathIndex) {
+    public SyncListItemUpdater(
+        final String pathServiceSid,
+        final String pathListSid,
+        final Integer pathIndex
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.pathIndex = pathIndex;
     }
-
 
     public SyncListItemUpdater setData(final Object data) {
         this.data = data;
         return this;
     }
 
-
     public SyncListItemUpdater setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
-
 
     public SyncListItemUpdater setItemTtl(final Integer itemTtl) {
         this.itemTtl = itemTtl;
         return this;
     }
 
-
     public SyncListItemUpdater setCollectionTtl(final Integer collectionTtl) {
         this.collectionTtl = collectionTtl;
         return this;
     }
-
 
     public SyncListItemUpdater setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
-
     @Override
     public SyncListItem update(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
         path = path.replace("{" + "Index" + "}", this.pathIndex.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SYNC.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SYNC.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
@@ -96,50 +98,70 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SyncListItem update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncListItem update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
+        return SyncListItem.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (data != null) {
-            Serializer.toString(request, "Data", data, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Data",
+                data,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (ttl != null) {
             Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
 
-
         if (itemTtl != null) {
-            Serializer.toString(request, "ItemTtl", itemTtl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ItemTtl",
+                itemTtl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (collectionTtl != null) {
-            Serializer.toString(request, "CollectionTtl", collectionTtl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CollectionTtl",
+                collectionTtl,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 
     private void addHeaderParams(final Request request) {
-
         if (ifMatch != null) {
-            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

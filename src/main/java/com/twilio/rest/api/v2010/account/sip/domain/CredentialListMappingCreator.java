@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.sip.domain;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,45 +26,64 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class CredentialListMappingCreator extends Creator<CredentialListMapping> {
+public class CredentialListMappingCreator
+    extends Creator<CredentialListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
     private String credentialListSid;
 
-    public CredentialListMappingCreator(final String pathDomainSid, final String credentialListSid) {
+    public CredentialListMappingCreator(
+        final String pathDomainSid,
+        final String credentialListSid
+    ) {
         this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
-    public CredentialListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+    public CredentialListMappingCreator(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String credentialListSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
-
-    public CredentialListMappingCreator setCredentialListSid(final String credentialListSid) {
+    public CredentialListMappingCreator setCredentialListSid(
+        final String credentialListSid
+    ) {
         this.credentialListSid = credentialListSid;
         return this;
     }
 
-
     @Override
     public CredentialListMapping create(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
-
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -73,27 +91,37 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CredentialListMapping creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CredentialListMapping creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return CredentialListMapping.fromJson(response.getStream(), client.getObjectMapper());
+        return CredentialListMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (credentialListSid != null) {
-            Serializer.toString(request, "CredentialListSid", credentialListSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CredentialListSid",
+                credentialListSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

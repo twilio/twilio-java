@@ -18,40 +18,42 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSegments extends Resource {
 
-
     public static InsightsSegmentsReader reader() {
-        return new InsightsSegmentsReader(
-
-        );
+        return new InsightsSegmentsReader();
     }
-
 
     /**
      * Converts a JSON String into a InsightsSegments object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsSegments object represented by the provided JSON
      */
-    public static InsightsSegments fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsSegments fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSegments.class);
@@ -66,11 +68,14 @@ public class InsightsSegments extends Resource {
      * Converts a JSON InputStream into a InsightsSegments object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InsightsSegments object represented by the provided JSON
      */
-    public static InsightsSegments fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsSegments fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSegments.class);
@@ -93,76 +98,104 @@ public class InsightsSegments extends Resource {
         }
     }
 
-
     @Getter
     private final String accountId;
+
     @Getter
     private final String agentId;
+
     @Getter
     private final String agentLink;
+
     @Getter
     private final String agentName;
+
     @Getter
     private final String agentPhone;
+
     @Getter
     private final String agentTeamName;
+
     @Getter
     private final String agentTeamNameInHierarchy;
+
     @Getter
     private final Object assessmentPercentage;
+
     @Getter
     private final Object assessmentType;
+
     @Getter
     private final String customerLink;
+
     @Getter
     private final String customerName;
+
     @Getter
     private final String customerPhone;
+
     @Getter
     private final String date;
+
     @Getter
     private final String externalContact;
+
     @Getter
     private final String externalId;
+
     @Getter
     private final String externalSegmentLink;
+
     @Getter
     private final String externalSegmentLinkId;
+
     @Getter
     private final Object media;
+
     @Getter
     private final String queue;
+
     @Getter
     private final String segmentId;
+
     @Getter
     private final String segmentRecordingOffset;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private InsightsSegments(
-            @JsonProperty("account_id") final String accountId,
-            @JsonProperty("agent_id") final String agentId,
-            @JsonProperty("agent_link") final String agentLink,
-            @JsonProperty("agent_name") final String agentName,
-            @JsonProperty("agent_phone") final String agentPhone,
-            @JsonProperty("agent_team_name") final String agentTeamName,
-            @JsonProperty("agent_team_name_in_hierarchy") final String agentTeamNameInHierarchy,
-            @JsonProperty("assessment_percentage") final Object assessmentPercentage,
-            @JsonProperty("assessment_type") final Object assessmentType,
-            @JsonProperty("customer_link") final String customerLink,
-            @JsonProperty("customer_name") final String customerName,
-            @JsonProperty("customer_phone") final String customerPhone,
-            @JsonProperty("date") final String date,
-            @JsonProperty("external_contact") final String externalContact,
-            @JsonProperty("external_id") final String externalId,
-            @JsonProperty("external_segment_link") final String externalSegmentLink,
-            @JsonProperty("external_segment_link_id") final String externalSegmentLinkId,
-            @JsonProperty("media") final Object media,
-            @JsonProperty("queue") final String queue,
-            @JsonProperty("segment_id") final String segmentId,
-            @JsonProperty("segment_recording_offset") final String segmentRecordingOffset,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_id") final String accountId,
+        @JsonProperty("agent_id") final String agentId,
+        @JsonProperty("agent_link") final String agentLink,
+        @JsonProperty("agent_name") final String agentName,
+        @JsonProperty("agent_phone") final String agentPhone,
+        @JsonProperty("agent_team_name") final String agentTeamName,
+        @JsonProperty(
+            "agent_team_name_in_hierarchy"
+        ) final String agentTeamNameInHierarchy,
+        @JsonProperty(
+            "assessment_percentage"
+        ) final Object assessmentPercentage,
+        @JsonProperty("assessment_type") final Object assessmentType,
+        @JsonProperty("customer_link") final String customerLink,
+        @JsonProperty("customer_name") final String customerName,
+        @JsonProperty("customer_phone") final String customerPhone,
+        @JsonProperty("date") final String date,
+        @JsonProperty("external_contact") final String externalContact,
+        @JsonProperty("external_id") final String externalId,
+        @JsonProperty("external_segment_link") final String externalSegmentLink,
+        @JsonProperty(
+            "external_segment_link_id"
+        ) final String externalSegmentLinkId,
+        @JsonProperty("media") final Object media,
+        @JsonProperty("queue") final String queue,
+        @JsonProperty("segment_id") final String segmentId,
+        @JsonProperty(
+            "segment_recording_offset"
+        ) final String segmentRecordingOffset,
+        @JsonProperty("url") final URI url
     ) {
         this.accountId = accountId;
         this.agentId = agentId;
@@ -200,59 +233,65 @@ public class InsightsSegments extends Resource {
 
         InsightsSegments other = (InsightsSegments) o;
         return (
-                Objects.equals(accountId, other.accountId) &&
-                        Objects.equals(agentId, other.agentId) &&
-                        Objects.equals(agentLink, other.agentLink) &&
-                        Objects.equals(agentName, other.agentName) &&
-                        Objects.equals(agentPhone, other.agentPhone) &&
-                        Objects.equals(agentTeamName, other.agentTeamName) &&
-                        Objects.equals(agentTeamNameInHierarchy, other.agentTeamNameInHierarchy) &&
-                        Objects.equals(assessmentPercentage, other.assessmentPercentage) &&
-                        Objects.equals(assessmentType, other.assessmentType) &&
-                        Objects.equals(customerLink, other.customerLink) &&
-                        Objects.equals(customerName, other.customerName) &&
-                        Objects.equals(customerPhone, other.customerPhone) &&
-                        Objects.equals(date, other.date) &&
-                        Objects.equals(externalContact, other.externalContact) &&
-                        Objects.equals(externalId, other.externalId) &&
-                        Objects.equals(externalSegmentLink, other.externalSegmentLink) &&
-                        Objects.equals(externalSegmentLinkId, other.externalSegmentLinkId) &&
-                        Objects.equals(media, other.media) &&
-                        Objects.equals(queue, other.queue) &&
-                        Objects.equals(segmentId, other.segmentId) &&
-                        Objects.equals(segmentRecordingOffset, other.segmentRecordingOffset) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountId, other.accountId) &&
+            Objects.equals(agentId, other.agentId) &&
+            Objects.equals(agentLink, other.agentLink) &&
+            Objects.equals(agentName, other.agentName) &&
+            Objects.equals(agentPhone, other.agentPhone) &&
+            Objects.equals(agentTeamName, other.agentTeamName) &&
+            Objects.equals(
+                agentTeamNameInHierarchy,
+                other.agentTeamNameInHierarchy
+            ) &&
+            Objects.equals(assessmentPercentage, other.assessmentPercentage) &&
+            Objects.equals(assessmentType, other.assessmentType) &&
+            Objects.equals(customerLink, other.customerLink) &&
+            Objects.equals(customerName, other.customerName) &&
+            Objects.equals(customerPhone, other.customerPhone) &&
+            Objects.equals(date, other.date) &&
+            Objects.equals(externalContact, other.externalContact) &&
+            Objects.equals(externalId, other.externalId) &&
+            Objects.equals(externalSegmentLink, other.externalSegmentLink) &&
+            Objects.equals(
+                externalSegmentLinkId,
+                other.externalSegmentLinkId
+            ) &&
+            Objects.equals(media, other.media) &&
+            Objects.equals(queue, other.queue) &&
+            Objects.equals(segmentId, other.segmentId) &&
+            Objects.equals(
+                segmentRecordingOffset,
+                other.segmentRecordingOffset
+            ) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountId,
-                agentId,
-                agentLink,
-                agentName,
-                agentPhone,
-                agentTeamName,
-                agentTeamNameInHierarchy,
-                assessmentPercentage,
-                assessmentType,
-                customerLink,
-                customerName,
-                customerPhone,
-                date,
-                externalContact,
-                externalId,
-                externalSegmentLink,
-                externalSegmentLinkId,
-                media,
-                queue,
-                segmentId,
-                segmentRecordingOffset,
-                url
+            accountId,
+            agentId,
+            agentLink,
+            agentName,
+            agentPhone,
+            agentTeamName,
+            agentTeamNameInHierarchy,
+            assessmentPercentage,
+            assessmentType,
+            customerLink,
+            customerName,
+            customerPhone,
+            date,
+            externalContact,
+            externalId,
+            externalSegmentLink,
+            externalSegmentLinkId,
+            media,
+            queue,
+            segmentId,
+            segmentRecordingOffset,
+            url
         );
     }
-
-
 }
-

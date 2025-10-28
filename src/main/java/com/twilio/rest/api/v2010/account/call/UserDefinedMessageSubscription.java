@@ -18,66 +18,84 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserDefinedMessageSubscription extends Resource {
 
+    public static UserDefinedMessageSubscriptionCreator creator(
+        final String pathCallSid,
+        final URI callback
+    ) {
+        return new UserDefinedMessageSubscriptionCreator(pathCallSid, callback);
+    }
 
-    public static UserDefinedMessageSubscriptionCreator creator(final String pathCallSid, final URI callback) {
+    public static UserDefinedMessageSubscriptionCreator creator(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final URI callback
+    ) {
         return new UserDefinedMessageSubscriptionCreator(
-                pathCallSid, callback
+            pathAccountSid,
+            pathCallSid,
+            callback
         );
     }
 
-
-    public static UserDefinedMessageSubscriptionCreator creator(final String pathAccountSid, final String pathCallSid, final URI callback) {
-        return new UserDefinedMessageSubscriptionCreator(
-                pathAccountSid, pathCallSid, callback
-        );
+    public static UserDefinedMessageSubscriptionDeleter deleter(
+        final String pathCallSid,
+        final String pathSid
+    ) {
+        return new UserDefinedMessageSubscriptionDeleter(pathCallSid, pathSid);
     }
 
-
-    public static UserDefinedMessageSubscriptionDeleter deleter(final String pathCallSid, final String pathSid) {
+    public static UserDefinedMessageSubscriptionDeleter deleter(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid
+    ) {
         return new UserDefinedMessageSubscriptionDeleter(
-                pathCallSid, pathSid
+            pathAccountSid,
+            pathCallSid,
+            pathSid
         );
     }
-
-
-    public static UserDefinedMessageSubscriptionDeleter deleter(final String pathAccountSid, final String pathCallSid, final String pathSid) {
-        return new UserDefinedMessageSubscriptionDeleter(
-                pathAccountSid, pathCallSid, pathSid
-        );
-    }
-
 
     /**
      * Converts a JSON String into a UserDefinedMessageSubscription object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UserDefinedMessageSubscription object represented by the provided JSON
      */
-    public static UserDefinedMessageSubscription fromJson(final String json, final ObjectMapper objectMapper) {
+    public static UserDefinedMessageSubscription fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, UserDefinedMessageSubscription.class);
+            return objectMapper.readValue(
+                json,
+                UserDefinedMessageSubscription.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -89,14 +107,20 @@ public class UserDefinedMessageSubscription extends Resource {
      * Converts a JSON InputStream into a UserDefinedMessageSubscription object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UserDefinedMessageSubscription object represented by the provided JSON
      */
-    public static UserDefinedMessageSubscription fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static UserDefinedMessageSubscription fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, UserDefinedMessageSubscription.class);
+            return objectMapper.readValue(
+                json,
+                UserDefinedMessageSubscription.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -116,26 +140,30 @@ public class UserDefinedMessageSubscription extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String callSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private UserDefinedMessageSubscription(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -154,27 +182,19 @@ public class UserDefinedMessageSubscription extends Resource {
             return false;
         }
 
-        UserDefinedMessageSubscription other = (UserDefinedMessageSubscription) o;
+        UserDefinedMessageSubscription other =
+            (UserDefinedMessageSubscription) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                accountSid,
-                callSid,
-                dateCreated,
-                sid,
-                uri
-        );
+        return Objects.hash(accountSid, callSid, dateCreated, sid, uri);
     }
-
-
 }
-

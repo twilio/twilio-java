@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TaskDeleter extends Deleter<Task> {
 
@@ -37,40 +38,45 @@ public class TaskDeleter extends Deleter<Task> {
         this.pathSid = pathSid;
     }
 
-
     public TaskDeleter setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.TASKROUTER.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Task delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Task delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -78,10 +84,13 @@ public class TaskDeleter extends Deleter<Task> {
     }
 
     private void addHeaderParams(final Request request) {
-
         if (ifMatch != null) {
-            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

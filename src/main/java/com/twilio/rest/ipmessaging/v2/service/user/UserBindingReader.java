@@ -28,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class UserBindingReader extends Reader<UserBinding> {
@@ -38,18 +38,24 @@ public class UserBindingReader extends Reader<UserBinding> {
     private List<UserBinding.BindingType> bindingType;
     private Long pageSize;
 
-    public UserBindingReader(final String pathServiceSid, final String pathUserSid) {
+    public UserBindingReader(
+        final String pathServiceSid,
+        final String pathUserSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
     }
 
-
-    public UserBindingReader setBindingType(final List<UserBinding.BindingType> bindingType) {
+    public UserBindingReader setBindingType(
+        final List<UserBinding.BindingType> bindingType
+    ) {
         this.bindingType = bindingType;
         return this;
     }
 
-    public UserBindingReader setBindingType(final UserBinding.BindingType bindingType) {
+    public UserBindingReader setBindingType(
+        final UserBinding.BindingType bindingType
+    ) {
         return setBindingType(Promoter.listOfOne(bindingType));
     }
 
@@ -58,83 +64,115 @@ public class UserBindingReader extends Reader<UserBinding> {
         return this;
     }
 
-
     @Override
     public ResourceSet<UserBinding> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<UserBinding> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.IPMESSAGING.toString(),
-                path
+            HttpMethod.GET,
+            Domains.IPMESSAGING.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<UserBinding> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<UserBinding> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("UserBinding read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserBinding read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "bindings",
-                response.getContent(),
-                UserBinding.class,
-                client.getObjectMapper());
+            "bindings",
+            response.getContent(),
+            UserBinding.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<UserBinding> previousPage(final Page<UserBinding> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<UserBinding> previousPage(
+        final Page<UserBinding> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<UserBinding> nextPage(final Page<UserBinding> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<UserBinding> nextPage(
+        final Page<UserBinding> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<UserBinding> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<UserBinding> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (bindingType != null) {
             for (UserBinding.BindingType param : bindingType) {
-                Serializer.toString(request, "BindingType", param, ParameterType.QUERY);
+                Serializer.toString(
+                    request,
+                    "BindingType",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

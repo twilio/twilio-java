@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SyncListItemReader extends Reader<SyncListItem> {
 
@@ -37,35 +38,37 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     private SyncListItem.QueryFromBoundType bounds;
     private Long pageSize;
 
-    public SyncListItemReader(final String pathServiceSid, final String pathListSid) {
+    public SyncListItemReader(
+        final String pathServiceSid,
+        final String pathListSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
     }
 
-
-    public SyncListItemReader setOrder(final SyncListItem.QueryResultOrder order) {
+    public SyncListItemReader setOrder(
+        final SyncListItem.QueryResultOrder order
+    ) {
         this.order = order;
         return this;
     }
-
 
     public SyncListItemReader setFrom(final String from) {
         this.from = from;
         return this;
     }
 
-
-    public SyncListItemReader setBounds(final SyncListItem.QueryFromBoundType bounds) {
+    public SyncListItemReader setBounds(
+        final SyncListItem.QueryFromBoundType bounds
+    ) {
         this.bounds = bounds;
         return this;
     }
-
 
     public SyncListItemReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<SyncListItem> read(final TwilioRestClient client) {
@@ -73,84 +76,110 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     public Page<SyncListItem> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.SYNC.toString(),
-                path
+            HttpMethod.GET,
+            Domains.SYNC.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<SyncListItem> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<SyncListItem> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SyncListItem read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncListItem read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "items",
-                response.getContent(),
-                SyncListItem.class,
-                client.getObjectMapper());
+            "items",
+            response.getContent(),
+            SyncListItem.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<SyncListItem> previousPage(final Page<SyncListItem> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<SyncListItem> previousPage(
+        final Page<SyncListItem> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<SyncListItem> nextPage(final Page<SyncListItem> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<SyncListItem> nextPage(
+        final Page<SyncListItem> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<SyncListItem> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<SyncListItem> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (order != null) {
             Serializer.toString(request, "Order", order, ParameterType.QUERY);
         }
-
 
         if (from != null) {
             Serializer.toString(request, "From", from, ParameterType.QUERY);
         }
 
-
         if (bounds != null) {
             Serializer.toString(request, "Bounds", bounds, ParameterType.QUERY);
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

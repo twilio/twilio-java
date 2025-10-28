@@ -14,7 +14,6 @@
 
 package com.twilio.rest.events.v1.sink;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SinkValidateCreator extends Creator<SinkValidate> {
 
@@ -38,25 +38,21 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
         this.testId = testId;
     }
 
-
     public SinkValidateCreator setTestId(final String testId) {
         this.testId = testId;
         return this;
     }
 
-
     @Override
     public SinkValidate create(final TwilioRestClient client) {
-
         String path = "/v1/Sinks/{Sid}/Validate";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.EVENTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.EVENTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -64,27 +60,37 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SinkValidate creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SinkValidate creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SinkValidate.fromJson(response.getStream(), client.getObjectMapper());
+        return SinkValidate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (testId != null) {
-            Serializer.toString(request, "TestId", testId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TestId",
+                testId,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

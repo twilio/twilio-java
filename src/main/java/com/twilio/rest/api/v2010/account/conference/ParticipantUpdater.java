@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ParticipantUpdater extends Updater<Participant> {
+
     private String pathAccountSid;
     private String pathConferenceSid;
     private String pathCallSid;
@@ -47,29 +48,33 @@ public class ParticipantUpdater extends Updater<Participant> {
     private Boolean coaching;
     private String callSidToCoach;
 
-    public ParticipantUpdater(final String pathConferenceSid, final String pathCallSid) {
+    public ParticipantUpdater(
+        final String pathConferenceSid,
+        final String pathCallSid
+    ) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathCallSid = pathCallSid;
     }
 
-    public ParticipantUpdater(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid) {
+    public ParticipantUpdater(
+        final String pathAccountSid,
+        final String pathConferenceSid,
+        final String pathCallSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
         this.pathCallSid = pathCallSid;
     }
-
 
     public ParticipantUpdater setMuted(final Boolean muted) {
         this.muted = muted;
         return this;
     }
 
-
     public ParticipantUpdater setHold(final Boolean hold) {
         this.hold = hold;
         return this;
     }
-
 
     public ParticipantUpdater setHoldUrl(final URI holdUrl) {
         this.holdUrl = holdUrl;
@@ -85,7 +90,6 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
-
     public ParticipantUpdater setAnnounceUrl(final URI announceUrl) {
         this.announceUrl = announceUrl;
         return this;
@@ -95,11 +99,12 @@ public class ParticipantUpdater extends Updater<Participant> {
         return setAnnounceUrl(Promoter.uriFromString(announceUrl));
     }
 
-    public ParticipantUpdater setAnnounceMethod(final HttpMethod announceMethod) {
+    public ParticipantUpdater setAnnounceMethod(
+        final HttpMethod announceMethod
+    ) {
         this.announceMethod = announceMethod;
         return this;
     }
-
 
     public ParticipantUpdater setWaitUrl(final URI waitUrl) {
         this.waitUrl = waitUrl;
@@ -115,46 +120,53 @@ public class ParticipantUpdater extends Updater<Participant> {
         return this;
     }
 
-
     public ParticipantUpdater setBeepOnExit(final Boolean beepOnExit) {
         this.beepOnExit = beepOnExit;
         return this;
     }
 
-
-    public ParticipantUpdater setEndConferenceOnExit(final Boolean endConferenceOnExit) {
+    public ParticipantUpdater setEndConferenceOnExit(
+        final Boolean endConferenceOnExit
+    ) {
         this.endConferenceOnExit = endConferenceOnExit;
         return this;
     }
-
 
     public ParticipantUpdater setCoaching(final Boolean coaching) {
         this.coaching = coaching;
         return this;
     }
 
-
     public ParticipantUpdater setCallSidToCoach(final String callSidToCoach) {
         this.callSidToCoach = callSidToCoach;
         return this;
     }
 
-
     @Override
     public Participant update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "ConferenceSid" + "}", this.pathConferenceSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConferenceSid" + "}",
+                this.pathConferenceSid.toString()
+            );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -162,82 +174,136 @@ public class ParticipantUpdater extends Updater<Participant> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Participant update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Participant update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Participant.fromJson(response.getStream(), client.getObjectMapper());
+        return Participant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (muted != null) {
-            Serializer.toString(request, "Muted", muted, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Muted",
+                muted,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (hold != null) {
-            Serializer.toString(request, "Hold", hold, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Hold",
+                hold,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (holdUrl != null) {
-            Serializer.toString(request, "HoldUrl", holdUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HoldUrl",
+                holdUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (holdMethod != null) {
-            Serializer.toString(request, "HoldMethod", holdMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "HoldMethod",
+                holdMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (announceUrl != null) {
-            Serializer.toString(request, "AnnounceUrl", announceUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnnounceUrl",
+                announceUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (announceMethod != null) {
-            Serializer.toString(request, "AnnounceMethod", announceMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AnnounceMethod",
+                announceMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (waitUrl != null) {
-            Serializer.toString(request, "WaitUrl", waitUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WaitUrl",
+                waitUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (waitMethod != null) {
-            Serializer.toString(request, "WaitMethod", waitMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WaitMethod",
+                waitMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (beepOnExit != null) {
-            Serializer.toString(request, "BeepOnExit", beepOnExit, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "BeepOnExit",
+                beepOnExit,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (endConferenceOnExit != null) {
-            Serializer.toString(request, "EndConferenceOnExit", endConferenceOnExit, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "EndConferenceOnExit",
+                endConferenceOnExit,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (coaching != null) {
-            Serializer.toString(request, "Coaching", coaching, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Coaching",
+                coaching,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callSidToCoach != null) {
-            Serializer.toString(request, "CallSidToCoach", callSidToCoach, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallSidToCoach",
+                callSidToCoach,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

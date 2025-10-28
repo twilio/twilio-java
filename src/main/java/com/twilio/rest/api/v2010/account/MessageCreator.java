@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.ZonedDateTime;
@@ -62,58 +61,93 @@ public class MessageCreator extends Creator<Message> {
     private List<URI> mediaUrl;
     private String contentSid;
 
-    public MessageCreator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
+    public MessageCreator(
+        final com.twilio.type.PhoneNumber to,
+        final com.twilio.type.PhoneNumber from,
+        final String body
+    ) {
         this.to = to;
         this.from = from;
         this.body = body;
     }
 
-    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
+    public MessageCreator(
+        final String pathAccountSid,
+        final com.twilio.type.PhoneNumber to,
+        final com.twilio.type.PhoneNumber from,
+        final String body
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.body = body;
     }
 
-    public MessageCreator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+    public MessageCreator(
+        final com.twilio.type.PhoneNumber to,
+        final com.twilio.type.PhoneNumber from,
+        final List<URI> mediaUrl
+    ) {
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+    public MessageCreator(
+        final String pathAccountSid,
+        final com.twilio.type.PhoneNumber to,
+        final com.twilio.type.PhoneNumber from,
+        final List<URI> mediaUrl
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+    public MessageCreator(
+        final com.twilio.type.PhoneNumber to,
+        final String messagingServiceSid,
+        final String body
+    ) {
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
     }
 
-    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+    public MessageCreator(
+        final String pathAccountSid,
+        final com.twilio.type.PhoneNumber to,
+        final String messagingServiceSid,
+        final String body
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
     }
 
-    public MessageCreator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+    public MessageCreator(
+        final com.twilio.type.PhoneNumber to,
+        final String messagingServiceSid,
+        final List<URI> mediaUrl
+    ) {
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+    public MessageCreator(
+        final String pathAccountSid,
+        final com.twilio.type.PhoneNumber to,
+        final String messagingServiceSid,
+        final List<URI> mediaUrl
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
     }
-
 
     public MessageCreator setTo(final com.twilio.type.PhoneNumber to) {
         this.to = to;
@@ -138,56 +172,53 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
-
     public MessageCreator setMaxPrice(final BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
         return this;
     }
-
 
     public MessageCreator setProvideFeedback(final Boolean provideFeedback) {
         this.provideFeedback = provideFeedback;
         return this;
     }
 
-
     public MessageCreator setAttempt(final Integer attempt) {
         this.attempt = attempt;
         return this;
     }
-
 
     public MessageCreator setValidityPeriod(final Integer validityPeriod) {
         this.validityPeriod = validityPeriod;
         return this;
     }
 
-
     public MessageCreator setForceDelivery(final Boolean forceDelivery) {
         this.forceDelivery = forceDelivery;
         return this;
     }
 
-
-    public MessageCreator setContentRetention(final Message.ContentRetention contentRetention) {
+    public MessageCreator setContentRetention(
+        final Message.ContentRetention contentRetention
+    ) {
         this.contentRetention = contentRetention;
         return this;
     }
 
-
-    public MessageCreator setAddressRetention(final Message.AddressRetention addressRetention) {
+    public MessageCreator setAddressRetention(
+        final Message.AddressRetention addressRetention
+    ) {
         this.addressRetention = addressRetention;
         return this;
     }
-
 
     public MessageCreator setSmartEncoded(final Boolean smartEncoded) {
         this.smartEncoded = smartEncoded;
         return this;
     }
 
-
-    public MessageCreator setPersistentAction(final List<String> persistentAction) {
+    public MessageCreator setPersistentAction(
+        final List<String> persistentAction
+    ) {
         this.persistentAction = persistentAction;
         return this;
     }
@@ -196,47 +227,44 @@ public class MessageCreator extends Creator<Message> {
         return setPersistentAction(Promoter.listOfOne(persistentAction));
     }
 
-    public MessageCreator setTrafficType(final Message.TrafficType trafficType) {
+    public MessageCreator setTrafficType(
+        final Message.TrafficType trafficType
+    ) {
         this.trafficType = trafficType;
         return this;
     }
-
 
     public MessageCreator setShortenUrls(final Boolean shortenUrls) {
         this.shortenUrls = shortenUrls;
         return this;
     }
 
-
-    public MessageCreator setScheduleType(final Message.ScheduleType scheduleType) {
+    public MessageCreator setScheduleType(
+        final Message.ScheduleType scheduleType
+    ) {
         this.scheduleType = scheduleType;
         return this;
     }
-
 
     public MessageCreator setSendAt(final ZonedDateTime sendAt) {
         this.sendAt = sendAt;
         return this;
     }
 
-
     public MessageCreator setSendAsMms(final Boolean sendAsMms) {
         this.sendAsMms = sendAsMms;
         return this;
     }
-
 
     public MessageCreator setContentVariables(final String contentVariables) {
         this.contentVariables = contentVariables;
         return this;
     }
 
-
     public MessageCreator setRiskCheck(final Message.RiskCheck riskCheck) {
         this.riskCheck = riskCheck;
         return this;
     }
-
 
     public MessageCreator setFrom(final com.twilio.type.PhoneNumber from) {
         this.from = from;
@@ -247,17 +275,17 @@ public class MessageCreator extends Creator<Message> {
         return setFrom(Promoter.phoneNumberFromString(from));
     }
 
-    public MessageCreator setMessagingServiceSid(final String messagingServiceSid) {
+    public MessageCreator setMessagingServiceSid(
+        final String messagingServiceSid
+    ) {
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
-
 
     public MessageCreator setBody(final String body) {
         this.body = body;
         return this;
     }
-
 
     public MessageCreator setMediaUrl(final List<URI> mediaUrl) {
         this.mediaUrl = mediaUrl;
@@ -277,20 +305,24 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
-
     @Override
     public Message create(final TwilioRestClient client) {
-
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -298,14 +330,19 @@ public class MessageCreator extends Creator<Message> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -314,130 +351,219 @@ public class MessageCreator extends Creator<Message> {
     }
 
     private void addPostParams(final Request request) {
-
         if (to != null) {
             Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
 
-
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (applicationSid != null) {
-            Serializer.toString(request, "ApplicationSid", applicationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ApplicationSid",
+                applicationSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (maxPrice != null) {
-            Serializer.toString(request, "MaxPrice", maxPrice, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MaxPrice",
+                maxPrice,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (provideFeedback != null) {
-            Serializer.toString(request, "ProvideFeedback", provideFeedback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ProvideFeedback",
+                provideFeedback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (attempt != null) {
-            Serializer.toString(request, "Attempt", attempt, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Attempt",
+                attempt,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (validityPeriod != null) {
-            Serializer.toString(request, "ValidityPeriod", validityPeriod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ValidityPeriod",
+                validityPeriod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (forceDelivery != null) {
-            Serializer.toString(request, "ForceDelivery", forceDelivery, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ForceDelivery",
+                forceDelivery,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contentRetention != null) {
-            Serializer.toString(request, "ContentRetention", contentRetention, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContentRetention",
+                contentRetention,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (addressRetention != null) {
-            Serializer.toString(request, "AddressRetention", addressRetention, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AddressRetention",
+                addressRetention,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (smartEncoded != null) {
-            Serializer.toString(request, "SmartEncoded", smartEncoded, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SmartEncoded",
+                smartEncoded,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (persistentAction != null) {
             for (String param : persistentAction) {
-                Serializer.toString(request, "PersistentAction", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "PersistentAction",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (trafficType != null) {
-            Serializer.toString(request, "TrafficType", trafficType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TrafficType",
+                trafficType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (shortenUrls != null) {
-            Serializer.toString(request, "ShortenUrls", shortenUrls, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ShortenUrls",
+                shortenUrls,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (scheduleType != null) {
-            Serializer.toString(request, "ScheduleType", scheduleType, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ScheduleType",
+                scheduleType,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sendAt != null) {
-            Serializer.toString(request, "SendAt", sendAt, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SendAt",
+                sendAt,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sendAsMms != null) {
-            Serializer.toString(request, "SendAsMms", sendAsMms, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SendAsMms",
+                sendAsMms,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (contentVariables != null) {
-            Serializer.toString(request, "ContentVariables", contentVariables, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContentVariables",
+                contentVariables,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (riskCheck != null) {
-            Serializer.toString(request, "RiskCheck", riskCheck, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RiskCheck",
+                riskCheck,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (from != null) {
-            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (messagingServiceSid != null) {
-            Serializer.toString(request, "MessagingServiceSid", messagingServiceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (body != null) {
-            Serializer.toString(request, "Body", body, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (mediaUrl != null) {
             for (URI param : mediaUrl) {
-                Serializer.toString(request, "MediaUrl", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "MediaUrl",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (contentSid != null) {
-            Serializer.toString(request, "ContentSid", contentSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ContentSid",
+                contentSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

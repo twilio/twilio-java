@@ -14,7 +14,6 @@
 
 package com.twilio.rest.proxy.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ServiceCreator extends Creator<Service> {
@@ -46,18 +45,15 @@ public class ServiceCreator extends Creator<Service> {
         this.uniqueName = uniqueName;
     }
 
-
     public ServiceCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-
     public ServiceCreator setDefaultTtl(final Integer defaultTtl) {
         this.defaultTtl = defaultTtl;
         return this;
     }
-
 
     public ServiceCreator setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
@@ -68,34 +64,48 @@ public class ServiceCreator extends Creator<Service> {
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
 
-    public ServiceCreator setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
+    public ServiceCreator setGeoMatchLevel(
+        final Service.GeoMatchLevel geoMatchLevel
+    ) {
         this.geoMatchLevel = geoMatchLevel;
         return this;
     }
 
-
-    public ServiceCreator setNumberSelectionBehavior(final Service.NumberSelectionBehavior numberSelectionBehavior) {
+    public ServiceCreator setNumberSelectionBehavior(
+        final Service.NumberSelectionBehavior numberSelectionBehavior
+    ) {
         this.numberSelectionBehavior = numberSelectionBehavior;
         return this;
     }
 
-
-    public ServiceCreator setInterceptCallbackUrl(final URI interceptCallbackUrl) {
+    public ServiceCreator setInterceptCallbackUrl(
+        final URI interceptCallbackUrl
+    ) {
         this.interceptCallbackUrl = interceptCallbackUrl;
         return this;
     }
 
-    public ServiceCreator setInterceptCallbackUrl(final String interceptCallbackUrl) {
-        return setInterceptCallbackUrl(Promoter.uriFromString(interceptCallbackUrl));
+    public ServiceCreator setInterceptCallbackUrl(
+        final String interceptCallbackUrl
+    ) {
+        return setInterceptCallbackUrl(
+            Promoter.uriFromString(interceptCallbackUrl)
+        );
     }
 
-    public ServiceCreator setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl) {
+    public ServiceCreator setOutOfSessionCallbackUrl(
+        final URI outOfSessionCallbackUrl
+    ) {
         this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
         return this;
     }
 
-    public ServiceCreator setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl) {
-        return setOutOfSessionCallbackUrl(Promoter.uriFromString(outOfSessionCallbackUrl));
+    public ServiceCreator setOutOfSessionCallbackUrl(
+        final String outOfSessionCallbackUrl
+    ) {
+        return setOutOfSessionCallbackUrl(
+            Promoter.uriFromString(outOfSessionCallbackUrl)
+        );
     }
 
     public ServiceCreator setChatInstanceSid(final String chatInstanceSid) {
@@ -103,17 +113,14 @@ public class ServiceCreator extends Creator<Service> {
         return this;
     }
 
-
     @Override
     public Service create(final TwilioRestClient client) {
-
         String path = "/v1/Services";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.PROXY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.PROXY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -121,14 +128,19 @@ public class ServiceCreator extends Creator<Service> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -137,46 +149,76 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     private void addPostParams(final Request request) {
-
         if (uniqueName != null) {
-            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultTtl != null) {
-            Serializer.toString(request, "DefaultTtl", defaultTtl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultTtl",
+                defaultTtl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callbackUrl != null) {
-            Serializer.toString(request, "CallbackUrl", callbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (geoMatchLevel != null) {
-            Serializer.toString(request, "GeoMatchLevel", geoMatchLevel, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "GeoMatchLevel",
+                geoMatchLevel,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (numberSelectionBehavior != null) {
-            Serializer.toString(request, "NumberSelectionBehavior", numberSelectionBehavior, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "NumberSelectionBehavior",
+                numberSelectionBehavior,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (interceptCallbackUrl != null) {
-            Serializer.toString(request, "InterceptCallbackUrl", interceptCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "InterceptCallbackUrl",
+                interceptCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (outOfSessionCallbackUrl != null) {
-            Serializer.toString(request, "OutOfSessionCallbackUrl", outOfSessionCallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "OutOfSessionCallbackUrl",
+                outOfSessionCallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (chatInstanceSid != null) {
-            Serializer.toString(request, "ChatInstanceSid", chatInstanceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChatInstanceSid",
+                chatInstanceSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

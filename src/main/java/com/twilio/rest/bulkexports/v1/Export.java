@@ -18,41 +18,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Export extends Resource {
 
-
     public static ExportFetcher fetcher(final String pathResourceType) {
-        return new ExportFetcher(
-                pathResourceType
-        );
+        return new ExportFetcher(pathResourceType);
     }
-
 
     /**
      * Converts a JSON String into a Export object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Export object represented by the provided JSON
      */
-    public static Export fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Export fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Export.class);
@@ -67,11 +69,14 @@ public class Export extends Resource {
      * Converts a JSON InputStream into a Export object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Export object represented by the provided JSON
      */
-    public static Export fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Export fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Export.class);
@@ -94,19 +99,20 @@ public class Export extends Resource {
         }
     }
 
-
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String resourceType;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Export(
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("resource_type") final String resourceType,
-            @JsonProperty("url") final URI url
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("resource_type") final String resourceType,
+        @JsonProperty("url") final URI url
     ) {
         this.links = links;
         this.resourceType = resourceType;
@@ -125,21 +131,14 @@ public class Export extends Resource {
 
         Export other = (Export) o;
         return (
-                Objects.equals(links, other.links) &&
-                        Objects.equals(resourceType, other.resourceType) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(links, other.links) &&
+            Objects.equals(resourceType, other.resourceType) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                links,
-                resourceType,
-                url
-        );
+        return Objects.hash(links, resourceType, url);
     }
-
-
 }
-

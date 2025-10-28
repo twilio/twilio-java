@@ -19,62 +19,63 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
 
-
-    public static UserCreator creator(final String pathOrganizationSid, final User.ScimUser scimUser) {
-        return new UserCreator(
-                pathOrganizationSid, scimUser
-        );
+    public static UserCreator creator(
+        final String pathOrganizationSid,
+        final User.ScimUser scimUser
+    ) {
+        return new UserCreator(pathOrganizationSid, scimUser);
     }
 
-
-    public static UserDeleter deleter(final String pathOrganizationSid, final String pathUserSid) {
-        return new UserDeleter(
-                pathOrganizationSid, pathUserSid
-        );
+    public static UserDeleter deleter(
+        final String pathOrganizationSid,
+        final String pathUserSid
+    ) {
+        return new UserDeleter(pathOrganizationSid, pathUserSid);
     }
 
-
-    public static UserFetcher fetcher(final String pathOrganizationSid, final String pathUserSid) {
-        return new UserFetcher(
-                pathOrganizationSid, pathUserSid
-        );
+    public static UserFetcher fetcher(
+        final String pathOrganizationSid,
+        final String pathUserSid
+    ) {
+        return new UserFetcher(pathOrganizationSid, pathUserSid);
     }
-
 
     public static UserReader reader(final String pathOrganizationSid) {
-        return new UserReader(
-                pathOrganizationSid
-        );
+        return new UserReader(pathOrganizationSid);
     }
 
-
-    public static UserUpdater updater(final String pathOrganizationSid, final String pathUserSid, final User.ScimUser scimUser) {
-        return new UserUpdater(
-                pathOrganizationSid, pathUserSid, scimUser
-        );
+    public static UserUpdater updater(
+        final String pathOrganizationSid,
+        final String pathUserSid,
+        final User.ScimUser scimUser
+    ) {
+        return new UserUpdater(pathOrganizationSid, pathUserSid, scimUser);
     }
-
 
     @JsonDeserialize(builder = ScimUser.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -136,7 +137,6 @@ public class User extends Resource {
         @Getter
         private final ScimMeta meta;
 
-
         private ScimUser(Builder builder) {
             this.id = builder.id;
             this.externalId = builder.externalId;
@@ -155,12 +155,14 @@ public class User extends Resource {
             return new Builder(userName);
         }
 
-        public static ScimUser fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static ScimUser fromJson(String jsonString, ObjectMapper mapper)
+            throws IOException {
             return mapper.readValue(jsonString, ScimUser.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("id")
             private String id;
 
@@ -194,12 +196,10 @@ public class User extends Resource {
             @JsonProperty("meta")
             private ScimMeta meta;
 
-
             @JsonCreator
             public Builder(@JsonProperty("userName") final String userName) {
                 this.userName = userName;
             }
-
 
             public ScimUser build() {
                 return new ScimUser(this);
@@ -218,39 +218,37 @@ public class User extends Resource {
 
             ScimUser other = (ScimUser) o;
             return (
-                    Objects.equals(id, other.id) &&
-                            Objects.equals(externalId, other.externalId) &&
-                            Objects.equals(userName, other.userName) &&
-                            Objects.equals(displayName, other.displayName) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(emails, other.emails) &&
-                            Objects.equals(active, other.active) &&
-                            Objects.equals(locale, other.locale) &&
-                            Objects.equals(timezone, other.timezone) &&
-                            Objects.equals(schemas, other.schemas) &&
-                            Objects.equals(meta, other.meta)
+                Objects.equals(id, other.id) &&
+                Objects.equals(externalId, other.externalId) &&
+                Objects.equals(userName, other.userName) &&
+                Objects.equals(displayName, other.displayName) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(emails, other.emails) &&
+                Objects.equals(active, other.active) &&
+                Objects.equals(locale, other.locale) &&
+                Objects.equals(timezone, other.timezone) &&
+                Objects.equals(schemas, other.schemas) &&
+                Objects.equals(meta, other.meta)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    id,
-                    externalId,
-                    userName,
-                    displayName,
-                    name,
-                    emails,
-                    active,
-                    locale,
-                    timezone,
-                    schemas,
-                    meta
+                id,
+                externalId,
+                userName,
+                displayName,
+                name,
+                emails,
+                active,
+                locale,
+                timezone,
+                schemas,
+                meta
             );
         }
-
     }
-
 
     @JsonDeserialize(builder = ScimEmailAddress.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -272,7 +270,6 @@ public class User extends Resource {
         @Getter
         private final String type;
 
-
         private ScimEmailAddress(Builder builder) {
             this.primary = builder.primary;
             this.value = builder.value;
@@ -283,12 +280,16 @@ public class User extends Resource {
             return new Builder();
         }
 
-        public static ScimEmailAddress fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static ScimEmailAddress fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, ScimEmailAddress.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("primary")
             private Boolean primary;
 
@@ -297,7 +298,6 @@ public class User extends Resource {
 
             @JsonProperty("type")
             private String type;
-
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("primary")
@@ -337,23 +337,17 @@ public class User extends Resource {
 
             ScimEmailAddress other = (ScimEmailAddress) o;
             return (
-                    Objects.equals(primary, other.primary) &&
-                            Objects.equals(value, other.value) &&
-                            Objects.equals(type, other.type)
+                Objects.equals(primary, other.primary) &&
+                Objects.equals(value, other.value) &&
+                Objects.equals(type, other.type)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    primary,
-                    value,
-                    type
-            );
+            return Objects.hash(primary, value, type);
         }
-
     }
-
 
     @JsonDeserialize(builder = ScimMeta.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -382,7 +376,6 @@ public class User extends Resource {
         @Getter
         private final String version;
 
-
         private ScimMeta(Builder builder) {
             this.resourceType = builder.resourceType;
             this.created = builder.created;
@@ -394,26 +387,31 @@ public class User extends Resource {
             return new Builder();
         }
 
-        public static ScimMeta fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static ScimMeta fromJson(String jsonString, ObjectMapper mapper)
+            throws IOException {
             return mapper.readValue(jsonString, ScimMeta.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("resourceType")
             private String resourceType;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("created")
             private ZonedDateTime created;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("lastModified")
             private ZonedDateTime lastModified;
 
             @JsonProperty("version")
             private String version;
-
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("resourceType")
@@ -422,7 +420,9 @@ public class User extends Resource {
                 return this;
             }
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("created")
             public Builder created(ZonedDateTime created) {
@@ -430,7 +430,9 @@ public class User extends Resource {
                 return this;
             }
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("lastModified")
             public Builder lastModified(ZonedDateTime lastModified) {
@@ -462,25 +464,18 @@ public class User extends Resource {
 
             ScimMeta other = (ScimMeta) o;
             return (
-                    Objects.equals(resourceType, other.resourceType) &&
-                            Objects.equals(created, other.created) &&
-                            Objects.equals(lastModified, other.lastModified) &&
-                            Objects.equals(version, other.version)
+                Objects.equals(resourceType, other.resourceType) &&
+                Objects.equals(created, other.created) &&
+                Objects.equals(lastModified, other.lastModified) &&
+                Objects.equals(version, other.version)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    resourceType,
-                    created,
-                    lastModified,
-                    version
-            );
+            return Objects.hash(resourceType, created, lastModified, version);
         }
-
     }
-
 
     @JsonDeserialize(builder = ScimName.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -497,7 +492,6 @@ public class User extends Resource {
         @Getter
         private final String familyName;
 
-
         private ScimName(Builder builder) {
             this.givenName = builder.givenName;
             this.familyName = builder.familyName;
@@ -507,18 +501,19 @@ public class User extends Resource {
             return new Builder();
         }
 
-        public static ScimName fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static ScimName fromJson(String jsonString, ObjectMapper mapper)
+            throws IOException {
             return mapper.readValue(jsonString, ScimName.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("givenName")
             private String givenName;
 
             @JsonProperty("familyName")
             private String familyName;
-
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("givenName")
@@ -551,30 +546,28 @@ public class User extends Resource {
 
             ScimName other = (ScimName) o;
             return (
-                    Objects.equals(givenName, other.givenName) &&
-                            Objects.equals(familyName, other.familyName)
+                Objects.equals(givenName, other.givenName) &&
+                Objects.equals(familyName, other.familyName)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    givenName,
-                    familyName
-            );
+            return Objects.hash(givenName, familyName);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a User object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
      */
-    public static User fromJson(final String json, final ObjectMapper objectMapper) {
+    public static User fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -589,11 +582,14 @@ public class User extends Resource {
      * Converts a JSON InputStream into a User object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
      */
-    public static User fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static User fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -616,43 +612,52 @@ public class User extends Resource {
         }
     }
 
-
     @Getter
     private final Boolean active;
+
     @Getter
     private final String displayName;
+
     @Getter
     private final List<ScimEmailAddress> emails;
+
     @Getter
     private final String externalId;
+
     @Getter
     private final String id;
+
     @Getter
     private final String locale;
+
     @Getter
     private final ScimMeta meta;
+
     @Getter
     private final ScimName name;
+
     @Getter
     private final List<String> schemas;
+
     @Getter
     private final String timezone;
+
     @Getter
     private final String userName;
 
     @JsonCreator
     private User(
-            @JsonProperty("active") final Boolean active,
-            @JsonProperty("displayName") final String displayName,
-            @JsonProperty("emails") final List<ScimEmailAddress> emails,
-            @JsonProperty("externalId") final String externalId,
-            @JsonProperty("id") final String id,
-            @JsonProperty("locale") final String locale,
-            @JsonProperty("meta") final ScimMeta meta,
-            @JsonProperty("name") final ScimName name,
-            @JsonProperty("schemas") final List<String> schemas,
-            @JsonProperty("timezone") final String timezone,
-            @JsonProperty("userName") final String userName
+        @JsonProperty("active") final Boolean active,
+        @JsonProperty("displayName") final String displayName,
+        @JsonProperty("emails") final List<ScimEmailAddress> emails,
+        @JsonProperty("externalId") final String externalId,
+        @JsonProperty("id") final String id,
+        @JsonProperty("locale") final String locale,
+        @JsonProperty("meta") final ScimMeta meta,
+        @JsonProperty("name") final ScimName name,
+        @JsonProperty("schemas") final List<String> schemas,
+        @JsonProperty("timezone") final String timezone,
+        @JsonProperty("userName") final String userName
     ) {
         this.active = active;
         this.displayName = displayName;
@@ -679,37 +684,34 @@ public class User extends Resource {
 
         User other = (User) o;
         return (
-                Objects.equals(active, other.active) &&
-                        Objects.equals(displayName, other.displayName) &&
-                        Objects.equals(emails, other.emails) &&
-                        Objects.equals(externalId, other.externalId) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(locale, other.locale) &&
-                        Objects.equals(meta, other.meta) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(schemas, other.schemas) &&
-                        Objects.equals(timezone, other.timezone) &&
-                        Objects.equals(userName, other.userName)
+            Objects.equals(active, other.active) &&
+            Objects.equals(displayName, other.displayName) &&
+            Objects.equals(emails, other.emails) &&
+            Objects.equals(externalId, other.externalId) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(locale, other.locale) &&
+            Objects.equals(meta, other.meta) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(schemas, other.schemas) &&
+            Objects.equals(timezone, other.timezone) &&
+            Objects.equals(userName, other.userName)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                active,
-                displayName,
-                emails,
-                externalId,
-                id,
-                locale,
-                meta,
-                name,
-                schemas,
-                timezone,
-                userName
+            active,
+            displayName,
+            emails,
+            externalId,
+            id,
+            locale,
+            meta,
+            name,
+            schemas,
+            timezone,
+            userName
         );
     }
-
-
 }
-

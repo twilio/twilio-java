@@ -25,32 +25,33 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ReferralConversionCreator extends Creator<ReferralConversion> {
 
     private ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest;
 
-    public ReferralConversionCreator(final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest) {
+    public ReferralConversionCreator(
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
+    ) {
         this.createReferralConversionRequest = createReferralConversionRequest;
     }
 
-
-    public ReferralConversionCreator setCreateReferralConversionRequest(final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest) {
+    public ReferralConversionCreator setCreateReferralConversionRequest(
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
+    ) {
         this.createReferralConversionRequest = createReferralConversionRequest;
         return this;
     }
 
-
     @Override
     public ReferralConversion create(final TwilioRestClient client) {
-
         String path = "/v1/ReferralConversion";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MARKETPLACE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MARKETPLACE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -58,25 +59,38 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ReferralConversion creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ReferralConversion creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ReferralConversion.fromJson(response.getStream(), client.getObjectMapper());
+        return ReferralConversion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (createReferralConversionRequest != null) {
-            request.setBody(ReferralConversion.toJson(createReferralConversionRequest, objectMapper));
+            request.setBody(
+                ReferralConversion.toJson(
+                    createReferralConversionRequest,
+                    objectMapper
+                )
+            );
         }
     }
 }

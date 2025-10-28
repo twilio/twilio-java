@@ -27,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
 public class WebhookUpdater extends Updater<Webhook> {
+
     private String pathChatServiceSid;
     private URI preWebhookUrl;
     private URI postWebhookUrl;
@@ -41,7 +42,6 @@ public class WebhookUpdater extends Updater<Webhook> {
     public WebhookUpdater(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
     }
-
 
     public WebhookUpdater setPreWebhookUrl(final URI preWebhookUrl) {
         this.preWebhookUrl = preWebhookUrl;
@@ -75,19 +75,20 @@ public class WebhookUpdater extends Updater<Webhook> {
         return this;
     }
 
-
     @Override
     public Webhook update(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -95,14 +96,19 @@ public class WebhookUpdater extends Updater<Webhook> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Webhook update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -111,28 +117,42 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     private void addPostParams(final Request request) {
-
         if (preWebhookUrl != null) {
-            Serializer.toString(request, "PreWebhookUrl", preWebhookUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PreWebhookUrl",
+                preWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (postWebhookUrl != null) {
-            Serializer.toString(request, "PostWebhookUrl", postWebhookUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PostWebhookUrl",
+                postWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (filters != null) {
             for (String param : filters) {
-                Serializer.toString(request, "Filters", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Filters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (method != null) {
-            Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

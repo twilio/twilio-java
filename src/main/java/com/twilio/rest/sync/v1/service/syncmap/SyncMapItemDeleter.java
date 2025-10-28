@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
@@ -33,47 +34,56 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     private String pathKey;
     private String ifMatch;
 
-    public SyncMapItemDeleter(final String pathServiceSid, final String pathMapSid, final String pathKey) {
+    public SyncMapItemDeleter(
+        final String pathServiceSid,
+        final String pathMapSid,
+        final String pathKey
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
         this.pathKey = pathKey;
     }
-
 
     public SyncMapItemDeleter setIfMatch(final String ifMatch) {
         this.ifMatch = ifMatch;
         return this;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
         path = path.replace("{" + "MapSid" + "}", this.pathMapSid.toString());
         path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 
-
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.SYNC.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.SYNC.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SyncMapItem delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncMapItem delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -81,10 +91,13 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     }
 
     private void addHeaderParams(final Request request) {
-
         if (ifMatch != null) {
-            Serializer.toString(request, "If-Match", ifMatch, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

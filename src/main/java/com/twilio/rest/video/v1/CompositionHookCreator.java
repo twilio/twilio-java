@@ -14,7 +14,6 @@
 
 package com.twilio.rest.video.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
@@ -49,26 +48,24 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         this.friendlyName = friendlyName;
     }
 
-
     public CompositionHookCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public CompositionHookCreator setEnabled(final Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
-
     public CompositionHookCreator setVideoLayout(final Object videoLayout) {
         this.videoLayout = videoLayout;
         return this;
     }
 
-
-    public CompositionHookCreator setAudioSources(final List<String> audioSources) {
+    public CompositionHookCreator setAudioSources(
+        final List<String> audioSources
+    ) {
         this.audioSources = audioSources;
         return this;
     }
@@ -77,13 +74,19 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         return setAudioSources(Promoter.listOfOne(audioSources));
     }
 
-    public CompositionHookCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
+    public CompositionHookCreator setAudioSourcesExcluded(
+        final List<String> audioSourcesExcluded
+    ) {
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
     }
 
-    public CompositionHookCreator setAudioSourcesExcluded(final String audioSourcesExcluded) {
-        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
+    public CompositionHookCreator setAudioSourcesExcluded(
+        final String audioSourcesExcluded
+    ) {
+        return setAudioSourcesExcluded(
+            Promoter.listOfOne(audioSourcesExcluded)
+        );
     }
 
     public CompositionHookCreator setResolution(final String resolution) {
@@ -91,44 +94,44 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         return this;
     }
 
-
-    public CompositionHookCreator setFormat(final CompositionHook.Format format) {
+    public CompositionHookCreator setFormat(
+        final CompositionHook.Format format
+    ) {
         this.format = format;
         return this;
     }
-
 
     public CompositionHookCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public CompositionHookCreator setStatusCallback(final String statusCallback) {
+    public CompositionHookCreator setStatusCallback(
+        final String statusCallback
+    ) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    public CompositionHookCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public CompositionHookCreator setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-
 
     public CompositionHookCreator setTrim(final Boolean trim) {
         this.trim = trim;
         return this;
     }
 
-
     @Override
     public CompositionHook create(final TwilioRestClient client) {
-
         String path = "/v1/CompositionHooks";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VIDEO.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VIDEO.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -136,76 +139,122 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CompositionHook creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CompositionHook creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return CompositionHook.fromJson(response.getStream(), client.getObjectMapper());
+        return CompositionHook.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (enabled != null) {
-            Serializer.toString(request, "Enabled", enabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (videoLayout != null) {
-            Serializer.toString(request, "VideoLayout", videoLayout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "VideoLayout",
+                videoLayout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (audioSources != null) {
             for (String param : audioSources) {
-                Serializer.toString(request, "AudioSources", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "AudioSources",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
 
         if (audioSourcesExcluded != null) {
             for (String param : audioSourcesExcluded) {
-                Serializer.toString(request, "AudioSourcesExcluded", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "AudioSourcesExcluded",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (resolution != null) {
-            Serializer.toString(request, "Resolution", resolution, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Resolution",
+                resolution,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (format != null) {
-            Serializer.toString(request, "Format", format, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Format",
+                format,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (trim != null) {
-            Serializer.toString(request, "Trim", trim, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

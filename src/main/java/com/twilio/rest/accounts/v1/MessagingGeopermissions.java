@@ -18,47 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MessagingGeopermissions extends Resource {
 
-
     public static MessagingGeopermissionsFetcher fetcher() {
-        return new MessagingGeopermissionsFetcher(
-
-        );
+        return new MessagingGeopermissionsFetcher();
     }
 
-
-    public static MessagingGeopermissionsUpdater updater(final List<Object> permissions) {
-        return new MessagingGeopermissionsUpdater(
-                permissions
-        );
+    public static MessagingGeopermissionsUpdater updater(
+        final List<Object> permissions
+    ) {
+        return new MessagingGeopermissionsUpdater(permissions);
     }
-
 
     /**
      * Converts a JSON String into a MessagingGeopermissions object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return MessagingGeopermissions object represented by the provided JSON
      */
-    public static MessagingGeopermissions fromJson(final String json, final ObjectMapper objectMapper) {
+    public static MessagingGeopermissions fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, MessagingGeopermissions.class);
@@ -73,11 +74,14 @@ public class MessagingGeopermissions extends Resource {
      * Converts a JSON InputStream into a MessagingGeopermissions object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return MessagingGeopermissions object represented by the provided JSON
      */
-    public static MessagingGeopermissions fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static MessagingGeopermissions fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, MessagingGeopermissions.class);
@@ -100,13 +104,12 @@ public class MessagingGeopermissions extends Resource {
         }
     }
 
-
     @Getter
     private final Object permissions;
 
     @JsonCreator
     private MessagingGeopermissions(
-            @JsonProperty("permissions") final Object permissions
+        @JsonProperty("permissions") final Object permissions
     ) {
         this.permissions = permissions;
     }
@@ -122,18 +125,11 @@ public class MessagingGeopermissions extends Resource {
         }
 
         MessagingGeopermissions other = (MessagingGeopermissions) o;
-        return (
-                Objects.equals(permissions, other.permissions)
-        );
+        return (Objects.equals(permissions, other.permissions));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                permissions
-        );
+        return Objects.hash(permissions);
     }
-
-
 }
-

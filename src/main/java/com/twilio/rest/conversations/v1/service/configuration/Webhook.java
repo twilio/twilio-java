@@ -18,40 +18,36 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
 
-
     public static WebhookFetcher fetcher(final String pathChatServiceSid) {
-        return new WebhookFetcher(
-                pathChatServiceSid
-        );
+        return new WebhookFetcher(pathChatServiceSid);
     }
-
 
     public static WebhookUpdater updater(final String pathChatServiceSid) {
-        return new WebhookUpdater(
-                pathChatServiceSid
-        );
+        return new WebhookUpdater(pathChatServiceSid);
     }
-
 
     public enum Method {
         GET("GET"),
@@ -73,15 +69,17 @@ public class Webhook extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Webhook object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
      */
-    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Webhook fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -96,11 +94,14 @@ public class Webhook extends Resource {
      * Converts a JSON InputStream into a Webhook object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
      */
-    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Webhook fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -123,31 +124,36 @@ public class Webhook extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String chatServiceSid;
+
     @Getter
     private final List<String> filters;
+
     @Getter
     private final Webhook.Method method;
+
     @Getter
     private final URI postWebhookUrl;
+
     @Getter
     private final URI preWebhookUrl;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Webhook(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("chat_service_sid") final String chatServiceSid,
-            @JsonProperty("filters") final List<String> filters,
-            @JsonProperty("method") final Webhook.Method method,
-            @JsonProperty("post_webhook_url") final URI postWebhookUrl,
-            @JsonProperty("pre_webhook_url") final URI preWebhookUrl,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("filters") final List<String> filters,
+        @JsonProperty("method") final Webhook.Method method,
+        @JsonProperty("post_webhook_url") final URI postWebhookUrl,
+        @JsonProperty("pre_webhook_url") final URI preWebhookUrl,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -170,29 +176,26 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(chatServiceSid, other.chatServiceSid) &&
-                        Objects.equals(filters, other.filters) &&
-                        Objects.equals(method, other.method) &&
-                        Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
-                        Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(filters, other.filters) &&
+            Objects.equals(method, other.method) &&
+            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                chatServiceSid,
-                filters,
-                method,
-                postWebhookUrl,
-                preWebhookUrl,
-                url
+            accountSid,
+            chatServiceSid,
+            filters,
+            method,
+            postWebhookUrl,
+            preWebhookUrl,
+            url
         );
     }
-
-
 }
-

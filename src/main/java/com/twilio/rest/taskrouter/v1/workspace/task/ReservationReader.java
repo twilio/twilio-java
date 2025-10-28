@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ReservationReader extends Reader<Reservation> {
 
@@ -36,29 +37,30 @@ public class ReservationReader extends Reader<Reservation> {
     private String workerSid;
     private Long pageSize;
 
-    public ReservationReader(final String pathWorkspaceSid, final String pathTaskSid) {
+    public ReservationReader(
+        final String pathWorkspaceSid,
+        final String pathTaskSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathTaskSid = pathTaskSid;
     }
 
-
-    public ReservationReader setReservationStatus(final Reservation.Status reservationStatus) {
+    public ReservationReader setReservationStatus(
+        final Reservation.Status reservationStatus
+    ) {
         this.reservationStatus = reservationStatus;
         return this;
     }
-
 
     public ReservationReader setWorkerSid(final String workerSid) {
         this.workerSid = workerSid;
         return this;
     }
 
-
     public ReservationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Reservation> read(final TwilioRestClient client) {
@@ -66,79 +68,117 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     public Page<Reservation> firstPage(final TwilioRestClient client) {
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
 
-        String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
-
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
         path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TASKROUTER.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Reservation> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Reservation> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Reservation read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Reservation read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "reservations",
-                response.getContent(),
-                Reservation.class,
-                client.getObjectMapper());
+            "reservations",
+            response.getContent(),
+            Reservation.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Reservation> previousPage(final Page<Reservation> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Reservation> previousPage(
+        final Page<Reservation> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Reservation> nextPage(final Page<Reservation> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Reservation> nextPage(
+        final Page<Reservation> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Reservation> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Reservation> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (reservationStatus != null) {
-            Serializer.toString(request, "ReservationStatus", reservationStatus, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ReservationStatus",
+                reservationStatus,
+                ParameterType.QUERY
+            );
         }
-
 
         if (workerSid != null) {
-            Serializer.toString(request, "WorkerSid", workerSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "WorkerSid",
+                workerSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

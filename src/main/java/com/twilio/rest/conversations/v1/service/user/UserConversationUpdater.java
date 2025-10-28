@@ -26,10 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class UserConversationUpdater extends Updater<UserConversation> {
+
     private String pathChatServiceSid;
     private String pathUserSid;
     private String pathConversationSid;
@@ -37,45 +38,58 @@ public class UserConversationUpdater extends Updater<UserConversation> {
     private ZonedDateTime lastReadTimestamp;
     private Integer lastReadMessageIndex;
 
-    public UserConversationUpdater(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid) {
+    public UserConversationUpdater(
+        final String pathChatServiceSid,
+        final String pathUserSid,
+        final String pathConversationSid
+    ) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathUserSid = pathUserSid;
         this.pathConversationSid = pathConversationSid;
     }
 
-
-    public UserConversationUpdater setNotificationLevel(final UserConversation.NotificationLevel notificationLevel) {
+    public UserConversationUpdater setNotificationLevel(
+        final UserConversation.NotificationLevel notificationLevel
+    ) {
         this.notificationLevel = notificationLevel;
         return this;
     }
 
-
-    public UserConversationUpdater setLastReadTimestamp(final ZonedDateTime lastReadTimestamp) {
+    public UserConversationUpdater setLastReadTimestamp(
+        final ZonedDateTime lastReadTimestamp
+    ) {
         this.lastReadTimestamp = lastReadTimestamp;
         return this;
     }
 
-
-    public UserConversationUpdater setLastReadMessageIndex(final Integer lastReadMessageIndex) {
+    public UserConversationUpdater setLastReadMessageIndex(
+        final Integer lastReadMessageIndex
+    ) {
         this.lastReadMessageIndex = lastReadMessageIndex;
         return this;
     }
 
-
     @Override
     public UserConversation update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        String path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
-
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace("{" + "ConversationSid" + "}", this.pathConversationSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -83,37 +97,55 @@ public class UserConversationUpdater extends Updater<UserConversation> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UserConversation update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserConversation update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return UserConversation.fromJson(response.getStream(), client.getObjectMapper());
+        return UserConversation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (notificationLevel != null) {
-            Serializer.toString(request, "NotificationLevel", notificationLevel, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "NotificationLevel",
+                notificationLevel,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (lastReadTimestamp != null) {
-            Serializer.toString(request, "LastReadTimestamp", lastReadTimestamp, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "LastReadTimestamp",
+                lastReadTimestamp,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (lastReadMessageIndex != null) {
-            Serializer.toString(request, "LastReadMessageIndex", lastReadMessageIndex, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "LastReadMessageIndex",
+                lastReadMessageIndex,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

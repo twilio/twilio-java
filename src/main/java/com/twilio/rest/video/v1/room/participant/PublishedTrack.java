@@ -18,41 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PublishedTrack extends Resource {
 
-
-    public static PublishedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid) {
+    public static PublishedTrackFetcher fetcher(
+        final String pathRoomSid,
+        final String pathParticipantSid,
+        final String pathSid
+    ) {
         return new PublishedTrackFetcher(
-                pathRoomSid, pathParticipantSid, pathSid
+            pathRoomSid,
+            pathParticipantSid,
+            pathSid
         );
     }
 
-
-    public static PublishedTrackReader reader(final String pathRoomSid, final String pathParticipantSid) {
-        return new PublishedTrackReader(
-                pathRoomSid, pathParticipantSid
-        );
+    public static PublishedTrackReader reader(
+        final String pathRoomSid,
+        final String pathParticipantSid
+    ) {
+        return new PublishedTrackReader(pathRoomSid, pathParticipantSid);
     }
-
 
     public enum Kind {
         AUDIO("audio"),
@@ -75,15 +82,17 @@ public class PublishedTrack extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a PublishedTrack object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PublishedTrack object represented by the provided JSON
      */
-    public static PublishedTrack fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PublishedTrack fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PublishedTrack.class);
@@ -98,11 +107,14 @@ public class PublishedTrack extends Resource {
      * Converts a JSON InputStream into a PublishedTrack object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PublishedTrack object represented by the provided JSON
      */
-    public static PublishedTrack fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PublishedTrack fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PublishedTrack.class);
@@ -125,39 +137,48 @@ public class PublishedTrack extends Resource {
         }
     }
 
-
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Boolean enabled;
+
     @Getter
     private final PublishedTrack.Kind kind;
+
     @Getter
     private final String name;
+
     @Getter
     private final String participantSid;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private PublishedTrack(
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("enabled") final Boolean enabled,
-            @JsonProperty("kind") final PublishedTrack.Kind kind,
-            @JsonProperty("name") final String name,
-            @JsonProperty("participant_sid") final String participantSid,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("kind") final PublishedTrack.Kind kind,
+        @JsonProperty("name") final String name,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -182,33 +203,30 @@ public class PublishedTrack extends Resource {
 
         PublishedTrack other = (PublishedTrack) o;
         return (
-                Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(enabled, other.enabled) &&
-                        Objects.equals(kind, other.kind) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(participantSid, other.participantSid) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(kind, other.kind) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                dateCreated,
-                dateUpdated,
-                enabled,
-                kind,
-                name,
-                participantSid,
-                roomSid,
-                sid,
-                url
+            dateCreated,
+            dateUpdated,
+            enabled,
+            kind,
+            name,
+            participantSid,
+            roomSid,
+            sid,
+            url
         );
     }
-
-
 }
-

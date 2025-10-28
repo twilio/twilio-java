@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SimReader extends Reader<Sim> {
 
@@ -35,33 +36,27 @@ public class SimReader extends Reader<Sim> {
     private String iccid;
     private Long pageSize;
 
-    public SimReader() {
-    }
-
+    public SimReader() {}
 
     public SimReader setStatus(final Sim.Status status) {
         this.status = status;
         return this;
     }
 
-
     public SimReader setFleet(final String fleet) {
         this.fleet = fleet;
         return this;
     }
-
 
     public SimReader setIccid(final String iccid) {
         this.iccid = iccid;
         return this;
     }
 
-
     public SimReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Sim> read(final TwilioRestClient client) {
@@ -69,82 +64,103 @@ public class SimReader extends Reader<Sim> {
     }
 
     public Page<Sim> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Sims";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.GET,
+            Domains.SUPERSIM.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Sim> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Sim> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Sim read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sim read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "sims",
-                response.getContent(),
-                Sim.class,
-                client.getObjectMapper());
+            "sims",
+            response.getContent(),
+            Sim.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Sim> previousPage(final Page<Sim> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Sim> previousPage(
+        final Page<Sim> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Sim> nextPage(final Page<Sim> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Sim> nextPage(
+        final Page<Sim> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Sim> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Sim> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (status != null) {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
-
 
         if (fleet != null) {
             Serializer.toString(request, "Fleet", fleet, ParameterType.QUERY);
         }
 
-
         if (iccid != null) {
             Serializer.toString(request, "Iccid", iccid, ParameterType.QUERY);
         }
 
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

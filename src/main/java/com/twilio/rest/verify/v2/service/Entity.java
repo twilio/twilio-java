@@ -18,64 +18,66 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Entity extends Resource {
 
-
-    public static EntityCreator creator(final String pathServiceSid, final String identity) {
-        return new EntityCreator(
-                pathServiceSid, identity
-        );
+    public static EntityCreator creator(
+        final String pathServiceSid,
+        final String identity
+    ) {
+        return new EntityCreator(pathServiceSid, identity);
     }
 
-
-    public static EntityDeleter deleter(final String pathServiceSid, final String pathIdentity) {
-        return new EntityDeleter(
-                pathServiceSid, pathIdentity
-        );
+    public static EntityDeleter deleter(
+        final String pathServiceSid,
+        final String pathIdentity
+    ) {
+        return new EntityDeleter(pathServiceSid, pathIdentity);
     }
 
-
-    public static EntityFetcher fetcher(final String pathServiceSid, final String pathIdentity) {
-        return new EntityFetcher(
-                pathServiceSid, pathIdentity
-        );
+    public static EntityFetcher fetcher(
+        final String pathServiceSid,
+        final String pathIdentity
+    ) {
+        return new EntityFetcher(pathServiceSid, pathIdentity);
     }
-
 
     public static EntityReader reader(final String pathServiceSid) {
-        return new EntityReader(
-                pathServiceSid
-        );
+        return new EntityReader(pathServiceSid);
     }
-
 
     /**
      * Converts a JSON String into a Entity object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Entity object represented by the provided JSON
      */
-    public static Entity fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Entity fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Entity.class);
@@ -90,11 +92,14 @@ public class Entity extends Resource {
      * Converts a JSON InputStream into a Entity object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Entity object represented by the provided JSON
      */
-    public static Entity fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Entity fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Entity.class);
@@ -117,36 +122,44 @@ public class Entity extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Entity(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -170,31 +183,28 @@ public class Entity extends Resource {
 
         Entity other = (Entity) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                identity,
-                links,
-                serviceSid,
-                sid,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            identity,
+            links,
+            serviceSid,
+            sid,
+            url
         );
     }
-
-
 }
-

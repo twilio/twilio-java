@@ -18,71 +18,70 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Document extends Resource {
 
-
     public static DocumentCreator creator(final String pathServiceSid) {
-        return new DocumentCreator(
-                pathServiceSid
-        );
+        return new DocumentCreator(pathServiceSid);
     }
 
-
-    public static DocumentDeleter deleter(final String pathServiceSid, final String pathSid) {
-        return new DocumentDeleter(
-                pathServiceSid, pathSid
-        );
+    public static DocumentDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new DocumentDeleter(pathServiceSid, pathSid);
     }
 
-
-    public static DocumentFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new DocumentFetcher(
-                pathServiceSid, pathSid
-        );
+    public static DocumentFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new DocumentFetcher(pathServiceSid, pathSid);
     }
-
 
     public static DocumentReader reader(final String pathServiceSid) {
-        return new DocumentReader(
-                pathServiceSid
-        );
+        return new DocumentReader(pathServiceSid);
     }
 
-
-    public static DocumentUpdater updater(final String pathServiceSid, final String pathSid) {
-        return new DocumentUpdater(
-                pathServiceSid, pathSid
-        );
+    public static DocumentUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new DocumentUpdater(pathServiceSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Document object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Document object represented by the provided JSON
      */
-    public static Document fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Document fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Document.class);
@@ -97,11 +96,14 @@ public class Document extends Resource {
      * Converts a JSON InputStream into a Document object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Document object represented by the provided JSON
      */
-    public static Document fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Document fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Document.class);
@@ -124,49 +126,62 @@ public class Document extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String createdBy;
+
     @Getter
     private final Object data;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateExpires;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String revision;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Document(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("created_by") final String createdBy,
-            @JsonProperty("data") final Object data,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_expires")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateExpires,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("revision") final String revision,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("data") final Object data,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_expires") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateExpires,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("revision") final String revision,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.createdBy = createdBy;
@@ -194,39 +209,36 @@ public class Document extends Resource {
 
         Document other = (Document) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(createdBy, other.createdBy) &&
-                        Objects.equals(data, other.data) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateExpires, other.dateExpires) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(revision, other.revision) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(data, other.data) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(revision, other.revision) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                createdBy,
-                data,
-                dateCreated,
-                dateExpires,
-                dateUpdated,
-                links,
-                revision,
-                serviceSid,
-                sid,
-                uniqueName,
-                url
+            accountSid,
+            createdBy,
+            data,
+            dateCreated,
+            dateExpires,
+            dateUpdated,
+            links,
+            revision,
+            serviceSid,
+            sid,
+            uniqueName,
+            url
         );
     }
-
-
 }
-

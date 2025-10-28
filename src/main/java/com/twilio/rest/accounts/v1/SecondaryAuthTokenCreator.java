@@ -14,7 +14,6 @@
 
 package com.twilio.rest.accounts.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,41 +23,45 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SecondaryAuthTokenCreator extends Creator<SecondaryAuthToken> {
 
-
-    public SecondaryAuthTokenCreator() {
-    }
-
+    public SecondaryAuthTokenCreator() {}
 
     @Override
     public SecondaryAuthToken create(final TwilioRestClient client) {
-
         String path = "/v1/AuthTokens/Secondary";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ACCOUNTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SecondaryAuthToken creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SecondaryAuthToken creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SecondaryAuthToken.fromJson(response.getStream(), client.getObjectMapper());
+        return SecondaryAuthToken.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

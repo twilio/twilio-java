@@ -18,104 +18,91 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Queue extends Resource {
 
-
     public static QueueCreator creator(final String friendlyName) {
-        return new QueueCreator(
-                friendlyName
-        );
+        return new QueueCreator(friendlyName);
     }
 
-
-    public static QueueCreator creator(final String pathAccountSid, final String friendlyName) {
-        return new QueueCreator(
-                pathAccountSid, friendlyName
-        );
+    public static QueueCreator creator(
+        final String pathAccountSid,
+        final String friendlyName
+    ) {
+        return new QueueCreator(pathAccountSid, friendlyName);
     }
-
 
     public static QueueDeleter deleter(final String pathSid) {
-        return new QueueDeleter(
-                pathSid
-        );
+        return new QueueDeleter(pathSid);
     }
 
-
-    public static QueueDeleter deleter(final String pathAccountSid, final String pathSid) {
-        return new QueueDeleter(
-                pathAccountSid, pathSid
-        );
+    public static QueueDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new QueueDeleter(pathAccountSid, pathSid);
     }
-
 
     public static QueueFetcher fetcher(final String pathSid) {
-        return new QueueFetcher(
-                pathSid
-        );
+        return new QueueFetcher(pathSid);
     }
 
-
-    public static QueueFetcher fetcher(final String pathAccountSid, final String pathSid) {
-        return new QueueFetcher(
-                pathAccountSid, pathSid
-        );
+    public static QueueFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new QueueFetcher(pathAccountSid, pathSid);
     }
-
 
     public static QueueReader reader() {
-        return new QueueReader(
-
-        );
+        return new QueueReader();
     }
-
 
     public static QueueReader reader(final String pathAccountSid) {
-        return new QueueReader(
-                pathAccountSid
-        );
+        return new QueueReader(pathAccountSid);
     }
-
 
     public static QueueUpdater updater(final String pathSid) {
-        return new QueueUpdater(
-                pathSid
-        );
+        return new QueueUpdater(pathSid);
     }
 
-
-    public static QueueUpdater updater(final String pathAccountSid, final String pathSid) {
-        return new QueueUpdater(
-                pathAccountSid, pathSid
-        );
+    public static QueueUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
+        return new QueueUpdater(pathAccountSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Queue object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Queue object represented by the provided JSON
      */
-    public static Queue fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Queue fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Queue.class);
@@ -130,11 +117,14 @@ public class Queue extends Resource {
      * Converts a JSON InputStream into a Queue object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Queue object represented by the provided JSON
      */
-    public static Queue fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Queue fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Queue.class);
@@ -157,39 +147,48 @@ public class Queue extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Integer averageWaitTime;
+
     @Getter
     private final Integer currentSize;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Integer maxSize;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private Queue(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("average_wait_time") final Integer averageWaitTime,
-            @JsonProperty("current_size") final Integer currentSize,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("max_size") final Integer maxSize,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("average_wait_time") final Integer averageWaitTime,
+        @JsonProperty("current_size") final Integer currentSize,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("max_size") final Integer maxSize,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.averageWaitTime = averageWaitTime;
@@ -214,33 +213,30 @@ public class Queue extends Resource {
 
         Queue other = (Queue) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(averageWaitTime, other.averageWaitTime) &&
-                        Objects.equals(currentSize, other.currentSize) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(maxSize, other.maxSize) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(averageWaitTime, other.averageWaitTime) &&
+            Objects.equals(currentSize, other.currentSize) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(maxSize, other.maxSize) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                averageWaitTime,
-                currentSize,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                maxSize,
-                sid,
-                uri
+            accountSid,
+            averageWaitTime,
+            currentSize,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            maxSize,
+            sid,
+            uri
         );
     }
-
-
 }
-

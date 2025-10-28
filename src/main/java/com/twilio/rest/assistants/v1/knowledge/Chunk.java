@@ -18,41 +18,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Chunk extends Resource {
 
-
     public static ChunkReader reader(final String pathId) {
-        return new ChunkReader(
-                pathId
-        );
+        return new ChunkReader(pathId);
     }
-
 
     /**
      * Converts a JSON String into a Chunk object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Chunk object represented by the provided JSON
      */
-    public static Chunk fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Chunk fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Chunk.class);
@@ -67,11 +69,14 @@ public class Chunk extends Resource {
      * Converts a JSON InputStream into a Chunk object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Chunk object represented by the provided JSON
      */
-    public static Chunk fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Chunk fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Chunk.class);
@@ -94,27 +99,32 @@ public class Chunk extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String content;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object metadata;
 
     @JsonCreator
     private Chunk(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("content") final String content,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("metadata") final Object metadata
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("content") final String content,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("metadata") final Object metadata
     ) {
         this.accountSid = accountSid;
         this.content = content;
@@ -135,25 +145,22 @@ public class Chunk extends Resource {
 
         Chunk other = (Chunk) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(content, other.content) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(metadata, other.metadata)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(content, other.content) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(metadata, other.metadata)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                content,
-                dateCreated,
-                dateUpdated,
-                metadata
+            accountSid,
+            content,
+            dateCreated,
+            dateUpdated,
+            metadata
         );
     }
-
-
 }
-

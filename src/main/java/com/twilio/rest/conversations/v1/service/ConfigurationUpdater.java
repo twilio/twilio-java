@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConfigurationUpdater extends Updater<Configuration> {
+
     private String pathChatServiceSid;
     private String defaultConversationCreatorRoleSid;
     private String defaultConversationRoleSid;
@@ -38,43 +40,49 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         this.pathChatServiceSid = pathChatServiceSid;
     }
 
-
-    public ConfigurationUpdater setDefaultConversationCreatorRoleSid(final String defaultConversationCreatorRoleSid) {
-        this.defaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid;
+    public ConfigurationUpdater setDefaultConversationCreatorRoleSid(
+        final String defaultConversationCreatorRoleSid
+    ) {
+        this.defaultConversationCreatorRoleSid =
+            defaultConversationCreatorRoleSid;
         return this;
     }
 
-
-    public ConfigurationUpdater setDefaultConversationRoleSid(final String defaultConversationRoleSid) {
+    public ConfigurationUpdater setDefaultConversationRoleSid(
+        final String defaultConversationRoleSid
+    ) {
         this.defaultConversationRoleSid = defaultConversationRoleSid;
         return this;
     }
 
-
-    public ConfigurationUpdater setDefaultChatServiceRoleSid(final String defaultChatServiceRoleSid) {
+    public ConfigurationUpdater setDefaultChatServiceRoleSid(
+        final String defaultChatServiceRoleSid
+    ) {
         this.defaultChatServiceRoleSid = defaultChatServiceRoleSid;
         return this;
     }
 
-
-    public ConfigurationUpdater setReachabilityEnabled(final Boolean reachabilityEnabled) {
+    public ConfigurationUpdater setReachabilityEnabled(
+        final Boolean reachabilityEnabled
+    ) {
         this.reachabilityEnabled = reachabilityEnabled;
         return this;
     }
 
-
     @Override
     public Configuration update(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ChatServiceSid}/Configuration";
 
-        path = path.replace("{" + "ChatServiceSid" + "}", this.pathChatServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ChatServiceSid" + "}",
+                this.pathChatServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.CONVERSATIONS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.CONVERSATIONS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -82,42 +90,64 @@ public class ConfigurationUpdater extends Updater<Configuration> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Configuration update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Configuration update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
+        return Configuration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (defaultConversationCreatorRoleSid != null) {
-            Serializer.toString(request, "DefaultConversationCreatorRoleSid", defaultConversationCreatorRoleSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultConversationCreatorRoleSid",
+                defaultConversationCreatorRoleSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultConversationRoleSid != null) {
-            Serializer.toString(request, "DefaultConversationRoleSid", defaultConversationRoleSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultConversationRoleSid",
+                defaultConversationRoleSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (defaultChatServiceRoleSid != null) {
-            Serializer.toString(request, "DefaultChatServiceRoleSid", defaultChatServiceRoleSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "DefaultChatServiceRoleSid",
+                defaultChatServiceRoleSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (reachabilityEnabled != null) {
-            Serializer.toString(request, "ReachabilityEnabled", reachabilityEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ReachabilityEnabled",
+                reachabilityEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

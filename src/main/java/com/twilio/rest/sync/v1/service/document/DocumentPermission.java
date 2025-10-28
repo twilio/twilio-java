@@ -18,61 +18,87 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DocumentPermission extends Resource {
 
-
-    public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
+    public static DocumentPermissionDeleter deleter(
+        final String pathServiceSid,
+        final String pathDocumentSid,
+        final String pathIdentity
+    ) {
         return new DocumentPermissionDeleter(
-                pathServiceSid, pathDocumentSid, pathIdentity
+            pathServiceSid,
+            pathDocumentSid,
+            pathIdentity
         );
     }
 
-
-    public static DocumentPermissionFetcher fetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity) {
+    public static DocumentPermissionFetcher fetcher(
+        final String pathServiceSid,
+        final String pathDocumentSid,
+        final String pathIdentity
+    ) {
         return new DocumentPermissionFetcher(
-                pathServiceSid, pathDocumentSid, pathIdentity
+            pathServiceSid,
+            pathDocumentSid,
+            pathIdentity
         );
     }
 
-
-    public static DocumentPermissionReader reader(final String pathServiceSid, final String pathDocumentSid) {
-        return new DocumentPermissionReader(
-                pathServiceSid, pathDocumentSid
-        );
+    public static DocumentPermissionReader reader(
+        final String pathServiceSid,
+        final String pathDocumentSid
+    ) {
+        return new DocumentPermissionReader(pathServiceSid, pathDocumentSid);
     }
 
-
-    public static DocumentPermissionUpdater updater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage) {
+    public static DocumentPermissionUpdater updater(
+        final String pathServiceSid,
+        final String pathDocumentSid,
+        final String pathIdentity,
+        final Boolean read,
+        final Boolean write,
+        final Boolean manage
+    ) {
         return new DocumentPermissionUpdater(
-                pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage
+            pathServiceSid,
+            pathDocumentSid,
+            pathIdentity,
+            read,
+            write,
+            manage
         );
     }
-
 
     /**
      * Converts a JSON String into a DocumentPermission object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DocumentPermission object represented by the provided JSON
      */
-    public static DocumentPermission fromJson(final String json, final ObjectMapper objectMapper) {
+    public static DocumentPermission fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DocumentPermission.class);
@@ -87,11 +113,14 @@ public class DocumentPermission extends Resource {
      * Converts a JSON InputStream into a DocumentPermission object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DocumentPermission object represented by the provided JSON
      */
-    public static DocumentPermission fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static DocumentPermission fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DocumentPermission.class);
@@ -114,34 +143,40 @@ public class DocumentPermission extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String documentSid;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Boolean manage;
+
     @Getter
     private final Boolean read;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean write;
 
     @JsonCreator
     private DocumentPermission(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("document_sid") final String documentSid,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("manage") final Boolean manage,
-            @JsonProperty("read") final Boolean read,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("write") final Boolean write
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("document_sid") final String documentSid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("manage") final Boolean manage,
+        @JsonProperty("read") final Boolean read,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("write") final Boolean write
     ) {
         this.accountSid = accountSid;
         this.documentSid = documentSid;
@@ -165,31 +200,28 @@ public class DocumentPermission extends Resource {
 
         DocumentPermission other = (DocumentPermission) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(documentSid, other.documentSid) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(manage, other.manage) &&
-                        Objects.equals(read, other.read) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(write, other.write)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(documentSid, other.documentSid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(manage, other.manage) &&
+            Objects.equals(read, other.read) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(write, other.write)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                documentSid,
-                identity,
-                manage,
-                read,
-                serviceSid,
-                url,
-                write
+            accountSid,
+            documentSid,
+            identity,
+            manage,
+            read,
+            serviceSid,
+            url,
+            write
         );
     }
-
-
 }
-

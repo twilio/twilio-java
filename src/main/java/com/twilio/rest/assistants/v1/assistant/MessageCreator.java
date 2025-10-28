@@ -25,36 +25,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MessageCreator extends Creator<Message> {
 
     private String pathId;
     private Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest;
 
-    public MessageCreator(final String pathId, final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
+    public MessageCreator(
+        final String pathId,
+        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
+    ) {
         this.pathId = pathId;
-        this.assistantsV1ServiceAssistantSendMessageRequest = assistantsV1ServiceAssistantSendMessageRequest;
+        this.assistantsV1ServiceAssistantSendMessageRequest =
+            assistantsV1ServiceAssistantSendMessageRequest;
     }
 
-
-    public MessageCreator setAssistantsV1ServiceAssistantSendMessageRequest(final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest) {
-        this.assistantsV1ServiceAssistantSendMessageRequest = assistantsV1ServiceAssistantSendMessageRequest;
+    public MessageCreator setAssistantsV1ServiceAssistantSendMessageRequest(
+        final Message.AssistantsV1ServiceAssistantSendMessageRequest assistantsV1ServiceAssistantSendMessageRequest
+    ) {
+        this.assistantsV1ServiceAssistantSendMessageRequest =
+            assistantsV1ServiceAssistantSendMessageRequest;
         return this;
     }
 
-
     @Override
     public Message create(final TwilioRestClient client) {
-
         String path = "/v1/Assistants/{id}/Messages";
 
         path = path.replace("{" + "id" + "}", this.pathId.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.ASSISTANTS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.ASSISTANTS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -62,14 +66,19 @@ public class MessageCreator extends Creator<Message> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -80,7 +89,12 @@ public class MessageCreator extends Creator<Message> {
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (assistantsV1ServiceAssistantSendMessageRequest != null) {
-            request.setBody(Message.toJson(assistantsV1ServiceAssistantSendMessageRequest, objectMapper));
+            request.setBody(
+                Message.toJson(
+                    assistantsV1ServiceAssistantSendMessageRequest,
+                    objectMapper
+                )
+            );
         }
     }
 }

@@ -18,49 +18,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SecondaryAuthToken extends Resource {
 
-
     public static SecondaryAuthTokenCreator creator() {
-        return new SecondaryAuthTokenCreator(
-
-        );
+        return new SecondaryAuthTokenCreator();
     }
-
 
     public static SecondaryAuthTokenDeleter deleter() {
-        return new SecondaryAuthTokenDeleter(
-
-        );
+        return new SecondaryAuthTokenDeleter();
     }
-
 
     /**
      * Converts a JSON String into a SecondaryAuthToken object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SecondaryAuthToken object represented by the provided JSON
      */
-    public static SecondaryAuthToken fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SecondaryAuthToken fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SecondaryAuthToken.class);
@@ -75,11 +74,14 @@ public class SecondaryAuthToken extends Resource {
      * Converts a JSON InputStream into a SecondaryAuthToken object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SecondaryAuthToken object represented by the provided JSON
      */
-    public static SecondaryAuthToken fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SecondaryAuthToken fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SecondaryAuthToken.class);
@@ -102,27 +104,32 @@ public class SecondaryAuthToken extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String secondaryAuthToken;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private SecondaryAuthToken(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("secondary_auth_token") final String secondaryAuthToken,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("secondary_auth_token") final String secondaryAuthToken,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -143,25 +150,22 @@ public class SecondaryAuthToken extends Resource {
 
         SecondaryAuthToken other = (SecondaryAuthToken) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(secondaryAuthToken, other.secondaryAuthToken) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(secondaryAuthToken, other.secondaryAuthToken) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                secondaryAuthToken,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            secondaryAuthToken,
+            url
         );
     }
-
-
 }
-

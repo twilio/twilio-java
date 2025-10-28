@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
 
@@ -34,27 +35,24 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
     private String languageCode;
     private Long pageSize;
 
-    public PrebuiltOperatorReader() {
-    }
+    public PrebuiltOperatorReader() {}
 
-
-    public PrebuiltOperatorReader setAvailability(final PrebuiltOperator.Availability availability) {
+    public PrebuiltOperatorReader setAvailability(
+        final PrebuiltOperator.Availability availability
+    ) {
         this.availability = availability;
         return this;
     }
-
 
     public PrebuiltOperatorReader setLanguageCode(final String languageCode) {
         this.languageCode = languageCode;
         return this;
     }
 
-
     public PrebuiltOperatorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<PrebuiltOperator> read(final TwilioRestClient client) {
@@ -62,77 +60,109 @@ public class PrebuiltOperatorReader extends Reader<PrebuiltOperator> {
     }
 
     public Page<PrebuiltOperator> firstPage(final TwilioRestClient client) {
-
         String path = "/v2/Operators/PreBuilt";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<PrebuiltOperator> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<PrebuiltOperator> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PrebuiltOperator read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PrebuiltOperator read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "operators",
-                response.getContent(),
-                PrebuiltOperator.class,
-                client.getObjectMapper());
+            "operators",
+            response.getContent(),
+            PrebuiltOperator.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<PrebuiltOperator> previousPage(final Page<PrebuiltOperator> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<PrebuiltOperator> previousPage(
+        final Page<PrebuiltOperator> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PrebuiltOperator> nextPage(final Page<PrebuiltOperator> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<PrebuiltOperator> nextPage(
+        final Page<PrebuiltOperator> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<PrebuiltOperator> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<PrebuiltOperator> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (availability != null) {
-            Serializer.toString(request, "Availability", availability, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Availability",
+                availability,
+                ParameterType.QUERY
+            );
         }
-
 
         if (languageCode != null) {
-            Serializer.toString(request, "LanguageCode", languageCode, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

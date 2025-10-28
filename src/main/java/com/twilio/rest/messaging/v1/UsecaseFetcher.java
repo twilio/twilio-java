@@ -23,37 +23,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UsecaseFetcher extends Fetcher<Usecase> {
 
-
-    public UsecaseFetcher() {
-    }
-
+    public UsecaseFetcher() {}
 
     @Override
     public Usecase fetch(final TwilioRestClient client) {
-
         String path = "/v1/Services/Usecases";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.GET,
+            Domains.MESSAGING.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Usecase fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Usecase fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

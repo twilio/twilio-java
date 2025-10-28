@@ -18,45 +18,56 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueueCumulativeStatistics extends Resource {
 
-
-    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid) {
+    public static TaskQueueCumulativeStatisticsFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathTaskQueueSid
+    ) {
         return new TaskQueueCumulativeStatisticsFetcher(
-                pathWorkspaceSid, pathTaskQueueSid
+            pathWorkspaceSid,
+            pathTaskQueueSid
         );
     }
-
 
     /**
      * Converts a JSON String into a TaskQueueCumulativeStatistics object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueueCumulativeStatistics object represented by the provided JSON
      */
-    public static TaskQueueCumulativeStatistics fromJson(final String json, final ObjectMapper objectMapper) {
+    public static TaskQueueCumulativeStatistics fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, TaskQueueCumulativeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                TaskQueueCumulativeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -68,14 +79,20 @@ public class TaskQueueCumulativeStatistics extends Resource {
      * Converts a JSON InputStream into a TaskQueueCumulativeStatistics object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueueCumulativeStatistics object represented by the provided JSON
      */
-    public static TaskQueueCumulativeStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static TaskQueueCumulativeStatistics fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, TaskQueueCumulativeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                TaskQueueCumulativeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -95,78 +112,118 @@ public class TaskQueueCumulativeStatistics extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Integer avgTaskAcceptanceTime;
+
     @Getter
     private final ZonedDateTime endTime;
+
     @Getter
     private final Integer reservationsAccepted;
+
     @Getter
     private final Integer reservationsCanceled;
+
     @Getter
     private final Integer reservationsCreated;
+
     @Getter
     private final Integer reservationsRejected;
+
     @Getter
     private final Integer reservationsRescinded;
+
     @Getter
     private final Integer reservationsTimedOut;
+
     @Getter
     private final Object splitByWaitTime;
+
     @Getter
     private final ZonedDateTime startTime;
+
     @Getter
     private final String taskQueueSid;
+
     @Getter
     private final Integer tasksCanceled;
+
     @Getter
     private final Integer tasksCompleted;
+
     @Getter
     private final Integer tasksDeleted;
+
     @Getter
     private final Integer tasksEntered;
+
     @Getter
     private final Integer tasksMoved;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Object waitDurationInQueueUntilAccepted;
+
     @Getter
     private final Object waitDurationUntilAccepted;
+
     @Getter
     private final Object waitDurationUntilCanceled;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private TaskQueueCumulativeStatistics(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("avg_task_acceptance_time") final Integer avgTaskAcceptanceTime,
-            @JsonProperty("end_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
-            @JsonProperty("reservations_accepted") final Integer reservationsAccepted,
-            @JsonProperty("reservations_canceled") final Integer reservationsCanceled,
-            @JsonProperty("reservations_created") final Integer reservationsCreated,
-            @JsonProperty("reservations_rejected") final Integer reservationsRejected,
-            @JsonProperty("reservations_rescinded") final Integer reservationsRescinded,
-            @JsonProperty("reservations_timed_out") final Integer reservationsTimedOut,
-            @JsonProperty("split_by_wait_time") final Object splitByWaitTime,
-            @JsonProperty("start_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime startTime,
-            @JsonProperty("task_queue_sid") final String taskQueueSid,
-            @JsonProperty("tasks_canceled") final Integer tasksCanceled,
-            @JsonProperty("tasks_completed") final Integer tasksCompleted,
-            @JsonProperty("tasks_deleted") final Integer tasksDeleted,
-            @JsonProperty("tasks_entered") final Integer tasksEntered,
-            @JsonProperty("tasks_moved") final Integer tasksMoved,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("wait_duration_in_queue_until_accepted") final Object waitDurationInQueueUntilAccepted,
-            @JsonProperty("wait_duration_until_accepted") final Object waitDurationUntilAccepted,
-            @JsonProperty("wait_duration_until_canceled") final Object waitDurationUntilCanceled,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "avg_task_acceptance_time"
+        ) final Integer avgTaskAcceptanceTime,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
+        @JsonProperty(
+            "reservations_accepted"
+        ) final Integer reservationsAccepted,
+        @JsonProperty(
+            "reservations_canceled"
+        ) final Integer reservationsCanceled,
+        @JsonProperty("reservations_created") final Integer reservationsCreated,
+        @JsonProperty(
+            "reservations_rejected"
+        ) final Integer reservationsRejected,
+        @JsonProperty(
+            "reservations_rescinded"
+        ) final Integer reservationsRescinded,
+        @JsonProperty(
+            "reservations_timed_out"
+        ) final Integer reservationsTimedOut,
+        @JsonProperty("split_by_wait_time") final Object splitByWaitTime,
+        @JsonProperty("start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime startTime,
+        @JsonProperty("task_queue_sid") final String taskQueueSid,
+        @JsonProperty("tasks_canceled") final Integer tasksCanceled,
+        @JsonProperty("tasks_completed") final Integer tasksCompleted,
+        @JsonProperty("tasks_deleted") final Integer tasksDeleted,
+        @JsonProperty("tasks_entered") final Integer tasksEntered,
+        @JsonProperty("tasks_moved") final Integer tasksMoved,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "wait_duration_in_queue_until_accepted"
+        ) final Object waitDurationInQueueUntilAccepted,
+        @JsonProperty(
+            "wait_duration_until_accepted"
+        ) final Object waitDurationUntilAccepted,
+        @JsonProperty(
+            "wait_duration_until_canceled"
+        ) final Object waitDurationUntilCanceled,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.avgTaskAcceptanceTime = avgTaskAcceptanceTime;
@@ -186,7 +243,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
         this.tasksEntered = tasksEntered;
         this.tasksMoved = tasksMoved;
         this.url = url;
-        this.waitDurationInQueueUntilAccepted = waitDurationInQueueUntilAccepted;
+        this.waitDurationInQueueUntilAccepted =
+            waitDurationInQueueUntilAccepted;
         this.waitDurationUntilAccepted = waitDurationUntilAccepted;
         this.waitDurationUntilCanceled = waitDurationUntilCanceled;
         this.workspaceSid = workspaceSid;
@@ -204,59 +262,71 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
         TaskQueueCumulativeStatistics other = (TaskQueueCumulativeStatistics) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(avgTaskAcceptanceTime, other.avgTaskAcceptanceTime) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
-                        Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
-                        Objects.equals(reservationsCreated, other.reservationsCreated) &&
-                        Objects.equals(reservationsRejected, other.reservationsRejected) &&
-                        Objects.equals(reservationsRescinded, other.reservationsRescinded) &&
-                        Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
-                        Objects.equals(splitByWaitTime, other.splitByWaitTime) &&
-                        Objects.equals(startTime, other.startTime) &&
-                        Objects.equals(taskQueueSid, other.taskQueueSid) &&
-                        Objects.equals(tasksCanceled, other.tasksCanceled) &&
-                        Objects.equals(tasksCompleted, other.tasksCompleted) &&
-                        Objects.equals(tasksDeleted, other.tasksDeleted) &&
-                        Objects.equals(tasksEntered, other.tasksEntered) &&
-                        Objects.equals(tasksMoved, other.tasksMoved) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(waitDurationInQueueUntilAccepted, other.waitDurationInQueueUntilAccepted) &&
-                        Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) &&
-                        Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                avgTaskAcceptanceTime,
+                other.avgTaskAcceptanceTime
+            ) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
+            Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
+            Objects.equals(reservationsCreated, other.reservationsCreated) &&
+            Objects.equals(reservationsRejected, other.reservationsRejected) &&
+            Objects.equals(
+                reservationsRescinded,
+                other.reservationsRescinded
+            ) &&
+            Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
+            Objects.equals(splitByWaitTime, other.splitByWaitTime) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(taskQueueSid, other.taskQueueSid) &&
+            Objects.equals(tasksCanceled, other.tasksCanceled) &&
+            Objects.equals(tasksCompleted, other.tasksCompleted) &&
+            Objects.equals(tasksDeleted, other.tasksDeleted) &&
+            Objects.equals(tasksEntered, other.tasksEntered) &&
+            Objects.equals(tasksMoved, other.tasksMoved) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(
+                waitDurationInQueueUntilAccepted,
+                other.waitDurationInQueueUntilAccepted
+            ) &&
+            Objects.equals(
+                waitDurationUntilAccepted,
+                other.waitDurationUntilAccepted
+            ) &&
+            Objects.equals(
+                waitDurationUntilCanceled,
+                other.waitDurationUntilCanceled
+            ) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                avgTaskAcceptanceTime,
-                endTime,
-                reservationsAccepted,
-                reservationsCanceled,
-                reservationsCreated,
-                reservationsRejected,
-                reservationsRescinded,
-                reservationsTimedOut,
-                splitByWaitTime,
-                startTime,
-                taskQueueSid,
-                tasksCanceled,
-                tasksCompleted,
-                tasksDeleted,
-                tasksEntered,
-                tasksMoved,
-                url,
-                waitDurationInQueueUntilAccepted,
-                waitDurationUntilAccepted,
-                waitDurationUntilCanceled,
-                workspaceSid
+            accountSid,
+            avgTaskAcceptanceTime,
+            endTime,
+            reservationsAccepted,
+            reservationsCanceled,
+            reservationsCreated,
+            reservationsRejected,
+            reservationsRescinded,
+            reservationsTimedOut,
+            splitByWaitTime,
+            startTime,
+            taskQueueSid,
+            tasksCanceled,
+            tasksCompleted,
+            tasksDeleted,
+            tasksEntered,
+            tasksMoved,
+            url,
+            waitDurationInQueueUntilAccepted,
+            waitDurationUntilAccepted,
+            waitDurationUntilCanceled,
+            workspaceSid
         );
     }
-
-
 }
-

@@ -18,34 +18,36 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Anonymize extends Resource {
 
-
-    public static AnonymizeUpdater updater(final String pathRoomSid, final String pathSid) {
-        return new AnonymizeUpdater(
-                pathRoomSid, pathSid
-        );
+    public static AnonymizeUpdater updater(
+        final String pathRoomSid,
+        final String pathSid
+    ) {
+        return new AnonymizeUpdater(pathRoomSid, pathSid);
     }
-
 
     public enum Status {
         CONNECTED("connected"),
@@ -67,15 +69,17 @@ public class Anonymize extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Anonymize object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Anonymize object represented by the provided JSON
      */
-    public static Anonymize fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Anonymize fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Anonymize.class);
@@ -90,11 +94,14 @@ public class Anonymize extends Resource {
      * Converts a JSON InputStream into a Anonymize object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Anonymize object represented by the provided JSON
      */
-    public static Anonymize fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Anonymize fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Anonymize.class);
@@ -117,47 +124,60 @@ public class Anonymize extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Integer duration;
+
     @Getter
     private final ZonedDateTime endTime;
+
     @Getter
     private final String identity;
+
     @Getter
     private final String roomSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final ZonedDateTime startTime;
+
     @Getter
     private final Anonymize.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Anonymize(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("duration") final Integer duration,
-            @JsonProperty("end_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime endTime,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("room_sid") final String roomSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("start_time")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime startTime,
-            @JsonProperty("status") final Anonymize.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime startTime,
+        @JsonProperty("status") final Anonymize.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -184,37 +204,34 @@ public class Anonymize extends Resource {
 
         Anonymize other = (Anonymize) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(duration, other.duration) &&
-                        Objects.equals(endTime, other.endTime) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(roomSid, other.roomSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(startTime, other.startTime) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                duration,
-                endTime,
-                identity,
-                roomSid,
-                sid,
-                startTime,
-                status,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            duration,
+            endTime,
+            identity,
+            roomSid,
+            sid,
+            startTime,
+            status,
+            url
         );
     }
-
-
 }
-

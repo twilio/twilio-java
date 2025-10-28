@@ -18,31 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
 
-
     public static EventReader reader(final String pathCallSid) {
-        return new EventReader(
-                pathCallSid
-        );
+        return new EventReader(pathCallSid);
     }
-
 
     public enum TwilioEdge {
         UNKNOWN_EDGE("unknown_edge"),
@@ -90,15 +89,17 @@ public class Event extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Event object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
      */
-    public static Event fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Event fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -113,11 +114,14 @@ public class Event extends Resource {
      * Converts a JSON InputStream into a Event object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
      */
-    public static Event fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Event fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -140,43 +144,52 @@ public class Event extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String callSid;
+
     @Getter
     private final Object carrierEdge;
+
     @Getter
     private final Object clientEdge;
+
     @Getter
     private final Event.TwilioEdge edge;
+
     @Getter
     private final String group;
+
     @Getter
     private final Event.Level level;
+
     @Getter
     private final String name;
+
     @Getter
     private final Object sdkEdge;
+
     @Getter
     private final Object sipEdge;
+
     @Getter
     private final String timestamp;
 
     @JsonCreator
     private Event(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("carrier_edge") final Object carrierEdge,
-            @JsonProperty("client_edge") final Object clientEdge,
-            @JsonProperty("edge") final Event.TwilioEdge edge,
-            @JsonProperty("group") final String group,
-            @JsonProperty("level") final Event.Level level,
-            @JsonProperty("name") final String name,
-            @JsonProperty("sdk_edge") final Object sdkEdge,
-            @JsonProperty("sip_edge") final Object sipEdge,
-            @JsonProperty("timestamp") final String timestamp
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("carrier_edge") final Object carrierEdge,
+        @JsonProperty("client_edge") final Object clientEdge,
+        @JsonProperty("edge") final Event.TwilioEdge edge,
+        @JsonProperty("group") final String group,
+        @JsonProperty("level") final Event.Level level,
+        @JsonProperty("name") final String name,
+        @JsonProperty("sdk_edge") final Object sdkEdge,
+        @JsonProperty("sip_edge") final Object sipEdge,
+        @JsonProperty("timestamp") final String timestamp
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -203,37 +216,34 @@ public class Event extends Resource {
 
         Event other = (Event) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(carrierEdge, other.carrierEdge) &&
-                        Objects.equals(clientEdge, other.clientEdge) &&
-                        Objects.equals(edge, other.edge) &&
-                        Objects.equals(group, other.group) &&
-                        Objects.equals(level, other.level) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(sdkEdge, other.sdkEdge) &&
-                        Objects.equals(sipEdge, other.sipEdge) &&
-                        Objects.equals(timestamp, other.timestamp)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(carrierEdge, other.carrierEdge) &&
+            Objects.equals(clientEdge, other.clientEdge) &&
+            Objects.equals(edge, other.edge) &&
+            Objects.equals(group, other.group) &&
+            Objects.equals(level, other.level) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(sdkEdge, other.sdkEdge) &&
+            Objects.equals(sipEdge, other.sipEdge) &&
+            Objects.equals(timestamp, other.timestamp)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                callSid,
-                carrierEdge,
-                clientEdge,
-                edge,
-                group,
-                level,
-                name,
-                sdkEdge,
-                sipEdge,
-                timestamp
+            accountSid,
+            callSid,
+            carrierEdge,
+            clientEdge,
+            edge,
+            group,
+            level,
+            name,
+            sdkEdge,
+            sipEdge,
+            timestamp
         );
     }
-
-
 }
-

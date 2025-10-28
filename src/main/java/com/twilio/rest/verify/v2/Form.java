@@ -18,32 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Form extends Resource {
 
-
     public static FormFetcher fetcher(final Form.FormTypes pathFormType) {
-        return new FormFetcher(
-                pathFormType
-        );
+        return new FormFetcher(pathFormType);
     }
-
 
     public enum FormTypes {
         FORM_PUSH("form-push");
@@ -64,15 +63,17 @@ public class Form extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Form object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Form object represented by the provided JSON
      */
-    public static Form fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Form fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Form.class);
@@ -87,11 +88,14 @@ public class Form extends Resource {
      * Converts a JSON InputStream into a Form object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Form object represented by the provided JSON
      */
-    public static Form fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Form fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Form.class);
@@ -114,22 +118,24 @@ public class Form extends Resource {
         }
     }
 
-
     @Getter
     private final Object formMeta;
+
     @Getter
     private final Form.FormTypes formType;
+
     @Getter
     private final Object forms;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Form(
-            @JsonProperty("form_meta") final Object formMeta,
-            @JsonProperty("form_type") final Form.FormTypes formType,
-            @JsonProperty("forms") final Object forms,
-            @JsonProperty("url") final URI url
+        @JsonProperty("form_meta") final Object formMeta,
+        @JsonProperty("form_type") final Form.FormTypes formType,
+        @JsonProperty("forms") final Object forms,
+        @JsonProperty("url") final URI url
     ) {
         this.formMeta = formMeta;
         this.formType = formType;
@@ -149,23 +155,15 @@ public class Form extends Resource {
 
         Form other = (Form) o;
         return (
-                Objects.equals(formMeta, other.formMeta) &&
-                        Objects.equals(formType, other.formType) &&
-                        Objects.equals(forms, other.forms) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(formMeta, other.formMeta) &&
+            Objects.equals(formType, other.formType) &&
+            Objects.equals(forms, other.forms) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                formMeta,
-                formType,
-                forms,
-                url
-        );
+        return Objects.hash(formMeta, formType, forms, url);
     }
-
-
 }
-

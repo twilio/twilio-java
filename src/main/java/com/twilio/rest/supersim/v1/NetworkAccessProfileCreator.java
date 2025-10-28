@@ -14,7 +14,6 @@
 
 package com.twilio.rest.supersim.v1;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.util.List;
 
 public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
@@ -36,17 +35,16 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
     private String uniqueName;
     private List<String> networks;
 
-    public NetworkAccessProfileCreator() {
-    }
-
+    public NetworkAccessProfileCreator() {}
 
     public NetworkAccessProfileCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
-
-    public NetworkAccessProfileCreator setNetworks(final List<String> networks) {
+    public NetworkAccessProfileCreator setNetworks(
+        final List<String> networks
+    ) {
         this.networks = networks;
         return this;
     }
@@ -57,14 +55,12 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
 
     @Override
     public NetworkAccessProfile create(final TwilioRestClient client) {
-
         String path = "/v1/NetworkAccessProfiles";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SUPERSIM.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SUPERSIM.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -72,33 +68,48 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("NetworkAccessProfile creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "NetworkAccessProfile creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return NetworkAccessProfile.fromJson(response.getStream(), client.getObjectMapper());
+        return NetworkAccessProfile.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (uniqueName != null) {
-            Serializer.toString(request, "UniqueName", uniqueName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (networks != null) {
             for (String param : networks) {
-                Serializer.toString(request, "Networks", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "Networks",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
-
     }
 }

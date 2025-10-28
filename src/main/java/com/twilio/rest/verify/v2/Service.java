@@ -18,71 +18,61 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
 
-
     public static ServiceCreator creator(final String friendlyName) {
-        return new ServiceCreator(
-                friendlyName
-        );
+        return new ServiceCreator(friendlyName);
     }
-
 
     public static ServiceDeleter deleter(final String pathSid) {
-        return new ServiceDeleter(
-                pathSid
-        );
+        return new ServiceDeleter(pathSid);
     }
-
 
     public static ServiceFetcher fetcher(final String pathSid) {
-        return new ServiceFetcher(
-                pathSid
-        );
+        return new ServiceFetcher(pathSid);
     }
-
 
     public static ServiceReader reader() {
-        return new ServiceReader(
-
-        );
+        return new ServiceReader();
     }
-
 
     public static ServiceUpdater updater(final String pathSid) {
-        return new ServiceUpdater(
-                pathSid
-        );
+        return new ServiceUpdater(pathSid);
     }
-
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Service fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -97,11 +87,14 @@ public class Service extends Resource {
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
      */
-    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Service fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -124,75 +117,100 @@ public class Service extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Integer codeLength;
+
     @Getter
     private final Boolean customCodeEnabled;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String defaultTemplateSid;
+
     @Getter
     private final Boolean doNotShareWarningEnabled;
+
     @Getter
     private final Boolean dtmfInputRequired;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final Boolean lookupEnabled;
+
     @Getter
     private final Object passkeys;
+
     @Getter
     private final Boolean psd2Enabled;
+
     @Getter
     private final Object push;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Boolean skipSmsToLandlines;
+
     @Getter
     private final Object totp;
+
     @Getter
     private final String ttsName;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean verifyEventSubscriptionEnabled;
+
     @Getter
     private final Object whatsapp;
 
     @JsonCreator
     private Service(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("code_length") final Integer codeLength,
-            @JsonProperty("custom_code_enabled") final Boolean customCodeEnabled,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("default_template_sid") final String defaultTemplateSid,
-            @JsonProperty("do_not_share_warning_enabled") final Boolean doNotShareWarningEnabled,
-            @JsonProperty("dtmf_input_required") final Boolean dtmfInputRequired,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("lookup_enabled") final Boolean lookupEnabled,
-            @JsonProperty("passkeys") final Object passkeys,
-            @JsonProperty("psd2_enabled") final Boolean psd2Enabled,
-            @JsonProperty("push") final Object push,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("skip_sms_to_landlines") final Boolean skipSmsToLandlines,
-            @JsonProperty("totp") final Object totp,
-            @JsonProperty("tts_name") final String ttsName,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("verify_event_subscription_enabled") final Boolean verifyEventSubscriptionEnabled,
-            @JsonProperty("whatsapp") final Object whatsapp
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("code_length") final Integer codeLength,
+        @JsonProperty("custom_code_enabled") final Boolean customCodeEnabled,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("default_template_sid") final String defaultTemplateSid,
+        @JsonProperty(
+            "do_not_share_warning_enabled"
+        ) final Boolean doNotShareWarningEnabled,
+        @JsonProperty("dtmf_input_required") final Boolean dtmfInputRequired,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("lookup_enabled") final Boolean lookupEnabled,
+        @JsonProperty("passkeys") final Object passkeys,
+        @JsonProperty("psd2_enabled") final Boolean psd2Enabled,
+        @JsonProperty("push") final Object push,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("skip_sms_to_landlines") final Boolean skipSmsToLandlines,
+        @JsonProperty("totp") final Object totp,
+        @JsonProperty("tts_name") final String ttsName,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "verify_event_subscription_enabled"
+        ) final Boolean verifyEventSubscriptionEnabled,
+        @JsonProperty("whatsapp") final Object whatsapp
     ) {
         this.accountSid = accountSid;
         this.codeLength = codeLength;
@@ -229,57 +247,60 @@ public class Service extends Resource {
 
         Service other = (Service) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(codeLength, other.codeLength) &&
-                        Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
-                        Objects.equals(doNotShareWarningEnabled, other.doNotShareWarningEnabled) &&
-                        Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(lookupEnabled, other.lookupEnabled) &&
-                        Objects.equals(passkeys, other.passkeys) &&
-                        Objects.equals(psd2Enabled, other.psd2Enabled) &&
-                        Objects.equals(push, other.push) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&
-                        Objects.equals(totp, other.totp) &&
-                        Objects.equals(ttsName, other.ttsName) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(verifyEventSubscriptionEnabled, other.verifyEventSubscriptionEnabled) &&
-                        Objects.equals(whatsapp, other.whatsapp)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(codeLength, other.codeLength) &&
+            Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
+            Objects.equals(
+                doNotShareWarningEnabled,
+                other.doNotShareWarningEnabled
+            ) &&
+            Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(lookupEnabled, other.lookupEnabled) &&
+            Objects.equals(passkeys, other.passkeys) &&
+            Objects.equals(psd2Enabled, other.psd2Enabled) &&
+            Objects.equals(push, other.push) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&
+            Objects.equals(totp, other.totp) &&
+            Objects.equals(ttsName, other.ttsName) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(
+                verifyEventSubscriptionEnabled,
+                other.verifyEventSubscriptionEnabled
+            ) &&
+            Objects.equals(whatsapp, other.whatsapp)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                codeLength,
-                customCodeEnabled,
-                dateCreated,
-                dateUpdated,
-                defaultTemplateSid,
-                doNotShareWarningEnabled,
-                dtmfInputRequired,
-                friendlyName,
-                links,
-                lookupEnabled,
-                passkeys,
-                psd2Enabled,
-                push,
-                sid,
-                skipSmsToLandlines,
-                totp,
-                ttsName,
-                url,
-                verifyEventSubscriptionEnabled,
-                whatsapp
+            accountSid,
+            codeLength,
+            customCodeEnabled,
+            dateCreated,
+            dateUpdated,
+            defaultTemplateSid,
+            doNotShareWarningEnabled,
+            dtmfInputRequired,
+            friendlyName,
+            links,
+            lookupEnabled,
+            passkeys,
+            psd2Enabled,
+            push,
+            sid,
+            skipSmsToLandlines,
+            totp,
+            ttsName,
+            url,
+            verifyEventSubscriptionEnabled,
+            whatsapp
         );
     }
-
-
 }
-

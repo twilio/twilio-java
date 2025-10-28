@@ -27,20 +27,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AwsReader extends Reader<Aws> {
 
     private Long pageSize;
 
-    public AwsReader() {
-    }
-
+    public AwsReader() {}
 
     public AwsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Aws> read(final TwilioRestClient client) {
@@ -48,67 +46,91 @@ public class AwsReader extends Reader<Aws> {
     }
 
     public Page<Aws> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Credentials/AWS";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.ACCOUNTS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.ACCOUNTS.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Aws> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Aws> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Aws read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Aws read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "credentials",
-                response.getContent(),
-                Aws.class,
-                client.getObjectMapper());
+            "credentials",
+            response.getContent(),
+            Aws.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Aws> previousPage(final Page<Aws> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Aws> previousPage(
+        final Page<Aws> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Aws> nextPage(final Page<Aws> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Aws> nextPage(
+        final Page<Aws> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Aws> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Aws> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

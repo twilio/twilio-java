@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FactorUpdater extends Updater<Factor> {
+
     private String pathServiceSid;
     private String pathIdentity;
     private String pathSid;
@@ -41,81 +43,83 @@ public class FactorUpdater extends Updater<Factor> {
     private Factor.TotpAlgorithms configAlg;
     private String configNotificationPlatform;
 
-    public FactorUpdater(final String pathServiceSid, final String pathIdentity, final String pathSid) {
+    public FactorUpdater(
+        final String pathServiceSid,
+        final String pathIdentity,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
         this.pathSid = pathSid;
     }
-
 
     public FactorUpdater setAuthPayload(final String authPayload) {
         this.authPayload = authPayload;
         return this;
     }
 
-
     public FactorUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
-    public FactorUpdater setConfigNotificationToken(final String configNotificationToken) {
+    public FactorUpdater setConfigNotificationToken(
+        final String configNotificationToken
+    ) {
         this.configNotificationToken = configNotificationToken;
         return this;
     }
-
 
     public FactorUpdater setConfigSdkVersion(final String configSdkVersion) {
         this.configSdkVersion = configSdkVersion;
         return this;
     }
 
-
     public FactorUpdater setConfigTimeStep(final Integer configTimeStep) {
         this.configTimeStep = configTimeStep;
         return this;
     }
-
 
     public FactorUpdater setConfigSkew(final Integer configSkew) {
         this.configSkew = configSkew;
         return this;
     }
 
-
     public FactorUpdater setConfigCodeLength(final Integer configCodeLength) {
         this.configCodeLength = configCodeLength;
         return this;
     }
-
 
     public FactorUpdater setConfigAlg(final Factor.TotpAlgorithms configAlg) {
         this.configAlg = configAlg;
         return this;
     }
 
-
-    public FactorUpdater setConfigNotificationPlatform(final String configNotificationPlatform) {
+    public FactorUpdater setConfigNotificationPlatform(
+        final String configNotificationPlatform
+    ) {
         this.configNotificationPlatform = configNotificationPlatform;
         return this;
     }
 
-
     @Override
     public Factor update(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
 
-        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VERIFY.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VERIFY.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -123,14 +127,19 @@ public class FactorUpdater extends Updater<Factor> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Factor update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Factor update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -139,51 +148,85 @@ public class FactorUpdater extends Updater<Factor> {
     }
 
     private void addPostParams(final Request request) {
-
         if (authPayload != null) {
-            Serializer.toString(request, "AuthPayload", authPayload, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AuthPayload",
+                authPayload,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configNotificationToken != null) {
-            Serializer.toString(request, "Config.NotificationToken", configNotificationToken, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.NotificationToken",
+                configNotificationToken,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configSdkVersion != null) {
-            Serializer.toString(request, "Config.SdkVersion", configSdkVersion, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.SdkVersion",
+                configSdkVersion,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configTimeStep != null) {
-            Serializer.toString(request, "Config.TimeStep", configTimeStep, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.TimeStep",
+                configTimeStep,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configSkew != null) {
-            Serializer.toString(request, "Config.Skew", configSkew, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.Skew",
+                configSkew,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configCodeLength != null) {
-            Serializer.toString(request, "Config.CodeLength", configCodeLength, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.CodeLength",
+                configCodeLength,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configAlg != null) {
-            Serializer.toString(request, "Config.Alg", configAlg, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.Alg",
+                configAlg,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (configNotificationPlatform != null) {
-            Serializer.toString(request, "Config.NotificationPlatform", configNotificationPlatform, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Config.NotificationPlatform",
+                configNotificationPlatform,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

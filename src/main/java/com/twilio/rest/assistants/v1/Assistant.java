@@ -19,62 +19,52 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Assistant extends Resource {
 
-
-    public static AssistantCreator creator(final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest) {
-        return new AssistantCreator(
-                assistantsV1ServiceCreateAssistantRequest
-        );
+    public static AssistantCreator creator(
+        final Assistant.AssistantsV1ServiceCreateAssistantRequest assistantsV1ServiceCreateAssistantRequest
+    ) {
+        return new AssistantCreator(assistantsV1ServiceCreateAssistantRequest);
     }
-
 
     public static AssistantDeleter deleter(final String pathId) {
-        return new AssistantDeleter(
-                pathId
-        );
+        return new AssistantDeleter(pathId);
     }
-
 
     public static AssistantFetcher fetcher(final String pathId) {
-        return new AssistantFetcher(
-                pathId
-        );
+        return new AssistantFetcher(pathId);
     }
-
 
     public static AssistantReader reader() {
-        return new AssistantReader(
-
-        );
+        return new AssistantReader();
     }
-
 
     public static AssistantUpdater updater(final String pathId) {
-        return new AssistantUpdater(
-                pathId
-        );
+        return new AssistantUpdater(pathId);
     }
-
 
     @JsonDeserialize(builder = AssistantsV1ServiceTool.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -138,7 +128,6 @@ public class Assistant extends Resource {
         @Getter
         private final ZonedDateTime dateUpdated;
 
-
         private AssistantsV1ServiceTool(Builder builder) {
             this.accountSid = builder.accountSid;
             this.description = builder.description;
@@ -153,16 +142,40 @@ public class Assistant extends Resource {
             this.dateUpdated = builder.dateUpdated;
         }
 
-        public static Builder builder(final String description, final Boolean enabled, final String id, final Object meta, final String name, final Boolean requiresAuth, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
-            return new Builder(description, enabled, id, meta, name, requiresAuth, type, dateCreated, dateUpdated);
+        public static Builder builder(
+            final String description,
+            final Boolean enabled,
+            final String id,
+            final Object meta,
+            final String name,
+            final Boolean requiresAuth,
+            final String type,
+            final ZonedDateTime dateCreated,
+            final ZonedDateTime dateUpdated
+        ) {
+            return new Builder(
+                description,
+                enabled,
+                id,
+                meta,
+                name,
+                requiresAuth,
+                type,
+                dateCreated,
+                dateUpdated
+            );
         }
 
-        public static AssistantsV1ServiceTool fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static AssistantsV1ServiceTool fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, AssistantsV1ServiceTool.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("account_sid")
             private String accountSid;
 
@@ -190,17 +203,30 @@ public class Assistant extends Resource {
             @JsonProperty("url")
             private String url;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("date_created")
             private ZonedDateTime dateCreated;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("date_updated")
             private ZonedDateTime dateUpdated;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("description") final String description, @JsonProperty("enabled") final Boolean enabled, @JsonProperty("id") final String id, @JsonProperty("meta") final Object meta, @JsonProperty("name") final String name, @JsonProperty("requires_auth") final Boolean requiresAuth, @JsonProperty("type") final String type, @JsonProperty("date_created") final ZonedDateTime dateCreated, @JsonProperty("date_updated") final ZonedDateTime dateUpdated) {
+            public Builder(
+                @JsonProperty("description") final String description,
+                @JsonProperty("enabled") final Boolean enabled,
+                @JsonProperty("id") final String id,
+                @JsonProperty("meta") final Object meta,
+                @JsonProperty("name") final String name,
+                @JsonProperty("requires_auth") final Boolean requiresAuth,
+                @JsonProperty("type") final String type,
+                @JsonProperty("date_created") final ZonedDateTime dateCreated,
+                @JsonProperty("date_updated") final ZonedDateTime dateUpdated
+            ) {
                 this.description = description;
                 this.enabled = enabled;
                 this.id = id;
@@ -243,39 +269,37 @@ public class Assistant extends Resource {
 
             AssistantsV1ServiceTool other = (AssistantsV1ServiceTool) o;
             return (
-                    Objects.equals(accountSid, other.accountSid) &&
-                            Objects.equals(description, other.description) &&
-                            Objects.equals(enabled, other.enabled) &&
-                            Objects.equals(id, other.id) &&
-                            Objects.equals(meta, other.meta) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(requiresAuth, other.requiresAuth) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(url, other.url) &&
-                            Objects.equals(dateCreated, other.dateCreated) &&
-                            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(accountSid, other.accountSid) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(enabled, other.enabled) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(meta, other.meta) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(requiresAuth, other.requiresAuth) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(url, other.url) &&
+                Objects.equals(dateCreated, other.dateCreated) &&
+                Objects.equals(dateUpdated, other.dateUpdated)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    accountSid,
-                    description,
-                    enabled,
-                    id,
-                    meta,
-                    name,
-                    requiresAuth,
-                    type,
-                    url,
-                    dateCreated,
-                    dateUpdated
+                accountSid,
+                description,
+                enabled,
+                id,
+                meta,
+                name,
+                requiresAuth,
+                type,
+                url,
+                dateCreated,
+                dateUpdated
             );
         }
-
     }
-
 
     @JsonDeserialize(builder = AssistantsV1ServiceCustomerAi.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -292,35 +316,54 @@ public class Assistant extends Resource {
         @Getter
         private final Boolean personalizationEngineEnabled;
 
-
         private AssistantsV1ServiceCustomerAi(Builder builder) {
             this.perceptionEngineEnabled = builder.perceptionEngineEnabled;
-            this.personalizationEngineEnabled = builder.personalizationEngineEnabled;
+            this.personalizationEngineEnabled =
+                builder.personalizationEngineEnabled;
         }
 
-        public static Builder builder(final Boolean perceptionEngineEnabled, final Boolean personalizationEngineEnabled) {
-            return new Builder(perceptionEngineEnabled, personalizationEngineEnabled);
+        public static Builder builder(
+            final Boolean perceptionEngineEnabled,
+            final Boolean personalizationEngineEnabled
+        ) {
+            return new Builder(
+                perceptionEngineEnabled,
+                personalizationEngineEnabled
+            );
         }
 
-        public static AssistantsV1ServiceCustomerAi fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCustomerAi.class);
+        public static AssistantsV1ServiceCustomerAi fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCustomerAi.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("perception_engine_enabled")
             private Boolean perceptionEngineEnabled;
 
             @JsonProperty("personalization_engine_enabled")
             private Boolean personalizationEngineEnabled;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("perception_engine_enabled") final Boolean perceptionEngineEnabled, @JsonProperty("personalization_engine_enabled") final Boolean personalizationEngineEnabled) {
+            public Builder(
+                @JsonProperty(
+                    "perception_engine_enabled"
+                ) final Boolean perceptionEngineEnabled,
+                @JsonProperty(
+                    "personalization_engine_enabled"
+                ) final Boolean personalizationEngineEnabled
+            ) {
                 this.perceptionEngineEnabled = perceptionEngineEnabled;
-                this.personalizationEngineEnabled = personalizationEngineEnabled;
+                this.personalizationEngineEnabled =
+                    personalizationEngineEnabled;
             }
-
 
             public AssistantsV1ServiceCustomerAi build() {
                 return new AssistantsV1ServiceCustomerAi(this);
@@ -337,25 +380,32 @@ public class Assistant extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCustomerAi other = (AssistantsV1ServiceCustomerAi) o;
+            AssistantsV1ServiceCustomerAi other =
+                (AssistantsV1ServiceCustomerAi) o;
             return (
-                    Objects.equals(perceptionEngineEnabled, other.perceptionEngineEnabled) &&
-                            Objects.equals(personalizationEngineEnabled, other.personalizationEngineEnabled)
+                Objects.equals(
+                    perceptionEngineEnabled,
+                    other.perceptionEngineEnabled
+                ) &&
+                Objects.equals(
+                    personalizationEngineEnabled,
+                    other.personalizationEngineEnabled
+                )
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    perceptionEngineEnabled,
-                    personalizationEngineEnabled
+                perceptionEngineEnabled,
+                personalizationEngineEnabled
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceUpdateAssistantRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceUpdateAssistantRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateAssistantRequest {
@@ -385,7 +435,6 @@ public class Assistant extends Resource {
         @Getter
         private final AssistantsV1ServiceSegmentCredential segmentCredential;
 
-
         private AssistantsV1ServiceUpdateAssistantRequest(Builder builder) {
             this.customerAi = builder.customerAi;
             this.name = builder.name;
@@ -398,12 +447,19 @@ public class Assistant extends Resource {
             return new Builder();
         }
 
-        public static AssistantsV1ServiceUpdateAssistantRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceUpdateAssistantRequest.class);
+        public static AssistantsV1ServiceUpdateAssistantRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceUpdateAssistantRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("customer_ai")
             private AssistantsV1ServiceCustomerAi customerAi;
 
@@ -418,7 +474,6 @@ public class Assistant extends Resource {
 
             @JsonProperty("segment_credential")
             private AssistantsV1ServiceSegmentCredential segmentCredential;
-
 
             public AssistantsV1ServiceUpdateAssistantRequest build() {
                 return new AssistantsV1ServiceUpdateAssistantRequest(this);
@@ -435,31 +490,32 @@ public class Assistant extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceUpdateAssistantRequest other = (AssistantsV1ServiceUpdateAssistantRequest) o;
+            AssistantsV1ServiceUpdateAssistantRequest other =
+                (AssistantsV1ServiceUpdateAssistantRequest) o;
             return (
-                    Objects.equals(customerAi, other.customerAi) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(owner, other.owner) &&
-                            Objects.equals(personalityPrompt, other.personalityPrompt) &&
-                            Objects.equals(segmentCredential, other.segmentCredential)
+                Objects.equals(customerAi, other.customerAi) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(owner, other.owner) &&
+                Objects.equals(personalityPrompt, other.personalityPrompt) &&
+                Objects.equals(segmentCredential, other.segmentCredential)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    customerAi,
-                    name,
-                    owner,
-                    personalityPrompt,
-                    segmentCredential
+                customerAi,
+                name,
+                owner,
+                personalityPrompt,
+                segmentCredential
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceCreateAssistantRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreateAssistantRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateAssistantRequest {
@@ -489,7 +545,6 @@ public class Assistant extends Resource {
         @Getter
         private final AssistantsV1ServiceSegmentCredential segmentCredential;
 
-
         private AssistantsV1ServiceCreateAssistantRequest(Builder builder) {
             this.customerAi = builder.customerAi;
             this.name = builder.name;
@@ -502,12 +557,19 @@ public class Assistant extends Resource {
             return new Builder(name);
         }
 
-        public static AssistantsV1ServiceCreateAssistantRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCreateAssistantRequest.class);
+        public static AssistantsV1ServiceCreateAssistantRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreateAssistantRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("customer_ai")
             private AssistantsV1ServiceCustomerAi customerAi;
 
@@ -523,12 +585,10 @@ public class Assistant extends Resource {
             @JsonProperty("segment_credential")
             private AssistantsV1ServiceSegmentCredential segmentCredential;
 
-
             @JsonCreator
             public Builder(@JsonProperty("name") final String name) {
                 this.name = name;
             }
-
 
             public AssistantsV1ServiceCreateAssistantRequest build() {
                 return new AssistantsV1ServiceCreateAssistantRequest(this);
@@ -545,31 +605,32 @@ public class Assistant extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCreateAssistantRequest other = (AssistantsV1ServiceCreateAssistantRequest) o;
+            AssistantsV1ServiceCreateAssistantRequest other =
+                (AssistantsV1ServiceCreateAssistantRequest) o;
             return (
-                    Objects.equals(customerAi, other.customerAi) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(owner, other.owner) &&
-                            Objects.equals(personalityPrompt, other.personalityPrompt) &&
-                            Objects.equals(segmentCredential, other.segmentCredential)
+                Objects.equals(customerAi, other.customerAi) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(owner, other.owner) &&
+                Objects.equals(personalityPrompt, other.personalityPrompt) &&
+                Objects.equals(segmentCredential, other.segmentCredential)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    customerAi,
-                    name,
-                    owner,
-                    personalityPrompt,
-                    segmentCredential
+                customerAi,
+                name,
+                owner,
+                personalityPrompt,
+                segmentCredential
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceSegmentCredential.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceSegmentCredential.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceSegmentCredential {
@@ -589,7 +650,6 @@ public class Assistant extends Resource {
         @Getter
         private final String writeKey;
 
-
         private AssistantsV1ServiceSegmentCredential(Builder builder) {
             this.profileApiKey = builder.profileApiKey;
             this.spaceId = builder.spaceId;
@@ -600,12 +660,19 @@ public class Assistant extends Resource {
             return new Builder();
         }
 
-        public static AssistantsV1ServiceSegmentCredential fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceSegmentCredential.class);
+        public static AssistantsV1ServiceSegmentCredential fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceSegmentCredential.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("profile_api_key")
             private String profileApiKey;
 
@@ -614,7 +681,6 @@ public class Assistant extends Resource {
 
             @JsonProperty("write_key")
             private String writeKey;
-
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("profile_api_key")
@@ -652,25 +718,20 @@ public class Assistant extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceSegmentCredential other = (AssistantsV1ServiceSegmentCredential) o;
+            AssistantsV1ServiceSegmentCredential other =
+                (AssistantsV1ServiceSegmentCredential) o;
             return (
-                    Objects.equals(profileApiKey, other.profileApiKey) &&
-                            Objects.equals(spaceId, other.spaceId) &&
-                            Objects.equals(writeKey, other.writeKey)
+                Objects.equals(profileApiKey, other.profileApiKey) &&
+                Objects.equals(spaceId, other.spaceId) &&
+                Objects.equals(writeKey, other.writeKey)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    profileApiKey,
-                    spaceId,
-                    writeKey
-            );
+            return Objects.hash(profileApiKey, spaceId, writeKey);
         }
-
     }
-
 
     @JsonDeserialize(builder = AssistantsV1ServiceKnowledge.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -734,7 +795,6 @@ public class Assistant extends Resource {
         @Getter
         private final ZonedDateTime dateUpdated;
 
-
         private AssistantsV1ServiceKnowledge(Builder builder) {
             this.description = builder.description;
             this.id = builder.id;
@@ -749,16 +809,29 @@ public class Assistant extends Resource {
             this.dateUpdated = builder.dateUpdated;
         }
 
-        public static Builder builder(final String id, final String name, final String type, final ZonedDateTime dateCreated, final ZonedDateTime dateUpdated) {
+        public static Builder builder(
+            final String id,
+            final String name,
+            final String type,
+            final ZonedDateTime dateCreated,
+            final ZonedDateTime dateUpdated
+        ) {
             return new Builder(id, name, type, dateCreated, dateUpdated);
         }
 
-        public static AssistantsV1ServiceKnowledge fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceKnowledge.class);
+        public static AssistantsV1ServiceKnowledge fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceKnowledge.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("description")
             private String description;
 
@@ -786,17 +859,26 @@ public class Assistant extends Resource {
             @JsonProperty("embedding_model")
             private String embeddingModel;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("date_created")
             private ZonedDateTime dateCreated;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("date_updated")
             private ZonedDateTime dateUpdated;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("id") final String id, @JsonProperty("name") final String name, @JsonProperty("type") final String type, @JsonProperty("date_created") final ZonedDateTime dateCreated, @JsonProperty("date_updated") final ZonedDateTime dateUpdated) {
+            public Builder(
+                @JsonProperty("id") final String id,
+                @JsonProperty("name") final String name,
+                @JsonProperty("type") final String type,
+                @JsonProperty("date_created") final ZonedDateTime dateCreated,
+                @JsonProperty("date_updated") final ZonedDateTime dateUpdated
+            ) {
                 this.id = id;
                 this.name = name;
                 this.type = type;
@@ -820,7 +902,9 @@ public class Assistant extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("knowledge_source_details")
-            public Builder knowledgeSourceDetails(Object knowledgeSourceDetails) {
+            public Builder knowledgeSourceDetails(
+                Object knowledgeSourceDetails
+            ) {
                 this.knowledgeSourceDetails = knowledgeSourceDetails;
                 return this;
             }
@@ -861,50 +945,55 @@ public class Assistant extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceKnowledge other = (AssistantsV1ServiceKnowledge) o;
+            AssistantsV1ServiceKnowledge other =
+                (AssistantsV1ServiceKnowledge) o;
             return (
-                    Objects.equals(description, other.description) &&
-                            Objects.equals(id, other.id) &&
-                            Objects.equals(accountSid, other.accountSid) &&
-                            Objects.equals(knowledgeSourceDetails, other.knowledgeSourceDetails) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(status, other.status) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(url, other.url) &&
-                            Objects.equals(embeddingModel, other.embeddingModel) &&
-                            Objects.equals(dateCreated, other.dateCreated) &&
-                            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(description, other.description) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(accountSid, other.accountSid) &&
+                Objects.equals(
+                    knowledgeSourceDetails,
+                    other.knowledgeSourceDetails
+                ) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(status, other.status) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(url, other.url) &&
+                Objects.equals(embeddingModel, other.embeddingModel) &&
+                Objects.equals(dateCreated, other.dateCreated) &&
+                Objects.equals(dateUpdated, other.dateUpdated)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    description,
-                    id,
-                    accountSid,
-                    knowledgeSourceDetails,
-                    name,
-                    status,
-                    type,
-                    url,
-                    embeddingModel,
-                    dateCreated,
-                    dateUpdated
+                description,
+                id,
+                accountSid,
+                knowledgeSourceDetails,
+                name,
+                status,
+                type,
+                url,
+                embeddingModel,
+                dateCreated,
+                dateUpdated
             );
         }
-
     }
-
 
     /**
      * Converts a JSON String into a Assistant object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Assistant object represented by the provided JSON
      */
-    public static Assistant fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Assistant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assistant.class);
@@ -919,11 +1008,14 @@ public class Assistant extends Resource {
      * Converts a JSON InputStream into a Assistant object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Assistant object represented by the provided JSON
      */
-    public static Assistant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Assistant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assistant.class);
@@ -946,48 +1038,62 @@ public class Assistant extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object customerAi;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String id;
+
     @Getter
     private final List<AssistantsV1ServiceKnowledge> knowledge;
+
     @Getter
     private final String model;
+
     @Getter
     private final String name;
+
     @Getter
     private final String owner;
+
     @Getter
     private final String personalityPrompt;
+
     @Getter
     private final List<AssistantsV1ServiceTool> tools;
+
     @Getter
     private final String url;
 
     @JsonCreator
     private Assistant(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("customer_ai") final Object customerAi,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("id") final String id,
-            @JsonProperty("knowledge") final List<AssistantsV1ServiceKnowledge> knowledge,
-            @JsonProperty("model") final String model,
-            @JsonProperty("name") final String name,
-            @JsonProperty("owner") final String owner,
-            @JsonProperty("personality_prompt") final String personalityPrompt,
-            @JsonProperty("tools") final List<AssistantsV1ServiceTool> tools,
-            @JsonProperty("url") final String url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("customer_ai") final Object customerAi,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("id") final String id,
+        @JsonProperty("knowledge") final List<
+            AssistantsV1ServiceKnowledge
+        > knowledge,
+        @JsonProperty("model") final String model,
+        @JsonProperty("name") final String name,
+        @JsonProperty("owner") final String owner,
+        @JsonProperty("personality_prompt") final String personalityPrompt,
+        @JsonProperty("tools") final List<AssistantsV1ServiceTool> tools,
+        @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
         this.customerAi = customerAi;
@@ -1015,39 +1121,36 @@ public class Assistant extends Resource {
 
         Assistant other = (Assistant) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(customerAi, other.customerAi) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(knowledge, other.knowledge) &&
-                        Objects.equals(model, other.model) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(owner, other.owner) &&
-                        Objects.equals(personalityPrompt, other.personalityPrompt) &&
-                        Objects.equals(tools, other.tools) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(customerAi, other.customerAi) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(knowledge, other.knowledge) &&
+            Objects.equals(model, other.model) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(owner, other.owner) &&
+            Objects.equals(personalityPrompt, other.personalityPrompt) &&
+            Objects.equals(tools, other.tools) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                customerAi,
-                dateCreated,
-                dateUpdated,
-                id,
-                knowledge,
-                model,
-                name,
-                owner,
-                personalityPrompt,
-                tools,
-                url
+            accountSid,
+            customerAi,
+            dateCreated,
+            dateUpdated,
+            id,
+            knowledge,
+            model,
+            name,
+            owner,
+            personalityPrompt,
+            tools,
+            url
         );
     }
-
-
 }
-

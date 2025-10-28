@@ -18,71 +18,61 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectionPolicy extends Resource {
 
-
     public static ConnectionPolicyCreator creator() {
-        return new ConnectionPolicyCreator(
-
-        );
+        return new ConnectionPolicyCreator();
     }
-
 
     public static ConnectionPolicyDeleter deleter(final String pathSid) {
-        return new ConnectionPolicyDeleter(
-                pathSid
-        );
+        return new ConnectionPolicyDeleter(pathSid);
     }
-
 
     public static ConnectionPolicyFetcher fetcher(final String pathSid) {
-        return new ConnectionPolicyFetcher(
-                pathSid
-        );
+        return new ConnectionPolicyFetcher(pathSid);
     }
-
 
     public static ConnectionPolicyReader reader() {
-        return new ConnectionPolicyReader(
-
-        );
+        return new ConnectionPolicyReader();
     }
-
 
     public static ConnectionPolicyUpdater updater(final String pathSid) {
-        return new ConnectionPolicyUpdater(
-                pathSid
-        );
+        return new ConnectionPolicyUpdater(pathSid);
     }
-
 
     /**
      * Converts a JSON String into a ConnectionPolicy object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ConnectionPolicy object represented by the provided JSON
      */
-    public static ConnectionPolicy fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ConnectionPolicy fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConnectionPolicy.class);
@@ -97,11 +87,14 @@ public class ConnectionPolicy extends Resource {
      * Converts a JSON InputStream into a ConnectionPolicy object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ConnectionPolicy object represented by the provided JSON
      */
-    public static ConnectionPolicy fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ConnectionPolicy fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConnectionPolicy.class);
@@ -124,33 +117,40 @@ public class ConnectionPolicy extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private ConnectionPolicy(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -173,29 +173,26 @@ public class ConnectionPolicy extends Resource {
 
         ConnectionPolicy other = (ConnectionPolicy) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                links,
-                sid,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            links,
+            sid,
+            url
         );
     }
-
-
 }
-

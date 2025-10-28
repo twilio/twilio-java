@@ -18,41 +18,43 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
 
-
     public static MessageReader reader(final String pathSessionId) {
-        return new MessageReader(
-                pathSessionId
-        );
+        return new MessageReader(pathSessionId);
     }
-
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Message fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -67,11 +69,14 @@ public class Message extends Resource {
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
      */
-    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Message fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -94,42 +99,52 @@ public class Message extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String assistantId;
+
     @Getter
     private final Object content;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String id;
+
     @Getter
     private final String identity;
+
     @Getter
     private final Object meta;
+
     @Getter
     private final String role;
+
     @Getter
     private final String sessionId;
 
     @JsonCreator
     private Message(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("assistant_id") final String assistantId,
-            @JsonProperty("content") final Object content,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("id") final String id,
-            @JsonProperty("identity") final String identity,
-            @JsonProperty("meta") final Object meta,
-            @JsonProperty("role") final String role,
-            @JsonProperty("session_id") final String sessionId
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("assistant_id") final String assistantId,
+        @JsonProperty("content") final Object content,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("id") final String id,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("meta") final Object meta,
+        @JsonProperty("role") final String role,
+        @JsonProperty("session_id") final String sessionId
     ) {
         this.accountSid = accountSid;
         this.assistantId = assistantId;
@@ -155,35 +170,32 @@ public class Message extends Resource {
 
         Message other = (Message) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(assistantId, other.assistantId) &&
-                        Objects.equals(content, other.content) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(identity, other.identity) &&
-                        Objects.equals(meta, other.meta) &&
-                        Objects.equals(role, other.role) &&
-                        Objects.equals(sessionId, other.sessionId)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assistantId, other.assistantId) &&
+            Objects.equals(content, other.content) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(meta, other.meta) &&
+            Objects.equals(role, other.role) &&
+            Objects.equals(sessionId, other.sessionId)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                assistantId,
-                content,
-                dateCreated,
-                dateUpdated,
-                id,
-                identity,
-                meta,
-                role,
-                sessionId
+            accountSid,
+            assistantId,
+            content,
+            dateCreated,
+            dateUpdated,
+            id,
+            identity,
+            meta,
+            role,
+            sessionId
         );
     }
-
-
 }
-

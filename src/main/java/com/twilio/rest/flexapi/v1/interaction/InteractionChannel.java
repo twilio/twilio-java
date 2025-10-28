@@ -18,47 +18,53 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannel extends Resource {
 
-
-    public static InteractionChannelFetcher fetcher(final String pathInteractionSid, final String pathSid) {
-        return new InteractionChannelFetcher(
-                pathInteractionSid, pathSid
-        );
+    public static InteractionChannelFetcher fetcher(
+        final String pathInteractionSid,
+        final String pathSid
+    ) {
+        return new InteractionChannelFetcher(pathInteractionSid, pathSid);
     }
 
-
-    public static InteractionChannelReader reader(final String pathInteractionSid) {
-        return new InteractionChannelReader(
-                pathInteractionSid
-        );
+    public static InteractionChannelReader reader(
+        final String pathInteractionSid
+    ) {
+        return new InteractionChannelReader(pathInteractionSid);
     }
 
-
-    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status) {
+    public static InteractionChannelUpdater updater(
+        final String pathInteractionSid,
+        final String pathSid,
+        final InteractionChannel.UpdateChannelStatus status
+    ) {
         return new InteractionChannelUpdater(
-                pathInteractionSid, pathSid, status
+            pathInteractionSid,
+            pathSid,
+            status
         );
     }
-
 
     public enum Type {
         VOICE("voice"),
@@ -92,7 +98,8 @@ public class InteractionChannel extends Resource {
         FAILED("failed"),
         CLOSED("closed"),
         INACTIVE("inactive"),
-        PAUSE("pause");
+        PAUSE("pause"),
+        TRANSFER("transfer");
 
         private final String value;
 
@@ -130,15 +137,17 @@ public class InteractionChannel extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a InteractionChannel object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InteractionChannel object represented by the provided JSON
      */
-    public static InteractionChannel fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InteractionChannel fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionChannel.class);
@@ -153,11 +162,14 @@ public class InteractionChannel extends Resource {
      * Converts a JSON InputStream into a InteractionChannel object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InteractionChannel object represented by the provided JSON
      */
-    public static InteractionChannel fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InteractionChannel fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionChannel.class);
@@ -180,34 +192,40 @@ public class InteractionChannel extends Resource {
         }
     }
 
-
     @Getter
     private final Integer errorCode;
+
     @Getter
     private final String errorMessage;
+
     @Getter
     private final String interactionSid;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final InteractionChannel.ChannelStatus status;
+
     @Getter
     private final InteractionChannel.Type type;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private InteractionChannel(
-            @JsonProperty("error_code") final Integer errorCode,
-            @JsonProperty("error_message") final String errorMessage,
-            @JsonProperty("interaction_sid") final String interactionSid,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("status") final InteractionChannel.ChannelStatus status,
-            @JsonProperty("type") final InteractionChannel.Type type,
-            @JsonProperty("url") final URI url
+        @JsonProperty("error_code") final Integer errorCode,
+        @JsonProperty("error_message") final String errorMessage,
+        @JsonProperty("interaction_sid") final String interactionSid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final InteractionChannel.ChannelStatus status,
+        @JsonProperty("type") final InteractionChannel.Type type,
+        @JsonProperty("url") final URI url
     ) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
@@ -231,31 +249,28 @@ public class InteractionChannel extends Resource {
 
         InteractionChannel other = (InteractionChannel) o;
         return (
-                Objects.equals(errorCode, other.errorCode) &&
-                        Objects.equals(errorMessage, other.errorMessage) &&
-                        Objects.equals(interactionSid, other.interactionSid) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(errorCode, other.errorCode) &&
+            Objects.equals(errorMessage, other.errorMessage) &&
+            Objects.equals(interactionSid, other.interactionSid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                errorCode,
-                errorMessage,
-                interactionSid,
-                links,
-                sid,
-                status,
-                type,
-                url
+            errorCode,
+            errorMessage,
+            interactionSid,
+            links,
+            sid,
+            status,
+            type,
+            url
         );
     }
-
-
 }
-

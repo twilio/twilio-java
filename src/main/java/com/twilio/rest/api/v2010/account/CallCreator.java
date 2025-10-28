@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -28,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
@@ -71,63 +70,86 @@ public class CallCreator extends Creator<Call> {
     private com.twilio.type.Twiml twiml;
     private String applicationSid;
 
-    public CallCreator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
+    public CallCreator(
+        final com.twilio.type.Endpoint to,
+        final com.twilio.type.Endpoint from,
+        final URI url
+    ) {
         this.to = to;
         this.from = from;
         this.url = url;
     }
 
-    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
+    public CallCreator(
+        final String pathAccountSid,
+        final com.twilio.type.Endpoint to,
+        final com.twilio.type.Endpoint from,
+        final URI url
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.url = url;
     }
 
-    public CallCreator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
+    public CallCreator(
+        final com.twilio.type.Endpoint to,
+        final com.twilio.type.Endpoint from,
+        final com.twilio.type.Twiml twiml
+    ) {
         this.to = to;
         this.from = from;
         this.twiml = twiml;
     }
 
-    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
+    public CallCreator(
+        final String pathAccountSid,
+        final com.twilio.type.Endpoint to,
+        final com.twilio.type.Endpoint from,
+        final com.twilio.type.Twiml twiml
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.twiml = twiml;
     }
 
-    public CallCreator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
+    public CallCreator(
+        final com.twilio.type.Endpoint to,
+        final com.twilio.type.Endpoint from,
+        final String applicationSid
+    ) {
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
     }
 
-    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
+    public CallCreator(
+        final String pathAccountSid,
+        final com.twilio.type.Endpoint to,
+        final com.twilio.type.Endpoint from,
+        final String applicationSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
     }
-
 
     public CallCreator setTo(final com.twilio.type.Endpoint to) {
         this.to = to;
         return this;
     }
 
-
     public CallCreator setFrom(final com.twilio.type.Endpoint from) {
         this.from = from;
         return this;
     }
 
-
     public CallCreator setMethod(final HttpMethod method) {
         this.method = method;
         return this;
     }
-
 
     public CallCreator setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
@@ -143,7 +165,6 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-
     public CallCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
@@ -153,88 +174,95 @@ public class CallCreator extends Creator<Call> {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
-    public CallCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
+    public CallCreator setStatusCallbackEvent(
+        final List<String> statusCallbackEvent
+    ) {
         this.statusCallbackEvent = statusCallbackEvent;
         return this;
     }
 
-    public CallCreator setStatusCallbackEvent(final String statusCallbackEvent) {
+    public CallCreator setStatusCallbackEvent(
+        final String statusCallbackEvent
+    ) {
         return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
     }
 
-    public CallCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
+    public CallCreator setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-
 
     public CallCreator setSendDigits(final String sendDigits) {
         this.sendDigits = sendDigits;
         return this;
     }
 
-
     public CallCreator setTimeout(final Integer timeout) {
         this.timeout = timeout;
         return this;
     }
-
 
     public CallCreator setRecord(final Boolean record) {
         this.record = record;
         return this;
     }
 
-
     public CallCreator setRecordingChannels(final String recordingChannels) {
         this.recordingChannels = recordingChannels;
         return this;
     }
 
-
-    public CallCreator setRecordingStatusCallback(final String recordingStatusCallback) {
+    public CallCreator setRecordingStatusCallback(
+        final String recordingStatusCallback
+    ) {
         this.recordingStatusCallback = recordingStatusCallback;
         return this;
     }
 
-
-    public CallCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
+    public CallCreator setRecordingStatusCallbackMethod(
+        final HttpMethod recordingStatusCallbackMethod
+    ) {
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
         return this;
     }
-
 
     public CallCreator setSipAuthUsername(final String sipAuthUsername) {
         this.sipAuthUsername = sipAuthUsername;
         return this;
     }
 
-
     public CallCreator setSipAuthPassword(final String sipAuthPassword) {
         this.sipAuthPassword = sipAuthPassword;
         return this;
     }
-
 
     public CallCreator setMachineDetection(final String machineDetection) {
         this.machineDetection = machineDetection;
         return this;
     }
 
-
-    public CallCreator setMachineDetectionTimeout(final Integer machineDetectionTimeout) {
+    public CallCreator setMachineDetectionTimeout(
+        final Integer machineDetectionTimeout
+    ) {
         this.machineDetectionTimeout = machineDetectionTimeout;
         return this;
     }
 
-
-    public CallCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
+    public CallCreator setRecordingStatusCallbackEvent(
+        final List<String> recordingStatusCallbackEvent
+    ) {
         this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
         return this;
     }
 
-    public CallCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
-        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
+    public CallCreator setRecordingStatusCallbackEvent(
+        final String recordingStatusCallbackEvent
+    ) {
+        return setRecordingStatusCallbackEvent(
+            Promoter.listOfOne(recordingStatusCallbackEvent)
+        );
     }
 
     public CallCreator setTrim(final String trim) {
@@ -242,81 +270,84 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-
     public CallCreator setCallerId(final String callerId) {
         this.callerId = callerId;
         return this;
     }
 
-
-    public CallCreator setMachineDetectionSpeechThreshold(final Integer machineDetectionSpeechThreshold) {
+    public CallCreator setMachineDetectionSpeechThreshold(
+        final Integer machineDetectionSpeechThreshold
+    ) {
         this.machineDetectionSpeechThreshold = machineDetectionSpeechThreshold;
         return this;
     }
 
-
-    public CallCreator setMachineDetectionSpeechEndThreshold(final Integer machineDetectionSpeechEndThreshold) {
-        this.machineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold;
+    public CallCreator setMachineDetectionSpeechEndThreshold(
+        final Integer machineDetectionSpeechEndThreshold
+    ) {
+        this.machineDetectionSpeechEndThreshold =
+            machineDetectionSpeechEndThreshold;
         return this;
     }
 
-
-    public CallCreator setMachineDetectionSilenceTimeout(final Integer machineDetectionSilenceTimeout) {
+    public CallCreator setMachineDetectionSilenceTimeout(
+        final Integer machineDetectionSilenceTimeout
+    ) {
         this.machineDetectionSilenceTimeout = machineDetectionSilenceTimeout;
         return this;
     }
-
 
     public CallCreator setAsyncAmd(final String asyncAmd) {
         this.asyncAmd = asyncAmd;
         return this;
     }
 
-
-    public CallCreator setAsyncAmdStatusCallback(final URI asyncAmdStatusCallback) {
+    public CallCreator setAsyncAmdStatusCallback(
+        final URI asyncAmdStatusCallback
+    ) {
         this.asyncAmdStatusCallback = asyncAmdStatusCallback;
         return this;
     }
 
-    public CallCreator setAsyncAmdStatusCallback(final String asyncAmdStatusCallback) {
-        return setAsyncAmdStatusCallback(Promoter.uriFromString(asyncAmdStatusCallback));
+    public CallCreator setAsyncAmdStatusCallback(
+        final String asyncAmdStatusCallback
+    ) {
+        return setAsyncAmdStatusCallback(
+            Promoter.uriFromString(asyncAmdStatusCallback)
+        );
     }
 
-    public CallCreator setAsyncAmdStatusCallbackMethod(final HttpMethod asyncAmdStatusCallbackMethod) {
+    public CallCreator setAsyncAmdStatusCallbackMethod(
+        final HttpMethod asyncAmdStatusCallbackMethod
+    ) {
         this.asyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod;
         return this;
     }
-
 
     public CallCreator setByoc(final String byoc) {
         this.byoc = byoc;
         return this;
     }
 
-
     public CallCreator setCallReason(final String callReason) {
         this.callReason = callReason;
         return this;
     }
-
 
     public CallCreator setCallToken(final String callToken) {
         this.callToken = callToken;
         return this;
     }
 
-
     public CallCreator setRecordingTrack(final String recordingTrack) {
         this.recordingTrack = recordingTrack;
         return this;
     }
 
-
     public CallCreator setTimeLimit(final Integer timeLimit) {
         this.timeLimit = timeLimit;
         return this;
     }
-
 
     public CallCreator setUrl(final URI url) {
         this.url = url;
@@ -341,20 +372,24 @@ public class CallCreator extends Creator<Call> {
         return this;
     }
 
-
     @Override
     public Call create(final TwilioRestClient client) {
-
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -362,14 +397,19 @@ public class CallCreator extends Creator<Call> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Call creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Call creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -378,185 +418,313 @@ public class CallCreator extends Creator<Call> {
     }
 
     private void addPostParams(final Request request) {
-
         if (to != null) {
             Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
 
-
         if (from != null) {
-            Serializer.toString(request, "From", from, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (method != null) {
-            Serializer.toString(request, "Method", method, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fallbackUrl != null) {
-            Serializer.toString(request, "FallbackUrl", fallbackUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (fallbackMethod != null) {
-            Serializer.toString(request, "FallbackMethod", fallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FallbackMethod",
+                fallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallback != null) {
-            Serializer.toString(request, "StatusCallback", statusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (statusCallbackEvent != null) {
             for (String param : statusCallbackEvent) {
-                Serializer.toString(request, "StatusCallbackEvent", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "StatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (statusCallbackMethod != null) {
-            Serializer.toString(request, "StatusCallbackMethod", statusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sendDigits != null) {
-            Serializer.toString(request, "SendDigits", sendDigits, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SendDigits",
+                sendDigits,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (timeout != null) {
-            Serializer.toString(request, "Timeout", timeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Timeout",
+                timeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (record != null) {
-            Serializer.toString(request, "Record", record, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Record",
+                record,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingChannels != null) {
-            Serializer.toString(request, "RecordingChannels", recordingChannels, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingChannels",
+                recordingChannels,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingStatusCallback != null) {
-            Serializer.toString(request, "RecordingStatusCallback", recordingStatusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingStatusCallback",
+                recordingStatusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingStatusCallbackMethod != null) {
-            Serializer.toString(request, "RecordingStatusCallbackMethod", recordingStatusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingStatusCallbackMethod",
+                recordingStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sipAuthUsername != null) {
-            Serializer.toString(request, "SipAuthUsername", sipAuthUsername, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SipAuthUsername",
+                sipAuthUsername,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (sipAuthPassword != null) {
-            Serializer.toString(request, "SipAuthPassword", sipAuthPassword, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SipAuthPassword",
+                sipAuthPassword,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (machineDetection != null) {
-            Serializer.toString(request, "MachineDetection", machineDetection, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MachineDetection",
+                machineDetection,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (machineDetectionTimeout != null) {
-            Serializer.toString(request, "MachineDetectionTimeout", machineDetectionTimeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MachineDetectionTimeout",
+                machineDetectionTimeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingStatusCallbackEvent != null) {
             for (String param : recordingStatusCallbackEvent) {
-                Serializer.toString(request, "RecordingStatusCallbackEvent", param, ParameterType.URLENCODED);
+                Serializer.toString(
+                    request,
+                    "RecordingStatusCallbackEvent",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
 
-
         if (trim != null) {
-            Serializer.toString(request, "Trim", trim, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callerId != null) {
-            Serializer.toString(request, "CallerId", callerId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallerId",
+                callerId,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (machineDetectionSpeechThreshold != null) {
-            Serializer.toString(request, "MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MachineDetectionSpeechThreshold",
+                machineDetectionSpeechThreshold,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (machineDetectionSpeechEndThreshold != null) {
-            Serializer.toString(request, "MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MachineDetectionSpeechEndThreshold",
+                machineDetectionSpeechEndThreshold,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (machineDetectionSilenceTimeout != null) {
-            Serializer.toString(request, "MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MachineDetectionSilenceTimeout",
+                machineDetectionSilenceTimeout,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (asyncAmd != null) {
-            Serializer.toString(request, "AsyncAmd", asyncAmd, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AsyncAmd",
+                asyncAmd,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (asyncAmdStatusCallback != null) {
-            Serializer.toString(request, "AsyncAmdStatusCallback", asyncAmdStatusCallback, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AsyncAmdStatusCallback",
+                asyncAmdStatusCallback,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (asyncAmdStatusCallbackMethod != null) {
-            Serializer.toString(request, "AsyncAmdStatusCallbackMethod", asyncAmdStatusCallbackMethod, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AsyncAmdStatusCallbackMethod",
+                asyncAmdStatusCallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (byoc != null) {
-            Serializer.toString(request, "Byoc", byoc, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Byoc",
+                byoc,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callReason != null) {
-            Serializer.toString(request, "CallReason", callReason, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallReason",
+                callReason,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (callToken != null) {
-            Serializer.toString(request, "CallToken", callToken, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CallToken",
+                callToken,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (recordingTrack != null) {
-            Serializer.toString(request, "RecordingTrack", recordingTrack, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "RecordingTrack",
+                recordingTrack,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (timeLimit != null) {
-            Serializer.toString(request, "TimeLimit", timeLimit, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "TimeLimit",
+                timeLimit,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (url != null) {
             Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
 
-
         if (twiml != null) {
-            Serializer.toString(request, "Twiml", twiml, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Twiml",
+                twiml,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (applicationSid != null) {
-            Serializer.toString(request, "ApplicationSid", applicationSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ApplicationSid",
+                applicationSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

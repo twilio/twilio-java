@@ -18,48 +18,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Network extends Resource {
 
-
     public static NetworkFetcher fetcher(final String pathSid) {
-        return new NetworkFetcher(
-                pathSid
-        );
+        return new NetworkFetcher(pathSid);
     }
-
 
     public static NetworkReader reader() {
-        return new NetworkReader(
-
-        );
+        return new NetworkReader();
     }
-
 
     /**
      * Converts a JSON String into a Network object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Network object represented by the provided JSON
      */
-    public static Network fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Network fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Network.class);
@@ -74,11 +73,14 @@ public class Network extends Resource {
      * Converts a JSON InputStream into a Network object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Network object represented by the provided JSON
      */
-    public static Network fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Network fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Network.class);
@@ -101,25 +103,28 @@ public class Network extends Resource {
         }
     }
 
-
     @Getter
     private final String friendlyName;
+
     @Getter
     private final List<Object> identifiers;
+
     @Getter
     private final String isoCountry;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Network(
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("identifiers") final List<Object> identifiers,
-            @JsonProperty("iso_country") final String isoCountry,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identifiers") final List<Object> identifiers,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.friendlyName = friendlyName;
         this.identifiers = identifiers;
@@ -140,25 +145,16 @@ public class Network extends Resource {
 
         Network other = (Network) o;
         return (
-                Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(identifiers, other.identifiers) &&
-                        Objects.equals(isoCountry, other.isoCountry) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identifiers, other.identifiers) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                friendlyName,
-                identifiers,
-                isoCountry,
-                sid,
-                url
-        );
+        return Objects.hash(friendlyName, identifiers, isoCountry, sid, url);
     }
-
-
 }
-

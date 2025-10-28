@@ -23,44 +23,51 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     private String pathTrunkSid;
     private String pathSid;
 
-    public IpAccessControlListDeleter(final String pathTrunkSid, final String pathSid) {
+    public IpAccessControlListDeleter(
+        final String pathTrunkSid,
+        final String pathSid
+    ) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}";
 
-        path = path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.DELETE,
-                Domains.TRUNKING.toString(),
-                path
+            HttpMethod.DELETE,
+            Domains.TRUNKING.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IpAccessControlList delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpAccessControlList delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

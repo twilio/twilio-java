@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WebChannelUpdater extends Updater<WebChannel> {
+
     private String pathSid;
     private WebChannel.ChatStatus chatStatus;
     private String postEngagementData;
@@ -36,31 +38,30 @@ public class WebChannelUpdater extends Updater<WebChannel> {
         this.pathSid = pathSid;
     }
 
-
-    public WebChannelUpdater setChatStatus(final WebChannel.ChatStatus chatStatus) {
+    public WebChannelUpdater setChatStatus(
+        final WebChannel.ChatStatus chatStatus
+    ) {
         this.chatStatus = chatStatus;
         return this;
     }
 
-
-    public WebChannelUpdater setPostEngagementData(final String postEngagementData) {
+    public WebChannelUpdater setPostEngagementData(
+        final String postEngagementData
+    ) {
         this.postEngagementData = postEngagementData;
         return this;
     }
 
-
     @Override
     public WebChannel update(final TwilioRestClient client) {
-
         String path = "/v1/WebChannels/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.POST,
+            Domains.FLEXAPI.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -68,32 +69,46 @@ public class WebChannelUpdater extends Updater<WebChannel> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("WebChannel update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WebChannel update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return WebChannel.fromJson(response.getStream(), client.getObjectMapper());
+        return WebChannel.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (chatStatus != null) {
-            Serializer.toString(request, "ChatStatus", chatStatus, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ChatStatus",
+                chatStatus,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (postEngagementData != null) {
-            Serializer.toString(request, "PostEngagementData", postEngagementData, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PostEngagementData",
+                postEngagementData,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

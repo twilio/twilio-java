@@ -14,7 +14,6 @@
 
 package com.twilio.rest.intelligence.v2;
 
-
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,48 +23,65 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OperatorAttachmentCreator extends Creator<OperatorAttachment> {
 
     private String pathServiceSid;
     private String pathOperatorSid;
 
-    public OperatorAttachmentCreator(final String pathServiceSid, final String pathOperatorSid) {
+    public OperatorAttachmentCreator(
+        final String pathServiceSid,
+        final String pathOperatorSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathOperatorSid = pathOperatorSid;
     }
 
-
     @Override
     public OperatorAttachment create(final TwilioRestClient client) {
-
         String path = "/v2/Services/{ServiceSid}/Operators/{OperatorSid}";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "OperatorSid" + "}", this.pathOperatorSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "OperatorSid" + "}",
+                this.pathOperatorSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("OperatorAttachment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "OperatorAttachment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return OperatorAttachment.fromJson(response.getStream(), client.getObjectMapper());
+        return OperatorAttachment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

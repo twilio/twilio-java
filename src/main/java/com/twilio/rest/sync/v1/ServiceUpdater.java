@@ -27,10 +27,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
+
     private String pathSid;
     private URI webhookUrl;
     private String friendlyName;
@@ -43,7 +44,6 @@ public class ServiceUpdater extends Updater<Service> {
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-
 
     public ServiceUpdater setWebhookUrl(final URI webhookUrl) {
         this.webhookUrl = webhookUrl;
@@ -59,49 +59,49 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
-
-    public ServiceUpdater setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
+    public ServiceUpdater setReachabilityWebhooksEnabled(
+        final Boolean reachabilityWebhooksEnabled
+    ) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         return this;
     }
-
 
     public ServiceUpdater setAclEnabled(final Boolean aclEnabled) {
         this.aclEnabled = aclEnabled;
         return this;
     }
 
-
-    public ServiceUpdater setReachabilityDebouncingEnabled(final Boolean reachabilityDebouncingEnabled) {
+    public ServiceUpdater setReachabilityDebouncingEnabled(
+        final Boolean reachabilityDebouncingEnabled
+    ) {
         this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
         return this;
     }
 
-
-    public ServiceUpdater setReachabilityDebouncingWindow(final Integer reachabilityDebouncingWindow) {
+    public ServiceUpdater setReachabilityDebouncingWindow(
+        final Integer reachabilityDebouncingWindow
+    ) {
         this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
         return this;
     }
 
-
-    public ServiceUpdater setWebhooksFromRestEnabled(final Boolean webhooksFromRestEnabled) {
+    public ServiceUpdater setWebhooksFromRestEnabled(
+        final Boolean webhooksFromRestEnabled
+    ) {
         this.webhooksFromRestEnabled = webhooksFromRestEnabled;
         return this;
     }
 
-
     @Override
     public Service update(final TwilioRestClient client) {
-
         String path = "/v1/Services/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SYNC.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SYNC.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -109,14 +109,19 @@ public class ServiceUpdater extends Updater<Service> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -125,41 +130,67 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     private void addPostParams(final Request request) {
-
         if (webhookUrl != null) {
-            Serializer.toString(request, "WebhookUrl", webhookUrl, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (reachabilityWebhooksEnabled != null) {
-            Serializer.toString(request, "ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ReachabilityWebhooksEnabled",
+                reachabilityWebhooksEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (aclEnabled != null) {
-            Serializer.toString(request, "AclEnabled", aclEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "AclEnabled",
+                aclEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (reachabilityDebouncingEnabled != null) {
-            Serializer.toString(request, "ReachabilityDebouncingEnabled", reachabilityDebouncingEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ReachabilityDebouncingEnabled",
+                reachabilityDebouncingEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (reachabilityDebouncingWindow != null) {
-            Serializer.toString(request, "ReachabilityDebouncingWindow", reachabilityDebouncingWindow, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ReachabilityDebouncingWindow",
+                reachabilityDebouncingWindow,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (webhooksFromRestEnabled != null) {
-            Serializer.toString(request, "WebhooksFromRestEnabled", webhooksFromRestEnabled, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "WebhooksFromRestEnabled",
+                webhooksFromRestEnabled,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

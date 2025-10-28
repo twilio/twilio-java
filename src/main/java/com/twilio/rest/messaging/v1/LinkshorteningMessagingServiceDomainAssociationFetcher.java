@@ -23,44 +23,60 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class LinkshorteningMessagingServiceDomainAssociationFetcher extends Fetcher<LinkshorteningMessagingServiceDomainAssociation> {
+public class LinkshorteningMessagingServiceDomainAssociationFetcher
+    extends Fetcher<LinkshorteningMessagingServiceDomainAssociation> {
 
     private String pathMessagingServiceSid;
 
-    public LinkshorteningMessagingServiceDomainAssociationFetcher(final String pathMessagingServiceSid) {
+    public LinkshorteningMessagingServiceDomainAssociationFetcher(
+        final String pathMessagingServiceSid
+    ) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-
     @Override
-    public LinkshorteningMessagingServiceDomainAssociation fetch(final TwilioRestClient client) {
+    public LinkshorteningMessagingServiceDomainAssociation fetch(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain";
 
-        String path = "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain";
-
-        path = path.replace("{" + "MessagingServiceSid" + "}", this.pathMessagingServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.GET,
+            Domains.MESSAGING.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("LinkshorteningMessagingServiceDomainAssociation fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "LinkshorteningMessagingServiceDomainAssociation fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return LinkshorteningMessagingServiceDomainAssociation.fromJson(response.getStream(), client.getObjectMapper());
+        return LinkshorteningMessagingServiceDomainAssociation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

@@ -25,32 +25,35 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ChannelsSenderCreator extends Creator<ChannelsSender> {
 
     private ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate;
 
-    public ChannelsSenderCreator(final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate) {
-        this.messagingV2ChannelsSenderRequestsCreate = messagingV2ChannelsSenderRequestsCreate;
+    public ChannelsSenderCreator(
+        final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
+    ) {
+        this.messagingV2ChannelsSenderRequestsCreate =
+            messagingV2ChannelsSenderRequestsCreate;
     }
 
-
-    public ChannelsSenderCreator setMessagingV2ChannelsSenderRequestsCreate(final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate) {
-        this.messagingV2ChannelsSenderRequestsCreate = messagingV2ChannelsSenderRequestsCreate;
+    public ChannelsSenderCreator setMessagingV2ChannelsSenderRequestsCreate(
+        final ChannelsSender.MessagingV2ChannelsSenderRequestsCreate messagingV2ChannelsSenderRequestsCreate
+    ) {
+        this.messagingV2ChannelsSenderRequestsCreate =
+            messagingV2ChannelsSenderRequestsCreate;
         return this;
     }
 
-
     @Override
     public ChannelsSender create(final TwilioRestClient client) {
-
         String path = "/v2/Channels/Senders";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -58,25 +61,38 @@ public class ChannelsSenderCreator extends Creator<ChannelsSender> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ChannelsSender creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ChannelsSender creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ChannelsSender.fromJson(response.getStream(), client.getObjectMapper());
+        return ChannelsSender.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (messagingV2ChannelsSenderRequestsCreate != null) {
-            request.setBody(ChannelsSender.toJson(messagingV2ChannelsSenderRequestsCreate, objectMapper));
+            request.setBody(
+                ChannelsSender.toJson(
+                    messagingV2ChannelsSenderRequestsCreate,
+                    objectMapper
+                )
+            );
         }
     }
 }

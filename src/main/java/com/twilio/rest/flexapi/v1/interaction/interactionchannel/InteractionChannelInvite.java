@@ -18,47 +18,60 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannelInvite extends Resource {
 
-
-    public static InteractionChannelInviteCreator creator(final String pathInteractionSid, final String pathChannelSid, final Object routing) {
+    public static InteractionChannelInviteCreator creator(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final Object routing
+    ) {
         return new InteractionChannelInviteCreator(
-                pathInteractionSid, pathChannelSid, routing
+            pathInteractionSid,
+            pathChannelSid,
+            routing
         );
     }
 
-
-    public static InteractionChannelInviteReader reader(final String pathInteractionSid, final String pathChannelSid) {
+    public static InteractionChannelInviteReader reader(
+        final String pathInteractionSid,
+        final String pathChannelSid
+    ) {
         return new InteractionChannelInviteReader(
-                pathInteractionSid, pathChannelSid
+            pathInteractionSid,
+            pathChannelSid
         );
     }
-
 
     /**
      * Converts a JSON String into a InteractionChannelInvite object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InteractionChannelInvite object represented by the provided JSON
      */
-    public static InteractionChannelInvite fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InteractionChannelInvite fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionChannelInvite.class);
@@ -73,11 +86,14 @@ public class InteractionChannelInvite extends Resource {
      * Converts a JSON InputStream into a InteractionChannelInvite object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InteractionChannelInvite object represented by the provided JSON
      */
-    public static InteractionChannelInvite fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InteractionChannelInvite fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InteractionChannelInvite.class);
@@ -100,25 +116,28 @@ public class InteractionChannelInvite extends Resource {
         }
     }
 
-
     @Getter
     private final String channelSid;
+
     @Getter
     private final String interactionSid;
+
     @Getter
     private final Object routing;
+
     @Getter
     private final String sid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private InteractionChannelInvite(
-            @JsonProperty("channel_sid") final String channelSid,
-            @JsonProperty("interaction_sid") final String interactionSid,
-            @JsonProperty("routing") final Object routing,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("channel_sid") final String channelSid,
+        @JsonProperty("interaction_sid") final String interactionSid,
+        @JsonProperty("routing") final Object routing,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.channelSid = channelSid;
         this.interactionSid = interactionSid;
@@ -139,25 +158,16 @@ public class InteractionChannelInvite extends Resource {
 
         InteractionChannelInvite other = (InteractionChannelInvite) o;
         return (
-                Objects.equals(channelSid, other.channelSid) &&
-                        Objects.equals(interactionSid, other.interactionSid) &&
-                        Objects.equals(routing, other.routing) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(channelSid, other.channelSid) &&
+            Objects.equals(interactionSid, other.interactionSid) &&
+            Objects.equals(routing, other.routing) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                channelSid,
-                interactionSid,
-                routing,
-                sid,
-                url
-        );
+        return Objects.hash(channelSid, interactionSid, routing, sid, url);
     }
-
-
 }
-

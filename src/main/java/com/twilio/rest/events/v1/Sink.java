@@ -18,63 +18,57 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sink extends Resource {
 
-
-    public static SinkCreator creator(final String description, final Object sinkConfiguration, final Sink.SinkType sinkType) {
-        return new SinkCreator(
-                description, sinkConfiguration, sinkType
-        );
+    public static SinkCreator creator(
+        final String description,
+        final Object sinkConfiguration,
+        final Sink.SinkType sinkType
+    ) {
+        return new SinkCreator(description, sinkConfiguration, sinkType);
     }
-
 
     public static SinkDeleter deleter(final String pathSid) {
-        return new SinkDeleter(
-                pathSid
-        );
+        return new SinkDeleter(pathSid);
     }
-
 
     public static SinkFetcher fetcher(final String pathSid) {
-        return new SinkFetcher(
-                pathSid
-        );
+        return new SinkFetcher(pathSid);
     }
-
 
     public static SinkReader reader() {
-        return new SinkReader(
-
-        );
+        return new SinkReader();
     }
 
-
-    public static SinkUpdater updater(final String pathSid, final String description) {
-        return new SinkUpdater(
-                pathSid, description
-        );
+    public static SinkUpdater updater(
+        final String pathSid,
+        final String description
+    ) {
+        return new SinkUpdater(pathSid, description);
     }
-
 
     public enum Status {
         INITIALIZED("initialized"),
@@ -120,15 +114,17 @@ public class Sink extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Sink object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sink object represented by the provided JSON
      */
-    public static Sink fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Sink fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sink.class);
@@ -143,11 +139,14 @@ public class Sink extends Resource {
      * Converts a JSON InputStream into a Sink object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sink object represented by the provided JSON
      */
-    public static Sink fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Sink fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sink.class);
@@ -170,39 +169,48 @@ public class Sink extends Resource {
         }
     }
 
-
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Object sinkConfiguration;
+
     @Getter
     private final Sink.SinkType sinkType;
+
     @Getter
     private final Sink.Status status;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Sink(
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sink_configuration") final Object sinkConfiguration,
-            @JsonProperty("sink_type") final Sink.SinkType sinkType,
-            @JsonProperty("status") final Sink.Status status,
-            @JsonProperty("url") final URI url
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sink_configuration") final Object sinkConfiguration,
+        @JsonProperty("sink_type") final Sink.SinkType sinkType,
+        @JsonProperty("status") final Sink.Status status,
+        @JsonProperty("url") final URI url
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -227,33 +235,30 @@ public class Sink extends Resource {
 
         Sink other = (Sink) o;
         return (
-                Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(sinkConfiguration, other.sinkConfiguration) &&
-                        Objects.equals(sinkType, other.sinkType) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sinkConfiguration, other.sinkConfiguration) &&
+            Objects.equals(sinkType, other.sinkType) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                dateCreated,
-                dateUpdated,
-                description,
-                links,
-                sid,
-                sinkConfiguration,
-                sinkType,
-                status,
-                url
+            dateCreated,
+            dateUpdated,
+            description,
+            links,
+            sid,
+            sinkConfiguration,
+            sinkType,
+            status,
+            url
         );
     }
-
-
 }
-

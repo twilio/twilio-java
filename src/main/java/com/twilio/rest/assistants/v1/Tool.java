@@ -19,64 +19,56 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Tool extends Resource {
 
-
-    public static ToolCreator creator(final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest) {
-        return new ToolCreator(
-                assistantsV1ServiceCreateToolRequest
-        );
+    public static ToolCreator creator(
+        final Tool.AssistantsV1ServiceCreateToolRequest assistantsV1ServiceCreateToolRequest
+    ) {
+        return new ToolCreator(assistantsV1ServiceCreateToolRequest);
     }
-
 
     public static ToolDeleter deleter(final String pathId) {
-        return new ToolDeleter(
-                pathId
-        );
+        return new ToolDeleter(pathId);
     }
-
 
     public static ToolFetcher fetcher(final String pathId) {
-        return new ToolFetcher(
-                pathId
-        );
+        return new ToolFetcher(pathId);
     }
-
 
     public static ToolReader reader() {
-        return new ToolReader(
-
-        );
+        return new ToolReader();
     }
-
 
     public static ToolUpdater updater(final String pathId) {
-        return new ToolUpdater(
-                pathId
-        );
+        return new ToolUpdater(pathId);
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -106,7 +98,6 @@ public class Tool extends Resource {
         @Getter
         private final String type;
 
-
         private AssistantsV1ServiceCreatePolicyRequest(Builder builder) {
             this.description = builder.description;
             this.id = builder.id;
@@ -119,12 +110,19 @@ public class Tool extends Resource {
             return new Builder(policyDetails);
         }
 
-        public static AssistantsV1ServiceCreatePolicyRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCreatePolicyRequest.class);
+        public static AssistantsV1ServiceCreatePolicyRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreatePolicyRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("description")
             private String description;
 
@@ -140,9 +138,10 @@ public class Tool extends Resource {
             @JsonProperty("type")
             private String type;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("policy_details") final Object policyDetails) {
+            public Builder(
+                @JsonProperty("policy_details") final Object policyDetails
+            ) {
                 this.policyDetails = policyDetails;
             }
 
@@ -189,31 +188,26 @@ public class Tool extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCreatePolicyRequest other = (AssistantsV1ServiceCreatePolicyRequest) o;
+            AssistantsV1ServiceCreatePolicyRequest other =
+                (AssistantsV1ServiceCreatePolicyRequest) o;
             return (
-                    Objects.equals(description, other.description) &&
-                            Objects.equals(id, other.id) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(policyDetails, other.policyDetails) &&
-                            Objects.equals(type, other.type)
+                Objects.equals(description, other.description) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policyDetails, other.policyDetails) &&
+                Objects.equals(type, other.type)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    description,
-                    id,
-                    name,
-                    policyDetails,
-                    type
-            );
+            return Objects.hash(description, id, name, policyDetails, type);
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceUpdateToolRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceUpdateToolRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateToolRequest {
@@ -253,7 +247,6 @@ public class Tool extends Resource {
         @Getter
         private final String type;
 
-
         private AssistantsV1ServiceUpdateToolRequest(Builder builder) {
             this.assistantId = builder.assistantId;
             this.description = builder.description;
@@ -268,12 +261,19 @@ public class Tool extends Resource {
             return new Builder();
         }
 
-        public static AssistantsV1ServiceUpdateToolRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceUpdateToolRequest.class);
+        public static AssistantsV1ServiceUpdateToolRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceUpdateToolRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("assistant_id")
             private String assistantId;
 
@@ -295,7 +295,6 @@ public class Tool extends Resource {
             @JsonProperty("type")
             private String type;
 
-
             public AssistantsV1ServiceUpdateToolRequest build() {
                 return new AssistantsV1ServiceUpdateToolRequest(this);
             }
@@ -311,35 +310,36 @@ public class Tool extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceUpdateToolRequest other = (AssistantsV1ServiceUpdateToolRequest) o;
+            AssistantsV1ServiceUpdateToolRequest other =
+                (AssistantsV1ServiceUpdateToolRequest) o;
             return (
-                    Objects.equals(assistantId, other.assistantId) &&
-                            Objects.equals(description, other.description) &&
-                            Objects.equals(enabled, other.enabled) &&
-                            Objects.equals(meta, other.meta) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(policy, other.policy) &&
-                            Objects.equals(type, other.type)
+                Objects.equals(assistantId, other.assistantId) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(enabled, other.enabled) &&
+                Objects.equals(meta, other.meta) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policy, other.policy) &&
+                Objects.equals(type, other.type)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    assistantId,
-                    description,
-                    enabled,
-                    meta,
-                    name,
-                    policy,
-                    type
+                assistantId,
+                description,
+                enabled,
+                meta,
+                name,
+                policy,
+                type
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceCreateToolRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreateToolRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateToolRequest {
@@ -379,7 +379,6 @@ public class Tool extends Resource {
         @Getter
         private final String type;
 
-
         private AssistantsV1ServiceCreateToolRequest(Builder builder) {
             this.assistantId = builder.assistantId;
             this.description = builder.description;
@@ -390,16 +389,27 @@ public class Tool extends Resource {
             this.type = builder.type;
         }
 
-        public static Builder builder(final Boolean enabled, final String name, final String type) {
+        public static Builder builder(
+            final Boolean enabled,
+            final String name,
+            final String type
+        ) {
             return new Builder(enabled, name, type);
         }
 
-        public static AssistantsV1ServiceCreateToolRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCreateToolRequest.class);
+        public static AssistantsV1ServiceCreateToolRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreateToolRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("assistant_id")
             private String assistantId;
 
@@ -421,14 +431,16 @@ public class Tool extends Resource {
             @JsonProperty("type")
             private String type;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("enabled") final Boolean enabled, @JsonProperty("name") final String name, @JsonProperty("type") final String type) {
+            public Builder(
+                @JsonProperty("enabled") final Boolean enabled,
+                @JsonProperty("name") final String name,
+                @JsonProperty("type") final String type
+            ) {
                 this.enabled = enabled;
                 this.name = name;
                 this.type = type;
             }
-
 
             public AssistantsV1ServiceCreateToolRequest build() {
                 return new AssistantsV1ServiceCreateToolRequest(this);
@@ -445,33 +457,32 @@ public class Tool extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCreateToolRequest other = (AssistantsV1ServiceCreateToolRequest) o;
+            AssistantsV1ServiceCreateToolRequest other =
+                (AssistantsV1ServiceCreateToolRequest) o;
             return (
-                    Objects.equals(assistantId, other.assistantId) &&
-                            Objects.equals(description, other.description) &&
-                            Objects.equals(enabled, other.enabled) &&
-                            Objects.equals(meta, other.meta) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(policy, other.policy) &&
-                            Objects.equals(type, other.type)
+                Objects.equals(assistantId, other.assistantId) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(enabled, other.enabled) &&
+                Objects.equals(meta, other.meta) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policy, other.policy) &&
+                Objects.equals(type, other.type)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    assistantId,
-                    description,
-                    enabled,
-                    meta,
-                    name,
-                    policy,
-                    type
+                assistantId,
+                description,
+                enabled,
+                meta,
+                name,
+                policy,
+                type
             );
         }
-
     }
-
 
     @JsonDeserialize(builder = AssistantsV1ServicePolicy.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -525,7 +536,6 @@ public class Tool extends Resource {
         @Getter
         private final ZonedDateTime dateUpdated;
 
-
         private AssistantsV1ServicePolicy(Builder builder) {
             this.id = builder.id;
             this.name = builder.name;
@@ -538,16 +548,26 @@ public class Tool extends Resource {
             this.dateUpdated = builder.dateUpdated;
         }
 
-        public static Builder builder(final String type, final Object policyDetails) {
+        public static Builder builder(
+            final String type,
+            final Object policyDetails
+        ) {
             return new Builder(type, policyDetails);
         }
 
-        public static AssistantsV1ServicePolicy fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServicePolicy.class);
+        public static AssistantsV1ServicePolicy fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServicePolicy.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("id")
             private String id;
 
@@ -569,17 +589,23 @@ public class Tool extends Resource {
             @JsonProperty("policy_details")
             private Object policyDetails;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("date_created")
             private ZonedDateTime dateCreated;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("date_updated")
             private ZonedDateTime dateUpdated;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("type") final String type, @JsonProperty("policy_details") final Object policyDetails) {
+            public Builder(
+                @JsonProperty("type") final String type,
+                @JsonProperty("policy_details") final Object policyDetails
+            ) {
                 this.type = type;
                 this.policyDetails = policyDetails;
             }
@@ -619,7 +645,9 @@ public class Tool extends Resource {
                 return this;
             }
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("date_created")
             public Builder dateCreated(ZonedDateTime dateCreated) {
@@ -627,7 +655,9 @@ public class Tool extends Resource {
                 return this;
             }
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("date_updated")
             public Builder dateUpdated(ZonedDateTime dateUpdated) {
@@ -652,44 +682,45 @@ public class Tool extends Resource {
 
             AssistantsV1ServicePolicy other = (AssistantsV1ServicePolicy) o;
             return (
-                    Objects.equals(id, other.id) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(description, other.description) &&
-                            Objects.equals(accountSid, other.accountSid) &&
-                            Objects.equals(userSid, other.userSid) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(policyDetails, other.policyDetails) &&
-                            Objects.equals(dateCreated, other.dateCreated) &&
-                            Objects.equals(dateUpdated, other.dateUpdated)
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(accountSid, other.accountSid) &&
+                Objects.equals(userSid, other.userSid) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(policyDetails, other.policyDetails) &&
+                Objects.equals(dateCreated, other.dateCreated) &&
+                Objects.equals(dateUpdated, other.dateUpdated)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    id,
-                    name,
-                    description,
-                    accountSid,
-                    userSid,
-                    type,
-                    policyDetails,
-                    dateCreated,
-                    dateUpdated
+                id,
+                name,
+                description,
+                accountSid,
+                userSid,
+                type,
+                policyDetails,
+                dateCreated,
+                dateUpdated
             );
         }
-
     }
-
 
     /**
      * Converts a JSON String into a Tool object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Tool object represented by the provided JSON
      */
-    public static Tool fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Tool fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Tool.class);
@@ -704,11 +735,14 @@ public class Tool extends Resource {
      * Converts a JSON InputStream into a Tool object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Tool object represented by the provided JSON
      */
-    public static Tool fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Tool fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Tool.class);
@@ -731,48 +765,62 @@ public class Tool extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final Boolean enabled;
+
     @Getter
     private final String id;
+
     @Getter
     private final Object meta;
+
     @Getter
     private final String name;
+
     @Getter
     private final List<AssistantsV1ServicePolicy> policies;
+
     @Getter
     private final Boolean requiresAuth;
+
     @Getter
     private final String type;
+
     @Getter
     private final String url;
 
     @JsonCreator
     private Tool(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("enabled") final Boolean enabled,
-            @JsonProperty("id") final String id,
-            @JsonProperty("meta") final Object meta,
-            @JsonProperty("name") final String name,
-            @JsonProperty("policies") final List<AssistantsV1ServicePolicy> policies,
-            @JsonProperty("requires_auth") final Boolean requiresAuth,
-            @JsonProperty("type") final String type,
-            @JsonProperty("url") final String url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("id") final String id,
+        @JsonProperty("meta") final Object meta,
+        @JsonProperty("name") final String name,
+        @JsonProperty("policies") final List<
+            AssistantsV1ServicePolicy
+        > policies,
+        @JsonProperty("requires_auth") final Boolean requiresAuth,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -800,39 +848,36 @@ public class Tool extends Resource {
 
         Tool other = (Tool) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(enabled, other.enabled) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(meta, other.meta) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(policies, other.policies) &&
-                        Objects.equals(requiresAuth, other.requiresAuth) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(meta, other.meta) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(policies, other.policies) &&
+            Objects.equals(requiresAuth, other.requiresAuth) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                description,
-                enabled,
-                id,
-                meta,
-                name,
-                policies,
-                requiresAuth,
-                type,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            description,
+            enabled,
+            id,
+            meta,
+            name,
+            policies,
+            requiresAuth,
+            type,
+            url
         );
     }
-
-
 }
-

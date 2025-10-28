@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ExportCustomJobReader extends Reader<ExportCustomJob> {
 
@@ -37,12 +38,10 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
         this.pathResourceType = pathResourceType;
     }
 
-
     public ExportCustomJobReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<ExportCustomJob> read(final TwilioRestClient client) {
@@ -50,68 +49,97 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
     }
 
     public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
+        path =
+            path.replace(
+                "{" + "ResourceType" + "}",
+                this.pathResourceType.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.BULKEXPORTS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.BULKEXPORTS.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<ExportCustomJob> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<ExportCustomJob> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("ExportCustomJob read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ExportCustomJob read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "jobs",
-                response.getContent(),
-                ExportCustomJob.class,
-                client.getObjectMapper());
+            "jobs",
+            response.getContent(),
+            ExportCustomJob.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<ExportCustomJob> previousPage(final Page<ExportCustomJob> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<ExportCustomJob> previousPage(
+        final Page<ExportCustomJob> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ExportCustomJob> nextPage(final Page<ExportCustomJob> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<ExportCustomJob> nextPage(
+        final Page<ExportCustomJob> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<ExportCustomJob> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<ExportCustomJob> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

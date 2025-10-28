@@ -18,47 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Day extends Resource {
 
-
-    public static DayFetcher fetcher(final String pathResourceType, final String pathDay) {
-        return new DayFetcher(
-                pathResourceType, pathDay
-        );
+    public static DayFetcher fetcher(
+        final String pathResourceType,
+        final String pathDay
+    ) {
+        return new DayFetcher(pathResourceType, pathDay);
     }
-
 
     public static DayReader reader(final String pathResourceType) {
-        return new DayReader(
-                pathResourceType
-        );
+        return new DayReader(pathResourceType);
     }
-
 
     /**
      * Converts a JSON String into a Day object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Day object represented by the provided JSON
      */
-    public static Day fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Day fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Day.class);
@@ -73,11 +75,14 @@ public class Day extends Resource {
      * Converts a JSON InputStream into a Day object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Day object represented by the provided JSON
      */
-    public static Day fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Day fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Day.class);
@@ -100,28 +105,32 @@ public class Day extends Resource {
         }
     }
 
-
     @Getter
     private final String createDate;
+
     @Getter
     private final String day;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final URI redirectTo;
+
     @Getter
     private final String resourceType;
+
     @Getter
     private final Integer size;
 
     @JsonCreator
     private Day(
-            @JsonProperty("create_date") final String createDate,
-            @JsonProperty("day") final String day,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("redirect_to") final URI redirectTo,
-            @JsonProperty("resource_type") final String resourceType,
-            @JsonProperty("size") final Integer size
+        @JsonProperty("create_date") final String createDate,
+        @JsonProperty("day") final String day,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("redirect_to") final URI redirectTo,
+        @JsonProperty("resource_type") final String resourceType,
+        @JsonProperty("size") final Integer size
     ) {
         this.createDate = createDate;
         this.day = day;
@@ -143,27 +152,24 @@ public class Day extends Resource {
 
         Day other = (Day) o;
         return (
-                Objects.equals(createDate, other.createDate) &&
-                        Objects.equals(day, other.day) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(redirectTo, other.redirectTo) &&
-                        Objects.equals(resourceType, other.resourceType) &&
-                        Objects.equals(size, other.size)
+            Objects.equals(createDate, other.createDate) &&
+            Objects.equals(day, other.day) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(redirectTo, other.redirectTo) &&
+            Objects.equals(resourceType, other.resourceType) &&
+            Objects.equals(size, other.size)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                createDate,
-                day,
-                friendlyName,
-                redirectTo,
-                resourceType,
-                size
+            createDate,
+            day,
+            friendlyName,
+            redirectTo,
+            resourceType,
+            size
         );
     }
-
-
 }
-

@@ -18,71 +18,78 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskChannel extends Resource {
 
-
-    public static TaskChannelCreator creator(final String pathWorkspaceSid, final String friendlyName, final String uniqueName) {
+    public static TaskChannelCreator creator(
+        final String pathWorkspaceSid,
+        final String friendlyName,
+        final String uniqueName
+    ) {
         return new TaskChannelCreator(
-                pathWorkspaceSid, friendlyName, uniqueName
+            pathWorkspaceSid,
+            friendlyName,
+            uniqueName
         );
     }
 
-
-    public static TaskChannelDeleter deleter(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskChannelDeleter(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskChannelDeleter deleter(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskChannelDeleter(pathWorkspaceSid, pathSid);
     }
 
-
-    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskChannelFetcher(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskChannelFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskChannelFetcher(pathWorkspaceSid, pathSid);
     }
-
 
     public static TaskChannelReader reader(final String pathWorkspaceSid) {
-        return new TaskChannelReader(
-                pathWorkspaceSid
-        );
+        return new TaskChannelReader(pathWorkspaceSid);
     }
 
-
-    public static TaskChannelUpdater updater(final String pathWorkspaceSid, final String pathSid) {
-        return new TaskChannelUpdater(
-                pathWorkspaceSid, pathSid
-        );
+    public static TaskChannelUpdater updater(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
+        return new TaskChannelUpdater(pathWorkspaceSid, pathSid);
     }
-
 
     /**
      * Converts a JSON String into a TaskChannel object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskChannel object represented by the provided JSON
      */
-    public static TaskChannel fromJson(final String json, final ObjectMapper objectMapper) {
+    public static TaskChannel fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskChannel.class);
@@ -97,11 +104,14 @@ public class TaskChannel extends Resource {
      * Converts a JSON InputStream into a TaskChannel object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskChannel object represented by the provided JSON
      */
-    public static TaskChannel fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static TaskChannel fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskChannel.class);
@@ -124,42 +134,54 @@ public class TaskChannel extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Boolean channelOptimizedRouting;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private TaskChannel(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("channel_optimized_routing") final Boolean channelOptimizedRouting,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "channel_optimized_routing"
+        ) final Boolean channelOptimizedRouting,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.channelOptimizedRouting = channelOptimizedRouting;
@@ -185,35 +207,35 @@ public class TaskChannel extends Resource {
 
         TaskChannel other = (TaskChannel) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(channelOptimizedRouting, other.channelOptimizedRouting) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                channelOptimizedRouting,
+                other.channelOptimizedRouting
+            ) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                channelOptimizedRouting,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                links,
-                sid,
-                uniqueName,
-                url,
-                workspaceSid
+            accountSid,
+            channelOptimizedRouting,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            links,
+            sid,
+            uniqueName,
+            url,
+            workspaceSid
         );
     }
-
-
 }
-

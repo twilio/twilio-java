@@ -18,50 +18,55 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlexUser extends Resource {
 
-
-    public static FlexUserFetcher fetcher(final String pathInstanceSid, final String pathFlexUserSid) {
-        return new FlexUserFetcher(
-                pathInstanceSid, pathFlexUserSid
-        );
+    public static FlexUserFetcher fetcher(
+        final String pathInstanceSid,
+        final String pathFlexUserSid
+    ) {
+        return new FlexUserFetcher(pathInstanceSid, pathFlexUserSid);
     }
 
-
-    public static FlexUserUpdater updater(final String pathInstanceSid, final String pathFlexUserSid) {
-        return new FlexUserUpdater(
-                pathInstanceSid, pathFlexUserSid
-        );
+    public static FlexUserUpdater updater(
+        final String pathInstanceSid,
+        final String pathFlexUserSid
+    ) {
+        return new FlexUserUpdater(pathInstanceSid, pathFlexUserSid);
     }
-
 
     /**
      * Converts a JSON String into a FlexUser object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FlexUser object represented by the provided JSON
      */
-    public static FlexUser fromJson(final String json, final ObjectMapper objectMapper) {
+    public static FlexUser fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlexUser.class);
@@ -76,11 +81,14 @@ public class FlexUser extends Resource {
      * Converts a JSON InputStream into a FlexUser object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FlexUser object represented by the provided JSON
      */
-    public static FlexUser fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static FlexUser fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlexUser.class);
@@ -103,57 +111,72 @@ public class FlexUser extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime createdDate;
+
     @Getter
     private final String email;
+
     @Getter
     private final String flexTeamSid;
+
     @Getter
     private final String flexUserSid;
+
     @Getter
     private final String instanceSid;
+
     @Getter
     private final String locale;
+
     @Getter
     private final List<String> roles;
+
     @Getter
     private final ZonedDateTime updatedDate;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String userSid;
+
     @Getter
     private final String username;
+
     @Getter
     private final Integer version;
+
     @Getter
     private final String workerSid;
+
     @Getter
     private final String workspaceSid;
 
     @JsonCreator
     private FlexUser(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("created_date")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime createdDate,
-            @JsonProperty("email") final String email,
-            @JsonProperty("flex_team_sid") final String flexTeamSid,
-            @JsonProperty("flex_user_sid") final String flexUserSid,
-            @JsonProperty("instance_sid") final String instanceSid,
-            @JsonProperty("locale") final String locale,
-            @JsonProperty("roles") final List<String> roles,
-            @JsonProperty("updated_date")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime updatedDate,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("user_sid") final String userSid,
-            @JsonProperty("username") final String username,
-            @JsonProperty("version") final Integer version,
-            @JsonProperty("worker_sid") final String workerSid,
-            @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("created_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime createdDate,
+        @JsonProperty("email") final String email,
+        @JsonProperty("flex_team_sid") final String flexTeamSid,
+        @JsonProperty("flex_user_sid") final String flexUserSid,
+        @JsonProperty("instance_sid") final String instanceSid,
+        @JsonProperty("locale") final String locale,
+        @JsonProperty("roles") final List<String> roles,
+        @JsonProperty("updated_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime updatedDate,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("user_sid") final String userSid,
+        @JsonProperty("username") final String username,
+        @JsonProperty("version") final Integer version,
+        @JsonProperty("worker_sid") final String workerSid,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.createdDate = createdDate;
@@ -184,45 +207,42 @@ public class FlexUser extends Resource {
 
         FlexUser other = (FlexUser) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(createdDate, other.createdDate) &&
-                        Objects.equals(email, other.email) &&
-                        Objects.equals(flexTeamSid, other.flexTeamSid) &&
-                        Objects.equals(flexUserSid, other.flexUserSid) &&
-                        Objects.equals(instanceSid, other.instanceSid) &&
-                        Objects.equals(locale, other.locale) &&
-                        Objects.equals(roles, other.roles) &&
-                        Objects.equals(updatedDate, other.updatedDate) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(userSid, other.userSid) &&
-                        Objects.equals(username, other.username) &&
-                        Objects.equals(version, other.version) &&
-                        Objects.equals(workerSid, other.workerSid) &&
-                        Objects.equals(workspaceSid, other.workspaceSid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(createdDate, other.createdDate) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(flexTeamSid, other.flexTeamSid) &&
+            Objects.equals(flexUserSid, other.flexUserSid) &&
+            Objects.equals(instanceSid, other.instanceSid) &&
+            Objects.equals(locale, other.locale) &&
+            Objects.equals(roles, other.roles) &&
+            Objects.equals(updatedDate, other.updatedDate) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(userSid, other.userSid) &&
+            Objects.equals(username, other.username) &&
+            Objects.equals(version, other.version) &&
+            Objects.equals(workerSid, other.workerSid) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                createdDate,
-                email,
-                flexTeamSid,
-                flexUserSid,
-                instanceSid,
-                locale,
-                roles,
-                updatedDate,
-                url,
-                userSid,
-                username,
-                version,
-                workerSid,
-                workspaceSid
+            accountSid,
+            createdDate,
+            email,
+            flexTeamSid,
+            flexUserSid,
+            instanceSid,
+            locale,
+            roles,
+            updatedDate,
+            url,
+            userSid,
+            username,
+            version,
+            workerSid,
+            workspaceSid
         );
     }
-
-
 }
-

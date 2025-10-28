@@ -23,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
 
@@ -32,35 +33,44 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
         this.pathResourceType = pathResourceType;
     }
 
-
     @Override
     public ExportConfiguration fetch(final TwilioRestClient client) {
-
         String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path = path.replace("{" + "ResourceType" + "}", this.pathResourceType.toString());
-
+        path =
+            path.replace(
+                "{" + "ResourceType" + "}",
+                this.pathResourceType.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.BULKEXPORTS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.BULKEXPORTS.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ExportConfiguration fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ExportConfiguration fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());
+        return ExportConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

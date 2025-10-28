@@ -28,7 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class CallReader extends Reader<Call> {
@@ -46,13 +46,11 @@ public class CallReader extends Reader<Call> {
     private ZonedDateTime endTimeAfter;
     private Long pageSize;
 
-    public CallReader() {
-    }
+    public CallReader() {}
 
     public CallReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
-
 
     public CallReader setTo(final com.twilio.type.PhoneNumber to) {
         this.to = to;
@@ -77,54 +75,45 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
-
     public CallReader setStatus(final Call.Status status) {
         this.status = status;
         return this;
     }
-
 
     public CallReader setStartTime(final ZonedDateTime startTime) {
         this.startTime = startTime;
         return this;
     }
 
-
     public CallReader setStartTimeBefore(final ZonedDateTime startTimeBefore) {
         this.startTimeBefore = startTimeBefore;
         return this;
     }
-
 
     public CallReader setStartTimeAfter(final ZonedDateTime startTimeAfter) {
         this.startTimeAfter = startTimeAfter;
         return this;
     }
 
-
     public CallReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
         return this;
     }
-
 
     public CallReader setEndTimeBefore(final ZonedDateTime endTimeBefore) {
         this.endTimeBefore = endTimeBefore;
         return this;
     }
 
-
     public CallReader setEndTimeAfter(final ZonedDateTime endTimeAfter) {
         this.endTimeAfter = endTimeAfter;
         return this;
     }
 
-
     public CallReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Call> read(final TwilioRestClient client) {
@@ -132,119 +121,176 @@ public class CallReader extends Reader<Call> {
     }
 
     public Page<Call> firstPage(final TwilioRestClient client) {
-
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Call> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Call> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Call read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Call read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "calls",
-                response.getContent(),
-                Call.class,
-                client.getObjectMapper());
+            "calls",
+            response.getContent(),
+            Call.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Call> previousPage(final Page<Call> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Call> previousPage(
+        final Page<Call> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Call> nextPage(final Page<Call> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Call> nextPage(
+        final Page<Call> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Call> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Call> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (to != null) {
             Serializer.toString(request, "To", to, ParameterType.QUERY);
         }
-
 
         if (from != null) {
             Serializer.toString(request, "From", from, ParameterType.QUERY);
         }
 
-
         if (parentCallSid != null) {
-            Serializer.toString(request, "ParentCallSid", parentCallSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ParentCallSid",
+                parentCallSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (status != null) {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-
         if (startTime != null) {
-            Serializer.toString(request, "StartTime", startTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartTime",
+                startTime,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startTimeBefore != null) {
-            Serializer.toString(request, "StartTime<", startTimeBefore, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartTime<",
+                startTimeBefore,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startTimeAfter != null) {
-            Serializer.toString(request, "StartTime>", startTimeAfter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartTime>",
+                startTimeAfter,
+                ParameterType.QUERY
+            );
         }
-
 
         if (endTime != null) {
-            Serializer.toString(request, "EndTime", endTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndTime",
+                endTime,
+                ParameterType.QUERY
+            );
         }
-
 
         if (endTimeBefore != null) {
-            Serializer.toString(request, "EndTime<", endTimeBefore, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndTime<",
+                endTimeBefore,
+                ParameterType.QUERY
+            );
         }
-
 
         if (endTimeAfter != null) {
-            Serializer.toString(request, "EndTime>", endTimeAfter, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndTime>",
+                endTimeAfter,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

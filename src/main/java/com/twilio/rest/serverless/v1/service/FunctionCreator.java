@@ -14,7 +14,6 @@
 
 package com.twilio.rest.serverless.v1.service;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,36 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FunctionCreator extends Creator<Function> {
 
     private String pathServiceSid;
     private String friendlyName;
 
-    public FunctionCreator(final String pathServiceSid, final String friendlyName) {
+    public FunctionCreator(
+        final String pathServiceSid,
+        final String friendlyName
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
     }
-
 
     public FunctionCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     @Override
     public Function create(final TwilioRestClient client) {
-
         String path = "/v1/Services/{ServiceSid}/Functions";
 
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.SERVERLESS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -64,27 +67,37 @@ public class FunctionCreator extends Creator<Function> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Function creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Function creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Function.fromJson(response.getStream(), client.getObjectMapper());
+        return Function.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

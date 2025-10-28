@@ -18,77 +18,88 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
 
-
-    public static MemberFetcher fetcher(final String pathQueueSid, final String pathCallSid) {
-        return new MemberFetcher(
-                pathQueueSid, pathCallSid
-        );
+    public static MemberFetcher fetcher(
+        final String pathQueueSid,
+        final String pathCallSid
+    ) {
+        return new MemberFetcher(pathQueueSid, pathCallSid);
     }
 
-
-    public static MemberFetcher fetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid) {
-        return new MemberFetcher(
-                pathAccountSid, pathQueueSid, pathCallSid
-        );
+    public static MemberFetcher fetcher(
+        final String pathAccountSid,
+        final String pathQueueSid,
+        final String pathCallSid
+    ) {
+        return new MemberFetcher(pathAccountSid, pathQueueSid, pathCallSid);
     }
-
 
     public static MemberReader reader(final String pathQueueSid) {
-        return new MemberReader(
-                pathQueueSid
-        );
+        return new MemberReader(pathQueueSid);
     }
 
-
-    public static MemberReader reader(final String pathAccountSid, final String pathQueueSid) {
-        return new MemberReader(
-                pathAccountSid, pathQueueSid
-        );
+    public static MemberReader reader(
+        final String pathAccountSid,
+        final String pathQueueSid
+    ) {
+        return new MemberReader(pathAccountSid, pathQueueSid);
     }
 
+    public static MemberUpdater updater(
+        final String pathQueueSid,
+        final String pathCallSid,
+        final URI url
+    ) {
+        return new MemberUpdater(pathQueueSid, pathCallSid, url);
+    }
 
-    public static MemberUpdater updater(final String pathQueueSid, final String pathCallSid, final URI url) {
+    public static MemberUpdater updater(
+        final String pathAccountSid,
+        final String pathQueueSid,
+        final String pathCallSid,
+        final URI url
+    ) {
         return new MemberUpdater(
-                pathQueueSid, pathCallSid, url
+            pathAccountSid,
+            pathQueueSid,
+            pathCallSid,
+            url
         );
     }
-
-
-    public static MemberUpdater updater(final String pathAccountSid, final String pathQueueSid, final String pathCallSid, final URI url) {
-        return new MemberUpdater(
-                pathAccountSid, pathQueueSid, pathCallSid, url
-        );
-    }
-
 
     /**
      * Converts a JSON String into a Member object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Member object represented by the provided JSON
      */
-    public static Member fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Member fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Member.class);
@@ -103,11 +114,14 @@ public class Member extends Resource {
      * Converts a JSON InputStream into a Member object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Member object represented by the provided JSON
      */
-    public static Member fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Member fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Member.class);
@@ -130,29 +144,34 @@ public class Member extends Resource {
         }
     }
 
-
     @Getter
     private final String callSid;
+
     @Getter
     private final ZonedDateTime dateEnqueued;
+
     @Getter
     private final Integer position;
+
     @Getter
     private final String queueSid;
+
     @Getter
     private final String uri;
+
     @Getter
     private final Integer waitTime;
 
     @JsonCreator
     private Member(
-            @JsonProperty("call_sid") final String callSid,
-            @JsonProperty("date_enqueued")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateEnqueued,
-            @JsonProperty("position") final Integer position,
-            @JsonProperty("queue_sid") final String queueSid,
-            @JsonProperty("uri") final String uri,
-            @JsonProperty("wait_time") final Integer waitTime
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("date_enqueued") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateEnqueued,
+        @JsonProperty("position") final Integer position,
+        @JsonProperty("queue_sid") final String queueSid,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty("wait_time") final Integer waitTime
     ) {
         this.callSid = callSid;
         this.dateEnqueued = dateEnqueued;
@@ -174,27 +193,24 @@ public class Member extends Resource {
 
         Member other = (Member) o;
         return (
-                Objects.equals(callSid, other.callSid) &&
-                        Objects.equals(dateEnqueued, other.dateEnqueued) &&
-                        Objects.equals(position, other.position) &&
-                        Objects.equals(queueSid, other.queueSid) &&
-                        Objects.equals(uri, other.uri) &&
-                        Objects.equals(waitTime, other.waitTime)
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(dateEnqueued, other.dateEnqueued) &&
+            Objects.equals(position, other.position) &&
+            Objects.equals(queueSid, other.queueSid) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(waitTime, other.waitTime)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                callSid,
-                dateEnqueued,
-                position,
-                queueSid,
-                uri,
-                waitTime
+            callSid,
+            dateEnqueued,
+            position,
+            queueSid,
+            uri,
+            waitTime
         );
     }
-
-
 }
-

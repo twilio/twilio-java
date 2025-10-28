@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpRecordUpdater extends Updater<IpRecord> {
+
     private String pathSid;
     private String friendlyName;
 
@@ -35,25 +37,21 @@ public class IpRecordUpdater extends Updater<IpRecord> {
         this.pathSid = pathSid;
     }
 
-
     public IpRecordUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
     @Override
     public IpRecord update(final TwilioRestClient client) {
-
         String path = "/v1/IpRecords/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VOICE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VOICE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -61,27 +59,37 @@ public class IpRecordUpdater extends Updater<IpRecord> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IpRecord update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpRecord update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return IpRecord.fromJson(response.getStream(), client.getObjectMapper());
+        return IpRecord.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

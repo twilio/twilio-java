@@ -18,93 +18,127 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthCallsCredentialListMapping extends Resource {
 
-
-    public static AuthCallsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid) {
+    public static AuthCallsCredentialListMappingCreator creator(
+        final String pathDomainSid,
+        final String credentialListSid
+    ) {
         return new AuthCallsCredentialListMappingCreator(
-                pathDomainSid, credentialListSid
+            pathDomainSid,
+            credentialListSid
         );
     }
 
-
-    public static AuthCallsCredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+    public static AuthCallsCredentialListMappingCreator creator(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String credentialListSid
+    ) {
         return new AuthCallsCredentialListMappingCreator(
-                pathAccountSid, pathDomainSid, credentialListSid
+            pathAccountSid,
+            pathDomainSid,
+            credentialListSid
         );
     }
 
-
-    public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid) {
+    public static AuthCallsCredentialListMappingDeleter deleter(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         return new AuthCallsCredentialListMappingDeleter(
-                pathDomainSid, pathSid
+            pathDomainSid,
+            pathSid
         );
     }
 
-
-    public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
+    public static AuthCallsCredentialListMappingDeleter deleter(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         return new AuthCallsCredentialListMappingDeleter(
-                pathAccountSid, pathDomainSid, pathSid
+            pathAccountSid,
+            pathDomainSid,
+            pathSid
         );
     }
 
-
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid) {
+    public static AuthCallsCredentialListMappingFetcher fetcher(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         return new AuthCallsCredentialListMappingFetcher(
-                pathDomainSid, pathSid
+            pathDomainSid,
+            pathSid
         );
     }
 
-
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid) {
+    public static AuthCallsCredentialListMappingFetcher fetcher(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         return new AuthCallsCredentialListMappingFetcher(
-                pathAccountSid, pathDomainSid, pathSid
+            pathAccountSid,
+            pathDomainSid,
+            pathSid
         );
     }
 
+    public static AuthCallsCredentialListMappingReader reader(
+        final String pathDomainSid
+    ) {
+        return new AuthCallsCredentialListMappingReader(pathDomainSid);
+    }
 
-    public static AuthCallsCredentialListMappingReader reader(final String pathDomainSid) {
+    public static AuthCallsCredentialListMappingReader reader(
+        final String pathAccountSid,
+        final String pathDomainSid
+    ) {
         return new AuthCallsCredentialListMappingReader(
-                pathDomainSid
+            pathAccountSid,
+            pathDomainSid
         );
     }
-
-
-    public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid) {
-        return new AuthCallsCredentialListMappingReader(
-                pathAccountSid, pathDomainSid
-        );
-    }
-
 
     /**
      * Converts a JSON String into a AuthCallsCredentialListMapping object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthCallsCredentialListMapping object represented by the provided JSON
      */
-    public static AuthCallsCredentialListMapping fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AuthCallsCredentialListMapping fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, AuthCallsCredentialListMapping.class);
+            return objectMapper.readValue(
+                json,
+                AuthCallsCredentialListMapping.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -116,14 +150,20 @@ public class AuthCallsCredentialListMapping extends Resource {
      * Converts a JSON InputStream into a AuthCallsCredentialListMapping object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthCallsCredentialListMapping object represented by the provided JSON
      */
-    public static AuthCallsCredentialListMapping fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AuthCallsCredentialListMapping fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, AuthCallsCredentialListMapping.class);
+            return objectMapper.readValue(
+                json,
+                AuthCallsCredentialListMapping.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -143,27 +183,32 @@ public class AuthCallsCredentialListMapping extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String sid;
 
     @JsonCreator
     private AuthCallsCredentialListMapping(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("sid") final String sid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -182,27 +227,25 @@ public class AuthCallsCredentialListMapping extends Resource {
             return false;
         }
 
-        AuthCallsCredentialListMapping other = (AuthCallsCredentialListMapping) o;
+        AuthCallsCredentialListMapping other =
+            (AuthCallsCredentialListMapping) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(sid, other.sid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                sid
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            sid
         );
     }
-
-
 }
-

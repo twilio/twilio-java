@@ -18,43 +18,45 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Schema extends Resource {
 
-
     public static SchemaFetcher fetcher(final String pathId) {
-        return new SchemaFetcher(
-                pathId
-        );
+        return new SchemaFetcher(pathId);
     }
-
 
     /**
      * Converts a JSON String into a Schema object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Schema object represented by the provided JSON
      */
-    public static Schema fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Schema fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Schema.class);
@@ -69,11 +71,14 @@ public class Schema extends Resource {
      * Converts a JSON InputStream into a Schema object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Schema object represented by the provided JSON
      */
-    public static Schema fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Schema fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Schema.class);
@@ -96,26 +101,30 @@ public class Schema extends Resource {
         }
     }
 
-
     @Getter
     private final String id;
+
     @Getter
     private final Integer latestVersion;
+
     @Getter
     private final ZonedDateTime latestVersionDateCreated;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Schema(
-            @JsonProperty("id") final String id,
-            @JsonProperty("latest_version") final Integer latestVersion,
-            @JsonProperty("latest_version_date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime latestVersionDateCreated,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("url") final URI url
+        @JsonProperty("id") final String id,
+        @JsonProperty("latest_version") final Integer latestVersion,
+        @JsonProperty("latest_version_date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime latestVersionDateCreated,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("url") final URI url
     ) {
         this.id = id;
         this.latestVersion = latestVersion;
@@ -136,25 +145,25 @@ public class Schema extends Resource {
 
         Schema other = (Schema) o;
         return (
-                Objects.equals(id, other.id) &&
-                        Objects.equals(latestVersion, other.latestVersion) &&
-                        Objects.equals(latestVersionDateCreated, other.latestVersionDateCreated) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(id, other.id) &&
+            Objects.equals(latestVersion, other.latestVersion) &&
+            Objects.equals(
+                latestVersionDateCreated,
+                other.latestVersionDateCreated
+            ) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                id,
-                latestVersion,
-                latestVersionDateCreated,
-                links,
-                url
+            id,
+            latestVersion,
+            latestVersionDateCreated,
+            links,
+            url
         );
     }
-
-
 }
-

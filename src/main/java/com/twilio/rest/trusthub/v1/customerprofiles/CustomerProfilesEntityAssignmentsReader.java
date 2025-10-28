@@ -27,103 +27,146 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class CustomerProfilesEntityAssignmentsReader extends Reader<CustomerProfilesEntityAssignments> {
+public class CustomerProfilesEntityAssignmentsReader
+    extends Reader<CustomerProfilesEntityAssignments> {
 
     private String pathCustomerProfileSid;
     private String objectType;
     private Long pageSize;
 
-    public CustomerProfilesEntityAssignmentsReader(final String pathCustomerProfileSid) {
+    public CustomerProfilesEntityAssignmentsReader(
+        final String pathCustomerProfileSid
+    ) {
         this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
-
-    public CustomerProfilesEntityAssignmentsReader setObjectType(final String objectType) {
+    public CustomerProfilesEntityAssignmentsReader setObjectType(
+        final String objectType
+    ) {
         this.objectType = objectType;
         return this;
     }
 
-
-    public CustomerProfilesEntityAssignmentsReader setPageSize(final Long pageSize) {
+    public CustomerProfilesEntityAssignmentsReader setPageSize(
+        final Long pageSize
+    ) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<CustomerProfilesEntityAssignments> read(final TwilioRestClient client) {
+    public ResourceSet<CustomerProfilesEntityAssignments> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<CustomerProfilesEntityAssignments> firstPage(final TwilioRestClient client) {
+    public Page<CustomerProfilesEntityAssignments> firstPage(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
-
-        path = path.replace("{" + "CustomerProfileSid" + "}", this.pathCustomerProfileSid.toString());
+        path =
+            path.replace(
+                "{" + "CustomerProfileSid" + "}",
+                this.pathCustomerProfileSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<CustomerProfilesEntityAssignments> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<CustomerProfilesEntityAssignments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("CustomerProfilesEntityAssignments read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CustomerProfilesEntityAssignments read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "results",
-                response.getContent(),
-                CustomerProfilesEntityAssignments.class,
-                client.getObjectMapper());
+            "results",
+            response.getContent(),
+            CustomerProfilesEntityAssignments.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<CustomerProfilesEntityAssignments> previousPage(final Page<CustomerProfilesEntityAssignments> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<CustomerProfilesEntityAssignments> previousPage(
+        final Page<CustomerProfilesEntityAssignments> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<CustomerProfilesEntityAssignments> nextPage(final Page<CustomerProfilesEntityAssignments> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<CustomerProfilesEntityAssignments> nextPage(
+        final Page<CustomerProfilesEntityAssignments> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<CustomerProfilesEntityAssignments> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<CustomerProfilesEntityAssignments> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (objectType != null) {
-            Serializer.toString(request, "ObjectType", objectType, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ObjectType",
+                objectType,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

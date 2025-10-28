@@ -18,50 +18,56 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Step extends Resource {
 
-
-    public static StepFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid) {
-        return new StepFetcher(
-                pathFlowSid, pathEngagementSid, pathSid
-        );
+    public static StepFetcher fetcher(
+        final String pathFlowSid,
+        final String pathEngagementSid,
+        final String pathSid
+    ) {
+        return new StepFetcher(pathFlowSid, pathEngagementSid, pathSid);
     }
 
-
-    public static StepReader reader(final String pathFlowSid, final String pathEngagementSid) {
-        return new StepReader(
-                pathFlowSid, pathEngagementSid
-        );
+    public static StepReader reader(
+        final String pathFlowSid,
+        final String pathEngagementSid
+    ) {
+        return new StepReader(pathFlowSid, pathEngagementSid);
     }
-
 
     /**
      * Converts a JSON String into a Step object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Step object represented by the provided JSON
      */
-    public static Step fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Step fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Step.class);
@@ -76,11 +82,14 @@ public class Step extends Resource {
      * Converts a JSON InputStream into a Step object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Step object represented by the provided JSON
      */
-    public static Step fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Step fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Step.class);
@@ -103,54 +112,68 @@ public class Step extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object context;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String engagementSid;
+
     @Getter
     private final String flowSid;
+
     @Getter
     private final Map<String, String> links;
+
     @Getter
     private final String name;
+
     @Getter
     private final String parentStepSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String transitionedFrom;
+
     @Getter
     private final String transitionedTo;
+
     @Getter
     private final String type;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private Step(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("context") final Object context,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("engagement_sid") final String engagementSid,
-            @JsonProperty("flow_sid") final String flowSid,
-            @JsonProperty("links") final Map<String, String> links,
-            @JsonProperty("name") final String name,
-            @JsonProperty("parent_step_sid") final String parentStepSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("transitioned_from") final String transitionedFrom,
-            @JsonProperty("transitioned_to") final String transitionedTo,
-            @JsonProperty("type") final String type,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("context") final Object context,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("engagement_sid") final String engagementSid,
+        @JsonProperty("flow_sid") final String flowSid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("name") final String name,
+        @JsonProperty("parent_step_sid") final String parentStepSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("transitioned_from") final String transitionedFrom,
+        @JsonProperty("transitioned_to") final String transitionedTo,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.context = context;
@@ -180,43 +203,40 @@ public class Step extends Resource {
 
         Step other = (Step) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(context, other.context) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(engagementSid, other.engagementSid) &&
-                        Objects.equals(flowSid, other.flowSid) &&
-                        Objects.equals(links, other.links) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(parentStepSid, other.parentStepSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(transitionedFrom, other.transitionedFrom) &&
-                        Objects.equals(transitionedTo, other.transitionedTo) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(context, other.context) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(engagementSid, other.engagementSid) &&
+            Objects.equals(flowSid, other.flowSid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(parentStepSid, other.parentStepSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(transitionedFrom, other.transitionedFrom) &&
+            Objects.equals(transitionedTo, other.transitionedTo) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                context,
-                dateCreated,
-                dateUpdated,
-                engagementSid,
-                flowSid,
-                links,
-                name,
-                parentStepSid,
-                sid,
-                transitionedFrom,
-                transitionedTo,
-                type,
-                url
+            accountSid,
+            context,
+            dateCreated,
+            dateUpdated,
+            engagementSid,
+            flowSid,
+            links,
+            name,
+            parentStepSid,
+            sid,
+            transitionedFrom,
+            transitionedTo,
+            type,
+            url
         );
     }
-
-
 }
-

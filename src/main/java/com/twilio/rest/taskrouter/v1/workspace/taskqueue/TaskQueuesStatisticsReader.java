@@ -27,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
@@ -45,147 +45,200 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-
     public TaskQueuesStatisticsReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
 
-
-    public TaskQueuesStatisticsReader setFriendlyName(final String friendlyName) {
+    public TaskQueuesStatisticsReader setFriendlyName(
+        final String friendlyName
+    ) {
         this.friendlyName = friendlyName;
         return this;
     }
-
 
     public TaskQueuesStatisticsReader setMinutes(final Integer minutes) {
         this.minutes = minutes;
         return this;
     }
 
-
-    public TaskQueuesStatisticsReader setStartDate(final ZonedDateTime startDate) {
+    public TaskQueuesStatisticsReader setStartDate(
+        final ZonedDateTime startDate
+    ) {
         this.startDate = startDate;
         return this;
     }
-
 
     public TaskQueuesStatisticsReader setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
-
-    public TaskQueuesStatisticsReader setSplitByWaitTime(final String splitByWaitTime) {
+    public TaskQueuesStatisticsReader setSplitByWaitTime(
+        final String splitByWaitTime
+    ) {
         this.splitByWaitTime = splitByWaitTime;
         return this;
     }
-
 
     public TaskQueuesStatisticsReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<TaskQueuesStatistics> read(final TwilioRestClient client) {
+    public ResourceSet<TaskQueuesStatistics> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
 
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TASKROUTER.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<TaskQueuesStatistics> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TaskQueuesStatistics> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("TaskQueuesStatistics read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TaskQueuesStatistics read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "task_queues_statistics",
-                response.getContent(),
-                TaskQueuesStatistics.class,
-                client.getObjectMapper());
+            "task_queues_statistics",
+            response.getContent(),
+            TaskQueuesStatistics.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<TaskQueuesStatistics> previousPage(final Page<TaskQueuesStatistics> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<TaskQueuesStatistics> previousPage(
+        final Page<TaskQueuesStatistics> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TaskQueuesStatistics> nextPage(final Page<TaskQueuesStatistics> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<TaskQueuesStatistics> nextPage(
+        final Page<TaskQueuesStatistics> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TaskQueuesStatistics> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<TaskQueuesStatistics> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (endDate != null) {
-            Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
-
 
         if (minutes != null) {
-            Serializer.toString(request, "Minutes", minutes, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Minutes",
+                minutes,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startDate != null) {
-            Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartDate",
+                startDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (taskChannel != null) {
-            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
-
 
         if (splitByWaitTime != null) {
-            Serializer.toString(request, "SplitByWaitTime", splitByWaitTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SplitByWaitTime",
+                splitByWaitTime,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

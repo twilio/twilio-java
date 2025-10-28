@@ -18,91 +18,108 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOn extends Resource {
 
+    public static AssignedAddOnCreator creator(
+        final String pathResourceSid,
+        final String installedAddOnSid
+    ) {
+        return new AssignedAddOnCreator(pathResourceSid, installedAddOnSid);
+    }
 
-    public static AssignedAddOnCreator creator(final String pathResourceSid, final String installedAddOnSid) {
+    public static AssignedAddOnCreator creator(
+        final String pathAccountSid,
+        final String pathResourceSid,
+        final String installedAddOnSid
+    ) {
         return new AssignedAddOnCreator(
-                pathResourceSid, installedAddOnSid
+            pathAccountSid,
+            pathResourceSid,
+            installedAddOnSid
         );
     }
 
-
-    public static AssignedAddOnCreator creator(final String pathAccountSid, final String pathResourceSid, final String installedAddOnSid) {
-        return new AssignedAddOnCreator(
-                pathAccountSid, pathResourceSid, installedAddOnSid
-        );
+    public static AssignedAddOnDeleter deleter(
+        final String pathResourceSid,
+        final String pathSid
+    ) {
+        return new AssignedAddOnDeleter(pathResourceSid, pathSid);
     }
 
-
-    public static AssignedAddOnDeleter deleter(final String pathResourceSid, final String pathSid) {
+    public static AssignedAddOnDeleter deleter(
+        final String pathAccountSid,
+        final String pathResourceSid,
+        final String pathSid
+    ) {
         return new AssignedAddOnDeleter(
-                pathResourceSid, pathSid
+            pathAccountSid,
+            pathResourceSid,
+            pathSid
         );
     }
 
-
-    public static AssignedAddOnDeleter deleter(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
-        return new AssignedAddOnDeleter(
-                pathAccountSid, pathResourceSid, pathSid
-        );
+    public static AssignedAddOnFetcher fetcher(
+        final String pathResourceSid,
+        final String pathSid
+    ) {
+        return new AssignedAddOnFetcher(pathResourceSid, pathSid);
     }
 
-
-    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, final String pathSid) {
+    public static AssignedAddOnFetcher fetcher(
+        final String pathAccountSid,
+        final String pathResourceSid,
+        final String pathSid
+    ) {
         return new AssignedAddOnFetcher(
-                pathResourceSid, pathSid
+            pathAccountSid,
+            pathResourceSid,
+            pathSid
         );
     }
-
-
-    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid) {
-        return new AssignedAddOnFetcher(
-                pathAccountSid, pathResourceSid, pathSid
-        );
-    }
-
 
     public static AssignedAddOnReader reader(final String pathResourceSid) {
-        return new AssignedAddOnReader(
-                pathResourceSid
-        );
+        return new AssignedAddOnReader(pathResourceSid);
     }
 
-
-    public static AssignedAddOnReader reader(final String pathAccountSid, final String pathResourceSid) {
-        return new AssignedAddOnReader(
-                pathAccountSid, pathResourceSid
-        );
+    public static AssignedAddOnReader reader(
+        final String pathAccountSid,
+        final String pathResourceSid
+    ) {
+        return new AssignedAddOnReader(pathAccountSid, pathResourceSid);
     }
-
 
     /**
      * Converts a JSON String into a AssignedAddOn object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AssignedAddOn object represented by the provided JSON
      */
-    public static AssignedAddOn fromJson(final String json, final ObjectMapper objectMapper) {
+    public static AssignedAddOn fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssignedAddOn.class);
@@ -117,11 +134,14 @@ public class AssignedAddOn extends Resource {
      * Converts a JSON InputStream into a AssignedAddOn object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AssignedAddOn object represented by the provided JSON
      */
-    public static AssignedAddOn fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static AssignedAddOn fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssignedAddOn.class);
@@ -144,45 +164,59 @@ public class AssignedAddOn extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Object configuration;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String resourceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Map<String, String> subresourceUris;
+
     @Getter
     private final String uniqueName;
+
     @Getter
     private final String uri;
 
     @JsonCreator
     private AssignedAddOn(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("configuration") final Object configuration,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.RFC2822Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("resource_sid") final String resourceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("subresource_uris") final Map<String, String> subresourceUris,
-            @JsonProperty("unique_name") final String uniqueName,
-            @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("configuration") final Object configuration,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("resource_sid") final String resourceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.configuration = configuration;
@@ -209,37 +243,34 @@ public class AssignedAddOn extends Resource {
 
         AssignedAddOn other = (AssignedAddOn) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(configuration, other.configuration) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(resourceSid, other.resourceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(subresourceUris, other.subresourceUris) &&
-                        Objects.equals(uniqueName, other.uniqueName) &&
-                        Objects.equals(uri, other.uri)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(configuration, other.configuration) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(resourceSid, other.resourceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(subresourceUris, other.subresourceUris) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(uri, other.uri)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                configuration,
-                dateCreated,
-                dateUpdated,
-                description,
-                friendlyName,
-                resourceSid,
-                sid,
-                subresourceUris,
-                uniqueName,
-                uri
+            accountSid,
+            configuration,
+            dateCreated,
+            dateUpdated,
+            description,
+            friendlyName,
+            resourceSid,
+            sid,
+            subresourceUris,
+            uniqueName,
+            uri
         );
     }
-
-
 }
-

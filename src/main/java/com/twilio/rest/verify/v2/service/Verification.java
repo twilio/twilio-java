@@ -18,49 +18,53 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Verification extends Resource {
 
-
-    public static VerificationCreator creator(final String pathServiceSid, final String to, final String channel) {
-        return new VerificationCreator(
-                pathServiceSid, to, channel
-        );
+    public static VerificationCreator creator(
+        final String pathServiceSid,
+        final String to,
+        final String channel
+    ) {
+        return new VerificationCreator(pathServiceSid, to, channel);
     }
 
-
-    public static VerificationFetcher fetcher(final String pathServiceSid, final String pathSid) {
-        return new VerificationFetcher(
-                pathServiceSid, pathSid
-        );
+    public static VerificationFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
+        return new VerificationFetcher(pathServiceSid, pathSid);
     }
 
-
-    public static VerificationUpdater updater(final String pathServiceSid, final String pathSid, final Verification.Status status) {
-        return new VerificationUpdater(
-                pathServiceSid, pathSid, status
-        );
+    public static VerificationUpdater updater(
+        final String pathServiceSid,
+        final String pathSid,
+        final Verification.Status status
+    ) {
+        return new VerificationUpdater(pathServiceSid, pathSid, status);
     }
-
 
     public enum Status {
         CANCELED("canceled"),
@@ -125,15 +129,17 @@ public class Verification extends Resource {
         }
     }
 
-
     /**
      * Converts a JSON String into a Verification object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Verification object represented by the provided JSON
      */
-    public static Verification fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Verification fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Verification.class);
@@ -148,11 +154,14 @@ public class Verification extends Resource {
      * Converts a JSON InputStream into a Verification object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Verification object represented by the provided JSON
      */
-    public static Verification fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Verification fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Verification.class);
@@ -175,57 +184,72 @@ public class Verification extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String amount;
+
     @Getter
     private final Verification.Channel channel;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final Object lookup;
+
     @Getter
     private final String payee;
+
     @Getter
     private final List<Object> sendCodeAttempts;
+
     @Getter
     private final String serviceSid;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Object sna;
+
     @Getter
     private final String status;
+
     @Getter
     private final String to;
+
     @Getter
     private final URI url;
+
     @Getter
     private final Boolean valid;
 
     @JsonCreator
     private Verification(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("amount") final String amount,
-            @JsonProperty("channel") final Verification.Channel channel,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("lookup") final Object lookup,
-            @JsonProperty("payee") final String payee,
-            @JsonProperty("send_code_attempts") final List<Object> sendCodeAttempts,
-            @JsonProperty("service_sid") final String serviceSid,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("sna") final Object sna,
-            @JsonProperty("status") final String status,
-            @JsonProperty("to") final String to,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("valid") final Boolean valid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("amount") final String amount,
+        @JsonProperty("channel") final Verification.Channel channel,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("lookup") final Object lookup,
+        @JsonProperty("payee") final String payee,
+        @JsonProperty("send_code_attempts") final List<Object> sendCodeAttempts,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sna") final Object sna,
+        @JsonProperty("status") final String status,
+        @JsonProperty("to") final String to,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("valid") final Boolean valid
     ) {
         this.accountSid = accountSid;
         this.amount = amount;
@@ -256,45 +280,42 @@ public class Verification extends Resource {
 
         Verification other = (Verification) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(amount, other.amount) &&
-                        Objects.equals(channel, other.channel) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(lookup, other.lookup) &&
-                        Objects.equals(payee, other.payee) &&
-                        Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&
-                        Objects.equals(serviceSid, other.serviceSid) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(sna, other.sna) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(to, other.to) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(valid, other.valid)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(amount, other.amount) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(lookup, other.lookup) &&
+            Objects.equals(payee, other.payee) &&
+            Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sna, other.sna) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(to, other.to) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(valid, other.valid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                amount,
-                channel,
-                dateCreated,
-                dateUpdated,
-                lookup,
-                payee,
-                sendCodeAttempts,
-                serviceSid,
-                sid,
-                sna,
-                status,
-                to,
-                url,
-                valid
+            accountSid,
+            amount,
+            channel,
+            dateCreated,
+            dateUpdated,
+            lookup,
+            payee,
+            sendCodeAttempts,
+            serviceSid,
+            sid,
+            sna,
+            status,
+            to,
+            url,
+            valid
         );
     }
-
-
 }
-

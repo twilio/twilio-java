@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
@@ -38,102 +38,135 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkflowStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkflowSid) {
+    public WorkflowStatisticsFetcher(
+        final String pathWorkspaceSid,
+        final String pathWorkflowSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkflowSid = pathWorkflowSid;
     }
-
 
     public WorkflowStatisticsFetcher setMinutes(final Integer minutes) {
         this.minutes = minutes;
         return this;
     }
 
-
-    public WorkflowStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
+    public WorkflowStatisticsFetcher setStartDate(
+        final ZonedDateTime startDate
+    ) {
         this.startDate = startDate;
         return this;
     }
-
 
     public WorkflowStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
 
-
     public WorkflowStatisticsFetcher setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
 
-
-    public WorkflowStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {
+    public WorkflowStatisticsFetcher setSplitByWaitTime(
+        final String splitByWaitTime
+    ) {
         this.splitByWaitTime = splitByWaitTime;
         return this;
     }
 
-
     @Override
     public WorkflowStatistics fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics";
 
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics";
-
-        path = path.replace("{" + "WorkspaceSid" + "}", this.pathWorkspaceSid.toString());
-        path = path.replace("{" + "WorkflowSid" + "}", this.pathWorkflowSid.toString());
-
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkflowSid" + "}",
+                this.pathWorkflowSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.TASKROUTER.toString(),
-                path
+            HttpMethod.GET,
+            Domains.TASKROUTER.toString(),
+            path
         );
         addQueryParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("WorkflowStatistics fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WorkflowStatistics fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return WorkflowStatistics.fromJson(response.getStream(), client.getObjectMapper());
+        return WorkflowStatistics.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (minutes != null) {
-            Serializer.toString(request, "Minutes", minutes, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "Minutes",
+                minutes,
+                ParameterType.QUERY
+            );
         }
-
 
         if (startDate != null) {
-            Serializer.toString(request, "StartDate", startDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "StartDate",
+                startDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (endDate != null) {
-            Serializer.toString(request, "EndDate", endDate, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "EndDate",
+                endDate,
+                ParameterType.QUERY
+            );
         }
-
 
         if (taskChannel != null) {
-            Serializer.toString(request, "TaskChannel", taskChannel, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
-
 
         if (splitByWaitTime != null) {
-            Serializer.toString(request, "SplitByWaitTime", splitByWaitTime, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "SplitByWaitTime",
+                splitByWaitTime,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

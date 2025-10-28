@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
 
@@ -36,127 +37,165 @@ public class TollfreeVerificationReader extends Reader<TollfreeVerification> {
     private Boolean includeSubAccounts;
     private Long pageSize;
 
-    public TollfreeVerificationReader() {
-    }
+    public TollfreeVerificationReader() {}
 
-
-    public TollfreeVerificationReader setTollfreePhoneNumberSid(final String tollfreePhoneNumberSid) {
+    public TollfreeVerificationReader setTollfreePhoneNumberSid(
+        final String tollfreePhoneNumberSid
+    ) {
         this.tollfreePhoneNumberSid = tollfreePhoneNumberSid;
         return this;
     }
 
-
-    public TollfreeVerificationReader setStatus(final TollfreeVerification.Status status) {
+    public TollfreeVerificationReader setStatus(
+        final TollfreeVerification.Status status
+    ) {
         this.status = status;
         return this;
     }
 
-
-    public TollfreeVerificationReader setExternalReferenceId(final String externalReferenceId) {
+    public TollfreeVerificationReader setExternalReferenceId(
+        final String externalReferenceId
+    ) {
         this.externalReferenceId = externalReferenceId;
         return this;
     }
 
-
-    public TollfreeVerificationReader setIncludeSubAccounts(final Boolean includeSubAccounts) {
+    public TollfreeVerificationReader setIncludeSubAccounts(
+        final Boolean includeSubAccounts
+    ) {
         this.includeSubAccounts = includeSubAccounts;
         return this;
     }
-
 
     public TollfreeVerificationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<TollfreeVerification> read(final TwilioRestClient client) {
+    public ResourceSet<TollfreeVerification> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<TollfreeVerification> firstPage(final TwilioRestClient client) {
-
         String path = "/v1/Tollfree/Verifications";
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.GET,
+            Domains.MESSAGING.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<TollfreeVerification> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TollfreeVerification> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("TollfreeVerification read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TollfreeVerification read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "verifications",
-                response.getContent(),
-                TollfreeVerification.class,
-                client.getObjectMapper());
+            "verifications",
+            response.getContent(),
+            TollfreeVerification.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<TollfreeVerification> previousPage(final Page<TollfreeVerification> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<TollfreeVerification> previousPage(
+        final Page<TollfreeVerification> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TollfreeVerification> nextPage(final Page<TollfreeVerification> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<TollfreeVerification> nextPage(
+        final Page<TollfreeVerification> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<TollfreeVerification> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<TollfreeVerification> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (tollfreePhoneNumberSid != null) {
-            Serializer.toString(request, "TollfreePhoneNumberSid", tollfreePhoneNumberSid, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "TollfreePhoneNumberSid",
+                tollfreePhoneNumberSid,
+                ParameterType.QUERY
+            );
         }
-
 
         if (status != null) {
             Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-
         if (externalReferenceId != null) {
-            Serializer.toString(request, "ExternalReferenceId", externalReferenceId, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "ExternalReferenceId",
+                externalReferenceId,
+                ParameterType.QUERY
+            );
         }
-
 
         if (includeSubAccounts != null) {
-            Serializer.toString(request, "IncludeSubAccounts", includeSubAccounts, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "IncludeSubAccounts",
+                includeSubAccounts,
+                ParameterType.QUERY
+            );
         }
-
 
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

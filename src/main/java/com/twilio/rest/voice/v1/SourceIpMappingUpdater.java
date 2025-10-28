@@ -26,35 +26,36 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
+
     private String pathSid;
     private String sipDomainSid;
 
-    public SourceIpMappingUpdater(final String pathSid, final String sipDomainSid) {
+    public SourceIpMappingUpdater(
+        final String pathSid,
+        final String sipDomainSid
+    ) {
         this.pathSid = pathSid;
         this.sipDomainSid = sipDomainSid;
     }
-
 
     public SourceIpMappingUpdater setSipDomainSid(final String sipDomainSid) {
         this.sipDomainSid = sipDomainSid;
         return this;
     }
 
-
     @Override
     public SourceIpMapping update(final TwilioRestClient client) {
-
         String path = "/v1/SourceIpMappings/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.VOICE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.VOICE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -62,27 +63,37 @@ public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SourceIpMapping update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SourceIpMapping update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SourceIpMapping.fromJson(response.getStream(), client.getObjectMapper());
+        return SourceIpMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (sipDomainSid != null) {
-            Serializer.toString(request, "SipDomainSid", sipDomainSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "SipDomainSid",
+                sipDomainSid,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

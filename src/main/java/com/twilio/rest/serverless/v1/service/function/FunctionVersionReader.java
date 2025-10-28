@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FunctionVersionReader extends Reader<FunctionVersion> {
 
@@ -34,17 +35,18 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
     private String pathFunctionSid;
     private Long pageSize;
 
-    public FunctionVersionReader(final String pathServiceSid, final String pathFunctionSid) {
+    public FunctionVersionReader(
+        final String pathServiceSid,
+        final String pathFunctionSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathFunctionSid = pathFunctionSid;
     }
-
 
     public FunctionVersionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<FunctionVersion> read(final TwilioRestClient client) {
@@ -52,69 +54,103 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
     }
 
     public Page<FunctionVersion> firstPage(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions";
 
-        String path = "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "FunctionSid" + "}", this.pathFunctionSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FunctionSid" + "}",
+                this.pathFunctionSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.SERVERLESS.toString(),
-                path
+            HttpMethod.GET,
+            Domains.SERVERLESS.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<FunctionVersion> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<FunctionVersion> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("FunctionVersion read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FunctionVersion read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "function_versions",
-                response.getContent(),
-                FunctionVersion.class,
-                client.getObjectMapper());
+            "function_versions",
+            response.getContent(),
+            FunctionVersion.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<FunctionVersion> previousPage(final Page<FunctionVersion> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<FunctionVersion> previousPage(
+        final Page<FunctionVersion> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<FunctionVersion> nextPage(final Page<FunctionVersion> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<FunctionVersion> nextPage(
+        final Page<FunctionVersion> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<FunctionVersion> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<FunctionVersion> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

@@ -19,33 +19,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RateLimit extends Resource {
 
-
     public static RateLimitFetcher fetcher() {
-        return new RateLimitFetcher(
-
-        );
+        return new RateLimitFetcher();
     }
-
 
     @JsonDeserialize(builder = RateLimitResponse.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -77,7 +77,6 @@ public class RateLimit extends Resource {
         @Getter
         private final Integer ttl;
 
-
         private RateLimitResponse(Builder builder) {
             this.field = builder.field;
             this.limit = builder.limit;
@@ -90,12 +89,16 @@ public class RateLimit extends Resource {
             return new Builder();
         }
 
-        public static RateLimitResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static RateLimitResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, RateLimitResponse.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("field")
             private String field;
 
@@ -110,7 +113,6 @@ public class RateLimit extends Resource {
 
             @JsonProperty("ttl")
             private Integer ttl;
-
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("field")
@@ -164,36 +166,31 @@ public class RateLimit extends Resource {
 
             RateLimitResponse other = (RateLimitResponse) o;
             return (
-                    Objects.equals(field, other.field) &&
-                            Objects.equals(limit, other.limit) &&
-                            Objects.equals(bucket, other.bucket) &&
-                            Objects.equals(owner, other.owner) &&
-                            Objects.equals(ttl, other.ttl)
+                Objects.equals(field, other.field) &&
+                Objects.equals(limit, other.limit) &&
+                Objects.equals(bucket, other.bucket) &&
+                Objects.equals(owner, other.owner) &&
+                Objects.equals(ttl, other.ttl)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    field,
-                    limit,
-                    bucket,
-                    owner,
-                    ttl
-            );
+            return Objects.hash(field, limit, bucket, owner, ttl);
         }
-
     }
-
 
     /**
      * Converts a JSON String into a RateLimit object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return RateLimit object represented by the provided JSON
      */
-    public static RateLimit fromJson(final String json, final ObjectMapper objectMapper) {
+    public static RateLimit fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RateLimit.class);
@@ -208,11 +205,14 @@ public class RateLimit extends Resource {
      * Converts a JSON InputStream into a RateLimit object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return RateLimit object represented by the provided JSON
      */
-    public static RateLimit fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static RateLimit fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RateLimit.class);
@@ -235,13 +235,12 @@ public class RateLimit extends Resource {
         }
     }
 
-
     @Getter
     private final List<RateLimitResponse> rateLimits;
 
     @JsonCreator
     private RateLimit(
-            @JsonProperty("rate_limits") final List<RateLimitResponse> rateLimits
+        @JsonProperty("rate_limits") final List<RateLimitResponse> rateLimits
     ) {
         this.rateLimits = rateLimits;
     }
@@ -257,18 +256,11 @@ public class RateLimit extends Resource {
         }
 
         RateLimit other = (RateLimit) o;
-        return (
-                Objects.equals(rateLimits, other.rateLimits)
-        );
+        return (Objects.equals(rateLimits, other.rateLimits));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                rateLimits
-        );
+        return Objects.hash(rateLimits);
     }
-
-
 }
-

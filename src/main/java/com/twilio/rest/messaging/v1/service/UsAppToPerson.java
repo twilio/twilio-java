@@ -18,71 +18,107 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
 
-
-    public static UsAppToPersonCreator creator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
+    public static UsAppToPersonCreator creator(
+        final String pathMessagingServiceSid,
+        final String brandRegistrationSid,
+        final String description,
+        final String messageFlow,
+        final List<String> messageSamples,
+        final String usAppToPersonUsecase,
+        final Boolean hasEmbeddedLinks,
+        final Boolean hasEmbeddedPhone
+    ) {
         return new UsAppToPersonCreator(
-                pathMessagingServiceSid, brandRegistrationSid, description, messageFlow, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone
+            pathMessagingServiceSid,
+            brandRegistrationSid,
+            description,
+            messageFlow,
+            messageSamples,
+            usAppToPersonUsecase,
+            hasEmbeddedLinks,
+            hasEmbeddedPhone
         );
     }
 
-
-    public static UsAppToPersonDeleter deleter(final String pathMessagingServiceSid, final String pathSid) {
-        return new UsAppToPersonDeleter(
-                pathMessagingServiceSid, pathSid
-        );
+    public static UsAppToPersonDeleter deleter(
+        final String pathMessagingServiceSid,
+        final String pathSid
+    ) {
+        return new UsAppToPersonDeleter(pathMessagingServiceSid, pathSid);
     }
 
-
-    public static UsAppToPersonFetcher fetcher(final String pathMessagingServiceSid, final String pathSid) {
-        return new UsAppToPersonFetcher(
-                pathMessagingServiceSid, pathSid
-        );
+    public static UsAppToPersonFetcher fetcher(
+        final String pathMessagingServiceSid,
+        final String pathSid
+    ) {
+        return new UsAppToPersonFetcher(pathMessagingServiceSid, pathSid);
     }
 
-
-    public static UsAppToPersonReader reader(final String pathMessagingServiceSid) {
-        return new UsAppToPersonReader(
-                pathMessagingServiceSid
-        );
+    public static UsAppToPersonReader reader(
+        final String pathMessagingServiceSid
+    ) {
+        return new UsAppToPersonReader(pathMessagingServiceSid);
     }
 
-
-    public static UsAppToPersonUpdater updater(final String pathMessagingServiceSid, final String pathSid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending) {
+    public static UsAppToPersonUpdater updater(
+        final String pathMessagingServiceSid,
+        final String pathSid,
+        final Boolean hasEmbeddedLinks,
+        final Boolean hasEmbeddedPhone,
+        final List<String> messageSamples,
+        final String messageFlow,
+        final String description,
+        final Boolean ageGated,
+        final Boolean directLending
+    ) {
         return new UsAppToPersonUpdater(
-                pathMessagingServiceSid, pathSid, hasEmbeddedLinks, hasEmbeddedPhone, messageSamples, messageFlow, description, ageGated, directLending
+            pathMessagingServiceSid,
+            pathSid,
+            hasEmbeddedLinks,
+            hasEmbeddedPhone,
+            messageSamples,
+            messageFlow,
+            description,
+            ageGated,
+            directLending
         );
     }
-
 
     /**
      * Converts a JSON String into a UsAppToPerson object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UsAppToPerson object represented by the provided JSON
      */
-    public static UsAppToPerson fromJson(final String json, final ObjectMapper objectMapper) {
+    public static UsAppToPerson fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsAppToPerson.class);
@@ -97,11 +133,14 @@ public class UsAppToPerson extends Resource {
      * Converts a JSON InputStream into a UsAppToPerson object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UsAppToPerson object represented by the provided JSON
      */
-    public static UsAppToPerson fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static UsAppToPerson fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsAppToPerson.class);
@@ -124,96 +163,130 @@ public class UsAppToPerson extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final Boolean ageGated;
+
     @Getter
     private final String brandRegistrationSid;
+
     @Getter
     private final String campaignId;
+
     @Getter
     private final String campaignStatus;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final Boolean directLending;
+
     @Getter
     private final List<Object> errors;
+
     @Getter
     private final Boolean hasEmbeddedLinks;
+
     @Getter
     private final Boolean hasEmbeddedPhone;
+
     @Getter
     private final List<String> helpKeywords;
+
     @Getter
     private final String helpMessage;
+
     @Getter
     private final Boolean isExternallyRegistered;
+
     @Getter
     private final String messageFlow;
+
     @Getter
     private final List<String> messageSamples;
+
     @Getter
     private final String messagingServiceSid;
+
     @Getter
     private final Boolean mock;
+
     @Getter
     private final List<String> optInKeywords;
+
     @Getter
     private final String optInMessage;
+
     @Getter
     private final List<String> optOutKeywords;
+
     @Getter
     private final String optOutMessage;
+
     @Getter
     private final Object rateLimits;
+
     @Getter
     private final String sid;
+
     @Getter
     private final Boolean subscriberOptIn;
+
     @Getter
     private final URI url;
+
     @Getter
     private final String usAppToPersonUsecase;
 
     @JsonCreator
     private UsAppToPerson(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("age_gated") final Boolean ageGated,
-            @JsonProperty("brand_registration_sid") final String brandRegistrationSid,
-            @JsonProperty("campaign_id") final String campaignId,
-            @JsonProperty("campaign_status") final String campaignStatus,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("direct_lending") final Boolean directLending,
-            @JsonProperty("errors") final List<Object> errors,
-            @JsonProperty("has_embedded_links") final Boolean hasEmbeddedLinks,
-            @JsonProperty("has_embedded_phone") final Boolean hasEmbeddedPhone,
-            @JsonProperty("help_keywords") final List<String> helpKeywords,
-            @JsonProperty("help_message") final String helpMessage,
-            @JsonProperty("is_externally_registered") final Boolean isExternallyRegistered,
-            @JsonProperty("message_flow") final String messageFlow,
-            @JsonProperty("message_samples") final List<String> messageSamples,
-            @JsonProperty("messaging_service_sid") final String messagingServiceSid,
-            @JsonProperty("mock") final Boolean mock,
-            @JsonProperty("opt_in_keywords") final List<String> optInKeywords,
-            @JsonProperty("opt_in_message") final String optInMessage,
-            @JsonProperty("opt_out_keywords") final List<String> optOutKeywords,
-            @JsonProperty("opt_out_message") final String optOutMessage,
-            @JsonProperty("rate_limits") final Object rateLimits,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("subscriber_opt_in") final Boolean subscriberOptIn,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("us_app_to_person_usecase") final String usAppToPersonUsecase
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("age_gated") final Boolean ageGated,
+        @JsonProperty(
+            "brand_registration_sid"
+        ) final String brandRegistrationSid,
+        @JsonProperty("campaign_id") final String campaignId,
+        @JsonProperty("campaign_status") final String campaignStatus,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("direct_lending") final Boolean directLending,
+        @JsonProperty("errors") final List<Object> errors,
+        @JsonProperty("has_embedded_links") final Boolean hasEmbeddedLinks,
+        @JsonProperty("has_embedded_phone") final Boolean hasEmbeddedPhone,
+        @JsonProperty("help_keywords") final List<String> helpKeywords,
+        @JsonProperty("help_message") final String helpMessage,
+        @JsonProperty(
+            "is_externally_registered"
+        ) final Boolean isExternallyRegistered,
+        @JsonProperty("message_flow") final String messageFlow,
+        @JsonProperty("message_samples") final List<String> messageSamples,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("mock") final Boolean mock,
+        @JsonProperty("opt_in_keywords") final List<String> optInKeywords,
+        @JsonProperty("opt_in_message") final String optInMessage,
+        @JsonProperty("opt_out_keywords") final List<String> optOutKeywords,
+        @JsonProperty("opt_out_message") final String optOutMessage,
+        @JsonProperty("rate_limits") final Object rateLimits,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("subscriber_opt_in") final Boolean subscriberOptIn,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "us_app_to_person_usecase"
+        ) final String usAppToPersonUsecase
     ) {
         this.accountSid = accountSid;
         this.ageGated = ageGated;
@@ -257,71 +330,71 @@ public class UsAppToPerson extends Resource {
 
         UsAppToPerson other = (UsAppToPerson) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(ageGated, other.ageGated) &&
-                        Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&
-                        Objects.equals(campaignId, other.campaignId) &&
-                        Objects.equals(campaignStatus, other.campaignStatus) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(directLending, other.directLending) &&
-                        Objects.equals(errors, other.errors) &&
-                        Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&
-                        Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&
-                        Objects.equals(helpKeywords, other.helpKeywords) &&
-                        Objects.equals(helpMessage, other.helpMessage) &&
-                        Objects.equals(isExternallyRegistered, other.isExternallyRegistered) &&
-                        Objects.equals(messageFlow, other.messageFlow) &&
-                        Objects.equals(messageSamples, other.messageSamples) &&
-                        Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
-                        Objects.equals(mock, other.mock) &&
-                        Objects.equals(optInKeywords, other.optInKeywords) &&
-                        Objects.equals(optInMessage, other.optInMessage) &&
-                        Objects.equals(optOutKeywords, other.optOutKeywords) &&
-                        Objects.equals(optOutMessage, other.optOutMessage) &&
-                        Objects.equals(rateLimits, other.rateLimits) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(subscriberOptIn, other.subscriberOptIn) &&
-                        Objects.equals(url, other.url) &&
-                        Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(ageGated, other.ageGated) &&
+            Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&
+            Objects.equals(campaignId, other.campaignId) &&
+            Objects.equals(campaignStatus, other.campaignStatus) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(directLending, other.directLending) &&
+            Objects.equals(errors, other.errors) &&
+            Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&
+            Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&
+            Objects.equals(helpKeywords, other.helpKeywords) &&
+            Objects.equals(helpMessage, other.helpMessage) &&
+            Objects.equals(
+                isExternallyRegistered,
+                other.isExternallyRegistered
+            ) &&
+            Objects.equals(messageFlow, other.messageFlow) &&
+            Objects.equals(messageSamples, other.messageSamples) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(mock, other.mock) &&
+            Objects.equals(optInKeywords, other.optInKeywords) &&
+            Objects.equals(optInMessage, other.optInMessage) &&
+            Objects.equals(optOutKeywords, other.optOutKeywords) &&
+            Objects.equals(optOutMessage, other.optOutMessage) &&
+            Objects.equals(rateLimits, other.rateLimits) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(subscriberOptIn, other.subscriberOptIn) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                ageGated,
-                brandRegistrationSid,
-                campaignId,
-                campaignStatus,
-                dateCreated,
-                dateUpdated,
-                description,
-                directLending,
-                errors,
-                hasEmbeddedLinks,
-                hasEmbeddedPhone,
-                helpKeywords,
-                helpMessage,
-                isExternallyRegistered,
-                messageFlow,
-                messageSamples,
-                messagingServiceSid,
-                mock,
-                optInKeywords,
-                optInMessage,
-                optOutKeywords,
-                optOutMessage,
-                rateLimits,
-                sid,
-                subscriberOptIn,
-                url,
-                usAppToPersonUsecase
+            accountSid,
+            ageGated,
+            brandRegistrationSid,
+            campaignId,
+            campaignStatus,
+            dateCreated,
+            dateUpdated,
+            description,
+            directLending,
+            errors,
+            hasEmbeddedLinks,
+            hasEmbeddedPhone,
+            helpKeywords,
+            helpMessage,
+            isExternallyRegistered,
+            messageFlow,
+            messageSamples,
+            messagingServiceSid,
+            mock,
+            optInKeywords,
+            optInMessage,
+            optOutKeywords,
+            optOutMessage,
+            rateLimits,
+            sid,
+            subscriberOptIn,
+            url,
+            usAppToPersonUsecase
         );
     }
-
-
 }
-

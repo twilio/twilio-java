@@ -18,63 +18,68 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAccessControlList extends Resource {
 
-
-    public static IpAccessControlListCreator creator(final String pathTrunkSid, final String ipAccessControlListSid) {
+    public static IpAccessControlListCreator creator(
+        final String pathTrunkSid,
+        final String ipAccessControlListSid
+    ) {
         return new IpAccessControlListCreator(
-                pathTrunkSid, ipAccessControlListSid
+            pathTrunkSid,
+            ipAccessControlListSid
         );
     }
 
-
-    public static IpAccessControlListDeleter deleter(final String pathTrunkSid, final String pathSid) {
-        return new IpAccessControlListDeleter(
-                pathTrunkSid, pathSid
-        );
+    public static IpAccessControlListDeleter deleter(
+        final String pathTrunkSid,
+        final String pathSid
+    ) {
+        return new IpAccessControlListDeleter(pathTrunkSid, pathSid);
     }
 
-
-    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, final String pathSid) {
-        return new IpAccessControlListFetcher(
-                pathTrunkSid, pathSid
-        );
+    public static IpAccessControlListFetcher fetcher(
+        final String pathTrunkSid,
+        final String pathSid
+    ) {
+        return new IpAccessControlListFetcher(pathTrunkSid, pathSid);
     }
-
 
     public static IpAccessControlListReader reader(final String pathTrunkSid) {
-        return new IpAccessControlListReader(
-                pathTrunkSid
-        );
+        return new IpAccessControlListReader(pathTrunkSid);
     }
-
 
     /**
      * Converts a JSON String into a IpAccessControlList object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
      */
-    public static IpAccessControlList fromJson(final String json, final ObjectMapper objectMapper) {
+    public static IpAccessControlList fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpAccessControlList.class);
@@ -89,11 +94,14 @@ public class IpAccessControlList extends Resource {
      * Converts a JSON InputStream into a IpAccessControlList object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
      */
-    public static IpAccessControlList fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static IpAccessControlList fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, IpAccessControlList.class);
@@ -116,33 +124,40 @@ public class IpAccessControlList extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String friendlyName;
+
     @Getter
     private final String sid;
+
     @Getter
     private final String trunkSid;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private IpAccessControlList(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("friendly_name") final String friendlyName,
-            @JsonProperty("sid") final String sid,
-            @JsonProperty("trunk_sid") final String trunkSid,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("trunk_sid") final String trunkSid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -165,29 +180,26 @@ public class IpAccessControlList extends Resource {
 
         IpAccessControlList other = (IpAccessControlList) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(friendlyName, other.friendlyName) &&
-                        Objects.equals(sid, other.sid) &&
-                        Objects.equals(trunkSid, other.trunkSid) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(trunkSid, other.trunkSid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                friendlyName,
-                sid,
-                trunkSid,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            sid,
+            trunkSid,
+            url
         );
     }
-
-
 }
-

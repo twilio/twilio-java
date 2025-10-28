@@ -25,31 +25,27 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BulkEligibilityCreator extends Creator<BulkEligibility> {
 
     private Object body;
 
-    public BulkEligibilityCreator() {
-    }
-
+    public BulkEligibilityCreator() {}
 
     public BulkEligibilityCreator setBody(final Object body) {
         this.body = body;
         return this;
     }
 
-
     @Override
     public BulkEligibility create(final TwilioRestClient client) {
-
         String path = "/v1/HostedNumber/Eligibility/Bulk";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.NUMBERS.toString(),
-                path
+            HttpMethod.POST,
+            Domains.NUMBERS.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -57,19 +53,27 @@ public class BulkEligibilityCreator extends Creator<BulkEligibility> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("BulkEligibility creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BulkEligibility creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return BulkEligibility.fromJson(response.getStream(), client.getObjectMapper());
+        return BulkEligibility.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {

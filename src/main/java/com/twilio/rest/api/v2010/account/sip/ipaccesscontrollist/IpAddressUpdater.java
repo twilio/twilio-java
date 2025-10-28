@@ -26,8 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpAddressUpdater extends Updater<IpAddress> {
+
     private String pathAccountSid;
     private String pathIpAccessControlListSid;
     private String pathSid;
@@ -35,51 +37,66 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     private String friendlyName;
     private Integer cidrPrefixLength;
 
-    public IpAddressUpdater(final String pathIpAccessControlListSid, final String pathSid) {
+    public IpAddressUpdater(
+        final String pathIpAccessControlListSid,
+        final String pathSid
+    ) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
     }
 
-    public IpAddressUpdater(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid) {
+    public IpAddressUpdater(
+        final String pathAccountSid,
+        final String pathIpAccessControlListSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
     }
-
 
     public IpAddressUpdater setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
         return this;
     }
 
-
     public IpAddressUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
-
-    public IpAddressUpdater setCidrPrefixLength(final Integer cidrPrefixLength) {
+    public IpAddressUpdater setCidrPrefixLength(
+        final Integer cidrPrefixLength
+    ) {
         this.cidrPrefixLength = cidrPrefixLength;
         return this;
     }
 
-
     @Override
     public IpAddress update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "IpAccessControlListSid" + "}", this.pathIpAccessControlListSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "IpAccessControlListSid" + "}",
+                this.pathIpAccessControlListSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.API.toString(),
-                path
+            HttpMethod.POST,
+            Domains.API.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -87,37 +104,55 @@ public class IpAddressUpdater extends Updater<IpAddress> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IpAddress update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpAddress update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return IpAddress.fromJson(response.getStream(), client.getObjectMapper());
+        return IpAddress.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (ipAddress != null) {
-            Serializer.toString(request, "IpAddress", ipAddress, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "IpAddress",
+                ipAddress,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (friendlyName != null) {
-            Serializer.toString(request, "FriendlyName", friendlyName, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (cidrPrefixLength != null) {
-            Serializer.toString(request, "CidrPrefixLength", cidrPrefixLength, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CidrPrefixLength",
+                cidrPrefixLength,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

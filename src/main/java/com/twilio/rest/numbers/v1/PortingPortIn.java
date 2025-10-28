@@ -19,18 +19,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,32 +39,31 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingPortIn extends Resource {
 
-
-    public static PortingPortInCreator creator(final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate) {
-        return new PortingPortInCreator(
-                numbersV1PortingPortInCreate
-        );
+    public static PortingPortInCreator creator(
+        final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate
+    ) {
+        return new PortingPortInCreator(numbersV1PortingPortInCreate);
     }
 
-
-    public static PortingPortInDeleter deleter(final String pathPortInRequestSid) {
-        return new PortingPortInDeleter(
-                pathPortInRequestSid
-        );
+    public static PortingPortInDeleter deleter(
+        final String pathPortInRequestSid
+    ) {
+        return new PortingPortInDeleter(pathPortInRequestSid);
     }
 
-
-    public static PortingPortInFetcher fetcher(final String pathPortInRequestSid) {
-        return new PortingPortInFetcher(
-                pathPortInRequestSid
-        );
+    public static PortingPortInFetcher fetcher(
+        final String pathPortInRequestSid
+    ) {
+        return new PortingPortInFetcher(pathPortInRequestSid);
     }
-
 
     public enum CustomerType {
         BUSINESS("Business"),
@@ -84,7 +84,6 @@ public class PortingPortIn extends Resource {
             return Promoter.enumFromString(value, CustomerType.values());
         }
     }
-
 
     @JsonDeserialize(builder = NumbersV1PortingAddress.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -121,7 +120,6 @@ public class PortingPortIn extends Resource {
         @Getter
         private final String country;
 
-
         private NumbersV1PortingAddress(Builder builder) {
             this.street = builder.street;
             this.street2 = builder.street2;
@@ -131,16 +129,26 @@ public class PortingPortIn extends Resource {
             this.country = builder.country;
         }
 
-        public static Builder builder(final String street, final String city, final String state, final String zip, final String country) {
+        public static Builder builder(
+            final String street,
+            final String city,
+            final String state,
+            final String zip,
+            final String country
+        ) {
             return new Builder(street, city, state, zip, country);
         }
 
-        public static NumbersV1PortingAddress fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+        public static NumbersV1PortingAddress fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
             return mapper.readValue(jsonString, NumbersV1PortingAddress.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("street")
             private String street;
 
@@ -159,9 +167,14 @@ public class PortingPortIn extends Resource {
             @JsonProperty("country")
             private String country;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("street") final String street, @JsonProperty("city") final String city, @JsonProperty("state") final String state, @JsonProperty("zip") final String zip, @JsonProperty("country") final String country) {
+            public Builder(
+                @JsonProperty("street") final String street,
+                @JsonProperty("city") final String city,
+                @JsonProperty("state") final String state,
+                @JsonProperty("zip") final String zip,
+                @JsonProperty("country") final String country
+            ) {
                 this.street = street;
                 this.city = city;
                 this.state = state;
@@ -193,31 +206,24 @@ public class PortingPortIn extends Resource {
 
             NumbersV1PortingAddress other = (NumbersV1PortingAddress) o;
             return (
-                    Objects.equals(street, other.street) &&
-                            Objects.equals(street2, other.street2) &&
-                            Objects.equals(city, other.city) &&
-                            Objects.equals(state, other.state) &&
-                            Objects.equals(zip, other.zip) &&
-                            Objects.equals(country, other.country)
+                Objects.equals(street, other.street) &&
+                Objects.equals(street2, other.street2) &&
+                Objects.equals(city, other.city) &&
+                Objects.equals(state, other.state) &&
+                Objects.equals(zip, other.zip) &&
+                Objects.equals(country, other.country)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    street,
-                    street2,
-                    city,
-                    state,
-                    zip,
-                    country
-            );
+            return Objects.hash(street, street2, city, state, zip, country);
         }
-
     }
 
-
-    @JsonDeserialize(builder = NumbersV1PortingPortInCreatePhoneNumbers.Builder.class)
+    @JsonDeserialize(
+        builder = NumbersV1PortingPortInCreatePhoneNumbers.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingPortInCreatePhoneNumbers {
@@ -232,7 +238,6 @@ public class PortingPortIn extends Resource {
         @Getter
         private final String pin;
 
-
         private NumbersV1PortingPortInCreatePhoneNumbers(Builder builder) {
             this.phoneNumber = builder.phoneNumber;
             this.pin = builder.pin;
@@ -242,21 +247,29 @@ public class PortingPortIn extends Resource {
             return new Builder(phoneNumber);
         }
 
-        public static NumbersV1PortingPortInCreatePhoneNumbers fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, NumbersV1PortingPortInCreatePhoneNumbers.class);
+        public static NumbersV1PortingPortInCreatePhoneNumbers fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1PortingPortInCreatePhoneNumbers.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("phone_number")
             private String phoneNumber;
 
             @JsonProperty("pin")
             private String pin;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("phone_number") final String phoneNumber) {
+            public Builder(
+                @JsonProperty("phone_number") final String phoneNumber
+            ) {
                 this.phoneNumber = phoneNumber;
             }
 
@@ -282,25 +295,23 @@ public class PortingPortIn extends Resource {
                 return false;
             }
 
-            NumbersV1PortingPortInCreatePhoneNumbers other = (NumbersV1PortingPortInCreatePhoneNumbers) o;
+            NumbersV1PortingPortInCreatePhoneNumbers other =
+                (NumbersV1PortingPortInCreatePhoneNumbers) o;
             return (
-                    Objects.equals(phoneNumber, other.phoneNumber) &&
-                            Objects.equals(pin, other.pin)
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                Objects.equals(pin, other.pin)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    phoneNumber,
-                    pin
-            );
+            return Objects.hash(phoneNumber, pin);
         }
-
     }
 
-
-    @JsonDeserialize(builder = NumbersV1PortingPortInPhoneNumberResult.Builder.class)
+    @JsonDeserialize(
+        builder = NumbersV1PortingPortInPhoneNumberResult.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingPortInPhoneNumberResult {
@@ -366,7 +377,6 @@ public class PortingPortIn extends Resource {
         @Getter
         private final String externalPortingVendorPhoneNumberId;
 
-
         private NumbersV1PortingPortInPhoneNumberResult(Builder builder) {
             this.notPortabilityReason = builder.notPortabilityReason;
             this.notPortabilityReasonCode = builder.notPortabilityReasonCode;
@@ -378,20 +388,29 @@ public class PortingPortIn extends Resource {
             this.portable = builder.portable;
             this.rejectionReason = builder.rejectionReason;
             this.rejectionReasonCode = builder.rejectionReasonCode;
-            this.statusLastTimeUpdatedTimestamp = builder.statusLastTimeUpdatedTimestamp;
-            this.externalPortingVendorPhoneNumberId = builder.externalPortingVendorPhoneNumberId;
+            this.statusLastTimeUpdatedTimestamp =
+                builder.statusLastTimeUpdatedTimestamp;
+            this.externalPortingVendorPhoneNumberId =
+                builder.externalPortingVendorPhoneNumberId;
         }
 
         public static Builder builder() {
             return new Builder();
         }
 
-        public static NumbersV1PortingPortInPhoneNumberResult fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, NumbersV1PortingPortInPhoneNumberResult.class);
+        public static NumbersV1PortingPortInPhoneNumberResult fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1PortingPortInPhoneNumberResult.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("not_portability_reason")
             private String notPortabilityReason;
 
@@ -404,7 +423,9 @@ public class PortingPortIn extends Resource {
             @JsonProperty("phone_number")
             private String phoneNumber;
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonProperty("port_date")
             private ZonedDateTime portDate;
 
@@ -429,7 +450,6 @@ public class PortingPortIn extends Resource {
             @JsonProperty("external_porting_vendor_phone_number_id")
             private String externalPortingVendorPhoneNumberId;
 
-
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("not_portability_reason")
             public Builder notPortabilityReason(String notPortabilityReason) {
@@ -439,7 +459,9 @@ public class PortingPortIn extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("not_portability_reason_code")
-            public Builder notPortabilityReasonCode(Integer notPortabilityReasonCode) {
+            public Builder notPortabilityReasonCode(
+                Integer notPortabilityReasonCode
+            ) {
                 this.notPortabilityReasonCode = notPortabilityReasonCode;
                 return this;
             }
@@ -458,7 +480,9 @@ public class PortingPortIn extends Resource {
                 return this;
             }
 
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.ISO8601Deserializer.class
+            )
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("port_date")
             public Builder portDate(ZonedDateTime portDate) {
@@ -475,7 +499,9 @@ public class PortingPortIn extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("port_in_phone_number_status")
-            public Builder portInPhoneNumberStatus(String portInPhoneNumberStatus) {
+            public Builder portInPhoneNumberStatus(
+                String portInPhoneNumberStatus
+            ) {
                 this.portInPhoneNumberStatus = portInPhoneNumberStatus;
                 return this;
             }
@@ -503,15 +529,21 @@ public class PortingPortIn extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("status_last_time_updated_timestamp")
-            public Builder statusLastTimeUpdatedTimestamp(String statusLastTimeUpdatedTimestamp) {
-                this.statusLastTimeUpdatedTimestamp = statusLastTimeUpdatedTimestamp;
+            public Builder statusLastTimeUpdatedTimestamp(
+                String statusLastTimeUpdatedTimestamp
+            ) {
+                this.statusLastTimeUpdatedTimestamp =
+                    statusLastTimeUpdatedTimestamp;
                 return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("external_porting_vendor_phone_number_id")
-            public Builder externalPortingVendorPhoneNumberId(String externalPortingVendorPhoneNumberId) {
-                this.externalPortingVendorPhoneNumberId = externalPortingVendorPhoneNumberId;
+            public Builder externalPortingVendorPhoneNumberId(
+                String externalPortingVendorPhoneNumberId
+            ) {
+                this.externalPortingVendorPhoneNumberId =
+                    externalPortingVendorPhoneNumberId;
                 return this;
             }
 
@@ -530,43 +562,63 @@ public class PortingPortIn extends Resource {
                 return false;
             }
 
-            NumbersV1PortingPortInPhoneNumberResult other = (NumbersV1PortingPortInPhoneNumberResult) o;
+            NumbersV1PortingPortInPhoneNumberResult other =
+                (NumbersV1PortingPortInPhoneNumberResult) o;
             return (
-                    Objects.equals(notPortabilityReason, other.notPortabilityReason) &&
-                            Objects.equals(notPortabilityReasonCode, other.notPortabilityReasonCode) &&
-                            Objects.equals(numberType, other.numberType) &&
-                            Objects.equals(phoneNumber, other.phoneNumber) &&
-                            Objects.equals(portDate, other.portDate) &&
-                            Objects.equals(portInPhoneNumberSid, other.portInPhoneNumberSid) &&
-                            Objects.equals(portInPhoneNumberStatus, other.portInPhoneNumberStatus) &&
-                            Objects.equals(portable, other.portable) &&
-                            Objects.equals(rejectionReason, other.rejectionReason) &&
-                            Objects.equals(rejectionReasonCode, other.rejectionReasonCode) &&
-                            Objects.equals(statusLastTimeUpdatedTimestamp, other.statusLastTimeUpdatedTimestamp) &&
-                            Objects.equals(externalPortingVendorPhoneNumberId, other.externalPortingVendorPhoneNumberId)
+                Objects.equals(
+                    notPortabilityReason,
+                    other.notPortabilityReason
+                ) &&
+                Objects.equals(
+                    notPortabilityReasonCode,
+                    other.notPortabilityReasonCode
+                ) &&
+                Objects.equals(numberType, other.numberType) &&
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                Objects.equals(portDate, other.portDate) &&
+                Objects.equals(
+                    portInPhoneNumberSid,
+                    other.portInPhoneNumberSid
+                ) &&
+                Objects.equals(
+                    portInPhoneNumberStatus,
+                    other.portInPhoneNumberStatus
+                ) &&
+                Objects.equals(portable, other.portable) &&
+                Objects.equals(rejectionReason, other.rejectionReason) &&
+                Objects.equals(
+                    rejectionReasonCode,
+                    other.rejectionReasonCode
+                ) &&
+                Objects.equals(
+                    statusLastTimeUpdatedTimestamp,
+                    other.statusLastTimeUpdatedTimestamp
+                ) &&
+                Objects.equals(
+                    externalPortingVendorPhoneNumberId,
+                    other.externalPortingVendorPhoneNumberId
+                )
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    notPortabilityReason,
-                    notPortabilityReasonCode,
-                    numberType,
-                    phoneNumber,
-                    portDate,
-                    portInPhoneNumberSid,
-                    portInPhoneNumberStatus,
-                    portable,
-                    rejectionReason,
-                    rejectionReasonCode,
-                    statusLastTimeUpdatedTimestamp,
-                    externalPortingVendorPhoneNumberId
+                notPortabilityReason,
+                notPortabilityReasonCode,
+                numberType,
+                phoneNumber,
+                portDate,
+                portInPhoneNumberSid,
+                portInPhoneNumberStatus,
+                portable,
+                rejectionReason,
+                rejectionReasonCode,
+                statusLastTimeUpdatedTimestamp,
+                externalPortingVendorPhoneNumberId
             );
         }
-
     }
-
 
     @JsonDeserialize(builder = NumbersV1PortingPortInCreate.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -586,7 +638,9 @@ public class PortingPortIn extends Resource {
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("phone_numbers")
         @Getter
-        private final List<NumbersV1PortingPortInCreatePhoneNumbers> phoneNumbers;
+        private final List<
+            NumbersV1PortingPortInCreatePhoneNumbers
+        > phoneNumbers;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("losing_carrier_information")
@@ -598,7 +652,9 @@ public class PortingPortIn extends Resource {
         @Getter
         private final List<String> notificationEmails;
 
-        @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class)
+        @JsonDeserialize(
+            using = com.twilio.converter.LocalDateDeserializer.class
+        )
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("target_port_in_date")
         @Getter
@@ -629,7 +685,6 @@ public class PortingPortIn extends Resource {
         @Getter
         private final String autoCancelApprovalNumbers;
 
-
         private NumbersV1PortingPortInCreate(Builder builder) {
             this.accountSid = builder.accountSid;
             this.documents = builder.documents;
@@ -637,23 +692,35 @@ public class PortingPortIn extends Resource {
             this.losingCarrierInformation = builder.losingCarrierInformation;
             this.notificationEmails = builder.notificationEmails;
             this.targetPortInDate = builder.targetPortInDate;
-            this.targetPortInTimeRangeStart = builder.targetPortInTimeRangeStart;
+            this.targetPortInTimeRangeStart =
+                builder.targetPortInTimeRangeStart;
             this.targetPortInTimeRangeEnd = builder.targetPortInTimeRangeEnd;
             this.bundleSid = builder.bundleSid;
             this.portabilityAdvanceCarrier = builder.portabilityAdvanceCarrier;
             this.autoCancelApprovalNumbers = builder.autoCancelApprovalNumbers;
         }
 
-        public static Builder builder(final String accountSid, final List<String> documents, final NumbersV1PortingLosingCarrierInformation losingCarrierInformation) {
+        public static Builder builder(
+            final String accountSid,
+            final List<String> documents,
+            final NumbersV1PortingLosingCarrierInformation losingCarrierInformation
+        ) {
             return new Builder(accountSid, documents, losingCarrierInformation);
         }
 
-        public static NumbersV1PortingPortInCreate fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, NumbersV1PortingPortInCreate.class);
+        public static NumbersV1PortingPortInCreate fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1PortingPortInCreate.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("account_sid")
             private String accountSid;
 
@@ -669,7 +736,9 @@ public class PortingPortIn extends Resource {
             @JsonProperty("notification_emails")
             private List<String> notificationEmails;
 
-            @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class)
+            @JsonDeserialize(
+                using = com.twilio.converter.LocalDateDeserializer.class
+            )
             @JsonProperty("target_port_in_date")
             private LocalDate targetPortInDate;
 
@@ -688,14 +757,18 @@ public class PortingPortIn extends Resource {
             @JsonProperty("auto_cancel_approval_numbers")
             private String autoCancelApprovalNumbers;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("account_sid") final String accountSid, @JsonProperty("documents") final List<String> documents, @JsonProperty("losing_carrier_information") final NumbersV1PortingLosingCarrierInformation losingCarrierInformation) {
+            public Builder(
+                @JsonProperty("account_sid") final String accountSid,
+                @JsonProperty("documents") final List<String> documents,
+                @JsonProperty(
+                    "losing_carrier_information"
+                ) final NumbersV1PortingLosingCarrierInformation losingCarrierInformation
+            ) {
                 this.accountSid = accountSid;
                 this.documents = documents;
                 this.losingCarrierInformation = losingCarrierInformation;
             }
-
 
             public NumbersV1PortingPortInCreate build() {
                 return new NumbersV1PortingPortInCreate(this);
@@ -712,43 +785,59 @@ public class PortingPortIn extends Resource {
                 return false;
             }
 
-            NumbersV1PortingPortInCreate other = (NumbersV1PortingPortInCreate) o;
+            NumbersV1PortingPortInCreate other =
+                (NumbersV1PortingPortInCreate) o;
             return (
-                    Objects.equals(accountSid, other.accountSid) &&
-                            Objects.equals(documents, other.documents) &&
-                            Objects.equals(phoneNumbers, other.phoneNumbers) &&
-                            Objects.equals(losingCarrierInformation, other.losingCarrierInformation) &&
-                            Objects.equals(notificationEmails, other.notificationEmails) &&
-                            Objects.equals(targetPortInDate, other.targetPortInDate) &&
-                            Objects.equals(targetPortInTimeRangeStart, other.targetPortInTimeRangeStart) &&
-                            Objects.equals(targetPortInTimeRangeEnd, other.targetPortInTimeRangeEnd) &&
-                            Objects.equals(bundleSid, other.bundleSid) &&
-                            Objects.equals(portabilityAdvanceCarrier, other.portabilityAdvanceCarrier) &&
-                            Objects.equals(autoCancelApprovalNumbers, other.autoCancelApprovalNumbers)
+                Objects.equals(accountSid, other.accountSid) &&
+                Objects.equals(documents, other.documents) &&
+                Objects.equals(phoneNumbers, other.phoneNumbers) &&
+                Objects.equals(
+                    losingCarrierInformation,
+                    other.losingCarrierInformation
+                ) &&
+                Objects.equals(notificationEmails, other.notificationEmails) &&
+                Objects.equals(targetPortInDate, other.targetPortInDate) &&
+                Objects.equals(
+                    targetPortInTimeRangeStart,
+                    other.targetPortInTimeRangeStart
+                ) &&
+                Objects.equals(
+                    targetPortInTimeRangeEnd,
+                    other.targetPortInTimeRangeEnd
+                ) &&
+                Objects.equals(bundleSid, other.bundleSid) &&
+                Objects.equals(
+                    portabilityAdvanceCarrier,
+                    other.portabilityAdvanceCarrier
+                ) &&
+                Objects.equals(
+                    autoCancelApprovalNumbers,
+                    other.autoCancelApprovalNumbers
+                )
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    accountSid,
-                    documents,
-                    phoneNumbers,
-                    losingCarrierInformation,
-                    notificationEmails,
-                    targetPortInDate,
-                    targetPortInTimeRangeStart,
-                    targetPortInTimeRangeEnd,
-                    bundleSid,
-                    portabilityAdvanceCarrier,
-                    autoCancelApprovalNumbers
+                accountSid,
+                documents,
+                phoneNumbers,
+                losingCarrierInformation,
+                notificationEmails,
+                targetPortInDate,
+                targetPortInTimeRangeStart,
+                targetPortInTimeRangeEnd,
+                bundleSid,
+                portabilityAdvanceCarrier,
+                autoCancelApprovalNumbers
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = NumbersV1PortingLosingCarrierInformation.Builder.class)
+    @JsonDeserialize(
+        builder = NumbersV1PortingLosingCarrierInformation.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class NumbersV1PortingLosingCarrierInformation {
@@ -813,7 +902,6 @@ public class PortingPortIn extends Resource {
         @Getter
         private final String katakanaName;
 
-
         private NumbersV1PortingLosingCarrierInformation(Builder builder) {
             this.customerName = builder.customerName;
             this.accountNumber = builder.accountNumber;
@@ -821,24 +909,41 @@ public class PortingPortIn extends Resource {
             this.addressSid = builder.addressSid;
             this.address = builder.address;
             this.authorizedRepresentative = builder.authorizedRepresentative;
-            this.authorizedRepresentativeEmail = builder.authorizedRepresentativeEmail;
+            this.authorizedRepresentativeEmail =
+                builder.authorizedRepresentativeEmail;
             this.customerType = builder.customerType;
-            this.authorizedRepresentativeKatakana = builder.authorizedRepresentativeKatakana;
+            this.authorizedRepresentativeKatakana =
+                builder.authorizedRepresentativeKatakana;
             this.subMunicipality = builder.subMunicipality;
             this.building = builder.building;
             this.katakanaName = builder.katakanaName;
         }
 
-        public static Builder builder(final String customerName, final String authorizedRepresentative, final String authorizedRepresentativeEmail) {
-            return new Builder(customerName, authorizedRepresentative, authorizedRepresentativeEmail);
+        public static Builder builder(
+            final String customerName,
+            final String authorizedRepresentative,
+            final String authorizedRepresentativeEmail
+        ) {
+            return new Builder(
+                customerName,
+                authorizedRepresentative,
+                authorizedRepresentativeEmail
+            );
         }
 
-        public static NumbersV1PortingLosingCarrierInformation fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, NumbersV1PortingLosingCarrierInformation.class);
+        public static NumbersV1PortingLosingCarrierInformation fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                NumbersV1PortingLosingCarrierInformation.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("customer_name")
             private String customerName;
 
@@ -875,12 +980,20 @@ public class PortingPortIn extends Resource {
             @JsonProperty("katakana_name")
             private String katakanaName;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("customer_name") final String customerName, @JsonProperty("authorized_representative") final String authorizedRepresentative, @JsonProperty("authorized_representative_email") final String authorizedRepresentativeEmail) {
+            public Builder(
+                @JsonProperty("customer_name") final String customerName,
+                @JsonProperty(
+                    "authorized_representative"
+                ) final String authorizedRepresentative,
+                @JsonProperty(
+                    "authorized_representative_email"
+                ) final String authorizedRepresentativeEmail
+            ) {
                 this.customerName = customerName;
                 this.authorizedRepresentative = authorizedRepresentative;
-                this.authorizedRepresentativeEmail = authorizedRepresentativeEmail;
+                this.authorizedRepresentativeEmail =
+                    authorizedRepresentativeEmail;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -892,7 +1005,9 @@ public class PortingPortIn extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("account_telephone_number")
-            public Builder accountTelephoneNumber(String accountTelephoneNumber) {
+            public Builder accountTelephoneNumber(
+                String accountTelephoneNumber
+            ) {
                 this.accountTelephoneNumber = accountTelephoneNumber;
                 return this;
             }
@@ -913,15 +1028,20 @@ public class PortingPortIn extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("customer_type")
-            public Builder customerType(PortingPortIn.CustomerType customerType) {
+            public Builder customerType(
+                PortingPortIn.CustomerType customerType
+            ) {
                 this.customerType = customerType;
                 return this;
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("authorized_representative_katakana")
-            public Builder authorizedRepresentativeKatakana(String authorizedRepresentativeKatakana) {
-                this.authorizedRepresentativeKatakana = authorizedRepresentativeKatakana;
+            public Builder authorizedRepresentativeKatakana(
+                String authorizedRepresentativeKatakana
+            ) {
+                this.authorizedRepresentativeKatakana =
+                    authorizedRepresentativeKatakana;
                 return this;
             }
 
@@ -961,52 +1081,66 @@ public class PortingPortIn extends Resource {
                 return false;
             }
 
-            NumbersV1PortingLosingCarrierInformation other = (NumbersV1PortingLosingCarrierInformation) o;
+            NumbersV1PortingLosingCarrierInformation other =
+                (NumbersV1PortingLosingCarrierInformation) o;
             return (
-                    Objects.equals(customerName, other.customerName) &&
-                            Objects.equals(accountNumber, other.accountNumber) &&
-                            Objects.equals(accountTelephoneNumber, other.accountTelephoneNumber) &&
-                            Objects.equals(addressSid, other.addressSid) &&
-                            Objects.equals(address, other.address) &&
-                            Objects.equals(authorizedRepresentative, other.authorizedRepresentative) &&
-                            Objects.equals(authorizedRepresentativeEmail, other.authorizedRepresentativeEmail) &&
-                            Objects.equals(customerType, other.customerType) &&
-                            Objects.equals(authorizedRepresentativeKatakana, other.authorizedRepresentativeKatakana) &&
-                            Objects.equals(subMunicipality, other.subMunicipality) &&
-                            Objects.equals(building, other.building) &&
-                            Objects.equals(katakanaName, other.katakanaName)
+                Objects.equals(customerName, other.customerName) &&
+                Objects.equals(accountNumber, other.accountNumber) &&
+                Objects.equals(
+                    accountTelephoneNumber,
+                    other.accountTelephoneNumber
+                ) &&
+                Objects.equals(addressSid, other.addressSid) &&
+                Objects.equals(address, other.address) &&
+                Objects.equals(
+                    authorizedRepresentative,
+                    other.authorizedRepresentative
+                ) &&
+                Objects.equals(
+                    authorizedRepresentativeEmail,
+                    other.authorizedRepresentativeEmail
+                ) &&
+                Objects.equals(customerType, other.customerType) &&
+                Objects.equals(
+                    authorizedRepresentativeKatakana,
+                    other.authorizedRepresentativeKatakana
+                ) &&
+                Objects.equals(subMunicipality, other.subMunicipality) &&
+                Objects.equals(building, other.building) &&
+                Objects.equals(katakanaName, other.katakanaName)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    customerName,
-                    accountNumber,
-                    accountTelephoneNumber,
-                    addressSid,
-                    address,
-                    authorizedRepresentative,
-                    authorizedRepresentativeEmail,
-                    customerType,
-                    authorizedRepresentativeKatakana,
-                    subMunicipality,
-                    building,
-                    katakanaName
+                customerName,
+                accountNumber,
+                accountTelephoneNumber,
+                addressSid,
+                address,
+                authorizedRepresentative,
+                authorizedRepresentativeEmail,
+                customerType,
+                authorizedRepresentativeKatakana,
+                subMunicipality,
+                building,
+                katakanaName
             );
         }
-
     }
-
 
     /**
      * Converts a JSON String into a PortingPortIn object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PortingPortIn object represented by the provided JSON
      */
-    public static PortingPortIn fromJson(final String json, final ObjectMapper objectMapper) {
+    public static PortingPortIn fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortIn.class);
@@ -1021,11 +1155,14 @@ public class PortingPortIn extends Resource {
      * Converts a JSON InputStream into a PortingPortIn object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PortingPortIn object represented by the provided JSON
      */
-    public static PortingPortIn fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static PortingPortIn fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortIn.class);
@@ -1048,63 +1185,98 @@ public class PortingPortIn extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final String autoCancelApprovalNumbers;
+
     @Getter
     private final String bundleSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final List<String> documents;
+
     @Getter
     private final NumbersV1PortingLosingCarrierInformation losingCarrierInformation;
+
     @Getter
     private final List<String> notificationEmails;
+
     @Getter
     private final String orderCancellationReason;
+
     @Getter
     private final List<NumbersV1PortingPortInPhoneNumberResult> phoneNumbers;
+
     @Getter
     private final String portInRequestSid;
+
     @Getter
     private final String portInRequestStatus;
+
     @Getter
     private final String portabilityAdvanceCarrier;
+
     @Getter
     private final Integer supportTicketId;
+
     @Getter
     private final LocalDate targetPortInDate;
+
     @Getter
     private final String targetPortInTimeRangeEnd;
+
     @Getter
     private final String targetPortInTimeRangeStart;
+
     @Getter
     private final URI url;
 
     @JsonCreator
     private PortingPortIn(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("auto_cancel_approval_numbers") final String autoCancelApprovalNumbers,
-            @JsonProperty("bundle_sid") final String bundleSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("documents") final List<String> documents,
-            @JsonProperty("losing_carrier_information") final NumbersV1PortingLosingCarrierInformation losingCarrierInformation,
-            @JsonProperty("notification_emails") final List<String> notificationEmails,
-            @JsonProperty("order_cancellation_reason") final String orderCancellationReason,
-            @JsonProperty("phone_numbers") final List<NumbersV1PortingPortInPhoneNumberResult> phoneNumbers,
-            @JsonProperty("port_in_request_sid") final String portInRequestSid,
-            @JsonProperty("port_in_request_status") final String portInRequestStatus,
-            @JsonProperty("portability_advance_carrier") final String portabilityAdvanceCarrier,
-            @JsonProperty("support_ticket_id") final Integer supportTicketId,
-            @JsonProperty("target_port_in_date")
-            @JsonDeserialize(using = com.twilio.converter.LocalDateDeserializer.class) final LocalDate targetPortInDate,
-            @JsonProperty("target_port_in_time_range_end") final String targetPortInTimeRangeEnd,
-            @JsonProperty("target_port_in_time_range_start") final String targetPortInTimeRangeStart,
-            @JsonProperty("url") final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "auto_cancel_approval_numbers"
+        ) final String autoCancelApprovalNumbers,
+        @JsonProperty("bundle_sid") final String bundleSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("documents") final List<String> documents,
+        @JsonProperty(
+            "losing_carrier_information"
+        ) final NumbersV1PortingLosingCarrierInformation losingCarrierInformation,
+        @JsonProperty("notification_emails") final List<
+            String
+        > notificationEmails,
+        @JsonProperty(
+            "order_cancellation_reason"
+        ) final String orderCancellationReason,
+        @JsonProperty("phone_numbers") final List<
+            NumbersV1PortingPortInPhoneNumberResult
+        > phoneNumbers,
+        @JsonProperty("port_in_request_sid") final String portInRequestSid,
+        @JsonProperty(
+            "port_in_request_status"
+        ) final String portInRequestStatus,
+        @JsonProperty(
+            "portability_advance_carrier"
+        ) final String portabilityAdvanceCarrier,
+        @JsonProperty("support_ticket_id") final Integer supportTicketId,
+        @JsonProperty("target_port_in_date") @JsonDeserialize(
+            using = com.twilio.converter.LocalDateDeserializer.class
+        ) final LocalDate targetPortInDate,
+        @JsonProperty(
+            "target_port_in_time_range_end"
+        ) final String targetPortInTimeRangeEnd,
+        @JsonProperty(
+            "target_port_in_time_range_start"
+        ) final String targetPortInTimeRangeStart,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.autoCancelApprovalNumbers = autoCancelApprovalNumbers;
@@ -1137,49 +1309,64 @@ public class PortingPortIn extends Resource {
 
         PortingPortIn other = (PortingPortIn) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(autoCancelApprovalNumbers, other.autoCancelApprovalNumbers) &&
-                        Objects.equals(bundleSid, other.bundleSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(documents, other.documents) &&
-                        Objects.equals(losingCarrierInformation, other.losingCarrierInformation) &&
-                        Objects.equals(notificationEmails, other.notificationEmails) &&
-                        Objects.equals(orderCancellationReason, other.orderCancellationReason) &&
-                        Objects.equals(phoneNumbers, other.phoneNumbers) &&
-                        Objects.equals(portInRequestSid, other.portInRequestSid) &&
-                        Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
-                        Objects.equals(portabilityAdvanceCarrier, other.portabilityAdvanceCarrier) &&
-                        Objects.equals(supportTicketId, other.supportTicketId) &&
-                        Objects.equals(targetPortInDate, other.targetPortInDate) &&
-                        Objects.equals(targetPortInTimeRangeEnd, other.targetPortInTimeRangeEnd) &&
-                        Objects.equals(targetPortInTimeRangeStart, other.targetPortInTimeRangeStart) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                autoCancelApprovalNumbers,
+                other.autoCancelApprovalNumbers
+            ) &&
+            Objects.equals(bundleSid, other.bundleSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(documents, other.documents) &&
+            Objects.equals(
+                losingCarrierInformation,
+                other.losingCarrierInformation
+            ) &&
+            Objects.equals(notificationEmails, other.notificationEmails) &&
+            Objects.equals(
+                orderCancellationReason,
+                other.orderCancellationReason
+            ) &&
+            Objects.equals(phoneNumbers, other.phoneNumbers) &&
+            Objects.equals(portInRequestSid, other.portInRequestSid) &&
+            Objects.equals(portInRequestStatus, other.portInRequestStatus) &&
+            Objects.equals(
+                portabilityAdvanceCarrier,
+                other.portabilityAdvanceCarrier
+            ) &&
+            Objects.equals(supportTicketId, other.supportTicketId) &&
+            Objects.equals(targetPortInDate, other.targetPortInDate) &&
+            Objects.equals(
+                targetPortInTimeRangeEnd,
+                other.targetPortInTimeRangeEnd
+            ) &&
+            Objects.equals(
+                targetPortInTimeRangeStart,
+                other.targetPortInTimeRangeStart
+            ) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                autoCancelApprovalNumbers,
-                bundleSid,
-                dateCreated,
-                documents,
-                losingCarrierInformation,
-                notificationEmails,
-                orderCancellationReason,
-                phoneNumbers,
-                portInRequestSid,
-                portInRequestStatus,
-                portabilityAdvanceCarrier,
-                supportTicketId,
-                targetPortInDate,
-                targetPortInTimeRangeEnd,
-                targetPortInTimeRangeStart,
-                url
+            accountSid,
+            autoCancelApprovalNumbers,
+            bundleSid,
+            dateCreated,
+            documents,
+            losingCarrierInformation,
+            notificationEmails,
+            orderCancellationReason,
+            phoneNumbers,
+            portInRequestSid,
+            portInRequestStatus,
+            portabilityAdvanceCarrier,
+            supportTicketId,
+            targetPortInDate,
+            targetPortInTimeRangeEnd,
+            targetPortInTimeRangeStart,
+            url
         );
     }
-
-
 }
-

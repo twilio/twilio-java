@@ -23,47 +23,62 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtension> {
+public class InstalledAddOnExtensionFetcher
+    extends Fetcher<InstalledAddOnExtension> {
 
     private String pathInstalledAddOnSid;
     private String pathSid;
 
-    public InstalledAddOnExtensionFetcher(final String pathInstalledAddOnSid, final String pathSid) {
+    public InstalledAddOnExtensionFetcher(
+        final String pathInstalledAddOnSid,
+        final String pathSid
+    ) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public InstalledAddOnExtension fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        String path = "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
-
-        path = path.replace("{" + "InstalledAddOnSid" + "}", this.pathInstalledAddOnSid.toString());
+        path =
+            path.replace(
+                "{" + "InstalledAddOnSid" + "}",
+                this.pathInstalledAddOnSid.toString()
+            );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.MARKETPLACE.toString(),
-                path
+            HttpMethod.GET,
+            Domains.MARKETPLACE.toString(),
+            path
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InstalledAddOnExtension fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InstalledAddOnExtension fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return InstalledAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());
+        return InstalledAddOnExtension.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

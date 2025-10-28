@@ -25,8 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaires> {
+public class InsightsQuestionnairesFetcher
+    extends Fetcher<InsightsQuestionnaires> {
 
     private String pathQuestionnaireSid;
     private String authorization;
@@ -35,50 +37,64 @@ public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaire
         this.pathQuestionnaireSid = pathQuestionnaireSid;
     }
 
-
-    public InsightsQuestionnairesFetcher setAuthorization(final String authorization) {
+    public InsightsQuestionnairesFetcher setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
 
-
     @Override
     public InsightsQuestionnaires fetch(final TwilioRestClient client) {
+        String path =
+            "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
-
-        path = path.replace("{" + "QuestionnaireSid" + "}", this.pathQuestionnaireSid.toString());
-
+        path =
+            path.replace(
+                "{" + "QuestionnaireSid" + "}",
+                this.pathQuestionnaireSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.FLEXAPI.toString(),
-                path
+            HttpMethod.GET,
+            Domains.FLEXAPI.toString(),
+            path
         );
         addHeaderParams(request);
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnaires fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsQuestionnaires fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
-        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsQuestionnaires.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addHeaderParams(final Request request) {
-
         if (authorization != null) {
-            Serializer.toString(request, "Authorization", authorization, ParameterType.HEADER);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
-
     }
 }

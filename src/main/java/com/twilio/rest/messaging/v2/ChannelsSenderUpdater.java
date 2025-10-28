@@ -25,8 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ChannelsSenderUpdater extends Updater<ChannelsSender> {
+
     private String pathSid;
     private ChannelsSender.MessagingV2ChannelsSenderRequestsUpdate messagingV2ChannelsSenderRequestsUpdate;
 
@@ -34,25 +36,24 @@ public class ChannelsSenderUpdater extends Updater<ChannelsSender> {
         this.pathSid = pathSid;
     }
 
-
-    public ChannelsSenderUpdater setMessagingV2ChannelsSenderRequestsUpdate(final ChannelsSender.MessagingV2ChannelsSenderRequestsUpdate messagingV2ChannelsSenderRequestsUpdate) {
-        this.messagingV2ChannelsSenderRequestsUpdate = messagingV2ChannelsSenderRequestsUpdate;
+    public ChannelsSenderUpdater setMessagingV2ChannelsSenderRequestsUpdate(
+        final ChannelsSender.MessagingV2ChannelsSenderRequestsUpdate messagingV2ChannelsSenderRequestsUpdate
+    ) {
+        this.messagingV2ChannelsSenderRequestsUpdate =
+            messagingV2ChannelsSenderRequestsUpdate;
         return this;
     }
 
-
     @Override
     public ChannelsSender update(final TwilioRestClient client) {
-
         String path = "/v2/Channels/Senders/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.MESSAGING.toString(),
-                path
+            HttpMethod.POST,
+            Domains.MESSAGING.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
@@ -60,25 +61,38 @@ public class ChannelsSenderUpdater extends Updater<ChannelsSender> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ChannelsSender update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ChannelsSender update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ChannelsSender.fromJson(response.getStream(), client.getObjectMapper());
+        return ChannelsSender.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (messagingV2ChannelsSenderRequestsUpdate != null) {
-            request.setBody(ChannelsSender.toJson(messagingV2ChannelsSenderRequestsUpdate, objectMapper));
+            request.setBody(
+                ChannelsSender.toJson(
+                    messagingV2ChannelsSenderRequestsUpdate,
+                    objectMapper
+                )
+            );
         }
     }
 }

@@ -27,8 +27,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
-public class IpAccessControlListMappingReader extends Reader<IpAccessControlListMapping> {
+public class IpAccessControlListMappingReader
+    extends Reader<IpAccessControlListMapping> {
 
     private String pathAccountSid;
     private String pathDomainSid;
@@ -38,88 +40,130 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
         this.pathDomainSid = pathDomainSid;
     }
 
-    public IpAccessControlListMappingReader(final String pathAccountSid, final String pathDomainSid) {
+    public IpAccessControlListMappingReader(
+        final String pathAccountSid,
+        final String pathDomainSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
     }
-
 
     public IpAccessControlListMappingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
-
     @Override
-    public ResourceSet<IpAccessControlListMapping> read(final TwilioRestClient client) {
+    public ResourceSet<IpAccessControlListMapping> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<IpAccessControlListMapping> firstPage(final TwilioRestClient client) {
+    public Page<IpAccessControlListMapping> firstPage(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json";
 
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json";
-
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{" + "AccountSid" + "}", this.pathAccountSid.toString());
-        path = path.replace("{" + "DomainSid" + "}", this.pathDomainSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.API.toString(),
-                path
+            HttpMethod.GET,
+            Domains.API.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<IpAccessControlListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<IpAccessControlListMapping> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("IpAccessControlListMapping read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpAccessControlListMapping read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "ip_access_control_list_mappings",
-                response.getContent(),
-                IpAccessControlListMapping.class,
-                client.getObjectMapper());
+            "ip_access_control_list_mappings",
+            response.getContent(),
+            IpAccessControlListMapping.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<IpAccessControlListMapping> previousPage(final Page<IpAccessControlListMapping> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<IpAccessControlListMapping> previousPage(
+        final Page<IpAccessControlListMapping> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<IpAccessControlListMapping> nextPage(final Page<IpAccessControlListMapping> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<IpAccessControlListMapping> nextPage(
+        final Page<IpAccessControlListMapping> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<IpAccessControlListMapping> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<IpAccessControlListMapping> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

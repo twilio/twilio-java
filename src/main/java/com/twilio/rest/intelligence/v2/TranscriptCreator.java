@@ -14,7 +14,6 @@
 
 package com.twilio.rest.intelligence.v2;
 
-
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
 import com.twilio.constant.EnumConstants.ParameterType;
@@ -27,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class TranscriptCreator extends Creator<Transcript> {
@@ -42,41 +41,36 @@ public class TranscriptCreator extends Creator<Transcript> {
         this.channel = channel;
     }
 
-
     public TranscriptCreator setServiceSid(final String serviceSid) {
         this.serviceSid = serviceSid;
         return this;
     }
-
 
     public TranscriptCreator setChannel(final Object channel) {
         this.channel = channel;
         return this;
     }
 
-
     public TranscriptCreator setCustomerKey(final String customerKey) {
         this.customerKey = customerKey;
         return this;
     }
 
-
-    public TranscriptCreator setMediaStartTime(final ZonedDateTime mediaStartTime) {
+    public TranscriptCreator setMediaStartTime(
+        final ZonedDateTime mediaStartTime
+    ) {
         this.mediaStartTime = mediaStartTime;
         return this;
     }
 
-
     @Override
     public Transcript create(final TwilioRestClient client) {
-
         String path = "/v2/Transcripts";
 
-
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.INTELLIGENCE.toString(),
-                path
+            HttpMethod.POST,
+            Domains.INTELLIGENCE.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -84,42 +78,64 @@ public class TranscriptCreator extends Creator<Transcript> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Transcript creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Transcript creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Transcript.fromJson(response.getStream(), client.getObjectMapper());
+        return Transcript.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (serviceSid != null) {
-            Serializer.toString(request, "ServiceSid", serviceSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ServiceSid",
+                serviceSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (channel != null) {
-            Serializer.toString(request, "Channel", channel, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (customerKey != null) {
-            Serializer.toString(request, "CustomerKey", customerKey, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "CustomerKey",
+                customerKey,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (mediaStartTime != null) {
-            Serializer.toString(request, "MediaStartTime", mediaStartTime, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "MediaStartTime",
+                mediaStartTime,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

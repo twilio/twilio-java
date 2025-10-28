@@ -26,42 +26,49 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
+
     private String pathCustomerId;
     private String primaryProfileSid;
     private String themeSetId;
 
-    public ComplianceInquiriesUpdater(final String pathCustomerId, final String primaryProfileSid) {
+    public ComplianceInquiriesUpdater(
+        final String pathCustomerId,
+        final String primaryProfileSid
+    ) {
         this.pathCustomerId = pathCustomerId;
         this.primaryProfileSid = primaryProfileSid;
     }
 
-
-    public ComplianceInquiriesUpdater setPrimaryProfileSid(final String primaryProfileSid) {
+    public ComplianceInquiriesUpdater setPrimaryProfileSid(
+        final String primaryProfileSid
+    ) {
         this.primaryProfileSid = primaryProfileSid;
         return this;
     }
-
 
     public ComplianceInquiriesUpdater setThemeSetId(final String themeSetId) {
         this.themeSetId = themeSetId;
         return this;
     }
 
-
     @Override
     public ComplianceInquiries update(final TwilioRestClient client) {
+        String path =
+            "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize";
 
-        String path = "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize";
-
-        path = path.replace("{" + "CustomerId" + "}", this.pathCustomerId.toString());
-
+        path =
+            path.replace(
+                "{" + "CustomerId" + "}",
+                this.pathCustomerId.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.POST,
-                Domains.TRUSTHUB.toString(),
-                path
+            HttpMethod.POST,
+            Domains.TRUSTHUB.toString(),
+            path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
@@ -69,32 +76,46 @@ public class ComplianceInquiriesUpdater extends Updater<ComplianceInquiries> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ComplianceInquiries update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ComplianceInquiries update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper()
+                response.getStream(),
+                client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ComplianceInquiries.fromJson(response.getStream(), client.getObjectMapper());
+        return ComplianceInquiries.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 
     private void addPostParams(final Request request) {
-
         if (primaryProfileSid != null) {
-            Serializer.toString(request, "PrimaryProfileSid", primaryProfileSid, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "PrimaryProfileSid",
+                primaryProfileSid,
+                ParameterType.URLENCODED
+            );
         }
-
 
         if (themeSetId != null) {
-            Serializer.toString(request, "ThemeSetId", themeSetId, ParameterType.URLENCODED);
+            Serializer.toString(
+                request,
+                "ThemeSetId",
+                themeSetId,
+                ParameterType.URLENCODED
+            );
         }
-
-
     }
 }

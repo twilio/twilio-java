@@ -27,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WebhookReader extends Reader<Webhook> {
 
@@ -34,17 +35,18 @@ public class WebhookReader extends Reader<Webhook> {
     private String pathChannelSid;
     private Long pageSize;
 
-    public WebhookReader(final String pathServiceSid, final String pathChannelSid) {
+    public WebhookReader(
+        final String pathServiceSid,
+        final String pathChannelSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
     }
-
 
     public WebhookReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-
 
     @Override
     public ResourceSet<Webhook> read(final TwilioRestClient client) {
@@ -52,69 +54,103 @@ public class WebhookReader extends Reader<Webhook> {
     }
 
     public Page<Webhook> firstPage(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
 
-        String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks";
-
-        path = path.replace("{" + "ServiceSid" + "}", this.pathServiceSid.toString());
-        path = path.replace("{" + "ChannelSid" + "}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
-                HttpMethod.GET,
-                Domains.CHAT.toString(),
-                path
+            HttpMethod.GET,
+            Domains.CHAT.toString(),
+            path
         );
         addQueryParams(request);
 
         return pageForRequest(client, request);
     }
 
-    private Page<Webhook> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Webhook> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Webhook read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Webhook read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
-                    response.getStream(),
-                    client.getObjectMapper());
+                response.getStream(),
+                client.getObjectMapper()
+            );
 
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Page.fromJson(
-                "webhooks",
-                response.getContent(),
-                Webhook.class,
-                client.getObjectMapper());
+            "webhooks",
+            response.getContent(),
+            Webhook.class,
+            client.getObjectMapper()
+        );
     }
 
     @Override
-    public Page<Webhook> previousPage(final Page<Webhook> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getPreviousPageUrl(Domains.API.toString()));
+    public Page<Webhook> previousPage(
+        final Page<Webhook> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getPreviousPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Webhook> nextPage(final Page<Webhook> page, final TwilioRestClient client) {
-        Request request = new Request(HttpMethod.GET, page.getNextPageUrl(Domains.API.toString()));
+    public Page<Webhook> nextPage(
+        final Page<Webhook> page,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(
+            HttpMethod.GET,
+            page.getNextPageUrl(Domains.API.toString())
+        );
         return pageForRequest(client, request);
     }
 
     @Override
-    public Page<Webhook> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Webhook> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
-
-
         if (pageSize != null) {
-            Serializer.toString(request, "PageSize", pageSize, ParameterType.QUERY);
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
-
-
     }
 }

@@ -19,63 +19,55 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import lombok.Getter;
-import lombok.ToString;
-
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Knowledge extends Resource {
 
-
-    public static KnowledgeCreator creator(final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest) {
-        return new KnowledgeCreator(
-                assistantsV1ServiceCreateKnowledgeRequest
-        );
+    public static KnowledgeCreator creator(
+        final Knowledge.AssistantsV1ServiceCreateKnowledgeRequest assistantsV1ServiceCreateKnowledgeRequest
+    ) {
+        return new KnowledgeCreator(assistantsV1ServiceCreateKnowledgeRequest);
     }
-
 
     public static KnowledgeDeleter deleter(final String pathId) {
-        return new KnowledgeDeleter(
-                pathId
-        );
+        return new KnowledgeDeleter(pathId);
     }
-
 
     public static KnowledgeFetcher fetcher(final String pathId) {
-        return new KnowledgeFetcher(
-                pathId
-        );
+        return new KnowledgeFetcher(pathId);
     }
-
 
     public static KnowledgeReader reader() {
-        return new KnowledgeReader(
-
-        );
+        return new KnowledgeReader();
     }
-
 
     public static KnowledgeUpdater updater(final String pathId) {
-        return new KnowledgeUpdater(
-                pathId
-        );
+        return new KnowledgeUpdater(pathId);
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceUpdateKnowledgeRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceUpdateKnowledgeRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceUpdateKnowledgeRequest {
@@ -110,7 +102,6 @@ public class Knowledge extends Resource {
         @Getter
         private final String embeddingModel;
 
-
         private AssistantsV1ServiceUpdateKnowledgeRequest(Builder builder) {
             this.description = builder.description;
             this.knowledgeSourceDetails = builder.knowledgeSourceDetails;
@@ -124,12 +115,19 @@ public class Knowledge extends Resource {
             return new Builder();
         }
 
-        public static AssistantsV1ServiceUpdateKnowledgeRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceUpdateKnowledgeRequest.class);
+        public static AssistantsV1ServiceUpdateKnowledgeRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceUpdateKnowledgeRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("description")
             private String description;
 
@@ -148,7 +146,6 @@ public class Knowledge extends Resource {
             @JsonProperty("embedding_model")
             private String embeddingModel;
 
-
             public AssistantsV1ServiceUpdateKnowledgeRequest build() {
                 return new AssistantsV1ServiceUpdateKnowledgeRequest(this);
             }
@@ -164,33 +161,37 @@ public class Knowledge extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceUpdateKnowledgeRequest other = (AssistantsV1ServiceUpdateKnowledgeRequest) o;
+            AssistantsV1ServiceUpdateKnowledgeRequest other =
+                (AssistantsV1ServiceUpdateKnowledgeRequest) o;
             return (
-                    Objects.equals(description, other.description) &&
-                            Objects.equals(knowledgeSourceDetails, other.knowledgeSourceDetails) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(policy, other.policy) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(embeddingModel, other.embeddingModel)
+                Objects.equals(description, other.description) &&
+                Objects.equals(
+                    knowledgeSourceDetails,
+                    other.knowledgeSourceDetails
+                ) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policy, other.policy) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(embeddingModel, other.embeddingModel)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    description,
-                    knowledgeSourceDetails,
-                    name,
-                    policy,
-                    type,
-                    embeddingModel
+                description,
+                knowledgeSourceDetails,
+                name,
+                policy,
+                type,
+                embeddingModel
             );
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreatePolicyRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreatePolicyRequest {
@@ -220,7 +221,6 @@ public class Knowledge extends Resource {
         @Getter
         private final String type;
 
-
         private AssistantsV1ServiceCreatePolicyRequest(Builder builder) {
             this.description = builder.description;
             this.id = builder.id;
@@ -233,12 +233,19 @@ public class Knowledge extends Resource {
             return new Builder(policyDetails);
         }
 
-        public static AssistantsV1ServiceCreatePolicyRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCreatePolicyRequest.class);
+        public static AssistantsV1ServiceCreatePolicyRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreatePolicyRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("description")
             private String description;
 
@@ -254,9 +261,10 @@ public class Knowledge extends Resource {
             @JsonProperty("type")
             private String type;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("policy_details") final Object policyDetails) {
+            public Builder(
+                @JsonProperty("policy_details") final Object policyDetails
+            ) {
                 this.policyDetails = policyDetails;
             }
 
@@ -303,31 +311,26 @@ public class Knowledge extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCreatePolicyRequest other = (AssistantsV1ServiceCreatePolicyRequest) o;
+            AssistantsV1ServiceCreatePolicyRequest other =
+                (AssistantsV1ServiceCreatePolicyRequest) o;
             return (
-                    Objects.equals(description, other.description) &&
-                            Objects.equals(id, other.id) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(policyDetails, other.policyDetails) &&
-                            Objects.equals(type, other.type)
+                Objects.equals(description, other.description) &&
+                Objects.equals(id, other.id) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policyDetails, other.policyDetails) &&
+                Objects.equals(type, other.type)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(
-                    description,
-                    id,
-                    name,
-                    policyDetails,
-                    type
-            );
+            return Objects.hash(description, id, name, policyDetails, type);
         }
-
     }
 
-
-    @JsonDeserialize(builder = AssistantsV1ServiceCreateKnowledgeRequest.Builder.class)
+    @JsonDeserialize(
+        builder = AssistantsV1ServiceCreateKnowledgeRequest.Builder.class
+    )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class AssistantsV1ServiceCreateKnowledgeRequest {
@@ -367,7 +370,6 @@ public class Knowledge extends Resource {
         @Getter
         private final String embeddingModel;
 
-
         private AssistantsV1ServiceCreateKnowledgeRequest(Builder builder) {
             this.assistantId = builder.assistantId;
             this.description = builder.description;
@@ -382,12 +384,19 @@ public class Knowledge extends Resource {
             return new Builder(name, type);
         }
 
-        public static AssistantsV1ServiceCreateKnowledgeRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-            return mapper.readValue(jsonString, AssistantsV1ServiceCreateKnowledgeRequest.class);
+        public static AssistantsV1ServiceCreateKnowledgeRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                AssistantsV1ServiceCreateKnowledgeRequest.class
+            );
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
+
             @JsonProperty("assistant_id")
             private String assistantId;
 
@@ -409,13 +418,14 @@ public class Knowledge extends Resource {
             @JsonProperty("embedding_model")
             private String embeddingModel;
 
-
             @JsonCreator
-            public Builder(@JsonProperty("name") final String name, @JsonProperty("type") final String type) {
+            public Builder(
+                @JsonProperty("name") final String name,
+                @JsonProperty("type") final String type
+            ) {
                 this.name = name;
                 this.type = type;
             }
-
 
             public AssistantsV1ServiceCreateKnowledgeRequest build() {
                 return new AssistantsV1ServiceCreateKnowledgeRequest(this);
@@ -432,42 +442,47 @@ public class Knowledge extends Resource {
                 return false;
             }
 
-            AssistantsV1ServiceCreateKnowledgeRequest other = (AssistantsV1ServiceCreateKnowledgeRequest) o;
+            AssistantsV1ServiceCreateKnowledgeRequest other =
+                (AssistantsV1ServiceCreateKnowledgeRequest) o;
             return (
-                    Objects.equals(assistantId, other.assistantId) &&
-                            Objects.equals(description, other.description) &&
-                            Objects.equals(knowledgeSourceDetails, other.knowledgeSourceDetails) &&
-                            Objects.equals(name, other.name) &&
-                            Objects.equals(policy, other.policy) &&
-                            Objects.equals(type, other.type) &&
-                            Objects.equals(embeddingModel, other.embeddingModel)
+                Objects.equals(assistantId, other.assistantId) &&
+                Objects.equals(description, other.description) &&
+                Objects.equals(
+                    knowledgeSourceDetails,
+                    other.knowledgeSourceDetails
+                ) &&
+                Objects.equals(name, other.name) &&
+                Objects.equals(policy, other.policy) &&
+                Objects.equals(type, other.type) &&
+                Objects.equals(embeddingModel, other.embeddingModel)
             );
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(
-                    assistantId,
-                    description,
-                    knowledgeSourceDetails,
-                    name,
-                    policy,
-                    type,
-                    embeddingModel
+                assistantId,
+                description,
+                knowledgeSourceDetails,
+                name,
+                policy,
+                type,
+                embeddingModel
             );
         }
-
     }
-
 
     /**
      * Converts a JSON String into a Knowledge object using the provided ObjectMapper.
      *
-     * @param json         Raw JSON String
+     * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Knowledge object represented by the provided JSON
      */
-    public static Knowledge fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Knowledge fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Knowledge.class);
@@ -482,11 +497,14 @@ public class Knowledge extends Resource {
      * Converts a JSON InputStream into a Knowledge object using the provided
      * ObjectMapper.
      *
-     * @param json         Raw JSON InputStream
+     * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Knowledge object represented by the provided JSON
      */
-    public static Knowledge fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Knowledge fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Knowledge.class);
@@ -509,45 +527,58 @@ public class Knowledge extends Resource {
         }
     }
 
-
     @Getter
     private final String accountSid;
+
     @Getter
     private final ZonedDateTime dateCreated;
+
     @Getter
     private final ZonedDateTime dateUpdated;
+
     @Getter
     private final String description;
+
     @Getter
     private final String embeddingModel;
+
     @Getter
     private final String id;
+
     @Getter
     private final Object knowledgeSourceDetails;
+
     @Getter
     private final String name;
+
     @Getter
     private final String status;
+
     @Getter
     private final String type;
+
     @Getter
     private final String url;
 
     @JsonCreator
     private Knowledge(
-            @JsonProperty("account_sid") final String accountSid,
-            @JsonProperty("date_created")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateCreated,
-            @JsonProperty("date_updated")
-            @JsonDeserialize(using = com.twilio.converter.ISO8601Deserializer.class) final ZonedDateTime dateUpdated,
-            @JsonProperty("description") final String description,
-            @JsonProperty("embedding_model") final String embeddingModel,
-            @JsonProperty("id") final String id,
-            @JsonProperty("knowledge_source_details") final Object knowledgeSourceDetails,
-            @JsonProperty("name") final String name,
-            @JsonProperty("status") final String status,
-            @JsonProperty("type") final String type,
-            @JsonProperty("url") final String url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("embedding_model") final String embeddingModel,
+        @JsonProperty("id") final String id,
+        @JsonProperty(
+            "knowledge_source_details"
+        ) final Object knowledgeSourceDetails,
+        @JsonProperty("name") final String name,
+        @JsonProperty("status") final String status,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final String url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = dateCreated;
@@ -574,37 +605,37 @@ public class Knowledge extends Resource {
 
         Knowledge other = (Knowledge) o;
         return (
-                Objects.equals(accountSid, other.accountSid) &&
-                        Objects.equals(dateCreated, other.dateCreated) &&
-                        Objects.equals(dateUpdated, other.dateUpdated) &&
-                        Objects.equals(description, other.description) &&
-                        Objects.equals(embeddingModel, other.embeddingModel) &&
-                        Objects.equals(id, other.id) &&
-                        Objects.equals(knowledgeSourceDetails, other.knowledgeSourceDetails) &&
-                        Objects.equals(name, other.name) &&
-                        Objects.equals(status, other.status) &&
-                        Objects.equals(type, other.type) &&
-                        Objects.equals(url, other.url)
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(embeddingModel, other.embeddingModel) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(
+                knowledgeSourceDetails,
+                other.knowledgeSourceDetails
+            ) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                accountSid,
-                dateCreated,
-                dateUpdated,
-                description,
-                embeddingModel,
-                id,
-                knowledgeSourceDetails,
-                name,
-                status,
-                type,
-                url
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            description,
+            embeddingModel,
+            id,
+            knowledgeSourceDetails,
+            name,
+            status,
+            type,
+            url
         );
     }
-
-
 }
-

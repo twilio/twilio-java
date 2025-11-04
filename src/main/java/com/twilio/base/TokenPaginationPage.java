@@ -3,16 +3,22 @@ package com.twilio.base;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiConnectionException;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TokenPaginationPage<T> {
+    @Getter
     private final List<T> records;
+    @Getter
     private final String key;
+    @Getter
     private final String nextToken;
+    @Getter
     private final int pageSize;
+    @Getter
     private final String previousToken;
 
 
@@ -24,12 +30,15 @@ public class TokenPaginationPage<T> {
         this.previousToken = b.previousToken;
     }
 
-    public List<T> getRecords() {
-        return records;
-    }
-
-    public int getPageSize() {
-        return pageSize;
+    public String queryString(String pageToken) {
+        StringBuilder query = new StringBuilder();
+        if (pageSize > 0) {
+            query.append("?pageSize=").append(pageSize);
+        }
+        if(pageToken != null && !pageToken.isEmpty()) {
+            query.append("&pageToken=").append(pageToken);
+        }
+        return query.toString();
     }
 
     public boolean hasNextPage() {

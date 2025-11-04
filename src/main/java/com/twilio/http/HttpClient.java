@@ -12,8 +12,12 @@ import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
+import org.apache.hc.core5.http.protocol.HttpContext;
 import org.apache.hc.client5.http.protocol.RedirectStrategy;
 import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.ProtocolException;
 import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.util.Timeout;
 
@@ -57,10 +61,21 @@ public abstract class HttpClient {
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
 
+    /**
+     * Custom redirect strategy that disables automatic redirects.
+     */
+    private static class TwilioRedirectStrategy extends DefaultRedirectStrategy {
+        @Override
+        public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context) throws ProtocolException {
+            // Disable all automatic redirects
+            return false;
+        }
+    }
+
     // Default redirect strategy to not auto-redirect for any methods (empty string array).
     @Getter
     @Setter
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private RedirectStrategy redirectStrategy = new TwilioRedirectStrategy();
 
     @Getter
     private Response lastResponse;

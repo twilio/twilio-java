@@ -9,28 +9,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TokenPaginationPage<T> {
-    @Getter
-    private final List<T> records;
+public class TokenPaginationPage<T> extends Page<T> {
     @Getter
     private final String key;
     @Getter
     private final String nextToken;
     @Getter
-    private final int pageSize;
-    @Getter
     private final String previousToken;
 
-
     private TokenPaginationPage(Builder<T> b) {
-        this.records = b.records;
+        super(b);
         this.key = b.key;
         this.nextToken = b.nextToken;
-        this.pageSize = b.pageSize;
         this.previousToken = b.previousToken;
     }
 
-    public String queryString(String pageToken) {
+    @Override
+    public String previousQueryString() {
+        return getQueryString(previousToken);
+    }
+
+    @Override
+    public String nextQueryString() {
+        return getQueryString(nextToken);
+    }
+
+    private String getQueryString(String pageToken) {
         StringBuilder query = new StringBuilder();
         if (pageSize > 0) {
             query.append("?pageSize=").append(pageSize);
@@ -41,6 +45,7 @@ public class TokenPaginationPage<T> {
         return query.toString();
     }
 
+    @Override
     public boolean hasNextPage() {
         return (nextToken != null && !nextToken.isEmpty());
     }
@@ -60,12 +65,14 @@ public class TokenPaginationPage<T> {
         try {
             List<T> results = new ArrayList<>();
             JsonNode root = mapper.readTree(json);
-            JsonNode records = root.get(recordKey);
+            JsonNode meta = root.get("meta");
+            String key = meta.get("key").asText();
+            JsonNode records = root.get(key);
             for (final JsonNode record : records) {
                 results.add(mapper.readValue(record.toString(), recordType));
             }
 
-            return buildPage(root, results);
+            return buildPage(meta, results);
 
         } catch (final IOException e) {
             throw new ApiConnectionException(
@@ -74,28 +81,33 @@ public class TokenPaginationPage<T> {
         }
     }
 
-    private static <T> TokenPaginationPage<T> buildPage(JsonNode root, List<T> results) {
+    private static <T> TokenPaginationPage<T> buildPage(JsonNode meta, List<T> results) {
         Builder<T> builder = new Builder<T>()
-            .key(root.get("key").asText());
+            .key(meta.get("key").asText());
 
-        builder.nextToken(root.get("nextToken").asText());
-        builder.previousToken(root.get("previousToken").asText());
+        builder.nextToken(meta.get("nextToken").asText());
+        builder.previousToken(meta.get("previousToken").asText());
 
-        JsonNode pageSizeNode = root.get("pageSize");
+        JsonNode pageSizeNode = meta.get("pageSize");
         builder.pageSize(pageSizeNode.asInt()); // pageSize is mandatory
 
         return builder.records(results).build();
     }
 
-    private static class Builder<T> {
-        private List<T> records;
+    private static class Builder<T> extends Page.Builder<T> {
         private String key;
         private String nextToken;
-        private int pageSize;
         private String previousToken;
 
+        @Override
         public Builder<T> records(List<T> records) {
-            this.records = records;
+            super.records(records);
+            return this;
+        }
+
+        @Override
+        public Builder<T> pageSize(int pageSize) {
+            super.pageSize(pageSize);
             return this;
         }
 
@@ -106,11 +118,6 @@ public class TokenPaginationPage<T> {
 
         public Builder<T> nextToken(String nextToken) {
             this.nextToken = nextToken;
-            return this;
-        }
-
-        public Builder<T> pageSize(int pageSize) {
-            this.pageSize = pageSize;
             return this;
         }
 

@@ -107,7 +107,6 @@ public class ChallengeReader extends Reader<Challenge> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

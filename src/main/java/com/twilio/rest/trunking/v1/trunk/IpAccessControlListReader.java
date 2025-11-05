@@ -80,7 +80,6 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

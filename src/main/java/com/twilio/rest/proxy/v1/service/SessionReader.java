@@ -81,7 +81,6 @@ public class SessionReader extends Reader<Session> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

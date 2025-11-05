@@ -77,7 +77,6 @@ public class DataSessionReader extends Reader<DataSession> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

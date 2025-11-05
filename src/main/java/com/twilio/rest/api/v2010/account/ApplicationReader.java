@@ -93,7 +93,6 @@ public class ApplicationReader extends Reader<Application> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

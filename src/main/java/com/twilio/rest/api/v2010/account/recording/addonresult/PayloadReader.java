@@ -112,7 +112,6 @@ public class PayloadReader extends Reader<Payload> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

@@ -111,7 +111,6 @@ public class AddressReader extends Reader<Address> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

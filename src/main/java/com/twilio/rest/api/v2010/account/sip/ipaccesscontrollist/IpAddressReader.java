@@ -100,7 +100,6 @@ public class IpAddressReader extends Reader<IpAddress> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

@@ -72,7 +72,6 @@ public class EndUserReader extends Reader<EndUser> {
                 response.getStream(),
                 client.getObjectMapper()
             );
-
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",

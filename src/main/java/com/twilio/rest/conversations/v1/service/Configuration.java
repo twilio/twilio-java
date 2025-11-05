@@ -18,25 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-
-    private static final long serialVersionUID = 35465460450497L;
 
     public static ConfigurationFetcher fetcher(
         final String pathChatServiceSid
@@ -93,66 +95,63 @@ public class Configuration extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String chatServiceSid;
-    private final String defaultConversationCreatorRoleSid;
-    private final String defaultConversationRoleSid;
+
+    @Getter
     private final String defaultChatServiceRoleSid;
-    private final URI url;
+
+    @Getter
+    private final String defaultConversationCreatorRoleSid;
+
+    @Getter
+    private final String defaultConversationRoleSid;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
     private final Boolean reachabilityEnabled;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Configuration(
         @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty(
+            "default_chat_service_role_sid"
+        ) final String defaultChatServiceRoleSid,
         @JsonProperty(
             "default_conversation_creator_role_sid"
         ) final String defaultConversationCreatorRoleSid,
         @JsonProperty(
             "default_conversation_role_sid"
         ) final String defaultConversationRoleSid,
-        @JsonProperty(
-            "default_chat_service_role_sid"
-        ) final String defaultChatServiceRoleSid,
-        @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("reachability_enabled") final Boolean reachabilityEnabled
+        @JsonProperty("reachability_enabled") final Boolean reachabilityEnabled,
+        @JsonProperty("url") final URI url
     ) {
         this.chatServiceSid = chatServiceSid;
+        this.defaultChatServiceRoleSid = defaultChatServiceRoleSid;
         this.defaultConversationCreatorRoleSid =
             defaultConversationCreatorRoleSid;
         this.defaultConversationRoleSid = defaultConversationRoleSid;
-        this.defaultChatServiceRoleSid = defaultChatServiceRoleSid;
-        this.url = url;
         this.links = links;
         this.reachabilityEnabled = reachabilityEnabled;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getDefaultConversationCreatorRoleSid() {
-        return this.defaultConversationCreatorRoleSid;
-    }
-
-    public final String getDefaultConversationRoleSid() {
-        return this.defaultConversationRoleSid;
-    }
-
-    public final String getDefaultChatServiceRoleSid() {
-        return this.defaultChatServiceRoleSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final Boolean getReachabilityEnabled() {
-        return this.reachabilityEnabled;
+        this.url = url;
     }
 
     @Override
@@ -166,9 +165,12 @@ public class Configuration extends Resource {
         }
 
         Configuration other = (Configuration) o;
-
         return (
             Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(
+                defaultChatServiceRoleSid,
+                other.defaultChatServiceRoleSid
+            ) &&
             Objects.equals(
                 defaultConversationCreatorRoleSid,
                 other.defaultConversationCreatorRoleSid
@@ -177,13 +179,9 @@ public class Configuration extends Resource {
                 defaultConversationRoleSid,
                 other.defaultConversationRoleSid
             ) &&
-            Objects.equals(
-                defaultChatServiceRoleSid,
-                other.defaultChatServiceRoleSid
-            ) &&
-            Objects.equals(url, other.url) &&
             Objects.equals(links, other.links) &&
-            Objects.equals(reachabilityEnabled, other.reachabilityEnabled)
+            Objects.equals(reachabilityEnabled, other.reachabilityEnabled) &&
+            Objects.equals(url, other.url)
         );
     }
 
@@ -191,12 +189,12 @@ public class Configuration extends Resource {
     public int hashCode() {
         return Objects.hash(
             chatServiceSid,
+            defaultChatServiceRoleSid,
             defaultConversationCreatorRoleSid,
             defaultConversationRoleSid,
-            defaultChatServiceRoleSid,
-            url,
             links,
-            reachabilityEnabled
+            reachabilityEnabled,
+            url
         );
     }
 }

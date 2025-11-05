@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkerChannel extends Resource {
-
-    private static final long serialVersionUID = 38376318052081L;
 
     public static WorkerChannelFetcher fetcher(
         final String pathWorkspaceSid,
@@ -112,19 +115,56 @@ public class WorkerChannel extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final Integer assignedTasks;
+
+    @Getter
     private final Boolean available;
+
+    @Getter
     private final Integer availableCapacityPercentage;
+
+    @Getter
     private final Integer configuredCapacity;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String sid;
+
+    @Getter
     private final String taskChannelSid;
+
+    @Getter
     private final String taskChannelUniqueName;
-    private final String workerSid;
-    private final String workspaceSid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workerSid;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkerChannel(
@@ -135,82 +175,34 @@ public class WorkerChannel extends Resource {
             "available_capacity_percentage"
         ) final Integer availableCapacityPercentage,
         @JsonProperty("configured_capacity") final Integer configuredCapacity,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("sid") final String sid,
         @JsonProperty("task_channel_sid") final String taskChannelSid,
         @JsonProperty(
             "task_channel_unique_name"
         ) final String taskChannelUniqueName,
+        @JsonProperty("url") final URI url,
         @JsonProperty("worker_sid") final String workerSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.assignedTasks = assignedTasks;
         this.available = available;
         this.availableCapacityPercentage = availableCapacityPercentage;
         this.configuredCapacity = configuredCapacity;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.sid = sid;
         this.taskChannelSid = taskChannelSid;
         this.taskChannelUniqueName = taskChannelUniqueName;
+        this.url = url;
         this.workerSid = workerSid;
         this.workspaceSid = workspaceSid;
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Integer getAssignedTasks() {
-        return this.assignedTasks;
-    }
-
-    public final Boolean getAvailable() {
-        return this.available;
-    }
-
-    public final Integer getAvailableCapacityPercentage() {
-        return this.availableCapacityPercentage;
-    }
-
-    public final Integer getConfiguredCapacity() {
-        return this.configuredCapacity;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTaskChannelSid() {
-        return this.taskChannelSid;
-    }
-
-    public final String getTaskChannelUniqueName() {
-        return this.taskChannelUniqueName;
-    }
-
-    public final String getWorkerSid() {
-        return this.workerSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -224,7 +216,6 @@ public class WorkerChannel extends Resource {
         }
 
         WorkerChannel other = (WorkerChannel) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(assignedTasks, other.assignedTasks) &&
@@ -242,9 +233,9 @@ public class WorkerChannel extends Resource {
                 taskChannelUniqueName,
                 other.taskChannelUniqueName
             ) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(workerSid, other.workerSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -261,9 +252,9 @@ public class WorkerChannel extends Resource {
             sid,
             taskChannelSid,
             taskChannelUniqueName,
+            url,
             workerSid,
-            workspaceSid,
-            url
+            workspaceSid
         );
     }
 }

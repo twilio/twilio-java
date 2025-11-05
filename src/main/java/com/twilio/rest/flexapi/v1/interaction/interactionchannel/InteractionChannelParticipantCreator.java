@@ -16,8 +16,8 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class InteractionChannelParticipantCreator
     extends Creator<InteractionChannelParticipant> {
@@ -35,14 +34,14 @@ public class InteractionChannelParticipantCreator
     private String pathInteractionSid;
     private String pathChannelSid;
     private InteractionChannelParticipant.Type type;
-    private Map<String, Object> mediaProperties;
-    private Map<String, Object> routingProperties;
+    private Object mediaProperties;
+    private Object routingProperties;
 
     public InteractionChannelParticipantCreator(
         final String pathInteractionSid,
         final String pathChannelSid,
         final InteractionChannelParticipant.Type type,
-        final Map<String, Object> mediaProperties
+        final Object mediaProperties
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
@@ -58,14 +57,14 @@ public class InteractionChannelParticipantCreator
     }
 
     public InteractionChannelParticipantCreator setMediaProperties(
-        final Map<String, Object> mediaProperties
+        final Object mediaProperties
     ) {
         this.mediaProperties = mediaProperties;
         return this;
     }
 
     public InteractionChannelParticipantCreator setRoutingProperties(
-        final Map<String, Object> routingProperties
+        final Object routingProperties
     ) {
         this.routingProperties = routingProperties;
         return this;
@@ -86,12 +85,6 @@ public class InteractionChannelParticipantCreator
                 "{" + "ChannelSid" + "}",
                 this.pathChannelSid.toString()
             );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
-        path =
-            path.replace(
-                "{" + "MediaProperties" + "}",
-                this.mediaProperties.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -100,7 +93,9 @@ public class InteractionChannelParticipantCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannelParticipant creation failed: Unable to connect to server"
@@ -127,18 +122,29 @@ public class InteractionChannelParticipantCreator
 
     private void addPostParams(final Request request) {
         if (type != null) {
-            request.addPostParam("Type", type.toString());
-        }
-        if (mediaProperties != null) {
-            request.addPostParam(
-                "MediaProperties",
-                Converter.mapToJson(mediaProperties)
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
             );
         }
+
+        if (mediaProperties != null) {
+            Serializer.toString(
+                request,
+                "MediaProperties",
+                mediaProperties,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (routingProperties != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "RoutingProperties",
-                Converter.mapToJson(routingProperties)
+                routingProperties,
+                ParameterType.URLENCODED
             );
         }
     }

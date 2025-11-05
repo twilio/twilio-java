@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
-    private com.twilio.type.PhoneNumber phoneNumber;
     private String pathAccountSid;
+    private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer callDelay;
     private String extension;
@@ -112,11 +114,6 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.phoneNumber.encode("utf-8")
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -125,7 +122,9 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ValidationRequest creation failed: Unable to connect to server"
@@ -152,24 +151,56 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callDelay != null) {
-            request.addPostParam("CallDelay", callDelay.toString());
+            Serializer.toString(
+                request,
+                "CallDelay",
+                callDelay,
+                ParameterType.URLENCODED
+            );
         }
+
         if (extension != null) {
-            request.addPostParam("Extension", extension);
+            Serializer.toString(
+                request,
+                "Extension",
+                extension,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
     }

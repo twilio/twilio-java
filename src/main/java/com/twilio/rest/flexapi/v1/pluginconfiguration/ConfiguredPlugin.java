@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConfiguredPlugin extends Resource {
-
-    private static final long serialVersionUID = 274363191205170L;
 
     public static ConfiguredPluginFetcher fetcher(
         final String pathConfigurationSid,
@@ -94,124 +97,105 @@ public class ConfiguredPlugin extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String configurationSid;
-    private final String pluginSid;
-    private final String pluginVersionSid;
-    private final Integer phase;
-    private final String pluginUrl;
-    private final String uniqueName;
-    private final String friendlyName;
-    private final String description;
-    private final Boolean pluginArchived;
-    private final String version;
+
+    @Getter
     private final String changelog;
-    private final Boolean pluginVersionArchived;
-    private final Boolean _private;
+
+    @Getter
+    private final String configurationSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String description;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final Integer phase;
+
+    @Getter
+    private final Boolean pluginArchived;
+
+    @Getter
+    private final String pluginSid;
+
+    @Getter
+    private final String pluginUrl;
+
+    @Getter
+    private final Boolean pluginVersionArchived;
+
+    @Getter
+    private final String pluginVersionSid;
+
+    @Getter
+    private final Boolean _private;
+
+    @Getter
+    private final String uniqueName;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String version;
 
     @JsonCreator
     private ConfiguredPlugin(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("configuration_sid") final String configurationSid,
-        @JsonProperty("plugin_sid") final String pluginSid,
-        @JsonProperty("plugin_version_sid") final String pluginVersionSid,
-        @JsonProperty("phase") final Integer phase,
-        @JsonProperty("plugin_url") final String pluginUrl,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("description") final String description,
-        @JsonProperty("plugin_archived") final Boolean pluginArchived,
-        @JsonProperty("version") final String version,
         @JsonProperty("changelog") final String changelog,
+        @JsonProperty("configuration_sid") final String configurationSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("phase") final Integer phase,
+        @JsonProperty("plugin_archived") final Boolean pluginArchived,
+        @JsonProperty("plugin_sid") final String pluginSid,
+        @JsonProperty("plugin_url") final String pluginUrl,
         @JsonProperty(
             "plugin_version_archived"
         ) final Boolean pluginVersionArchived,
-        @JsonProperty("_private") final Boolean _private,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("plugin_version_sid") final String pluginVersionSid,
+        @JsonProperty("private") final Boolean _private,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("version") final String version
     ) {
         this.accountSid = accountSid;
-        this.configurationSid = configurationSid;
-        this.pluginSid = pluginSid;
-        this.pluginVersionSid = pluginVersionSid;
-        this.phase = phase;
-        this.pluginUrl = pluginUrl;
-        this.uniqueName = uniqueName;
-        this.friendlyName = friendlyName;
-        this.description = description;
-        this.pluginArchived = pluginArchived;
-        this.version = version;
         this.changelog = changelog;
+        this.configurationSid = configurationSid;
+        this.dateCreated = dateCreated;
+        this.description = description;
+        this.friendlyName = friendlyName;
+        this.phase = phase;
+        this.pluginArchived = pluginArchived;
+        this.pluginSid = pluginSid;
+        this.pluginUrl = pluginUrl;
         this.pluginVersionArchived = pluginVersionArchived;
+        this.pluginVersionSid = pluginVersionSid;
         this._private = _private;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.uniqueName = uniqueName;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getConfigurationSid() {
-        return this.configurationSid;
-    }
-
-    public final String getPluginSid() {
-        return this.pluginSid;
-    }
-
-    public final String getPluginVersionSid() {
-        return this.pluginVersionSid;
-    }
-
-    public final Integer getPhase() {
-        return this.phase;
-    }
-
-    public final String getPluginUrl() {
-        return this.pluginUrl;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Boolean getPluginArchived() {
-        return this.pluginArchived;
-    }
-
-    public final String getVersion() {
-        return this.version;
-    }
-
-    public final String getChangelog() {
-        return this.changelog;
-    }
-
-    public final Boolean getPluginVersionArchived() {
-        return this.pluginVersionArchived;
-    }
-
-    public final Boolean get_private() {
-        return this._private;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.version = version;
     }
 
     @Override
@@ -225,27 +209,26 @@ public class ConfiguredPlugin extends Resource {
         }
 
         ConfiguredPlugin other = (ConfiguredPlugin) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(configurationSid, other.configurationSid) &&
-            Objects.equals(pluginSid, other.pluginSid) &&
-            Objects.equals(pluginVersionSid, other.pluginVersionSid) &&
-            Objects.equals(phase, other.phase) &&
-            Objects.equals(pluginUrl, other.pluginUrl) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(pluginArchived, other.pluginArchived) &&
-            Objects.equals(version, other.version) &&
             Objects.equals(changelog, other.changelog) &&
+            Objects.equals(configurationSid, other.configurationSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(phase, other.phase) &&
+            Objects.equals(pluginArchived, other.pluginArchived) &&
+            Objects.equals(pluginSid, other.pluginSid) &&
+            Objects.equals(pluginUrl, other.pluginUrl) &&
             Objects.equals(
                 pluginVersionArchived,
                 other.pluginVersionArchived
             ) &&
+            Objects.equals(pluginVersionSid, other.pluginVersionSid) &&
             Objects.equals(_private, other._private) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(url, other.url)
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(version, other.version)
         );
     }
 
@@ -253,21 +236,21 @@ public class ConfiguredPlugin extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            configurationSid,
-            pluginSid,
-            pluginVersionSid,
-            phase,
-            pluginUrl,
-            uniqueName,
-            friendlyName,
-            description,
-            pluginArchived,
-            version,
             changelog,
-            pluginVersionArchived,
-            _private,
+            configurationSid,
             dateCreated,
-            url
+            description,
+            friendlyName,
+            phase,
+            pluginArchived,
+            pluginSid,
+            pluginUrl,
+            pluginVersionArchived,
+            pluginVersionSid,
+            _private,
+            uniqueName,
+            url,
+            version
         );
     }
 }

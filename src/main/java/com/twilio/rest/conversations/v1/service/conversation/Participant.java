@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-
-    private static final long serialVersionUID = 110295013528965L;
 
     public static ParticipantCreator creator(
         final String pathChatServiceSid,
@@ -91,6 +92,26 @@ public class Participant extends Resource {
         );
     }
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     /**
      * Converts a JSON String into a Participant object using the provided ObjectMapper.
      *
@@ -134,106 +155,92 @@ public class Participant extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String chatServiceSid;
-    private final String conversationSid;
-    private final String sid;
-    private final String identity;
+
+    @Getter
     private final String attributes;
-    private final Map<String, Object> messagingBinding;
-    private final String roleSid;
+
+    @Getter
+    private final String chatServiceSid;
+
+    @Getter
+    private final String conversationSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String identity;
+
+    @Getter
     private final Integer lastReadMessageIndex;
+
+    @Getter
     private final String lastReadTimestamp;
+
+    @Getter
+    private final Object messagingBinding;
+
+    @Getter
+    private final String roleSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Participant(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("attributes") final String attributes,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
         @JsonProperty("conversation_sid") final String conversationSid,
-        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("identity") final String identity,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("messaging_binding") final Map<
-            String,
-            Object
-        > messagingBinding,
-        @JsonProperty("role_sid") final String roleSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
         @JsonProperty(
             "last_read_message_index"
         ) final Integer lastReadMessageIndex,
-        @JsonProperty("last_read_timestamp") final String lastReadTimestamp
+        @JsonProperty("last_read_timestamp") final String lastReadTimestamp,
+        @JsonProperty("messaging_binding") final Object messagingBinding,
+        @JsonProperty("role_sid") final String roleSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
+        this.attributes = attributes;
         this.chatServiceSid = chatServiceSid;
         this.conversationSid = conversationSid;
-        this.sid = sid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.identity = identity;
-        this.attributes = attributes;
-        this.messagingBinding = messagingBinding;
-        this.roleSid = roleSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
         this.lastReadMessageIndex = lastReadMessageIndex;
         this.lastReadTimestamp = lastReadTimestamp;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final Map<String, Object> getMessagingBinding() {
-        return this.messagingBinding;
-    }
-
-    public final String getRoleSid() {
-        return this.roleSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Integer getLastReadMessageIndex() {
-        return this.lastReadMessageIndex;
-    }
-
-    public final String getLastReadTimestamp() {
-        return this.lastReadTimestamp;
+        this.messagingBinding = messagingBinding;
+        this.roleSid = roleSid;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -247,21 +254,20 @@ public class Participant extends Resource {
         }
 
         Participant other = (Participant) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(attributes, other.attributes) &&
             Objects.equals(chatServiceSid, other.chatServiceSid) &&
             Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(messagingBinding, other.messagingBinding) &&
-            Objects.equals(roleSid, other.roleSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(identity, other.identity) &&
             Objects.equals(lastReadMessageIndex, other.lastReadMessageIndex) &&
-            Objects.equals(lastReadTimestamp, other.lastReadTimestamp)
+            Objects.equals(lastReadTimestamp, other.lastReadTimestamp) &&
+            Objects.equals(messagingBinding, other.messagingBinding) &&
+            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
@@ -269,38 +275,18 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            attributes,
             chatServiceSid,
             conversationSid,
-            sid,
-            identity,
-            attributes,
-            messagingBinding,
-            roleSid,
             dateCreated,
             dateUpdated,
-            url,
+            identity,
             lastReadMessageIndex,
-            lastReadTimestamp
+            lastReadTimestamp,
+            messagingBinding,
+            roleSid,
+            sid,
+            url
         );
-    }
-
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
     }
 }

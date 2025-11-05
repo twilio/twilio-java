@@ -15,7 +15,8 @@
 package com.twilio.rest.numbers.v2;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BulkHostedNumberOrderFetcher
     extends Fetcher<BulkHostedNumberOrder> {
@@ -58,7 +60,7 @@ public class BulkHostedNumberOrderFetcher
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -78,7 +80,6 @@ public class BulkHostedNumberOrderFetcher
             }
             throw new ApiException(restException);
         }
-
         return BulkHostedNumberOrder.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -87,7 +88,12 @@ public class BulkHostedNumberOrderFetcher
 
     private void addQueryParams(final Request request) {
         if (orderStatus != null) {
-            request.addQueryParam("OrderStatus", orderStatus);
+            Serializer.toString(
+                request,
+                "OrderStatus",
+                orderStatus,
+                ParameterType.QUERY
+            );
         }
     }
 }

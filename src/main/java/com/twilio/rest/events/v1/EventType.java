@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EventType extends Resource {
-
-    private static final long serialVersionUID = 10451435371801L;
 
     public static EventTypeFetcher fetcher(final String pathType) {
         return new EventTypeFetcher(pathType);
@@ -91,73 +93,70 @@ public class EventType extends Resource {
         }
     }
 
-    private final String type;
-    private final String schemaId;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String description;
-    private final String status;
+
+    @Getter
     private final String documentationUrl;
-    private final URI url;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String schemaId;
+
+    @Getter
+    private final String status;
+
+    @Getter
+    private final String type;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private EventType(
-        @JsonProperty("type") final String type,
-        @JsonProperty("schema_id") final String schemaId,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("description") final String description,
-        @JsonProperty("status") final String status,
         @JsonProperty("documentation_url") final String documentationUrl,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("schema_id") final String schemaId,
+        @JsonProperty("status") final String status,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final URI url
     ) {
-        this.type = type;
-        this.schemaId = schemaId;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
-        this.status = status;
         this.documentationUrl = documentationUrl;
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getSchemaId() {
-        return this.schemaId;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final String getDocumentationUrl() {
-        return this.documentationUrl;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.schemaId = schemaId;
+        this.status = status;
+        this.type = type;
+        this.url = url;
     }
 
     @Override
@@ -171,32 +170,31 @@ public class EventType extends Resource {
         }
 
         EventType other = (EventType) o;
-
         return (
-            Objects.equals(type, other.type) &&
-            Objects.equals(schemaId, other.schemaId) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(description, other.description) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(documentationUrl, other.documentationUrl) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(links, other.links) &&
+            Objects.equals(schemaId, other.schemaId) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            type,
-            schemaId,
             dateCreated,
             dateUpdated,
             description,
-            status,
             documentationUrl,
-            url,
-            links
+            links,
+            schemaId,
+            status,
+            type,
+            url
         );
     }
 }

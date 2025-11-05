@@ -16,7 +16,9 @@ package com.twilio.rest.preview.wireless;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class CommandCreator extends Creator<Command> {
@@ -85,8 +87,6 @@ public class CommandCreator extends Creator<Command> {
     public Command create(final TwilioRestClient client) {
         String path = "/wireless/Commands";
 
-        path = path.replace("{" + "Command" + "}", this.command.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -94,7 +94,9 @@ public class CommandCreator extends Creator<Command> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Command creation failed: Unable to connect to server"
@@ -118,25 +120,61 @@ public class CommandCreator extends Creator<Command> {
 
     private void addPostParams(final Request request) {
         if (command != null) {
-            request.addPostParam("Command", command);
+            Serializer.toString(
+                request,
+                "Command",
+                command,
+                ParameterType.URLENCODED
+            );
         }
+
         if (device != null) {
-            request.addPostParam("Device", device);
+            Serializer.toString(
+                request,
+                "Device",
+                device,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sim != null) {
-            request.addPostParam("Sim", sim);
+            Serializer.toString(request, "Sim", sim, ParameterType.URLENCODED);
         }
+
         if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod);
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (commandMode != null) {
-            request.addPostParam("CommandMode", commandMode);
+            Serializer.toString(
+                request,
+                "CommandMode",
+                commandMode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (includeSid != null) {
-            request.addPostParam("IncludeSid", includeSid);
+            Serializer.toString(
+                request,
+                "IncludeSid",
+                includeSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

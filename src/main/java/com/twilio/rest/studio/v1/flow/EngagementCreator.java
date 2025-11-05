@@ -16,9 +16,9 @@ package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,15 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class EngagementCreator extends Creator<Engagement> {
 
     private String pathFlowSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private Map<String, Object> parameters;
+    private Object parameters;
 
     public EngagementCreator(
         final String pathFlowSid,
@@ -65,9 +64,7 @@ public class EngagementCreator extends Creator<Engagement> {
         return setFrom(Promoter.phoneNumberFromString(from));
     }
 
-    public EngagementCreator setParameters(
-        final Map<String, Object> parameters
-    ) {
+    public EngagementCreator setParameters(final Object parameters) {
         this.parameters = parameters;
         return this;
     }
@@ -77,8 +74,6 @@ public class EngagementCreator extends Creator<Engagement> {
         String path = "/v1/Flows/{FlowSid}/Engagements";
 
         path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path = path.replace("{" + "To" + "}", this.to.encode("utf-8"));
-        path = path.replace("{" + "From" + "}", this.from.encode("utf-8"));
 
         Request request = new Request(
             HttpMethod.POST,
@@ -87,7 +82,9 @@ public class EngagementCreator extends Creator<Engagement> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Engagement creation failed: Unable to connect to server"
@@ -114,13 +111,25 @@ public class EngagementCreator extends Creator<Engagement> {
 
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameters != null) {
-            request.addPostParam("Parameters", Converter.mapToJson(parameters));
+            Serializer.toString(
+                request,
+                "Parameters",
+                parameters,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

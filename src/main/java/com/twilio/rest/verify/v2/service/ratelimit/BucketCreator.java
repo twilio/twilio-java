@@ -16,6 +16,8 @@ package com.twilio.rest.verify.v2.service.ratelimit;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BucketCreator extends Creator<Bucket> {
 
@@ -69,8 +72,6 @@ public class BucketCreator extends Creator<Bucket> {
                 "{" + "RateLimitSid" + "}",
                 this.pathRateLimitSid.toString()
             );
-        path = path.replace("{" + "Max" + "}", this.max.toString());
-        path = path.replace("{" + "Interval" + "}", this.interval.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -79,7 +80,9 @@ public class BucketCreator extends Creator<Bucket> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Bucket creation failed: Unable to connect to server"
@@ -103,10 +106,16 @@ public class BucketCreator extends Creator<Bucket> {
 
     private void addPostParams(final Request request) {
         if (max != null) {
-            request.addPostParam("Max", max.toString());
+            Serializer.toString(request, "Max", max, ParameterType.URLENCODED);
         }
+
         if (interval != null) {
-            request.addPostParam("Interval", interval.toString());
+            Serializer.toString(
+                request,
+                "Interval",
+                interval,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

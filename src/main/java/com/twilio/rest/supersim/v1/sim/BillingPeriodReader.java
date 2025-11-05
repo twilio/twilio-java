@@ -17,7 +17,8 @@ package com.twilio.rest.supersim.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,17 +27,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class BillingPeriodReader extends Reader<BillingPeriod> {
 
     private String pathSimSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BillingPeriodReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
-    public BillingPeriodReader setPageSize(final Integer pageSize) {
+    public BillingPeriodReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -48,6 +50,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
 
     public Page<BillingPeriod> firstPage(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/BillingPeriods";
+
         path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
 
         Request request = new Request(
@@ -55,9 +58,8 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
             Domains.SUPERSIM.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -66,7 +68,6 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "BillingPeriod read failed: Unable to connect to server"
@@ -76,6 +77,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -100,7 +102,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,7 +114,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -123,17 +125,17 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

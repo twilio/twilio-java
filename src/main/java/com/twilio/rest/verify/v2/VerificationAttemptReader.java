@@ -17,7 +17,8 @@ package com.twilio.rest.verify.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class VerificationAttemptReader extends Reader<VerificationAttempt> {
@@ -38,7 +40,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     private String verifyServiceSid;
     private String verificationSid;
     private VerificationAttempt.ConversionStatus status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public VerificationAttemptReader() {}
 
@@ -96,7 +98,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
         return this;
     }
 
-    public VerificationAttemptReader setPageSize(final Integer pageSize) {
+    public VerificationAttemptReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -116,9 +118,8 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
             Domains.VERIFY.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -127,7 +128,6 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "VerificationAttempt read failed: Unable to connect to server"
@@ -137,6 +137,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -161,7 +162,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VERIFY.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -173,7 +174,7 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VERIFY.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -184,49 +185,84 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (dateCreatedAfter != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedAfter",
-                dateCreatedAfter.toInstant().toString()
+                dateCreatedAfter,
+                ParameterType.QUERY
             );
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedBefore",
-                dateCreatedBefore.toInstant().toString()
+                dateCreatedBefore,
+                ParameterType.QUERY
             );
         }
 
         if (channelDataTo != null) {
-            request.addQueryParam("ChannelData.To", channelDataTo);
-        }
-        if (country != null) {
-            request.addQueryParam("Country", country);
-        }
-        if (channel != null) {
-            request.addQueryParam("Channel", channel.toString());
-        }
-        if (verifyServiceSid != null) {
-            request.addQueryParam("VerifyServiceSid", verifyServiceSid);
-        }
-        if (verificationSid != null) {
-            request.addQueryParam("VerificationSid", verificationSid);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "ChannelData.To",
+                channelDataTo,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (country != null) {
+            Serializer.toString(
+                request,
+                "Country",
+                country,
+                ParameterType.QUERY
+            );
+        }
+
+        if (channel != null) {
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.QUERY
+            );
+        }
+
+        if (verifyServiceSid != null) {
+            Serializer.toString(
+                request,
+                "VerifyServiceSid",
+                verifyServiceSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (verificationSid != null) {
+            Serializer.toString(
+                request,
+                "VerificationSid",
+                verificationSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

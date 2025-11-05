@@ -16,7 +16,9 @@ package com.twilio.rest.conversations.v1.configuration;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class WebhookUpdater extends Updater<Webhook> {
@@ -77,7 +80,9 @@ public class WebhookUpdater extends Updater<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Webhook update failed: Unable to connect to server"
@@ -101,21 +106,50 @@ public class WebhookUpdater extends Updater<Webhook> {
 
     private void addPostParams(final Request request) {
         if (method != null) {
-            request.addPostParam("Method", method);
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
+
         if (filters != null) {
-            for (String prop : filters) {
-                request.addPostParam("Filters", prop);
+            for (String param : filters) {
+                Serializer.toString(
+                    request,
+                    "Filters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (preWebhookUrl != null) {
-            request.addPostParam("PreWebhookUrl", preWebhookUrl);
+            Serializer.toString(
+                request,
+                "PreWebhookUrl",
+                preWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postWebhookUrl != null) {
-            request.addPostParam("PostWebhookUrl", postWebhookUrl);
+            Serializer.toString(
+                request,
+                "PostWebhookUrl",
+                postWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (target != null) {
-            request.addPostParam("Target", target.toString());
+            Serializer.toString(
+                request,
+                "Target",
+                target,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

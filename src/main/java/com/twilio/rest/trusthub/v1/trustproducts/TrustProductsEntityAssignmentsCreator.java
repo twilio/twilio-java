@@ -16,6 +16,8 @@ package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TrustProductsEntityAssignmentsCreator
     extends Creator<TrustProductsEntityAssignments> {
@@ -57,7 +60,6 @@ public class TrustProductsEntityAssignmentsCreator
                 "{" + "TrustProductSid" + "}",
                 this.pathTrustProductSid.toString()
             );
-        path = path.replace("{" + "ObjectSid" + "}", this.objectSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -66,7 +68,9 @@ public class TrustProductsEntityAssignmentsCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TrustProductsEntityAssignments creation failed: Unable to connect to server"
@@ -93,7 +97,12 @@ public class TrustProductsEntityAssignmentsCreator
 
     private void addPostParams(final Request request) {
         if (objectSid != null) {
-            request.addPostParam("ObjectSid", objectSid);
+            Serializer.toString(
+                request,
+                "ObjectSid",
+                objectSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

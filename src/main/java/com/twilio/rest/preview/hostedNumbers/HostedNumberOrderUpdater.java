@@ -16,7 +16,9 @@ package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
@@ -120,7 +123,9 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "HostedNumberOrder update failed: Unable to connect to server"
@@ -147,42 +152,95 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ccEmails != null) {
-            for (String prop : ccEmails) {
-                request.addPostParam("CcEmails", prop);
+            for (String param : ccEmails) {
+                Serializer.toString(
+                    request,
+                    "CcEmails",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
         if (verificationCode != null) {
-            request.addPostParam("VerificationCode", verificationCode);
+            Serializer.toString(
+                request,
+                "VerificationCode",
+                verificationCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (verificationType != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VerificationType",
-                verificationType.toString()
+                verificationType,
+                ParameterType.URLENCODED
             );
         }
+
         if (verificationDocumentSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VerificationDocumentSid",
-                verificationDocumentSid
+                verificationDocumentSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (extension != null) {
-            request.addPostParam("Extension", extension);
+            Serializer.toString(
+                request,
+                "Extension",
+                extension,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callDelay != null) {
-            request.addPostParam("CallDelay", callDelay.toString());
+            Serializer.toString(
+                request,
+                "CallDelay",
+                callDelay,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

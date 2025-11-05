@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WebChannelCreator extends Creator<WebChannel> {
 
@@ -86,23 +89,6 @@ public class WebChannelCreator extends Creator<WebChannel> {
     public WebChannel create(final TwilioRestClient client) {
         String path = "/v1/WebChannels";
 
-        path =
-            path.replace(
-                "{" + "FlexFlowSid" + "}",
-                this.flexFlowSid.toString()
-            );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
-        path =
-            path.replace(
-                "{" + "CustomerFriendlyName" + "}",
-                this.customerFriendlyName.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChatFriendlyName" + "}",
-                this.chatFriendlyName.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
@@ -110,7 +96,9 @@ public class WebChannelCreator extends Creator<WebChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "WebChannel creation failed: Unable to connect to server"
@@ -137,22 +125,57 @@ public class WebChannelCreator extends Creator<WebChannel> {
 
     private void addPostParams(final Request request) {
         if (flexFlowSid != null) {
-            request.addPostParam("FlexFlowSid", flexFlowSid);
+            Serializer.toString(
+                request,
+                "FlexFlowSid",
+                flexFlowSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customerFriendlyName != null) {
-            request.addPostParam("CustomerFriendlyName", customerFriendlyName);
+            Serializer.toString(
+                request,
+                "CustomerFriendlyName",
+                customerFriendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (chatFriendlyName != null) {
-            request.addPostParam("ChatFriendlyName", chatFriendlyName);
+            Serializer.toString(
+                request,
+                "ChatFriendlyName",
+                chatFriendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (chatUniqueName != null) {
-            request.addPostParam("ChatUniqueName", chatUniqueName);
+            Serializer.toString(
+                request,
+                "ChatUniqueName",
+                chatUniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (preEngagementData != null) {
-            request.addPostParam("PreEngagementData", preEngagementData);
+            Serializer.toString(
+                request,
+                "PreEngagementData",
+                preEngagementData,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

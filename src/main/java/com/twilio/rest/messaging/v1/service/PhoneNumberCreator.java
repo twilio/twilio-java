@@ -16,6 +16,8 @@ package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
@@ -52,11 +55,6 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "PhoneNumberSid" + "}",
-                this.phoneNumberSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -65,7 +63,9 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PhoneNumber creation failed: Unable to connect to server"
@@ -92,7 +92,12 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     private void addPostParams(final Request request) {
         if (phoneNumberSid != null) {
-            request.addPostParam("PhoneNumberSid", phoneNumberSid);
+            Serializer.toString(
+                request,
+                "PhoneNumberSid",
+                phoneNumberSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

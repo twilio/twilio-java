@@ -15,7 +15,6 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,27 +23,29 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FormFetcher extends Fetcher<Form> {
 
-    private Form.FormTypes formType;
+    private Form.FormTypes pathFormType;
 
-    public FormFetcher(final Form.FormTypes formType) {
-        this.formType = formType;
+    public FormFetcher(final Form.FormTypes pathFormType) {
+        this.pathFormType = pathFormType;
     }
 
     @Override
     public Form fetch(final TwilioRestClient client) {
         String path = "/v2/Forms/{FormType}";
 
-        path = path.replace("{" + "FormType" + "}", this.formType.toString());
+        path =
+            path.replace("{" + "FormType" + "}", this.pathFormType.toString());
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -64,7 +65,6 @@ public class FormFetcher extends Fetcher<Form> {
             }
             throw new ApiException(restException);
         }
-
         return Form.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

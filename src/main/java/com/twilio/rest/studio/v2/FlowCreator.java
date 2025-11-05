@@ -16,8 +16,8 @@ package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,20 +26,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class FlowCreator extends Creator<Flow> {
 
     private String friendlyName;
     private Flow.Status status;
-    private Map<String, Object> definition;
+    private Object definition;
     private String commitMessage;
 
     public FlowCreator(
         final String friendlyName,
         final Flow.Status status,
-        final Map<String, Object> definition
+        final Object definition
     ) {
         this.friendlyName = friendlyName;
         this.status = status;
@@ -56,7 +55,7 @@ public class FlowCreator extends Creator<Flow> {
         return this;
     }
 
-    public FlowCreator setDefinition(final Map<String, Object> definition) {
+    public FlowCreator setDefinition(final Object definition) {
         this.definition = definition;
         return this;
     }
@@ -70,15 +69,6 @@ public class FlowCreator extends Creator<Flow> {
     public Flow create(final TwilioRestClient client) {
         String path = "/v2/Flows";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Status" + "}", this.status.toString());
-        path =
-            path.replace("{" + "Definition" + "}", this.definition.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
@@ -86,7 +76,9 @@ public class FlowCreator extends Creator<Flow> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Flow creation failed: Unable to connect to server"
@@ -110,16 +102,39 @@ public class FlowCreator extends Creator<Flow> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
         if (definition != null) {
-            request.addPostParam("Definition", Converter.mapToJson(definition));
+            Serializer.toString(
+                request,
+                "Definition",
+                definition,
+                ParameterType.URLENCODED
+            );
         }
+
         if (commitMessage != null) {
-            request.addPostParam("CommitMessage", commitMessage);
+            Serializer.toString(
+                request,
+                "CommitMessage",
+                commitMessage,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

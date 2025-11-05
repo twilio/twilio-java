@@ -16,6 +16,8 @@ package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TaskQueueCreator extends Creator<TaskQueue> {
 
@@ -88,11 +91,6 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
                 "{" + "WorkspaceSid" + "}",
                 this.pathWorkspaceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -101,7 +99,9 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TaskQueue creation failed: Unable to connect to server"
@@ -128,30 +128,56 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (targetWorkers != null) {
-            request.addPostParam("TargetWorkers", targetWorkers);
+            Serializer.toString(
+                request,
+                "TargetWorkers",
+                targetWorkers,
+                ParameterType.URLENCODED
+            );
         }
+
         if (maxReservedWorkers != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MaxReservedWorkers",
-                maxReservedWorkers.toString()
+                maxReservedWorkers,
+                ParameterType.URLENCODED
             );
         }
+
         if (taskOrder != null) {
-            request.addPostParam("TaskOrder", taskOrder.toString());
-        }
-        if (reservationActivitySid != null) {
-            request.addPostParam(
-                "ReservationActivitySid",
-                reservationActivitySid
+            Serializer.toString(
+                request,
+                "TaskOrder",
+                taskOrder,
+                ParameterType.URLENCODED
             );
         }
+
+        if (reservationActivitySid != null) {
+            Serializer.toString(
+                request,
+                "ReservationActivitySid",
+                reservationActivitySid,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (assignmentActivitySid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AssignmentActivitySid",
-                assignmentActivitySid
+                assignmentActivitySid,
+                ParameterType.URLENCODED
             );
         }
     }

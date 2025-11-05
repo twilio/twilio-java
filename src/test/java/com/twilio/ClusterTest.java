@@ -1,9 +1,12 @@
 package com.twilio;
 
+import com.twilio.auth_strategy.TokenAuthStrategy;
 import com.twilio.base.Page;
-import com.twilio.base.bearertoken.ResourceSet;
+import com.twilio.base.ResourceSet;
 import com.twilio.http.CustomHttpClient;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.http.bearertoken.OrgsTokenManager;
+import com.twilio.http.bearertoken.TokenManager;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumberReader;
 import com.twilio.rest.api.v2010.account.Message;
@@ -15,6 +18,7 @@ import com.twilio.rest.previewiam.organizations.Account;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -30,11 +34,15 @@ public class ClusterTest {
     String fromNumber;
     String toNumber;
     String grantType;
+    String orgsClientId;
+    String orgsClientSecret;
+    String organisationSid;
     String clientId;
     String clientSecret;
-    String organisationSid;
-
+    String messageSid;
     TwilioRestClient customRestClient;
+
+    String accountSid;
 
     @Before
     public void setUp() {
@@ -44,15 +52,18 @@ public class ClusterTest {
         toNumber = System.getenv("TWILIO_TO_NUMBER");
         String apiKey = System.getenv("TWILIO_API_KEY");
         String secret = System.getenv("TWILIO_API_SECRET");
-        String accountSid = System.getenv("TWILIO_ACCOUNT_SID");
+        accountSid = System.getenv("TWILIO_ACCOUNT_SID");
         Twilio.init(apiKey, secret, accountSid);
 
         grantType = "client_credentials";
-        clientId = System.getenv("TWILIO_ORGS_CLIENT_ID");
-        clientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
+        orgsClientId = System.getenv("TWILIO_ORGS_CLIENT_ID");
+        orgsClientSecret = System.getenv("TWILIO_ORGS_CLIENT_SECRET");
         organisationSid = System.getenv("TWILIO_ORG_SID");
-        TwilioOrgsTokenAuth.init(grantType, clientId, clientSecret);
         
+        clientId = System.getenv("TWILIO_CLIENT_ID");
+        clientSecret = System.getenv("TWILIO_CLIENT_SECRET");
+        messageSid = System.getenv("TWILIO_MESSAGE_SID");
+
         // CustomHttpClient
         customRestClient = new TwilioRestClient.Builder(apiKey, secret).accountSid(accountSid).httpClient(new CustomHttpClient()).build();
     }
@@ -108,7 +119,7 @@ public class ClusterTest {
         sinkConfiguration.put("destination", "http://example.org/webhook");
         sinkConfiguration.put("method", "post");
         sinkConfiguration.put("batch_events",false);
-        List<Map<String, Object>> types = new ArrayList<>();
+        List<Object> types = new ArrayList<>();
         Map<String, Object> types1 = new HashMap<>();
         Map<String, Object> types2 = new HashMap<>();
         types1.put("type", "com.twilio.messaging.message.delivered");
@@ -130,19 +141,25 @@ public class ClusterTest {
 
     @Test
     public void testOrgsApi(){
+        //Twilio.init(new OrgsClientCredentialProvider(orgsClientId, orgsClientSecret));
+
+        TokenManager tokenManager = new OrgsTokenManager("client_credentials", orgsClientId, orgsClientSecret);
+        TokenAuthStrategy tokenAuthStrategy = new TokenAuthStrategy(tokenManager);
+        TwilioRestClient client = new TwilioRestClient.Builder(tokenAuthStrategy)
+                .build();
 
         //Fetching the account information
-        ResourceSet<Account> accountSet = Account.reader(organisationSid).read();
+        ResourceSet<Account> accountSet = Account.reader(organisationSid).read(client);
         String accountSid = accountSet.iterator().next().getAccountSid();
         assertNotNull(accountSid);
 
         //Fetching specific account
-        Account account = Account.fetcher(organisationSid, accountSid).fetch();
+        Account account = Account.fetcher(organisationSid, accountSid).fetch(client);
         assertNotNull(account.getAccountSid());
 
         //Fetching users of this organisation
         ResourceSet<com.twilio.rest.previewiam.organizations.User>
-            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read();
+            userSet = com.twilio.rest.previewiam.organizations.User.reader(organisationSid).read(client);
         assertNotNull(userSet);
         String userId = userSet.iterator().next().getId().toString();
         assertNotNull(userId);
@@ -161,4 +178,17 @@ public class ClusterTest {
         assertEquals(toNumber, message.getTo().toString());
     }
 
+    // Note: This test should be last as we are initialising OAuth App creds.
+    // Disabling test as OAuth is not working.
+//    @Test
+//    public void testPublicOAuthFetchMessage() {
+//        Twilio.init(new ClientCredentialProvider(clientId, clientSecret), accountSid);
+//        // Fetching an existing message; if this test fails, the SID might be deleted,
+//        // in that case, change TWILIO_MESSAGE_SID in twilio-java repo env variables
+//        Message message = Message.fetcher(messageSid).fetch();
+//        assertNotNull(message);
+//        assertTrue(message.getBody().contains("Where's Wallace?"));
+//        assertEquals(fromNumber, message.getFrom().toString());
+//        assertEquals(toNumber, message.getTo().toString());
+//    }
 }

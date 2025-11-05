@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationAttempt extends Resource {
-
-    private static final long serialVersionUID = 105803800130690L;
 
     public static VerificationAttemptFetcher fetcher(final String pathSid) {
         return new VerificationAttemptFetcher(pathSid);
@@ -47,6 +48,49 @@ public class VerificationAttempt extends Resource {
 
     public static VerificationAttemptReader reader() {
         return new VerificationAttemptReader();
+    }
+
+    public enum ConversionStatus {
+        CONVERTED("converted"),
+        UNCONVERTED("unconverted");
+
+        private final String value;
+
+        private ConversionStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConversionStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ConversionStatus.values());
+        }
+    }
+
+    public enum Channels {
+        SMS("sms"),
+        CALL("call"),
+        EMAIL("email"),
+        WHATSAPP("whatsapp"),
+        RBM("rbm");
+
+        private final String value;
+
+        private Channels(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Channels forValue(final String value) {
+            return Promoter.enumFromString(value, Channels.values());
+        }
     }
 
     /**
@@ -92,89 +136,82 @@ public class VerificationAttempt extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String verificationSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final VerificationAttempt.ConversionStatus conversionStatus;
+
+    @Getter
     private final VerificationAttempt.Channels channel;
-    private final Map<String, Object> price;
-    private final Map<String, Object> channelData;
+
+    @Getter
+    private final Object channelData;
+
+    @Getter
+    private final VerificationAttempt.ConversionStatus conversionStatus;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final Object price;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String verificationSid;
 
     @JsonCreator
     private VerificationAttempt(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("verification_sid") final String verificationSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("channel") final VerificationAttempt.Channels channel,
+        @JsonProperty("channel_data") final Object channelData,
         @JsonProperty(
             "conversion_status"
         ) final VerificationAttempt.ConversionStatus conversionStatus,
-        @JsonProperty("channel") final VerificationAttempt.Channels channel,
-        @JsonProperty("price") final Map<String, Object> price,
-        @JsonProperty("channel_data") final Map<String, Object> channelData,
-        @JsonProperty("url") final URI url
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("price") final Object price,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("verification_sid") final String verificationSid
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.verificationSid = verificationSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.conversionStatus = conversionStatus;
         this.channel = channel;
-        this.price = price;
         this.channelData = channelData;
+        this.conversionStatus = conversionStatus;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.price = price;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getVerificationSid() {
-        return this.verificationSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final VerificationAttempt.ConversionStatus getConversionStatus() {
-        return this.conversionStatus;
-    }
-
-    public final VerificationAttempt.Channels getChannel() {
-        return this.channel;
-    }
-
-    public final Map<String, Object> getPrice() {
-        return this.price;
-    }
-
-    public final Map<String, Object> getChannelData() {
-        return this.channelData;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.verificationSid = verificationSid;
     }
 
     @Override
@@ -188,78 +225,35 @@ public class VerificationAttempt extends Resource {
         }
 
         VerificationAttempt other = (VerificationAttempt) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(verificationSid, other.verificationSid) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(channelData, other.channelData) &&
+            Objects.equals(conversionStatus, other.conversionStatus) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(conversionStatus, other.conversionStatus) &&
-            Objects.equals(channel, other.channel) &&
             Objects.equals(price, other.price) &&
-            Objects.equals(channelData, other.channelData) &&
-            Objects.equals(url, other.url)
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(verificationSid, other.verificationSid)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
-            verificationSid,
+            channel,
+            channelData,
+            conversionStatus,
             dateCreated,
             dateUpdated,
-            conversionStatus,
-            channel,
             price,
-            channelData,
-            url
+            serviceSid,
+            sid,
+            url,
+            verificationSid
         );
-    }
-
-    public enum ConversionStatus {
-        CONVERTED("converted"),
-        UNCONVERTED("unconverted");
-
-        private final String value;
-
-        private ConversionStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConversionStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ConversionStatus.values());
-        }
-    }
-
-    public enum Channels {
-        SMS("sms"),
-        CALL("call"),
-        EMAIL("email"),
-        WHATSAPP("whatsapp");
-
-        private final String value;
-
-        private Channels(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Channels forValue(final String value) {
-            return Promoter.enumFromString(value, Channels.values());
-        }
     }
 }

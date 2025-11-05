@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +23,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AuthCallsIpAccessControlListMappingFetcher
     extends Fetcher<AuthCallsIpAccessControlListMapping> {
 
+    private String pathAccountSid;
     private String pathDomainSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public AuthCallsIpAccessControlListMappingFetcher(
         final String pathDomainSid,
@@ -78,7 +78,7 @@ public class AuthCallsIpAccessControlListMappingFetcher
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -98,7 +98,6 @@ public class AuthCallsIpAccessControlListMappingFetcher
             }
             throw new ApiException(restException);
         }
-
         return AuthCallsIpAccessControlListMapping.fromJson(
             response.getStream(),
             client.getObjectMapper()

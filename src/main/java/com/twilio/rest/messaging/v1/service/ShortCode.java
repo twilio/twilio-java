@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ShortCode extends Resource {
-
-    private static final long serialVersionUID = 25601319717810L;
 
     public static ShortCodeCreator creator(
         final String pathServiceSid,
@@ -107,73 +110,70 @@ public class ShortCode extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String shortCode;
-    private final String countryCode;
+
+    @Getter
     private final List<String> capabilities;
+
+    @Getter
+    private final String countryCode;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String shortCode;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private ShortCode(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("short_code") final String shortCode,
-        @JsonProperty("country_code") final String countryCode,
         @JsonProperty("capabilities") final List<String> capabilities,
+        @JsonProperty("country_code") final String countryCode,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("short_code") final String shortCode,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.shortCode = shortCode;
-        this.countryCode = countryCode;
         this.capabilities = capabilities;
+        this.countryCode = countryCode;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.serviceSid = serviceSid;
+        this.shortCode = shortCode;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getShortCode() {
-        return this.shortCode;
-    }
-
-    public final String getCountryCode() {
-        return this.countryCode;
-    }
-
-    public final List<String> getCapabilities() {
-        return this.capabilities;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -187,16 +187,15 @@ public class ShortCode extends Resource {
         }
 
         ShortCode other = (ShortCode) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(countryCode, other.countryCode) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(shortCode, other.shortCode) &&
-            Objects.equals(countryCode, other.countryCode) &&
-            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url)
         );
     }
@@ -204,14 +203,14 @@ public class ShortCode extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
+            capabilities,
+            countryCode,
             dateCreated,
             dateUpdated,
+            serviceSid,
             shortCode,
-            countryCode,
-            capabilities,
+            sid,
             url
         );
     }

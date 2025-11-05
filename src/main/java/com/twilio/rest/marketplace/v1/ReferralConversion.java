@@ -19,36 +19,52 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ReferralConversion extends Resource {
 
-    private static final long serialVersionUID = 67114907443655L;
+    public static ReferralConversionCreator creator(
+        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
+    ) {
+        return new ReferralConversionCreator(createReferralConversionRequest);
+    }
 
+    @JsonDeserialize(builder = CreateReferralConversionRequest.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class CreateReferralConversionRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("referral_account_sid")
         @Getter
-        @Setter
-        private String referralAccountSid;
+        private final String referralAccountSid;
 
-        public CreateReferralConversionRequest() {}
+        private CreateReferralConversionRequest(Builder builder) {
+            this.referralAccountSid = builder.referralAccountSid;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
 
         public static CreateReferralConversionRequest fromJson(
             String jsonString,
@@ -59,12 +75,39 @@ public class ReferralConversion extends Resource {
                 CreateReferralConversionRequest.class
             );
         }
-    }
 
-    public static ReferralConversionCreator creator(
-        final ReferralConversion.CreateReferralConversionRequest createReferralConversionRequest
-    ) {
-        return new ReferralConversionCreator(createReferralConversionRequest);
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("referral_account_sid")
+            private String referralAccountSid;
+
+            public CreateReferralConversionRequest build() {
+                return new CreateReferralConversionRequest(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            CreateReferralConversionRequest other =
+                (CreateReferralConversionRequest) o;
+            return (
+                Objects.equals(referralAccountSid, other.referralAccountSid)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(referralAccountSid);
+        }
     }
 
     /**
@@ -122,6 +165,7 @@ public class ReferralConversion extends Resource {
         }
     }
 
+    @Getter
     private final String convertedAccountSid;
 
     @JsonCreator
@@ -129,10 +173,6 @@ public class ReferralConversion extends Resource {
         @JsonProperty("converted_account_sid") final String convertedAccountSid
     ) {
         this.convertedAccountSid = convertedAccountSid;
-    }
-
-    public final String getConvertedAccountSid() {
-        return this.convertedAccountSid;
     }
 
     @Override
@@ -146,8 +186,7 @@ public class ReferralConversion extends Resource {
         }
 
         ReferralConversion other = (ReferralConversion) o;
-
-        return Objects.equals(convertedAccountSid, other.convertedAccountSid);
+        return (Objects.equals(convertedAccountSid, other.convertedAccountSid));
     }
 
     @Override

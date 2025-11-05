@@ -17,7 +17,8 @@ package com.twilio.rest.video.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class CompositionHookReader extends Reader<CompositionHook> {
@@ -34,7 +36,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CompositionHookReader() {}
 
@@ -62,7 +64,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
         return this;
     }
 
-    public CompositionHookReader setPageSize(final Integer pageSize) {
+    public CompositionHookReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -80,9 +82,8 @@ public class CompositionHookReader extends Reader<CompositionHook> {
             Domains.VIDEO.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -91,7 +92,6 @@ public class CompositionHookReader extends Reader<CompositionHook> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "CompositionHook read failed: Unable to connect to server"
@@ -101,6 +101,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -125,7 +126,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VIDEO.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -137,7 +138,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VIDEO.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -148,37 +149,53 @@ public class CompositionHookReader extends Reader<CompositionHook> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (enabled != null) {
-            request.addQueryParam("Enabled", enabled.toString());
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.QUERY
+            );
         }
+
         if (dateCreatedAfter != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedAfter",
-                dateCreatedAfter.toInstant().toString()
+                dateCreatedAfter,
+                ParameterType.QUERY
             );
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedBefore",
-                dateCreatedBefore.toInstant().toString()
+                dateCreatedBefore,
+                ParameterType.QUERY
             );
         }
 
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

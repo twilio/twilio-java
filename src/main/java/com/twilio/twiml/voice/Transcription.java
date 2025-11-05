@@ -66,6 +66,7 @@ public class Transcription extends TwiML {
     private final String speechModel;
     private final String hints;
     private final Boolean enableAutomaticPunctuation;
+    private final String intelligenceService;
 
     /**
      * For XML Serialization/Deserialization
@@ -92,6 +93,7 @@ public class Transcription extends TwiML {
         this.speechModel = b.speechModel;
         this.hints = b.hints;
         this.enableAutomaticPunctuation = b.enableAutomaticPunctuation;
+        this.intelligenceService = b.intelligenceService;
     }
 
     /**
@@ -141,6 +143,9 @@ public class Transcription extends TwiML {
         }
         if (this.isEnableAutomaticPunctuation() != null) {
             attrs.put("enableAutomaticPunctuation", this.isEnableAutomaticPunctuation().toString());
+        }
+        if (this.getIntelligenceService() != null) {
+            attrs.put("intelligenceService", this.getIntelligenceService());
         }
 
         return attrs;
@@ -264,6 +269,15 @@ public class Transcription extends TwiML {
     }
 
     /**
+     * The SID or the unique name of the Intelligence Service to be used
+     *
+     * @return The SID or the unique name of the Intelligence Service to be used
+     */
+    public String getIntelligenceService() {
+        return intelligenceService;
+    }
+
+    /**
      * Create a new {@code <Transcription>} element
      */
     @JsonPOJOBuilder(withPrefix = "")
@@ -295,6 +309,7 @@ public class Transcription extends TwiML {
         private String speechModel;
         private String hints;
         private Boolean enableAutomaticPunctuation;
+        private String intelligenceService;
 
         /**
          * Friendly name given to the Transcription
@@ -410,6 +425,15 @@ public class Transcription extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "enableAutomaticPunctuation")
         public Builder enableAutomaticPunctuation(Boolean enableAutomaticPunctuation) {
             this.enableAutomaticPunctuation = enableAutomaticPunctuation;
+            return this;
+        }
+
+        /**
+         * The SID or the unique name of the Intelligence Service to be used
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "intelligenceService")
+        public Builder intelligenceService(String intelligenceService) {
+            this.intelligenceService = intelligenceService;
             return this;
         }
 

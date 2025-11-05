@@ -16,8 +16,8 @@ package com.twilio.rest.events.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,18 +26,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class SinkCreator extends Creator<Sink> {
 
     private String description;
-    private Map<String, Object> sinkConfiguration;
+    private Object sinkConfiguration;
     private Sink.SinkType sinkType;
 
     public SinkCreator(
         final String description,
-        final Map<String, Object> sinkConfiguration,
+        final Object sinkConfiguration,
         final Sink.SinkType sinkType
     ) {
         this.description = description;
@@ -50,9 +49,7 @@ public class SinkCreator extends Creator<Sink> {
         return this;
     }
 
-    public SinkCreator setSinkConfiguration(
-        final Map<String, Object> sinkConfiguration
-    ) {
+    public SinkCreator setSinkConfiguration(final Object sinkConfiguration) {
         this.sinkConfiguration = sinkConfiguration;
         return this;
     }
@@ -66,18 +63,6 @@ public class SinkCreator extends Creator<Sink> {
     public Sink create(final TwilioRestClient client) {
         String path = "/v1/Sinks";
 
-        path =
-            path.replace(
-                "{" + "Description" + "}",
-                this.description.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SinkConfiguration" + "}",
-                this.sinkConfiguration.toString()
-            );
-        path = path.replace("{" + "SinkType" + "}", this.sinkType.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.EVENTS.toString(),
@@ -85,7 +70,9 @@ public class SinkCreator extends Creator<Sink> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Sink creation failed: Unable to connect to server"
@@ -109,16 +96,30 @@ public class SinkCreator extends Creator<Sink> {
 
     private void addPostParams(final Request request) {
         if (description != null) {
-            request.addPostParam("Description", description);
-        }
-        if (sinkConfiguration != null) {
-            request.addPostParam(
-                "SinkConfiguration",
-                Converter.mapToJson(sinkConfiguration)
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
             );
         }
+
+        if (sinkConfiguration != null) {
+            Serializer.toString(
+                request,
+                "SinkConfiguration",
+                sinkConfiguration,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (sinkType != null) {
-            request.addPostParam("SinkType", sinkType.toString());
+            Serializer.toString(
+                request,
+                "SinkType",
+                sinkType,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

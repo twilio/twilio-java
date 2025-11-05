@@ -16,6 +16,8 @@ package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RateLimitUpdater extends Updater<RateLimit> {
 
@@ -59,7 +62,9 @@ public class RateLimitUpdater extends Updater<RateLimit> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "RateLimit update failed: Unable to connect to server"
@@ -86,7 +91,12 @@ public class RateLimitUpdater extends Updater<RateLimit> {
 
     private void addPostParams(final Request request) {
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

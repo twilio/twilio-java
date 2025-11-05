@@ -16,7 +16,9 @@ package com.twilio.rest.proxy.v1.service.session.participant;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,9 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
-import java.net.URI;
-import java.util.List;
 import java.util.List;
 
 public class MessageInteractionCreator extends Creator<MessageInteraction> {
@@ -108,7 +109,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "MessageInteraction creation failed: Unable to connect to server"
@@ -135,11 +138,22 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
     private void addPostParams(final Request request) {
         if (body != null) {
-            request.addPostParam("Body", body);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
+
         if (mediaUrl != null) {
-            for (URI prop : mediaUrl) {
-                request.addPostParam("MediaUrl", prop.toString());
+            for (URI param : mediaUrl) {
+                Serializer.toString(
+                    request,
+                    "MediaUrl",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

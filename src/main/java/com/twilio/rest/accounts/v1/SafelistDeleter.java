@@ -15,7 +15,8 @@
 package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SafelistDeleter extends Deleter<Safelist> {
 
@@ -46,7 +48,7 @@ public class SafelistDeleter extends Deleter<Safelist> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,7 +73,12 @@ public class SafelistDeleter extends Deleter<Safelist> {
 
     private void addQueryParams(final Request request) {
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber);
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.QUERY
+            );
         }
     }
 }

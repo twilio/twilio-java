@@ -17,7 +17,8 @@ package com.twilio.rest.wireless.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CommandReader extends Reader<Command> {
 
@@ -33,7 +35,7 @@ public class CommandReader extends Reader<Command> {
     private Command.Status status;
     private Command.Direction direction;
     private Command.Transport transport;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CommandReader() {}
 
@@ -57,7 +59,7 @@ public class CommandReader extends Reader<Command> {
         return this;
     }
 
-    public CommandReader setPageSize(final Integer pageSize) {
+    public CommandReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -75,9 +77,8 @@ public class CommandReader extends Reader<Command> {
             Domains.WIRELESS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -86,7 +87,6 @@ public class CommandReader extends Reader<Command> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Command read failed: Unable to connect to server"
@@ -96,6 +96,7 @@ public class CommandReader extends Reader<Command> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -120,7 +121,7 @@ public class CommandReader extends Reader<Command> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.WIRELESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -132,7 +133,7 @@ public class CommandReader extends Reader<Command> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.WIRELESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -143,29 +144,43 @@ public class CommandReader extends Reader<Command> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (sim != null) {
-            request.addQueryParam("Sim", sim);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (direction != null) {
-            request.addQueryParam("Direction", direction.toString());
-        }
-        if (transport != null) {
-            request.addQueryParam("Transport", transport.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (direction != null) {
+            Serializer.toString(
+                request,
+                "Direction",
+                direction,
+                ParameterType.QUERY
+            );
+        }
+
+        if (transport != null) {
+            Serializer.toString(
+                request,
+                "Transport",
+                transport,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

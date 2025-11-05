@@ -17,8 +17,8 @@ package com.twilio.rest.api.v2010.account.usage.record;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
-import com.twilio.converter.DateConverter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,16 +27,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.LocalDate;
 
 public class MonthlyReader extends Reader<Monthly> {
 
     private String pathAccountSid;
-    private Monthly.Category category;
+    private String category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
-    private Integer pageSize;
+    private Long pageSize;
 
     public MonthlyReader() {}
 
@@ -44,7 +45,7 @@ public class MonthlyReader extends Reader<Monthly> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public MonthlyReader setCategory(final Monthly.Category category) {
+    public MonthlyReader setCategory(final String category) {
         this.category = category;
         return this;
     }
@@ -66,7 +67,7 @@ public class MonthlyReader extends Reader<Monthly> {
         return this;
     }
 
-    public MonthlyReader setPageSize(final Integer pageSize) {
+    public MonthlyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -79,6 +80,7 @@ public class MonthlyReader extends Reader<Monthly> {
     public Page<Monthly> firstPage(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -94,9 +96,8 @@ public class MonthlyReader extends Reader<Monthly> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -105,7 +106,6 @@ public class MonthlyReader extends Reader<Monthly> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Monthly read failed: Unable to connect to server"
@@ -115,6 +115,7 @@ public class MonthlyReader extends Reader<Monthly> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -162,40 +163,53 @@ public class MonthlyReader extends Reader<Monthly> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (category != null) {
-            request.addQueryParam("Category", category.toString());
+            Serializer.toString(
+                request,
+                "Category",
+                category,
+                ParameterType.QUERY
+            );
         }
+
         if (startDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartDate",
-                DateConverter.dateStringFromLocalDate(startDate)
+                startDate,
+                ParameterType.QUERY
             );
         }
 
         if (endDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "EndDate",
-                DateConverter.dateStringFromLocalDate(endDate)
+                endDate,
+                ParameterType.QUERY
             );
         }
 
         if (includeSubaccounts != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "IncludeSubaccounts",
-                includeSubaccounts.toString()
+                includeSubaccounts,
+                ParameterType.QUERY
             );
         }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

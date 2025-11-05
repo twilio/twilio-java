@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.message;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +23,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MediaFetcher extends Fetcher<Media> {
 
+    private String pathAccountSid;
     private String pathMessageSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public MediaFetcher(final String pathMessageSid, final String pathSid) {
         this.pathMessageSid = pathMessageSid;
@@ -72,7 +72,7 @@ public class MediaFetcher extends Fetcher<Media> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -92,7 +92,6 @@ public class MediaFetcher extends Fetcher<Media> {
             }
             throw new ApiException(restException);
         }
-
         return Media.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

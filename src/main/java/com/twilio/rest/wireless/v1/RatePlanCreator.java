@@ -16,7 +16,9 @@ package com.twilio.rest.wireless.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class RatePlanCreator extends Creator<RatePlan> {
@@ -41,6 +43,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private List<String> internationalRoaming;
     private Integer nationalRoamingDataLimit;
     private Integer internationalRoamingDataLimit;
+    private RatePlan.DataLimitStrategy dataLimitStrategy;
 
     public RatePlanCreator() {}
 
@@ -115,6 +118,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
         return this;
     }
 
+    public RatePlanCreator setDataLimitStrategy(
+        final RatePlan.DataLimitStrategy dataLimitStrategy
+    ) {
+        this.dataLimitStrategy = dataLimitStrategy;
+        return this;
+    }
+
     @Override
     public RatePlan create(final TwilioRestClient client) {
         String path = "/v1/RatePlans";
@@ -126,7 +136,9 @@ public class RatePlanCreator extends Creator<RatePlan> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "RatePlan creation failed: Unable to connect to server"
@@ -153,50 +165,112 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataEnabled != null) {
-            request.addPostParam("DataEnabled", dataEnabled.toString());
+            Serializer.toString(
+                request,
+                "DataEnabled",
+                dataEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataLimit != null) {
-            request.addPostParam("DataLimit", dataLimit.toString());
+            Serializer.toString(
+                request,
+                "DataLimit",
+                dataLimit,
+                ParameterType.URLENCODED
+            );
         }
+
         if (dataMetering != null) {
-            request.addPostParam("DataMetering", dataMetering);
+            Serializer.toString(
+                request,
+                "DataMetering",
+                dataMetering,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MessagingEnabled",
-                messagingEnabled.toString()
+                messagingEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceEnabled != null) {
-            request.addPostParam("VoiceEnabled", voiceEnabled.toString());
-        }
-        if (nationalRoamingEnabled != null) {
-            request.addPostParam(
-                "NationalRoamingEnabled",
-                nationalRoamingEnabled.toString()
+            Serializer.toString(
+                request,
+                "VoiceEnabled",
+                voiceEnabled,
+                ParameterType.URLENCODED
             );
         }
+
+        if (nationalRoamingEnabled != null) {
+            Serializer.toString(
+                request,
+                "NationalRoamingEnabled",
+                nationalRoamingEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (internationalRoaming != null) {
-            for (String prop : internationalRoaming) {
-                request.addPostParam("InternationalRoaming", prop);
+            for (String param : internationalRoaming) {
+                Serializer.toString(
+                    request,
+                    "InternationalRoaming",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (nationalRoamingDataLimit != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "NationalRoamingDataLimit",
-                nationalRoamingDataLimit.toString()
+                nationalRoamingDataLimit,
+                ParameterType.URLENCODED
             );
         }
+
         if (internationalRoamingDataLimit != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "InternationalRoamingDataLimit",
-                internationalRoamingDataLimit.toString()
+                internationalRoamingDataLimit,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (dataLimitStrategy != null) {
+            Serializer.toString(
+                request,
+                "DataLimitStrategy",
+                dataLimitStrategy,
+                ParameterType.URLENCODED
             );
         }
     }

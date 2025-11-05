@@ -17,8 +17,9 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,13 +28,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
-    private Integer pageSize;
+    private Long pageSize;
 
     public OutgoingCallerIdReader() {}
 
@@ -57,7 +59,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         return this;
     }
 
-    public OutgoingCallerIdReader setPageSize(final Integer pageSize) {
+    public OutgoingCallerIdReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -70,6 +72,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     public Page<OutgoingCallerId> firstPage(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -85,9 +88,8 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -96,7 +98,6 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "OutgoingCallerId read failed: Unable to connect to server"
@@ -106,6 +107,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -153,23 +155,35 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (phoneNumber != null) {
-            request.addQueryParam("PhoneNumber", phoneNumber.toString());
-        }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

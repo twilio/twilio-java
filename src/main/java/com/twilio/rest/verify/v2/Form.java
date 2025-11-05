@@ -18,29 +18,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Form extends Resource {
 
-    private static final long serialVersionUID = 202517967097226L;
+    public static FormFetcher fetcher(final Form.FormTypes pathFormType) {
+        return new FormFetcher(pathFormType);
+    }
 
-    public static FormFetcher fetcher(final Form.FormTypes formType) {
-        return new FormFetcher(formType);
+    public enum FormTypes {
+        FORM_PUSH("form-push");
+
+        private final String value;
+
+        private FormTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FormTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FormTypes.values());
+        }
     }
 
     /**
@@ -86,38 +106,41 @@ public class Form extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final Object formMeta;
+
+    @Getter
     private final Form.FormTypes formType;
-    private final Map<String, Object> forms;
-    private final Map<String, Object> formMeta;
+
+    @Getter
+    private final Object forms;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Form(
+        @JsonProperty("form_meta") final Object formMeta,
         @JsonProperty("form_type") final Form.FormTypes formType,
-        @JsonProperty("forms") final Map<String, Object> forms,
-        @JsonProperty("form_meta") final Map<String, Object> formMeta,
+        @JsonProperty("forms") final Object forms,
         @JsonProperty("url") final URI url
     ) {
+        this.formMeta = formMeta;
         this.formType = formType;
         this.forms = forms;
-        this.formMeta = formMeta;
         this.url = url;
-    }
-
-    public final Form.FormTypes getFormType() {
-        return this.formType;
-    }
-
-    public final Map<String, Object> getForms() {
-        return this.forms;
-    }
-
-    public final Map<String, Object> getFormMeta() {
-        return this.formMeta;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -131,36 +154,16 @@ public class Form extends Resource {
         }
 
         Form other = (Form) o;
-
         return (
+            Objects.equals(formMeta, other.formMeta) &&
             Objects.equals(formType, other.formType) &&
             Objects.equals(forms, other.forms) &&
-            Objects.equals(formMeta, other.formMeta) &&
             Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(formType, forms, formMeta, url);
-    }
-
-    public enum FormTypes {
-        FORM_PUSH("form-push");
-
-        private final String value;
-
-        private FormTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FormTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FormTypes.values());
-        }
+        return Objects.hash(formMeta, formType, forms, url);
     }
 }

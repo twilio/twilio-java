@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,15 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FlexUserUpdater extends Updater<FlexUser> {
 
     private String pathInstanceSid;
     private String pathFlexUserSid;
-    private String firstName;
-    private String lastName;
     private String email;
-    private String friendlyName;
     private String userSid;
     private String locale;
 
@@ -44,23 +44,8 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         this.pathFlexUserSid = pathFlexUserSid;
     }
 
-    public FlexUserUpdater setFirstName(final String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public FlexUserUpdater setLastName(final String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
     public FlexUserUpdater setEmail(final String email) {
         this.email = email;
-        return this;
-    }
-
-    public FlexUserUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
         return this;
     }
 
@@ -96,7 +81,9 @@ public class FlexUserUpdater extends Updater<FlexUser> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "FlexUser update failed: Unable to connect to server"
@@ -122,23 +109,31 @@ public class FlexUserUpdater extends Updater<FlexUser> {
     }
 
     private void addPostParams(final Request request) {
-        if (firstName != null) {
-            request.addPostParam("FirstName", firstName);
-        }
-        if (lastName != null) {
-            request.addPostParam("LastName", lastName);
-        }
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
+
         if (userSid != null) {
-            request.addPostParam("UserSid", userSid);
+            Serializer.toString(
+                request,
+                "UserSid",
+                userSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (locale != null) {
-            request.addPostParam("Locale", locale);
+            Serializer.toString(
+                request,
+                "Locale",
+                locale,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
 
@@ -55,20 +56,17 @@ public class ApprovalCreateCreator extends Creator<ApprovalCreate> {
                 "{" + "ContentSid" + "}",
                 this.pathContentSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "ContentApprovalRequest" + "}",
-                this.contentApprovalRequest.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONTENT.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ApprovalCreate creation failed: Unable to connect to server"

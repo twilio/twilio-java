@@ -16,6 +16,8 @@ package com.twilio.rest.serverless.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ServiceUpdater extends Updater<Service> {
 
@@ -66,7 +69,9 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service update failed: Unable to connect to server"
@@ -90,16 +95,30 @@ public class ServiceUpdater extends Updater<Service> {
 
     private void addPostParams(final Request request) {
         if (includeCredentials != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "IncludeCredentials",
-                includeCredentials.toString()
+                includeCredentials,
+                ParameterType.URLENCODED
             );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (uiEditable != null) {
-            request.addPostParam("UiEditable", uiEditable.toString());
+            Serializer.toString(
+                request,
+                "UiEditable",
+                uiEditable,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

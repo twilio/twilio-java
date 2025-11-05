@@ -16,7 +16,9 @@ package com.twilio.rest.wireless.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class SimUpdater extends Updater<Sim> {
@@ -186,7 +189,9 @@ public class SimUpdater extends Updater<Sim> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Sim update failed: Unable to connect to server"
@@ -210,73 +215,165 @@ public class SimUpdater extends Updater<Sim> {
 
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod.toString());
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ratePlan != null) {
-            request.addPostParam("RatePlan", ratePlan);
+            Serializer.toString(
+                request,
+                "RatePlan",
+                ratePlan,
+                ParameterType.URLENCODED
+            );
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
         if (commandsCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "CommandsCallbackMethod",
-                commandsCallbackMethod.toString()
+                commandsCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (commandsCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "CommandsCallbackUrl",
-                commandsCallbackUrl.toString()
+                commandsCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (smsFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SmsFallbackMethod",
-                smsFallbackMethod.toString()
+                smsFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (smsFallbackUrl != null) {
-            request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsMethod != null) {
-            request.addPostParam("SmsMethod", smsMethod.toString());
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsUrl != null) {
-            request.addPostParam("SmsUrl", smsUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (resetStatus != null) {
-            request.addPostParam("ResetStatus", resetStatus.toString());
+            Serializer.toString(
+                request,
+                "ResetStatus",
+                resetStatus,
+                ParameterType.URLENCODED
+            );
         }
+
         if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

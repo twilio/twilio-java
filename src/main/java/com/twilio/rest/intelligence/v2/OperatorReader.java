@@ -17,7 +17,8 @@ package com.twilio.rest.intelligence.v2;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OperatorReader extends Reader<Operator> {
 
     private Operator.Availability availability;
     private String languageCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public OperatorReader() {}
 
@@ -47,7 +49,7 @@ public class OperatorReader extends Reader<Operator> {
         return this;
     }
 
-    public OperatorReader setPageSize(final Integer pageSize) {
+    public OperatorReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -65,9 +67,8 @@ public class OperatorReader extends Reader<Operator> {
             Domains.INTELLIGENCE.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -76,7 +77,6 @@ public class OperatorReader extends Reader<Operator> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Operator read failed: Unable to connect to server"
@@ -86,6 +86,7 @@ public class OperatorReader extends Reader<Operator> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -110,7 +111,7 @@ public class OperatorReader extends Reader<Operator> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INTELLIGENCE.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,7 +123,7 @@ public class OperatorReader extends Reader<Operator> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INTELLIGENCE.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -133,23 +134,35 @@ public class OperatorReader extends Reader<Operator> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (availability != null) {
-            request.addQueryParam("Availability", availability.toString());
-        }
-        if (languageCode != null) {
-            request.addQueryParam("LanguageCode", languageCode);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "Availability",
+                availability,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (languageCode != null) {
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

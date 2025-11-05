@@ -16,7 +16,9 @@ package com.twilio.rest.numbers.v2;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class AuthorizationDocumentCreator
@@ -112,20 +114,6 @@ public class AuthorizationDocumentCreator
     public AuthorizationDocument create(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/AuthorizationDocuments";
 
-        path =
-            path.replace("{" + "AddressSid" + "}", this.addressSid.toString());
-        path = path.replace("{" + "Email" + "}", this.email.toString());
-        path =
-            path.replace(
-                "{" + "ContactPhoneNumber" + "}",
-                this.contactPhoneNumber.encode("utf-8")
-            );
-        path =
-            path.replace(
-                "{" + "HostedNumberOrderSids" + "}",
-                this.hostedNumberOrderSids.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -133,7 +121,9 @@ public class AuthorizationDocumentCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AuthorizationDocument creation failed: Unable to connect to server"
@@ -160,28 +150,60 @@ public class AuthorizationDocumentCreator
 
     private void addPostParams(final Request request) {
         if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
-        }
-        if (email != null) {
-            request.addPostParam("Email", email);
-        }
-        if (contactPhoneNumber != null) {
-            request.addPostParam(
-                "ContactPhoneNumber",
-                contactPhoneNumber.toString()
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.URLENCODED
             );
         }
+
+        if (email != null) {
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (contactPhoneNumber != null) {
+            Serializer.toString(
+                request,
+                "ContactPhoneNumber",
+                contactPhoneNumber,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (hostedNumberOrderSids != null) {
-            for (String prop : hostedNumberOrderSids) {
-                request.addPostParam("HostedNumberOrderSids", prop);
+            for (String param : hostedNumberOrderSids) {
+                Serializer.toString(
+                    request,
+                    "HostedNumberOrderSids",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (contactTitle != null) {
-            request.addPostParam("ContactTitle", contactTitle);
+            Serializer.toString(
+                request,
+                "ContactTitle",
+                contactTitle,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ccEmails != null) {
-            for (String prop : ccEmails) {
-                request.addPostParam("CcEmails", prop);
+            for (String param : ccEmails) {
+                Serializer.toString(
+                    request,
+                    "CcEmails",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

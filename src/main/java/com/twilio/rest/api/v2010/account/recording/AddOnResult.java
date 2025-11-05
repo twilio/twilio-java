@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AddOnResult extends Resource {
-
-    private static final long serialVersionUID = 121199532836736L;
 
     public static AddOnResultDeleter deleter(
         final String pathReferenceSid,
@@ -89,6 +91,32 @@ public class AddOnResult extends Resource {
         return new AddOnResultReader(pathAccountSid, pathReferenceSid);
     }
 
+    public enum Status {
+        CANCELED("canceled"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        FAILED("failed"),
+        IN_PROGRESS("in-progress"),
+        INIT("init"),
+        PROCESSING("processing"),
+        QUEUED("queued");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
     /**
      * Converts a JSON String into a AddOnResult object using the provided ObjectMapper.
      *
@@ -132,86 +160,82 @@ public class AddOnResult extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final AddOnResult.Status status;
-    private final String addOnSid;
+
+    @Getter
     private final String addOnConfigurationSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String addOnSid;
+
+    @Getter
     private final ZonedDateTime dateCompleted;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String referenceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final AddOnResult.Status status;
+
+    @Getter
     private final Map<String, String> subresourceUris;
 
     @JsonCreator
     private AddOnResult(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final AddOnResult.Status status,
-        @JsonProperty("add_on_sid") final String addOnSid,
         @JsonProperty(
             "add_on_configuration_sid"
         ) final String addOnConfigurationSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("date_completed") final String dateCompleted,
+        @JsonProperty("add_on_sid") final String addOnSid,
+        @JsonProperty("date_completed") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCompleted,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("reference_sid") final String referenceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final AddOnResult.Status status,
         @JsonProperty("subresource_uris") final Map<
             String,
             String
         > subresourceUris
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.status = status;
-        this.addOnSid = addOnSid;
         this.addOnConfigurationSid = addOnConfigurationSid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.dateCompleted =
-            DateConverter.rfc2822DateTimeFromString(dateCompleted);
+        this.addOnSid = addOnSid;
+        this.dateCompleted = dateCompleted;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.referenceSid = referenceSid;
+        this.sid = sid;
+        this.status = status;
         this.subresourceUris = subresourceUris;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final AddOnResult.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getAddOnSid() {
-        return this.addOnSid;
-    }
-
-    public final String getAddOnConfigurationSid() {
-        return this.addOnConfigurationSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getDateCompleted() {
-        return this.dateCompleted;
-    }
-
-    public final String getReferenceSid() {
-        return this.referenceSid;
-    }
-
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
     }
 
     @Override
@@ -225,20 +249,19 @@ public class AddOnResult extends Resource {
         }
 
         AddOnResult other = (AddOnResult) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(addOnSid, other.addOnSid) &&
             Objects.equals(
                 addOnConfigurationSid,
                 other.addOnConfigurationSid
             ) &&
+            Objects.equals(addOnSid, other.addOnSid) &&
+            Objects.equals(dateCompleted, other.dateCompleted) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(dateCompleted, other.dateCompleted) &&
             Objects.equals(referenceSid, other.referenceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
             Objects.equals(subresourceUris, other.subresourceUris)
         );
     }
@@ -246,42 +269,16 @@ public class AddOnResult extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            status,
-            addOnSid,
             addOnConfigurationSid,
+            addOnSid,
+            dateCompleted,
             dateCreated,
             dateUpdated,
-            dateCompleted,
             referenceSid,
+            sid,
+            status,
             subresourceUris
         );
-    }
-
-    public enum Status {
-        CANCELED("canceled"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        FAILED("failed"),
-        IN_PROGRESS("in-progress"),
-        INIT("init"),
-        PROCESSING("processing"),
-        QUEUED("queued");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
     }
 }

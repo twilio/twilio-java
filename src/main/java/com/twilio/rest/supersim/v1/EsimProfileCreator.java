@@ -16,6 +16,8 @@ package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class EsimProfileCreator extends Creator<EsimProfile> {
 
@@ -69,7 +72,9 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "EsimProfile creation failed: Unable to connect to server"
@@ -96,19 +101,34 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
 
     private void addPostParams(final Request request) {
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl);
-        }
-        if (callbackMethod != null) {
-            request.addPostParam("CallbackMethod", callbackMethod.toString());
-        }
-        if (generateMatchingId != null) {
-            request.addPostParam(
-                "GenerateMatchingId",
-                generateMatchingId.toString()
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (callbackMethod != null) {
+            Serializer.toString(
+                request,
+                "CallbackMethod",
+                callbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (generateMatchingId != null) {
+            Serializer.toString(
+                request,
+                "GenerateMatchingId",
+                generateMatchingId,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (eid != null) {
-            request.addPostParam("Eid", eid);
+            Serializer.toString(request, "Eid", eid, ParameterType.URLENCODED);
         }
     }
 }

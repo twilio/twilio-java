@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkersCumulativeStatistics extends Resource {
-
-    private static final long serialVersionUID = 68159864681377L;
 
     public static WorkersCumulativeStatisticsFetcher fetcher(
         final String pathWorkspaceSid
@@ -96,106 +97,97 @@ public class WorkersCumulativeStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final ZonedDateTime startTime;
+
+    @Getter
+    private final List<Object> activityDurations;
+
+    @Getter
     private final ZonedDateTime endTime;
-    private final List<Map<String, Object>> activityDurations;
-    private final Integer reservationsCreated;
+
+    @Getter
     private final Integer reservationsAccepted;
-    private final Integer reservationsRejected;
-    private final Integer reservationsTimedOut;
+
+    @Getter
     private final Integer reservationsCanceled;
+
+    @Getter
+    private final Integer reservationsCreated;
+
+    @Getter
+    private final Integer reservationsRejected;
+
+    @Getter
     private final Integer reservationsRescinded;
-    private final String workspaceSid;
+
+    @Getter
+    private final Integer reservationsTimedOut;
+
+    @Getter
+    private final ZonedDateTime startTime;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkersCumulativeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("start_time") final String startTime,
-        @JsonProperty("end_time") final String endTime,
         @JsonProperty("activity_durations") final List<
-            Map<String, Object>
+            Object
         > activityDurations,
-        @JsonProperty("reservations_created") final Integer reservationsCreated,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
         @JsonProperty(
             "reservations_accepted"
         ) final Integer reservationsAccepted,
         @JsonProperty(
+            "reservations_canceled"
+        ) final Integer reservationsCanceled,
+        @JsonProperty("reservations_created") final Integer reservationsCreated,
+        @JsonProperty(
             "reservations_rejected"
         ) final Integer reservationsRejected,
         @JsonProperty(
-            "reservations_timed_out"
-        ) final Integer reservationsTimedOut,
-        @JsonProperty(
-            "reservations_canceled"
-        ) final Integer reservationsCanceled,
-        @JsonProperty(
             "reservations_rescinded"
         ) final Integer reservationsRescinded,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty(
+            "reservations_timed_out"
+        ) final Integer reservationsTimedOut,
+        @JsonProperty("start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime startTime,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
-        this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
-        this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
         this.activityDurations = activityDurations;
-        this.reservationsCreated = reservationsCreated;
+        this.endTime = endTime;
         this.reservationsAccepted = reservationsAccepted;
-        this.reservationsRejected = reservationsRejected;
-        this.reservationsTimedOut = reservationsTimedOut;
         this.reservationsCanceled = reservationsCanceled;
+        this.reservationsCreated = reservationsCreated;
+        this.reservationsRejected = reservationsRejected;
         this.reservationsRescinded = reservationsRescinded;
-        this.workspaceSid = workspaceSid;
+        this.reservationsTimedOut = reservationsTimedOut;
+        this.startTime = startTime;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getStartTime() {
-        return this.startTime;
-    }
-
-    public final ZonedDateTime getEndTime() {
-        return this.endTime;
-    }
-
-    public final List<Map<String, Object>> getActivityDurations() {
-        return this.activityDurations;
-    }
-
-    public final Integer getReservationsCreated() {
-        return this.reservationsCreated;
-    }
-
-    public final Integer getReservationsAccepted() {
-        return this.reservationsAccepted;
-    }
-
-    public final Integer getReservationsRejected() {
-        return this.reservationsRejected;
-    }
-
-    public final Integer getReservationsTimedOut() {
-        return this.reservationsTimedOut;
-    }
-
-    public final Integer getReservationsCanceled() {
-        return this.reservationsCanceled;
-    }
-
-    public final Integer getReservationsRescinded() {
-        return this.reservationsRescinded;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -209,23 +201,22 @@ public class WorkersCumulativeStatistics extends Resource {
         }
 
         WorkersCumulativeStatistics other = (WorkersCumulativeStatistics) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(startTime, other.startTime) &&
-            Objects.equals(endTime, other.endTime) &&
             Objects.equals(activityDurations, other.activityDurations) &&
-            Objects.equals(reservationsCreated, other.reservationsCreated) &&
+            Objects.equals(endTime, other.endTime) &&
             Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
-            Objects.equals(reservationsRejected, other.reservationsRejected) &&
-            Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
             Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
+            Objects.equals(reservationsCreated, other.reservationsCreated) &&
+            Objects.equals(reservationsRejected, other.reservationsRejected) &&
             Objects.equals(
                 reservationsRescinded,
                 other.reservationsRescinded
             ) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -233,17 +224,17 @@ public class WorkersCumulativeStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            startTime,
-            endTime,
             activityDurations,
-            reservationsCreated,
+            endTime,
             reservationsAccepted,
-            reservationsRejected,
-            reservationsTimedOut,
             reservationsCanceled,
+            reservationsCreated,
+            reservationsRejected,
             reservationsRescinded,
-            workspaceSid,
-            url
+            reservationsTimedOut,
+            startTime,
+            url,
+            workspaceSid
         );
     }
 }

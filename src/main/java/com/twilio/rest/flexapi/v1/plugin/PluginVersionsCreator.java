@@ -16,7 +16,9 @@ package com.twilio.rest.flexapi.v1.plugin;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,15 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class PluginVersionsCreator extends Creator<PluginVersions> {
 
     private String pathPluginSid;
+    private String flexMetadata;
     private String version;
     private URI pluginUrl;
-    private String flexMetadata;
     private String changelog;
     private Boolean _private;
     private String cliVersion;
@@ -63,11 +65,6 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
         return setPluginUrl(Promoter.uriFromString(pluginUrl));
     }
 
-    public PluginVersionsCreator setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
-
     public PluginVersionsCreator setChangelog(final String changelog) {
         this.changelog = changelog;
         return this;
@@ -90,6 +87,11 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
         return this;
     }
 
+    public PluginVersionsCreator setFlexMetadata(final String flexMetadata) {
+        this.flexMetadata = flexMetadata;
+        return this;
+    }
+
     @Override
     public PluginVersions create(final TwilioRestClient client) {
         String path = "/v1/PluginService/Plugins/{PluginSid}/Versions";
@@ -99,8 +101,6 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
                 "{" + "PluginSid" + "}",
                 this.pathPluginSid.toString()
             );
-        path = path.replace("{" + "Version" + "}", this.version.toString());
-        path = path.replace("{" + "PluginUrl" + "}", this.pluginUrl.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -108,9 +108,11 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PluginVersions creation failed: Unable to connect to server"
@@ -137,28 +139,68 @@ public class PluginVersionsCreator extends Creator<PluginVersions> {
 
     private void addPostParams(final Request request) {
         if (version != null) {
-            request.addPostParam("Version", version);
+            Serializer.toString(
+                request,
+                "Version",
+                version,
+                ParameterType.URLENCODED
+            );
         }
+
         if (pluginUrl != null) {
-            request.addPostParam("PluginUrl", pluginUrl.toString());
+            Serializer.toString(
+                request,
+                "PluginUrl",
+                pluginUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (changelog != null) {
-            request.addPostParam("Changelog", changelog);
+            Serializer.toString(
+                request,
+                "Changelog",
+                changelog,
+                ParameterType.URLENCODED
+            );
         }
+
         if (_private != null) {
-            request.addPostParam("Private", _private.toString());
+            Serializer.toString(
+                request,
+                "Private",
+                _private,
+                ParameterType.URLENCODED
+            );
         }
+
         if (cliVersion != null) {
-            request.addPostParam("CliVersion", cliVersion);
+            Serializer.toString(
+                request,
+                "CliVersion",
+                cliVersion,
+                ParameterType.URLENCODED
+            );
         }
+
         if (validateStatus != null) {
-            request.addPostParam("ValidateStatus", validateStatus);
+            Serializer.toString(
+                request,
+                "ValidateStatus",
+                validateStatus,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

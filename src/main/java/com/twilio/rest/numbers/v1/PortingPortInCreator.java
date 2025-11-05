@@ -25,15 +25,22 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PortingPortInCreator extends Creator<PortingPortIn> {
 
-    private Object body;
+    private PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate;
 
-    public PortingPortInCreator() {}
+    public PortingPortInCreator(
+        final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate
+    ) {
+        this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
+    }
 
-    public PortingPortInCreator setBody(final Object body) {
-        this.body = body;
+    public PortingPortInCreator setNumbersV1PortingPortInCreate(
+        final PortingPortIn.NumbersV1PortingPortInCreate numbersV1PortingPortInCreate
+    ) {
+        this.numbersV1PortingPortInCreate = numbersV1PortingPortInCreate;
         return this;
     }
 
@@ -46,9 +53,11 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
             Domains.NUMBERS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PortingPortIn creation failed: Unable to connect to server"
@@ -75,8 +84,10 @@ public class PortingPortInCreator extends Creator<PortingPortIn> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (body != null) {
-            request.setBody(PortingPortIn.toJson(body, objectMapper));
+        if (numbersV1PortingPortInCreate != null) {
+            request.setBody(
+                PortingPortIn.toJson(numbersV1PortingPortInCreate, objectMapper)
+            );
         }
     }
 }

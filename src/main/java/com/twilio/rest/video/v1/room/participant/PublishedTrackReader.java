@@ -17,7 +17,8 @@ package com.twilio.rest.video.v1.room.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     private String pathRoomSid;
     private String pathParticipantSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PublishedTrackReader(
         final String pathRoomSid,
@@ -41,7 +43,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public PublishedTrackReader setPageSize(final Integer pageSize) {
+    public PublishedTrackReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -54,6 +56,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     public Page<PublishedTrack> firstPage(final TwilioRestClient client) {
         String path =
             "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks";
+
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
         path =
             path.replace(
@@ -66,9 +69,8 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             Domains.VIDEO.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -77,7 +79,6 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "PublishedTrack read failed: Unable to connect to server"
@@ -87,6 +88,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -111,7 +113,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VIDEO.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -123,7 +125,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VIDEO.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -134,17 +136,17 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

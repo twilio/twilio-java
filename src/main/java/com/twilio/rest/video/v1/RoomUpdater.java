@@ -16,6 +16,8 @@ package com.twilio.rest.video.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RoomUpdater extends Updater<Room> {
 
@@ -45,7 +48,6 @@ public class RoomUpdater extends Updater<Room> {
         String path = "/v1/Rooms/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -54,7 +56,9 @@ public class RoomUpdater extends Updater<Room> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Room update failed: Unable to connect to server"
@@ -78,7 +82,12 @@ public class RoomUpdater extends Updater<Room> {
 
     private void addPostParams(final Request request) {
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

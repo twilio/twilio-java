@@ -18,32 +18,34 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcript extends Resource {
 
-    private static final long serialVersionUID = 35462753187463L;
-
     public static TranscriptCreator creator(
         final String serviceSid,
-        final Map<String, Object> channel
+        final Object channel
     ) {
         return new TranscriptCreator(serviceSid, channel);
     }
@@ -58,6 +60,30 @@ public class Transcript extends Resource {
 
     public static TranscriptReader reader() {
         return new TranscriptReader();
+    }
+
+    public enum Status {
+        QUEUED("queued"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        FAILED("failed"),
+        CANCELED("canceled"),
+        ERROR("error");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -103,116 +129,109 @@ public class Transcript extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String sid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final Transcript.Status status;
-    private final Map<String, Object> channel;
-    private final Boolean dataLogging;
-    private final String languageCode;
+
+    @Getter
+    private final Object channel;
+
+    @Getter
     private final String customerKey;
-    private final ZonedDateTime mediaStartTime;
+
+    @Getter
+    private final Boolean dataLogging;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final Integer duration;
-    private final URI url;
-    private final Boolean redaction;
+
+    @Getter
+    private final String encryptionCredentialSid;
+
+    @Getter
+    private final String languageCode;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final ZonedDateTime mediaStartTime;
+
+    @Getter
+    private final Boolean redaction;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Transcript.Status status;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Transcript(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("channel") final Object channel,
+        @JsonProperty("customer_key") final String customerKey,
+        @JsonProperty("data_logging") final Boolean dataLogging,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty(
+            "encryption_credential_sid"
+        ) final String encryptionCredentialSid,
+        @JsonProperty("language_code") final String languageCode,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("media_start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime mediaStartTime,
+        @JsonProperty("redaction") final Boolean redaction,
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("status") final Transcript.Status status,
-        @JsonProperty("channel") final Map<String, Object> channel,
-        @JsonProperty("data_logging") final Boolean dataLogging,
-        @JsonProperty("language_code") final String languageCode,
-        @JsonProperty("customer_key") final String customerKey,
-        @JsonProperty("media_start_time") final String mediaStartTime,
-        @JsonProperty("duration") final Integer duration,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("redaction") final Boolean redaction,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
+        this.channel = channel;
+        this.customerKey = customerKey;
+        this.dataLogging = dataLogging;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.duration = duration;
+        this.encryptionCredentialSid = encryptionCredentialSid;
+        this.languageCode = languageCode;
+        this.links = links;
+        this.mediaStartTime = mediaStartTime;
+        this.redaction = redaction;
         this.serviceSid = serviceSid;
         this.sid = sid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.status = status;
-        this.channel = channel;
-        this.dataLogging = dataLogging;
-        this.languageCode = languageCode;
-        this.customerKey = customerKey;
-        this.mediaStartTime =
-            DateConverter.iso8601DateTimeFromString(mediaStartTime);
-        this.duration = duration;
         this.url = url;
-        this.redaction = redaction;
-        this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Transcript.Status getStatus() {
-        return this.status;
-    }
-
-    public final Map<String, Object> getChannel() {
-        return this.channel;
-    }
-
-    public final Boolean getDataLogging() {
-        return this.dataLogging;
-    }
-
-    public final String getLanguageCode() {
-        return this.languageCode;
-    }
-
-    public final String getCustomerKey() {
-        return this.customerKey;
-    }
-
-    public final ZonedDateTime getMediaStartTime() {
-        return this.mediaStartTime;
-    }
-
-    public final Integer getDuration() {
-        return this.duration;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Boolean getRedaction() {
-        return this.redaction;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -226,23 +245,26 @@ public class Transcript extends Resource {
         }
 
         Transcript other = (Transcript) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(sid, other.sid) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(customerKey, other.customerKey) &&
+            Objects.equals(dataLogging, other.dataLogging) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(channel, other.channel) &&
-            Objects.equals(dataLogging, other.dataLogging) &&
-            Objects.equals(languageCode, other.languageCode) &&
-            Objects.equals(customerKey, other.customerKey) &&
-            Objects.equals(mediaStartTime, other.mediaStartTime) &&
             Objects.equals(duration, other.duration) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(
+                encryptionCredentialSid,
+                other.encryptionCredentialSid
+            ) &&
+            Objects.equals(languageCode, other.languageCode) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(mediaStartTime, other.mediaStartTime) &&
             Objects.equals(redaction, other.redaction) &&
-            Objects.equals(links, other.links)
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
@@ -250,43 +272,21 @@ public class Transcript extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            serviceSid,
-            sid,
+            channel,
+            customerKey,
+            dataLogging,
             dateCreated,
             dateUpdated,
-            status,
-            channel,
-            dataLogging,
-            languageCode,
-            customerKey,
-            mediaStartTime,
             duration,
-            url,
+            encryptionCredentialSid,
+            languageCode,
+            links,
+            mediaStartTime,
             redaction,
-            links
+            serviceSid,
+            sid,
+            status,
+            url
         );
-    }
-
-    public enum Status {
-        QUEUED("queued"),
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        FAILED("failed"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
     }
 }

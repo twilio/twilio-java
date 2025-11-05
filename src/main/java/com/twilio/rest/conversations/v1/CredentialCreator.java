@@ -16,6 +16,8 @@ package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialCreator extends Creator<Credential> {
 
@@ -78,8 +81,6 @@ public class CredentialCreator extends Creator<Credential> {
     public Credential create(final TwilioRestClient client) {
         String path = "/v1/Credentials";
 
-        path = path.replace("{" + "Type" + "}", this.type.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -87,7 +88,9 @@ public class CredentialCreator extends Creator<Credential> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Credential creation failed: Unable to connect to server"
@@ -114,25 +117,66 @@ public class CredentialCreator extends Creator<Credential> {
 
     private void addPostParams(final Request request) {
         if (type != null) {
-            request.addPostParam("Type", type.toString());
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (certificate != null) {
-            request.addPostParam("Certificate", certificate);
+            Serializer.toString(
+                request,
+                "Certificate",
+                certificate,
+                ParameterType.URLENCODED
+            );
         }
+
         if (privateKey != null) {
-            request.addPostParam("PrivateKey", privateKey);
+            Serializer.toString(
+                request,
+                "PrivateKey",
+                privateKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sandbox != null) {
-            request.addPostParam("Sandbox", sandbox.toString());
+            Serializer.toString(
+                request,
+                "Sandbox",
+                sandbox,
+                ParameterType.URLENCODED
+            );
         }
+
         if (apiKey != null) {
-            request.addPostParam("ApiKey", apiKey);
+            Serializer.toString(
+                request,
+                "ApiKey",
+                apiKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (secret != null) {
-            request.addPostParam("Secret", secret);
+            Serializer.toString(
+                request,
+                "Secret",
+                secret,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

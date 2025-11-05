@@ -18,24 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserDefinedMessage extends Resource {
-
-    private static final long serialVersionUID = 278501461523415L;
 
     public static UserDefinedMessageCreator creator(
         final String pathCallSid,
@@ -99,38 +102,43 @@ public class UserDefinedMessage extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String callSid;
-    private final String sid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String sid;
 
     @JsonCreator
     private UserDefinedMessage(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("sid") final String sid
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
+        this.dateCreated = dateCreated;
         this.sid = sid;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
     }
 
     @Override
@@ -144,17 +152,16 @@ public class UserDefinedMessage extends Resource {
         }
 
         UserDefinedMessage other = (UserDefinedMessage) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(callSid, other.callSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(dateCreated, other.dateCreated)
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(sid, other.sid)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, callSid, sid, dateCreated);
+        return Objects.hash(accountSid, callSid, dateCreated, sid);
     }
 }

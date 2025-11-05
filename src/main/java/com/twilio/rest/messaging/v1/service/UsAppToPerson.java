@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
-
-    private static final long serialVersionUID = 1672467414686L;
 
     public static UsAppToPersonCreator creator(
         final String pathMessagingServiceSid,
@@ -150,212 +151,171 @@ public class UsAppToPerson extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String brandRegistrationSid;
-    private final String messagingServiceSid;
-    private final String description;
-    private final List<String> messageSamples;
-    private final String usAppToPersonUsecase;
-    private final Boolean hasEmbeddedLinks;
-    private final Boolean hasEmbeddedPhone;
-    private final Boolean subscriberOptIn;
+
+    @Getter
     private final Boolean ageGated;
-    private final Boolean directLending;
-    private final String campaignStatus;
+
+    @Getter
+    private final String brandRegistrationSid;
+
+    @Getter
     private final String campaignId;
-    private final Boolean isExternallyRegistered;
-    private final Map<String, Object> rateLimits;
-    private final String messageFlow;
-    private final String optInMessage;
-    private final String optOutMessage;
-    private final String helpMessage;
-    private final List<String> optInKeywords;
-    private final List<String> optOutKeywords;
-    private final List<String> helpKeywords;
+
+    @Getter
+    private final String campaignStatus;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String description;
+
+    @Getter
+    private final Boolean directLending;
+
+    @Getter
+    private final List<Object> errors;
+
+    @Getter
+    private final Boolean hasEmbeddedLinks;
+
+    @Getter
+    private final Boolean hasEmbeddedPhone;
+
+    @Getter
+    private final List<String> helpKeywords;
+
+    @Getter
+    private final String helpMessage;
+
+    @Getter
+    private final Boolean isExternallyRegistered;
+
+    @Getter
+    private final String messageFlow;
+
+    @Getter
+    private final List<String> messageSamples;
+
+    @Getter
+    private final String messagingServiceSid;
+
+    @Getter
     private final Boolean mock;
-    private final List<Map<String, Object>> errors;
+
+    @Getter
+    private final List<String> optInKeywords;
+
+    @Getter
+    private final String optInMessage;
+
+    @Getter
+    private final List<String> optOutKeywords;
+
+    @Getter
+    private final String optOutMessage;
+
+    @Getter
+    private final Object rateLimits;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Boolean subscriberOptIn;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String usAppToPersonUsecase;
 
     @JsonCreator
     private UsAppToPerson(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("age_gated") final Boolean ageGated,
         @JsonProperty(
             "brand_registration_sid"
         ) final String brandRegistrationSid,
-        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("campaign_id") final String campaignId,
+        @JsonProperty("campaign_status") final String campaignStatus,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("description") final String description,
-        @JsonProperty("message_samples") final List<String> messageSamples,
-        @JsonProperty(
-            "us_app_to_person_usecase"
-        ) final String usAppToPersonUsecase,
+        @JsonProperty("direct_lending") final Boolean directLending,
+        @JsonProperty("errors") final List<Object> errors,
         @JsonProperty("has_embedded_links") final Boolean hasEmbeddedLinks,
         @JsonProperty("has_embedded_phone") final Boolean hasEmbeddedPhone,
-        @JsonProperty("subscriber_opt_in") final Boolean subscriberOptIn,
-        @JsonProperty("age_gated") final Boolean ageGated,
-        @JsonProperty("direct_lending") final Boolean directLending,
-        @JsonProperty("campaign_status") final String campaignStatus,
-        @JsonProperty("campaign_id") final String campaignId,
+        @JsonProperty("help_keywords") final List<String> helpKeywords,
+        @JsonProperty("help_message") final String helpMessage,
         @JsonProperty(
             "is_externally_registered"
         ) final Boolean isExternallyRegistered,
-        @JsonProperty("rate_limits") final Map<String, Object> rateLimits,
         @JsonProperty("message_flow") final String messageFlow,
-        @JsonProperty("opt_in_message") final String optInMessage,
-        @JsonProperty("opt_out_message") final String optOutMessage,
-        @JsonProperty("help_message") final String helpMessage,
-        @JsonProperty("opt_in_keywords") final List<String> optInKeywords,
-        @JsonProperty("opt_out_keywords") final List<String> optOutKeywords,
-        @JsonProperty("help_keywords") final List<String> helpKeywords,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
+        @JsonProperty("message_samples") final List<String> messageSamples,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
         @JsonProperty("mock") final Boolean mock,
-        @JsonProperty("errors") final List<Map<String, Object>> errors
+        @JsonProperty("opt_in_keywords") final List<String> optInKeywords,
+        @JsonProperty("opt_in_message") final String optInMessage,
+        @JsonProperty("opt_out_keywords") final List<String> optOutKeywords,
+        @JsonProperty("opt_out_message") final String optOutMessage,
+        @JsonProperty("rate_limits") final Object rateLimits,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("subscriber_opt_in") final Boolean subscriberOptIn,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "us_app_to_person_usecase"
+        ) final String usAppToPersonUsecase
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
+        this.ageGated = ageGated;
         this.brandRegistrationSid = brandRegistrationSid;
-        this.messagingServiceSid = messagingServiceSid;
+        this.campaignId = campaignId;
+        this.campaignStatus = campaignStatus;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
-        this.messageSamples = messageSamples;
-        this.usAppToPersonUsecase = usAppToPersonUsecase;
+        this.directLending = directLending;
+        this.errors = errors;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         this.hasEmbeddedPhone = hasEmbeddedPhone;
-        this.subscriberOptIn = subscriberOptIn;
-        this.ageGated = ageGated;
-        this.directLending = directLending;
-        this.campaignStatus = campaignStatus;
-        this.campaignId = campaignId;
-        this.isExternallyRegistered = isExternallyRegistered;
-        this.rateLimits = rateLimits;
-        this.messageFlow = messageFlow;
-        this.optInMessage = optInMessage;
-        this.optOutMessage = optOutMessage;
-        this.helpMessage = helpMessage;
-        this.optInKeywords = optInKeywords;
-        this.optOutKeywords = optOutKeywords;
         this.helpKeywords = helpKeywords;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.helpMessage = helpMessage;
+        this.isExternallyRegistered = isExternallyRegistered;
+        this.messageFlow = messageFlow;
+        this.messageSamples = messageSamples;
+        this.messagingServiceSid = messagingServiceSid;
         this.mock = mock;
-        this.errors = errors;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getBrandRegistrationSid() {
-        return this.brandRegistrationSid;
-    }
-
-    public final String getMessagingServiceSid() {
-        return this.messagingServiceSid;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final List<String> getMessageSamples() {
-        return this.messageSamples;
-    }
-
-    public final String getUsAppToPersonUsecase() {
-        return this.usAppToPersonUsecase;
-    }
-
-    public final Boolean getHasEmbeddedLinks() {
-        return this.hasEmbeddedLinks;
-    }
-
-    public final Boolean getHasEmbeddedPhone() {
-        return this.hasEmbeddedPhone;
-    }
-
-    public final Boolean getSubscriberOptIn() {
-        return this.subscriberOptIn;
-    }
-
-    public final Boolean getAgeGated() {
-        return this.ageGated;
-    }
-
-    public final Boolean getDirectLending() {
-        return this.directLending;
-    }
-
-    public final String getCampaignStatus() {
-        return this.campaignStatus;
-    }
-
-    public final String getCampaignId() {
-        return this.campaignId;
-    }
-
-    public final Boolean getIsExternallyRegistered() {
-        return this.isExternallyRegistered;
-    }
-
-    public final Map<String, Object> getRateLimits() {
-        return this.rateLimits;
-    }
-
-    public final String getMessageFlow() {
-        return this.messageFlow;
-    }
-
-    public final String getOptInMessage() {
-        return this.optInMessage;
-    }
-
-    public final String getOptOutMessage() {
-        return this.optOutMessage;
-    }
-
-    public final String getHelpMessage() {
-        return this.helpMessage;
-    }
-
-    public final List<String> getOptInKeywords() {
-        return this.optInKeywords;
-    }
-
-    public final List<String> getOptOutKeywords() {
-        return this.optOutKeywords;
-    }
-
-    public final List<String> getHelpKeywords() {
-        return this.helpKeywords;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Boolean getMock() {
-        return this.mock;
-    }
-
-    public final List<Map<String, Object>> getErrors() {
-        return this.errors;
+        this.optInKeywords = optInKeywords;
+        this.optInMessage = optInMessage;
+        this.optOutKeywords = optOutKeywords;
+        this.optOutMessage = optOutMessage;
+        this.rateLimits = rateLimits;
+        this.sid = sid;
+        this.subscriberOptIn = subscriberOptIn;
+        this.url = url;
+        this.usAppToPersonUsecase = usAppToPersonUsecase;
     }
 
     @Override
@@ -369,73 +329,72 @@ public class UsAppToPerson extends Resource {
         }
 
         UsAppToPerson other = (UsAppToPerson) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(ageGated, other.ageGated) &&
             Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&
-            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(campaignId, other.campaignId) &&
+            Objects.equals(campaignStatus, other.campaignStatus) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(description, other.description) &&
-            Objects.equals(messageSamples, other.messageSamples) &&
-            Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&
+            Objects.equals(directLending, other.directLending) &&
+            Objects.equals(errors, other.errors) &&
             Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&
             Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&
-            Objects.equals(subscriberOptIn, other.subscriberOptIn) &&
-            Objects.equals(ageGated, other.ageGated) &&
-            Objects.equals(directLending, other.directLending) &&
-            Objects.equals(campaignStatus, other.campaignStatus) &&
-            Objects.equals(campaignId, other.campaignId) &&
+            Objects.equals(helpKeywords, other.helpKeywords) &&
+            Objects.equals(helpMessage, other.helpMessage) &&
             Objects.equals(
                 isExternallyRegistered,
                 other.isExternallyRegistered
             ) &&
-            Objects.equals(rateLimits, other.rateLimits) &&
             Objects.equals(messageFlow, other.messageFlow) &&
-            Objects.equals(optInMessage, other.optInMessage) &&
-            Objects.equals(optOutMessage, other.optOutMessage) &&
-            Objects.equals(helpMessage, other.helpMessage) &&
-            Objects.equals(optInKeywords, other.optInKeywords) &&
-            Objects.equals(optOutKeywords, other.optOutKeywords) &&
-            Objects.equals(helpKeywords, other.helpKeywords) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(messageSamples, other.messageSamples) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
             Objects.equals(mock, other.mock) &&
-            Objects.equals(errors, other.errors)
+            Objects.equals(optInKeywords, other.optInKeywords) &&
+            Objects.equals(optInMessage, other.optInMessage) &&
+            Objects.equals(optOutKeywords, other.optOutKeywords) &&
+            Objects.equals(optOutMessage, other.optOutMessage) &&
+            Objects.equals(rateLimits, other.rateLimits) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(subscriberOptIn, other.subscriberOptIn) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            brandRegistrationSid,
-            messagingServiceSid,
-            description,
-            messageSamples,
-            usAppToPersonUsecase,
-            hasEmbeddedLinks,
-            hasEmbeddedPhone,
-            subscriberOptIn,
             ageGated,
-            directLending,
-            campaignStatus,
+            brandRegistrationSid,
             campaignId,
-            isExternallyRegistered,
-            rateLimits,
-            messageFlow,
-            optInMessage,
-            optOutMessage,
-            helpMessage,
-            optInKeywords,
-            optOutKeywords,
-            helpKeywords,
+            campaignStatus,
             dateCreated,
             dateUpdated,
-            url,
+            description,
+            directLending,
+            errors,
+            hasEmbeddedLinks,
+            hasEmbeddedPhone,
+            helpKeywords,
+            helpMessage,
+            isExternallyRegistered,
+            messageFlow,
+            messageSamples,
+            messagingServiceSid,
             mock,
-            errors
+            optInKeywords,
+            optInMessage,
+            optOutKeywords,
+            optOutMessage,
+            rateLimits,
+            sid,
+            subscriberOptIn,
+            url,
+            usAppToPersonUsecase
         );
     }
 }

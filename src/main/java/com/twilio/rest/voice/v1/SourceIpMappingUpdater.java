@@ -16,6 +16,8 @@ package com.twilio.rest.voice.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
 
@@ -48,11 +51,6 @@ public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
         String path = "/v1/SourceIpMappings/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "SipDomainSid" + "}",
-                this.sipDomainSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,7 +59,9 @@ public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SourceIpMapping update failed: Unable to connect to server"
@@ -88,7 +88,12 @@ public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
 
     private void addPostParams(final Request request) {
         if (sipDomainSid != null) {
-            request.addPostParam("SipDomainSid", sipDomainSid);
+            Serializer.toString(
+                request,
+                "SipDomainSid",
+                sipDomainSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

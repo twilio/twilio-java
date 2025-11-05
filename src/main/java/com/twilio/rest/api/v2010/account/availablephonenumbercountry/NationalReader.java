@@ -17,8 +17,9 @@ package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,11 +28,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class NationalReader extends Reader<National> {
 
-    private String pathCountryCode;
     private String pathAccountSid;
+    private String pathCountryCode;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -50,7 +52,7 @@ public class NationalReader extends Reader<National> {
     private String inLata;
     private String inLocality;
     private Boolean faxEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public NationalReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -166,7 +168,7 @@ public class NationalReader extends Reader<National> {
         return this;
     }
 
-    public NationalReader setPageSize(final Integer pageSize) {
+    public NationalReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -179,6 +181,7 @@ public class NationalReader extends Reader<National> {
     public Page<National> firstPage(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -199,9 +202,8 @@ public class NationalReader extends Reader<National> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -210,7 +212,6 @@ public class NationalReader extends Reader<National> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "National read failed: Unable to connect to server"
@@ -220,6 +221,7 @@ public class NationalReader extends Reader<National> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -267,80 +269,169 @@ public class NationalReader extends Reader<National> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (areaCode != null) {
-            request.addQueryParam("AreaCode", areaCode.toString());
-        }
-        if (contains != null) {
-            request.addQueryParam("Contains", contains);
-        }
-        if (smsEnabled != null) {
-            request.addQueryParam("SmsEnabled", smsEnabled.toString());
-        }
-        if (mmsEnabled != null) {
-            request.addQueryParam("MmsEnabled", mmsEnabled.toString());
-        }
-        if (voiceEnabled != null) {
-            request.addQueryParam("VoiceEnabled", voiceEnabled.toString());
-        }
-        if (excludeAllAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeAllAddressRequired",
-                excludeAllAddressRequired.toString()
+            Serializer.toString(
+                request,
+                "AreaCode",
+                areaCode,
+                ParameterType.QUERY
             );
-        }
-        if (excludeLocalAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeLocalAddressRequired",
-                excludeLocalAddressRequired.toString()
-            );
-        }
-        if (excludeForeignAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeForeignAddressRequired",
-                excludeForeignAddressRequired.toString()
-            );
-        }
-        if (beta != null) {
-            request.addQueryParam("Beta", beta.toString());
-        }
-        if (nearNumber != null) {
-            request.addQueryParam("NearNumber", nearNumber.toString());
-        }
-        if (nearLatLong != null) {
-            request.addQueryParam("NearLatLong", nearLatLong);
-        }
-        if (distance != null) {
-            request.addQueryParam("Distance", distance.toString());
-        }
-        if (inPostalCode != null) {
-            request.addQueryParam("InPostalCode", inPostalCode);
-        }
-        if (inRegion != null) {
-            request.addQueryParam("InRegion", inRegion);
-        }
-        if (inRateCenter != null) {
-            request.addQueryParam("InRateCenter", inRateCenter);
-        }
-        if (inLata != null) {
-            request.addQueryParam("InLata", inLata);
-        }
-        if (inLocality != null) {
-            request.addQueryParam("InLocality", inLocality);
-        }
-        if (faxEnabled != null) {
-            request.addQueryParam("FaxEnabled", faxEnabled.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (contains != null) {
+            Serializer.toString(
+                request,
+                "Contains",
+                contains,
+                ParameterType.QUERY
+            );
+        }
+
+        if (smsEnabled != null) {
+            Serializer.toString(
+                request,
+                "SmsEnabled",
+                smsEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (mmsEnabled != null) {
+            Serializer.toString(
+                request,
+                "MmsEnabled",
+                mmsEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (voiceEnabled != null) {
+            Serializer.toString(
+                request,
+                "VoiceEnabled",
+                voiceEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (excludeAllAddressRequired != null) {
+            Serializer.toString(
+                request,
+                "ExcludeAllAddressRequired",
+                excludeAllAddressRequired,
+                ParameterType.QUERY
+            );
+        }
+
+        if (excludeLocalAddressRequired != null) {
+            Serializer.toString(
+                request,
+                "ExcludeLocalAddressRequired",
+                excludeLocalAddressRequired,
+                ParameterType.QUERY
+            );
+        }
+
+        if (excludeForeignAddressRequired != null) {
+            Serializer.toString(
+                request,
+                "ExcludeForeignAddressRequired",
+                excludeForeignAddressRequired,
+                ParameterType.QUERY
+            );
+        }
+
+        if (beta != null) {
+            Serializer.toString(request, "Beta", beta, ParameterType.QUERY);
+        }
+
+        if (nearNumber != null) {
+            Serializer.toString(
+                request,
+                "NearNumber",
+                nearNumber,
+                ParameterType.QUERY
+            );
+        }
+
+        if (nearLatLong != null) {
+            Serializer.toString(
+                request,
+                "NearLatLong",
+                nearLatLong,
+                ParameterType.QUERY
+            );
+        }
+
+        if (distance != null) {
+            Serializer.toString(
+                request,
+                "Distance",
+                distance,
+                ParameterType.QUERY
+            );
+        }
+
+        if (inPostalCode != null) {
+            Serializer.toString(
+                request,
+                "InPostalCode",
+                inPostalCode,
+                ParameterType.QUERY
+            );
+        }
+
+        if (inRegion != null) {
+            Serializer.toString(
+                request,
+                "InRegion",
+                inRegion,
+                ParameterType.QUERY
+            );
+        }
+
+        if (inRateCenter != null) {
+            Serializer.toString(
+                request,
+                "InRateCenter",
+                inRateCenter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (inLata != null) {
+            Serializer.toString(request, "InLata", inLata, ParameterType.QUERY);
+        }
+
+        if (inLocality != null) {
+            Serializer.toString(
+                request,
+                "InLocality",
+                inLocality,
+                ParameterType.QUERY
+            );
+        }
+
+        if (faxEnabled != null) {
+            Serializer.toString(
+                request,
+                "FaxEnabled",
+                faxEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

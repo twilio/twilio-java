@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TrustProductsEntityAssignments extends Resource {
-
-    private static final long serialVersionUID = 11655766001892L;
 
     public static TrustProductsEntityAssignmentsCreator creator(
         final String pathTrustProductSid,
@@ -123,52 +126,53 @@ public class TrustProductsEntityAssignments extends Resource {
         }
     }
 
-    private final String sid;
-    private final String trustProductSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String objectSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String objectSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String trustProductSid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private TrustProductsEntityAssignments(
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("object_sid") final String objectSid,
         @JsonProperty("sid") final String sid,
         @JsonProperty("trust_product_sid") final String trustProductSid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("object_sid") final String objectSid,
-        @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("url") final URI url
     ) {
+        this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.objectSid = objectSid;
         this.sid = sid;
         this.trustProductSid = trustProductSid;
-        this.accountSid = accountSid;
-        this.objectSid = objectSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTrustProductSid() {
-        return this.trustProductSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getObjectSid() {
-        return this.objectSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -183,13 +187,12 @@ public class TrustProductsEntityAssignments extends Resource {
 
         TrustProductsEntityAssignments other =
             (TrustProductsEntityAssignments) o;
-
         return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(objectSid, other.objectSid) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(trustProductSid, other.trustProductSid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(objectSid, other.objectSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(url, other.url)
         );
     }
@@ -197,11 +200,11 @@ public class TrustProductsEntityAssignments extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
+            accountSid,
+            dateCreated,
+            objectSid,
             sid,
             trustProductSid,
-            accountSid,
-            objectSid,
-            dateCreated,
             url
         );
     }

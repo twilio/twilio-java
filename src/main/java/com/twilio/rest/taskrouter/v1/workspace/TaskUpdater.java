@@ -16,6 +16,8 @@ package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class TaskUpdater extends Updater<Task> {
@@ -41,11 +44,6 @@ public class TaskUpdater extends Updater<Task> {
     public TaskUpdater(final String pathWorkspaceSid, final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
-    }
-
-    public TaskUpdater setIfMatch(final String ifMatch) {
-        this.ifMatch = ifMatch;
-        return this;
     }
 
     public TaskUpdater setAttributes(final String attributes) {
@@ -80,6 +78,11 @@ public class TaskUpdater extends Updater<Task> {
         return this;
     }
 
+    public TaskUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
     @Override
     public Task update(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
@@ -97,9 +100,11 @@ public class TaskUpdater extends Updater<Task> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Task update failed: Unable to connect to server"
@@ -123,34 +128,68 @@ public class TaskUpdater extends Updater<Task> {
 
     private void addPostParams(final Request request) {
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
-        }
-        if (assignmentStatus != null) {
-            request.addPostParam(
-                "AssignmentStatus",
-                assignmentStatus.toString()
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
             );
         }
+
+        if (assignmentStatus != null) {
+            Serializer.toString(
+                request,
+                "AssignmentStatus",
+                assignmentStatus,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (reason != null) {
-            request.addPostParam("Reason", reason);
+            Serializer.toString(
+                request,
+                "Reason",
+                reason,
+                ParameterType.URLENCODED
+            );
         }
+
         if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
+            Serializer.toString(
+                request,
+                "Priority",
+                priority,
+                ParameterType.URLENCODED
+            );
         }
+
         if (taskChannel != null) {
-            request.addPostParam("TaskChannel", taskChannel);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (virtualStartTime != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VirtualStartTime",
-                virtualStartTime.toInstant().toString()
+                virtualStartTime,
+                ParameterType.URLENCODED
             );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
     }
 }

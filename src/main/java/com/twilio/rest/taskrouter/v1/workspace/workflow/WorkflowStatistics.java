@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkflowStatistics extends Resource {
-
-    private static final long serialVersionUID = 124113751515927L;
 
     public static WorkflowStatisticsFetcher fetcher(
         final String pathWorkspaceSid,
@@ -88,52 +89,51 @@ public class WorkflowStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> cumulative;
-    private final Map<String, Object> realtime;
-    private final String workflowSid;
-    private final String workspaceSid;
+
+    @Getter
+    private final Object cumulative;
+
+    @Getter
+    private final Object realtime;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workflowSid;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkflowStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Map<String, Object> cumulative,
-        @JsonProperty("realtime") final Map<String, Object> realtime,
+        @JsonProperty("cumulative") final Object cumulative,
+        @JsonProperty("realtime") final Object realtime,
+        @JsonProperty("url") final URI url,
         @JsonProperty("workflow_sid") final String workflowSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
         this.realtime = realtime;
+        this.url = url;
         this.workflowSid = workflowSid;
         this.workspaceSid = workspaceSid;
-        this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getCumulative() {
-        return this.cumulative;
-    }
-
-    public final Map<String, Object> getRealtime() {
-        return this.realtime;
-    }
-
-    public final String getWorkflowSid() {
-        return this.workflowSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -147,14 +147,13 @@ public class WorkflowStatistics extends Resource {
         }
 
         WorkflowStatistics other = (WorkflowStatistics) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(cumulative, other.cumulative) &&
             Objects.equals(realtime, other.realtime) &&
+            Objects.equals(url, other.url) &&
             Objects.equals(workflowSid, other.workflowSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -164,9 +163,9 @@ public class WorkflowStatistics extends Resource {
             accountSid,
             cumulative,
             realtime,
+            url,
             workflowSid,
-            workspaceSid,
-            url
+            workspaceSid
         );
     }
 }

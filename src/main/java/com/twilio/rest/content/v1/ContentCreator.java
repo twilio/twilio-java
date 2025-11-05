@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ContentCreator extends Creator<Content> {
 
@@ -47,20 +48,16 @@ public class ContentCreator extends Creator<Content> {
     public Content create(final TwilioRestClient client) {
         String path = "/v1/Content";
 
-        path =
-            path.replace(
-                "{" + "ContentCreateRequest" + "}",
-                this.contentCreateRequest.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONTENT.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Content creation failed: Unable to connect to server"

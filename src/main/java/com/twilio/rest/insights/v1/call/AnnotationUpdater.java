@@ -16,6 +16,8 @@ package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AnnotationUpdater extends Updater<Annotation> {
 
@@ -92,7 +95,9 @@ public class AnnotationUpdater extends Updater<Annotation> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Annotation update failed: Unable to connect to server"
@@ -119,28 +124,66 @@ public class AnnotationUpdater extends Updater<Annotation> {
 
     private void addPostParams(final Request request) {
         if (answeredBy != null) {
-            request.addPostParam("AnsweredBy", answeredBy.toString());
-        }
-        if (connectivityIssue != null) {
-            request.addPostParam(
-                "ConnectivityIssue",
-                connectivityIssue.toString()
+            Serializer.toString(
+                request,
+                "AnsweredBy",
+                answeredBy,
+                ParameterType.URLENCODED
             );
         }
+
+        if (connectivityIssue != null) {
+            Serializer.toString(
+                request,
+                "ConnectivityIssue",
+                connectivityIssue,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (qualityIssues != null) {
-            request.addPostParam("QualityIssues", qualityIssues);
+            Serializer.toString(
+                request,
+                "QualityIssues",
+                qualityIssues,
+                ParameterType.URLENCODED
+            );
         }
+
         if (spam != null) {
-            request.addPostParam("Spam", spam.toString());
+            Serializer.toString(
+                request,
+                "Spam",
+                spam,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callScore != null) {
-            request.addPostParam("CallScore", callScore.toString());
+            Serializer.toString(
+                request,
+                "CallScore",
+                callScore,
+                ParameterType.URLENCODED
+            );
         }
+
         if (comment != null) {
-            request.addPostParam("Comment", comment);
+            Serializer.toString(
+                request,
+                "Comment",
+                comment,
+                ParameterType.URLENCODED
+            );
         }
+
         if (incident != null) {
-            request.addPostParam("Incident", incident);
+            Serializer.toString(
+                request,
+                "Incident",
+                incident,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

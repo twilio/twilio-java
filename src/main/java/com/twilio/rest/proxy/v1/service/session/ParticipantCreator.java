@@ -16,6 +16,8 @@ package com.twilio.rest.proxy.v1.service.session;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ParticipantCreator extends Creator<Participant> {
 
@@ -81,8 +84,6 @@ public class ParticipantCreator extends Creator<Participant> {
                 "{" + "SessionSid" + "}",
                 this.pathSessionSid.toString()
             );
-        path =
-            path.replace("{" + "Identifier" + "}", this.identifier.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -91,7 +92,9 @@ public class ParticipantCreator extends Creator<Participant> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Participant creation failed: Unable to connect to server"
@@ -118,16 +121,39 @@ public class ParticipantCreator extends Creator<Participant> {
 
     private void addPostParams(final Request request) {
         if (identifier != null) {
-            request.addPostParam("Identifier", identifier);
+            Serializer.toString(
+                request,
+                "Identifier",
+                identifier,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (proxyIdentifier != null) {
-            request.addPostParam("ProxyIdentifier", proxyIdentifier);
+            Serializer.toString(
+                request,
+                "ProxyIdentifier",
+                proxyIdentifier,
+                ParameterType.URLENCODED
+            );
         }
+
         if (proxyIdentifierSid != null) {
-            request.addPostParam("ProxyIdentifierSid", proxyIdentifierSid);
+            Serializer.toString(
+                request,
+                "ProxyIdentifierSid",
+                proxyIdentifierSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

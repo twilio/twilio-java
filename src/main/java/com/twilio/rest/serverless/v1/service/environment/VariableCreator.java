@@ -16,6 +16,8 @@ package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class VariableCreator extends Creator<Variable> {
 
@@ -69,8 +72,6 @@ public class VariableCreator extends Creator<Variable> {
                 "{" + "EnvironmentSid" + "}",
                 this.pathEnvironmentSid.toString()
             );
-        path = path.replace("{" + "Key" + "}", this.key.toString());
-        path = path.replace("{" + "Value" + "}", this.value.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -79,7 +80,9 @@ public class VariableCreator extends Creator<Variable> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Variable creation failed: Unable to connect to server"
@@ -106,10 +109,16 @@ public class VariableCreator extends Creator<Variable> {
 
     private void addPostParams(final Request request) {
         if (key != null) {
-            request.addPostParam("Key", key);
+            Serializer.toString(request, "Key", key, ParameterType.URLENCODED);
         }
+
         if (value != null) {
-            request.addPostParam("Value", value);
+            Serializer.toString(
+                request,
+                "Value",
+                value,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

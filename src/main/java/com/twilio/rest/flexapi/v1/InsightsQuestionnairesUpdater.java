@@ -16,7 +16,9 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,14 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class InsightsQuestionnairesUpdater
     extends Updater<InsightsQuestionnaires> {
 
     private String pathQuestionnaireSid;
-    private Boolean active;
     private String authorization;
+    private Boolean active;
     private String name;
     private String description;
     private List<String> questionSids;
@@ -47,13 +50,6 @@ public class InsightsQuestionnairesUpdater
 
     public InsightsQuestionnairesUpdater setActive(final Boolean active) {
         this.active = active;
-        return this;
-    }
-
-    public InsightsQuestionnairesUpdater setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
         return this;
     }
 
@@ -82,6 +78,13 @@ public class InsightsQuestionnairesUpdater
         return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
+    public InsightsQuestionnairesUpdater setAuthorization(
+        final String authorization
+    ) {
+        this.authorization = authorization;
+        return this;
+    }
+
     @Override
     public InsightsQuestionnaires update(final TwilioRestClient client) {
         String path =
@@ -92,7 +95,6 @@ public class InsightsQuestionnairesUpdater
                 "{" + "QuestionnaireSid" + "}",
                 this.pathQuestionnaireSid.toString()
             );
-        path = path.replace("{" + "Active" + "}", this.active.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -100,9 +102,11 @@ public class InsightsQuestionnairesUpdater
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnaires update failed: Unable to connect to server"
@@ -129,24 +133,52 @@ public class InsightsQuestionnairesUpdater
 
     private void addPostParams(final Request request) {
         if (active != null) {
-            request.addPostParam("Active", active.toString());
+            Serializer.toString(
+                request,
+                "Active",
+                active,
+                ParameterType.URLENCODED
+            );
         }
+
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (questionSids != null) {
-            for (String prop : questionSids) {
-                request.addPostParam("QuestionSids", prop);
+            for (String param : questionSids) {
+                Serializer.toString(
+                    request,
+                    "QuestionSids",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

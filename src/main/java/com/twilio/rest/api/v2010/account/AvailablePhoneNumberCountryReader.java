@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AvailablePhoneNumberCountryReader
     extends Reader<AvailablePhoneNumberCountry> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AvailablePhoneNumberCountryReader() {}
 
@@ -39,9 +41,7 @@ public class AvailablePhoneNumberCountryReader
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AvailablePhoneNumberCountryReader setPageSize(
-        final Integer pageSize
-    ) {
+    public AvailablePhoneNumberCountryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -58,6 +58,7 @@ public class AvailablePhoneNumberCountryReader
     ) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -73,9 +74,8 @@ public class AvailablePhoneNumberCountryReader
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -84,7 +84,6 @@ public class AvailablePhoneNumberCountryReader
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "AvailablePhoneNumberCountry read failed: Unable to connect to server"
@@ -94,6 +93,7 @@ public class AvailablePhoneNumberCountryReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -141,17 +141,17 @@ public class AvailablePhoneNumberCountryReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

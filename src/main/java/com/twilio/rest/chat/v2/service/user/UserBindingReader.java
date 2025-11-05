@@ -17,8 +17,9 @@ package com.twilio.rest.chat.v2.service.user;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class UserBindingReader extends Reader<UserBinding> {
@@ -34,7 +36,7 @@ public class UserBindingReader extends Reader<UserBinding> {
     private String pathServiceSid;
     private String pathUserSid;
     private List<UserBinding.BindingType> bindingType;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UserBindingReader(
         final String pathServiceSid,
@@ -57,7 +59,7 @@ public class UserBindingReader extends Reader<UserBinding> {
         return setBindingType(Promoter.listOfOne(bindingType));
     }
 
-    public UserBindingReader setPageSize(final Integer pageSize) {
+    public UserBindingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -69,6 +71,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     public Page<UserBinding> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -81,9 +84,8 @@ public class UserBindingReader extends Reader<UserBinding> {
             Domains.CHAT.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -92,7 +94,6 @@ public class UserBindingReader extends Reader<UserBinding> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "UserBinding read failed: Unable to connect to server"
@@ -102,6 +103,7 @@ public class UserBindingReader extends Reader<UserBinding> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -126,7 +128,7 @@ public class UserBindingReader extends Reader<UserBinding> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CHAT.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,7 +140,7 @@ public class UserBindingReader extends Reader<UserBinding> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.CHAT.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -149,22 +151,28 @@ public class UserBindingReader extends Reader<UserBinding> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (bindingType != null) {
-            for (UserBinding.BindingType prop : bindingType) {
-                request.addQueryParam("BindingType", prop.toString());
+            for (UserBinding.BindingType param : bindingType) {
+                Serializer.toString(
+                    request,
+                    "BindingType",
+                    param,
+                    ParameterType.QUERY
+                );
             }
         }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

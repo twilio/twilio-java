@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bundle extends Resource {
-
-    private static final long serialVersionUID = 198185819431201L;
 
     public static BundleCreator creator(
         final String friendlyName,
@@ -62,6 +64,90 @@ public class Bundle extends Resource {
 
     public static BundleUpdater updater(final String pathSid) {
         return new BundleUpdater(pathSid);
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PENDING_REVIEW("pending-review"),
+        IN_REVIEW("in-review"),
+        TWILIO_REJECTED("twilio-rejected"),
+        TWILIO_APPROVED("twilio-approved"),
+        PROVISIONALLY_APPROVED("provisionally-approved");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum SortDirection {
+        ASC("ASC"),
+        DESC("DESC");
+
+        private final String value;
+
+        private SortDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortDirection forValue(final String value) {
+            return Promoter.enumFromString(value, SortDirection.values());
+        }
+    }
+
+    public enum EndUserType {
+        INDIVIDUAL("individual"),
+        BUSINESS("business");
+
+        private final String value;
+
+        private EndUserType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EndUserType forValue(final String value) {
+            return Promoter.enumFromString(value, EndUserType.values());
+        }
+    }
+
+    public enum SortBy {
+        VALID_UNTIL("valid-until"),
+        DATE_UPDATED("date-updated");
+
+        private final String value;
+
+        private SortBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static SortBy forValue(final String value) {
+            return Promoter.enumFromString(value, SortBy.values());
+        }
     }
 
     /**
@@ -107,94 +193,87 @@ public class Bundle extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String regulationSid;
-    private final String friendlyName;
-    private final Bundle.Status status;
-    private final ZonedDateTime validUntil;
-    private final String email;
-    private final URI statusCallback;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String email;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String regulationSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Bundle.Status status;
+
+    @Getter
+    private final URI statusCallback;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final ZonedDateTime validUntil;
 
     @JsonCreator
     private Bundle(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("regulation_sid") final String regulationSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final Bundle.Status status,
-        @JsonProperty("valid_until") final String validUntil,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("email") final String email,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("regulation_sid") final String regulationSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Bundle.Status status,
         @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("valid_until") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime validUntil
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.regulationSid = regulationSid;
-        this.friendlyName = friendlyName;
-        this.status = status;
-        this.validUntil = DateConverter.iso8601DateTimeFromString(validUntil);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.email = email;
-        this.statusCallback = statusCallback;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.friendlyName = friendlyName;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRegulationSid() {
-        return this.regulationSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Bundle.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getValidUntil() {
-        return this.validUntil;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.regulationSid = regulationSid;
+        this.sid = sid;
+        this.status = status;
+        this.statusCallback = statusCallback;
+        this.url = url;
+        this.validUntil = validUntil;
     }
 
     @Override
@@ -208,122 +287,37 @@ public class Bundle extends Resource {
         }
 
         Bundle other = (Bundle) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(regulationSid, other.regulationSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(validUntil, other.validUntil) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(regulationSid, other.regulationSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(validUntil, other.validUntil)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            regulationSid,
-            friendlyName,
-            status,
-            validUntil,
-            email,
-            statusCallback,
             dateCreated,
             dateUpdated,
+            email,
+            friendlyName,
+            links,
+            regulationSid,
+            sid,
+            status,
+            statusCallback,
             url,
-            links
+            validUntil
         );
-    }
-
-    public enum SortBy {
-        VALID_UNTIL("valid-until"),
-        DATE_UPDATED("date-updated");
-
-        private final String value;
-
-        private SortBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortBy forValue(final String value) {
-            return Promoter.enumFromString(value, SortBy.values());
-        }
-    }
-
-    public enum SortDirection {
-        ASC("ASC"),
-        DESC("DESC");
-
-        private final String value;
-
-        private SortDirection(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static SortDirection forValue(final String value) {
-            return Promoter.enumFromString(value, SortDirection.values());
-        }
-    }
-
-    public enum EndUserType {
-        INDIVIDUAL("individual"),
-        BUSINESS("business");
-
-        private final String value;
-
-        private EndUserType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EndUserType forValue(final String value) {
-            return Promoter.enumFromString(value, EndUserType.values());
-        }
-    }
-
-    public enum Status {
-        DRAFT("draft"),
-        PENDING_REVIEW("pending-review"),
-        IN_REVIEW("in-review"),
-        TWILIO_REJECTED("twilio-rejected"),
-        TWILIO_APPROVED("twilio-approved"),
-        PROVISIONALLY_APPROVED("provisionally-approved");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
     }
 }

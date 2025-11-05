@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.bearertoken.Resource;
-import com.twilio.converter.DateConverter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Account extends Resource {
-
-    private static final long serialVersionUID = 140632441815443L;
 
     public static AccountFetcher fetcher(
         final String pathOrganizationSid,
@@ -47,6 +50,28 @@ public class Account extends Resource {
 
     public static AccountReader reader(final String pathOrganizationSid) {
         return new AccountReader(pathOrganizationSid);
+    }
+
+    public enum Status {
+        ACTIVE("active"),
+        SUSPENDED("suspended"),
+        PENDING_CLOSURE("pending_closure"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -92,45 +117,48 @@ public class Account extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final Account.StatusEnum status;
-    private final String ownerSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String ownerSid;
+
+    @Getter
+    private final Account.Status status;
 
     @JsonCreator
     private Account(
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final Account.StatusEnum status,
         @JsonProperty("owner_sid") final String ownerSid,
-        @JsonProperty("date_created") final String dateCreated
+        @JsonProperty("status") final Account.Status status
     ) {
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
         this.friendlyName = friendlyName;
-        this.status = status;
         this.ownerSid = ownerSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Account.StatusEnum getStatus() {
-        return this.status;
-    }
-
-    public final String getOwnerSid() {
-        return this.ownerSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
+        this.status = status;
     }
 
     @Override
@@ -144,13 +172,12 @@ public class Account extends Resource {
         }
 
         Account other = (Account) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(ownerSid, other.ownerSid) &&
-            Objects.equals(dateCreated, other.dateCreated)
+            Objects.equals(status, other.status)
         );
     }
 
@@ -158,32 +185,10 @@ public class Account extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
+            dateCreated,
             friendlyName,
-            status,
             ownerSid,
-            dateCreated
+            status
         );
-    }
-
-    public enum StatusEnum {
-        ACTIVE("active"),
-        SUSPENDED("suspended"),
-        PENDING_CLOSURE("pending_closure"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private StatusEnum(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static StatusEnum forValue(final String value) {
-            return Promoter.enumFromString(value, StatusEnum.values());
-        }
     }
 }

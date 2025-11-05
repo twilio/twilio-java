@@ -17,8 +17,9 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,8 +28,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class CallReader extends Reader<Call> {
 
@@ -43,7 +44,7 @@ public class CallReader extends Reader<Call> {
     private ZonedDateTime endTime;
     private ZonedDateTime endTimeBefore;
     private ZonedDateTime endTimeAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CallReader() {}
 
@@ -109,7 +110,7 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
-    public CallReader setPageSize(final Integer pageSize) {
+    public CallReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -121,6 +122,7 @@ public class CallReader extends Reader<Call> {
 
     public Page<Call> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -136,9 +138,8 @@ public class CallReader extends Reader<Call> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -147,7 +148,6 @@ public class CallReader extends Reader<Call> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Call read failed: Unable to connect to server"
@@ -157,6 +157,7 @@ public class CallReader extends Reader<Call> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -204,61 +205,92 @@ public class CallReader extends Reader<Call> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (to != null) {
-            request.addQueryParam("To", to.toString());
-        }
-        if (from != null) {
-            request.addQueryParam("From", from.toString());
-        }
-        if (parentCallSid != null) {
-            request.addQueryParam("ParentCallSid", parentCallSid);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (startTime != null) {
-            request.addQueryParam(
-                "StartTime",
-                startTime.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (startTimeAfter != null || startTimeBefore != null) {
-            request.addQueryDateTimeRange(
-                "StartTime",
-                startTimeAfter,
-                startTimeBefore
-            );
-        }
-        if (endTime != null) {
-            request.addQueryParam(
-                "EndTime",
-                endTime.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (endTimeAfter != null || endTimeBefore != null) {
-            request.addQueryDateTimeRange(
-                "EndTime",
-                endTimeAfter,
-                endTimeBefore
-            );
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "To", to, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (from != null) {
+            Serializer.toString(request, "From", from, ParameterType.QUERY);
+        }
+
+        if (parentCallSid != null) {
+            Serializer.toString(
+                request,
+                "ParentCallSid",
+                parentCallSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (startTime != null) {
+            Serializer.toString(
+                request,
+                "StartTime",
+                startTime,
+                ParameterType.QUERY
+            );
+        }
+
+        if (startTimeBefore != null) {
+            Serializer.toString(
+                request,
+                "StartTime<",
+                startTimeBefore,
+                ParameterType.QUERY
+            );
+        }
+
+        if (startTimeAfter != null) {
+            Serializer.toString(
+                request,
+                "StartTime>",
+                startTimeAfter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (endTime != null) {
+            Serializer.toString(
+                request,
+                "EndTime",
+                endTime,
+                ParameterType.QUERY
+            );
+        }
+
+        if (endTimeBefore != null) {
+            Serializer.toString(
+                request,
+                "EndTime<",
+                endTimeBefore,
+                ParameterType.QUERY
+            );
+        }
+
+        if (endTimeAfter != null) {
+            Serializer.toString(
+                request,
+                "EndTime>",
+                endTimeAfter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

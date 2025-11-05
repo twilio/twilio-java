@@ -18,28 +18,53 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationAttemptsSummary extends Resource {
 
-    private static final long serialVersionUID = 224637081616234L;
-
     public static VerificationAttemptsSummaryFetcher fetcher() {
         return new VerificationAttemptsSummaryFetcher();
+    }
+
+    public enum Channels {
+        SMS("sms"),
+        CALL("call"),
+        EMAIL("email"),
+        WHATSAPP("whatsapp"),
+        RBM("rbm");
+
+        private final String value;
+
+        private Channels(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Channels forValue(final String value) {
+            return Promoter.enumFromString(value, Channels.values());
+        }
     }
 
     /**
@@ -91,47 +116,48 @@ public class VerificationAttemptsSummary extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final String conversionRatePercentage;
+
+    @Getter
     private final Integer totalAttempts;
+
+    @Getter
     private final Integer totalConverted;
+
+    @Getter
     private final Integer totalUnconverted;
-    private final BigDecimal conversionRatePercentage;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private VerificationAttemptsSummary(
+        @JsonProperty(
+            "conversion_rate_percentage"
+        ) final String conversionRatePercentage,
         @JsonProperty("total_attempts") final Integer totalAttempts,
         @JsonProperty("total_converted") final Integer totalConverted,
         @JsonProperty("total_unconverted") final Integer totalUnconverted,
-        @JsonProperty(
-            "conversion_rate_percentage"
-        ) final BigDecimal conversionRatePercentage,
         @JsonProperty("url") final URI url
     ) {
+        this.conversionRatePercentage = conversionRatePercentage;
         this.totalAttempts = totalAttempts;
         this.totalConverted = totalConverted;
         this.totalUnconverted = totalUnconverted;
-        this.conversionRatePercentage = conversionRatePercentage;
         this.url = url;
-    }
-
-    public final Integer getTotalAttempts() {
-        return this.totalAttempts;
-    }
-
-    public final Integer getTotalConverted() {
-        return this.totalConverted;
-    }
-
-    public final Integer getTotalUnconverted() {
-        return this.totalUnconverted;
-    }
-
-    public final BigDecimal getConversionRatePercentage() {
-        return this.conversionRatePercentage;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -145,15 +171,14 @@ public class VerificationAttemptsSummary extends Resource {
         }
 
         VerificationAttemptsSummary other = (VerificationAttemptsSummary) o;
-
         return (
-            Objects.equals(totalAttempts, other.totalAttempts) &&
-            Objects.equals(totalConverted, other.totalConverted) &&
-            Objects.equals(totalUnconverted, other.totalUnconverted) &&
             Objects.equals(
                 conversionRatePercentage,
                 other.conversionRatePercentage
             ) &&
+            Objects.equals(totalAttempts, other.totalAttempts) &&
+            Objects.equals(totalConverted, other.totalConverted) &&
+            Objects.equals(totalUnconverted, other.totalUnconverted) &&
             Objects.equals(url, other.url)
         );
     }
@@ -161,33 +186,11 @@ public class VerificationAttemptsSummary extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
+            conversionRatePercentage,
             totalAttempts,
             totalConverted,
             totalUnconverted,
-            conversionRatePercentage,
             url
         );
-    }
-
-    public enum Channels {
-        SMS("sms"),
-        CALL("call"),
-        EMAIL("email"),
-        WHATSAPP("whatsapp");
-
-        private final String value;
-
-        private Channels(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Channels forValue(final String value) {
-            return Promoter.enumFromString(value, Channels.values());
-        }
     }
 }

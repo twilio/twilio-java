@@ -16,6 +16,8 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CustomerProfilesEvaluationsCreator
     extends Creator<CustomerProfilesEvaluations> {
@@ -55,7 +58,6 @@ public class CustomerProfilesEvaluationsCreator
                 "{" + "CustomerProfileSid" + "}",
                 this.pathCustomerProfileSid.toString()
             );
-        path = path.replace("{" + "PolicySid" + "}", this.policySid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -64,7 +66,9 @@ public class CustomerProfilesEvaluationsCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "CustomerProfilesEvaluations creation failed: Unable to connect to server"
@@ -91,7 +95,12 @@ public class CustomerProfilesEvaluationsCreator
 
     private void addPostParams(final Request request) {
         if (policySid != null) {
-            request.addPostParam("PolicySid", policySid);
+            Serializer.toString(
+                request,
+                "PolicySid",
+                policySid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

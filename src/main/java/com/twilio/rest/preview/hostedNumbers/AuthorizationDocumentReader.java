@@ -17,7 +17,8 @@ package com.twilio.rest.preview.hostedNumbers;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     private String email;
     private AuthorizationDocument.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public AuthorizationDocumentReader() {}
 
@@ -47,7 +49,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
         return this;
     }
 
-    public AuthorizationDocumentReader setPageSize(final Integer pageSize) {
+    public AuthorizationDocumentReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -69,9 +71,8 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
             Domains.PREVIEW.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -80,7 +81,6 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "AuthorizationDocument read failed: Unable to connect to server"
@@ -90,6 +90,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -114,7 +115,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.PREVIEW.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -126,7 +127,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.PREVIEW.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -137,23 +138,25 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (email != null) {
-            request.addQueryParam("Email", email);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Email", email, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

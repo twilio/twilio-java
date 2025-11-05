@@ -16,6 +16,8 @@ package com.twilio.rest.chat.v1.service.channel;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MemberUpdater extends Updater<Member> {
 
@@ -79,7 +82,9 @@ public class MemberUpdater extends Updater<Member> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Member update failed: Unable to connect to server"
@@ -103,12 +108,20 @@ public class MemberUpdater extends Updater<Member> {
 
     private void addPostParams(final Request request) {
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
+                lastConsumedMessageIndex,
+                ParameterType.URLENCODED
             );
         }
     }

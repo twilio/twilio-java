@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ReferralConversionCreator extends Creator<ReferralConversion> {
 
@@ -47,20 +48,16 @@ public class ReferralConversionCreator extends Creator<ReferralConversion> {
     public ReferralConversion create(final TwilioRestClient client) {
         String path = "/v1/ReferralConversion";
 
-        path =
-            path.replace(
-                "{" + "CreateReferralConversionRequest" + "}",
-                this.createReferralConversionRequest.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.MARKETPLACE.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ReferralConversion creation failed: Unable to connect to server"

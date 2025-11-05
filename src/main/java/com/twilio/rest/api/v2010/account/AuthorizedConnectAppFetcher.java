@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
-    private String pathConnectAppSid;
     private String pathAccountSid;
+    private String pathConnectAppSid;
 
     public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
         this.pathConnectAppSid = pathConnectAppSid;
@@ -67,7 +67,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -87,7 +87,6 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             }
             throw new ApiException(restException);
         }
-
         return AuthorizedConnectApp.fromJson(
             response.getStream(),
             client.getObjectMapper()

@@ -16,7 +16,9 @@ package com.twilio.rest.chat.v2.service.channel;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class WebhookUpdater extends Updater<Webhook> {
@@ -129,7 +132,9 @@ public class WebhookUpdater extends Updater<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Webhook update failed: Unable to connect to server"
@@ -153,31 +158,60 @@ public class WebhookUpdater extends Updater<Webhook> {
 
     private void addPostParams(final Request request) {
         if (configurationUrl != null) {
-            request.addPostParam("Configuration.Url", configurationUrl);
-        }
-        if (configurationMethod != null) {
-            request.addPostParam(
-                "Configuration.Method",
-                configurationMethod.toString()
+            Serializer.toString(
+                request,
+                "Configuration.Url",
+                configurationUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (configurationMethod != null) {
+            Serializer.toString(
+                request,
+                "Configuration.Method",
+                configurationMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (configurationFilters != null) {
-            for (String prop : configurationFilters) {
-                request.addPostParam("Configuration.Filters", prop);
+            for (String param : configurationFilters) {
+                Serializer.toString(
+                    request,
+                    "Configuration.Filters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (configurationTriggers != null) {
-            for (String prop : configurationTriggers) {
-                request.addPostParam("Configuration.Triggers", prop);
+            for (String param : configurationTriggers) {
+                Serializer.toString(
+                    request,
+                    "Configuration.Triggers",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (configurationFlowSid != null) {
-            request.addPostParam("Configuration.FlowSid", configurationFlowSid);
+            Serializer.toString(
+                request,
+                "Configuration.FlowSid",
+                configurationFlowSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (configurationRetryCount != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Configuration.RetryCount",
-                configurationRetryCount.toString()
+                configurationRetryCount,
+                ParameterType.URLENCODED
             );
         }
     }

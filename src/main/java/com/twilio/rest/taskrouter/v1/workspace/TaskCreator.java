@@ -16,6 +16,8 @@ package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class TaskCreator extends Creator<Task> {
@@ -107,7 +110,9 @@ public class TaskCreator extends Creator<Task> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Task creation failed: Unable to connect to server"
@@ -131,34 +136,84 @@ public class TaskCreator extends Creator<Task> {
 
     private void addPostParams(final Request request) {
         if (timeout != null) {
-            request.addPostParam("Timeout", timeout.toString());
-        }
-        if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
-        }
-        if (taskChannel != null) {
-            request.addPostParam("TaskChannel", taskChannel);
-        }
-        if (workflowSid != null) {
-            request.addPostParam("WorkflowSid", workflowSid);
-        }
-        if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
-        }
-        if (virtualStartTime != null) {
-            request.addPostParam(
-                "VirtualStartTime",
-                virtualStartTime.toInstant().toString()
+            Serializer.toString(
+                request,
+                "Timeout",
+                timeout,
+                ParameterType.URLENCODED
             );
         }
+
+        if (priority != null) {
+            Serializer.toString(
+                request,
+                "Priority",
+                priority,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (taskChannel != null) {
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (workflowSid != null) {
+            Serializer.toString(
+                request,
+                "WorkflowSid",
+                workflowSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (attributes != null) {
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (virtualStartTime != null) {
+            Serializer.toString(
+                request,
+                "VirtualStartTime",
+                virtualStartTime,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (routingTarget != null) {
-            request.addPostParam("RoutingTarget", routingTarget);
+            Serializer.toString(
+                request,
+                "RoutingTarget",
+                routingTarget,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ignoreCapacity != null) {
-            request.addPostParam("IgnoreCapacity", ignoreCapacity);
+            Serializer.toString(
+                request,
+                "IgnoreCapacity",
+                ignoreCapacity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (taskQueueSid != null) {
-            request.addPostParam("TaskQueueSid", taskQueueSid);
+            Serializer.toString(
+                request,
+                "TaskQueueSid",
+                taskQueueSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

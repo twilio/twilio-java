@@ -16,7 +16,9 @@ package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class WebhookCreator extends Creator<Webhook> {
@@ -87,15 +89,6 @@ public class WebhookCreator extends Creator<Webhook> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path =
-            path.replace("{" + "EventTypes" + "}", this.eventTypes.toString());
-        path =
-            path.replace("{" + "WebhookUrl" + "}", this.webhookUrl.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -104,7 +97,9 @@ public class WebhookCreator extends Creator<Webhook> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Webhook creation failed: Unable to connect to server"
@@ -128,21 +123,50 @@ public class WebhookCreator extends Creator<Webhook> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (eventTypes != null) {
-            for (String prop : eventTypes) {
-                request.addPostParam("EventTypes", prop);
+            for (String param : eventTypes) {
+                Serializer.toString(
+                    request,
+                    "EventTypes",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl);
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
         if (version != null) {
-            request.addPostParam("Version", version.toString());
+            Serializer.toString(
+                request,
+                "Version",
+                version,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

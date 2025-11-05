@@ -16,9 +16,9 @@ package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,11 +27,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class ChallengeCreator extends Creator<Challenge> {
 
@@ -40,8 +38,8 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String factorSid;
     private ZonedDateTime expirationDate;
     private String detailsMessage;
-    private List<Map<String, Object>> detailsFields;
-    private Map<String, Object> hiddenDetails;
+    private List<Object> detailsFields;
+    private Object hiddenDetails;
     private String authPayload;
 
     public ChallengeCreator(
@@ -71,22 +69,16 @@ public class ChallengeCreator extends Creator<Challenge> {
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(
-        final List<Map<String, Object>> detailsFields
-    ) {
+    public ChallengeCreator setDetailsFields(final List<Object> detailsFields) {
         this.detailsFields = detailsFields;
         return this;
     }
 
-    public ChallengeCreator setDetailsFields(
-        final Map<String, Object> detailsFields
-    ) {
+    public ChallengeCreator setDetailsFields(final Object detailsFields) {
         return setDetailsFields(Promoter.listOfOne(detailsFields));
     }
 
-    public ChallengeCreator setHiddenDetails(
-        final Map<String, Object> hiddenDetails
-    ) {
+    public ChallengeCreator setHiddenDetails(final Object hiddenDetails) {
         this.hiddenDetails = hiddenDetails;
         return this;
     }
@@ -108,7 +100,6 @@ public class ChallengeCreator extends Creator<Challenge> {
             );
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "FactorSid" + "}", this.factorSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -117,7 +108,9 @@ public class ChallengeCreator extends Creator<Challenge> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Challenge creation failed: Unable to connect to server"
@@ -144,33 +137,59 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     private void addPostParams(final Request request) {
         if (factorSid != null) {
-            request.addPostParam("FactorSid", factorSid);
-        }
-        if (expirationDate != null) {
-            request.addPostParam(
-                "ExpirationDate",
-                expirationDate.toInstant().toString()
+            Serializer.toString(
+                request,
+                "FactorSid",
+                factorSid,
+                ParameterType.URLENCODED
             );
         }
-        if (detailsMessage != null) {
-            request.addPostParam("Details.Message", detailsMessage);
+
+        if (expirationDate != null) {
+            Serializer.toString(
+                request,
+                "ExpirationDate",
+                expirationDate,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (detailsMessage != null) {
+            Serializer.toString(
+                request,
+                "Details.Message",
+                detailsMessage,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (detailsFields != null) {
-            for (Map<String, Object> prop : detailsFields) {
-                request.addPostParam(
+            for (Object param : detailsFields) {
+                Serializer.toString(
+                    request,
                     "Details.Fields",
-                    Converter.mapToJson(prop)
+                    param,
+                    ParameterType.URLENCODED
                 );
             }
         }
+
         if (hiddenDetails != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "HiddenDetails",
-                Converter.mapToJson(hiddenDetails)
+                hiddenDetails,
+                ParameterType.URLENCODED
             );
         }
+
         if (authPayload != null) {
-            request.addPostParam("AuthPayload", authPayload);
+            Serializer.toString(
+                request,
+                "AuthPayload",
+                authPayload,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

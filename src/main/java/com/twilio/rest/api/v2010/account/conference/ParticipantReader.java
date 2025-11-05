@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account.conference;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,15 +27,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ParticipantReader extends Reader<Participant> {
 
-    private String pathConferenceSid;
     private String pathAccountSid;
+    private String pathConferenceSid;
     private Boolean muted;
     private Boolean hold;
     private Boolean coaching;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ParticipantReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
@@ -63,7 +65,7 @@ public class ParticipantReader extends Reader<Participant> {
         return this;
     }
 
-    public ParticipantReader setPageSize(final Integer pageSize) {
+    public ParticipantReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -76,6 +78,7 @@ public class ParticipantReader extends Reader<Participant> {
     public Page<Participant> firstPage(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -96,9 +99,8 @@ public class ParticipantReader extends Reader<Participant> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -107,7 +109,6 @@ public class ParticipantReader extends Reader<Participant> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Participant read failed: Unable to connect to server"
@@ -117,6 +118,7 @@ public class ParticipantReader extends Reader<Participant> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -164,26 +166,34 @@ public class ParticipantReader extends Reader<Participant> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (muted != null) {
-            request.addQueryParam("Muted", muted.toString());
-        }
-        if (hold != null) {
-            request.addQueryParam("Hold", hold.toString());
-        }
-        if (coaching != null) {
-            request.addQueryParam("Coaching", coaching.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Muted", muted, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (hold != null) {
+            Serializer.toString(request, "Hold", hold, ParameterType.QUERY);
+        }
+
+        if (coaching != null) {
+            Serializer.toString(
+                request,
+                "Coaching",
+                coaching,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

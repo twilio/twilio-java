@@ -15,7 +15,8 @@
 package com.twilio.rest.intelligence.v2.transcript;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class OperatorResultFetcher extends Fetcher<OperatorResult> {
 
@@ -66,7 +68,7 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -86,7 +88,6 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
             }
             throw new ApiException(restException);
         }
-
         return OperatorResult.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -95,7 +96,12 @@ public class OperatorResultFetcher extends Fetcher<OperatorResult> {
 
     private void addQueryParams(final Request request) {
         if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
+            Serializer.toString(
+                request,
+                "Redacted",
+                redacted,
+                ParameterType.QUERY
+            );
         }
     }
 }

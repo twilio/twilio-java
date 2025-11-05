@@ -16,7 +16,9 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ConnectionPolicyTargetUpdater
@@ -96,7 +99,9 @@ public class ConnectionPolicyTargetUpdater
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ConnectionPolicyTarget update failed: Unable to connect to server"
@@ -123,19 +128,48 @@ public class ConnectionPolicyTargetUpdater
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (target != null) {
-            request.addPostParam("Target", target.toString());
+            Serializer.toString(
+                request,
+                "Target",
+                target,
+                ParameterType.URLENCODED
+            );
         }
+
         if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
+            Serializer.toString(
+                request,
+                "Priority",
+                priority,
+                ParameterType.URLENCODED
+            );
         }
+
         if (weight != null) {
-            request.addPostParam("Weight", weight.toString());
+            Serializer.toString(
+                request,
+                "Weight",
+                weight,
+                ParameterType.URLENCODED
+            );
         }
+
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

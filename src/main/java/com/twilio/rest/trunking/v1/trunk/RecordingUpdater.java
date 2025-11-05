@@ -16,6 +16,8 @@ package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RecordingUpdater extends Updater<Recording> {
 
@@ -59,7 +62,9 @@ public class RecordingUpdater extends Updater<Recording> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Recording update failed: Unable to connect to server"
@@ -86,10 +91,21 @@ public class RecordingUpdater extends Updater<Recording> {
 
     private void addPostParams(final Request request) {
         if (mode != null) {
-            request.addPostParam("Mode", mode.toString());
+            Serializer.toString(
+                request,
+                "Mode",
+                mode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (trim != null) {
-            request.addPostParam("Trim", trim.toString());
+            Serializer.toString(
+                request,
+                "Trim",
+                trim,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

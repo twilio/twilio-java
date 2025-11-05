@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.message;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FeedbackCreator extends Creator<Feedback> {
 
-    private String pathMessageSid;
     private String pathAccountSid;
+    private String pathMessageSid;
     private Feedback.Outcome outcome;
 
     public FeedbackCreator(final String pathMessageSid) {
@@ -75,7 +78,9 @@ public class FeedbackCreator extends Creator<Feedback> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Feedback creation failed: Unable to connect to server"
@@ -102,7 +107,12 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     private void addPostParams(final Request request) {
         if (outcome != null) {
-            request.addPostParam("Outcome", outcome.toString());
+            Serializer.toString(
+                request,
+                "Outcome",
+                outcome,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,14 +23,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AssignedAddOnExtensionFetcher
     extends Fetcher<AssignedAddOnExtension> {
 
+    private String pathAccountSid;
     private String pathResourceSid;
     private String pathAssignedAddOnSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public AssignedAddOnExtensionFetcher(
         final String pathResourceSid,
@@ -86,7 +86,7 @@ public class AssignedAddOnExtensionFetcher
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -106,7 +106,6 @@ public class AssignedAddOnExtensionFetcher
             }
             throw new ApiException(restException);
         }
-
         return AssignedAddOnExtension.fromJson(
             response.getStream(),
             client.getObjectMapper()

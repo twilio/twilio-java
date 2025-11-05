@@ -16,7 +16,9 @@ package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
@@ -75,7 +78,9 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "PhoneNumber creation failed: Unable to connect to server"
@@ -102,13 +107,25 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     private void addPostParams(final Request request) {
         if (sid != null) {
-            request.addPostParam("Sid", sid);
+            Serializer.toString(request, "Sid", sid, ParameterType.URLENCODED);
         }
+
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.URLENCODED
+            );
         }
+
         if (isReserved != null) {
-            request.addPostParam("IsReserved", isReserved.toString());
+            Serializer.toString(
+                request,
+                "IsReserved",
+                isReserved,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

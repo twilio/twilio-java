@@ -16,6 +16,8 @@ package com.twilio.rest.chat.v2.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserCreator extends Creator<User> {
 
     private String pathServiceSid;
-    private String identity;
     private User.WebhookEnabledType xTwilioWebhookEnabled;
+    private String identity;
     private String roleSid;
     private String attributes;
     private String friendlyName;
@@ -41,13 +44,6 @@ public class UserCreator extends Creator<User> {
 
     public UserCreator setIdentity(final String identity) {
         this.identity = identity;
-        return this;
-    }
-
-    public UserCreator setXTwilioWebhookEnabled(
-        final User.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -66,6 +62,13 @@ public class UserCreator extends Creator<User> {
         return this;
     }
 
+    public UserCreator setXTwilioWebhookEnabled(
+        final User.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
     @Override
     public User create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users";
@@ -75,7 +78,6 @@ public class UserCreator extends Creator<User> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -83,9 +85,11 @@ public class UserCreator extends Creator<User> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "User creation failed: Unable to connect to server"
@@ -109,24 +113,49 @@ public class UserCreator extends Creator<User> {
 
     private void addPostParams(final Request request) {
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
+            Serializer.toString(
+                request,
                 "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
             );
         }
     }

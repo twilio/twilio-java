@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TaskQueueBulkRealTimeStatisticsCreator
     extends Creator<TaskQueueBulkRealTimeStatistics> {
@@ -61,9 +62,11 @@ public class TaskQueueBulkRealTimeStatisticsCreator
             Domains.TASKROUTER.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TaskQueueBulkRealTimeStatistics creation failed: Unable to connect to server"

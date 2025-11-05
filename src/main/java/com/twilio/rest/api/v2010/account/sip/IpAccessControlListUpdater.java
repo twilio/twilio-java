@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.sip;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
+    private String pathAccountSid;
     private String pathSid;
     private String friendlyName;
-    private String pathAccountSid;
 
     public IpAccessControlListUpdater(
         final String pathSid,
@@ -71,11 +74,6 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
                 this.pathAccountSid.toString()
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -84,7 +82,9 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "IpAccessControlList update failed: Unable to connect to server"
@@ -111,7 +111,12 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

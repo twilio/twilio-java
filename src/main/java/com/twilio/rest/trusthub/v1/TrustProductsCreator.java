@@ -16,7 +16,9 @@ package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class TrustProductsCreator extends Creator<TrustProducts> {
@@ -73,14 +75,6 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
     public TrustProducts create(final TwilioRestClient client) {
         String path = "/v1/TrustProducts";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Email" + "}", this.email.toString());
-        path = path.replace("{" + "PolicySid" + "}", this.policySid.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUSTHUB.toString(),
@@ -88,7 +82,9 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "TrustProducts creation failed: Unable to connect to server"
@@ -115,16 +111,39 @@ public class TrustProductsCreator extends Creator<TrustProducts> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
+
         if (policySid != null) {
-            request.addPostParam("PolicySid", policySid);
+            Serializer.toString(
+                request,
+                "PolicySid",
+                policySid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

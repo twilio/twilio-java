@@ -16,6 +16,8 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CustomerProfilesEntityAssignmentsCreator
     extends Creator<CustomerProfilesEntityAssignments> {
@@ -58,7 +61,6 @@ public class CustomerProfilesEntityAssignmentsCreator
                 "{" + "CustomerProfileSid" + "}",
                 this.pathCustomerProfileSid.toString()
             );
-        path = path.replace("{" + "ObjectSid" + "}", this.objectSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,7 +69,9 @@ public class CustomerProfilesEntityAssignmentsCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "CustomerProfilesEntityAssignments creation failed: Unable to connect to server"
@@ -94,7 +98,12 @@ public class CustomerProfilesEntityAssignmentsCreator
 
     private void addPostParams(final Request request) {
         if (objectSid != null) {
-            request.addPostParam("ObjectSid", objectSid);
+            Serializer.toString(
+                request,
+                "ObjectSid",
+                objectSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

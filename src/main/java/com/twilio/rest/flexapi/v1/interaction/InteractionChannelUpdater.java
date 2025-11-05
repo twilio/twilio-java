@@ -16,7 +16,8 @@ package com.twilio.rest.flexapi.v1.interaction;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,14 +26,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class InteractionChannelUpdater extends Updater<InteractionChannel> {
 
     private String pathInteractionSid;
     private String pathSid;
     private InteractionChannel.UpdateChannelStatus status;
-    private Map<String, Object> routing;
+    private Object routing;
 
     public InteractionChannelUpdater(
         final String pathInteractionSid,
@@ -51,9 +52,7 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
         return this;
     }
 
-    public InteractionChannelUpdater setRouting(
-        final Map<String, Object> routing
-    ) {
+    public InteractionChannelUpdater setRouting(final Object routing) {
         this.routing = routing;
         return this;
     }
@@ -68,7 +67,6 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
                 this.pathInteractionSid.toString()
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,7 +75,9 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannel update failed: Unable to connect to server"
@@ -104,10 +104,21 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
 
     private void addPostParams(final Request request) {
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
         if (routing != null) {
-            request.addPostParam("Routing", Converter.mapToJson(routing));
+            Serializer.toString(
+                request,
+                "Routing",
+                routing,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

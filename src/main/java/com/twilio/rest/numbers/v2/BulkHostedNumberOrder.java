@@ -18,30 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkHostedNumberOrder extends Resource {
-
-    private static final long serialVersionUID = 251635704058877L;
 
     public static BulkHostedNumberOrderCreator creator() {
         return new BulkHostedNumberOrderCreator();
@@ -51,6 +51,27 @@ public class BulkHostedNumberOrder extends Resource {
         final String pathBulkHostingSid
     ) {
         return new BulkHostedNumberOrderFetcher(pathBulkHostingSid);
+    }
+
+    public enum RequestStatus {
+        QUEUED("QUEUED"),
+        IN_PROGRESS("IN_PROGRESS"),
+        PROCESSED("PROCESSED");
+
+        private final String value;
+
+        private RequestStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RequestStatus forValue(final String value) {
+            return Promoter.enumFromString(value, RequestStatus.values());
+        }
     }
 
     /**
@@ -108,76 +129,60 @@ public class BulkHostedNumberOrder extends Resource {
         }
     }
 
+    @Getter
     private final String bulkHostingSid;
-    private final BulkHostedNumberOrder.RequestStatus requestStatus;
-    private final String friendlyName;
-    private final String notificationEmail;
-    private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateCompleted;
-    private final URI url;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String notificationEmail;
+
+    @Getter
+    private final BulkHostedNumberOrder.RequestStatus requestStatus;
+
+    @Getter
+    private final List<Object> results;
+
+    @Getter
     private final Integer totalCount;
-    private final List<Map<String, Object>> results;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private BulkHostedNumberOrder(
         @JsonProperty("bulk_hosting_sid") final String bulkHostingSid,
+        @JsonProperty("date_completed") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCompleted,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("notification_email") final String notificationEmail,
         @JsonProperty(
             "request_status"
         ) final BulkHostedNumberOrder.RequestStatus requestStatus,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("notification_email") final String notificationEmail,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_completed") final String dateCompleted,
-        @JsonProperty("url") final URI url,
+        @JsonProperty("results") final List<Object> results,
         @JsonProperty("total_count") final Integer totalCount,
-        @JsonProperty("results") final List<Map<String, Object>> results
+        @JsonProperty("url") final URI url
     ) {
         this.bulkHostingSid = bulkHostingSid;
-        this.requestStatus = requestStatus;
+        this.dateCompleted = dateCompleted;
+        this.dateCreated = dateCreated;
         this.friendlyName = friendlyName;
         this.notificationEmail = notificationEmail;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateCompleted =
-            DateConverter.iso8601DateTimeFromString(dateCompleted);
-        this.url = url;
-        this.totalCount = totalCount;
+        this.requestStatus = requestStatus;
         this.results = results;
-    }
-
-    public final String getBulkHostingSid() {
-        return this.bulkHostingSid;
-    }
-
-    public final BulkHostedNumberOrder.RequestStatus getRequestStatus() {
-        return this.requestStatus;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getNotificationEmail() {
-        return this.notificationEmail;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateCompleted() {
-        return this.dateCompleted;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Integer getTotalCount() {
-        return this.totalCount;
-    }
-
-    public final List<Map<String, Object>> getResults() {
-        return this.results;
+        this.totalCount = totalCount;
+        this.url = url;
     }
 
     @Override
@@ -191,17 +196,16 @@ public class BulkHostedNumberOrder extends Resource {
         }
 
         BulkHostedNumberOrder other = (BulkHostedNumberOrder) o;
-
         return (
             Objects.equals(bulkHostingSid, other.bulkHostingSid) &&
-            Objects.equals(requestStatus, other.requestStatus) &&
+            Objects.equals(dateCompleted, other.dateCompleted) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(notificationEmail, other.notificationEmail) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateCompleted, other.dateCompleted) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(requestStatus, other.requestStatus) &&
+            Objects.equals(results, other.results) &&
             Objects.equals(totalCount, other.totalCount) &&
-            Objects.equals(results, other.results)
+            Objects.equals(url, other.url)
         );
     }
 
@@ -209,35 +213,14 @@ public class BulkHostedNumberOrder extends Resource {
     public int hashCode() {
         return Objects.hash(
             bulkHostingSid,
-            requestStatus,
+            dateCompleted,
+            dateCreated,
             friendlyName,
             notificationEmail,
-            dateCreated,
-            dateCompleted,
-            url,
+            requestStatus,
+            results,
             totalCount,
-            results
+            url
         );
-    }
-
-    public enum RequestStatus {
-        QUEUED("QUEUED"),
-        IN_PROGRESS("IN_PROGRESS"),
-        PROCESSED("PROCESSED");
-
-        private final String value;
-
-        private RequestStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RequestStatus forValue(final String value) {
-            return Promoter.enumFromString(value, RequestStatus.values());
-        }
     }
 }

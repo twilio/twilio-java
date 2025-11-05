@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkersRealTimeStatistics extends Resource {
-
-    private static final long serialVersionUID = 209947407394347L;
 
     public static WorkersRealTimeStatisticsFetcher fetcher(
         final String pathWorkspaceSid
@@ -94,47 +95,48 @@ public class WorkersRealTimeStatistics extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final List<Map<String, Object>> activityStatistics;
+
+    @Getter
+    private final List<Object> activityStatistics;
+
+    @Getter
     private final Integer totalWorkers;
-    private final String workspaceSid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private WorkersRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("activity_statistics") final List<
-            Map<String, Object>
+            Object
         > activityStatistics,
         @JsonProperty("total_workers") final Integer totalWorkers,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("url") final URI url,
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.activityStatistics = activityStatistics;
         this.totalWorkers = totalWorkers;
-        this.workspaceSid = workspaceSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final List<Map<String, Object>> getActivityStatistics() {
-        return this.activityStatistics;
-    }
-
-    public final Integer getTotalWorkers() {
-        return this.totalWorkers;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -148,13 +150,12 @@ public class WorkersRealTimeStatistics extends Resource {
         }
 
         WorkersRealTimeStatistics other = (WorkersRealTimeStatistics) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(activityStatistics, other.activityStatistics) &&
             Objects.equals(totalWorkers, other.totalWorkers) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
+            Objects.equals(url, other.url) &&
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -164,8 +165,8 @@ public class WorkersRealTimeStatistics extends Resource {
             accountSid,
             activityStatistics,
             totalWorkers,
-            workspaceSid,
-            url
+            url,
+            workspaceSid
         );
     }
 }

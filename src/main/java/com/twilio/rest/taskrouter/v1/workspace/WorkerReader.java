@@ -17,7 +17,8 @@ package com.twilio.rest.taskrouter.v1.workspace;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WorkerReader extends Reader<Worker> {
 
@@ -38,7 +40,7 @@ public class WorkerReader extends Reader<Worker> {
     private String taskQueueName;
     private String taskQueueSid;
     private String ordering;
-    private Integer pageSize;
+    private Long pageSize;
 
     public WorkerReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -86,7 +88,7 @@ public class WorkerReader extends Reader<Worker> {
         return this;
     }
 
-    public WorkerReader setPageSize(final Integer pageSize) {
+    public WorkerReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -98,6 +100,7 @@ public class WorkerReader extends Reader<Worker> {
 
     public Page<Worker> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers";
+
         path =
             path.replace(
                 "{" + "WorkspaceSid" + "}",
@@ -109,9 +112,8 @@ public class WorkerReader extends Reader<Worker> {
             Domains.TASKROUTER.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -120,7 +122,6 @@ public class WorkerReader extends Reader<Worker> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Worker read failed: Unable to connect to server"
@@ -130,6 +131,7 @@ public class WorkerReader extends Reader<Worker> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -154,7 +156,7 @@ public class WorkerReader extends Reader<Worker> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -166,7 +168,7 @@ public class WorkerReader extends Reader<Worker> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TASKROUTER.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -177,44 +179,89 @@ public class WorkerReader extends Reader<Worker> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (activityName != null) {
-            request.addQueryParam("ActivityName", activityName);
-        }
-        if (activitySid != null) {
-            request.addQueryParam("ActivitySid", activitySid);
-        }
-        if (available != null) {
-            request.addQueryParam("Available", available);
-        }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (targetWorkersExpression != null) {
-            request.addQueryParam(
-                "TargetWorkersExpression",
-                targetWorkersExpression
+            Serializer.toString(
+                request,
+                "ActivityName",
+                activityName,
+                ParameterType.QUERY
             );
         }
-        if (taskQueueName != null) {
-            request.addQueryParam("TaskQueueName", taskQueueName);
-        }
-        if (taskQueueSid != null) {
-            request.addQueryParam("TaskQueueSid", taskQueueSid);
-        }
-        if (ordering != null) {
-            request.addQueryParam("Ordering", ordering);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+
+        if (activitySid != null) {
+            Serializer.toString(
+                request,
+                "ActivitySid",
+                activitySid,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (available != null) {
+            Serializer.toString(
+                request,
+                "Available",
+                available,
+                ParameterType.QUERY
+            );
+        }
+
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (targetWorkersExpression != null) {
+            Serializer.toString(
+                request,
+                "TargetWorkersExpression",
+                targetWorkersExpression,
+                ParameterType.QUERY
+            );
+        }
+
+        if (taskQueueName != null) {
+            Serializer.toString(
+                request,
+                "TaskQueueName",
+                taskQueueName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (taskQueueSid != null) {
+            Serializer.toString(
+                request,
+                "TaskQueueSid",
+                taskQueueSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (ordering != null) {
+            Serializer.toString(
+                request,
+                "Ordering",
+                ordering,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

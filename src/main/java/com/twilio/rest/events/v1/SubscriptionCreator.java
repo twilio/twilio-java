@@ -16,9 +16,9 @@ package com.twilio.rest.events.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,21 +27,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
-import java.util.List;
-import java.util.Map;
-import java.util.Map;
 
 public class SubscriptionCreator extends Creator<Subscription> {
 
     private String description;
     private String sinkSid;
-    private List<Map<String, Object>> types;
+    private List<Object> types;
 
     public SubscriptionCreator(
         final String description,
         final String sinkSid,
-        final List<Map<String, Object>> types
+        final List<Object> types
     ) {
         this.description = description;
         this.sinkSid = sinkSid;
@@ -58,26 +56,18 @@ public class SubscriptionCreator extends Creator<Subscription> {
         return this;
     }
 
-    public SubscriptionCreator setTypes(final List<Map<String, Object>> types) {
+    public SubscriptionCreator setTypes(final List<Object> types) {
         this.types = types;
         return this;
     }
 
-    public SubscriptionCreator setTypes(final Map<String, Object> types) {
+    public SubscriptionCreator setTypes(final Object types) {
         return setTypes(Promoter.listOfOne(types));
     }
 
     @Override
     public Subscription create(final TwilioRestClient client) {
         String path = "/v1/Subscriptions";
-
-        path =
-            path.replace(
-                "{" + "Description" + "}",
-                this.description.toString()
-            );
-        path = path.replace("{" + "SinkSid" + "}", this.sinkSid.toString());
-        path = path.replace("{" + "Types" + "}", this.types.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -86,7 +76,9 @@ public class SubscriptionCreator extends Creator<Subscription> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Subscription creation failed: Unable to connect to server"
@@ -113,14 +105,31 @@ public class SubscriptionCreator extends Creator<Subscription> {
 
     private void addPostParams(final Request request) {
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sinkSid != null) {
-            request.addPostParam("SinkSid", sinkSid);
+            Serializer.toString(
+                request,
+                "SinkSid",
+                sinkSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (types != null) {
-            for (Map<String, Object> prop : types) {
-                request.addPostParam("Types", Converter.mapToJson(prop));
+            for (Object param : types) {
+                Serializer.toString(
+                    request,
+                    "Types",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

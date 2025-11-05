@@ -16,6 +16,8 @@ package com.twilio.rest.ipmessaging.v2.service.channel;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class MemberUpdater extends Updater<Member> {
@@ -47,13 +50,6 @@ public class MemberUpdater extends Updater<Member> {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
-    }
-
-    public MemberUpdater setXTwilioWebhookEnabled(
-        final Member.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
-        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-        return this;
     }
 
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -90,6 +86,13 @@ public class MemberUpdater extends Updater<Member> {
         return this;
     }
 
+    public MemberUpdater setXTwilioWebhookEnabled(
+        final Member.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
     @Override
     public Member update(final TwilioRestClient client) {
         String path =
@@ -113,9 +116,11 @@ public class MemberUpdater extends Updater<Member> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Member update failed: Unable to connect to server"
@@ -139,42 +144,67 @@ public class MemberUpdater extends Updater<Member> {
 
     private void addPostParams(final Request request) {
         if (roleSid != null) {
-            request.addPostParam("RoleSid", roleSid);
+            Serializer.toString(
+                request,
+                "RoleSid",
+                roleSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
+                lastConsumedMessageIndex,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastConsumptionTimestamp",
-                lastConsumptionTimestamp.toInstant().toString()
+                lastConsumptionTimestamp,
+                ParameterType.URLENCODED
             );
         }
+
         if (dateCreated != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateCreated",
-                dateCreated.toInstant().toString()
+                dateCreated,
+                ParameterType.URLENCODED
             );
         }
+
         if (dateUpdated != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateUpdated",
-                dateUpdated.toInstant().toString()
+                dateUpdated,
+                ParameterType.URLENCODED
             );
         }
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
+            Serializer.toString(
+                request,
                 "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
+                xTwilioWebhookEnabled,
+                ParameterType.HEADER
             );
         }
     }

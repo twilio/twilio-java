@@ -15,7 +15,6 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class LinkshorteningMessagingServiceDomainAssociationFetcher
     extends Fetcher<LinkshorteningMessagingServiceDomainAssociation> {
@@ -54,7 +54,7 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher
             Domains.MESSAGING.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,7 +74,6 @@ public class LinkshorteningMessagingServiceDomainAssociationFetcher
             }
             throw new ApiException(restException);
         }
-
         return LinkshorteningMessagingServiceDomainAssociation.fromJson(
             response.getStream(),
             client.getObjectMapper()

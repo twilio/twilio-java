@@ -16,6 +16,8 @@ package com.twilio.rest.events.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SubscriptionUpdater extends Updater<Subscription> {
 
     private String pathSid;
     private String description;
-    private String sinkSid;
 
     public SubscriptionUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -37,11 +39,6 @@ public class SubscriptionUpdater extends Updater<Subscription> {
 
     public SubscriptionUpdater setDescription(final String description) {
         this.description = description;
-        return this;
-    }
-
-    public SubscriptionUpdater setSinkSid(final String sinkSid) {
-        this.sinkSid = sinkSid;
         return this;
     }
 
@@ -58,7 +55,9 @@ public class SubscriptionUpdater extends Updater<Subscription> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Subscription update failed: Unable to connect to server"
@@ -85,10 +84,12 @@ public class SubscriptionUpdater extends Updater<Subscription> {
 
     private void addPostParams(final Request request) {
         if (description != null) {
-            request.addPostParam("Description", description);
-        }
-        if (sinkSid != null) {
-            request.addPostParam("SinkSid", sinkSid);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

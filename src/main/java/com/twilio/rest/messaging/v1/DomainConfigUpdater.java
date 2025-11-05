@@ -16,7 +16,9 @@ package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class DomainConfigUpdater extends Updater<DomainConfig> {
@@ -86,7 +89,9 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "DomainConfig update failed: Unable to connect to server"
@@ -113,19 +118,39 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
 
     private void addPostParams(final Request request) {
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
-        }
-        if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
-        }
-        if (continueOnFailure != null) {
-            request.addPostParam(
-                "ContinueOnFailure",
-                continueOnFailure.toString()
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (callbackUrl != null) {
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (continueOnFailure != null) {
+            Serializer.toString(
+                request,
+                "ContinueOnFailure",
+                continueOnFailure,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (disableHttps != null) {
-            request.addPostParam("DisableHttps", disableHttps.toString());
+            Serializer.toString(
+                request,
+                "DisableHttps",
+                disableHttps,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

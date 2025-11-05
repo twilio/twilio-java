@@ -15,7 +15,8 @@
 package com.twilio.rest.taskrouter.v1.workspace.worker;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WorkersRealTimeStatisticsFetcher
     extends Fetcher<WorkersRealTimeStatistics> {
@@ -59,7 +61,7 @@ public class WorkersRealTimeStatisticsFetcher
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -79,7 +81,6 @@ public class WorkersRealTimeStatisticsFetcher
             }
             throw new ApiException(restException);
         }
-
         return WorkersRealTimeStatistics.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -88,7 +89,12 @@ public class WorkersRealTimeStatisticsFetcher
 
     private void addQueryParams(final Request request) {
         if (taskChannel != null) {
-            request.addQueryParam("TaskChannel", taskChannel);
+            Serializer.toString(
+                request,
+                "TaskChannel",
+                taskChannel,
+                ParameterType.QUERY
+            );
         }
     }
 }

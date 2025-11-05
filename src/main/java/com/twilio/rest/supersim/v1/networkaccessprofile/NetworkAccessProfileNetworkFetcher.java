@@ -15,7 +15,6 @@
 package com.twilio.rest.supersim.v1.networkaccessprofile;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class NetworkAccessProfileNetworkFetcher
     extends Fetcher<NetworkAccessProfileNetwork> {
@@ -56,7 +56,7 @@ public class NetworkAccessProfileNetworkFetcher
             Domains.SUPERSIM.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -76,7 +76,6 @@ public class NetworkAccessProfileNetworkFetcher
             }
             throw new ApiException(restException);
         }
-
         return NetworkAccessProfileNetwork.fromJson(
             response.getStream(),
             client.getObjectMapper()

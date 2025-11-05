@@ -16,6 +16,8 @@ package com.twilio.rest.ipmessaging.v1.service.channel;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MessageCreator extends Creator<Message> {
 
@@ -73,7 +76,6 @@ public class MessageCreator extends Creator<Message> {
                 "{" + "ChannelSid" + "}",
                 this.pathChannelSid.toString()
             );
-        path = path.replace("{" + "Body" + "}", this.body.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -82,7 +84,9 @@ public class MessageCreator extends Creator<Message> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Message creation failed: Unable to connect to server"
@@ -106,13 +110,30 @@ public class MessageCreator extends Creator<Message> {
 
     private void addPostParams(final Request request) {
         if (body != null) {
-            request.addPostParam("Body", body);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
+
         if (from != null) {
-            request.addPostParam("From", from);
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
+
         if (attributes != null) {
-            request.addPostParam("Attributes", attributes);
+            Serializer.toString(
+                request,
+                "Attributes",
+                attributes,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

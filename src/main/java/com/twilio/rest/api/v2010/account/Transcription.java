@@ -18,29 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
-
-    private static final long serialVersionUID = 169453036448500L;
 
     public static TranscriptionDeleter deleter(final String pathSid) {
         return new TranscriptionDeleter(pathSid);
@@ -70,6 +71,27 @@ public class Transcription extends Resource {
 
     public static TranscriptionReader reader(final String pathAccountSid) {
         return new TranscriptionReader(pathAccountSid);
+    }
+
+    public enum Status {
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -115,26 +137,67 @@ public class Transcription extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String apiVersion;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String duration;
+
+    @Getter
     private final BigDecimal price;
+
+    @Getter
     private final Currency priceUnit;
+
+    @Getter
     private final String recordingSid;
+
+    @Getter
     private final String sid;
+
+    @Getter
     private final Transcription.Status status;
+
+    @Getter
     private final String transcriptionText;
+
+    @Getter
     private final String type;
+
+    @Getter
     private final String uri;
 
     @JsonCreator
     private Transcription(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.RFC2822Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("duration") final String duration,
         @JsonProperty("price") final BigDecimal price,
         @JsonProperty("price_unit") @JsonDeserialize(
@@ -149,8 +212,8 @@ public class Transcription extends Resource {
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.duration = duration;
         this.price = price;
         this.priceUnit = priceUnit;
@@ -160,58 +223,6 @@ public class Transcription extends Resource {
         this.transcriptionText = transcriptionText;
         this.type = type;
         this.uri = uri;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getApiVersion() {
-        return this.apiVersion;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getDuration() {
-        return this.duration;
-    }
-
-    public final BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final String getRecordingSid() {
-        return this.recordingSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Transcription.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getTranscriptionText() {
-        return this.transcriptionText;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getUri() {
-        return this.uri;
     }
 
     @Override
@@ -225,7 +236,6 @@ public class Transcription extends Resource {
         }
 
         Transcription other = (Transcription) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(apiVersion, other.apiVersion) &&
@@ -260,26 +270,5 @@ public class Transcription extends Resource {
             type,
             uri
         );
-    }
-
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
     }
 }

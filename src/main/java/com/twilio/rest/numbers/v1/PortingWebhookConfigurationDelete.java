@@ -17,27 +17,49 @@ package com.twilio.rest.numbers.v1;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import lombok.ToString;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingWebhookConfigurationDelete extends Resource {
 
-    private static final long serialVersionUID = 0L;
-
     public static PortingWebhookConfigurationDeleteDeleter deleter(
-        final PortingWebhookConfigurationDelete.WebhookType webhookType
+        final PortingWebhookConfigurationDelete.WebhookType pathWebhookType
     ) {
-        return new PortingWebhookConfigurationDeleteDeleter(webhookType);
+        return new PortingWebhookConfigurationDeleteDeleter(pathWebhookType);
+    }
+
+    public enum WebhookType {
+        PORT_IN("PORT_IN"),
+        PORT_OUT("PORT_OUT");
+
+        private final String value;
+
+        private WebhookType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookType.values());
+        }
     }
 
     /**
@@ -89,23 +111,28 @@ public class PortingWebhookConfigurationDelete extends Resource {
         }
     }
 
-    public enum WebhookType {
-        PORT_IN("PORT_IN"),
-        PORT_OUT("PORT_OUT");
-
-        private final String value;
-
-        private WebhookType(final String value) {
-            this.value = value;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
         }
+    }
 
-        public String toString() {
-            return value;
-        }
+    @JsonCreator
+    private PortingWebhookConfigurationDelete() {}
 
-        @JsonCreator
-        public static WebhookType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookType.values());
-        }
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == this.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

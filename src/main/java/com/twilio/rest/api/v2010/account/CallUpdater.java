@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class CallUpdater extends Updater<Call> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private URI url;
     private HttpMethod method;
     private Call.UpdateStatus status;
@@ -135,7 +138,9 @@ public class CallUpdater extends Updater<Call> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Call update failed: Unable to connect to server"
@@ -159,34 +164,79 @@ public class CallUpdater extends Updater<Call> {
 
     private void addPostParams(final Request request) {
         if (url != null) {
-            request.addPostParam("Url", url.toString());
+            Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
+
         if (method != null) {
-            request.addPostParam("Method", method.toString());
-        }
-        if (status != null) {
-            request.addPostParam("Status", status.toString());
-        }
-        if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
-        }
-        if (fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", fallbackMethod.toString());
-        }
-        if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
-        }
-        if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
             );
         }
-        if (twiml != null) {
-            request.addPostParam("Twiml", twiml.toString());
+
+        if (status != null) {
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (fallbackUrl != null) {
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (fallbackMethod != null) {
+            Serializer.toString(
+                request,
+                "FallbackMethod",
+                fallbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallback != null) {
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallbackMethod != null) {
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (twiml != null) {
+            Serializer.toString(
+                request,
+                "Twiml",
+                twiml,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (timeLimit != null) {
-            request.addPostParam("TimeLimit", timeLimit.toString());
+            Serializer.toString(
+                request,
+                "TimeLimit",
+                timeLimit,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

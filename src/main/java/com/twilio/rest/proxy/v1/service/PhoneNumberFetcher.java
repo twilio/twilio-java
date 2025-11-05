@@ -15,7 +15,6 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
@@ -54,7 +54,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             Domains.PROXY.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,7 +74,6 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             }
             throw new ApiException(restException);
         }
-
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()

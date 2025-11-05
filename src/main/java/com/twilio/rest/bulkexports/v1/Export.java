@@ -18,25 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Export extends Resource {
-
-    private static final long serialVersionUID = 148899891151757L;
 
     public static ExportFetcher fetcher(final String pathResourceType) {
         return new ExportFetcher(pathResourceType);
@@ -85,31 +87,36 @@ public class Export extends Resource {
         }
     }
 
-    private final String resourceType;
-    private final URI url;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String resourceType;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Export(
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("resource_type") final String resourceType,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("url") final URI url
     ) {
+        this.links = links;
         this.resourceType = resourceType;
         this.url = url;
-        this.links = links;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -123,16 +130,15 @@ public class Export extends Resource {
         }
 
         Export other = (Export) o;
-
         return (
+            Objects.equals(links, other.links) &&
             Objects.equals(resourceType, other.resourceType) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(resourceType, url, links);
+        return Objects.hash(links, resourceType, url);
     }
 }

@@ -16,7 +16,9 @@ package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ServiceCreator extends Creator<Service> {
@@ -155,12 +157,6 @@ public class ServiceCreator extends Creator<Service> {
     public Service create(final TwilioRestClient client) {
         String path = "/v1/Services";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
@@ -168,7 +164,9 @@ public class ServiceCreator extends Creator<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service creation failed: Unable to connect to server"
@@ -192,69 +190,146 @@ public class ServiceCreator extends Creator<Service> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (inboundRequestUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "InboundRequestUrl",
-                inboundRequestUrl.toString()
+                inboundRequestUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (inboundMethod != null) {
-            request.addPostParam("InboundMethod", inboundMethod.toString());
+            Serializer.toString(
+                request,
+                "InboundMethod",
+                inboundMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (fallbackUrl != null) {
-            request.addPostParam("FallbackUrl", fallbackUrl.toString());
+            Serializer.toString(
+                request,
+                "FallbackUrl",
+                fallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (fallbackMethod != null) {
-            request.addPostParam("FallbackMethod", fallbackMethod.toString());
+            Serializer.toString(
+                request,
+                "FallbackMethod",
+                fallbackMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (stickySender != null) {
-            request.addPostParam("StickySender", stickySender.toString());
+            Serializer.toString(
+                request,
+                "StickySender",
+                stickySender,
+                ParameterType.URLENCODED
+            );
         }
+
         if (mmsConverter != null) {
-            request.addPostParam("MmsConverter", mmsConverter.toString());
+            Serializer.toString(
+                request,
+                "MmsConverter",
+                mmsConverter,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smartEncoding != null) {
-            request.addPostParam("SmartEncoding", smartEncoding.toString());
+            Serializer.toString(
+                request,
+                "SmartEncoding",
+                smartEncoding,
+                ParameterType.URLENCODED
+            );
         }
+
         if (scanMessageContent != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ScanMessageContent",
-                scanMessageContent.toString()
+                scanMessageContent,
+                ParameterType.URLENCODED
             );
         }
+
         if (fallbackToLongCode != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "FallbackToLongCode",
-                fallbackToLongCode.toString()
+                fallbackToLongCode,
+                ParameterType.URLENCODED
             );
         }
+
         if (areaCodeGeomatch != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AreaCodeGeomatch",
-                areaCodeGeomatch.toString()
+                areaCodeGeomatch,
+                ParameterType.URLENCODED
             );
         }
+
         if (validityPeriod != null) {
-            request.addPostParam("ValidityPeriod", validityPeriod.toString());
-        }
-        if (synchronousValidation != null) {
-            request.addPostParam(
-                "SynchronousValidation",
-                synchronousValidation.toString()
+            Serializer.toString(
+                request,
+                "ValidityPeriod",
+                validityPeriod,
+                ParameterType.URLENCODED
             );
         }
-        if (usecase != null) {
-            request.addPostParam("Usecase", usecase);
+
+        if (synchronousValidation != null) {
+            Serializer.toString(
+                request,
+                "SynchronousValidation",
+                synchronousValidation,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (usecase != null) {
+            Serializer.toString(
+                request,
+                "Usecase",
+                usecase,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (useInboundWebhookOnNumber != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "UseInboundWebhookOnNumber",
-                useInboundWebhookOnNumber.toString()
+                useInboundWebhookOnNumber,
+                ParameterType.URLENCODED
             );
         }
     }

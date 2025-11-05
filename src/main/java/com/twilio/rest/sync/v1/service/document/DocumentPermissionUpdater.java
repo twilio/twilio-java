@@ -16,6 +16,8 @@ package com.twilio.rest.sync.v1.service.document;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
@@ -82,9 +85,6 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
             );
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "Read" + "}", this.read.toString());
-        path = path.replace("{" + "Write" + "}", this.write.toString());
-        path = path.replace("{" + "Manage" + "}", this.manage.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -93,7 +93,9 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "DocumentPermission update failed: Unable to connect to server"
@@ -120,13 +122,30 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     private void addPostParams(final Request request) {
         if (read != null) {
-            request.addPostParam("Read", read.toString());
+            Serializer.toString(
+                request,
+                "Read",
+                read,
+                ParameterType.URLENCODED
+            );
         }
+
         if (write != null) {
-            request.addPostParam("Write", write.toString());
+            Serializer.toString(
+                request,
+                "Write",
+                write,
+                ParameterType.URLENCODED
+            );
         }
+
         if (manage != null) {
-            request.addPostParam("Manage", manage.toString());
+            Serializer.toString(
+                request,
+                "Manage",
+                manage,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

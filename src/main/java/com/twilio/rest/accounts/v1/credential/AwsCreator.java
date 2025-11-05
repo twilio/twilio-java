@@ -16,6 +16,8 @@ package com.twilio.rest.accounts.v1.credential;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AwsCreator extends Creator<Aws> {
 
@@ -54,12 +57,6 @@ public class AwsCreator extends Creator<Aws> {
     public Aws create(final TwilioRestClient client) {
         String path = "/v1/Credentials/AWS";
 
-        path =
-            path.replace(
-                "{" + "Credentials" + "}",
-                this.credentials.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
@@ -67,7 +64,9 @@ public class AwsCreator extends Creator<Aws> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Aws creation failed: Unable to connect to server"
@@ -91,13 +90,30 @@ public class AwsCreator extends Creator<Aws> {
 
     private void addPostParams(final Request request) {
         if (credentials != null) {
-            request.addPostParam("Credentials", credentials);
+            Serializer.toString(
+                request,
+                "Credentials",
+                credentials,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

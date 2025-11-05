@@ -15,8 +15,8 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
-import com.twilio.converter.DateConverter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.LocalDate;
 
 public class DeactivationsFetcher extends Fetcher<Deactivations> {
@@ -48,7 +49,7 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -68,7 +69,6 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
             }
             throw new ApiException(restException);
         }
-
         return Deactivations.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -77,10 +77,7 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
 
     private void addQueryParams(final Request request) {
         if (date != null) {
-            request.addQueryParam(
-                "Date",
-                DateConverter.dateStringFromLocalDate(date)
-            );
+            Serializer.toString(request, "Date", date, ParameterType.QUERY);
         }
     }
 }

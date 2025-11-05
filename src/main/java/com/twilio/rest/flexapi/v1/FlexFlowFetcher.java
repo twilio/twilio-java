@@ -15,7 +15,6 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class FlexFlowFetcher extends Fetcher<FlexFlow> {
 
@@ -44,7 +44,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
             Domains.FLEXAPI.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -64,7 +64,6 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
             }
             throw new ApiException(restException);
         }
-
         return FlexFlow.fromJson(
             response.getStream(),
             client.getObjectMapper()

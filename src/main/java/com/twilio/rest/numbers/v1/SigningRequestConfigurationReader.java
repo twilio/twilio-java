@@ -17,7 +17,8 @@ package com.twilio.rest.numbers.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SigningRequestConfigurationReader
     extends Reader<SigningRequestConfiguration> {
 
     private String country;
     private String product;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SigningRequestConfigurationReader() {}
 
@@ -46,9 +48,7 @@ public class SigningRequestConfigurationReader
         return this;
     }
 
-    public SigningRequestConfigurationReader setPageSize(
-        final Integer pageSize
-    ) {
+    public SigningRequestConfigurationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -70,9 +70,8 @@ public class SigningRequestConfigurationReader
             Domains.NUMBERS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -81,7 +80,6 @@ public class SigningRequestConfigurationReader
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "SigningRequestConfiguration read failed: Unable to connect to server"
@@ -91,6 +89,7 @@ public class SigningRequestConfigurationReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -115,7 +114,7 @@ public class SigningRequestConfigurationReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NUMBERS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -127,7 +126,7 @@ public class SigningRequestConfigurationReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NUMBERS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,23 +137,35 @@ public class SigningRequestConfigurationReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (country != null) {
-            request.addQueryParam("Country", country);
-        }
-        if (product != null) {
-            request.addQueryParam("Product", product);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "Country",
+                country,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (product != null) {
+            Serializer.toString(
+                request,
+                "Product",
+                product,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

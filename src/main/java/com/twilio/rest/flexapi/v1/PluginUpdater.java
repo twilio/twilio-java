@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PluginUpdater extends Updater<Plugin> {
 
@@ -36,11 +39,6 @@ public class PluginUpdater extends Updater<Plugin> {
         this.pathSid = pathSid;
     }
 
-    public PluginUpdater setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
-        return this;
-    }
-
     public PluginUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
@@ -48,6 +46,11 @@ public class PluginUpdater extends Updater<Plugin> {
 
     public PluginUpdater setDescription(final String description) {
         this.description = description;
+        return this;
+    }
+
+    public PluginUpdater setFlexMetadata(final String flexMetadata) {
+        this.flexMetadata = flexMetadata;
         return this;
     }
 
@@ -63,9 +66,11 @@ public class PluginUpdater extends Updater<Plugin> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Plugin update failed: Unable to connect to server"
@@ -89,16 +94,32 @@ public class PluginUpdater extends Updater<Plugin> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

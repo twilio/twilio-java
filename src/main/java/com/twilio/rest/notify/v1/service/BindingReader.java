@@ -17,9 +17,9 @@ package com.twilio.rest.notify.v1.service;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
-import com.twilio.converter.DateConverter;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -28,6 +28,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class BindingReader extends Reader<Binding> {
     private LocalDate endDate;
     private List<String> identity;
     private List<String> tag;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -72,7 +73,7 @@ public class BindingReader extends Reader<Binding> {
         return setTag(Promoter.listOfOne(tag));
     }
 
-    public BindingReader setPageSize(final Integer pageSize) {
+    public BindingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -84,6 +85,7 @@ public class BindingReader extends Reader<Binding> {
 
     public Page<Binding> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Bindings";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -95,9 +97,8 @@ public class BindingReader extends Reader<Binding> {
             Domains.NOTIFY.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -106,7 +107,6 @@ public class BindingReader extends Reader<Binding> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Binding read failed: Unable to connect to server"
@@ -116,6 +116,7 @@ public class BindingReader extends Reader<Binding> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -140,7 +141,7 @@ public class BindingReader extends Reader<Binding> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NOTIFY.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -152,7 +153,7 @@ public class BindingReader extends Reader<Binding> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NOTIFY.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -163,41 +164,52 @@ public class BindingReader extends Reader<Binding> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (startDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartDate",
-                DateConverter.dateStringFromLocalDate(startDate)
+                startDate,
+                ParameterType.QUERY
             );
         }
 
         if (endDate != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "EndDate",
-                DateConverter.dateStringFromLocalDate(endDate)
+                endDate,
+                ParameterType.QUERY
             );
         }
 
         if (identity != null) {
-            for (String prop : identity) {
-                request.addQueryParam("Identity", prop);
+            for (String param : identity) {
+                Serializer.toString(
+                    request,
+                    "Identity",
+                    param,
+                    ParameterType.QUERY
+                );
             }
-        }
-        if (tag != null) {
-            for (String prop : tag) {
-                request.addQueryParam("Tag", prop);
-            }
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (tag != null) {
+            for (String param : tag) {
+                Serializer.toString(request, "Tag", param, ParameterType.QUERY);
+            }
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

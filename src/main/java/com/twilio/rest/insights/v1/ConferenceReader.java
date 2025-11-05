@@ -17,7 +17,8 @@ package com.twilio.rest.insights.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConferenceReader extends Reader<Conference> {
 
@@ -39,7 +41,7 @@ public class ConferenceReader extends Reader<Conference> {
     private String subaccount;
     private String detectedIssues;
     private String endReason;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConferenceReader() {}
 
@@ -93,7 +95,7 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
-    public ConferenceReader setPageSize(final Integer pageSize) {
+    public ConferenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -111,9 +113,8 @@ public class ConferenceReader extends Reader<Conference> {
             Domains.INSIGHTS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -122,7 +123,6 @@ public class ConferenceReader extends Reader<Conference> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Conference read failed: Unable to connect to server"
@@ -132,6 +132,7 @@ public class ConferenceReader extends Reader<Conference> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -156,7 +157,7 @@ public class ConferenceReader extends Reader<Conference> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INSIGHTS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -168,7 +169,7 @@ public class ConferenceReader extends Reader<Conference> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INSIGHTS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -179,47 +180,97 @@ public class ConferenceReader extends Reader<Conference> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (conferenceSid != null) {
-            request.addQueryParam("ConferenceSid", conferenceSid);
-        }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status);
-        }
-        if (createdAfter != null) {
-            request.addQueryParam("CreatedAfter", createdAfter);
-        }
-        if (createdBefore != null) {
-            request.addQueryParam("CreatedBefore", createdBefore);
-        }
-        if (mixerRegion != null) {
-            request.addQueryParam("MixerRegion", mixerRegion);
-        }
-        if (tags != null) {
-            request.addQueryParam("Tags", tags);
-        }
-        if (subaccount != null) {
-            request.addQueryParam("Subaccount", subaccount);
-        }
-        if (detectedIssues != null) {
-            request.addQueryParam("DetectedIssues", detectedIssues);
-        }
-        if (endReason != null) {
-            request.addQueryParam("EndReason", endReason);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "ConferenceSid",
+                conferenceSid,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (createdAfter != null) {
+            Serializer.toString(
+                request,
+                "CreatedAfter",
+                createdAfter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (createdBefore != null) {
+            Serializer.toString(
+                request,
+                "CreatedBefore",
+                createdBefore,
+                ParameterType.QUERY
+            );
+        }
+
+        if (mixerRegion != null) {
+            Serializer.toString(
+                request,
+                "MixerRegion",
+                mixerRegion,
+                ParameterType.QUERY
+            );
+        }
+
+        if (tags != null) {
+            Serializer.toString(request, "Tags", tags, ParameterType.QUERY);
+        }
+
+        if (subaccount != null) {
+            Serializer.toString(
+                request,
+                "Subaccount",
+                subaccount,
+                ParameterType.QUERY
+            );
+        }
+
+        if (detectedIssues != null) {
+            Serializer.toString(
+                request,
+                "DetectedIssues",
+                detectedIssues,
+                ParameterType.QUERY
+            );
+        }
+
+        if (endReason != null) {
+            Serializer.toString(
+                request,
+                "EndReason",
+                endReason,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

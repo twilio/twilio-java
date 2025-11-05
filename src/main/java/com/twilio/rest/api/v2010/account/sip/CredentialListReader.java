@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account.sip;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialListReader extends Reader<CredentialList> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CredentialListReader() {}
 
@@ -38,7 +40,7 @@ public class CredentialListReader extends Reader<CredentialList> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public CredentialListReader setPageSize(final Integer pageSize) {
+    public CredentialListReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -51,6 +53,7 @@ public class CredentialListReader extends Reader<CredentialList> {
     public Page<CredentialList> firstPage(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -66,9 +69,8 @@ public class CredentialListReader extends Reader<CredentialList> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -77,7 +79,6 @@ public class CredentialListReader extends Reader<CredentialList> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "CredentialList read failed: Unable to connect to server"
@@ -87,6 +88,7 @@ public class CredentialListReader extends Reader<CredentialList> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -134,17 +136,17 @@ public class CredentialListReader extends Reader<CredentialList> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -18,27 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Worker extends Resource {
-
-    private static final long serialVersionUID = 110824061154379L;
 
     public static WorkerCreator creator(
         final String pathWorkspaceSid,
@@ -115,19 +117,56 @@ public class Worker extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String activityName;
+
+    @Getter
     private final String activitySid;
+
+    @Getter
     private final String attributes;
+
+    @Getter
     private final Boolean available;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateStatusChanged;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final String friendlyName;
-    private final String sid;
-    private final String workspaceSid;
-    private final URI url;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final String workspaceSid;
 
     @JsonCreator
     private Worker(
@@ -136,81 +175,34 @@ public class Worker extends Resource {
         @JsonProperty("activity_sid") final String activitySid,
         @JsonProperty("attributes") final String attributes,
         @JsonProperty("available") final Boolean available,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_status_changed") final String dateStatusChanged,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_status_changed") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateStatusChanged,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("workspace_sid") final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.activityName = activityName;
         this.activitySid = activitySid;
         this.attributes = attributes;
         this.available = available;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateStatusChanged =
-            DateConverter.iso8601DateTimeFromString(dateStatusChanged);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.dateCreated = dateCreated;
+        this.dateStatusChanged = dateStatusChanged;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.sid = sid;
-        this.workspaceSid = workspaceSid;
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getActivityName() {
-        return this.activityName;
-    }
-
-    public final String getActivitySid() {
-        return this.activitySid;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final Boolean getAvailable() {
-        return this.available;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateStatusChanged() {
-        return this.dateStatusChanged;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.sid = sid;
+        this.url = url;
+        this.workspaceSid = workspaceSid;
     }
 
     @Override
@@ -224,7 +216,6 @@ public class Worker extends Resource {
         }
 
         Worker other = (Worker) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(activityName, other.activityName) &&
@@ -235,10 +226,10 @@ public class Worker extends Resource {
             Objects.equals(dateStatusChanged, other.dateStatusChanged) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(workspaceSid, other.workspaceSid)
         );
     }
 
@@ -254,10 +245,10 @@ public class Worker extends Resource {
             dateStatusChanged,
             dateUpdated,
             friendlyName,
+            links,
             sid,
-            workspaceSid,
             url,
-            links
+            workspaceSid
         );
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,19 +26,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.math.BigDecimal;
+import com.twilio.type.*;
 import java.math.BigDecimal;
 
 public class InsightsAssessmentsCommentCreator
     extends Creator<InsightsAssessmentsComment> {
 
+    private String authorization;
     private String categoryId;
     private String categoryName;
     private String comment;
     private String segmentId;
     private String agentId;
     private BigDecimal offset;
-    private String authorization;
 
     public InsightsAssessmentsCommentCreator(
         final String categoryId,
@@ -103,27 +105,17 @@ public class InsightsAssessmentsCommentCreator
     public InsightsAssessmentsComment create(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
-        path =
-            path.replace("{" + "CategoryId" + "}", this.categoryId.toString());
-        path =
-            path.replace(
-                "{" + "CategoryName" + "}",
-                this.categoryName.toString()
-            );
-        path = path.replace("{" + "Comment" + "}", this.comment.toString());
-        path = path.replace("{" + "SegmentId" + "}", this.segmentId.toString());
-        path = path.replace("{" + "AgentId" + "}", this.agentId.toString());
-        path = path.replace("{" + "Offset" + "}", this.offset.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsAssessmentsComment creation failed: Unable to connect to server"
@@ -150,28 +142,68 @@ public class InsightsAssessmentsCommentCreator
 
     private void addPostParams(final Request request) {
         if (categoryId != null) {
-            request.addPostParam("CategoryId", categoryId);
+            Serializer.toString(
+                request,
+                "CategoryId",
+                categoryId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (categoryName != null) {
-            request.addPostParam("CategoryName", categoryName);
+            Serializer.toString(
+                request,
+                "CategoryName",
+                categoryName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (comment != null) {
-            request.addPostParam("Comment", comment);
+            Serializer.toString(
+                request,
+                "Comment",
+                comment,
+                ParameterType.URLENCODED
+            );
         }
+
         if (segmentId != null) {
-            request.addPostParam("SegmentId", segmentId);
+            Serializer.toString(
+                request,
+                "SegmentId",
+                segmentId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (agentId != null) {
-            request.addPostParam("AgentId", agentId);
+            Serializer.toString(
+                request,
+                "AgentId",
+                agentId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (offset != null) {
-            request.addPostParam("Offset", offset.toString());
+            Serializer.toString(
+                request,
+                "Offset",
+                offset,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account.recording;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class TranscriptionReader extends Reader<Transcription> {
 
-    private String pathRecordingSid;
     private String pathAccountSid;
-    private Integer pageSize;
+    private String pathRecordingSid;
+    private Long pageSize;
 
     public TranscriptionReader(final String pathRecordingSid) {
         this.pathRecordingSid = pathRecordingSid;
@@ -45,7 +47,7 @@ public class TranscriptionReader extends Reader<Transcription> {
         this.pathRecordingSid = pathRecordingSid;
     }
 
-    public TranscriptionReader setPageSize(final Integer pageSize) {
+    public TranscriptionReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -58,6 +60,7 @@ public class TranscriptionReader extends Reader<Transcription> {
     public Page<Transcription> firstPage(final TwilioRestClient client) {
         String path =
             "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -78,9 +81,8 @@ public class TranscriptionReader extends Reader<Transcription> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -89,7 +91,6 @@ public class TranscriptionReader extends Reader<Transcription> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Transcription read failed: Unable to connect to server"
@@ -99,6 +100,7 @@ public class TranscriptionReader extends Reader<Transcription> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -146,17 +148,17 @@ public class TranscriptionReader extends Reader<Transcription> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

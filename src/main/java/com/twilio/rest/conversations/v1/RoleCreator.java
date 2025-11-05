@@ -16,7 +16,9 @@ package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class RoleCreator extends Creator<Role> {
@@ -67,15 +69,6 @@ public class RoleCreator extends Creator<Role> {
     public Role create(final TwilioRestClient client) {
         String path = "/v1/Roles";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
-        path =
-            path.replace("{" + "Permission" + "}", this.permission.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
@@ -83,7 +76,9 @@ public class RoleCreator extends Creator<Role> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Role creation failed: Unable to connect to server"
@@ -107,14 +102,31 @@ public class RoleCreator extends Creator<Role> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (type != null) {
-            request.addPostParam("Type", type.toString());
+            Serializer.toString(
+                request,
+                "Type",
+                type,
+                ParameterType.URLENCODED
+            );
         }
+
         if (permission != null) {
-            for (String prop : permission) {
-                request.addPostParam("Permission", prop);
+            for (String param : permission) {
+                Serializer.toString(
+                    request,
+                    "Permission",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }

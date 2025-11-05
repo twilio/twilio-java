@@ -15,7 +15,8 @@
 package com.twilio.rest.flexapi.v1.pluginconfiguration;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
 
@@ -65,8 +67,8 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
             Domains.FLEXAPI.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -86,7 +88,6 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
             }
             throw new ApiException(restException);
         }
-
         return ConfiguredPlugin.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -95,7 +96,12 @@ public class ConfiguredPluginFetcher extends Fetcher<ConfiguredPlugin> {
 
     private void addHeaderParams(final Request request) {
         if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

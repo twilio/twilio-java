@@ -15,7 +15,8 @@
 package com.twilio.rest.insights.v1.conference;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConferenceParticipantFetcher
     extends Fetcher<ConferenceParticipant> {
@@ -73,7 +75,7 @@ public class ConferenceParticipantFetcher
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -93,7 +95,6 @@ public class ConferenceParticipantFetcher
             }
             throw new ApiException(restException);
         }
-
         return ConferenceParticipant.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -102,10 +103,16 @@ public class ConferenceParticipantFetcher
 
     private void addQueryParams(final Request request) {
         if (events != null) {
-            request.addQueryParam("Events", events);
+            Serializer.toString(request, "Events", events, ParameterType.QUERY);
         }
+
         if (metrics != null) {
-            request.addQueryParam("Metrics", metrics);
+            Serializer.toString(
+                request,
+                "Metrics",
+                metrics,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.bulkexports.v1.export;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
 
@@ -86,13 +89,6 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
                 "{" + "ResourceType" + "}",
                 this.pathResourceType.toString()
             );
-        path = path.replace("{" + "StartDay" + "}", this.startDay.toString());
-        path = path.replace("{" + "EndDay" + "}", this.endDay.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -101,7 +97,9 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ExportCustomJob creation failed: Unable to connect to server"
@@ -128,22 +126,57 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
 
     private void addPostParams(final Request request) {
         if (startDay != null) {
-            request.addPostParam("StartDay", startDay);
+            Serializer.toString(
+                request,
+                "StartDay",
+                startDay,
+                ParameterType.URLENCODED
+            );
         }
+
         if (endDay != null) {
-            request.addPostParam("EndDay", endDay);
+            Serializer.toString(
+                request,
+                "EndDay",
+                endDay,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl);
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookMethod != null) {
-            request.addPostParam("WebhookMethod", webhookMethod);
+            Serializer.toString(
+                request,
+                "WebhookMethod",
+                webhookMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

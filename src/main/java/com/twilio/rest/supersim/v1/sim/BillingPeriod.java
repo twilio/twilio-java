@@ -18,28 +18,51 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BillingPeriod extends Resource {
 
-    private static final long serialVersionUID = 154829037650501L;
-
     public static BillingPeriodReader reader(final String pathSimSid) {
         return new BillingPeriodReader(pathSimSid);
+    }
+
+    public enum BpType {
+        READY("ready"),
+        ACTIVE("active");
+
+        private final String value;
+
+        private BpType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BpType forValue(final String value) {
+            return Promoter.enumFromString(value, BpType.values());
+        }
     }
 
     /**
@@ -85,66 +108,69 @@ public class BillingPeriod extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String simSid;
-    private final ZonedDateTime startTime;
-    private final ZonedDateTime endTime;
-    private final BillingPeriod.BpType periodType;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final ZonedDateTime endTime;
+
+    @Getter
+    private final BillingPeriod.BpType periodType;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String simSid;
+
+    @Getter
+    private final ZonedDateTime startTime;
 
     @JsonCreator
     private BillingPeriod(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("start_time") final String startTime,
-        @JsonProperty("end_time") final String endTime,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("end_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime endTime,
         @JsonProperty("period_type") final BillingPeriod.BpType periodType,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("start_time") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime startTime
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.simSid = simSid;
-        this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
-        this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.endTime = endTime;
         this.periodType = periodType;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final ZonedDateTime getStartTime() {
-        return this.startTime;
-    }
-
-    public final ZonedDateTime getEndTime() {
-        return this.endTime;
-    }
-
-    public final BillingPeriod.BpType getPeriodType() {
-        return this.periodType;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
+        this.sid = sid;
+        this.simSid = simSid;
+        this.startTime = startTime;
     }
 
     @Override
@@ -158,50 +184,29 @@ public class BillingPeriod extends Resource {
         }
 
         BillingPeriod other = (BillingPeriod) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(endTime, other.endTime) &&
             Objects.equals(periodType, other.periodType) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(startTime, other.startTime)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            simSid,
-            startTime,
+            dateCreated,
+            dateUpdated,
             endTime,
             periodType,
-            dateCreated,
-            dateUpdated
+            sid,
+            simSid,
+            startTime
         );
-    }
-
-    public enum BpType {
-        READY("ready"),
-        ACTIVE("active");
-
-        private final String value;
-
-        private BpType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BpType forValue(final String value) {
-            return Promoter.enumFromString(value, BpType.values());
-        }
     }
 }

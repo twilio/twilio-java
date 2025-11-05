@@ -16,7 +16,9 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class BundleCreator extends Creator<Bundle> {
@@ -92,13 +94,6 @@ public class BundleCreator extends Creator<Bundle> {
     public Bundle create(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Email" + "}", this.email.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
@@ -106,7 +101,9 @@ public class BundleCreator extends Creator<Bundle> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Bundle creation failed: Unable to connect to server"
@@ -130,28 +127,75 @@ public class BundleCreator extends Creator<Bundle> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (email != null) {
-            request.addPostParam("Email", email);
+            Serializer.toString(
+                request,
+                "Email",
+                email,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (regulationSid != null) {
-            request.addPostParam("RegulationSid", regulationSid);
+            Serializer.toString(
+                request,
+                "RegulationSid",
+                regulationSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (isoCountry != null) {
-            request.addPostParam("IsoCountry", isoCountry);
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.URLENCODED
+            );
         }
+
         if (endUserType != null) {
-            request.addPostParam("EndUserType", endUserType.toString());
+            Serializer.toString(
+                request,
+                "EndUserType",
+                endUserType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (numberType != null) {
-            request.addPostParam("NumberType", numberType);
+            Serializer.toString(
+                request,
+                "NumberType",
+                numberType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (isTest != null) {
-            request.addPostParam("IsTest", isTest.toString());
+            Serializer.toString(
+                request,
+                "IsTest",
+                isTest,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

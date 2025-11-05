@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WebChannelUpdater extends Updater<WebChannel> {
 
@@ -62,7 +65,9 @@ public class WebChannelUpdater extends Updater<WebChannel> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "WebChannel update failed: Unable to connect to server"
@@ -89,10 +94,21 @@ public class WebChannelUpdater extends Updater<WebChannel> {
 
     private void addPostParams(final Request request) {
         if (chatStatus != null) {
-            request.addPostParam("ChatStatus", chatStatus.toString());
+            Serializer.toString(
+                request,
+                "ChatStatus",
+                chatStatus,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postEngagementData != null) {
-            request.addPostParam("PostEngagementData", postEngagementData);
+            Serializer.toString(
+                request,
+                "PostEngagementData",
+                postEngagementData,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

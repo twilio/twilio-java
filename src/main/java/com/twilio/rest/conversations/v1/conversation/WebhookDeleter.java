@@ -15,7 +15,6 @@
 package com.twilio.rest.conversations.v1.conversation;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WebhookDeleter extends Deleter<Webhook> {
 
@@ -54,7 +54,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
             Domains.CONVERSATIONS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {

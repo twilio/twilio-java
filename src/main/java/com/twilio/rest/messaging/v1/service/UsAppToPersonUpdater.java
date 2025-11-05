@@ -16,7 +16,9 @@ package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 
 public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
@@ -117,37 +120,6 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
                 this.pathMessagingServiceSid.toString()
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "HasEmbeddedLinks" + "}",
-                this.hasEmbeddedLinks.toString()
-            );
-        path =
-            path.replace(
-                "{" + "HasEmbeddedPhone" + "}",
-                this.hasEmbeddedPhone.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSamples" + "}",
-                this.messageSamples.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageFlow" + "}",
-                this.messageFlow.toString()
-            );
-        path =
-            path.replace(
-                "{" + "Description" + "}",
-                this.description.toString()
-            );
-        path = path.replace("{" + "AgeGated" + "}", this.ageGated.toString());
-        path =
-            path.replace(
-                "{" + "DirectLending" + "}",
-                this.directLending.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -156,7 +128,9 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UsAppToPerson update failed: Unable to connect to server"
@@ -183,33 +157,68 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
 
     private void addPostParams(final Request request) {
         if (hasEmbeddedLinks != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "HasEmbeddedLinks",
-                hasEmbeddedLinks.toString()
+                hasEmbeddedLinks,
+                ParameterType.URLENCODED
             );
         }
+
         if (hasEmbeddedPhone != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "HasEmbeddedPhone",
-                hasEmbeddedPhone.toString()
+                hasEmbeddedPhone,
+                ParameterType.URLENCODED
             );
         }
+
         if (messageSamples != null) {
-            for (String prop : messageSamples) {
-                request.addPostParam("MessageSamples", prop);
+            for (String param : messageSamples) {
+                Serializer.toString(
+                    request,
+                    "MessageSamples",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (messageFlow != null) {
-            request.addPostParam("MessageFlow", messageFlow);
+            Serializer.toString(
+                request,
+                "MessageFlow",
+                messageFlow,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ageGated != null) {
-            request.addPostParam("AgeGated", ageGated.toString());
+            Serializer.toString(
+                request,
+                "AgeGated",
+                ageGated,
+                ParameterType.URLENCODED
+            );
         }
+
         if (directLending != null) {
-            request.addPostParam("DirectLending", directLending.toString());
+            Serializer.toString(
+                request,
+                "DirectLending",
+                directLending,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

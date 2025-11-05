@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfig extends Resource {
-
-    private static final long serialVersionUID = 278004827100918L;
 
     public static DomainConfigFetcher fetcher(final String pathDomainSid) {
         return new DomainConfigFetcher(pathDomainSid);
@@ -89,73 +92,70 @@ public class DomainConfig extends Resource {
         }
     }
 
-    private final String domainSid;
-    private final String configSid;
-    private final URI fallbackUrl;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final URI callbackUrl;
+
+    @Getter
+    private final String configSid;
+
+    @Getter
     private final Boolean continueOnFailure;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
     private final Boolean disableHttps;
+
+    @Getter
+    private final String domainSid;
+
+    @Getter
+    private final URI fallbackUrl;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private DomainConfig(
-        @JsonProperty("domain_sid") final String domainSid,
-        @JsonProperty("config_sid") final String configSid,
-        @JsonProperty("fallback_url") final URI fallbackUrl,
         @JsonProperty("callback_url") final URI callbackUrl,
+        @JsonProperty("config_sid") final String configSid,
         @JsonProperty("continue_on_failure") final Boolean continueOnFailure,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("disable_https") final Boolean disableHttps
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("disable_https") final Boolean disableHttps,
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("fallback_url") final URI fallbackUrl,
+        @JsonProperty("url") final URI url
     ) {
-        this.domainSid = domainSid;
-        this.configSid = configSid;
-        this.fallbackUrl = fallbackUrl;
         this.callbackUrl = callbackUrl;
+        this.configSid = configSid;
         this.continueOnFailure = continueOnFailure;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.disableHttps = disableHttps;
-    }
-
-    public final String getDomainSid() {
-        return this.domainSid;
-    }
-
-    public final String getConfigSid() {
-        return this.configSid;
-    }
-
-    public final URI getFallbackUrl() {
-        return this.fallbackUrl;
-    }
-
-    public final URI getCallbackUrl() {
-        return this.callbackUrl;
-    }
-
-    public final Boolean getContinueOnFailure() {
-        return this.continueOnFailure;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Boolean getDisableHttps() {
-        return this.disableHttps;
+        this.domainSid = domainSid;
+        this.fallbackUrl = fallbackUrl;
+        this.url = url;
     }
 
     @Override
@@ -169,32 +169,31 @@ public class DomainConfig extends Resource {
         }
 
         DomainConfig other = (DomainConfig) o;
-
         return (
-            Objects.equals(domainSid, other.domainSid) &&
-            Objects.equals(configSid, other.configSid) &&
-            Objects.equals(fallbackUrl, other.fallbackUrl) &&
             Objects.equals(callbackUrl, other.callbackUrl) &&
+            Objects.equals(configSid, other.configSid) &&
             Objects.equals(continueOnFailure, other.continueOnFailure) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(disableHttps, other.disableHttps)
+            Objects.equals(disableHttps, other.disableHttps) &&
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(fallbackUrl, other.fallbackUrl) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            domainSid,
-            configSid,
-            fallbackUrl,
             callbackUrl,
+            configSid,
             continueOnFailure,
             dateCreated,
             dateUpdated,
-            url,
-            disableHttps
+            disableHttps,
+            domainSid,
+            fallbackUrl,
+            url
         );
     }
 }

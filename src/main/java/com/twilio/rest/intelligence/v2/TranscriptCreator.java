@@ -16,8 +16,8 @@ package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,21 +26,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 
 public class TranscriptCreator extends Creator<Transcript> {
 
     private String serviceSid;
-    private Map<String, Object> channel;
+    private Object channel;
     private String customerKey;
     private ZonedDateTime mediaStartTime;
 
-    public TranscriptCreator(
-        final String serviceSid,
-        final Map<String, Object> channel
-    ) {
+    public TranscriptCreator(final String serviceSid, final Object channel) {
         this.serviceSid = serviceSid;
         this.channel = channel;
     }
@@ -50,7 +46,7 @@ public class TranscriptCreator extends Creator<Transcript> {
         return this;
     }
 
-    public TranscriptCreator setChannel(final Map<String, Object> channel) {
+    public TranscriptCreator setChannel(final Object channel) {
         this.channel = channel;
         return this;
     }
@@ -71,10 +67,6 @@ public class TranscriptCreator extends Creator<Transcript> {
     public Transcript create(final TwilioRestClient client) {
         String path = "/v2/Transcripts";
 
-        path =
-            path.replace("{" + "ServiceSid" + "}", this.serviceSid.toString());
-        path = path.replace("{" + "Channel" + "}", this.channel.toString());
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.INTELLIGENCE.toString(),
@@ -82,7 +74,9 @@ public class TranscriptCreator extends Creator<Transcript> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Transcript creation failed: Unable to connect to server"
@@ -109,18 +103,38 @@ public class TranscriptCreator extends Creator<Transcript> {
 
     private void addPostParams(final Request request) {
         if (serviceSid != null) {
-            request.addPostParam("ServiceSid", serviceSid);
+            Serializer.toString(
+                request,
+                "ServiceSid",
+                serviceSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (channel != null) {
-            request.addPostParam("Channel", Converter.mapToJson(channel));
+            Serializer.toString(
+                request,
+                "Channel",
+                channel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customerKey != null) {
-            request.addPostParam("CustomerKey", customerKey);
+            Serializer.toString(
+                request,
+                "CustomerKey",
+                customerKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (mediaStartTime != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "MediaStartTime",
-                mediaStartTime.toInstant().toString()
+                mediaStartTime,
+                ParameterType.URLENCODED
             );
         }
     }

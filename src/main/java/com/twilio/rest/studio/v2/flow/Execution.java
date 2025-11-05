@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Execution extends Resource {
-
-    private static final long serialVersionUID = 276284150060496L;
 
     public static ExecutionCreator creator(
         final String pathFlowSid,
@@ -73,6 +75,26 @@ public class Execution extends Resource {
         final Execution.Status status
     ) {
         return new ExecutionUpdater(pathFlowSid, pathSid, status);
+    }
+
+    public enum Status {
+        ACTIVE("active"),
+        ENDED("ended");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 
     /**
@@ -118,82 +140,77 @@ public class Execution extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String flowSid;
+
+    @Getter
     private final String contactChannelAddress;
-    private final Map<String, Object> context;
-    private final Execution.Status status;
+
+    @Getter
+    private final Object context;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
+    private final String flowSid;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Execution.Status status;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Execution(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty(
             "contact_channel_address"
         ) final String contactChannelAddress,
-        @JsonProperty("context") final Map<String, Object> context,
+        @JsonProperty("context") final Object context,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("flow_sid") final String flowSid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Execution.Status status,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.flowSid = flowSid;
         this.contactChannelAddress = contactChannelAddress;
         this.context = context;
-        this.status = status;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.flowSid = flowSid;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFlowSid() {
-        return this.flowSid;
-    }
-
-    public final String getContactChannelAddress() {
-        return this.contactChannelAddress;
-    }
-
-    public final Map<String, Object> getContext() {
-        return this.context;
-    }
-
-    public final Execution.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.sid = sid;
+        this.status = status;
+        this.url = url;
     }
 
     @Override
@@ -207,57 +224,36 @@ public class Execution extends Resource {
         }
 
         Execution other = (Execution) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(flowSid, other.flowSid) &&
             Objects.equals(
                 contactChannelAddress,
                 other.contactChannelAddress
             ) &&
             Objects.equals(context, other.context) &&
-            Objects.equals(status, other.status) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(flowSid, other.flowSid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            flowSid,
             contactChannelAddress,
             context,
-            status,
             dateCreated,
             dateUpdated,
-            url,
-            links
+            flowSid,
+            links,
+            sid,
+            status,
+            url
         );
-    }
-
-    public enum Status {
-        ACTIVE("active"),
-        ENDED("ended");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
     }
 }

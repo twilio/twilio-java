@@ -15,7 +15,8 @@
 package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SettingFetcher extends Fetcher<Setting> {
 
@@ -46,7 +48,7 @@ public class SettingFetcher extends Fetcher<Setting> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -66,13 +68,17 @@ public class SettingFetcher extends Fetcher<Setting> {
             }
             throw new ApiException(restException);
         }
-
         return Setting.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
         if (subaccountSid != null) {
-            request.addQueryParam("SubaccountSid", subaccountSid);
+            Serializer.toString(
+                request,
+                "SubaccountSid",
+                subaccountSid,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ShortCodeReader extends Reader<ShortCode> {
 
     private String pathAccountSid;
     private String friendlyName;
     private String shortCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ShortCodeReader() {}
 
@@ -50,7 +52,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
         return this;
     }
 
-    public ShortCodeReader setPageSize(final Integer pageSize) {
+    public ShortCodeReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -62,6 +64,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     public Page<ShortCode> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -77,9 +80,8 @@ public class ShortCodeReader extends Reader<ShortCode> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -88,7 +90,6 @@ public class ShortCodeReader extends Reader<ShortCode> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "ShortCode read failed: Unable to connect to server"
@@ -98,6 +99,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -145,23 +147,35 @@ public class ShortCodeReader extends Reader<ShortCode> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (shortCode != null) {
-            request.addQueryParam("ShortCode", shortCode);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (shortCode != null) {
+            Serializer.toString(
+                request,
+                "ShortCode",
+                shortCode,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-
-    private static final long serialVersionUID = 148454673918473L;
 
     public static WebhookFetcher fetcher(final String pathChatServiceSid) {
         return new WebhookFetcher(pathChatServiceSid);
@@ -44,6 +47,26 @@ public class Webhook extends Resource {
 
     public static WebhookUpdater updater(final String pathChatServiceSid) {
         return new WebhookUpdater(pathChatServiceSid);
+    }
+
+    public enum Method {
+        GET("GET"),
+        POST("POST");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
     }
 
     /**
@@ -89,59 +112,56 @@ public class Webhook extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String chatServiceSid;
-    private final URI preWebhookUrl;
-    private final URI postWebhookUrl;
+
+    @Getter
     private final List<String> filters;
+
+    @Getter
     private final Webhook.Method method;
+
+    @Getter
+    private final URI postWebhookUrl;
+
+    @Getter
+    private final URI preWebhookUrl;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Webhook(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("pre_webhook_url") final URI preWebhookUrl,
-        @JsonProperty("post_webhook_url") final URI postWebhookUrl,
         @JsonProperty("filters") final List<String> filters,
         @JsonProperty("method") final Webhook.Method method,
+        @JsonProperty("post_webhook_url") final URI postWebhookUrl,
+        @JsonProperty("pre_webhook_url") final URI preWebhookUrl,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
-        this.preWebhookUrl = preWebhookUrl;
-        this.postWebhookUrl = postWebhookUrl;
         this.filters = filters;
         this.method = method;
+        this.postWebhookUrl = postWebhookUrl;
+        this.preWebhookUrl = preWebhookUrl;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final URI getPreWebhookUrl() {
-        return this.preWebhookUrl;
-    }
-
-    public final URI getPostWebhookUrl() {
-        return this.postWebhookUrl;
-    }
-
-    public final List<String> getFilters() {
-        return this.filters;
-    }
-
-    public final Webhook.Method getMethod() {
-        return this.method;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -155,14 +175,13 @@ public class Webhook extends Resource {
         }
 
         Webhook other = (Webhook) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
-            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
             Objects.equals(filters, other.filters) &&
             Objects.equals(method, other.method) &&
+            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
             Objects.equals(url, other.url)
         );
     }
@@ -172,31 +191,11 @@ public class Webhook extends Resource {
         return Objects.hash(
             accountSid,
             chatServiceSid,
-            preWebhookUrl,
-            postWebhookUrl,
             filters,
             method,
+            postWebhookUrl,
+            preWebhookUrl,
             url
         );
-    }
-
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
-        }
     }
 }

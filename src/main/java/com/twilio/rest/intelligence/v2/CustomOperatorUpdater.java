@@ -16,7 +16,8 @@ package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,19 +26,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class CustomOperatorUpdater extends Updater<CustomOperator> {
 
     private String pathSid;
-    private String friendlyName;
-    private Map<String, Object> config;
     private String ifMatch;
+    private String friendlyName;
+    private Object config;
 
     public CustomOperatorUpdater(
         final String pathSid,
         final String friendlyName,
-        final Map<String, Object> config
+        final Object config
     ) {
         this.pathSid = pathSid;
         this.friendlyName = friendlyName;
@@ -49,7 +50,7 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
         return this;
     }
 
-    public CustomOperatorUpdater setConfig(final Map<String, Object> config) {
+    public CustomOperatorUpdater setConfig(final Object config) {
         this.config = config;
         return this;
     }
@@ -64,12 +65,6 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
         String path = "/v2/Operators/Custom/{Sid}";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Config" + "}", this.config.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,9 +72,11 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "CustomOperator update failed: Unable to connect to server"
@@ -106,16 +103,32 @@ public class CustomOperatorUpdater extends Updater<CustomOperator> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (config != null) {
-            request.addPostParam("Config", Converter.mapToJson(config));
+            Serializer.toString(
+                request,
+                "Config",
+                config,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
     }
 }

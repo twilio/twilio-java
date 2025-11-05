@@ -17,7 +17,8 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class BundleReader extends Reader<Bundle> {
 
@@ -42,7 +43,7 @@ public class BundleReader extends Reader<Bundle> {
     private ZonedDateTime validUntilDate;
     private ZonedDateTime validUntilDateBefore;
     private ZonedDateTime validUntilDateAfter;
-    private Integer pageSize;
+    private Long pageSize;
 
     public BundleReader() {}
 
@@ -107,7 +108,7 @@ public class BundleReader extends Reader<Bundle> {
         return this;
     }
 
-    public BundleReader setPageSize(final Integer pageSize) {
+    public BundleReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -125,9 +126,8 @@ public class BundleReader extends Reader<Bundle> {
             Domains.NUMBERS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -136,7 +136,6 @@ public class BundleReader extends Reader<Bundle> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Bundle read failed: Unable to connect to server"
@@ -146,6 +145,7 @@ public class BundleReader extends Reader<Bundle> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -170,7 +170,7 @@ public class BundleReader extends Reader<Bundle> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NUMBERS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -182,7 +182,7 @@ public class BundleReader extends Reader<Bundle> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NUMBERS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -193,62 +193,106 @@ public class BundleReader extends Reader<Bundle> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (regulationSid != null) {
-            request.addQueryParam("RegulationSid", regulationSid);
-        }
-        if (isoCountry != null) {
-            request.addQueryParam("IsoCountry", isoCountry);
-        }
-        if (numberType != null) {
-            request.addQueryParam("NumberType", numberType);
-        }
-        if (hasValidUntilDate != null) {
-            request.addQueryParam(
-                "HasValidUntilDate",
-                hasValidUntilDate.toString()
-            );
-        }
-        if (sortBy != null) {
-            request.addQueryParam("SortBy", sortBy.toString());
-        }
-        if (sortDirection != null) {
-            request.addQueryParam("SortDirection", sortDirection.toString());
-        }
-        if (validUntilDate != null) {
-            request.addQueryParam(
-                "ValidUntilDate",
-                validUntilDate.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (
-            validUntilDateAfter != null || validUntilDateBefore != null
-        ) {
-            request.addQueryDateTimeRange(
-                "ValidUntilDate",
-                validUntilDateAfter,
-                validUntilDateBefore
-            );
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (regulationSid != null) {
+            Serializer.toString(
+                request,
+                "RegulationSid",
+                regulationSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (isoCountry != null) {
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.QUERY
+            );
+        }
+
+        if (numberType != null) {
+            Serializer.toString(
+                request,
+                "NumberType",
+                numberType,
+                ParameterType.QUERY
+            );
+        }
+
+        if (hasValidUntilDate != null) {
+            Serializer.toString(
+                request,
+                "HasValidUntilDate",
+                hasValidUntilDate,
+                ParameterType.QUERY
+            );
+        }
+
+        if (sortBy != null) {
+            Serializer.toString(request, "SortBy", sortBy, ParameterType.QUERY);
+        }
+
+        if (sortDirection != null) {
+            Serializer.toString(
+                request,
+                "SortDirection",
+                sortDirection,
+                ParameterType.QUERY
+            );
+        }
+
+        if (validUntilDate != null) {
+            Serializer.toString(
+                request,
+                "ValidUntilDate",
+                validUntilDate,
+                ParameterType.QUERY
+            );
+        }
+
+        if (validUntilDateBefore != null) {
+            Serializer.toString(
+                request,
+                "ValidUntilDate<",
+                validUntilDateBefore,
+                ParameterType.QUERY
+            );
+        }
+
+        if (validUntilDateAfter != null) {
+            Serializer.toString(
+                request,
+                "ValidUntilDate>",
+                validUntilDateAfter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

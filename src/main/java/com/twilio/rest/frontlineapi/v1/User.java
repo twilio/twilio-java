@@ -18,24 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
-
-    private static final long serialVersionUID = 253333531578389L;
 
     public static UserFetcher fetcher(final String pathSid) {
         return new UserFetcher(pathSid);
@@ -43,6 +46,26 @@ public class User extends Resource {
 
     public static UserUpdater updater(final String pathSid) {
         return new UserUpdater(pathSid);
+    }
+
+    public enum StateType {
+        ACTIVE("active"),
+        DEACTIVATED("deactivated");
+
+        private final String value;
+
+        private StateType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static StateType forValue(final String value) {
+            return Promoter.enumFromString(value, StateType.values());
+        }
     }
 
     /**
@@ -88,59 +111,56 @@ public class User extends Resource {
         }
     }
 
-    private final String sid;
-    private final String identity;
-    private final String friendlyName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String avatar;
-    private final User.StateType state;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String identity;
+
+    @Getter
     private final Boolean isAvailable;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final User.StateType state;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private User(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("avatar") final String avatar,
-        @JsonProperty("state") final User.StateType state,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identity") final String identity,
         @JsonProperty("is_available") final Boolean isAvailable,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("state") final User.StateType state,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.identity = identity;
-        this.friendlyName = friendlyName;
         this.avatar = avatar;
-        this.state = state;
+        this.friendlyName = friendlyName;
+        this.identity = identity;
         this.isAvailable = isAvailable;
+        this.sid = sid;
+        this.state = state;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getAvatar() {
-        return this.avatar;
-    }
-
-    public final User.StateType getState() {
-        return this.state;
-    }
-
-    public final Boolean getIsAvailable() {
-        return this.isAvailable;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -154,14 +174,13 @@ public class User extends Resource {
         }
 
         User other = (User) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(avatar, other.avatar) &&
-            Objects.equals(state, other.state) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identity, other.identity) &&
             Objects.equals(isAvailable, other.isAvailable) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(state, other.state) &&
             Objects.equals(url, other.url)
         );
     }
@@ -169,33 +188,13 @@ public class User extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            identity,
-            friendlyName,
             avatar,
-            state,
+            friendlyName,
+            identity,
             isAvailable,
+            sid,
+            state,
             url
         );
-    }
-
-    public enum StateType {
-        ACTIVE("active"),
-        DEACTIVATED("deactivated");
-
-        private final String value;
-
-        private StateType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static StateType forValue(final String value) {
-            return Promoter.enumFromString(value, StateType.values());
-        }
     }
 }

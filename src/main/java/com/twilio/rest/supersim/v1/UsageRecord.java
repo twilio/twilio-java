@@ -18,32 +18,75 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsageRecord extends Resource {
 
-    private static final long serialVersionUID = 269766941607639L;
-
     public static UsageRecordReader reader() {
         return new UsageRecordReader();
+    }
+
+    public enum Group {
+        SIM("sim"),
+        FLEET("fleet"),
+        NETWORK("network"),
+        ISO_COUNTRY("isoCountry");
+
+        private final String value;
+
+        private Group(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Group forValue(final String value) {
+            return Promoter.enumFromString(value, Group.values());
+        }
+    }
+
+    public enum Granularity {
+        HOUR("hour"),
+        DAY("day"),
+        ALL("all");
+
+        private final String value;
+
+        private Granularity(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Granularity forValue(final String value) {
+            return Promoter.enumFromString(value, Granularity.values());
+        }
     }
 
     /**
@@ -89,89 +132,78 @@ public class UsageRecord extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String simSid;
-    private final String networkSid;
-    private final String fleetSid;
-    private final String isoCountry;
-    private final Map<String, Object> period;
-    private final Long dataUpload;
-    private final Long dataDownload;
-    private final Long dataTotal;
-    private final BigDecimal dataTotalBilled;
+
+    @Getter
     private final Currency billedUnit;
+
+    @Getter
+    private final Long dataDownload;
+
+    @Getter
+    private final Long dataTotal;
+
+    @Getter
+    private final BigDecimal dataTotalBilled;
+
+    @Getter
+    private final Long dataUpload;
+
+    @Getter
+    private final String fleetSid;
+
+    @Getter
+    private final String isoCountry;
+
+    @Getter
+    private final String networkSid;
+
+    @Getter
+    private final Object period;
+
+    @Getter
+    private final String simSid;
 
     @JsonCreator
     private UsageRecord(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sim_sid") final String simSid,
-        @JsonProperty("network_sid") final String networkSid,
-        @JsonProperty("fleet_sid") final String fleetSid,
-        @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty("period") final Map<String, Object> period,
-        @JsonProperty("data_upload") final Long dataUpload,
+        @JsonProperty("billed_unit") @JsonDeserialize(
+            using = com.twilio.converter.CurrencyDeserializer.class
+        ) final Currency billedUnit,
         @JsonProperty("data_download") final Long dataDownload,
         @JsonProperty("data_total") final Long dataTotal,
         @JsonProperty("data_total_billed") final BigDecimal dataTotalBilled,
-        @JsonProperty("billed_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency billedUnit
+        @JsonProperty("data_upload") final Long dataUpload,
+        @JsonProperty("fleet_sid") final String fleetSid,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("network_sid") final String networkSid,
+        @JsonProperty("period") final Object period,
+        @JsonProperty("sim_sid") final String simSid
     ) {
         this.accountSid = accountSid;
-        this.simSid = simSid;
-        this.networkSid = networkSid;
-        this.fleetSid = fleetSid;
-        this.isoCountry = isoCountry;
-        this.period = period;
-        this.dataUpload = dataUpload;
+        this.billedUnit = billedUnit;
         this.dataDownload = dataDownload;
         this.dataTotal = dataTotal;
         this.dataTotalBilled = dataTotalBilled;
-        this.billedUnit = billedUnit;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final String getNetworkSid() {
-        return this.networkSid;
-    }
-
-    public final String getFleetSid() {
-        return this.fleetSid;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final Map<String, Object> getPeriod() {
-        return this.period;
-    }
-
-    public final Long getDataUpload() {
-        return this.dataUpload;
-    }
-
-    public final Long getDataDownload() {
-        return this.dataDownload;
-    }
-
-    public final Long getDataTotal() {
-        return this.dataTotal;
-    }
-
-    public final BigDecimal getDataTotalBilled() {
-        return this.dataTotalBilled;
-    }
-
-    public final Currency getBilledUnit() {
-        return this.billedUnit;
+        this.dataUpload = dataUpload;
+        this.fleetSid = fleetSid;
+        this.isoCountry = isoCountry;
+        this.networkSid = networkSid;
+        this.period = period;
+        this.simSid = simSid;
     }
 
     @Override
@@ -185,19 +217,18 @@ public class UsageRecord extends Resource {
         }
 
         UsageRecord other = (UsageRecord) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(simSid, other.simSid) &&
-            Objects.equals(networkSid, other.networkSid) &&
-            Objects.equals(fleetSid, other.fleetSid) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(period, other.period) &&
-            Objects.equals(dataUpload, other.dataUpload) &&
+            Objects.equals(billedUnit, other.billedUnit) &&
             Objects.equals(dataDownload, other.dataDownload) &&
             Objects.equals(dataTotal, other.dataTotal) &&
             Objects.equals(dataTotalBilled, other.dataTotalBilled) &&
-            Objects.equals(billedUnit, other.billedUnit)
+            Objects.equals(dataUpload, other.dataUpload) &&
+            Objects.equals(fleetSid, other.fleetSid) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(networkSid, other.networkSid) &&
+            Objects.equals(period, other.period) &&
+            Objects.equals(simSid, other.simSid)
         );
     }
 
@@ -205,59 +236,16 @@ public class UsageRecord extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            simSid,
-            networkSid,
-            fleetSid,
-            isoCountry,
-            period,
-            dataUpload,
+            billedUnit,
             dataDownload,
             dataTotal,
             dataTotalBilled,
-            billedUnit
+            dataUpload,
+            fleetSid,
+            isoCountry,
+            networkSid,
+            period,
+            simSid
         );
-    }
-
-    public enum Granularity {
-        HOUR("hour"),
-        DAY("day"),
-        ALL("all");
-
-        private final String value;
-
-        private Granularity(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
-        }
-    }
-
-    public enum Group {
-        SIM("sim"),
-        FLEET("fleet"),
-        NETWORK("network"),
-        ISOCOUNTRY("isoCountry");
-
-        private final String value;
-
-        private Group(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Group forValue(final String value) {
-            return Promoter.enumFromString(value, Group.values());
-        }
     }
 }

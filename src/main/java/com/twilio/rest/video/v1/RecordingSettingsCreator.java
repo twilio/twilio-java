@@ -16,7 +16,9 @@ package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class RecordingSettingsCreator extends Creator<RecordingSettings> {
@@ -87,12 +89,6 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     public RecordingSettings create(final TwilioRestClient client) {
         String path = "/v1/RecordingSettings/Default";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
@@ -100,7 +96,9 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "RecordingSettings creation failed: Unable to connect to server"
@@ -127,27 +125,56 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-        if (awsCredentialsSid != null) {
-            request.addPostParam("AwsCredentialsSid", awsCredentialsSid);
-        }
-        if (encryptionKeySid != null) {
-            request.addPostParam("EncryptionKeySid", encryptionKeySid);
-        }
-        if (awsS3Url != null) {
-            request.addPostParam("AwsS3Url", awsS3Url.toString());
-        }
-        if (awsStorageEnabled != null) {
-            request.addPostParam(
-                "AwsStorageEnabled",
-                awsStorageEnabled.toString()
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
             );
         }
+
+        if (awsCredentialsSid != null) {
+            Serializer.toString(
+                request,
+                "AwsCredentialsSid",
+                awsCredentialsSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (encryptionKeySid != null) {
+            Serializer.toString(
+                request,
+                "EncryptionKeySid",
+                encryptionKeySid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (awsS3Url != null) {
+            Serializer.toString(
+                request,
+                "AwsS3Url",
+                awsS3Url,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (awsStorageEnabled != null) {
+            Serializer.toString(
+                request,
+                "AwsStorageEnabled",
+                awsStorageEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (encryptionEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EncryptionEnabled",
-                encryptionEnabled.toString()
+                encryptionEnabled,
+                ParameterType.URLENCODED
             );
         }
     }

@@ -17,7 +17,8 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,14 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
 
-    private Integer pageSize;
+    private Long pageSize;
 
     public NetworkAccessProfileReader() {}
 
-    public NetworkAccessProfileReader setPageSize(final Integer pageSize) {
+    public NetworkAccessProfileReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -53,9 +55,8 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
             Domains.SUPERSIM.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -64,7 +65,6 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "NetworkAccessProfile read failed: Unable to connect to server"
@@ -74,6 +74,7 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -98,7 +99,7 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -110,7 +111,7 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -121,17 +122,17 @@ public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

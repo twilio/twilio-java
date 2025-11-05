@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.sip.domain;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +26,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialListMappingCreator
     extends Creator<CredentialListMapping> {
 
+    private String pathAccountSid;
     private String pathDomainSid;
     private String credentialListSid;
-    private String pathAccountSid;
 
     public CredentialListMappingCreator(
         final String pathDomainSid,
@@ -76,11 +79,6 @@ public class CredentialListMappingCreator
                 "{" + "DomainSid" + "}",
                 this.pathDomainSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "CredentialListSid" + "}",
-                this.credentialListSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -89,7 +87,9 @@ public class CredentialListMappingCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "CredentialListMapping creation failed: Unable to connect to server"
@@ -116,7 +116,12 @@ public class CredentialListMappingCreator
 
     private void addPostParams(final Request request) {
         if (credentialListSid != null) {
-            request.addPostParam("CredentialListSid", credentialListSid);
+            Serializer.toString(
+                request,
+                "CredentialListSid",
+                credentialListSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

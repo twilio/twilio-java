@@ -17,7 +17,8 @@ package com.twilio.rest.video.v1.room;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class RoomRecordingReader extends Reader<RoomRecording> {
@@ -35,7 +37,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     private String sourceSid;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RoomRecordingReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
@@ -65,7 +67,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         return this;
     }
 
-    public RoomRecordingReader setPageSize(final Integer pageSize) {
+    public RoomRecordingReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -77,6 +79,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     public Page<RoomRecording> firstPage(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Recordings";
+
         path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
         Request request = new Request(
@@ -84,9 +87,8 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
             Domains.VIDEO.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -95,7 +97,6 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "RoomRecording read failed: Unable to connect to server"
@@ -105,6 +106,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -129,7 +131,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VIDEO.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,7 +143,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VIDEO.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -152,37 +154,48 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
+
         if (sourceSid != null) {
-            request.addQueryParam("SourceSid", sourceSid);
+            Serializer.toString(
+                request,
+                "SourceSid",
+                sourceSid,
+                ParameterType.QUERY
+            );
         }
+
         if (dateCreatedAfter != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedAfter",
-                dateCreatedAfter.toInstant().toString()
+                dateCreatedAfter,
+                ParameterType.QUERY
             );
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreatedBefore",
-                dateCreatedBefore.toInstant().toString()
+                dateCreatedBefore,
+                ParameterType.QUERY
             );
         }
 
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

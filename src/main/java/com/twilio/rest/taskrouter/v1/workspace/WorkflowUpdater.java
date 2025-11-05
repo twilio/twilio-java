@@ -16,7 +16,9 @@ package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class WorkflowUpdater extends Updater<Workflow> {
@@ -116,7 +119,9 @@ public class WorkflowUpdater extends Updater<Workflow> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Workflow update failed: Unable to connect to server"
@@ -143,31 +148,57 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (assignmentCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AssignmentCallbackUrl",
-                assignmentCallbackUrl.toString()
+                assignmentCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (fallbackAssignmentCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "FallbackAssignmentCallbackUrl",
-                fallbackAssignmentCallbackUrl.toString()
+                fallbackAssignmentCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (configuration != null) {
-            request.addPostParam("Configuration", configuration);
-        }
-        if (taskReservationTimeout != null) {
-            request.addPostParam(
-                "TaskReservationTimeout",
-                taskReservationTimeout.toString()
+            Serializer.toString(
+                request,
+                "Configuration",
+                configuration,
+                ParameterType.URLENCODED
             );
         }
+
+        if (taskReservationTimeout != null) {
+            Serializer.toString(
+                request,
+                "TaskReservationTimeout",
+                taskReservationTimeout,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (reEvaluateTasks != null) {
-            request.addPostParam("ReEvaluateTasks", reEvaluateTasks);
+            Serializer.toString(
+                request,
+                "ReEvaluateTasks",
+                reEvaluateTasks,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

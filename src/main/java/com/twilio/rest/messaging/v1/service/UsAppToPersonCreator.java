@@ -16,7 +16,9 @@ package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
@@ -191,41 +193,6 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
                 "{" + "MessagingServiceSid" + "}",
                 this.pathMessagingServiceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "BrandRegistrationSid" + "}",
-                this.brandRegistrationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "Description" + "}",
-                this.description.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageFlow" + "}",
-                this.messageFlow.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSamples" + "}",
-                this.messageSamples.toString()
-            );
-        path =
-            path.replace(
-                "{" + "UsAppToPersonUsecase" + "}",
-                this.usAppToPersonUsecase.toString()
-            );
-        path =
-            path.replace(
-                "{" + "HasEmbeddedLinks" + "}",
-                this.hasEmbeddedLinks.toString()
-            );
-        path =
-            path.replace(
-                "{" + "HasEmbeddedPhone" + "}",
-                this.hasEmbeddedPhone.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -234,7 +201,9 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UsAppToPerson creation failed: Unable to connect to server"
@@ -261,66 +230,155 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
 
     private void addPostParams(final Request request) {
         if (brandRegistrationSid != null) {
-            request.addPostParam("BrandRegistrationSid", brandRegistrationSid);
+            Serializer.toString(
+                request,
+                "BrandRegistrationSid",
+                brandRegistrationSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messageFlow != null) {
-            request.addPostParam("MessageFlow", messageFlow);
+            Serializer.toString(
+                request,
+                "MessageFlow",
+                messageFlow,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messageSamples != null) {
-            for (String prop : messageSamples) {
-                request.addPostParam("MessageSamples", prop);
+            for (String param : messageSamples) {
+                Serializer.toString(
+                    request,
+                    "MessageSamples",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (usAppToPersonUsecase != null) {
-            request.addPostParam("UsAppToPersonUsecase", usAppToPersonUsecase);
+            Serializer.toString(
+                request,
+                "UsAppToPersonUsecase",
+                usAppToPersonUsecase,
+                ParameterType.URLENCODED
+            );
         }
+
         if (hasEmbeddedLinks != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "HasEmbeddedLinks",
-                hasEmbeddedLinks.toString()
+                hasEmbeddedLinks,
+                ParameterType.URLENCODED
             );
         }
+
         if (hasEmbeddedPhone != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "HasEmbeddedPhone",
-                hasEmbeddedPhone.toString()
+                hasEmbeddedPhone,
+                ParameterType.URLENCODED
             );
         }
+
         if (optInMessage != null) {
-            request.addPostParam("OptInMessage", optInMessage);
+            Serializer.toString(
+                request,
+                "OptInMessage",
+                optInMessage,
+                ParameterType.URLENCODED
+            );
         }
+
         if (optOutMessage != null) {
-            request.addPostParam("OptOutMessage", optOutMessage);
+            Serializer.toString(
+                request,
+                "OptOutMessage",
+                optOutMessage,
+                ParameterType.URLENCODED
+            );
         }
+
         if (helpMessage != null) {
-            request.addPostParam("HelpMessage", helpMessage);
+            Serializer.toString(
+                request,
+                "HelpMessage",
+                helpMessage,
+                ParameterType.URLENCODED
+            );
         }
+
         if (optInKeywords != null) {
-            for (String prop : optInKeywords) {
-                request.addPostParam("OptInKeywords", prop);
+            for (String param : optInKeywords) {
+                Serializer.toString(
+                    request,
+                    "OptInKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (optOutKeywords != null) {
-            for (String prop : optOutKeywords) {
-                request.addPostParam("OptOutKeywords", prop);
+            for (String param : optOutKeywords) {
+                Serializer.toString(
+                    request,
+                    "OptOutKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (helpKeywords != null) {
-            for (String prop : helpKeywords) {
-                request.addPostParam("HelpKeywords", prop);
+            for (String param : helpKeywords) {
+                Serializer.toString(
+                    request,
+                    "HelpKeywords",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (subscriberOptIn != null) {
-            request.addPostParam("SubscriberOptIn", subscriberOptIn.toString());
+            Serializer.toString(
+                request,
+                "SubscriberOptIn",
+                subscriberOptIn,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ageGated != null) {
-            request.addPostParam("AgeGated", ageGated.toString());
+            Serializer.toString(
+                request,
+                "AgeGated",
+                ageGated,
+                ParameterType.URLENCODED
+            );
         }
+
         if (directLending != null) {
-            request.addPostParam("DirectLending", directLending.toString());
+            Serializer.toString(
+                request,
+                "DirectLending",
+                directLending,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

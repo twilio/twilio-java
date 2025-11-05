@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EngagementContext extends Resource {
-
-    private static final long serialVersionUID = 182363461244967L;
 
     public static EngagementContextFetcher fetcher(
         final String pathFlowSid,
@@ -88,16 +89,37 @@ public class EngagementContext extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final Map<String, Object> context;
+
+    @Getter
+    private final Object context;
+
+    @Getter
     private final String engagementSid;
+
+    @Getter
     private final String flowSid;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private EngagementContext(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("context") final Map<String, Object> context,
+        @JsonProperty("context") final Object context,
         @JsonProperty("engagement_sid") final String engagementSid,
         @JsonProperty("flow_sid") final String flowSid,
         @JsonProperty("url") final URI url
@@ -107,26 +129,6 @@ public class EngagementContext extends Resource {
         this.engagementSid = engagementSid;
         this.flowSid = flowSid;
         this.url = url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getContext() {
-        return this.context;
-    }
-
-    public final String getEngagementSid() {
-        return this.engagementSid;
-    }
-
-    public final String getFlowSid() {
-        return this.flowSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -140,7 +142,6 @@ public class EngagementContext extends Resource {
         }
 
         EngagementContext other = (EngagementContext) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(context, other.context) &&

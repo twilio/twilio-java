@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private String accountSid;
     private String apiVersion;
     private String friendlyName;
@@ -259,7 +262,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "IncomingPhoneNumber update failed: Unable to connect to server"
@@ -286,91 +291,210 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     private void addPostParams(final Request request) {
         if (accountSid != null) {
-            request.addPostParam("AccountSid", accountSid);
+            Serializer.toString(
+                request,
+                "AccountSid",
+                accountSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (apiVersion != null) {
-            request.addPostParam("ApiVersion", apiVersion);
+            Serializer.toString(
+                request,
+                "ApiVersion",
+                apiVersion,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsApplicationSid != null) {
-            request.addPostParam("SmsApplicationSid", smsApplicationSid);
+            Serializer.toString(
+                request,
+                "SmsApplicationSid",
+                smsApplicationSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SmsFallbackMethod",
-                smsFallbackMethod.toString()
+                smsFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (smsFallbackUrl != null) {
-            request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsFallbackUrl",
+                smsFallbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsMethod != null) {
-            request.addPostParam("SmsMethod", smsMethod.toString());
+            Serializer.toString(
+                request,
+                "SmsMethod",
+                smsMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (smsUrl != null) {
-            request.addPostParam("SmsUrl", smsUrl.toString());
+            Serializer.toString(
+                request,
+                "SmsUrl",
+                smsUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceApplicationSid != null) {
-            request.addPostParam("VoiceApplicationSid", voiceApplicationSid);
+            Serializer.toString(
+                request,
+                "VoiceApplicationSid",
+                voiceApplicationSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceCallerIdLookup != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceCallerIdLookup",
-                voiceCallerIdLookup.toString()
+                voiceCallerIdLookup,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
-        }
-        if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
-        }
-        if (emergencyStatus != null) {
-            request.addPostParam("EmergencyStatus", emergencyStatus.toString());
-        }
-        if (emergencyAddressSid != null) {
-            request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
-        }
-        if (trunkSid != null) {
-            request.addPostParam("TrunkSid", trunkSid);
-        }
-        if (voiceReceiveMode != null) {
-            request.addPostParam(
-                "VoiceReceiveMode",
-                voiceReceiveMode.toString()
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
             );
         }
+
+        if (voiceUrl != null) {
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyStatus != null) {
+            Serializer.toString(
+                request,
+                "EmergencyStatus",
+                emergencyStatus,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyAddressSid != null) {
+            Serializer.toString(
+                request,
+                "EmergencyAddressSid",
+                emergencyAddressSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (trunkSid != null) {
+            Serializer.toString(
+                request,
+                "TrunkSid",
+                trunkSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (voiceReceiveMode != null) {
+            Serializer.toString(
+                request,
+                "VoiceReceiveMode",
+                voiceReceiveMode,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (identitySid != null) {
-            request.addPostParam("IdentitySid", identitySid);
+            Serializer.toString(
+                request,
+                "IdentitySid",
+                identitySid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (bundleSid != null) {
-            request.addPostParam("BundleSid", bundleSid);
+            Serializer.toString(
+                request,
+                "BundleSid",
+                bundleSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -18,25 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ModuleDataManagement extends Resource {
-
-    private static final long serialVersionUID = 187208983422591L;
 
     public static ModuleDataManagementFetcher fetcher(final String pathSid) {
         return new ModuleDataManagementFetcher(pathSid);
@@ -89,66 +90,66 @@ public class ModuleDataManagement extends Resource {
         }
     }
 
-    private final URI url;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final Object configuration;
+
+    @Getter
+    private final Object description;
+
+    @Getter
+    private final Object documentation;
+
+    @Getter
+    private final Object moduleInfo;
+
+    @Getter
+    private final Object policies;
+
+    @Getter
+    private final Object pricing;
+
+    @Getter
     private final String sid;
-    private final Map<String, Object> description;
-    private final Map<String, Object> support;
-    private final Map<String, Object> policies;
-    private final Map<String, Object> moduleInfo;
-    private final Map<String, Object> documentation;
-    private final Map<String, Object> configuration;
+
+    @Getter
+    private final Object support;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private ModuleDataManagement(
-        @JsonProperty("url") final URI url,
+        @JsonProperty("configuration") final Object configuration,
+        @JsonProperty("description") final Object description,
+        @JsonProperty("documentation") final Object documentation,
+        @JsonProperty("module_info") final Object moduleInfo,
+        @JsonProperty("policies") final Object policies,
+        @JsonProperty("pricing") final Object pricing,
         @JsonProperty("sid") final String sid,
-        @JsonProperty("description") final Map<String, Object> description,
-        @JsonProperty("support") final Map<String, Object> support,
-        @JsonProperty("policies") final Map<String, Object> policies,
-        @JsonProperty("module_info") final Map<String, Object> moduleInfo,
-        @JsonProperty("documentation") final Map<String, Object> documentation,
-        @JsonProperty("configuration") final Map<String, Object> configuration
+        @JsonProperty("support") final Object support,
+        @JsonProperty("url") final URI url
     ) {
-        this.url = url;
-        this.sid = sid;
-        this.description = description;
-        this.support = support;
-        this.policies = policies;
-        this.moduleInfo = moduleInfo;
-        this.documentation = documentation;
         this.configuration = configuration;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Map<String, Object> getDescription() {
-        return this.description;
-    }
-
-    public final Map<String, Object> getSupport() {
-        return this.support;
-    }
-
-    public final Map<String, Object> getPolicies() {
-        return this.policies;
-    }
-
-    public final Map<String, Object> getModuleInfo() {
-        return this.moduleInfo;
-    }
-
-    public final Map<String, Object> getDocumentation() {
-        return this.documentation;
-    }
-
-    public final Map<String, Object> getConfiguration() {
-        return this.configuration;
+        this.description = description;
+        this.documentation = documentation;
+        this.moduleInfo = moduleInfo;
+        this.policies = policies;
+        this.pricing = pricing;
+        this.sid = sid;
+        this.support = support;
+        this.url = url;
     }
 
     @Override
@@ -162,30 +163,31 @@ public class ModuleDataManagement extends Resource {
         }
 
         ModuleDataManagement other = (ModuleDataManagement) o;
-
         return (
-            Objects.equals(url, other.url) &&
-            Objects.equals(sid, other.sid) &&
+            Objects.equals(configuration, other.configuration) &&
             Objects.equals(description, other.description) &&
-            Objects.equals(support, other.support) &&
-            Objects.equals(policies, other.policies) &&
-            Objects.equals(moduleInfo, other.moduleInfo) &&
             Objects.equals(documentation, other.documentation) &&
-            Objects.equals(configuration, other.configuration)
+            Objects.equals(moduleInfo, other.moduleInfo) &&
+            Objects.equals(policies, other.policies) &&
+            Objects.equals(pricing, other.pricing) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(support, other.support) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            url,
-            sid,
+            configuration,
             description,
-            support,
-            policies,
-            moduleInfo,
             documentation,
-            configuration
+            moduleInfo,
+            policies,
+            pricing,
+            sid,
+            support,
+            url
         );
     }
 }

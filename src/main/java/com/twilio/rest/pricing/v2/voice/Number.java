@@ -18,29 +18,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.InboundCallPrice;
 import com.twilio.type.OutboundCallPriceWithOrigin;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Number extends Resource {
-
-    private static final long serialVersionUID = 252636644344470L;
 
     public static NumberFetcher fetcher(
         final com.twilio.type.PhoneNumber pathDestinationNumber
@@ -91,76 +93,71 @@ public class Number extends Resource {
         }
     }
 
-    private final com.twilio.type.PhoneNumber destinationNumber;
-    private final com.twilio.type.PhoneNumber originationNumber;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String country;
-    private final String isoCountry;
-    private final List<OutboundCallPriceWithOrigin> outboundCallPrices;
+
+    @Getter
+    private final com.twilio.type.PhoneNumber destinationNumber;
+
+    @Getter
     private final InboundCallPrice inboundCallPrice;
+
+    @Getter
+    private final String isoCountry;
+
+    @Getter
+    private final com.twilio.type.PhoneNumber originationNumber;
+
+    @Getter
+    private final List<OutboundCallPriceWithOrigin> outboundCallPrices;
+
+    @Getter
     private final Currency priceUnit;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Number(
+        @JsonProperty("country") final String country,
         @JsonProperty(
             "destination_number"
         ) final com.twilio.type.PhoneNumber destinationNumber,
         @JsonProperty(
+            "inbound_call_price"
+        ) final InboundCallPrice inboundCallPrice,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty(
             "origination_number"
         ) final com.twilio.type.PhoneNumber originationNumber,
-        @JsonProperty("country") final String country,
-        @JsonProperty("iso_country") final String isoCountry,
         @JsonProperty("outbound_call_prices") final List<
             OutboundCallPriceWithOrigin
         > outboundCallPrices,
-        @JsonProperty(
-            "inbound_call_price"
-        ) final InboundCallPrice inboundCallPrice,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("url") final URI url
     ) {
-        this.destinationNumber = destinationNumber;
-        this.originationNumber = originationNumber;
         this.country = country;
-        this.isoCountry = isoCountry;
-        this.outboundCallPrices = outboundCallPrices;
+        this.destinationNumber = destinationNumber;
         this.inboundCallPrice = inboundCallPrice;
+        this.isoCountry = isoCountry;
+        this.originationNumber = originationNumber;
+        this.outboundCallPrices = outboundCallPrices;
         this.priceUnit = priceUnit;
         this.url = url;
-    }
-
-    public final com.twilio.type.PhoneNumber getDestinationNumber() {
-        return this.destinationNumber;
-    }
-
-    public final com.twilio.type.PhoneNumber getOriginationNumber() {
-        return this.originationNumber;
-    }
-
-    public final String getCountry() {
-        return this.country;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final List<OutboundCallPriceWithOrigin> getOutboundCallPrices() {
-        return this.outboundCallPrices;
-    }
-
-    public final InboundCallPrice getInboundCallPrice() {
-        return this.inboundCallPrice;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -174,14 +171,13 @@ public class Number extends Resource {
         }
 
         Number other = (Number) o;
-
         return (
-            Objects.equals(destinationNumber, other.destinationNumber) &&
-            Objects.equals(originationNumber, other.originationNumber) &&
             Objects.equals(country, other.country) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(outboundCallPrices, other.outboundCallPrices) &&
+            Objects.equals(destinationNumber, other.destinationNumber) &&
             Objects.equals(inboundCallPrice, other.inboundCallPrice) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(originationNumber, other.originationNumber) &&
+            Objects.equals(outboundCallPrices, other.outboundCallPrices) &&
             Objects.equals(priceUnit, other.priceUnit) &&
             Objects.equals(url, other.url)
         );
@@ -190,12 +186,12 @@ public class Number extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            destinationNumber,
-            originationNumber,
             country,
-            isoCountry,
-            outboundCallPrices,
+            destinationNumber,
             inboundCallPrice,
+            isoCountry,
+            originationNumber,
+            outboundCallPrices,
             priceUnit,
             url
         );

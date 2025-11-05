@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class QueueCreator extends Creator<Queue> {
 
-    private String friendlyName;
     private String pathAccountSid;
+    private String friendlyName;
     private Integer maxSize;
 
     public QueueCreator(final String friendlyName) {
@@ -66,11 +69,6 @@ public class QueueCreator extends Creator<Queue> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -79,7 +77,9 @@ public class QueueCreator extends Creator<Queue> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Queue creation failed: Unable to connect to server"
@@ -103,10 +103,21 @@ public class QueueCreator extends Creator<Queue> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (maxSize != null) {
-            request.addPostParam("MaxSize", maxSize.toString());
+            Serializer.toString(
+                request,
+                "MaxSize",
+                maxSize,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

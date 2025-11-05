@@ -15,7 +15,6 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,16 +23,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PortingWebhookConfigurationDeleteDeleter
     extends Deleter<PortingWebhookConfigurationDelete> {
 
-    private PortingWebhookConfigurationDelete.WebhookType webhookType;
+    private PortingWebhookConfigurationDelete.WebhookType pathWebhookType;
 
     public PortingWebhookConfigurationDeleteDeleter(
-        final PortingWebhookConfigurationDelete.WebhookType webhookType
+        final PortingWebhookConfigurationDelete.WebhookType pathWebhookType
     ) {
-        this.webhookType = webhookType;
+        this.pathWebhookType = pathWebhookType;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PortingWebhookConfigurationDeleteDeleter
         path =
             path.replace(
                 "{" + "WebhookType" + "}",
-                this.webhookType.toString()
+                this.pathWebhookType.toString()
             );
 
         Request request = new Request(
@@ -51,7 +51,7 @@ public class PortingWebhookConfigurationDeleteDeleter
             Domains.NUMBERS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {

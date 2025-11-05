@@ -17,7 +17,8 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class RegulationReader extends Reader<Regulation> {
 
@@ -33,7 +35,7 @@ public class RegulationReader extends Reader<Regulation> {
     private String isoCountry;
     private String numberType;
     private Boolean includeConstraints;
-    private Integer pageSize;
+    private Long pageSize;
 
     public RegulationReader() {}
 
@@ -61,7 +63,7 @@ public class RegulationReader extends Reader<Regulation> {
         return this;
     }
 
-    public RegulationReader setPageSize(final Integer pageSize) {
+    public RegulationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -79,9 +81,8 @@ public class RegulationReader extends Reader<Regulation> {
             Domains.NUMBERS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -90,7 +91,6 @@ public class RegulationReader extends Reader<Regulation> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Regulation read failed: Unable to connect to server"
@@ -100,6 +100,7 @@ public class RegulationReader extends Reader<Regulation> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -124,7 +125,7 @@ public class RegulationReader extends Reader<Regulation> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NUMBERS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -136,7 +137,7 @@ public class RegulationReader extends Reader<Regulation> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NUMBERS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -147,32 +148,53 @@ public class RegulationReader extends Reader<Regulation> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (endUserType != null) {
-            request.addQueryParam("EndUserType", endUserType.toString());
-        }
-        if (isoCountry != null) {
-            request.addQueryParam("IsoCountry", isoCountry);
-        }
-        if (numberType != null) {
-            request.addQueryParam("NumberType", numberType);
-        }
-        if (includeConstraints != null) {
-            request.addQueryParam(
-                "IncludeConstraints",
-                includeConstraints.toString()
+            Serializer.toString(
+                request,
+                "EndUserType",
+                endUserType,
+                ParameterType.QUERY
             );
         }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+
+        if (isoCountry != null) {
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (numberType != null) {
+            Serializer.toString(
+                request,
+                "NumberType",
+                numberType,
+                ParameterType.QUERY
+            );
+        }
+
+        if (includeConstraints != null) {
+            Serializer.toString(
+                request,
+                "IncludeConstraints",
+                includeConstraints,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -15,7 +15,8 @@
 package com.twilio.rest.preview.wireless.sim;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UsageFetcher extends Fetcher<Usage> {
 
@@ -57,7 +59,7 @@ public class UsageFetcher extends Fetcher<Usage> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -77,16 +79,16 @@ public class UsageFetcher extends Fetcher<Usage> {
             }
             throw new ApiException(restException);
         }
-
         return Usage.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     private void addQueryParams(final Request request) {
         if (end != null) {
-            request.addQueryParam("End", end);
+            Serializer.toString(request, "End", end, ParameterType.QUERY);
         }
+
         if (start != null) {
-            request.addQueryParam("Start", start);
+            Serializer.toString(request, "Start", start, ParameterType.QUERY);
         }
     }
 }

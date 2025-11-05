@@ -16,7 +16,9 @@ package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class ComplianceTollfreeInquiriesCreator
@@ -256,17 +258,6 @@ public class ComplianceTollfreeInquiriesCreator
     public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
         String path = "/v1/ComplianceInquiries/Tollfree/Initialize";
 
-        path =
-            path.replace(
-                "{" + "TollfreePhoneNumber" + "}",
-                this.tollfreePhoneNumber.encode("utf-8")
-            );
-        path =
-            path.replace(
-                "{" + "NotificationEmail" + "}",
-                this.notificationEmail.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUSTHUB.toString(),
@@ -274,7 +265,9 @@ public class ComplianceTollfreeInquiriesCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ComplianceTollfreeInquiries creation failed: Unable to connect to server"
@@ -301,106 +294,213 @@ public class ComplianceTollfreeInquiriesCreator
 
     private void addPostParams(final Request request) {
         if (tollfreePhoneNumber != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "TollfreePhoneNumber",
-                tollfreePhoneNumber.toString()
+                tollfreePhoneNumber,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationEmail != null) {
-            request.addPostParam("NotificationEmail", notificationEmail);
+            Serializer.toString(
+                request,
+                "NotificationEmail",
+                notificationEmail,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessName != null) {
-            request.addPostParam("BusinessName", businessName);
+            Serializer.toString(
+                request,
+                "BusinessName",
+                businessName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessWebsite != null) {
-            request.addPostParam("BusinessWebsite", businessWebsite);
+            Serializer.toString(
+                request,
+                "BusinessWebsite",
+                businessWebsite,
+                ParameterType.URLENCODED
+            );
         }
+
         if (useCaseCategories != null) {
-            for (String prop : useCaseCategories) {
-                request.addPostParam("UseCaseCategories", prop);
+            for (String param : useCaseCategories) {
+                Serializer.toString(
+                    request,
+                    "UseCaseCategories",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (useCaseSummary != null) {
-            request.addPostParam("UseCaseSummary", useCaseSummary);
-        }
-        if (productionMessageSample != null) {
-            request.addPostParam(
-                "ProductionMessageSample",
-                productionMessageSample
+            Serializer.toString(
+                request,
+                "UseCaseSummary",
+                useCaseSummary,
+                ParameterType.URLENCODED
             );
         }
+
+        if (productionMessageSample != null) {
+            Serializer.toString(
+                request,
+                "ProductionMessageSample",
+                productionMessageSample,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (optInImageUrls != null) {
-            for (String prop : optInImageUrls) {
-                request.addPostParam("OptInImageUrls", prop);
+            for (String param : optInImageUrls) {
+                Serializer.toString(
+                    request,
+                    "OptInImageUrls",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (optInType != null) {
-            request.addPostParam("OptInType", optInType.toString());
+            Serializer.toString(
+                request,
+                "OptInType",
+                optInType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messageVolume != null) {
-            request.addPostParam("MessageVolume", messageVolume);
+            Serializer.toString(
+                request,
+                "MessageVolume",
+                messageVolume,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessStreetAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessStreetAddress",
-                businessStreetAddress
+                businessStreetAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessStreetAddress2 != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessStreetAddress2",
-                businessStreetAddress2
+                businessStreetAddress2,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessCity != null) {
-            request.addPostParam("BusinessCity", businessCity);
+            Serializer.toString(
+                request,
+                "BusinessCity",
+                businessCity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessStateProvinceRegion != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessStateProvinceRegion",
-                businessStateProvinceRegion
+                businessStateProvinceRegion,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessPostalCode != null) {
-            request.addPostParam("BusinessPostalCode", businessPostalCode);
+            Serializer.toString(
+                request,
+                "BusinessPostalCode",
+                businessPostalCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessCountry != null) {
-            request.addPostParam("BusinessCountry", businessCountry);
+            Serializer.toString(
+                request,
+                "BusinessCountry",
+                businessCountry,
+                ParameterType.URLENCODED
+            );
         }
+
         if (additionalInformation != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AdditionalInformation",
-                additionalInformation
+                additionalInformation,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessContactFirstName != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessContactFirstName",
-                businessContactFirstName
+                businessContactFirstName,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessContactLastName != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessContactLastName",
-                businessContactLastName
+                businessContactLastName,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessContactEmail != null) {
-            request.addPostParam("BusinessContactEmail", businessContactEmail);
-        }
-        if (businessContactPhone != null) {
-            request.addPostParam(
-                "BusinessContactPhone",
-                businessContactPhone.toString()
+            Serializer.toString(
+                request,
+                "BusinessContactEmail",
+                businessContactEmail,
+                ParameterType.URLENCODED
             );
         }
-        if (themeSetId != null) {
-            request.addPostParam("ThemeSetId", themeSetId);
+
+        if (businessContactPhone != null) {
+            Serializer.toString(
+                request,
+                "BusinessContactPhone",
+                businessContactPhone,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (themeSetId != null) {
+            Serializer.toString(
+                request,
+                "ThemeSetId",
+                themeSetId,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (skipMessagingUseCase != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "SkipMessagingUseCase",
-                skipMessagingUseCase.toString()
+                skipMessagingUseCase,
+                ParameterType.URLENCODED
             );
         }
     }

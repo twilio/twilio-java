@@ -18,25 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AvailableAddOn extends Resource {
-
-    private static final long serialVersionUID = 265387241353044L;
 
     public static AvailableAddOnFetcher fetcher(final String pathSid) {
         return new AvailableAddOnFetcher(pathSid);
@@ -89,62 +91,56 @@ public class AvailableAddOn extends Resource {
         }
     }
 
-    private final String sid;
-    private final String friendlyName;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final Object configurationSchema;
+
+    @Getter
     private final String description;
-    private final String pricingType;
-    private final Map<String, Object> configurationSchema;
-    private final URI url;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String pricingType;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private AvailableAddOn(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("configuration_schema") final Object configurationSchema,
         @JsonProperty("description") final String description,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("pricing_type") final String pricingType,
-        @JsonProperty("configuration_schema") final Map<
-            String,
-            Object
-        > configurationSchema,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
-        this.friendlyName = friendlyName;
-        this.description = description;
-        this.pricingType = pricingType;
         this.configurationSchema = configurationSchema;
-        this.url = url;
+        this.description = description;
+        this.friendlyName = friendlyName;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final String getPricingType() {
-        return this.pricingType;
-    }
-
-    public final Map<String, Object> getConfigurationSchema() {
-        return this.configurationSchema;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.pricingType = pricingType;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -158,28 +154,27 @@ public class AvailableAddOn extends Resource {
         }
 
         AvailableAddOn other = (AvailableAddOn) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(pricingType, other.pricingType) &&
             Objects.equals(configurationSchema, other.configurationSchema) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(description, other.description) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(pricingType, other.pricingType) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            friendlyName,
-            description,
-            pricingType,
             configurationSchema,
-            url,
-            links
+            description,
+            friendlyName,
+            links,
+            pricingType,
+            sid,
+            url
         );
     }
 }

@@ -16,8 +16,8 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,29 +26,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class InteractionChannelInviteCreator
     extends Creator<InteractionChannelInvite> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Map<String, Object> routing;
+    private Object routing;
 
     public InteractionChannelInviteCreator(
         final String pathInteractionSid,
         final String pathChannelSid,
-        final Map<String, Object> routing
+        final Object routing
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathChannelSid = pathChannelSid;
         this.routing = routing;
     }
 
-    public InteractionChannelInviteCreator setRouting(
-        final Map<String, Object> routing
-    ) {
+    public InteractionChannelInviteCreator setRouting(final Object routing) {
         this.routing = routing;
         return this;
     }
@@ -68,7 +65,6 @@ public class InteractionChannelInviteCreator
                 "{" + "ChannelSid" + "}",
                 this.pathChannelSid.toString()
             );
-        path = path.replace("{" + "Routing" + "}", this.routing.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,7 +73,9 @@ public class InteractionChannelInviteCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannelInvite creation failed: Unable to connect to server"
@@ -104,7 +102,12 @@ public class InteractionChannelInviteCreator
 
     private void addPostParams(final Request request) {
         if (routing != null) {
-            request.addPostParam("Routing", Converter.mapToJson(routing));
+            Serializer.toString(
+                request,
+                "Routing",
+                routing,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Command extends Resource {
-
-    private static final long serialVersionUID = 211711437701945L;
 
     public static CommandCreator creator(final String command) {
         return new CommandCreator(command);
@@ -93,87 +96,80 @@ public class Command extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String deviceSid;
-    private final String simSid;
+
+    @Getter
     private final String command;
+
+    @Getter
     private final String commandMode;
-    private final String status;
-    private final String direction;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String deviceSid;
+
+    @Getter
+    private final String direction;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String simSid;
+
+    @Getter
+    private final String status;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Command(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("device_sid") final String deviceSid,
-        @JsonProperty("sim_sid") final String simSid,
         @JsonProperty("command") final String command,
         @JsonProperty("command_mode") final String commandMode,
-        @JsonProperty("status") final String status,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("device_sid") final String deviceSid,
         @JsonProperty("direction") final String direction,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("status") final String status,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.deviceSid = deviceSid;
-        this.simSid = simSid;
         this.command = command;
         this.commandMode = commandMode;
-        this.status = status;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.deviceSid = deviceSid;
         this.direction = direction;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
+        this.simSid = simSid;
+        this.status = status;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getDeviceSid() {
-        return this.deviceSid;
-    }
-
-    public final String getSimSid() {
-        return this.simSid;
-    }
-
-    public final String getCommand() {
-        return this.command;
-    }
-
-    public final String getCommandMode() {
-        return this.commandMode;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final String getDirection() {
-        return this.direction;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -187,18 +183,17 @@ public class Command extends Resource {
         }
 
         Command other = (Command) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(deviceSid, other.deviceSid) &&
-            Objects.equals(simSid, other.simSid) &&
             Objects.equals(command, other.command) &&
             Objects.equals(commandMode, other.commandMode) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(direction, other.direction) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(deviceSid, other.deviceSid) &&
+            Objects.equals(direction, other.direction) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(status, other.status) &&
             Objects.equals(url, other.url)
         );
     }
@@ -206,16 +201,16 @@ public class Command extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            deviceSid,
-            simSid,
             command,
             commandMode,
-            status,
-            direction,
             dateCreated,
             dateUpdated,
+            deviceSid,
+            direction,
+            sid,
+            simSid,
+            status,
             url
         );
     }

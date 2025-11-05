@@ -18,28 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AddressConfiguration extends Resource {
-
-    private static final long serialVersionUID = 162346024858734L;
 
     public static AddressConfigurationCreator creator(
         final AddressConfiguration.Type type,
@@ -62,6 +63,73 @@ public class AddressConfiguration extends Resource {
 
     public static AddressConfigurationUpdater updater(final String pathSid) {
         return new AddressConfigurationUpdater(pathSid);
+    }
+
+    public enum Type {
+        SMS("sms"),
+        WHATSAPP("whatsapp"),
+        MESSENGER("messenger"),
+        GBM("gbm"),
+        EMAIL("email"),
+        RCS("rcs"),
+        APPLE("apple"),
+        CHAT("chat");
+
+        private final String value;
+
+        private Type(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum Method {
+        GET("get"),
+        POST("post");
+
+        private final String value;
+
+        private Method(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Method forValue(final String value) {
+            return Promoter.enumFromString(value, Method.values());
+        }
+    }
+
+    public enum AutoCreationType {
+        WEBHOOK("webhook"),
+        STUDIO("studio"),
+        DEFAULT("default");
+
+        private final String value;
+
+        private AutoCreationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AutoCreationType forValue(final String value) {
+            return Promoter.enumFromString(value, AutoCreationType.values());
+        }
     }
 
     /**
@@ -107,80 +175,75 @@ public class AddressConfiguration extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String type;
+
+    @Getter
     private final String address;
-    private final String friendlyName;
-    private final Map<String, Object> autoCreation;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final URI url;
+
+    @Getter
     private final String addressCountry;
+
+    @Getter
+    private final Object autoCreation;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final String type;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private AddressConfiguration(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("type") final String type,
         @JsonProperty("address") final String address,
+        @JsonProperty("address_country") final String addressCountry,
+        @JsonProperty("auto_creation") final Object autoCreation,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("auto_creation") final Map<String, Object> autoCreation,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("address_country") final String addressCountry
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final String type,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.type = type;
         this.address = address;
-        this.friendlyName = friendlyName;
-        this.autoCreation = autoCreation;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.url = url;
         this.addressCountry = addressCountry;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getType() {
-        return this.type;
-    }
-
-    public final String getAddress() {
-        return this.address;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Map<String, Object> getAutoCreation() {
-        return this.autoCreation;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getAddressCountry() {
-        return this.addressCountry;
+        this.autoCreation = autoCreation;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
+        this.sid = sid;
+        this.type = type;
+        this.url = url;
     }
 
     @Override
@@ -194,98 +257,33 @@ public class AddressConfiguration extends Resource {
         }
 
         AddressConfiguration other = (AddressConfiguration) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(type, other.type) &&
             Objects.equals(address, other.address) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(addressCountry, other.addressCountry) &&
             Objects.equals(autoCreation, other.autoCreation) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(addressCountry, other.addressCountry)
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            type,
             address,
-            friendlyName,
+            addressCountry,
             autoCreation,
             dateCreated,
             dateUpdated,
-            url,
-            addressCountry
+            friendlyName,
+            sid,
+            type,
+            url
         );
-    }
-
-    public enum AutoCreationType {
-        WEBHOOK("webhook"),
-        STUDIO("studio"),
-        DEFAULT("default");
-
-        private final String value;
-
-        private AutoCreationType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AutoCreationType forValue(final String value) {
-            return Promoter.enumFromString(value, AutoCreationType.values());
-        }
-    }
-
-    public enum Method {
-        GET("GET"),
-        POST("POST");
-
-        private final String value;
-
-        private Method(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Method forValue(final String value) {
-            return Promoter.enumFromString(value, Method.values());
-        }
-    }
-
-    public enum Type {
-        SMS("sms"),
-        WHATSAPP("whatsapp"),
-        MESSENGER("messenger"),
-        GBM("gbm"),
-        EMAIL("email");
-
-        private final String value;
-
-        private Type(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
     }
 }

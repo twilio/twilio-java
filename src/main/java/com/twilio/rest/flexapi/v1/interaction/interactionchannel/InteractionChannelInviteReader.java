@@ -17,7 +17,8 @@ package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InteractionChannelInviteReader
     extends Reader<InteractionChannelInvite> {
 
     private String pathInteractionSid;
     private String pathChannelSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public InteractionChannelInviteReader(
         final String pathInteractionSid,
@@ -42,7 +44,7 @@ public class InteractionChannelInviteReader
         this.pathChannelSid = pathChannelSid;
     }
 
-    public InteractionChannelInviteReader setPageSize(final Integer pageSize) {
+    public InteractionChannelInviteReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -59,6 +61,7 @@ public class InteractionChannelInviteReader
     ) {
         String path =
             "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites";
+
         path =
             path.replace(
                 "{" + "InteractionSid" + "}",
@@ -75,9 +78,8 @@ public class InteractionChannelInviteReader
             Domains.FLEXAPI.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -86,7 +88,6 @@ public class InteractionChannelInviteReader
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "InteractionChannelInvite read failed: Unable to connect to server"
@@ -96,6 +97,7 @@ public class InteractionChannelInviteReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -120,7 +122,7 @@ public class InteractionChannelInviteReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -132,7 +134,7 @@ public class InteractionChannelInviteReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -143,17 +145,17 @@ public class InteractionChannelInviteReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

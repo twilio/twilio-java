@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Credential extends Resource {
-
-    private static final long serialVersionUID = 161183169234848L;
 
     public static CredentialCreator creator(final Credential.PushService type) {
         return new CredentialCreator(type);
@@ -57,6 +60,27 @@ public class Credential extends Resource {
 
     public static CredentialUpdater updater(final String pathSid) {
         return new CredentialUpdater(pathSid);
+    }
+
+    public enum PushService {
+        GCM("gcm"),
+        APN("apn"),
+        FCM("fcm");
+
+        private final String value;
+
+        private PushService(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static PushService forValue(final String value) {
+            return Promoter.enumFromString(value, PushService.values());
+        }
     }
 
     /**
@@ -102,66 +126,65 @@ public class Credential extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String friendlyName;
-    private final Credential.PushService type;
-    private final String sandbox;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String sandbox;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Credential.PushService type;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private Credential(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("type") final Credential.PushService type,
         @JsonProperty("sandbox") final String sandbox,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final Credential.PushService type,
         @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.friendlyName = friendlyName;
-        this.type = type;
         this.sandbox = sandbox;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
+        this.type = type;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Credential.PushService getType() {
-        return this.type;
-    }
-
-    public final String getSandbox() {
-        return this.sandbox;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -175,15 +198,14 @@ public class Credential extends Resource {
         }
 
         Credential other = (Credential) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(sandbox, other.sandbox) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sandbox, other.sandbox) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
             Objects.equals(url, other.url)
         );
     }
@@ -191,35 +213,14 @@ public class Credential extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            friendlyName,
-            type,
-            sandbox,
             dateCreated,
             dateUpdated,
+            friendlyName,
+            sandbox,
+            sid,
+            type,
             url
         );
-    }
-
-    public enum PushService {
-        GCM("gcm"),
-        APN("apn"),
-        FCM("fcm");
-
-        private final String value;
-
-        private PushService(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static PushService forValue(final String value) {
-            return Promoter.enumFromString(value, PushService.values());
-        }
     }
 }

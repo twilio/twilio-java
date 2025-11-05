@@ -1,8 +1,6 @@
 package com.twilio.security;
 
 import org.apache.commons.codec.binary.Hex;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.net.URLEncodedUtils;
 
 public class RequestValidator {
 
@@ -31,7 +31,7 @@ public class RequestValidator {
         String signatureWithPort = getValidationSignature(addPort(url), params);
         String signatureWithoutPort = getValidationSignature(removePort(url), params);
         // If either url produces a valid signature, we accept the request as valid
-        return secureCompare(signatureWithPort, expectedSignature) || 
+        return secureCompare(signatureWithPort, expectedSignature) ||
             secureCompare(signatureWithoutPort, expectedSignature);
     }
 
@@ -49,9 +49,8 @@ public class RequestValidator {
 
         if (bodySHA256 != null) {
             return validate(url, empty, expectedSignature) && validateBody(body, bodySHA256.getValue());
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean validateBody(String body, String expectedSHA) {
@@ -120,7 +119,7 @@ public class RequestValidator {
             return url;
         }
     }
-    
+
     private String addPort(String url) {
         try {
             URI parsedUrl = new URI(url);
@@ -139,7 +138,7 @@ public class RequestValidator {
             return new URI(
                 url.getScheme(),
                 url.getUserInfo(),
-                url.getHost(), 
+                url.getHost(),
                 newPort,
                 url.getPath(),
                 url.getQuery(),

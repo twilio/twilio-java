@@ -18,30 +18,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trunk extends Resource {
-
-    private static final long serialVersionUID = 225938897286327L;
 
     public static TrunkCreator creator() {
         return new TrunkCreator();
@@ -61,6 +63,47 @@ public class Trunk extends Resource {
 
     public static TrunkUpdater updater(final String pathSid) {
         return new TrunkUpdater(pathSid);
+    }
+
+    public enum TransferSetting {
+        DISABLE_ALL("disable-all"),
+        ENABLE_ALL("enable-all"),
+        SIP_ONLY("sip-only");
+
+        private final String value;
+
+        private TransferSetting(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TransferSetting forValue(final String value) {
+            return Promoter.enumFromString(value, TransferSetting.values());
+        }
+    }
+
+    public enum TransferCallerId {
+        FROM_TRANSFEREE("from-transferee"),
+        FROM_TRANSFEROR("from-transferor");
+
+        private final String value;
+
+        private TransferCallerId(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static TransferCallerId forValue(final String value) {
+            return Promoter.enumFromString(value, TransferCallerId.values());
+        }
     }
 
     /**
@@ -106,133 +149,121 @@ public class Trunk extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String domainName;
-    private final HttpMethod disasterRecoveryMethod;
-    private final URI disasterRecoveryUrl;
-    private final String friendlyName;
-    private final Boolean secure;
-    private final Map<String, Object> recording;
-    private final Trunk.TransferSetting transferMode;
-    private final Trunk.TransferCallerId transferCallerId;
-    private final Boolean cnamLookupEnabled;
+
+    @Getter
     private final String authType;
+
+    @Getter
     private final List<String> authTypeSet;
+
+    @Getter
+    private final Boolean cnamLookupEnabled;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
-    private final String sid;
-    private final URI url;
+
+    @Getter
+    private final HttpMethod disasterRecoveryMethod;
+
+    @Getter
+    private final URI disasterRecoveryUrl;
+
+    @Getter
+    private final String domainName;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Object recording;
+
+    @Getter
+    private final Boolean secure;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Boolean symmetricRtpEnabled;
+
+    @Getter
+    private final Trunk.TransferCallerId transferCallerId;
+
+    @Getter
+    private final Trunk.TransferSetting transferMode;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Trunk(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("domain_name") final String domainName,
+        @JsonProperty("auth_type") final String authType,
+        @JsonProperty("auth_type_set") final List<String> authTypeSet,
+        @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty(
             "disaster_recovery_method"
         ) final HttpMethod disasterRecoveryMethod,
         @JsonProperty("disaster_recovery_url") final URI disasterRecoveryUrl,
+        @JsonProperty("domain_name") final String domainName,
         @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("recording") final Object recording,
         @JsonProperty("secure") final Boolean secure,
-        @JsonProperty("recording") final Map<String, Object> recording,
-        @JsonProperty("transfer_mode") final Trunk.TransferSetting transferMode,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty(
+            "symmetric_rtp_enabled"
+        ) final Boolean symmetricRtpEnabled,
         @JsonProperty(
             "transfer_caller_id"
         ) final Trunk.TransferCallerId transferCallerId,
-        @JsonProperty("cnam_lookup_enabled") final Boolean cnamLookupEnabled,
-        @JsonProperty("auth_type") final String authType,
-        @JsonProperty("auth_type_set") final List<String> authTypeSet,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("transfer_mode") final Trunk.TransferSetting transferMode,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
-        this.domainName = domainName;
-        this.disasterRecoveryMethod = disasterRecoveryMethod;
-        this.disasterRecoveryUrl = disasterRecoveryUrl;
-        this.friendlyName = friendlyName;
-        this.secure = secure;
-        this.recording = recording;
-        this.transferMode = transferMode;
-        this.transferCallerId = transferCallerId;
-        this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.sid = sid;
-        this.url = url;
+        this.cnamLookupEnabled = cnamLookupEnabled;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.disasterRecoveryMethod = disasterRecoveryMethod;
+        this.disasterRecoveryUrl = disasterRecoveryUrl;
+        this.domainName = domainName;
+        this.friendlyName = friendlyName;
         this.links = links;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getDomainName() {
-        return this.domainName;
-    }
-
-    public final HttpMethod getDisasterRecoveryMethod() {
-        return this.disasterRecoveryMethod;
-    }
-
-    public final URI getDisasterRecoveryUrl() {
-        return this.disasterRecoveryUrl;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Boolean getSecure() {
-        return this.secure;
-    }
-
-    public final Map<String, Object> getRecording() {
-        return this.recording;
-    }
-
-    public final Trunk.TransferSetting getTransferMode() {
-        return this.transferMode;
-    }
-
-    public final Trunk.TransferCallerId getTransferCallerId() {
-        return this.transferCallerId;
-    }
-
-    public final Boolean getCnamLookupEnabled() {
-        return this.cnamLookupEnabled;
-    }
-
-    public final String getAuthType() {
-        return this.authType;
-    }
-
-    public final List<String> getAuthTypeSet() {
-        return this.authTypeSet;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.recording = recording;
+        this.secure = secure;
+        this.sid = sid;
+        this.symmetricRtpEnabled = symmetricRtpEnabled;
+        this.transferCallerId = transferCallerId;
+        this.transferMode = transferMode;
+        this.url = url;
     }
 
     @Override
@@ -246,28 +277,28 @@ public class Trunk extends Resource {
         }
 
         Trunk other = (Trunk) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(domainName, other.domainName) &&
+            Objects.equals(authType, other.authType) &&
+            Objects.equals(authTypeSet, other.authTypeSet) &&
+            Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(
                 disasterRecoveryMethod,
                 other.disasterRecoveryMethod
             ) &&
             Objects.equals(disasterRecoveryUrl, other.disasterRecoveryUrl) &&
+            Objects.equals(domainName, other.domainName) &&
             Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(secure, other.secure) &&
+            Objects.equals(links, other.links) &&
             Objects.equals(recording, other.recording) &&
-            Objects.equals(transferMode, other.transferMode) &&
-            Objects.equals(transferCallerId, other.transferCallerId) &&
-            Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
-            Objects.equals(authType, other.authType) &&
-            Objects.equals(authTypeSet, other.authTypeSet) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(secure, other.secure) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(symmetricRtpEnabled, other.symmetricRtpEnabled) &&
+            Objects.equals(transferCallerId, other.transferCallerId) &&
+            Objects.equals(transferMode, other.transferMode) &&
+            Objects.equals(url, other.url)
         );
     }
 
@@ -275,63 +306,23 @@ public class Trunk extends Resource {
     public int hashCode() {
         return Objects.hash(
             accountSid,
-            domainName,
-            disasterRecoveryMethod,
-            disasterRecoveryUrl,
-            friendlyName,
-            secure,
-            recording,
-            transferMode,
-            transferCallerId,
-            cnamLookupEnabled,
             authType,
             authTypeSet,
+            cnamLookupEnabled,
             dateCreated,
             dateUpdated,
+            disasterRecoveryMethod,
+            disasterRecoveryUrl,
+            domainName,
+            friendlyName,
+            links,
+            recording,
+            secure,
             sid,
-            url,
-            links
+            symmetricRtpEnabled,
+            transferCallerId,
+            transferMode,
+            url
         );
-    }
-
-    public enum TransferSetting {
-        DISABLE_ALL("disable-all"),
-        ENABLE_ALL("enable-all"),
-        SIP_ONLY("sip-only");
-
-        private final String value;
-
-        private TransferSetting(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TransferSetting forValue(final String value) {
-            return Promoter.enumFromString(value, TransferSetting.values());
-        }
-    }
-
-    public enum TransferCallerId {
-        FROM_TRANSFEREE("from-transferee"),
-        FROM_TRANSFEROR("from-transferor");
-
-        private final String value;
-
-        private TransferCallerId(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static TransferCallerId forValue(final String value) {
-            return Promoter.enumFromString(value, TransferCallerId.values());
-        }
     }
 }

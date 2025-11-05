@@ -16,6 +16,8 @@ package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class SessionUpdater extends Updater<Session> {
@@ -72,7 +75,9 @@ public class SessionUpdater extends Updater<Session> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Session update failed: Unable to connect to server"
@@ -96,16 +101,25 @@ public class SessionUpdater extends Updater<Session> {
 
     private void addPostParams(final Request request) {
         if (dateExpiry != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DateExpiry",
-                dateExpiry.toInstant().toString()
+                dateExpiry,
+                ParameterType.URLENCODED
             );
         }
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
+
         if (status != null) {
-            request.addPostParam("Status", status.toString());
+            Serializer.toString(
+                request,
+                "Status",
+                status,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

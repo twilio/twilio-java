@@ -16,6 +16,8 @@ package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AlphaSenderCreator extends Creator<AlphaSender> {
 
@@ -52,11 +55,6 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "AlphaSender" + "}",
-                this.alphaSender.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -65,7 +63,9 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AlphaSender creation failed: Unable to connect to server"
@@ -92,7 +92,12 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     private void addPostParams(final Request request) {
         if (alphaSender != null) {
-            request.addPostParam("AlphaSender", alphaSender);
+            Serializer.toString(
+                request,
+                "AlphaSender",
+                alphaSender,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

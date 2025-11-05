@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,13 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class TranscriptionCreator extends Creator<Transcription> {
 
-    private String pathCallSid;
     private String pathAccountSid;
+    private String pathCallSid;
     private String name;
     private Transcription.Track track;
     private URI statusCallbackUrl;
@@ -45,6 +47,7 @@ public class TranscriptionCreator extends Creator<Transcription> {
     private String speechModel;
     private String hints;
     private Boolean enableAutomaticPunctuation;
+    private String intelligenceService;
 
     public TranscriptionCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -145,6 +148,13 @@ public class TranscriptionCreator extends Creator<Transcription> {
         return this;
     }
 
+    public TranscriptionCreator setIntelligenceService(
+        final String intelligenceService
+    ) {
+        this.intelligenceService = intelligenceService;
+        return this;
+    }
+
     @Override
     public Transcription create(final TwilioRestClient client) {
         String path =
@@ -168,7 +178,9 @@ public class TranscriptionCreator extends Creator<Transcription> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Transcription creation failed: Unable to connect to server"
@@ -195,51 +207,128 @@ public class TranscriptionCreator extends Creator<Transcription> {
 
     private void addPostParams(final Request request) {
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (track != null) {
-            request.addPostParam("Track", track.toString());
+            Serializer.toString(
+                request,
+                "Track",
+                track,
+                ParameterType.URLENCODED
+            );
         }
+
         if (statusCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackUrl",
-                statusCallbackUrl.toString()
+                statusCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (statusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+                statusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (inboundTrackLabel != null) {
-            request.addPostParam("InboundTrackLabel", inboundTrackLabel);
+            Serializer.toString(
+                request,
+                "InboundTrackLabel",
+                inboundTrackLabel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (outboundTrackLabel != null) {
-            request.addPostParam("OutboundTrackLabel", outboundTrackLabel);
+            Serializer.toString(
+                request,
+                "OutboundTrackLabel",
+                outboundTrackLabel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (partialResults != null) {
-            request.addPostParam("PartialResults", partialResults.toString());
+            Serializer.toString(
+                request,
+                "PartialResults",
+                partialResults,
+                ParameterType.URLENCODED
+            );
         }
+
         if (languageCode != null) {
-            request.addPostParam("LanguageCode", languageCode);
+            Serializer.toString(
+                request,
+                "LanguageCode",
+                languageCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (transcriptionEngine != null) {
-            request.addPostParam("TranscriptionEngine", transcriptionEngine);
+            Serializer.toString(
+                request,
+                "TranscriptionEngine",
+                transcriptionEngine,
+                ParameterType.URLENCODED
+            );
         }
+
         if (profanityFilter != null) {
-            request.addPostParam("ProfanityFilter", profanityFilter.toString());
+            Serializer.toString(
+                request,
+                "ProfanityFilter",
+                profanityFilter,
+                ParameterType.URLENCODED
+            );
         }
+
         if (speechModel != null) {
-            request.addPostParam("SpeechModel", speechModel);
+            Serializer.toString(
+                request,
+                "SpeechModel",
+                speechModel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (hints != null) {
-            request.addPostParam("Hints", hints);
+            Serializer.toString(
+                request,
+                "Hints",
+                hints,
+                ParameterType.URLENCODED
+            );
         }
+
         if (enableAutomaticPunctuation != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EnableAutomaticPunctuation",
-                enableAutomaticPunctuation.toString()
+                enableAutomaticPunctuation,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (intelligenceService != null) {
+            Serializer.toString(
+                request,
+                "IntelligenceService",
+                intelligenceService,
+                ParameterType.URLENCODED
             );
         }
     }

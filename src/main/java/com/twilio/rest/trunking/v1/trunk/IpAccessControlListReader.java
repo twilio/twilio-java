@@ -17,7 +17,8 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,17 +27,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     private String pathTrunkSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpAccessControlListReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
     }
 
-    public IpAccessControlListReader setPageSize(final Integer pageSize) {
+    public IpAccessControlListReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -50,6 +52,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
+
         path =
             path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
@@ -58,9 +61,8 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
             Domains.TRUNKING.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -69,7 +71,6 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "IpAccessControlList read failed: Unable to connect to server"
@@ -79,6 +80,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -103,7 +105,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUNKING.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -115,7 +117,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUNKING.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -126,17 +128,17 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

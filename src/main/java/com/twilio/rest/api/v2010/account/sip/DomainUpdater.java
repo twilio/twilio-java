@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account.sip;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class DomainUpdater extends Updater<Domain> {
 
-    private String pathSid;
     private String pathAccountSid;
+    private String pathSid;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -168,7 +171,9 @@ public class DomainUpdater extends Updater<Domain> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Domain update failed: Unable to connect to server"
@@ -192,58 +197,120 @@ public class DomainUpdater extends Updater<Domain> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
+                voiceFallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
+                voiceFallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceMethod != null) {
-            request.addPostParam("VoiceMethod", voiceMethod.toString());
+            Serializer.toString(
+                request,
+                "VoiceMethod",
+                voiceMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (voiceStatusCallbackMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceStatusCallbackMethod",
-                voiceStatusCallbackMethod.toString()
+                voiceStatusCallbackMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceStatusCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "VoiceStatusCallbackUrl",
-                voiceStatusCallbackUrl.toString()
+                voiceStatusCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (voiceUrl != null) {
-            request.addPostParam("VoiceUrl", voiceUrl.toString());
-        }
-        if (sipRegistration != null) {
-            request.addPostParam("SipRegistration", sipRegistration.toString());
-        }
-        if (domainName != null) {
-            request.addPostParam("DomainName", domainName);
-        }
-        if (emergencyCallingEnabled != null) {
-            request.addPostParam(
-                "EmergencyCallingEnabled",
-                emergencyCallingEnabled.toString()
+            Serializer.toString(
+                request,
+                "VoiceUrl",
+                voiceUrl,
+                ParameterType.URLENCODED
             );
         }
+
+        if (sipRegistration != null) {
+            Serializer.toString(
+                request,
+                "SipRegistration",
+                sipRegistration,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (domainName != null) {
+            Serializer.toString(
+                request,
+                "DomainName",
+                domainName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (emergencyCallingEnabled != null) {
+            Serializer.toString(
+                request,
+                "EmergencyCallingEnabled",
+                emergencyCallingEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (secure != null) {
-            request.addPostParam("Secure", secure.toString());
+            Serializer.toString(
+                request,
+                "Secure",
+                secure,
+                ParameterType.URLENCODED
+            );
         }
+
         if (byocTrunkSid != null) {
-            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+            Serializer.toString(
+                request,
+                "ByocTrunkSid",
+                byocTrunkSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (emergencyCallerSid != null) {
-            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
+            Serializer.toString(
+                request,
+                "EmergencyCallerSid",
+                emergencyCallerSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -17,7 +17,8 @@ package com.twilio.rest.trusthub.v1.customerprofiles;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CustomerProfilesChannelEndpointAssignmentReader
     extends Reader<CustomerProfilesChannelEndpointAssignment> {
@@ -33,7 +35,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     private String pathCustomerProfileSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomerProfilesChannelEndpointAssignmentReader(
         final String pathCustomerProfileSid
@@ -56,7 +58,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     }
 
     public CustomerProfilesChannelEndpointAssignmentReader setPageSize(
-        final Integer pageSize
+        final Long pageSize
     ) {
         this.pageSize = pageSize;
         return this;
@@ -74,6 +76,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     ) {
         String path =
             "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments";
+
         path =
             path.replace(
                 "{" + "CustomerProfileSid" + "}",
@@ -85,9 +88,8 @@ public class CustomerProfilesChannelEndpointAssignmentReader
             Domains.TRUSTHUB.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -96,7 +98,6 @@ public class CustomerProfilesChannelEndpointAssignmentReader
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "CustomerProfilesChannelEndpointAssignment read failed: Unable to connect to server"
@@ -106,6 +107,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -130,7 +132,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -142,7 +144,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUSTHUB.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -153,23 +155,35 @@ public class CustomerProfilesChannelEndpointAssignmentReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (channelEndpointSid != null) {
-            request.addQueryParam("ChannelEndpointSid", channelEndpointSid);
-        }
-        if (channelEndpointSids != null) {
-            request.addQueryParam("ChannelEndpointSids", channelEndpointSids);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "ChannelEndpointSid",
+                channelEndpointSid,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (channelEndpointSids != null) {
+            Serializer.toString(
+                request,
+                "ChannelEndpointSids",
+                channelEndpointSids,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

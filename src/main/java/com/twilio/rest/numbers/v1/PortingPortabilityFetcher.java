@@ -15,7 +15,8 @@
 package com.twilio.rest.numbers.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,11 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
 
     private com.twilio.type.PhoneNumber pathPhoneNumber;
     private String targetAccountSid;
+    private String addressSid;
 
     public PortingPortabilityFetcher(
         final com.twilio.type.PhoneNumber pathPhoneNumber
@@ -43,6 +46,11 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
         return this;
     }
 
+    public PortingPortabilityFetcher setAddressSid(final String addressSid) {
+        this.addressSid = addressSid;
+        return this;
+    }
+
     @Override
     public PortingPortability fetch(final TwilioRestClient client) {
         String path = "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}";
@@ -50,7 +58,7 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
         path =
             path.replace(
                 "{" + "PhoneNumber" + "}",
-                this.pathPhoneNumber.encode("utf-8")
+                this.pathPhoneNumber.toString()
             );
 
         Request request = new Request(
@@ -59,7 +67,7 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -79,7 +87,6 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
             }
             throw new ApiException(restException);
         }
-
         return PortingPortability.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -88,7 +95,21 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
 
     private void addQueryParams(final Request request) {
         if (targetAccountSid != null) {
-            request.addQueryParam("TargetAccountSid", targetAccountSid);
+            Serializer.toString(
+                request,
+                "TargetAccountSid",
+                targetAccountSid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (addressSid != null) {
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.QUERY
+            );
         }
     }
 }

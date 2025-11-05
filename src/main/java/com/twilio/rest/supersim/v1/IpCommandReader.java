@@ -17,7 +17,8 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpCommandReader extends Reader<IpCommand> {
 
@@ -33,7 +35,7 @@ public class IpCommandReader extends Reader<IpCommand> {
     private String simIccid;
     private IpCommand.Status status;
     private IpCommand.Direction direction;
-    private Integer pageSize;
+    private Long pageSize;
 
     public IpCommandReader() {}
 
@@ -57,7 +59,7 @@ public class IpCommandReader extends Reader<IpCommand> {
         return this;
     }
 
-    public IpCommandReader setPageSize(final Integer pageSize) {
+    public IpCommandReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -75,9 +77,8 @@ public class IpCommandReader extends Reader<IpCommand> {
             Domains.SUPERSIM.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -86,7 +87,6 @@ public class IpCommandReader extends Reader<IpCommand> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "IpCommand read failed: Unable to connect to server"
@@ -96,6 +96,7 @@ public class IpCommandReader extends Reader<IpCommand> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -120,7 +121,7 @@ public class IpCommandReader extends Reader<IpCommand> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -132,7 +133,7 @@ public class IpCommandReader extends Reader<IpCommand> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -143,29 +144,43 @@ public class IpCommandReader extends Reader<IpCommand> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (sim != null) {
-            request.addQueryParam("Sim", sim);
-        }
-        if (simIccid != null) {
-            request.addQueryParam("SimIccid", simIccid);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (direction != null) {
-            request.addQueryParam("Direction", direction.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (simIccid != null) {
+            Serializer.toString(
+                request,
+                "SimIccid",
+                simIccid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (direction != null) {
+            Serializer.toString(
+                request,
+                "Direction",
+                direction,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

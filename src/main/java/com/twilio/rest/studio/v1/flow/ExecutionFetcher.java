@@ -15,7 +15,6 @@
 package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ExecutionFetcher extends Fetcher<Execution> {
 
@@ -47,7 +47,7 @@ public class ExecutionFetcher extends Fetcher<Execution> {
             Domains.STUDIO.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -67,7 +67,6 @@ public class ExecutionFetcher extends Fetcher<Execution> {
             }
             throw new ApiException(restException);
         }
-
         return Execution.fromJson(
             response.getStream(),
             client.getObjectMapper()

@@ -1,11 +1,17 @@
 package com.twilio.jwt.taskrouter;
 
+import io.jsonwebtoken.impl.DefaultClaims;
+import io.jsonwebtoken.security.Keys;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,12 +27,34 @@ import io.jsonwebtoken.Jwts;
 public class TaskRouterCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String AUTH_TOKEN = "secretsecretsecretsecretsecret00";
+    private static byte[] AUTH_TOKEN ;
     private static final String WORKSPACE_SID = "WS123";
     private static final String WORKER_SID = "WK123";
 
+    static {
+        KeyGenerator keyGen = null;
+        try {
+            keyGen = KeyGenerator.getInstance("HmacSHA256");
+            keyGen.init(2048); // Use 2048 bits for stronger security
+            SecretKey pair = keyGen.generateKey();
+            AUTH_TOKEN = pair.getEncoded();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public Claims getClaims(Jwt token) throws IOException {
+        io.jsonwebtoken.Jwt<?, ?> claims = Jwts.parser()
+            .verifyWith(Keys.hmacShaKeyFor(AUTH_TOKEN))
+            .build()
+            .parse(token.toJwt());
+
+        return (DefaultClaims)claims.getPayload();
+    }
+
     @Test
-    public void testToken() {
+    public void testToken() throws IOException {
         List<Policy> policies = Arrays.asList(
             new Policy.Builder().url(UrlUtils.workspaces()).build()
         );
@@ -34,11 +62,7 @@ public class TaskRouterCapabilityTest {
                 new TaskRouterCapability.Builder(ACCOUNT_SID, AUTH_TOKEN, WORKSPACE_SID, WORKER_SID)
                 .policies(policies)
                 .build();
-        Claims claims =
-            Jwts.parserBuilder()
-                .setSigningKey(AUTH_TOKEN.getBytes()).build()
-                .parseClaimsJws(jwt.toJwt())
-                .getBody();
+        Claims claims = getClaims(jwt);
 
         Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
         Assert.assertEquals(WORKER_SID, claims.get("channel"));
@@ -48,7 +72,7 @@ public class TaskRouterCapabilityTest {
     }
 
     @Test
-    public void testWorkerToken() {
+    public void testWorkerToken() throws IOException {
         final List<Policy> policies = PolicyUtils.defaultWorkerPolicies(WORKSPACE_SID, WORKER_SID);
 
         final Map<String, FilterRequirement> activityUpdateFilter = new HashMap<>();
@@ -77,11 +101,7 @@ public class TaskRouterCapabilityTest {
                 new TaskRouterCapability.Builder(ACCOUNT_SID, AUTH_TOKEN, WORKSPACE_SID, WORKER_SID)
                         .policies(policies)
                         .build();
-        final Claims claims =
-                Jwts.parserBuilder()
-                        .setSigningKey(AUTH_TOKEN.getBytes()).build()
-                        .parseClaimsJws(jwt.toJwt())
-                        .getBody();
+        final Claims claims = getClaims(jwt);
 
         Assert.assertEquals(WORKSPACE_SID, claims.get("workspace_sid"));
         Assert.assertEquals(WORKER_SID, claims.get("channel"));

@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +23,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class IpAddressDeleter extends Deleter<IpAddress> {
 
+    private String pathAccountSid;
     private String pathIpAccessControlListSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public IpAddressDeleter(
         final String pathIpAccessControlListSid,
@@ -75,7 +75,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {

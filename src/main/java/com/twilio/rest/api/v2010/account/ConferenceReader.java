@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,8 +27,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class ConferenceReader extends Reader<Conference> {
 
@@ -40,7 +41,7 @@ public class ConferenceReader extends Reader<Conference> {
     private LocalDate dateUpdatedAfter;
     private String friendlyName;
     private Conference.Status status;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ConferenceReader() {}
 
@@ -96,7 +97,7 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
-    public ConferenceReader setPageSize(final Integer pageSize) {
+    public ConferenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -108,6 +109,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     public Page<Conference> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -123,9 +125,8 @@ public class ConferenceReader extends Reader<Conference> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -134,7 +135,6 @@ public class ConferenceReader extends Reader<Conference> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Conference read failed: Unable to connect to server"
@@ -144,6 +144,7 @@ public class ConferenceReader extends Reader<Conference> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -191,55 +192,84 @@ public class ConferenceReader extends Reader<Conference> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "DateCreated",
-                dateCreated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_FORMAT
-                    )
-                )
+                dateCreated,
+                ParameterType.QUERY
             );
-        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
-            request.addQueryDateRange(
-                "DateCreated",
-                dateCreatedAfter,
-                dateCreatedBefore
-            );
-        }
-        if (dateUpdated != null) {
-            request.addQueryParam(
-                "DateUpdated",
-                dateUpdated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_FORMAT
-                    )
-                )
-            );
-        } else if (dateUpdatedAfter != null || dateUpdatedBefore != null) {
-            request.addQueryDateRange(
-                "DateUpdated",
-                dateUpdatedAfter,
-                dateUpdatedBefore
-            );
-        }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (dateCreatedBefore != null) {
+            Serializer.toString(
+                request,
+                "DateCreated<",
+                dateCreatedBefore,
+                ParameterType.QUERY
+            );
+        }
+
+        if (dateCreatedAfter != null) {
+            Serializer.toString(
+                request,
+                "DateCreated>",
+                dateCreatedAfter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (dateUpdated != null) {
+            Serializer.toString(
+                request,
+                "DateUpdated",
+                dateUpdated,
+                ParameterType.QUERY
+            );
+        }
+
+        if (dateUpdatedBefore != null) {
+            Serializer.toString(
+                request,
+                "DateUpdated<",
+                dateUpdatedBefore,
+                ParameterType.QUERY
+            );
+        }
+
+        if (dateUpdatedAfter != null) {
+            Serializer.toString(
+                request,
+                "DateUpdated>",
+                dateUpdatedAfter,
+                ParameterType.QUERY
+            );
+        }
+
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (status != null) {
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

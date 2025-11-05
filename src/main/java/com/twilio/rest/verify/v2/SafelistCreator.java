@@ -16,6 +16,8 @@ package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SafelistCreator extends Creator<Safelist> {
 
@@ -42,12 +45,6 @@ public class SafelistCreator extends Creator<Safelist> {
     public Safelist create(final TwilioRestClient client) {
         String path = "/v2/SafeList/Numbers";
 
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.phoneNumber.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
@@ -55,7 +52,9 @@ public class SafelistCreator extends Creator<Safelist> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Safelist creation failed: Unable to connect to server"
@@ -82,7 +81,12 @@ public class SafelistCreator extends Creator<Safelist> {
 
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber);
+            Serializer.toString(
+                request,
+                "PhoneNumber",
+                phoneNumber,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

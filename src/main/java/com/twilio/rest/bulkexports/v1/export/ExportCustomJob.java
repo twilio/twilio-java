@@ -18,24 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExportCustomJob extends Resource {
-
-    private static final long serialVersionUID = 125242558228L;
 
     public static ExportCustomJobCreator creator(
         final String pathResourceType,
@@ -98,89 +100,78 @@ public class ExportCustomJob extends Resource {
         }
     }
 
-    private final String friendlyName;
-    private final String resourceType;
-    private final String startDay;
-    private final String endDay;
-    private final String webhookUrl;
-    private final String webhookMethod;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
+    private final List<Object> details;
+
+    @Getter
     private final String email;
-    private final String jobSid;
-    private final Map<String, Object> details;
-    private final String jobQueuePosition;
+
+    @Getter
+    private final String endDay;
+
+    @Getter
     private final String estimatedCompletionTime;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String jobQueuePosition;
+
+    @Getter
+    private final String jobSid;
+
+    @Getter
+    private final String resourceType;
+
+    @Getter
+    private final String startDay;
+
+    @Getter
+    private final String webhookMethod;
+
+    @Getter
+    private final String webhookUrl;
 
     @JsonCreator
     private ExportCustomJob(
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("resource_type") final String resourceType,
-        @JsonProperty("start_day") final String startDay,
-        @JsonProperty("end_day") final String endDay,
-        @JsonProperty("webhook_url") final String webhookUrl,
-        @JsonProperty("webhook_method") final String webhookMethod,
+        @JsonProperty("details") final List<Object> details,
         @JsonProperty("email") final String email,
-        @JsonProperty("job_sid") final String jobSid,
-        @JsonProperty("details") final Map<String, Object> details,
-        @JsonProperty("job_queue_position") final String jobQueuePosition,
+        @JsonProperty("end_day") final String endDay,
         @JsonProperty(
             "estimated_completion_time"
-        ) final String estimatedCompletionTime
+        ) final String estimatedCompletionTime,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("job_queue_position") final String jobQueuePosition,
+        @JsonProperty("job_sid") final String jobSid,
+        @JsonProperty("resource_type") final String resourceType,
+        @JsonProperty("start_day") final String startDay,
+        @JsonProperty("webhook_method") final String webhookMethod,
+        @JsonProperty("webhook_url") final String webhookUrl
     ) {
+        this.details = details;
+        this.email = email;
+        this.endDay = endDay;
+        this.estimatedCompletionTime = estimatedCompletionTime;
         this.friendlyName = friendlyName;
+        this.jobQueuePosition = jobQueuePosition;
+        this.jobSid = jobSid;
         this.resourceType = resourceType;
         this.startDay = startDay;
-        this.endDay = endDay;
-        this.webhookUrl = webhookUrl;
         this.webhookMethod = webhookMethod;
-        this.email = email;
-        this.jobSid = jobSid;
-        this.details = details;
-        this.jobQueuePosition = jobQueuePosition;
-        this.estimatedCompletionTime = estimatedCompletionTime;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
-
-    public final String getStartDay() {
-        return this.startDay;
-    }
-
-    public final String getEndDay() {
-        return this.endDay;
-    }
-
-    public final String getWebhookUrl() {
-        return this.webhookUrl;
-    }
-
-    public final String getWebhookMethod() {
-        return this.webhookMethod;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final String getJobSid() {
-        return this.jobSid;
-    }
-
-    public final Map<String, Object> getDetails() {
-        return this.details;
-    }
-
-    public final String getJobQueuePosition() {
-        return this.jobQueuePosition;
-    }
-
-    public final String getEstimatedCompletionTime() {
-        return this.estimatedCompletionTime;
+        this.webhookUrl = webhookUrl;
     }
 
     @Override
@@ -194,39 +185,38 @@ public class ExportCustomJob extends Resource {
         }
 
         ExportCustomJob other = (ExportCustomJob) o;
-
         return (
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(resourceType, other.resourceType) &&
-            Objects.equals(startDay, other.startDay) &&
-            Objects.equals(endDay, other.endDay) &&
-            Objects.equals(webhookUrl, other.webhookUrl) &&
-            Objects.equals(webhookMethod, other.webhookMethod) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(jobSid, other.jobSid) &&
             Objects.equals(details, other.details) &&
-            Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(endDay, other.endDay) &&
             Objects.equals(
                 estimatedCompletionTime,
                 other.estimatedCompletionTime
-            )
+            ) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
+            Objects.equals(jobSid, other.jobSid) &&
+            Objects.equals(resourceType, other.resourceType) &&
+            Objects.equals(startDay, other.startDay) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(webhookUrl, other.webhookUrl)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            details,
+            email,
+            endDay,
+            estimatedCompletionTime,
             friendlyName,
+            jobQueuePosition,
+            jobSid,
             resourceType,
             startDay,
-            endDay,
-            webhookUrl,
             webhookMethod,
-            email,
-            jobSid,
-            details,
-            jobQueuePosition,
-            estimatedCompletionTime
+            webhookUrl
         );
     }
 }

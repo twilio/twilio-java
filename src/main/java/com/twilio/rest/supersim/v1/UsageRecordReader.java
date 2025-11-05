@@ -17,7 +17,8 @@ package com.twilio.rest.supersim.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
@@ -38,7 +40,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private UsageRecord.Granularity granularity;
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UsageRecordReader() {}
 
@@ -84,7 +86,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         return this;
     }
 
-    public UsageRecordReader setPageSize(final Integer pageSize) {
+    public UsageRecordReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -102,9 +104,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
             Domains.SUPERSIM.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -113,7 +114,6 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "UsageRecord read failed: Unable to connect to server"
@@ -123,6 +123,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -147,7 +148,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -159,7 +160,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -170,46 +171,74 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (sim != null) {
-            request.addQueryParam("Sim", sim);
+            Serializer.toString(request, "Sim", sim, ParameterType.QUERY);
         }
+
         if (fleet != null) {
-            request.addQueryParam("Fleet", fleet);
+            Serializer.toString(request, "Fleet", fleet, ParameterType.QUERY);
         }
+
         if (network != null) {
-            request.addQueryParam("Network", network);
+            Serializer.toString(
+                request,
+                "Network",
+                network,
+                ParameterType.QUERY
+            );
         }
+
         if (isoCountry != null) {
-            request.addQueryParam("IsoCountry", isoCountry);
+            Serializer.toString(
+                request,
+                "IsoCountry",
+                isoCountry,
+                ParameterType.QUERY
+            );
         }
+
         if (group != null) {
-            request.addQueryParam("Group", group.toString());
+            Serializer.toString(request, "Group", group, ParameterType.QUERY);
         }
+
         if (granularity != null) {
-            request.addQueryParam("Granularity", granularity.toString());
+            Serializer.toString(
+                request,
+                "Granularity",
+                granularity,
+                ParameterType.QUERY
+            );
         }
+
         if (startTime != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "StartTime",
-                startTime.toInstant().toString()
+                startTime,
+                ParameterType.QUERY
             );
         }
 
         if (endTime != null) {
-            request.addQueryParam("EndTime", endTime.toInstant().toString());
+            Serializer.toString(
+                request,
+                "EndTime",
+                endTime,
+                ParameterType.QUERY
+            );
         }
 
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.conversations.v1.user;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.time.ZonedDateTime;
 
 public class UserConversationUpdater extends Updater<UserConversation> {
@@ -81,7 +84,9 @@ public class UserConversationUpdater extends Updater<UserConversation> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UserConversation update failed: Unable to connect to server"
@@ -108,21 +113,29 @@ public class UserConversationUpdater extends Updater<UserConversation> {
 
     private void addPostParams(final Request request) {
         if (notificationLevel != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "NotificationLevel",
-                notificationLevel.toString()
+                notificationLevel,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastReadTimestamp != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastReadTimestamp",
-                lastReadTimestamp.toInstant().toString()
+                lastReadTimestamp,
+                ParameterType.URLENCODED
             );
         }
+
         if (lastReadMessageIndex != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "LastReadMessageIndex",
-                lastReadMessageIndex.toString()
+                lastReadMessageIndex,
+                ParameterType.URLENCODED
             );
         }
     }

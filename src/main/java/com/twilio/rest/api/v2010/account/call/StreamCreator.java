@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,14 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class StreamCreator extends Creator<Stream> {
 
+    private String pathAccountSid;
     private String pathCallSid;
     private URI url;
-    private String pathAccountSid;
     private String name;
     private Stream.Track track;
     private URI statusCallback;
@@ -1291,7 +1293,6 @@ public class StreamCreator extends Creator<Stream> {
                 this.pathAccountSid.toString()
             );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Url" + "}", this.url.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -1300,7 +1301,9 @@ public class StreamCreator extends Creator<Stream> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Stream creation failed: Unable to connect to server"
@@ -1324,616 +1327,1825 @@ public class StreamCreator extends Creator<Stream> {
 
     private void addPostParams(final Request request) {
         if (url != null) {
-            request.addPostParam("Url", url.toString());
+            Serializer.toString(request, "Url", url, ParameterType.URLENCODED);
         }
+
         if (name != null) {
-            request.addPostParam("Name", name);
-        }
-        if (track != null) {
-            request.addPostParam("Track", track.toString());
-        }
-        if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
-        }
-        if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
             );
         }
+
+        if (track != null) {
+            Serializer.toString(
+                request,
+                "Track",
+                track,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallback != null) {
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallbackMethod != null) {
+            Serializer.toString(
+                request,
+                "StatusCallbackMethod",
+                statusCallbackMethod,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (parameter1Name != null) {
-            request.addPostParam("Parameter1.Name", parameter1Name);
+            Serializer.toString(
+                request,
+                "Parameter1.Name",
+                parameter1Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter1Value != null) {
-            request.addPostParam("Parameter1.Value", parameter1Value);
+            Serializer.toString(
+                request,
+                "Parameter1.Value",
+                parameter1Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter2Name != null) {
-            request.addPostParam("Parameter2.Name", parameter2Name);
+            Serializer.toString(
+                request,
+                "Parameter2.Name",
+                parameter2Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter2Value != null) {
-            request.addPostParam("Parameter2.Value", parameter2Value);
+            Serializer.toString(
+                request,
+                "Parameter2.Value",
+                parameter2Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter3Name != null) {
-            request.addPostParam("Parameter3.Name", parameter3Name);
+            Serializer.toString(
+                request,
+                "Parameter3.Name",
+                parameter3Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter3Value != null) {
-            request.addPostParam("Parameter3.Value", parameter3Value);
+            Serializer.toString(
+                request,
+                "Parameter3.Value",
+                parameter3Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter4Name != null) {
-            request.addPostParam("Parameter4.Name", parameter4Name);
+            Serializer.toString(
+                request,
+                "Parameter4.Name",
+                parameter4Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter4Value != null) {
-            request.addPostParam("Parameter4.Value", parameter4Value);
+            Serializer.toString(
+                request,
+                "Parameter4.Value",
+                parameter4Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter5Name != null) {
-            request.addPostParam("Parameter5.Name", parameter5Name);
+            Serializer.toString(
+                request,
+                "Parameter5.Name",
+                parameter5Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter5Value != null) {
-            request.addPostParam("Parameter5.Value", parameter5Value);
+            Serializer.toString(
+                request,
+                "Parameter5.Value",
+                parameter5Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter6Name != null) {
-            request.addPostParam("Parameter6.Name", parameter6Name);
+            Serializer.toString(
+                request,
+                "Parameter6.Name",
+                parameter6Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter6Value != null) {
-            request.addPostParam("Parameter6.Value", parameter6Value);
+            Serializer.toString(
+                request,
+                "Parameter6.Value",
+                parameter6Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter7Name != null) {
-            request.addPostParam("Parameter7.Name", parameter7Name);
+            Serializer.toString(
+                request,
+                "Parameter7.Name",
+                parameter7Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter7Value != null) {
-            request.addPostParam("Parameter7.Value", parameter7Value);
+            Serializer.toString(
+                request,
+                "Parameter7.Value",
+                parameter7Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter8Name != null) {
-            request.addPostParam("Parameter8.Name", parameter8Name);
+            Serializer.toString(
+                request,
+                "Parameter8.Name",
+                parameter8Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter8Value != null) {
-            request.addPostParam("Parameter8.Value", parameter8Value);
+            Serializer.toString(
+                request,
+                "Parameter8.Value",
+                parameter8Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter9Name != null) {
-            request.addPostParam("Parameter9.Name", parameter9Name);
+            Serializer.toString(
+                request,
+                "Parameter9.Name",
+                parameter9Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter9Value != null) {
-            request.addPostParam("Parameter9.Value", parameter9Value);
+            Serializer.toString(
+                request,
+                "Parameter9.Value",
+                parameter9Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter10Name != null) {
-            request.addPostParam("Parameter10.Name", parameter10Name);
+            Serializer.toString(
+                request,
+                "Parameter10.Name",
+                parameter10Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter10Value != null) {
-            request.addPostParam("Parameter10.Value", parameter10Value);
+            Serializer.toString(
+                request,
+                "Parameter10.Value",
+                parameter10Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter11Name != null) {
-            request.addPostParam("Parameter11.Name", parameter11Name);
+            Serializer.toString(
+                request,
+                "Parameter11.Name",
+                parameter11Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter11Value != null) {
-            request.addPostParam("Parameter11.Value", parameter11Value);
+            Serializer.toString(
+                request,
+                "Parameter11.Value",
+                parameter11Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter12Name != null) {
-            request.addPostParam("Parameter12.Name", parameter12Name);
+            Serializer.toString(
+                request,
+                "Parameter12.Name",
+                parameter12Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter12Value != null) {
-            request.addPostParam("Parameter12.Value", parameter12Value);
+            Serializer.toString(
+                request,
+                "Parameter12.Value",
+                parameter12Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter13Name != null) {
-            request.addPostParam("Parameter13.Name", parameter13Name);
+            Serializer.toString(
+                request,
+                "Parameter13.Name",
+                parameter13Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter13Value != null) {
-            request.addPostParam("Parameter13.Value", parameter13Value);
+            Serializer.toString(
+                request,
+                "Parameter13.Value",
+                parameter13Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter14Name != null) {
-            request.addPostParam("Parameter14.Name", parameter14Name);
+            Serializer.toString(
+                request,
+                "Parameter14.Name",
+                parameter14Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter14Value != null) {
-            request.addPostParam("Parameter14.Value", parameter14Value);
+            Serializer.toString(
+                request,
+                "Parameter14.Value",
+                parameter14Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter15Name != null) {
-            request.addPostParam("Parameter15.Name", parameter15Name);
+            Serializer.toString(
+                request,
+                "Parameter15.Name",
+                parameter15Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter15Value != null) {
-            request.addPostParam("Parameter15.Value", parameter15Value);
+            Serializer.toString(
+                request,
+                "Parameter15.Value",
+                parameter15Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter16Name != null) {
-            request.addPostParam("Parameter16.Name", parameter16Name);
+            Serializer.toString(
+                request,
+                "Parameter16.Name",
+                parameter16Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter16Value != null) {
-            request.addPostParam("Parameter16.Value", parameter16Value);
+            Serializer.toString(
+                request,
+                "Parameter16.Value",
+                parameter16Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter17Name != null) {
-            request.addPostParam("Parameter17.Name", parameter17Name);
+            Serializer.toString(
+                request,
+                "Parameter17.Name",
+                parameter17Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter17Value != null) {
-            request.addPostParam("Parameter17.Value", parameter17Value);
+            Serializer.toString(
+                request,
+                "Parameter17.Value",
+                parameter17Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter18Name != null) {
-            request.addPostParam("Parameter18.Name", parameter18Name);
+            Serializer.toString(
+                request,
+                "Parameter18.Name",
+                parameter18Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter18Value != null) {
-            request.addPostParam("Parameter18.Value", parameter18Value);
+            Serializer.toString(
+                request,
+                "Parameter18.Value",
+                parameter18Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter19Name != null) {
-            request.addPostParam("Parameter19.Name", parameter19Name);
+            Serializer.toString(
+                request,
+                "Parameter19.Name",
+                parameter19Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter19Value != null) {
-            request.addPostParam("Parameter19.Value", parameter19Value);
+            Serializer.toString(
+                request,
+                "Parameter19.Value",
+                parameter19Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter20Name != null) {
-            request.addPostParam("Parameter20.Name", parameter20Name);
+            Serializer.toString(
+                request,
+                "Parameter20.Name",
+                parameter20Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter20Value != null) {
-            request.addPostParam("Parameter20.Value", parameter20Value);
+            Serializer.toString(
+                request,
+                "Parameter20.Value",
+                parameter20Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter21Name != null) {
-            request.addPostParam("Parameter21.Name", parameter21Name);
+            Serializer.toString(
+                request,
+                "Parameter21.Name",
+                parameter21Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter21Value != null) {
-            request.addPostParam("Parameter21.Value", parameter21Value);
+            Serializer.toString(
+                request,
+                "Parameter21.Value",
+                parameter21Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter22Name != null) {
-            request.addPostParam("Parameter22.Name", parameter22Name);
+            Serializer.toString(
+                request,
+                "Parameter22.Name",
+                parameter22Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter22Value != null) {
-            request.addPostParam("Parameter22.Value", parameter22Value);
+            Serializer.toString(
+                request,
+                "Parameter22.Value",
+                parameter22Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter23Name != null) {
-            request.addPostParam("Parameter23.Name", parameter23Name);
+            Serializer.toString(
+                request,
+                "Parameter23.Name",
+                parameter23Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter23Value != null) {
-            request.addPostParam("Parameter23.Value", parameter23Value);
+            Serializer.toString(
+                request,
+                "Parameter23.Value",
+                parameter23Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter24Name != null) {
-            request.addPostParam("Parameter24.Name", parameter24Name);
+            Serializer.toString(
+                request,
+                "Parameter24.Name",
+                parameter24Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter24Value != null) {
-            request.addPostParam("Parameter24.Value", parameter24Value);
+            Serializer.toString(
+                request,
+                "Parameter24.Value",
+                parameter24Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter25Name != null) {
-            request.addPostParam("Parameter25.Name", parameter25Name);
+            Serializer.toString(
+                request,
+                "Parameter25.Name",
+                parameter25Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter25Value != null) {
-            request.addPostParam("Parameter25.Value", parameter25Value);
+            Serializer.toString(
+                request,
+                "Parameter25.Value",
+                parameter25Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter26Name != null) {
-            request.addPostParam("Parameter26.Name", parameter26Name);
+            Serializer.toString(
+                request,
+                "Parameter26.Name",
+                parameter26Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter26Value != null) {
-            request.addPostParam("Parameter26.Value", parameter26Value);
+            Serializer.toString(
+                request,
+                "Parameter26.Value",
+                parameter26Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter27Name != null) {
-            request.addPostParam("Parameter27.Name", parameter27Name);
+            Serializer.toString(
+                request,
+                "Parameter27.Name",
+                parameter27Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter27Value != null) {
-            request.addPostParam("Parameter27.Value", parameter27Value);
+            Serializer.toString(
+                request,
+                "Parameter27.Value",
+                parameter27Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter28Name != null) {
-            request.addPostParam("Parameter28.Name", parameter28Name);
+            Serializer.toString(
+                request,
+                "Parameter28.Name",
+                parameter28Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter28Value != null) {
-            request.addPostParam("Parameter28.Value", parameter28Value);
+            Serializer.toString(
+                request,
+                "Parameter28.Value",
+                parameter28Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter29Name != null) {
-            request.addPostParam("Parameter29.Name", parameter29Name);
+            Serializer.toString(
+                request,
+                "Parameter29.Name",
+                parameter29Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter29Value != null) {
-            request.addPostParam("Parameter29.Value", parameter29Value);
+            Serializer.toString(
+                request,
+                "Parameter29.Value",
+                parameter29Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter30Name != null) {
-            request.addPostParam("Parameter30.Name", parameter30Name);
+            Serializer.toString(
+                request,
+                "Parameter30.Name",
+                parameter30Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter30Value != null) {
-            request.addPostParam("Parameter30.Value", parameter30Value);
+            Serializer.toString(
+                request,
+                "Parameter30.Value",
+                parameter30Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter31Name != null) {
-            request.addPostParam("Parameter31.Name", parameter31Name);
+            Serializer.toString(
+                request,
+                "Parameter31.Name",
+                parameter31Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter31Value != null) {
-            request.addPostParam("Parameter31.Value", parameter31Value);
+            Serializer.toString(
+                request,
+                "Parameter31.Value",
+                parameter31Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter32Name != null) {
-            request.addPostParam("Parameter32.Name", parameter32Name);
+            Serializer.toString(
+                request,
+                "Parameter32.Name",
+                parameter32Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter32Value != null) {
-            request.addPostParam("Parameter32.Value", parameter32Value);
+            Serializer.toString(
+                request,
+                "Parameter32.Value",
+                parameter32Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter33Name != null) {
-            request.addPostParam("Parameter33.Name", parameter33Name);
+            Serializer.toString(
+                request,
+                "Parameter33.Name",
+                parameter33Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter33Value != null) {
-            request.addPostParam("Parameter33.Value", parameter33Value);
+            Serializer.toString(
+                request,
+                "Parameter33.Value",
+                parameter33Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter34Name != null) {
-            request.addPostParam("Parameter34.Name", parameter34Name);
+            Serializer.toString(
+                request,
+                "Parameter34.Name",
+                parameter34Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter34Value != null) {
-            request.addPostParam("Parameter34.Value", parameter34Value);
+            Serializer.toString(
+                request,
+                "Parameter34.Value",
+                parameter34Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter35Name != null) {
-            request.addPostParam("Parameter35.Name", parameter35Name);
+            Serializer.toString(
+                request,
+                "Parameter35.Name",
+                parameter35Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter35Value != null) {
-            request.addPostParam("Parameter35.Value", parameter35Value);
+            Serializer.toString(
+                request,
+                "Parameter35.Value",
+                parameter35Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter36Name != null) {
-            request.addPostParam("Parameter36.Name", parameter36Name);
+            Serializer.toString(
+                request,
+                "Parameter36.Name",
+                parameter36Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter36Value != null) {
-            request.addPostParam("Parameter36.Value", parameter36Value);
+            Serializer.toString(
+                request,
+                "Parameter36.Value",
+                parameter36Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter37Name != null) {
-            request.addPostParam("Parameter37.Name", parameter37Name);
+            Serializer.toString(
+                request,
+                "Parameter37.Name",
+                parameter37Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter37Value != null) {
-            request.addPostParam("Parameter37.Value", parameter37Value);
+            Serializer.toString(
+                request,
+                "Parameter37.Value",
+                parameter37Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter38Name != null) {
-            request.addPostParam("Parameter38.Name", parameter38Name);
+            Serializer.toString(
+                request,
+                "Parameter38.Name",
+                parameter38Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter38Value != null) {
-            request.addPostParam("Parameter38.Value", parameter38Value);
+            Serializer.toString(
+                request,
+                "Parameter38.Value",
+                parameter38Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter39Name != null) {
-            request.addPostParam("Parameter39.Name", parameter39Name);
+            Serializer.toString(
+                request,
+                "Parameter39.Name",
+                parameter39Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter39Value != null) {
-            request.addPostParam("Parameter39.Value", parameter39Value);
+            Serializer.toString(
+                request,
+                "Parameter39.Value",
+                parameter39Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter40Name != null) {
-            request.addPostParam("Parameter40.Name", parameter40Name);
+            Serializer.toString(
+                request,
+                "Parameter40.Name",
+                parameter40Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter40Value != null) {
-            request.addPostParam("Parameter40.Value", parameter40Value);
+            Serializer.toString(
+                request,
+                "Parameter40.Value",
+                parameter40Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter41Name != null) {
-            request.addPostParam("Parameter41.Name", parameter41Name);
+            Serializer.toString(
+                request,
+                "Parameter41.Name",
+                parameter41Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter41Value != null) {
-            request.addPostParam("Parameter41.Value", parameter41Value);
+            Serializer.toString(
+                request,
+                "Parameter41.Value",
+                parameter41Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter42Name != null) {
-            request.addPostParam("Parameter42.Name", parameter42Name);
+            Serializer.toString(
+                request,
+                "Parameter42.Name",
+                parameter42Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter42Value != null) {
-            request.addPostParam("Parameter42.Value", parameter42Value);
+            Serializer.toString(
+                request,
+                "Parameter42.Value",
+                parameter42Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter43Name != null) {
-            request.addPostParam("Parameter43.Name", parameter43Name);
+            Serializer.toString(
+                request,
+                "Parameter43.Name",
+                parameter43Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter43Value != null) {
-            request.addPostParam("Parameter43.Value", parameter43Value);
+            Serializer.toString(
+                request,
+                "Parameter43.Value",
+                parameter43Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter44Name != null) {
-            request.addPostParam("Parameter44.Name", parameter44Name);
+            Serializer.toString(
+                request,
+                "Parameter44.Name",
+                parameter44Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter44Value != null) {
-            request.addPostParam("Parameter44.Value", parameter44Value);
+            Serializer.toString(
+                request,
+                "Parameter44.Value",
+                parameter44Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter45Name != null) {
-            request.addPostParam("Parameter45.Name", parameter45Name);
+            Serializer.toString(
+                request,
+                "Parameter45.Name",
+                parameter45Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter45Value != null) {
-            request.addPostParam("Parameter45.Value", parameter45Value);
+            Serializer.toString(
+                request,
+                "Parameter45.Value",
+                parameter45Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter46Name != null) {
-            request.addPostParam("Parameter46.Name", parameter46Name);
+            Serializer.toString(
+                request,
+                "Parameter46.Name",
+                parameter46Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter46Value != null) {
-            request.addPostParam("Parameter46.Value", parameter46Value);
+            Serializer.toString(
+                request,
+                "Parameter46.Value",
+                parameter46Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter47Name != null) {
-            request.addPostParam("Parameter47.Name", parameter47Name);
+            Serializer.toString(
+                request,
+                "Parameter47.Name",
+                parameter47Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter47Value != null) {
-            request.addPostParam("Parameter47.Value", parameter47Value);
+            Serializer.toString(
+                request,
+                "Parameter47.Value",
+                parameter47Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter48Name != null) {
-            request.addPostParam("Parameter48.Name", parameter48Name);
+            Serializer.toString(
+                request,
+                "Parameter48.Name",
+                parameter48Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter48Value != null) {
-            request.addPostParam("Parameter48.Value", parameter48Value);
+            Serializer.toString(
+                request,
+                "Parameter48.Value",
+                parameter48Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter49Name != null) {
-            request.addPostParam("Parameter49.Name", parameter49Name);
+            Serializer.toString(
+                request,
+                "Parameter49.Name",
+                parameter49Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter49Value != null) {
-            request.addPostParam("Parameter49.Value", parameter49Value);
+            Serializer.toString(
+                request,
+                "Parameter49.Value",
+                parameter49Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter50Name != null) {
-            request.addPostParam("Parameter50.Name", parameter50Name);
+            Serializer.toString(
+                request,
+                "Parameter50.Name",
+                parameter50Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter50Value != null) {
-            request.addPostParam("Parameter50.Value", parameter50Value);
+            Serializer.toString(
+                request,
+                "Parameter50.Value",
+                parameter50Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter51Name != null) {
-            request.addPostParam("Parameter51.Name", parameter51Name);
+            Serializer.toString(
+                request,
+                "Parameter51.Name",
+                parameter51Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter51Value != null) {
-            request.addPostParam("Parameter51.Value", parameter51Value);
+            Serializer.toString(
+                request,
+                "Parameter51.Value",
+                parameter51Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter52Name != null) {
-            request.addPostParam("Parameter52.Name", parameter52Name);
+            Serializer.toString(
+                request,
+                "Parameter52.Name",
+                parameter52Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter52Value != null) {
-            request.addPostParam("Parameter52.Value", parameter52Value);
+            Serializer.toString(
+                request,
+                "Parameter52.Value",
+                parameter52Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter53Name != null) {
-            request.addPostParam("Parameter53.Name", parameter53Name);
+            Serializer.toString(
+                request,
+                "Parameter53.Name",
+                parameter53Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter53Value != null) {
-            request.addPostParam("Parameter53.Value", parameter53Value);
+            Serializer.toString(
+                request,
+                "Parameter53.Value",
+                parameter53Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter54Name != null) {
-            request.addPostParam("Parameter54.Name", parameter54Name);
+            Serializer.toString(
+                request,
+                "Parameter54.Name",
+                parameter54Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter54Value != null) {
-            request.addPostParam("Parameter54.Value", parameter54Value);
+            Serializer.toString(
+                request,
+                "Parameter54.Value",
+                parameter54Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter55Name != null) {
-            request.addPostParam("Parameter55.Name", parameter55Name);
+            Serializer.toString(
+                request,
+                "Parameter55.Name",
+                parameter55Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter55Value != null) {
-            request.addPostParam("Parameter55.Value", parameter55Value);
+            Serializer.toString(
+                request,
+                "Parameter55.Value",
+                parameter55Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter56Name != null) {
-            request.addPostParam("Parameter56.Name", parameter56Name);
+            Serializer.toString(
+                request,
+                "Parameter56.Name",
+                parameter56Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter56Value != null) {
-            request.addPostParam("Parameter56.Value", parameter56Value);
+            Serializer.toString(
+                request,
+                "Parameter56.Value",
+                parameter56Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter57Name != null) {
-            request.addPostParam("Parameter57.Name", parameter57Name);
+            Serializer.toString(
+                request,
+                "Parameter57.Name",
+                parameter57Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter57Value != null) {
-            request.addPostParam("Parameter57.Value", parameter57Value);
+            Serializer.toString(
+                request,
+                "Parameter57.Value",
+                parameter57Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter58Name != null) {
-            request.addPostParam("Parameter58.Name", parameter58Name);
+            Serializer.toString(
+                request,
+                "Parameter58.Name",
+                parameter58Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter58Value != null) {
-            request.addPostParam("Parameter58.Value", parameter58Value);
+            Serializer.toString(
+                request,
+                "Parameter58.Value",
+                parameter58Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter59Name != null) {
-            request.addPostParam("Parameter59.Name", parameter59Name);
+            Serializer.toString(
+                request,
+                "Parameter59.Name",
+                parameter59Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter59Value != null) {
-            request.addPostParam("Parameter59.Value", parameter59Value);
+            Serializer.toString(
+                request,
+                "Parameter59.Value",
+                parameter59Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter60Name != null) {
-            request.addPostParam("Parameter60.Name", parameter60Name);
+            Serializer.toString(
+                request,
+                "Parameter60.Name",
+                parameter60Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter60Value != null) {
-            request.addPostParam("Parameter60.Value", parameter60Value);
+            Serializer.toString(
+                request,
+                "Parameter60.Value",
+                parameter60Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter61Name != null) {
-            request.addPostParam("Parameter61.Name", parameter61Name);
+            Serializer.toString(
+                request,
+                "Parameter61.Name",
+                parameter61Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter61Value != null) {
-            request.addPostParam("Parameter61.Value", parameter61Value);
+            Serializer.toString(
+                request,
+                "Parameter61.Value",
+                parameter61Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter62Name != null) {
-            request.addPostParam("Parameter62.Name", parameter62Name);
+            Serializer.toString(
+                request,
+                "Parameter62.Name",
+                parameter62Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter62Value != null) {
-            request.addPostParam("Parameter62.Value", parameter62Value);
+            Serializer.toString(
+                request,
+                "Parameter62.Value",
+                parameter62Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter63Name != null) {
-            request.addPostParam("Parameter63.Name", parameter63Name);
+            Serializer.toString(
+                request,
+                "Parameter63.Name",
+                parameter63Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter63Value != null) {
-            request.addPostParam("Parameter63.Value", parameter63Value);
+            Serializer.toString(
+                request,
+                "Parameter63.Value",
+                parameter63Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter64Name != null) {
-            request.addPostParam("Parameter64.Name", parameter64Name);
+            Serializer.toString(
+                request,
+                "Parameter64.Name",
+                parameter64Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter64Value != null) {
-            request.addPostParam("Parameter64.Value", parameter64Value);
+            Serializer.toString(
+                request,
+                "Parameter64.Value",
+                parameter64Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter65Name != null) {
-            request.addPostParam("Parameter65.Name", parameter65Name);
+            Serializer.toString(
+                request,
+                "Parameter65.Name",
+                parameter65Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter65Value != null) {
-            request.addPostParam("Parameter65.Value", parameter65Value);
+            Serializer.toString(
+                request,
+                "Parameter65.Value",
+                parameter65Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter66Name != null) {
-            request.addPostParam("Parameter66.Name", parameter66Name);
+            Serializer.toString(
+                request,
+                "Parameter66.Name",
+                parameter66Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter66Value != null) {
-            request.addPostParam("Parameter66.Value", parameter66Value);
+            Serializer.toString(
+                request,
+                "Parameter66.Value",
+                parameter66Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter67Name != null) {
-            request.addPostParam("Parameter67.Name", parameter67Name);
+            Serializer.toString(
+                request,
+                "Parameter67.Name",
+                parameter67Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter67Value != null) {
-            request.addPostParam("Parameter67.Value", parameter67Value);
+            Serializer.toString(
+                request,
+                "Parameter67.Value",
+                parameter67Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter68Name != null) {
-            request.addPostParam("Parameter68.Name", parameter68Name);
+            Serializer.toString(
+                request,
+                "Parameter68.Name",
+                parameter68Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter68Value != null) {
-            request.addPostParam("Parameter68.Value", parameter68Value);
+            Serializer.toString(
+                request,
+                "Parameter68.Value",
+                parameter68Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter69Name != null) {
-            request.addPostParam("Parameter69.Name", parameter69Name);
+            Serializer.toString(
+                request,
+                "Parameter69.Name",
+                parameter69Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter69Value != null) {
-            request.addPostParam("Parameter69.Value", parameter69Value);
+            Serializer.toString(
+                request,
+                "Parameter69.Value",
+                parameter69Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter70Name != null) {
-            request.addPostParam("Parameter70.Name", parameter70Name);
+            Serializer.toString(
+                request,
+                "Parameter70.Name",
+                parameter70Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter70Value != null) {
-            request.addPostParam("Parameter70.Value", parameter70Value);
+            Serializer.toString(
+                request,
+                "Parameter70.Value",
+                parameter70Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter71Name != null) {
-            request.addPostParam("Parameter71.Name", parameter71Name);
+            Serializer.toString(
+                request,
+                "Parameter71.Name",
+                parameter71Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter71Value != null) {
-            request.addPostParam("Parameter71.Value", parameter71Value);
+            Serializer.toString(
+                request,
+                "Parameter71.Value",
+                parameter71Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter72Name != null) {
-            request.addPostParam("Parameter72.Name", parameter72Name);
+            Serializer.toString(
+                request,
+                "Parameter72.Name",
+                parameter72Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter72Value != null) {
-            request.addPostParam("Parameter72.Value", parameter72Value);
+            Serializer.toString(
+                request,
+                "Parameter72.Value",
+                parameter72Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter73Name != null) {
-            request.addPostParam("Parameter73.Name", parameter73Name);
+            Serializer.toString(
+                request,
+                "Parameter73.Name",
+                parameter73Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter73Value != null) {
-            request.addPostParam("Parameter73.Value", parameter73Value);
+            Serializer.toString(
+                request,
+                "Parameter73.Value",
+                parameter73Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter74Name != null) {
-            request.addPostParam("Parameter74.Name", parameter74Name);
+            Serializer.toString(
+                request,
+                "Parameter74.Name",
+                parameter74Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter74Value != null) {
-            request.addPostParam("Parameter74.Value", parameter74Value);
+            Serializer.toString(
+                request,
+                "Parameter74.Value",
+                parameter74Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter75Name != null) {
-            request.addPostParam("Parameter75.Name", parameter75Name);
+            Serializer.toString(
+                request,
+                "Parameter75.Name",
+                parameter75Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter75Value != null) {
-            request.addPostParam("Parameter75.Value", parameter75Value);
+            Serializer.toString(
+                request,
+                "Parameter75.Value",
+                parameter75Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter76Name != null) {
-            request.addPostParam("Parameter76.Name", parameter76Name);
+            Serializer.toString(
+                request,
+                "Parameter76.Name",
+                parameter76Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter76Value != null) {
-            request.addPostParam("Parameter76.Value", parameter76Value);
+            Serializer.toString(
+                request,
+                "Parameter76.Value",
+                parameter76Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter77Name != null) {
-            request.addPostParam("Parameter77.Name", parameter77Name);
+            Serializer.toString(
+                request,
+                "Parameter77.Name",
+                parameter77Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter77Value != null) {
-            request.addPostParam("Parameter77.Value", parameter77Value);
+            Serializer.toString(
+                request,
+                "Parameter77.Value",
+                parameter77Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter78Name != null) {
-            request.addPostParam("Parameter78.Name", parameter78Name);
+            Serializer.toString(
+                request,
+                "Parameter78.Name",
+                parameter78Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter78Value != null) {
-            request.addPostParam("Parameter78.Value", parameter78Value);
+            Serializer.toString(
+                request,
+                "Parameter78.Value",
+                parameter78Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter79Name != null) {
-            request.addPostParam("Parameter79.Name", parameter79Name);
+            Serializer.toString(
+                request,
+                "Parameter79.Name",
+                parameter79Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter79Value != null) {
-            request.addPostParam("Parameter79.Value", parameter79Value);
+            Serializer.toString(
+                request,
+                "Parameter79.Value",
+                parameter79Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter80Name != null) {
-            request.addPostParam("Parameter80.Name", parameter80Name);
+            Serializer.toString(
+                request,
+                "Parameter80.Name",
+                parameter80Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter80Value != null) {
-            request.addPostParam("Parameter80.Value", parameter80Value);
+            Serializer.toString(
+                request,
+                "Parameter80.Value",
+                parameter80Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter81Name != null) {
-            request.addPostParam("Parameter81.Name", parameter81Name);
+            Serializer.toString(
+                request,
+                "Parameter81.Name",
+                parameter81Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter81Value != null) {
-            request.addPostParam("Parameter81.Value", parameter81Value);
+            Serializer.toString(
+                request,
+                "Parameter81.Value",
+                parameter81Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter82Name != null) {
-            request.addPostParam("Parameter82.Name", parameter82Name);
+            Serializer.toString(
+                request,
+                "Parameter82.Name",
+                parameter82Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter82Value != null) {
-            request.addPostParam("Parameter82.Value", parameter82Value);
+            Serializer.toString(
+                request,
+                "Parameter82.Value",
+                parameter82Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter83Name != null) {
-            request.addPostParam("Parameter83.Name", parameter83Name);
+            Serializer.toString(
+                request,
+                "Parameter83.Name",
+                parameter83Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter83Value != null) {
-            request.addPostParam("Parameter83.Value", parameter83Value);
+            Serializer.toString(
+                request,
+                "Parameter83.Value",
+                parameter83Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter84Name != null) {
-            request.addPostParam("Parameter84.Name", parameter84Name);
+            Serializer.toString(
+                request,
+                "Parameter84.Name",
+                parameter84Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter84Value != null) {
-            request.addPostParam("Parameter84.Value", parameter84Value);
+            Serializer.toString(
+                request,
+                "Parameter84.Value",
+                parameter84Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter85Name != null) {
-            request.addPostParam("Parameter85.Name", parameter85Name);
+            Serializer.toString(
+                request,
+                "Parameter85.Name",
+                parameter85Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter85Value != null) {
-            request.addPostParam("Parameter85.Value", parameter85Value);
+            Serializer.toString(
+                request,
+                "Parameter85.Value",
+                parameter85Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter86Name != null) {
-            request.addPostParam("Parameter86.Name", parameter86Name);
+            Serializer.toString(
+                request,
+                "Parameter86.Name",
+                parameter86Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter86Value != null) {
-            request.addPostParam("Parameter86.Value", parameter86Value);
+            Serializer.toString(
+                request,
+                "Parameter86.Value",
+                parameter86Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter87Name != null) {
-            request.addPostParam("Parameter87.Name", parameter87Name);
+            Serializer.toString(
+                request,
+                "Parameter87.Name",
+                parameter87Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter87Value != null) {
-            request.addPostParam("Parameter87.Value", parameter87Value);
+            Serializer.toString(
+                request,
+                "Parameter87.Value",
+                parameter87Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter88Name != null) {
-            request.addPostParam("Parameter88.Name", parameter88Name);
+            Serializer.toString(
+                request,
+                "Parameter88.Name",
+                parameter88Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter88Value != null) {
-            request.addPostParam("Parameter88.Value", parameter88Value);
+            Serializer.toString(
+                request,
+                "Parameter88.Value",
+                parameter88Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter89Name != null) {
-            request.addPostParam("Parameter89.Name", parameter89Name);
+            Serializer.toString(
+                request,
+                "Parameter89.Name",
+                parameter89Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter89Value != null) {
-            request.addPostParam("Parameter89.Value", parameter89Value);
+            Serializer.toString(
+                request,
+                "Parameter89.Value",
+                parameter89Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter90Name != null) {
-            request.addPostParam("Parameter90.Name", parameter90Name);
+            Serializer.toString(
+                request,
+                "Parameter90.Name",
+                parameter90Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter90Value != null) {
-            request.addPostParam("Parameter90.Value", parameter90Value);
+            Serializer.toString(
+                request,
+                "Parameter90.Value",
+                parameter90Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter91Name != null) {
-            request.addPostParam("Parameter91.Name", parameter91Name);
+            Serializer.toString(
+                request,
+                "Parameter91.Name",
+                parameter91Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter91Value != null) {
-            request.addPostParam("Parameter91.Value", parameter91Value);
+            Serializer.toString(
+                request,
+                "Parameter91.Value",
+                parameter91Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter92Name != null) {
-            request.addPostParam("Parameter92.Name", parameter92Name);
+            Serializer.toString(
+                request,
+                "Parameter92.Name",
+                parameter92Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter92Value != null) {
-            request.addPostParam("Parameter92.Value", parameter92Value);
+            Serializer.toString(
+                request,
+                "Parameter92.Value",
+                parameter92Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter93Name != null) {
-            request.addPostParam("Parameter93.Name", parameter93Name);
+            Serializer.toString(
+                request,
+                "Parameter93.Name",
+                parameter93Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter93Value != null) {
-            request.addPostParam("Parameter93.Value", parameter93Value);
+            Serializer.toString(
+                request,
+                "Parameter93.Value",
+                parameter93Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter94Name != null) {
-            request.addPostParam("Parameter94.Name", parameter94Name);
+            Serializer.toString(
+                request,
+                "Parameter94.Name",
+                parameter94Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter94Value != null) {
-            request.addPostParam("Parameter94.Value", parameter94Value);
+            Serializer.toString(
+                request,
+                "Parameter94.Value",
+                parameter94Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter95Name != null) {
-            request.addPostParam("Parameter95.Name", parameter95Name);
+            Serializer.toString(
+                request,
+                "Parameter95.Name",
+                parameter95Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter95Value != null) {
-            request.addPostParam("Parameter95.Value", parameter95Value);
+            Serializer.toString(
+                request,
+                "Parameter95.Value",
+                parameter95Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter96Name != null) {
-            request.addPostParam("Parameter96.Name", parameter96Name);
+            Serializer.toString(
+                request,
+                "Parameter96.Name",
+                parameter96Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter96Value != null) {
-            request.addPostParam("Parameter96.Value", parameter96Value);
+            Serializer.toString(
+                request,
+                "Parameter96.Value",
+                parameter96Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter97Name != null) {
-            request.addPostParam("Parameter97.Name", parameter97Name);
+            Serializer.toString(
+                request,
+                "Parameter97.Name",
+                parameter97Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter97Value != null) {
-            request.addPostParam("Parameter97.Value", parameter97Value);
+            Serializer.toString(
+                request,
+                "Parameter97.Value",
+                parameter97Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter98Name != null) {
-            request.addPostParam("Parameter98.Name", parameter98Name);
+            Serializer.toString(
+                request,
+                "Parameter98.Name",
+                parameter98Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter98Value != null) {
-            request.addPostParam("Parameter98.Value", parameter98Value);
+            Serializer.toString(
+                request,
+                "Parameter98.Value",
+                parameter98Value,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter99Name != null) {
-            request.addPostParam("Parameter99.Name", parameter99Name);
+            Serializer.toString(
+                request,
+                "Parameter99.Name",
+                parameter99Name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (parameter99Value != null) {
-            request.addPostParam("Parameter99.Value", parameter99Value);
+            Serializer.toString(
+                request,
+                "Parameter99.Value",
+                parameter99Value,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

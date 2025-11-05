@@ -16,6 +16,8 @@ package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DeploymentCreator extends Creator<Deployment> {
 
     private String pathServiceSid;
     private String pathEnvironmentSid;
     private String buildSid;
+    private Boolean isPlugin;
 
     public DeploymentCreator(
         final String pathServiceSid,
@@ -41,6 +45,11 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     public DeploymentCreator setBuildSid(final String buildSid) {
         this.buildSid = buildSid;
+        return this;
+    }
+
+    public DeploymentCreator setIsPlugin(final Boolean isPlugin) {
+        this.isPlugin = isPlugin;
         return this;
     }
 
@@ -67,7 +76,9 @@ public class DeploymentCreator extends Creator<Deployment> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Deployment creation failed: Unable to connect to server"
@@ -94,7 +105,21 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     private void addPostParams(final Request request) {
         if (buildSid != null) {
-            request.addPostParam("BuildSid", buildSid);
+            Serializer.toString(
+                request,
+                "BuildSid",
+                buildSid,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (isPlugin != null) {
+            Serializer.toString(
+                request,
+                "IsPlugin",
+                isPlugin,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

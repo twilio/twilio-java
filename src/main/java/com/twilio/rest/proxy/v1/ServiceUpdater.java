@@ -16,7 +16,9 @@ package com.twilio.rest.proxy.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ServiceUpdater extends Updater<Service> {
@@ -124,7 +127,9 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service update failed: Unable to connect to server"
@@ -148,37 +153,75 @@ public class ServiceUpdater extends Updater<Service> {
 
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (defaultTtl != null) {
-            request.addPostParam("DefaultTtl", defaultTtl.toString());
+            Serializer.toString(
+                request,
+                "DefaultTtl",
+                defaultTtl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (callbackUrl != null) {
-            request.addPostParam("CallbackUrl", callbackUrl.toString());
+            Serializer.toString(
+                request,
+                "CallbackUrl",
+                callbackUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (geoMatchLevel != null) {
-            request.addPostParam("GeoMatchLevel", geoMatchLevel.toString());
+            Serializer.toString(
+                request,
+                "GeoMatchLevel",
+                geoMatchLevel,
+                ParameterType.URLENCODED
+            );
         }
+
         if (numberSelectionBehavior != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "NumberSelectionBehavior",
-                numberSelectionBehavior.toString()
+                numberSelectionBehavior,
+                ParameterType.URLENCODED
             );
         }
+
         if (interceptCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "InterceptCallbackUrl",
-                interceptCallbackUrl.toString()
+                interceptCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (outOfSessionCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "OutOfSessionCallbackUrl",
-                outOfSessionCallbackUrl.toString()
+                outOfSessionCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (chatInstanceSid != null) {
-            request.addPostParam("ChatInstanceSid", chatInstanceSid);
+            Serializer.toString(
+                request,
+                "ChatInstanceSid",
+                chatInstanceSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

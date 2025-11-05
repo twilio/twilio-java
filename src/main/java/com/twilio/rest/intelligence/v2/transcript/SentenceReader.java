@@ -17,7 +17,8 @@ package com.twilio.rest.intelligence.v2.transcript;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SentenceReader extends Reader<Sentence> {
 
     private String pathTranscriptSid;
     private Boolean redacted;
     private Boolean wordTimestamps;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SentenceReader(final String pathTranscriptSid) {
         this.pathTranscriptSid = pathTranscriptSid;
@@ -48,7 +50,7 @@ public class SentenceReader extends Reader<Sentence> {
         return this;
     }
 
-    public SentenceReader setPageSize(final Integer pageSize) {
+    public SentenceReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -60,6 +62,7 @@ public class SentenceReader extends Reader<Sentence> {
 
     public Page<Sentence> firstPage(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{TranscriptSid}/Sentences";
+
         path =
             path.replace(
                 "{" + "TranscriptSid" + "}",
@@ -71,9 +74,8 @@ public class SentenceReader extends Reader<Sentence> {
             Domains.INTELLIGENCE.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -82,7 +84,6 @@ public class SentenceReader extends Reader<Sentence> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Sentence read failed: Unable to connect to server"
@@ -92,6 +93,7 @@ public class SentenceReader extends Reader<Sentence> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -116,7 +118,7 @@ public class SentenceReader extends Reader<Sentence> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.INTELLIGENCE.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -128,7 +130,7 @@ public class SentenceReader extends Reader<Sentence> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.INTELLIGENCE.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -139,23 +141,35 @@ public class SentenceReader extends Reader<Sentence> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
-        }
-        if (wordTimestamps != null) {
-            request.addQueryParam("WordTimestamps", wordTimestamps.toString());
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "Redacted",
+                redacted,
+                ParameterType.QUERY
+            );
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (wordTimestamps != null) {
+            Serializer.toString(
+                request,
+                "WordTimestamps",
+                wordTimestamps,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

@@ -17,7 +17,8 @@ package com.twilio.rest.flexapi.v1.pluginconfiguration;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,24 +27,25 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
 
     private String pathConfigurationSid;
+    private Long pageSize;
     private String flexMetadata;
-    private Integer pageSize;
 
     public ConfiguredPluginReader(final String pathConfigurationSid) {
         this.pathConfigurationSid = pathConfigurationSid;
     }
 
-    public ConfiguredPluginReader setFlexMetadata(final String flexMetadata) {
-        this.flexMetadata = flexMetadata;
+    public ConfiguredPluginReader setPageSize(final Long pageSize) {
+        this.pageSize = pageSize;
         return this;
     }
 
-    public ConfiguredPluginReader setPageSize(final Integer pageSize) {
-        this.pageSize = pageSize;
+    public ConfiguredPluginReader setFlexMetadata(final String flexMetadata) {
+        this.flexMetadata = flexMetadata;
         return this;
     }
 
@@ -55,6 +57,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
     public Page<ConfiguredPlugin> firstPage(final TwilioRestClient client) {
         String path =
             "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins";
+
         path =
             path.replace(
                 "{" + "ConfigurationSid" + "}",
@@ -66,10 +69,9 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
             Domains.FLEXAPI.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         return pageForRequest(client, request);
     }
 
@@ -78,7 +80,6 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "ConfiguredPlugin read failed: Unable to connect to server"
@@ -88,6 +89,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -112,7 +114,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -124,7 +126,7 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -135,23 +137,28 @@ public class ConfiguredPluginReader extends Reader<ConfiguredPlugin> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
-    }
-
-    private void addHeaderParams(final Request request) {
-        if (flexMetadata != null) {
-            request.addHeaderParam("Flex-Metadata", flexMetadata);
-        }
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
+    }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+    private void addHeaderParams(final Request request) {
+        if (flexMetadata != null) {
+            Serializer.toString(
+                request,
+                "Flex-Metadata",
+                flexMetadata,
+                ParameterType.HEADER
+            );
         }
     }
 }

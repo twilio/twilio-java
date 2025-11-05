@@ -18,29 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorType extends Resource {
-
-    private static final long serialVersionUID = 227558057824727L;
 
     public static OperatorTypeFetcher fetcher(final String pathSid) {
         return new OperatorTypeFetcher(pathSid);
@@ -48,6 +49,73 @@ public class OperatorType extends Resource {
 
     public static OperatorTypeReader reader() {
         return new OperatorTypeReader();
+    }
+
+    public enum Availability {
+        INTERNAL("internal"),
+        BETA("beta"),
+        GENERAL_AVAILABILITY("general-availability"),
+        RETIRED("retired"),
+        DEPRECATED("deprecated");
+
+        private final String value;
+
+        private Availability(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Availability forValue(final String value) {
+            return Promoter.enumFromString(value, Availability.values());
+        }
+    }
+
+    public enum OutputType {
+        TEXT_CLASSIFICATION("text-classification"),
+        TEXT_EXTRACTION("text-extraction"),
+        TEXT_EXTRACTION_NORMALIZED("text-extraction-normalized"),
+        TEXT_GENERATION("text-generation"),
+        JSON("json");
+
+        private final String value;
+
+        private OutputType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OutputType forValue(final String value) {
+            return Promoter.enumFromString(value, OutputType.values());
+        }
+    }
+
+    public enum Provider {
+        TWILIO("twilio"),
+        AMAZON("amazon"),
+        OPENAI("openai");
+
+        private final String value;
+
+        private Provider(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Provider forValue(final String value) {
+            return Promoter.enumFromString(value, Provider.values());
+        }
     }
 
     /**
@@ -93,112 +161,99 @@ public class OperatorType extends Resource {
         }
     }
 
-    private final String name;
-    private final String sid;
-    private final String friendlyName;
-    private final String description;
-    private final URI docsLink;
-    private final OperatorType.OutputType outputType;
-    private final List<String> supportedLanguages;
-    private final OperatorType.Provider provider;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final OperatorType.Availability availability;
+
+    @Getter
+    private final Object configSchema;
+
+    @Getter
     private final Boolean configurable;
-    private final Map<String, Object> configSchema;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String description;
+
+    @Getter
+    private final URI docsLink;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
+    private final String name;
+
+    @Getter
+    private final OperatorType.OutputType outputType;
+
+    @Getter
+    private final OperatorType.Provider provider;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final List<String> supportedLanguages;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
     private OperatorType(
-        @JsonProperty("name") final String name,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("description") final String description,
-        @JsonProperty("docs_link") final URI docsLink,
-        @JsonProperty("output_type") final OperatorType.OutputType outputType,
-        @JsonProperty("supported_languages") final List<
-            String
-        > supportedLanguages,
-        @JsonProperty("provider") final OperatorType.Provider provider,
         @JsonProperty(
             "availability"
         ) final OperatorType.Availability availability,
+        @JsonProperty("config_schema") final Object configSchema,
         @JsonProperty("configurable") final Boolean configurable,
-        @JsonProperty("config_schema") final Map<String, Object> configSchema,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("description") final String description,
+        @JsonProperty("docs_link") final URI docsLink,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("name") final String name,
+        @JsonProperty("output_type") final OperatorType.OutputType outputType,
+        @JsonProperty("provider") final OperatorType.Provider provider,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("supported_languages") final List<
+            String
+        > supportedLanguages,
         @JsonProperty("url") final URI url
     ) {
-        this.name = name;
-        this.sid = sid;
-        this.friendlyName = friendlyName;
+        this.availability = availability;
+        this.configSchema = configSchema;
+        this.configurable = configurable;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.description = description;
         this.docsLink = docsLink;
+        this.friendlyName = friendlyName;
+        this.name = name;
         this.outputType = outputType;
-        this.supportedLanguages = supportedLanguages;
         this.provider = provider;
-        this.availability = availability;
-        this.configurable = configurable;
-        this.configSchema = configSchema;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sid = sid;
+        this.supportedLanguages = supportedLanguages;
         this.url = url;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final URI getDocsLink() {
-        return this.docsLink;
-    }
-
-    public final OperatorType.OutputType getOutputType() {
-        return this.outputType;
-    }
-
-    public final List<String> getSupportedLanguages() {
-        return this.supportedLanguages;
-    }
-
-    public final OperatorType.Provider getProvider() {
-        return this.provider;
-    }
-
-    public final OperatorType.Availability getAvailability() {
-        return this.availability;
-    }
-
-    public final Boolean getConfigurable() {
-        return this.configurable;
-    }
-
-    public final Map<String, Object> getConfigSchema() {
-        return this.configSchema;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
     }
 
     @Override
@@ -212,21 +267,20 @@ public class OperatorType extends Resource {
         }
 
         OperatorType other = (OperatorType) o;
-
         return (
-            Objects.equals(name, other.name) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(docsLink, other.docsLink) &&
-            Objects.equals(outputType, other.outputType) &&
-            Objects.equals(supportedLanguages, other.supportedLanguages) &&
-            Objects.equals(provider, other.provider) &&
             Objects.equals(availability, other.availability) &&
-            Objects.equals(configurable, other.configurable) &&
             Objects.equals(configSchema, other.configSchema) &&
+            Objects.equals(configurable, other.configurable) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(docsLink, other.docsLink) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(outputType, other.outputType) &&
+            Objects.equals(provider, other.provider) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(supportedLanguages, other.supportedLanguages) &&
             Objects.equals(url, other.url)
         );
     }
@@ -234,85 +288,20 @@ public class OperatorType extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            name,
-            sid,
-            friendlyName,
-            description,
-            docsLink,
-            outputType,
-            supportedLanguages,
-            provider,
             availability,
-            configurable,
             configSchema,
+            configurable,
             dateCreated,
             dateUpdated,
+            description,
+            docsLink,
+            friendlyName,
+            name,
+            outputType,
+            provider,
+            sid,
+            supportedLanguages,
             url
         );
-    }
-
-    public enum Availability {
-        INTERNAL("internal"),
-        BETA("beta"),
-        PUBLIC("public"),
-        RETIRED("retired");
-
-        private final String value;
-
-        private Availability(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Availability forValue(final String value) {
-            return Promoter.enumFromString(value, Availability.values());
-        }
-    }
-
-    public enum Provider {
-        TWILIO("twilio"),
-        AMAZON("amazon"),
-        OPENAI("openai");
-
-        private final String value;
-
-        private Provider(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Provider forValue(final String value) {
-            return Promoter.enumFromString(value, Provider.values());
-        }
-    }
-
-    public enum OutputType {
-        TEXT_CLASSIFICATION("text-classification"),
-        TEXT_EXTRACTION("text-extraction"),
-        TEXT_EXTRACTION_NORMALIZED("text-extraction-normalized"),
-        TEXT_GENERATION("text-generation");
-
-        private final String value;
-
-        private OutputType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OutputType forValue(final String value) {
-            return Promoter.enumFromString(value, OutputType.values());
-        }
     }
 }

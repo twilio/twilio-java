@@ -17,7 +17,8 @@ package com.twilio.rest.trusthub.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CustomerProfilesReader extends Reader<CustomerProfiles> {
 
     private CustomerProfiles.Status status;
     private String friendlyName;
     private String policySid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CustomerProfilesReader() {}
 
@@ -53,7 +55,7 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
         return this;
     }
 
-    public CustomerProfilesReader setPageSize(final Integer pageSize) {
+    public CustomerProfilesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -71,9 +73,8 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
             Domains.TRUSTHUB.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -82,7 +83,6 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "CustomerProfiles read failed: Unable to connect to server"
@@ -92,6 +92,7 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -116,7 +117,7 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -128,7 +129,7 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUSTHUB.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -139,26 +140,39 @@ public class CustomerProfilesReader extends Reader<CustomerProfiles> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (friendlyName != null) {
-            request.addQueryParam("FriendlyName", friendlyName);
-        }
-        if (policySid != null) {
-            request.addQueryParam("PolicySid", policySid);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.QUERY
+            );
+        }
+
+        if (policySid != null) {
+            Serializer.toString(
+                request,
+                "PolicySid",
+                policySid,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

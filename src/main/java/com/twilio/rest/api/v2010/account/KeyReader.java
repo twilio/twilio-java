@@ -17,7 +17,8 @@ package com.twilio.rest.api.v2010.account;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,11 +27,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class KeyReader extends Reader<Key> {
 
     private String pathAccountSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public KeyReader() {}
 
@@ -38,7 +40,7 @@ public class KeyReader extends Reader<Key> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public KeyReader setPageSize(final Integer pageSize) {
+    public KeyReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -50,6 +52,7 @@ public class KeyReader extends Reader<Key> {
 
     public Page<Key> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Keys.json";
+
         this.pathAccountSid =
             this.pathAccountSid == null
                 ? client.getAccountSid()
@@ -65,9 +68,8 @@ public class KeyReader extends Reader<Key> {
             Domains.API.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -76,7 +78,6 @@ public class KeyReader extends Reader<Key> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Key read failed: Unable to connect to server"
@@ -86,6 +87,7 @@ public class KeyReader extends Reader<Key> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -133,17 +135,17 @@ public class KeyReader extends Reader<Key> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

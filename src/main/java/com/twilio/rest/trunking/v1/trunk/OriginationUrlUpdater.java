@@ -16,7 +16,9 @@ package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class OriginationUrlUpdater extends Updater<OriginationUrl> {
@@ -89,7 +92,9 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "OriginationUrl update failed: Unable to connect to server"
@@ -116,19 +121,48 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
 
     private void addPostParams(final Request request) {
         if (weight != null) {
-            request.addPostParam("Weight", weight.toString());
+            Serializer.toString(
+                request,
+                "Weight",
+                weight,
+                ParameterType.URLENCODED
+            );
         }
+
         if (priority != null) {
-            request.addPostParam("Priority", priority.toString());
+            Serializer.toString(
+                request,
+                "Priority",
+                priority,
+                ParameterType.URLENCODED
+            );
         }
+
         if (enabled != null) {
-            request.addPostParam("Enabled", enabled.toString());
+            Serializer.toString(
+                request,
+                "Enabled",
+                enabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sipUrl != null) {
-            request.addPostParam("SipUrl", sipUrl.toString());
+            Serializer.toString(
+                request,
+                "SipUrl",
+                sipUrl,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

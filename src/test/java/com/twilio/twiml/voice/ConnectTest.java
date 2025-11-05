@@ -102,6 +102,54 @@ public class ConnectTest {
                     .statusCallbackEvents(Promoter.listOfOne(Conversation.Event.CALL_INITIATED))
                     .build());
 
+        builder.conversationRelay(new ConversationRelay.Builder()
+                    .url("url")
+                    .language("language")
+                    .ttsLanguage("tts_language")
+                    .transcriptionLanguage("transcription_language")
+                    .ttsProvider("tts_provider")
+                    .voice("voice")
+                    .transcriptionProvider("transcription_provider")
+                    .speechModel("speech_model")
+                    .profanityFilter(true)
+                    .dtmfDetection(true)
+                    .welcomeGreeting("welcome_greeting")
+                    .partialPrompts(true)
+                    .welcomeGreetingInterruptible("welcome_greeting_interruptible")
+                    .interruptible("interruptible")
+                    .preemptible(true)
+                    .hints("hints")
+                    .intelligenceService("intelligence_service")
+                    .reportInputDuringAgentSpeech(true)
+                    .elevenlabsTextNormalization("elevenlabs_text_normalization")
+                    .interruptSensitivity("interrupt_sensitivity")
+                    .debug("debug")
+                    .build());
+
+        builder.assistant(new Assistant.Builder()
+                    .id("id")
+                    .language("language")
+                    .ttsLanguage("tts_language")
+                    .transcriptionLanguage("transcription_language")
+                    .ttsProvider("tts_provider")
+                    .voice("voice")
+                    .transcriptionProvider("transcription_provider")
+                    .speechModel("speech_model")
+                    .profanityFilter(true)
+                    .dtmfDetection(true)
+                    .welcomeGreeting("welcome_greeting")
+                    .partialPrompts(true)
+                    .welcomeGreetingInterruptible("welcome_greeting_interruptible")
+                    .interruptible("interruptible")
+                    .preemptible(true)
+                    .hints("hints")
+                    .intelligenceService("intelligence_service")
+                    .reportInputDuringAgentSpeech(true)
+                    .elevenlabsTextNormalization("elevenlabs_text_normalization")
+                    .interruptSensitivity("interrupt_sensitivity")
+                    .debug("debug")
+                    .build());
+
         Connect elem = builder.build();
 
         Assert.assertEquals(
@@ -112,6 +160,8 @@ public class ConnectTest {
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
                 "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>" +
+                "<ConversationRelay debug=\"debug\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" hints=\"hints\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
+                "<Assistant debug=\"debug\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" hints=\"hints\" id=\"id\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
             "</Connect>",
             elem.toXml()
         );
@@ -247,6 +297,54 @@ public class ConnectTest {
                     .statusCallbackEvents(Promoter.listOfOne(Conversation.Event.CALL_INITIATED))
                     .build());
 
+        builder.conversationRelay(new ConversationRelay.Builder()
+                    .url("url")
+                    .language("language")
+                    .ttsLanguage("tts_language")
+                    .transcriptionLanguage("transcription_language")
+                    .ttsProvider("tts_provider")
+                    .voice("voice")
+                    .transcriptionProvider("transcription_provider")
+                    .speechModel("speech_model")
+                    .profanityFilter(true)
+                    .dtmfDetection(true)
+                    .welcomeGreeting("welcome_greeting")
+                    .partialPrompts(true)
+                    .welcomeGreetingInterruptible("welcome_greeting_interruptible")
+                    .interruptible("interruptible")
+                    .preemptible(true)
+                    .hints("hints")
+                    .intelligenceService("intelligence_service")
+                    .reportInputDuringAgentSpeech(true)
+                    .elevenlabsTextNormalization("elevenlabs_text_normalization")
+                    .interruptSensitivity("interrupt_sensitivity")
+                    .debug("debug")
+                    .build());
+
+        builder.assistant(new Assistant.Builder()
+                    .id("id")
+                    .language("language")
+                    .ttsLanguage("tts_language")
+                    .transcriptionLanguage("transcription_language")
+                    .ttsProvider("tts_provider")
+                    .voice("voice")
+                    .transcriptionProvider("transcription_provider")
+                    .speechModel("speech_model")
+                    .profanityFilter(true)
+                    .dtmfDetection(true)
+                    .welcomeGreeting("welcome_greeting")
+                    .partialPrompts(true)
+                    .welcomeGreetingInterruptible("welcome_greeting_interruptible")
+                    .interruptible("interruptible")
+                    .preemptible(true)
+                    .hints("hints")
+                    .intelligenceService("intelligence_service")
+                    .reportInputDuringAgentSpeech(true)
+                    .elevenlabsTextNormalization("elevenlabs_text_normalization")
+                    .interruptSensitivity("interrupt_sensitivity")
+                    .debug("debug")
+                    .build());
+
         final Connect elem = builder.build();
 
         Assert.assertEquals(
@@ -256,6 +354,8 @@ public class ConnectTest {
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
                 "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>" +
+                "<ConversationRelay debug=\"debug\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" hints=\"hints\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" url=\"url\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
+                "<Assistant debug=\"debug\" dtmfDetection=\"true\" elevenlabsTextNormalization=\"elevenlabs_text_normalization\" hints=\"hints\" id=\"id\" intelligenceService=\"intelligence_service\" interruptSensitivity=\"interrupt_sensitivity\" interruptible=\"interruptible\" language=\"language\" partialPrompts=\"true\" preemptible=\"true\" profanityFilter=\"true\" reportInputDuringAgentSpeech=\"true\" speechModel=\"speech_model\" transcriptionLanguage=\"transcription_language\" transcriptionProvider=\"transcription_provider\" ttsLanguage=\"tts_language\" ttsProvider=\"tts_provider\" voice=\"voice\" welcomeGreeting=\"welcome_greeting\" welcomeGreetingInterruptible=\"welcome_greeting_interruptible\"/>" +
             "</Connect>").build().toXml(),
             elem.toXml()
         );
@@ -271,6 +371,10 @@ public class ConnectTest {
 
         builder.conversation(new Conversation.Builder().build());
 
+        builder.conversationRelay(new ConversationRelay.Builder().build());
+
+        builder.assistant(new Assistant.Builder().build());
+
         final Connect elem = builder.build();
 
         Assert.assertEquals(
@@ -278,6 +382,8 @@ public class ConnectTest {
                 "<Stream/>" +
                 "<VirtualAgent/>" +
                 "<Conversation/>" +
+                "<ConversationRelay/>" +
+                "<Assistant/>" +
             "</Connect>").build().toXml(),
             elem.toXml()
         );

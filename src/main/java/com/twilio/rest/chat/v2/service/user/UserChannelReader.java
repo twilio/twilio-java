@@ -17,7 +17,8 @@ package com.twilio.rest.chat.v2.service.user;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,12 +27,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserChannelReader extends Reader<UserChannel> {
 
     private String pathServiceSid;
     private String pathUserSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public UserChannelReader(
         final String pathServiceSid,
@@ -41,7 +43,7 @@ public class UserChannelReader extends Reader<UserChannel> {
         this.pathUserSid = pathUserSid;
     }
 
-    public UserChannelReader setPageSize(final Integer pageSize) {
+    public UserChannelReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -53,6 +55,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     public Page<UserChannel> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels";
+
         path =
             path.replace(
                 "{" + "ServiceSid" + "}",
@@ -65,9 +68,8 @@ public class UserChannelReader extends Reader<UserChannel> {
             Domains.CHAT.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -76,7 +78,6 @@ public class UserChannelReader extends Reader<UserChannel> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "UserChannel read failed: Unable to connect to server"
@@ -86,6 +87,7 @@ public class UserChannelReader extends Reader<UserChannel> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -110,7 +112,7 @@ public class UserChannelReader extends Reader<UserChannel> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CHAT.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,7 +124,7 @@ public class UserChannelReader extends Reader<UserChannel> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.CHAT.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -133,17 +135,17 @@ public class UserChannelReader extends Reader<UserChannel> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

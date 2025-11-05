@@ -16,6 +16,8 @@ package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
 
@@ -60,14 +63,6 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
     public ExternalCampaign create(final TwilioRestClient client) {
         String path = "/v1/Services/PreregisteredUsa2p";
 
-        path =
-            path.replace("{" + "CampaignId" + "}", this.campaignId.toString());
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.messagingServiceSid.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
@@ -75,7 +70,9 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ExternalCampaign creation failed: Unable to connect to server"
@@ -102,13 +99,30 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
 
     private void addPostParams(final Request request) {
         if (campaignId != null) {
-            request.addPostParam("CampaignId", campaignId);
+            Serializer.toString(
+                request,
+                "CampaignId",
+                campaignId,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (cnpMigration != null) {
-            request.addPostParam("CnpMigration", cnpMigration.toString());
+            Serializer.toString(
+                request,
+                "CnpMigration",
+                cnpMigration,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

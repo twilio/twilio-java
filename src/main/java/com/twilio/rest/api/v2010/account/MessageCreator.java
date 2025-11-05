@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,18 +27,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.net.URI;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
 
-    private com.twilio.type.PhoneNumber to;
     private String pathAccountSid;
+    private com.twilio.type.PhoneNumber to;
     private URI statusCallback;
     private String applicationSid;
     private BigDecimal maxPrice;
@@ -48,6 +48,7 @@ public class MessageCreator extends Creator<Message> {
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
+    private Message.TrafficType trafficType;
     private Boolean shortenUrls;
     private Message.ScheduleType scheduleType;
     private ZonedDateTime sendAt;
@@ -226,6 +227,13 @@ public class MessageCreator extends Creator<Message> {
         return setPersistentAction(Promoter.listOfOne(persistentAction));
     }
 
+    public MessageCreator setTrafficType(
+        final Message.TrafficType trafficType
+    ) {
+        this.trafficType = trafficType;
+        return this;
+    }
+
     public MessageCreator setShortenUrls(final Boolean shortenUrls) {
         this.shortenUrls = shortenUrls;
         return this;
@@ -310,7 +318,6 @@ public class MessageCreator extends Creator<Message> {
                 "{" + "AccountSid" + "}",
                 this.pathAccountSid.toString()
             );
-        path = path.replace("{" + "To" + "}", this.to.encode("utf-8"));
 
         Request request = new Request(
             HttpMethod.POST,
@@ -319,7 +326,9 @@ public class MessageCreator extends Creator<Message> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Message creation failed: Unable to connect to server"
@@ -343,83 +352,218 @@ public class MessageCreator extends Creator<Message> {
 
     private void addPostParams(final Request request) {
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            Serializer.toString(request, "To", to, ParameterType.URLENCODED);
         }
+
         if (statusCallback != null) {
-            request.addPostParam("StatusCallback", statusCallback.toString());
+            Serializer.toString(
+                request,
+                "StatusCallback",
+                statusCallback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (applicationSid != null) {
-            request.addPostParam("ApplicationSid", applicationSid);
+            Serializer.toString(
+                request,
+                "ApplicationSid",
+                applicationSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (maxPrice != null) {
-            request.addPostParam("MaxPrice", maxPrice.toString());
+            Serializer.toString(
+                request,
+                "MaxPrice",
+                maxPrice,
+                ParameterType.URLENCODED
+            );
         }
+
         if (provideFeedback != null) {
-            request.addPostParam("ProvideFeedback", provideFeedback.toString());
+            Serializer.toString(
+                request,
+                "ProvideFeedback",
+                provideFeedback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (attempt != null) {
-            request.addPostParam("Attempt", attempt.toString());
+            Serializer.toString(
+                request,
+                "Attempt",
+                attempt,
+                ParameterType.URLENCODED
+            );
         }
+
         if (validityPeriod != null) {
-            request.addPostParam("ValidityPeriod", validityPeriod.toString());
+            Serializer.toString(
+                request,
+                "ValidityPeriod",
+                validityPeriod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (forceDelivery != null) {
-            request.addPostParam("ForceDelivery", forceDelivery.toString());
+            Serializer.toString(
+                request,
+                "ForceDelivery",
+                forceDelivery,
+                ParameterType.URLENCODED
+            );
         }
+
         if (contentRetention != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ContentRetention",
-                contentRetention.toString()
+                contentRetention,
+                ParameterType.URLENCODED
             );
         }
+
         if (addressRetention != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AddressRetention",
-                addressRetention.toString()
+                addressRetention,
+                ParameterType.URLENCODED
             );
         }
+
         if (smartEncoded != null) {
-            request.addPostParam("SmartEncoded", smartEncoded.toString());
+            Serializer.toString(
+                request,
+                "SmartEncoded",
+                smartEncoded,
+                ParameterType.URLENCODED
+            );
         }
+
         if (persistentAction != null) {
-            for (String prop : persistentAction) {
-                request.addPostParam("PersistentAction", prop);
+            for (String param : persistentAction) {
+                Serializer.toString(
+                    request,
+                    "PersistentAction",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
+        if (trafficType != null) {
+            Serializer.toString(
+                request,
+                "TrafficType",
+                trafficType,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (shortenUrls != null) {
-            request.addPostParam("ShortenUrls", shortenUrls.toString());
+            Serializer.toString(
+                request,
+                "ShortenUrls",
+                shortenUrls,
+                ParameterType.URLENCODED
+            );
         }
+
         if (scheduleType != null) {
-            request.addPostParam("ScheduleType", scheduleType.toString());
+            Serializer.toString(
+                request,
+                "ScheduleType",
+                scheduleType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sendAt != null) {
-            request.addPostParam("SendAt", sendAt.toInstant().toString());
+            Serializer.toString(
+                request,
+                "SendAt",
+                sendAt,
+                ParameterType.URLENCODED
+            );
         }
+
         if (sendAsMms != null) {
-            request.addPostParam("SendAsMms", sendAsMms.toString());
+            Serializer.toString(
+                request,
+                "SendAsMms",
+                sendAsMms,
+                ParameterType.URLENCODED
+            );
         }
+
         if (contentVariables != null) {
-            request.addPostParam("ContentVariables", contentVariables);
+            Serializer.toString(
+                request,
+                "ContentVariables",
+                contentVariables,
+                ParameterType.URLENCODED
+            );
         }
+
         if (riskCheck != null) {
-            request.addPostParam("RiskCheck", riskCheck.toString());
+            Serializer.toString(
+                request,
+                "RiskCheck",
+                riskCheck,
+                ParameterType.URLENCODED
+            );
         }
+
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            Serializer.toString(
+                request,
+                "From",
+                from,
+                ParameterType.URLENCODED
+            );
         }
+
         if (messagingServiceSid != null) {
-            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+            Serializer.toString(
+                request,
+                "MessagingServiceSid",
+                messagingServiceSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (body != null) {
-            request.addPostParam("Body", body);
+            Serializer.toString(
+                request,
+                "Body",
+                body,
+                ParameterType.URLENCODED
+            );
         }
+
         if (mediaUrl != null) {
-            for (URI prop : mediaUrl) {
-                request.addPostParam("MediaUrl", prop.toString());
+            for (URI param : mediaUrl) {
+                Serializer.toString(
+                    request,
+                    "MediaUrl",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (contentSid != null) {
-            request.addPostParam("ContentSid", contentSid);
+            Serializer.toString(
+                request,
+                "ContentSid",
+                contentSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

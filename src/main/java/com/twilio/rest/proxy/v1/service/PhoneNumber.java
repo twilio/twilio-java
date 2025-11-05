@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.PhoneNumberCapabilities;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
-
-    private static final long serialVersionUID = 71034679090032L;
 
     public static PhoneNumberCreator creator(final String pathServiceSid) {
         return new PhoneNumberCreator(pathServiceSid);
@@ -111,98 +114,89 @@ public class PhoneNumber extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String friendlyName;
-    private final String isoCountry;
+
+    @Getter
     private final PhoneNumberCapabilities capabilities;
-    private final URI url;
-    private final Boolean isReserved;
+
+    @Getter
+    private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String friendlyName;
+
+    @Getter
     private final Integer inUse;
+
+    @Getter
+    private final Boolean isReserved;
+
+    @Getter
+    private final String isoCountry;
+
+    @Getter
+    private final com.twilio.type.PhoneNumber phoneNumber;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private PhoneNumber(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "phone_number"
-        ) final com.twilio.type.PhoneNumber phoneNumber,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("iso_country") final String isoCountry,
         @JsonProperty(
             "capabilities"
         ) final PhoneNumberCapabilities capabilities,
-        @JsonProperty("url") final URI url,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("in_use") final Integer inUse,
         @JsonProperty("is_reserved") final Boolean isReserved,
-        @JsonProperty("in_use") final Integer inUse
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.phoneNumber = phoneNumber;
-        this.friendlyName = friendlyName;
-        this.isoCountry = isoCountry;
         this.capabilities = capabilities;
-        this.url = url;
-        this.isReserved = isReserved;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.friendlyName = friendlyName;
         this.inUse = inUse;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getIsoCountry() {
-        return this.isoCountry;
-    }
-
-    public final PhoneNumberCapabilities getCapabilities() {
-        return this.capabilities;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Boolean getIsReserved() {
-        return this.isReserved;
-    }
-
-    public final Integer getInUse() {
-        return this.inUse;
+        this.isReserved = isReserved;
+        this.isoCountry = isoCountry;
+        this.phoneNumber = phoneNumber;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.url = url;
     }
 
     @Override
@@ -216,38 +210,37 @@ public class PhoneNumber extends Resource {
         }
 
         PhoneNumber other = (PhoneNumber) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(capabilities, other.capabilities) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(phoneNumber, other.phoneNumber) &&
             Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(isoCountry, other.isoCountry) &&
-            Objects.equals(capabilities, other.capabilities) &&
-            Objects.equals(url, other.url) &&
+            Objects.equals(inUse, other.inUse) &&
             Objects.equals(isReserved, other.isReserved) &&
-            Objects.equals(inUse, other.inUse)
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
+            capabilities,
             dateCreated,
             dateUpdated,
-            phoneNumber,
             friendlyName,
-            isoCountry,
-            capabilities,
-            url,
+            inUse,
             isReserved,
-            inUse
+            isoCountry,
+            phoneNumber,
+            serviceSid,
+            sid,
+            url
         );
     }
 }

@@ -15,9 +15,9 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
-import com.twilio.converter.PrefixedCollapsibleMap;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.util.List;
 import java.util.Map;
 
@@ -87,7 +88,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -107,7 +108,6 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             }
             throw new ApiException(restException);
         }
-
         return PhoneNumber.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -116,26 +116,43 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     private void addQueryParams(final Request request) {
         if (countryCode != null) {
-            request.addQueryParam("CountryCode", countryCode);
-        }
-        if (type != null) {
-            for (String prop : type) {
-                request.addQueryParam("Type", prop);
-            }
-        }
-        if (addOns != null) {
-            for (String prop : addOns) {
-                request.addQueryParam("AddOns", prop);
-            }
-        }
-        if (addOnsData != null) {
-            Map<String, String> params = PrefixedCollapsibleMap.serialize(
-                addOnsData,
-                "AddOns"
+            Serializer.toString(
+                request,
+                "CountryCode",
+                countryCode,
+                ParameterType.QUERY
             );
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                request.addQueryParam(entry.getKey(), entry.getValue());
+        }
+
+        if (type != null) {
+            for (String param : type) {
+                Serializer.toString(
+                    request,
+                    "Type",
+                    param,
+                    ParameterType.QUERY
+                );
             }
+        }
+
+        if (addOns != null) {
+            for (String param : addOns) {
+                Serializer.toString(
+                    request,
+                    "AddOns",
+                    param,
+                    ParameterType.QUERY
+                );
+            }
+        }
+
+        if (addOnsData != null) {
+            Serializer.toString(
+                request,
+                "AddOnsData",
+                addOnsData,
+                ParameterType.QUERY
+            );
         }
     }
 }

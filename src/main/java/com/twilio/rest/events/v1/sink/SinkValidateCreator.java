@@ -16,6 +16,8 @@ package com.twilio.rest.events.v1.sink;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SinkValidateCreator extends Creator<SinkValidate> {
 
@@ -45,7 +48,6 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
         String path = "/v1/Sinks/{Sid}/Validate";
 
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "TestId" + "}", this.testId.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -54,7 +56,9 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "SinkValidate creation failed: Unable to connect to server"
@@ -81,7 +85,12 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
 
     private void addPostParams(final Request request) {
         if (testId != null) {
-            request.addPostParam("TestId", testId);
+            Serializer.toString(
+                request,
+                "TestId",
+                testId,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

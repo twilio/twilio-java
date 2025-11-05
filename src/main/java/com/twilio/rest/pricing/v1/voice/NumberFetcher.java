@@ -15,7 +15,6 @@
 package com.twilio.rest.pricing.v1.voice;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class NumberFetcher extends Fetcher<Number> {
 
@@ -37,15 +37,14 @@ public class NumberFetcher extends Fetcher<Number> {
     public Number fetch(final TwilioRestClient client) {
         String path = "/v1/Voice/Numbers/{Number}";
 
-        path =
-            path.replace("{" + "Number" + "}", this.pathNumber.encode("utf-8"));
+        path = path.replace("{" + "Number" + "}", this.pathNumber.toString());
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,7 +64,6 @@ public class NumberFetcher extends Fetcher<Number> {
             }
             throw new ApiException(restException);
         }
-
         return Number.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

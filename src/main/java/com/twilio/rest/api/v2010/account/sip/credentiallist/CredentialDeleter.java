@@ -15,7 +15,6 @@
 package com.twilio.rest.api.v2010.account.sip.credentiallist;
 
 import com.twilio.base.Deleter;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +23,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CredentialDeleter extends Deleter<Credential> {
 
+    private String pathAccountSid;
     private String pathCredentialListSid;
     private String pathSid;
-    private String pathAccountSid;
 
     public CredentialDeleter(
         final String pathCredentialListSid,
@@ -75,7 +75,7 @@ public class CredentialDeleter extends Deleter<Credential> {
             Domains.API.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {

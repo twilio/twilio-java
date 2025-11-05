@@ -15,7 +15,6 @@
 package com.twilio.rest.bulkexports.v1.export;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class DayFetcher extends Fetcher<Day> {
 
@@ -51,7 +51,7 @@ public class DayFetcher extends Fetcher<Day> {
             Domains.BULKEXPORTS.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,7 +71,6 @@ public class DayFetcher extends Fetcher<Day> {
             }
             throw new ApiException(restException);
         }
-
         return Day.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

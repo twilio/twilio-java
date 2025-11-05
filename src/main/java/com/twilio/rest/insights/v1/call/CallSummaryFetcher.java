@@ -15,7 +15,8 @@
 package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
@@ -53,7 +55,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
             path
         );
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -73,7 +75,6 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
             }
             throw new ApiException(restException);
         }
-
         return CallSummary.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -82,9 +83,11 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
     private void addQueryParams(final Request request) {
         if (processingState != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ProcessingState",
-                processingState.toString()
+                processingState,
+                ParameterType.QUERY
             );
         }
     }

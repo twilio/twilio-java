@@ -15,7 +15,8 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InsightsSettingsAnswerSetsFetcher
     extends Fetcher<InsightsSettingsAnswerSets> {
@@ -48,8 +50,8 @@ public class InsightsSettingsAnswerSetsFetcher
             Domains.FLEXAPI.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -69,7 +71,6 @@ public class InsightsSettingsAnswerSetsFetcher
             }
             throw new ApiException(restException);
         }
-
         return InsightsSettingsAnswerSets.fromJson(
             response.getStream(),
             client.getObjectMapper()
@@ -78,7 +79,12 @@ public class InsightsSettingsAnswerSetsFetcher
 
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

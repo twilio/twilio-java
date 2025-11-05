@@ -32,6 +32,7 @@ public class IRequest {
     protected final Map<String, List<String>> queryParams;
     protected final Map<String, List<String>> postParams;
     protected final Map<String, List<String>> headerParams;
+    protected List<FormParameters> formParameters;
 
     protected String region;
     protected String edge;
@@ -41,6 +42,34 @@ public class IRequest {
     private EnumConstants.ContentType contentType;
 
     private String body;
+
+    public static class FormParameters {
+        private String name;
+        private Type type;
+        private Object value;
+
+        public enum Type {
+            TEXT, FILE
+        }
+
+        public FormParameters(String name, Type type, Object value) {
+            this.name = name;
+            this.type = type;
+            this.value = value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+    }
 
     /**
      * Create a new API request.
@@ -54,6 +83,7 @@ public class IRequest {
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
         this.headerParams = new HashMap<>();
+        this.formParameters = new ArrayList<>();
     }
 
     /**
@@ -83,6 +113,7 @@ public class IRequest {
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
         this.headerParams = new HashMap<>();
+        this.formParameters = new ArrayList<>();
     }
 
     public HttpMethod getMethod() {
@@ -123,6 +154,21 @@ public class IRequest {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public List<FormParameters> getFormParameters() {
+        return this.formParameters;
+    }
+
+    public void addFormParameter(String name, FormParameters.Type type, Object value) {
+        this.formParameters.add(new FormParameters(name, type, value));
+    }
+
+    public void setFormParameters(final List<FormParameters> formParameters) {
+        if (formParameters == null) {
+            throw new IllegalArgumentException("Form parameters cannot be null");
+        }
+        this.formParameters.addAll(formParameters);
     }
 
     /**

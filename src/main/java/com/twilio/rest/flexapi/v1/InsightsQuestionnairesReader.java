@@ -17,7 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,22 +27,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InsightsQuestionnairesReader
     extends Reader<InsightsQuestionnaires> {
 
-    private String authorization;
     private Boolean includeInactive;
-    private Integer pageSize;
+    private Long pageSize;
+    private String authorization;
 
     public InsightsQuestionnairesReader() {}
-
-    public InsightsQuestionnairesReader setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
-        return this;
-    }
 
     public InsightsQuestionnairesReader setIncludeInactive(
         final Boolean includeInactive
@@ -50,8 +45,15 @@ public class InsightsQuestionnairesReader
         return this;
     }
 
-    public InsightsQuestionnairesReader setPageSize(final Integer pageSize) {
+    public InsightsQuestionnairesReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
+        return this;
+    }
+
+    public InsightsQuestionnairesReader setAuthorization(
+        final String authorization
+    ) {
+        this.authorization = authorization;
         return this;
     }
 
@@ -72,10 +74,9 @@ public class InsightsQuestionnairesReader
             Domains.FLEXAPI.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         return pageForRequest(client, request);
     }
 
@@ -84,7 +85,6 @@ public class InsightsQuestionnairesReader
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnaires read failed: Unable to connect to server"
@@ -94,6 +94,7 @@ public class InsightsQuestionnairesReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -118,7 +119,7 @@ public class InsightsQuestionnairesReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -130,7 +131,7 @@ public class InsightsQuestionnairesReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,29 +142,37 @@ public class InsightsQuestionnairesReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
-    }
-
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
-        }
     }
 
     private void addQueryParams(final Request request) {
         if (includeInactive != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "IncludeInactive",
-                includeInactive.toString()
+                includeInactive,
+                ParameterType.QUERY
             );
         }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
+        }
+    }
+
+    private void addHeaderParams(final Request request) {
+        if (authorization != null) {
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

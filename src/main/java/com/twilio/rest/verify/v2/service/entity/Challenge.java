@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Challenge extends Resource {
-
-    private static final long serialVersionUID = 265978723470772L;
 
     public static ChallengeCreator creator(
         final String pathServiceSid,
@@ -70,6 +72,90 @@ public class Challenge extends Resource {
         final String pathSid
     ) {
         return new ChallengeUpdater(pathServiceSid, pathIdentity, pathSid);
+    }
+
+    public enum ChallengeReasons {
+        NONE("none"),
+        NOT_NEEDED("not_needed"),
+        NOT_REQUESTED("not_requested");
+
+        private final String value;
+
+        private ChallengeReasons(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChallengeReasons forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeReasons.values());
+        }
+    }
+
+    public enum FactorTypes {
+        PUSH("push"),
+        TOTP("totp"),
+        PASSKEYS("passkeys");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
+    public enum ChallengeStatuses {
+        PENDING("pending"),
+        EXPIRED("expired"),
+        APPROVED("approved"),
+        DENIED("denied");
+
+        private final String value;
+
+        private ChallengeStatuses(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChallengeStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, ChallengeStatuses.values());
+        }
+    }
+
+    public enum ListOrders {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private ListOrders(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ListOrders forValue(final String value) {
+            return Promoter.enumFromString(value, ListOrders.values());
+        }
     }
 
     /**
@@ -115,140 +201,121 @@ public class Challenge extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String entitySid;
-    private final String identity;
-    private final String factorSid;
+
+    @Getter
     private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
+
+    @Getter
     private final ZonedDateTime dateResponded;
+
+    @Getter
+    private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final Object details;
+
+    @Getter
+    private final String entitySid;
+
+    @Getter
     private final ZonedDateTime expirationDate;
-    private final Challenge.ChallengeStatuses status;
-    private final Challenge.ChallengeReasons respondedReason;
-    private final Map<String, Object> details;
-    private final Map<String, Object> hiddenDetails;
-    private final Map<String, Object> metadata;
+
+    @Getter
+    private final String factorSid;
+
+    @Getter
     private final Challenge.FactorTypes factorType;
-    private final URI url;
+
+    @Getter
+    private final Object hiddenDetails;
+
+    @Getter
+    private final String identity;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final Object metadata;
+
+    @Getter
+    private final Challenge.ChallengeReasons respondedReason;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final Challenge.ChallengeStatuses status;
+
+    @Getter
+    private final URI url;
 
     @JsonCreator
     private Challenge(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_responded") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateResponded,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
+        @JsonProperty("details") final Object details,
         @JsonProperty("entity_sid") final String entitySid,
-        @JsonProperty("identity") final String identity,
+        @JsonProperty("expiration_date") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime expirationDate,
         @JsonProperty("factor_sid") final String factorSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("date_responded") final String dateResponded,
-        @JsonProperty("expiration_date") final String expirationDate,
-        @JsonProperty("status") final Challenge.ChallengeStatuses status,
+        @JsonProperty("factor_type") final Challenge.FactorTypes factorType,
+        @JsonProperty("hidden_details") final Object hiddenDetails,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("metadata") final Object metadata,
         @JsonProperty(
             "responded_reason"
         ) final Challenge.ChallengeReasons respondedReason,
-        @JsonProperty("details") final Map<String, Object> details,
-        @JsonProperty("hidden_details") final Map<String, Object> hiddenDetails,
-        @JsonProperty("metadata") final Map<String, Object> metadata,
-        @JsonProperty("factor_type") final Challenge.FactorTypes factorType,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("status") final Challenge.ChallengeStatuses status,
+        @JsonProperty("url") final URI url
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
-        this.entitySid = entitySid;
-        this.identity = identity;
-        this.factorSid = factorSid;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.dateResponded =
-            DateConverter.iso8601DateTimeFromString(dateResponded);
-        this.expirationDate =
-            DateConverter.iso8601DateTimeFromString(expirationDate);
-        this.status = status;
-        this.respondedReason = respondedReason;
+        this.dateCreated = dateCreated;
+        this.dateResponded = dateResponded;
+        this.dateUpdated = dateUpdated;
         this.details = details;
-        this.hiddenDetails = hiddenDetails;
-        this.metadata = metadata;
+        this.entitySid = entitySid;
+        this.expirationDate = expirationDate;
+        this.factorSid = factorSid;
         this.factorType = factorType;
-        this.url = url;
+        this.hiddenDetails = hiddenDetails;
+        this.identity = identity;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getEntitySid() {
-        return this.entitySid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getFactorSid() {
-        return this.factorSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getDateResponded() {
-        return this.dateResponded;
-    }
-
-    public final ZonedDateTime getExpirationDate() {
-        return this.expirationDate;
-    }
-
-    public final Challenge.ChallengeStatuses getStatus() {
-        return this.status;
-    }
-
-    public final Challenge.ChallengeReasons getRespondedReason() {
-        return this.respondedReason;
-    }
-
-    public final Map<String, Object> getDetails() {
-        return this.details;
-    }
-
-    public final Map<String, Object> getHiddenDetails() {
-        return this.hiddenDetails;
-    }
-
-    public final Map<String, Object> getMetadata() {
-        return this.metadata;
-    }
-
-    public final Challenge.FactorTypes getFactorType() {
-        return this.factorType;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.metadata = metadata;
+        this.respondedReason = respondedReason;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.status = status;
+        this.url = url;
     }
 
     @Override
@@ -262,133 +329,49 @@ public class Challenge extends Resource {
         }
 
         Challenge other = (Challenge) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(entitySid, other.entitySid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(factorSid, other.factorSid) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(dateResponded, other.dateResponded) &&
-            Objects.equals(expirationDate, other.expirationDate) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(respondedReason, other.respondedReason) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(details, other.details) &&
-            Objects.equals(hiddenDetails, other.hiddenDetails) &&
-            Objects.equals(metadata, other.metadata) &&
+            Objects.equals(entitySid, other.entitySid) &&
+            Objects.equals(expirationDate, other.expirationDate) &&
+            Objects.equals(factorSid, other.factorSid) &&
             Objects.equals(factorType, other.factorType) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(hiddenDetails, other.hiddenDetails) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(metadata, other.metadata) &&
+            Objects.equals(respondedReason, other.respondedReason) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
-            entitySid,
-            identity,
-            factorSid,
             dateCreated,
-            dateUpdated,
             dateResponded,
-            expirationDate,
-            status,
-            respondedReason,
+            dateUpdated,
             details,
-            hiddenDetails,
-            metadata,
+            entitySid,
+            expirationDate,
+            factorSid,
             factorType,
-            url,
-            links
+            hiddenDetails,
+            identity,
+            links,
+            metadata,
+            respondedReason,
+            serviceSid,
+            sid,
+            status,
+            url
         );
-    }
-
-    public enum ListOrders {
-        ASC("asc"),
-        DESC("desc");
-
-        private final String value;
-
-        private ListOrders(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ListOrders forValue(final String value) {
-            return Promoter.enumFromString(value, ListOrders.values());
-        }
-    }
-
-    public enum ChallengeStatuses {
-        PENDING("pending"),
-        EXPIRED("expired"),
-        APPROVED("approved"),
-        DENIED("denied");
-
-        private final String value;
-
-        private ChallengeStatuses(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChallengeStatuses forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeStatuses.values());
-        }
-    }
-
-    public enum FactorTypes {
-        PUSH("push"),
-        TOTP("totp");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
-        }
-    }
-
-    public enum ChallengeReasons {
-        NONE("none"),
-        NOT_NEEDED("not_needed"),
-        NOT_REQUESTED("not_requested");
-
-        private final String value;
-
-        private ChallengeReasons(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChallengeReasons forValue(final String value) {
-            return Promoter.enumFromString(value, ChallengeReasons.values());
-        }
     }
 }

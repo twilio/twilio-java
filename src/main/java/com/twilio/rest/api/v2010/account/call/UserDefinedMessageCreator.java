@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
 
+    private String pathAccountSid;
     private String pathCallSid;
     private String content;
-    private String pathAccountSid;
     private String idempotencyKey;
 
     public UserDefinedMessageCreator(
@@ -77,7 +80,6 @@ public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
                 this.pathAccountSid.toString()
             );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Content" + "}", this.content.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -86,7 +88,9 @@ public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UserDefinedMessage creation failed: Unable to connect to server"
@@ -113,10 +117,21 @@ public class UserDefinedMessageCreator extends Creator<UserDefinedMessage> {
 
     private void addPostParams(final Request request) {
         if (content != null) {
-            request.addPostParam("Content", content);
+            Serializer.toString(
+                request,
+                "Content",
+                content,
+                ParameterType.URLENCODED
+            );
         }
+
         if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
+            Serializer.toString(
+                request,
+                "IdempotencyKey",
+                idempotencyKey,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

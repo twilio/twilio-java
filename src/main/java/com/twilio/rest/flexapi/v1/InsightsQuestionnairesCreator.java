@@ -16,7 +16,9 @@ package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,14 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
+import com.twilio.type.*;
 import java.util.List;
 
 public class InsightsQuestionnairesCreator
     extends Creator<InsightsQuestionnaires> {
 
-    private String name;
     private String authorization;
+    private String name;
     private String description;
     private Boolean active;
     private List<String> questionSids;
@@ -43,13 +45,6 @@ public class InsightsQuestionnairesCreator
 
     public InsightsQuestionnairesCreator setName(final String name) {
         this.name = name;
-        return this;
-    }
-
-    public InsightsQuestionnairesCreator setAuthorization(
-        final String authorization
-    ) {
-        this.authorization = authorization;
         return this;
     }
 
@@ -78,11 +73,16 @@ public class InsightsQuestionnairesCreator
         return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
+    public InsightsQuestionnairesCreator setAuthorization(
+        final String authorization
+    ) {
+        this.authorization = authorization;
+        return this;
+    }
+
     @Override
     public InsightsQuestionnaires create(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Questionnaires";
-
-        path = path.replace("{" + "Name" + "}", this.name.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -90,9 +90,11 @@ public class InsightsQuestionnairesCreator
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnaires creation failed: Unable to connect to server"
@@ -119,24 +121,52 @@ public class InsightsQuestionnairesCreator
 
     private void addPostParams(final Request request) {
         if (name != null) {
-            request.addPostParam("Name", name);
+            Serializer.toString(
+                request,
+                "Name",
+                name,
+                ParameterType.URLENCODED
+            );
         }
+
         if (description != null) {
-            request.addPostParam("Description", description);
+            Serializer.toString(
+                request,
+                "Description",
+                description,
+                ParameterType.URLENCODED
+            );
         }
+
         if (active != null) {
-            request.addPostParam("Active", active.toString());
+            Serializer.toString(
+                request,
+                "Active",
+                active,
+                ParameterType.URLENCODED
+            );
         }
+
         if (questionSids != null) {
-            for (String prop : questionSids) {
-                request.addPostParam("QuestionSids", prop);
+            for (String param : questionSids) {
+                Serializer.toString(
+                    request,
+                    "QuestionSids",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

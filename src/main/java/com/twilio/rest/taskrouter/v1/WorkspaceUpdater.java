@@ -16,7 +16,9 @@ package com.twilio.rest.taskrouter.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class WorkspaceUpdater extends Updater<Workspace> {
@@ -102,7 +105,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Workspace update failed: Unable to connect to server"
@@ -129,33 +134,65 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     private void addPostParams(final Request request) {
         if (defaultActivitySid != null) {
-            request.addPostParam("DefaultActivitySid", defaultActivitySid);
+            Serializer.toString(
+                request,
+                "DefaultActivitySid",
+                defaultActivitySid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (eventCallbackUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EventCallbackUrl",
-                eventCallbackUrl.toString()
+                eventCallbackUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (eventsFilter != null) {
-            request.addPostParam("EventsFilter", eventsFilter);
-        }
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-        if (multiTaskEnabled != null) {
-            request.addPostParam(
-                "MultiTaskEnabled",
-                multiTaskEnabled.toString()
+            Serializer.toString(
+                request,
+                "EventsFilter",
+                eventsFilter,
+                ParameterType.URLENCODED
             );
         }
-        if (timeoutActivitySid != null) {
-            request.addPostParam("TimeoutActivitySid", timeoutActivitySid);
+
+        if (friendlyName != null) {
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (multiTaskEnabled != null) {
+            Serializer.toString(
+                request,
+                "MultiTaskEnabled",
+                multiTaskEnabled,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (timeoutActivitySid != null) {
+            Serializer.toString(
+                request,
+                "TimeoutActivitySid",
+                timeoutActivitySid,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (prioritizeQueueOrder != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "PrioritizeQueueOrder",
-                prioritizeQueueOrder.toString()
+                prioritizeQueueOrder,
+                ParameterType.URLENCODED
             );
         }
     }

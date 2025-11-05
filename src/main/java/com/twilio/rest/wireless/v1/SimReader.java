@@ -17,7 +17,8 @@ package com.twilio.rest.wireless.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class SimReader extends Reader<Sim> {
 
@@ -34,7 +36,7 @@ public class SimReader extends Reader<Sim> {
     private String ratePlan;
     private String eid;
     private String simRegistrationCode;
-    private Integer pageSize;
+    private Long pageSize;
 
     public SimReader() {}
 
@@ -63,7 +65,7 @@ public class SimReader extends Reader<Sim> {
         return this;
     }
 
-    public SimReader setPageSize(final Integer pageSize) {
+    public SimReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -81,9 +83,8 @@ public class SimReader extends Reader<Sim> {
             Domains.WIRELESS.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -92,7 +93,6 @@ public class SimReader extends Reader<Sim> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Sim read failed: Unable to connect to server"
@@ -102,6 +102,7 @@ public class SimReader extends Reader<Sim> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -126,7 +127,7 @@ public class SimReader extends Reader<Sim> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.WIRELESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,7 +139,7 @@ public class SimReader extends Reader<Sim> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.WIRELESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -149,32 +150,47 @@ public class SimReader extends Reader<Sim> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-        if (iccid != null) {
-            request.addQueryParam("Iccid", iccid);
-        }
-        if (ratePlan != null) {
-            request.addQueryParam("RatePlan", ratePlan);
-        }
-        if (eid != null) {
-            request.addQueryParam("EId", eid);
-        }
-        if (simRegistrationCode != null) {
-            request.addQueryParam("SimRegistrationCode", simRegistrationCode);
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(request, "Status", status, ParameterType.QUERY);
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (iccid != null) {
+            Serializer.toString(request, "Iccid", iccid, ParameterType.QUERY);
+        }
+
+        if (ratePlan != null) {
+            Serializer.toString(
+                request,
+                "RatePlan",
+                ratePlan,
+                ParameterType.QUERY
+            );
+        }
+
+        if (eid != null) {
+            Serializer.toString(request, "EId", eid, ParameterType.QUERY);
+        }
+
+        if (simRegistrationCode != null) {
+            Serializer.toString(
+                request,
+                "SimRegistrationCode",
+                simRegistrationCode,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

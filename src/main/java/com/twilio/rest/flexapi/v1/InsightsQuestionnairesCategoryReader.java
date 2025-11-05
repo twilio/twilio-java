@@ -17,7 +17,8 @@ package com.twilio.rest.flexapi.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,26 +27,27 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class InsightsQuestionnairesCategoryReader
     extends Reader<InsightsQuestionnairesCategory> {
 
+    private Long pageSize;
     private String authorization;
-    private Integer pageSize;
 
     public InsightsQuestionnairesCategoryReader() {}
+
+    public InsightsQuestionnairesCategoryReader setPageSize(
+        final Long pageSize
+    ) {
+        this.pageSize = pageSize;
+        return this;
+    }
 
     public InsightsQuestionnairesCategoryReader setAuthorization(
         final String authorization
     ) {
         this.authorization = authorization;
-        return this;
-    }
-
-    public InsightsQuestionnairesCategoryReader setPageSize(
-        final Integer pageSize
-    ) {
-        this.pageSize = pageSize;
         return this;
     }
 
@@ -66,10 +68,9 @@ public class InsightsQuestionnairesCategoryReader
             Domains.FLEXAPI.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addHeaderParams(request);
+
         return pageForRequest(client, request);
     }
 
@@ -78,7 +79,6 @@ public class InsightsQuestionnairesCategoryReader
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "InsightsQuestionnairesCategory read failed: Unable to connect to server"
@@ -88,6 +88,7 @@ public class InsightsQuestionnairesCategoryReader
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -112,7 +113,7 @@ public class InsightsQuestionnairesCategoryReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -124,7 +125,7 @@ public class InsightsQuestionnairesCategoryReader
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.FLEXAPI.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -135,23 +136,28 @@ public class InsightsQuestionnairesCategoryReader
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
-    }
-
-    private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
-        }
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
+    }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+    private void addHeaderParams(final Request request) {
+        if (authorization != null) {
+            Serializer.toString(
+                request,
+                "Authorization",
+                authorization,
+                ParameterType.HEADER
+            );
         }
     }
 }

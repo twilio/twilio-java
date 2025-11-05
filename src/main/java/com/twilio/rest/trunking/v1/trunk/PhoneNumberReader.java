@@ -17,7 +17,8 @@ package com.twilio.rest.trunking.v1.trunk;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,17 +27,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     private String pathTrunkSid;
-    private Integer pageSize;
+    private Long pageSize;
 
     public PhoneNumberReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
     }
 
-    public PhoneNumberReader setPageSize(final Integer pageSize) {
+    public PhoneNumberReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -48,6 +50,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     public Page<PhoneNumber> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers";
+
         path =
             path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
@@ -56,9 +59,8 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
             Domains.TRUNKING.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -67,7 +69,6 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "PhoneNumber read failed: Unable to connect to server"
@@ -77,6 +78,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -101,7 +103,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TRUNKING.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -113,7 +115,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TRUNKING.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -124,17 +126,17 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
-
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

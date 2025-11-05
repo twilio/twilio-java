@@ -18,24 +18,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowTestUser extends Resource {
-
-    private static final long serialVersionUID = 221844198208701L;
 
     public static FlowTestUserFetcher fetcher(final String pathSid) {
         return new FlowTestUserFetcher(pathSid);
@@ -91,8 +94,25 @@ public class FlowTestUser extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String sid;
+
+    @Getter
     private final List<String> testUsers;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
@@ -106,18 +126,6 @@ public class FlowTestUser extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final List<String> getTestUsers() {
-        return this.testUsers;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -129,7 +137,6 @@ public class FlowTestUser extends Resource {
         }
 
         FlowTestUser other = (FlowTestUser) o;
-
         return (
             Objects.equals(sid, other.sid) &&
             Objects.equals(testUsers, other.testUsers) &&

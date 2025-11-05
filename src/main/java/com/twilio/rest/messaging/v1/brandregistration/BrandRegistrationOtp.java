@@ -18,22 +18,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistrationOtp extends Resource {
-
-    private static final long serialVersionUID = 131615733171627L;
 
     public static BrandRegistrationOtpCreator creator(
         final String pathBrandRegistrationSid
@@ -84,7 +87,22 @@ public class BrandRegistrationOtp extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
+
+    @Getter
     private final String brandRegistrationSid;
 
     @JsonCreator
@@ -98,14 +116,6 @@ public class BrandRegistrationOtp extends Resource {
         this.brandRegistrationSid = brandRegistrationSid;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getBrandRegistrationSid() {
-        return this.brandRegistrationSid;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -117,7 +127,6 @@ public class BrandRegistrationOtp extends Resource {
         }
 
         BrandRegistrationOtp other = (BrandRegistrationOtp) o;
-
         return (
             Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(brandRegistrationSid, other.brandRegistrationSid)

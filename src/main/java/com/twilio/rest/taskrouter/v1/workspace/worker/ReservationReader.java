@@ -17,7 +17,8 @@ package com.twilio.rest.taskrouter.v1.workspace.worker;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,13 +27,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ReservationReader extends Reader<Reservation> {
 
     private String pathWorkspaceSid;
     private String pathWorkerSid;
     private Reservation.Status reservationStatus;
-    private Integer pageSize;
+    private Long pageSize;
 
     public ReservationReader(
         final String pathWorkspaceSid,
@@ -49,7 +51,7 @@ public class ReservationReader extends Reader<Reservation> {
         return this;
     }
 
-    public ReservationReader setPageSize(final Integer pageSize) {
+    public ReservationReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -62,6 +64,7 @@ public class ReservationReader extends Reader<Reservation> {
     public Page<Reservation> firstPage(final TwilioRestClient client) {
         String path =
             "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations";
+
         path =
             path.replace(
                 "{" + "WorkspaceSid" + "}",
@@ -78,9 +81,8 @@ public class ReservationReader extends Reader<Reservation> {
             Domains.TASKROUTER.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -89,7 +91,6 @@ public class ReservationReader extends Reader<Reservation> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Reservation read failed: Unable to connect to server"
@@ -99,6 +100,7 @@ public class ReservationReader extends Reader<Reservation> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -123,7 +125,7 @@ public class ReservationReader extends Reader<Reservation> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -135,7 +137,7 @@ public class ReservationReader extends Reader<Reservation> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.TASKROUTER.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,23 +148,26 @@ public class ReservationReader extends Reader<Reservation> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (reservationStatus != null) {
-            request.addQueryParam(
+            Serializer.toString(
+                request,
                 "ReservationStatus",
-                reservationStatus.toString()
+                reservationStatus,
+                ParameterType.QUERY
             );
         }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
-        }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

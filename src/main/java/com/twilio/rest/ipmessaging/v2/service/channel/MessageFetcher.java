@@ -15,7 +15,6 @@
 package com.twilio.rest.ipmessaging.v2.service.channel;
 
 import com.twilio.base.Fetcher;
-import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class MessageFetcher extends Fetcher<Message> {
 
@@ -63,7 +63,7 @@ public class MessageFetcher extends Fetcher<Message> {
             Domains.IPMESSAGING.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         Response response = client.request(request);
 
         if (response == null) {
@@ -83,7 +83,6 @@ public class MessageFetcher extends Fetcher<Message> {
             }
             throw new ApiException(restException);
         }
-
         return Message.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

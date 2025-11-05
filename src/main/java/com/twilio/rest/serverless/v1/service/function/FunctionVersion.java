@@ -18,28 +18,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FunctionVersion extends Resource {
-
-    private static final long serialVersionUID = 85534066966494L;
 
     public static FunctionVersionFetcher fetcher(
         final String pathServiceSid,
@@ -58,6 +60,27 @@ public class FunctionVersion extends Resource {
         final String pathFunctionSid
     ) {
         return new FunctionVersionReader(pathServiceSid, pathFunctionSid);
+    }
+
+    public enum Visibility {
+        PUBLIC("public"),
+        PRIVATE("private"),
+        PROTECTED("protected");
+
+        private final String value;
+
+        private Visibility(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Visibility forValue(final String value) {
+            return Promoter.enumFromString(value, Visibility.values());
+        }
     }
 
     /**
@@ -103,73 +126,68 @@ public class FunctionVersion extends Resource {
         }
     }
 
-    private final String sid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String serviceSid;
-    private final String functionSid;
-    private final String path;
-    private final FunctionVersion.Visibility visibility;
+
+    @Getter
     private final ZonedDateTime dateCreated;
-    private final URI url;
+
+    @Getter
+    private final String functionSid;
+
+    @Getter
     private final Map<String, String> links;
+
+    @Getter
+    private final String path;
+
+    @Getter
+    private final String serviceSid;
+
+    @Getter
+    private final String sid;
+
+    @Getter
+    private final URI url;
+
+    @Getter
+    private final FunctionVersion.Visibility visibility;
 
     @JsonCreator
     private FunctionVersion(
-        @JsonProperty("sid") final String sid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
         @JsonProperty("function_sid") final String functionSid,
+        @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("path") final String path,
-        @JsonProperty("visibility") final FunctionVersion.Visibility visibility,
-        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("visibility") final FunctionVersion.Visibility visibility
     ) {
-        this.sid = sid;
         this.accountSid = accountSid;
-        this.serviceSid = serviceSid;
+        this.dateCreated = dateCreated;
         this.functionSid = functionSid;
-        this.path = path;
-        this.visibility = visibility;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.url = url;
         this.links = links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getFunctionSid() {
-        return this.functionSid;
-    }
-
-    public final String getPath() {
-        return this.path;
-    }
-
-    public final FunctionVersion.Visibility getVisibility() {
-        return this.visibility;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
+        this.path = path;
+        this.serviceSid = serviceSid;
+        this.sid = sid;
+        this.url = url;
+        this.visibility = visibility;
     }
 
     @Override
@@ -183,53 +201,31 @@ public class FunctionVersion extends Resource {
         }
 
         FunctionVersion other = (FunctionVersion) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(functionSid, other.functionSid) &&
-            Objects.equals(path, other.path) &&
-            Objects.equals(visibility, other.visibility) &&
             Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(functionSid, other.functionSid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(path, other.path) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(visibility, other.visibility)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
             accountSid,
-            serviceSid,
-            functionSid,
-            path,
-            visibility,
             dateCreated,
+            functionSid,
+            links,
+            path,
+            serviceSid,
+            sid,
             url,
-            links
+            visibility
         );
-    }
-
-    public enum Visibility {
-        PUBLIC("public"),
-        PRIVATE("private"),
-        PROTECTED("protected");
-
-        private final String value;
-
-        private Visibility(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Visibility forValue(final String value) {
-            return Promoter.enumFromString(value, Visibility.values());
-        }
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class ComplianceRegistrationInquiriesCreator
     extends Creator<ComplianceRegistrationInquiries> {
@@ -357,17 +360,6 @@ public class ComplianceRegistrationInquiriesCreator
         String path =
             "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize";
 
-        path =
-            path.replace(
-                "{" + "EndUserType" + "}",
-                this.endUserType.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumberType" + "}",
-                this.phoneNumberType.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUSTHUB.toString(),
@@ -375,7 +367,9 @@ public class ComplianceRegistrationInquiriesCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "ComplianceRegistrationInquiries creation failed: Unable to connect to server"
@@ -402,172 +396,354 @@ public class ComplianceRegistrationInquiriesCreator
 
     private void addPostParams(final Request request) {
         if (endUserType != null) {
-            request.addPostParam("EndUserType", endUserType.toString());
+            Serializer.toString(
+                request,
+                "EndUserType",
+                endUserType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (phoneNumberType != null) {
-            request.addPostParam("PhoneNumberType", phoneNumberType.toString());
+            Serializer.toString(
+                request,
+                "PhoneNumberType",
+                phoneNumberType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (businessIdentityType != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessIdentityType",
-                businessIdentityType.toString()
+                businessIdentityType,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessRegistrationAuthority != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessRegistrationAuthority",
-                businessRegistrationAuthority.toString()
+                businessRegistrationAuthority,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessLegalName != null) {
-            request.addPostParam("BusinessLegalName", businessLegalName);
+            Serializer.toString(
+                request,
+                "BusinessLegalName",
+                businessLegalName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (notificationEmail != null) {
-            request.addPostParam("NotificationEmail", notificationEmail);
+            Serializer.toString(
+                request,
+                "NotificationEmail",
+                notificationEmail,
+                ParameterType.URLENCODED
+            );
         }
+
         if (acceptedNotificationReceipt != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AcceptedNotificationReceipt",
-                acceptedNotificationReceipt.toString()
+                acceptedNotificationReceipt,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessRegistrationNumber != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "BusinessRegistrationNumber",
-                businessRegistrationNumber
+                businessRegistrationNumber,
+                ParameterType.URLENCODED
             );
         }
+
         if (businessWebsiteUrl != null) {
-            request.addPostParam("BusinessWebsiteUrl", businessWebsiteUrl);
+            Serializer.toString(
+                request,
+                "BusinessWebsiteUrl",
+                businessWebsiteUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (authorizedRepresentative1FirstName != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AuthorizedRepresentative1FirstName",
-                authorizedRepresentative1FirstName
+                authorizedRepresentative1FirstName,
+                ParameterType.URLENCODED
             );
         }
+
         if (authorizedRepresentative1LastName != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AuthorizedRepresentative1LastName",
-                authorizedRepresentative1LastName
+                authorizedRepresentative1LastName,
+                ParameterType.URLENCODED
             );
         }
+
         if (authorizedRepresentative1Phone != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AuthorizedRepresentative1Phone",
-                authorizedRepresentative1Phone
+                authorizedRepresentative1Phone,
+                ParameterType.URLENCODED
             );
         }
+
         if (authorizedRepresentative1Email != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AuthorizedRepresentative1Email",
-                authorizedRepresentative1Email
+                authorizedRepresentative1Email,
+                ParameterType.URLENCODED
             );
         }
+
         if (authorizedRepresentative1DateOfBirth != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AuthorizedRepresentative1DateOfBirth",
-                authorizedRepresentative1DateOfBirth
+                authorizedRepresentative1DateOfBirth,
+                ParameterType.URLENCODED
             );
         }
+
         if (addressStreet != null) {
-            request.addPostParam("AddressStreet", addressStreet);
+            Serializer.toString(
+                request,
+                "AddressStreet",
+                addressStreet,
+                ParameterType.URLENCODED
+            );
         }
+
         if (addressStreetSecondary != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AddressStreetSecondary",
-                addressStreetSecondary
+                addressStreetSecondary,
+                ParameterType.URLENCODED
             );
         }
+
         if (addressCity != null) {
-            request.addPostParam("AddressCity", addressCity);
+            Serializer.toString(
+                request,
+                "AddressCity",
+                addressCity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (addressSubdivision != null) {
-            request.addPostParam("AddressSubdivision", addressSubdivision);
+            Serializer.toString(
+                request,
+                "AddressSubdivision",
+                addressSubdivision,
+                ParameterType.URLENCODED
+            );
         }
+
         if (addressPostalCode != null) {
-            request.addPostParam("AddressPostalCode", addressPostalCode);
+            Serializer.toString(
+                request,
+                "AddressPostalCode",
+                addressPostalCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (addressCountryCode != null) {
-            request.addPostParam("AddressCountryCode", addressCountryCode);
+            Serializer.toString(
+                request,
+                "AddressCountryCode",
+                addressCountryCode,
+                ParameterType.URLENCODED
+            );
         }
+
         if (emergencyAddressStreet != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyAddressStreet",
-                emergencyAddressStreet
+                emergencyAddressStreet,
+                ParameterType.URLENCODED
             );
         }
+
         if (emergencyAddressStreetSecondary != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyAddressStreetSecondary",
-                emergencyAddressStreetSecondary
+                emergencyAddressStreetSecondary,
+                ParameterType.URLENCODED
             );
         }
+
         if (emergencyAddressCity != null) {
-            request.addPostParam("EmergencyAddressCity", emergencyAddressCity);
+            Serializer.toString(
+                request,
+                "EmergencyAddressCity",
+                emergencyAddressCity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (emergencyAddressSubdivision != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyAddressSubdivision",
-                emergencyAddressSubdivision
+                emergencyAddressSubdivision,
+                ParameterType.URLENCODED
             );
         }
+
         if (emergencyAddressPostalCode != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyAddressPostalCode",
-                emergencyAddressPostalCode
+                emergencyAddressPostalCode,
+                ParameterType.URLENCODED
             );
         }
+
         if (emergencyAddressCountryCode != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "EmergencyAddressCountryCode",
-                emergencyAddressCountryCode
+                emergencyAddressCountryCode,
+                ParameterType.URLENCODED
             );
         }
+
         if (useAddressAsEmergencyAddress != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "UseAddressAsEmergencyAddress",
-                useAddressAsEmergencyAddress.toString()
+                useAddressAsEmergencyAddress,
+                ParameterType.URLENCODED
             );
         }
+
         if (fileName != null) {
-            request.addPostParam("FileName", fileName);
-        }
-        if (_file != null) {
-            request.addPostParam("File", _file);
-        }
-        if (firstName != null) {
-            request.addPostParam("FirstName", firstName);
-        }
-        if (lastName != null) {
-            request.addPostParam("LastName", lastName);
-        }
-        if (dateOfBirth != null) {
-            request.addPostParam("DateOfBirth", dateOfBirth);
-        }
-        if (individualEmail != null) {
-            request.addPostParam("IndividualEmail", individualEmail);
-        }
-        if (individualPhone != null) {
-            request.addPostParam("IndividualPhone", individualPhone);
-        }
-        if (isIsvEmbed != null) {
-            request.addPostParam("IsIsvEmbed", isIsvEmbed.toString());
-        }
-        if (isvRegisteringForSelfOrTenant != null) {
-            request.addPostParam(
-                "IsvRegisteringForSelfOrTenant",
-                isvRegisteringForSelfOrTenant
+            Serializer.toString(
+                request,
+                "FileName",
+                fileName,
+                ParameterType.URLENCODED
             );
         }
-        if (statusCallbackUrl != null) {
-            request.addPostParam("StatusCallbackUrl", statusCallbackUrl);
+
+        if (_file != null) {
+            Serializer.toString(
+                request,
+                "File",
+                _file,
+                ParameterType.URLENCODED
+            );
         }
+
+        if (firstName != null) {
+            Serializer.toString(
+                request,
+                "FirstName",
+                firstName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (lastName != null) {
+            Serializer.toString(
+                request,
+                "LastName",
+                lastName,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (dateOfBirth != null) {
+            Serializer.toString(
+                request,
+                "DateOfBirth",
+                dateOfBirth,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (individualEmail != null) {
+            Serializer.toString(
+                request,
+                "IndividualEmail",
+                individualEmail,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (individualPhone != null) {
+            Serializer.toString(
+                request,
+                "IndividualPhone",
+                individualPhone,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (isIsvEmbed != null) {
+            Serializer.toString(
+                request,
+                "IsIsvEmbed",
+                isIsvEmbed,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (isvRegisteringForSelfOrTenant != null) {
+            Serializer.toString(
+                request,
+                "IsvRegisteringForSelfOrTenant",
+                isvRegisteringForSelfOrTenant,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (statusCallbackUrl != null) {
+            Serializer.toString(
+                request,
+                "StatusCallbackUrl",
+                statusCallbackUrl,
+                ParameterType.URLENCODED
+            );
+        }
+
         if (themeSetId != null) {
-            request.addPostParam("ThemeSetId", themeSetId);
+            Serializer.toString(
+                request,
+                "ThemeSetId",
+                themeSetId,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

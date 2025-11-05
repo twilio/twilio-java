@@ -1,18 +1,23 @@
 package com.twilio.http;
-import com.twilio.rest.Domains;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twilio.auth_strategy.BasicAuthStrategy;
+import com.twilio.auth_strategy.NoAuthStrategy;
+import com.twilio.rest.Domains;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class TwilioRestClientTest {
     private TwilioRestClient twilioRestClient;
@@ -31,7 +36,7 @@ public class TwilioRestClientTest {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         twilioRestClient = new TwilioRestClient(new TwilioRestClient.Builder("AC123", "AUTH TOKEN").httpClient(httpClient));
     }
 
@@ -49,6 +54,34 @@ public class TwilioRestClientTest {
     }
 
     @Test
+    public void testRequestWithCustomObjectMapper() {
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                URI
+        );
+        TwilioRestClient client = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+                .objectMapper(new ObjectMapper().registerModule(new JavaTimeModule()))
+                .httpClient(httpClient)
+                .build();
+
+        when(httpClient.reliableRequest(request)).thenReturn(new Response("", 200));
+
+        Response resp = client.request(request);
+        assertNotNull(resp);
+    }
+
+    @Test
+    public void testUsesSingletonDefaultObjectMapper() {
+        TwilioRestClient client1 = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+            .build();
+        TwilioRestClient client2 = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+            .build();
+
+        assertTrue(client1.getObjectMapper() == client2.getObjectMapper());
+    }
+
+    @Test
     public void testRequestWithExtension() {
         Request request = new Request(
                 HttpMethod.GET,
@@ -57,6 +90,7 @@ public class TwilioRestClientTest {
         );
         twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(userAgentStringExtensions)
+                .httpClient(httpClient)
                 .build();
         twilioRestClientExtension.request(request);
         assertEquals(userAgentStringExtensions, request.getUserAgentExtensions());
@@ -71,6 +105,7 @@ public class TwilioRestClientTest {
         );
         twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(Collections.emptyList())
+                .httpClient(httpClient)
                 .build();
         twilioRestClientExtension.request(request);
         assertNull(request.getUserAgentExtensions());
@@ -85,8 +120,45 @@ public class TwilioRestClientTest {
         );
         twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(null)
+                .httpClient(httpClient)
                 .build();
         twilioRestClientExtension.request(request);
         assertNull(request.getUserAgentExtensions());
+    }
+
+    @Test
+    public void testRequestWithNoAuthStrategy() {
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                URI
+        );
+        request.setAuth(NoAuthStrategy.getInstance());
+        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+                .userAgentExtensions(Collections.emptyList())
+                .httpClient(httpClient)
+                .build();
+        twilioRestClientExtension.request(request);
+        assertNull(twilioRestClientExtension.getAuthStrategy());
+        // AuthStrategy of Request not changing by TwilioRestClient
+        assertEquals(NoAuthStrategy.getInstance(), request.getAuthStrategy());
+    }
+
+    @Test
+    public void testRequestWithNoAuthStrategyWithAuthStrategy() {
+        Request request = new Request(
+                HttpMethod.GET,
+                Domains.API.toString(),
+                URI
+        );
+        request.setAuth(NoAuthStrategy.getInstance());
+        twilioRestClientExtension = new TwilioRestClient.Builder(new BasicAuthStrategy(USER_NAME, TOKEN))
+                .userAgentExtensions(Collections.emptyList())
+                .httpClient(httpClient)
+                .build();
+        twilioRestClientExtension.request(request);
+        assertNotNull(twilioRestClientExtension.getAuthStrategy());
+        // AuthStrategy of Request not changing by TwilioRestClient
+        assertEquals(NoAuthStrategy.getInstance(), request.getAuthStrategy());
     }
 }

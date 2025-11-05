@@ -15,23 +15,26 @@
 package com.twilio.rest.previewiam.organizations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twilio.base.bearertoken.Updater;
+import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
+import com.twilio.http.Request;
 import com.twilio.http.Response;
-import com.twilio.http.bearertoken.BearerTokenRequest;
-import com.twilio.http.bearertoken.BearerTokenTwilioRestClient;
+import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class UserUpdater extends Updater<User> {
 
     private String pathOrganizationSid;
     private String pathUserSid;
-    private User.ScimUser scimUser;
     private String ifMatch;
+    private User.ScimUser scimUser;
 
     public UserUpdater(
         final String pathOrganizationSid,
@@ -54,7 +57,7 @@ public class UserUpdater extends Updater<User> {
     }
 
     @Override
-    public User update(final BearerTokenTwilioRestClient client) {
+    public User update(final TwilioRestClient client) {
         String path = "/Organizations/{OrganizationSid}/scim/Users/{UserSid}";
 
         path =
@@ -63,24 +66,23 @@ public class UserUpdater extends Updater<User> {
                 this.pathOrganizationSid.toString()
             );
         path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
-        path = path.replace("{" + "ScimUser" + "}", this.scimUser.toString());
 
-        BearerTokenRequest request = new BearerTokenRequest(
+        Request request = new Request(
             HttpMethod.PUT,
             Domains.PREVIEWIAM.toString(),
             path
         );
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request, client);
+        request.setContentType(EnumConstants.ContentType.JSON);
         addHeaderParams(request);
+        addPostParams(request, client);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "User update failed: Unable to connect to server"
             );
-        } else if (
-            !BearerTokenTwilioRestClient.SUCCESS.test(response.getStatusCode())
-        ) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(
                 response.getStream(),
                 client.getObjectMapper()
@@ -97,19 +99,21 @@ public class UserUpdater extends Updater<User> {
         return User.fromJson(response.getStream(), client.getObjectMapper());
     }
 
-    private void addPostParams(
-        final BearerTokenRequest request,
-        BearerTokenTwilioRestClient client
-    ) {
-        ObjectMapper objectMapper = client.getObjectMapper();
-        if (scimUser != null) {
-            request.setBody(User.toJson(scimUser, objectMapper));
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            Serializer.toString(
+                request,
+                "If-Match",
+                ifMatch,
+                ParameterType.HEADER
+            );
         }
     }
 
-    private void addHeaderParams(final BearerTokenRequest request) {
-        if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
+    private void addPostParams(final Request request, TwilioRestClient client) {
+        ObjectMapper objectMapper = client.getObjectMapper();
+        if (scimUser != null) {
+            request.setBody(User.toJson(scimUser, objectMapper));
         }
     }
 }

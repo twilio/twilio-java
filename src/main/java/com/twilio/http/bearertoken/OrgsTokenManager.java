@@ -1,10 +1,10 @@
 package com.twilio.http.bearertoken;
 
-import lombok.Setter;
+import com.twilio.annotations.Beta;
 import com.twilio.exception.ApiException;
-import lombok.RequiredArgsConstructor;
-import com.twilio.rest.previewiam.v1.Token;
-import com.twilio.rest.previewiam.v1.TokenCreator;
+import com.twilio.rest.oauth.v2.Token;
+import com.twilio.rest.oauth.v2.TokenCreator;
+@Beta
 public class OrgsTokenManager implements TokenManager{
 
     private final String grantType;
@@ -34,7 +34,7 @@ public class OrgsTokenManager implements TokenManager{
     }
 
     public synchronized String fetchAccessToken(){
-        TokenCreator tokenCreator = Token.creator(grantType, clientId).setClientSecret(clientSecret);
+        TokenCreator tokenCreator = Token.creator().setGrantType(grantType).setClientId(clientId).setClientSecret(clientSecret);
         if (this.code != null) tokenCreator.setCode(code);
         if (this.redirectUri != null) tokenCreator.setRedirectUri(redirectUri);
         if (this.audience != null) tokenCreator.setAudience(audience);

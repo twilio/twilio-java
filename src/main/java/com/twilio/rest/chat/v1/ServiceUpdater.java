@@ -16,7 +16,9 @@ package com.twilio.rest.chat.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 import java.net.URI;
 import java.util.List;
 
@@ -618,7 +621,9 @@ public class ServiceUpdater extends Updater<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service update failed: Unable to connect to server"
@@ -642,314 +647,490 @@ public class ServiceUpdater extends Updater<Service> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (defaultServiceRoleSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultServiceRoleSid",
-                defaultServiceRoleSid
+                defaultServiceRoleSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (defaultChannelRoleSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultChannelRoleSid",
-                defaultChannelRoleSid
+                defaultChannelRoleSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (defaultChannelCreatorRoleSid != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "DefaultChannelCreatorRoleSid",
-                defaultChannelCreatorRoleSid
+                defaultChannelCreatorRoleSid,
+                ParameterType.URLENCODED
             );
         }
+
         if (readStatusEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReadStatusEnabled",
-                readStatusEnabled.toString()
+                readStatusEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (reachabilityEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityEnabled",
-                reachabilityEnabled.toString()
+                reachabilityEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (typingIndicatorTimeout != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "TypingIndicatorTimeout",
-                typingIndicatorTimeout.toString()
+                typingIndicatorTimeout,
+                ParameterType.URLENCODED
             );
         }
+
         if (consumptionReportInterval != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ConsumptionReportInterval",
-                consumptionReportInterval.toString()
+                consumptionReportInterval,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsNewMessageEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.NewMessage.Enabled",
-                notificationsNewMessageEnabled.toString()
+                notificationsNewMessageEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsNewMessageTemplate != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.NewMessage.Template",
-                notificationsNewMessageTemplate
+                notificationsNewMessageTemplate,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsAddedToChannelEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.AddedToChannel.Enabled",
-                notificationsAddedToChannelEnabled.toString()
+                notificationsAddedToChannelEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsAddedToChannelTemplate != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.AddedToChannel.Template",
-                notificationsAddedToChannelTemplate
+                notificationsAddedToChannelTemplate,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsRemovedFromChannelEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.RemovedFromChannel.Enabled",
-                notificationsRemovedFromChannelEnabled.toString()
+                notificationsRemovedFromChannelEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsRemovedFromChannelTemplate != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.RemovedFromChannel.Template",
-                notificationsRemovedFromChannelTemplate
+                notificationsRemovedFromChannelTemplate,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsInvitedToChannelEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.InvitedToChannel.Enabled",
-                notificationsInvitedToChannelEnabled.toString()
+                notificationsInvitedToChannelEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (notificationsInvitedToChannelTemplate != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Notifications.InvitedToChannel.Template",
-                notificationsInvitedToChannelTemplate
+                notificationsInvitedToChannelTemplate,
+                ParameterType.URLENCODED
             );
         }
+
         if (preWebhookUrl != null) {
-            request.addPostParam("PreWebhookUrl", preWebhookUrl.toString());
+            Serializer.toString(
+                request,
+                "PreWebhookUrl",
+                preWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (postWebhookUrl != null) {
-            request.addPostParam("PostWebhookUrl", postWebhookUrl.toString());
+            Serializer.toString(
+                request,
+                "PostWebhookUrl",
+                postWebhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookMethod != null) {
-            request.addPostParam("WebhookMethod", webhookMethod.toString());
+            Serializer.toString(
+                request,
+                "WebhookMethod",
+                webhookMethod,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookFilters != null) {
-            for (String prop : webhookFilters) {
-                request.addPostParam("WebhookFilters", prop);
+            for (String param : webhookFilters) {
+                Serializer.toString(
+                    request,
+                    "WebhookFilters",
+                    param,
+                    ParameterType.URLENCODED
+                );
             }
         }
+
         if (webhooksOnMessageSendUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageSend.Url",
-                webhooksOnMessageSendUrl.toString()
+                webhooksOnMessageSendUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageSendMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageSend.Method",
-                webhooksOnMessageSendMethod.toString()
+                webhooksOnMessageSendMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageUpdateUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageUpdate.Url",
-                webhooksOnMessageUpdateUrl.toString()
+                webhooksOnMessageUpdateUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageUpdateMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageUpdate.Method",
-                webhooksOnMessageUpdateMethod.toString()
+                webhooksOnMessageUpdateMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageRemoveUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageRemove.Url",
-                webhooksOnMessageRemoveUrl.toString()
+                webhooksOnMessageRemoveUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageRemoveMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageRemove.Method",
-                webhooksOnMessageRemoveMethod.toString()
+                webhooksOnMessageRemoveMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelAddUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelAdd.Url",
-                webhooksOnChannelAddUrl.toString()
+                webhooksOnChannelAddUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelAddMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelAdd.Method",
-                webhooksOnChannelAddMethod.toString()
+                webhooksOnChannelAddMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelDestroyUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelDestroy.Url",
-                webhooksOnChannelDestroyUrl.toString()
+                webhooksOnChannelDestroyUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelDestroyMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelDestroy.Method",
-                webhooksOnChannelDestroyMethod.toString()
+                webhooksOnChannelDestroyMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelUpdateUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelUpdate.Url",
-                webhooksOnChannelUpdateUrl.toString()
+                webhooksOnChannelUpdateUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelUpdateMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelUpdate.Method",
-                webhooksOnChannelUpdateMethod.toString()
+                webhooksOnChannelUpdateMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberAddUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberAdd.Url",
-                webhooksOnMemberAddUrl.toString()
+                webhooksOnMemberAddUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberAddMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberAdd.Method",
-                webhooksOnMemberAddMethod.toString()
+                webhooksOnMemberAddMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberRemoveUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberRemove.Url",
-                webhooksOnMemberRemoveUrl.toString()
+                webhooksOnMemberRemoveUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberRemoveMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberRemove.Method",
-                webhooksOnMemberRemoveMethod.toString()
+                webhooksOnMemberRemoveMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageSentUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageSent.Url",
-                webhooksOnMessageSentUrl.toString()
+                webhooksOnMessageSentUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageSentMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageSent.Method",
-                webhooksOnMessageSentMethod.toString()
+                webhooksOnMessageSentMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageUpdatedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageUpdated.Url",
-                webhooksOnMessageUpdatedUrl.toString()
+                webhooksOnMessageUpdatedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageUpdatedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageUpdated.Method",
-                webhooksOnMessageUpdatedMethod.toString()
+                webhooksOnMessageUpdatedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageRemovedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageRemoved.Url",
-                webhooksOnMessageRemovedUrl.toString()
+                webhooksOnMessageRemovedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMessageRemovedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMessageRemoved.Method",
-                webhooksOnMessageRemovedMethod.toString()
+                webhooksOnMessageRemovedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelAddedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelAdded.Url",
-                webhooksOnChannelAddedUrl.toString()
+                webhooksOnChannelAddedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelAddedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelAdded.Method",
-                webhooksOnChannelAddedMethod.toString()
+                webhooksOnChannelAddedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelDestroyedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelDestroyed.Url",
-                webhooksOnChannelDestroyedUrl.toString()
+                webhooksOnChannelDestroyedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelDestroyedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelDestroyed.Method",
-                webhooksOnChannelDestroyedMethod.toString()
+                webhooksOnChannelDestroyedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelUpdatedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelUpdated.Url",
-                webhooksOnChannelUpdatedUrl.toString()
+                webhooksOnChannelUpdatedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnChannelUpdatedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnChannelUpdated.Method",
-                webhooksOnChannelUpdatedMethod.toString()
+                webhooksOnChannelUpdatedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberAddedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberAdded.Url",
-                webhooksOnMemberAddedUrl.toString()
+                webhooksOnMemberAddedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberAddedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberAdded.Method",
-                webhooksOnMemberAddedMethod.toString()
+                webhooksOnMemberAddedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberRemovedUrl != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberRemoved.Url",
-                webhooksOnMemberRemovedUrl.toString()
+                webhooksOnMemberRemovedUrl,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksOnMemberRemovedMethod != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Webhooks.OnMemberRemoved.Method",
-                webhooksOnMemberRemovedMethod.toString()
+                webhooksOnMemberRemovedMethod,
+                ParameterType.URLENCODED
             );
         }
+
         if (limitsChannelMembers != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Limits.ChannelMembers",
-                limitsChannelMembers.toString()
+                limitsChannelMembers,
+                ParameterType.URLENCODED
             );
         }
+
         if (limitsUserChannels != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Limits.UserChannels",
-                limitsUserChannels.toString()
+                limitsUserChannels,
+                ParameterType.URLENCODED
             );
         }
     }

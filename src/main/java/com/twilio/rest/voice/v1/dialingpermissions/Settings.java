@@ -18,23 +18,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Settings extends Resource {
-
-    private static final long serialVersionUID = 200946859336446L;
 
     public static SettingsFetcher fetcher() {
         return new SettingsFetcher();
@@ -87,7 +90,22 @@ public class Settings extends Resource {
         }
     }
 
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final Boolean dialingPermissionsInheritance;
+
+    @Getter
     private final URI url;
 
     @JsonCreator
@@ -101,14 +119,6 @@ public class Settings extends Resource {
         this.url = url;
     }
 
-    public final Boolean getDialingPermissionsInheritance() {
-        return this.dialingPermissionsInheritance;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -120,7 +130,6 @@ public class Settings extends Resource {
         }
 
         Settings other = (Settings) o;
-
         return (
             Objects.equals(
                 dialingPermissionsInheritance,

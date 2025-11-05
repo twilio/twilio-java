@@ -17,7 +17,8 @@ package com.twilio.rest.voice.v1.dialingpermissions;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,6 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class CountryReader extends Reader<Country> {
 
@@ -35,7 +37,7 @@ public class CountryReader extends Reader<Country> {
     private Boolean lowRiskNumbersEnabled;
     private Boolean highRiskSpecialNumbersEnabled;
     private Boolean highRiskTollfraudNumbersEnabled;
-    private Integer pageSize;
+    private Long pageSize;
 
     public CountryReader() {}
 
@@ -75,7 +77,7 @@ public class CountryReader extends Reader<Country> {
         return this;
     }
 
-    public CountryReader setPageSize(final Integer pageSize) {
+    public CountryReader setPageSize(final Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -93,9 +95,8 @@ public class CountryReader extends Reader<Country> {
             Domains.VOICE.toString(),
             path
         );
-
         addQueryParams(request);
-        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+
         return pageForRequest(client, request);
     }
 
@@ -104,7 +105,6 @@ public class CountryReader extends Reader<Country> {
         final Request request
     ) {
         Response response = client.request(request);
-
         if (response == null) {
             throw new ApiConnectionException(
                 "Country read failed: Unable to connect to server"
@@ -114,6 +114,7 @@ public class CountryReader extends Reader<Country> {
                 response.getStream(),
                 client.getObjectMapper()
             );
+
             if (restException == null) {
                 throw new ApiException(
                     "Server Error, no content",
@@ -138,7 +139,7 @@ public class CountryReader extends Reader<Country> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VOICE.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -150,7 +151,7 @@ public class CountryReader extends Reader<Country> {
     ) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VOICE.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -161,44 +162,71 @@ public class CountryReader extends Reader<Country> {
         final TwilioRestClient client
     ) {
         Request request = new Request(HttpMethod.GET, targetUrl);
-
         return pageForRequest(client, request);
     }
 
     private void addQueryParams(final Request request) {
         if (isoCode != null) {
-            request.addQueryParam("IsoCode", isoCode);
-        }
-        if (continent != null) {
-            request.addQueryParam("Continent", continent);
-        }
-        if (countryCode != null) {
-            request.addQueryParam("CountryCode", countryCode);
-        }
-        if (lowRiskNumbersEnabled != null) {
-            request.addQueryParam(
-                "LowRiskNumbersEnabled",
-                lowRiskNumbersEnabled.toString()
+            Serializer.toString(
+                request,
+                "IsoCode",
+                isoCode,
+                ParameterType.QUERY
             );
-        }
-        if (highRiskSpecialNumbersEnabled != null) {
-            request.addQueryParam(
-                "HighRiskSpecialNumbersEnabled",
-                highRiskSpecialNumbersEnabled.toString()
-            );
-        }
-        if (highRiskTollfraudNumbersEnabled != null) {
-            request.addQueryParam(
-                "HighRiskTollfraudNumbersEnabled",
-                highRiskTollfraudNumbersEnabled.toString()
-            );
-        }
-        if (pageSize != null) {
-            request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
-            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        if (continent != null) {
+            Serializer.toString(
+                request,
+                "Continent",
+                continent,
+                ParameterType.QUERY
+            );
+        }
+
+        if (countryCode != null) {
+            Serializer.toString(
+                request,
+                "CountryCode",
+                countryCode,
+                ParameterType.QUERY
+            );
+        }
+
+        if (lowRiskNumbersEnabled != null) {
+            Serializer.toString(
+                request,
+                "LowRiskNumbersEnabled",
+                lowRiskNumbersEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (highRiskSpecialNumbersEnabled != null) {
+            Serializer.toString(
+                request,
+                "HighRiskSpecialNumbersEnabled",
+                highRiskSpecialNumbersEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (highRiskTollfraudNumbersEnabled != null) {
+            Serializer.toString(
+                request,
+                "HighRiskTollfraudNumbersEnabled",
+                highRiskTollfraudNumbersEnabled,
+                ParameterType.QUERY
+            );
+        }
+
+        if (pageSize != null) {
+            Serializer.toString(
+                request,
+                "PageSize",
+                pageSize,
+                ParameterType.QUERY
+            );
         }
     }
 }

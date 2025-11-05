@@ -16,6 +16,8 @@ package com.twilio.rest.api.v2010.account.incomingphonenumber;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,12 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
+    private String pathAccountSid;
     private String pathResourceSid;
     private String installedAddOnSid;
-    private String pathAccountSid;
 
     public AssignedAddOnCreator(
         final String pathResourceSid,
@@ -75,11 +78,6 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
                 "{" + "ResourceSid" + "}",
                 this.pathResourceSid.toString()
             );
-        path =
-            path.replace(
-                "{" + "InstalledAddOnSid" + "}",
-                this.installedAddOnSid.toString()
-            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -88,7 +86,9 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AssignedAddOn creation failed: Unable to connect to server"
@@ -115,7 +115,12 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
     private void addPostParams(final Request request) {
         if (installedAddOnSid != null) {
-            request.addPostParam("InstalledAddOnSid", installedAddOnSid);
+            Serializer.toString(
+                request,
+                "InstalledAddOnSid",
+                installedAddOnSid,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -16,7 +16,9 @@ package com.twilio.rest.sync.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class ServiceCreator extends Creator<Service> {
@@ -98,7 +100,9 @@ public class ServiceCreator extends Creator<Service> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "Service creation failed: Unable to connect to server"
@@ -122,36 +126,65 @@ public class ServiceCreator extends Creator<Service> {
 
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+            Serializer.toString(
+                request,
+                "FriendlyName",
+                friendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (webhookUrl != null) {
-            request.addPostParam("WebhookUrl", webhookUrl.toString());
+            Serializer.toString(
+                request,
+                "WebhookUrl",
+                webhookUrl,
+                ParameterType.URLENCODED
+            );
         }
+
         if (reachabilityWebhooksEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityWebhooksEnabled",
-                reachabilityWebhooksEnabled.toString()
+                reachabilityWebhooksEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (aclEnabled != null) {
-            request.addPostParam("AclEnabled", aclEnabled.toString());
+            Serializer.toString(
+                request,
+                "AclEnabled",
+                aclEnabled,
+                ParameterType.URLENCODED
+            );
         }
+
         if (reachabilityDebouncingEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityDebouncingEnabled",
-                reachabilityDebouncingEnabled.toString()
+                reachabilityDebouncingEnabled,
+                ParameterType.URLENCODED
             );
         }
+
         if (reachabilityDebouncingWindow != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "ReachabilityDebouncingWindow",
-                reachabilityDebouncingWindow.toString()
+                reachabilityDebouncingWindow,
+                ParameterType.URLENCODED
             );
         }
+
         if (webhooksFromRestEnabled != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "WebhooksFromRestEnabled",
-                webhooksFromRestEnabled.toString()
+                webhooksFromRestEnabled,
+                ParameterType.URLENCODED
             );
         }
     }

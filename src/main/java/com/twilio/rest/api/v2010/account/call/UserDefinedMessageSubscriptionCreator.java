@@ -16,7 +16,9 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,15 +27,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
+import com.twilio.type.*;
 import java.net.URI;
 
 public class UserDefinedMessageSubscriptionCreator
     extends Creator<UserDefinedMessageSubscription> {
 
+    private String pathAccountSid;
     private String pathCallSid;
     private URI callback;
-    private String pathAccountSid;
     private String idempotencyKey;
     private HttpMethod method;
 
@@ -99,7 +101,6 @@ public class UserDefinedMessageSubscriptionCreator
                 this.pathAccountSid.toString()
             );
         path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Callback" + "}", this.callback.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -108,7 +109,9 @@ public class UserDefinedMessageSubscriptionCreator
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "UserDefinedMessageSubscription creation failed: Unable to connect to server"
@@ -135,13 +138,30 @@ public class UserDefinedMessageSubscriptionCreator
 
     private void addPostParams(final Request request) {
         if (callback != null) {
-            request.addPostParam("Callback", callback.toString());
+            Serializer.toString(
+                request,
+                "Callback",
+                callback,
+                ParameterType.URLENCODED
+            );
         }
+
         if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
+            Serializer.toString(
+                request,
+                "IdempotencyKey",
+                idempotencyKey,
+                ParameterType.URLENCODED
+            );
         }
+
         if (method != null) {
-            request.addPostParam("Method", method.toString());
+            Serializer.toString(
+                request,
+                "Method",
+                method,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

@@ -16,6 +16,8 @@ package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,14 +26,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class WebChannelsCreator extends Creator<WebChannels> {
 
-    private String addressSid;
     private String uiVersion;
+    private String addressSid;
     private String chatFriendlyName;
     private String customerFriendlyName;
     private String preEngagementData;
+    private String identity;
 
     public WebChannelsCreator(final String addressSid) {
         this.addressSid = addressSid;
@@ -39,11 +43,6 @@ public class WebChannelsCreator extends Creator<WebChannels> {
 
     public WebChannelsCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
-        return this;
-    }
-
-    public WebChannelsCreator setUiVersion(final String uiVersion) {
-        this.uiVersion = uiVersion;
         return this;
     }
 
@@ -68,12 +67,19 @@ public class WebChannelsCreator extends Creator<WebChannels> {
         return this;
     }
 
+    public WebChannelsCreator setIdentity(final String identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    public WebChannelsCreator setUiVersion(final String uiVersion) {
+        this.uiVersion = uiVersion;
+        return this;
+    }
+
     @Override
     public WebChannels create(final TwilioRestClient client) {
         String path = "/v2/WebChats";
-
-        path =
-            path.replace("{" + "AddressSid" + "}", this.addressSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -81,9 +87,11 @@ public class WebChannelsCreator extends Creator<WebChannels> {
             path
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
-        addPostParams(request);
         addHeaderParams(request);
+        addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "WebChannels creation failed: Unable to connect to server"
@@ -110,22 +118,59 @@ public class WebChannelsCreator extends Creator<WebChannels> {
 
     private void addPostParams(final Request request) {
         if (addressSid != null) {
-            request.addPostParam("AddressSid", addressSid);
+            Serializer.toString(
+                request,
+                "AddressSid",
+                addressSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (chatFriendlyName != null) {
-            request.addPostParam("ChatFriendlyName", chatFriendlyName);
+            Serializer.toString(
+                request,
+                "ChatFriendlyName",
+                chatFriendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (customerFriendlyName != null) {
-            request.addPostParam("CustomerFriendlyName", customerFriendlyName);
+            Serializer.toString(
+                request,
+                "CustomerFriendlyName",
+                customerFriendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (preEngagementData != null) {
-            request.addPostParam("PreEngagementData", preEngagementData);
+            Serializer.toString(
+                request,
+                "PreEngagementData",
+                preEngagementData,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (identity != null) {
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
     }
 
     private void addHeaderParams(final Request request) {
         if (uiVersion != null) {
-            request.addHeaderParam("Ui-Version", uiVersion);
+            Serializer.toString(
+                request,
+                "Ui-Version",
+                uiVersion,
+                ParameterType.HEADER
+            );
         }
     }
 }

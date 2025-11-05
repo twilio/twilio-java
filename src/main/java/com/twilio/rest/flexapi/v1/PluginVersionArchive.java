@@ -18,25 +18,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PluginVersionArchive extends Resource {
-
-    private static final long serialVersionUID = 255808209327953L;
 
     public static PluginVersionArchiveUpdater updater(
         final String pathPluginSid,
@@ -88,80 +91,73 @@ public class PluginVersionArchive extends Resource {
         }
     }
 
-    private final String sid;
-    private final String pluginSid;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final String accountSid;
-    private final String version;
-    private final URI pluginUrl;
-    private final String changelog;
-    private final Boolean _private;
+
+    @Getter
     private final Boolean archived;
+
+    @Getter
+    private final String changelog;
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
+    private final String pluginSid;
+
+    @Getter
+    private final URI pluginUrl;
+
+    @Getter
+    private final Boolean _private;
+
+    @Getter
+    private final String sid;
+
+    @Getter
     private final URI url;
+
+    @Getter
+    private final String version;
 
     @JsonCreator
     private PluginVersionArchive(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("plugin_sid") final String pluginSid,
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("version") final String version,
-        @JsonProperty("plugin_url") final URI pluginUrl,
-        @JsonProperty("changelog") final String changelog,
-        @JsonProperty("_private") final Boolean _private,
         @JsonProperty("archived") final Boolean archived,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("changelog") final String changelog,
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("plugin_sid") final String pluginSid,
+        @JsonProperty("plugin_url") final URI pluginUrl,
+        @JsonProperty("private") final Boolean _private,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("version") final String version
     ) {
-        this.sid = sid;
-        this.pluginSid = pluginSid;
         this.accountSid = accountSid;
-        this.version = version;
-        this.pluginUrl = pluginUrl;
-        this.changelog = changelog;
-        this._private = _private;
         this.archived = archived;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.changelog = changelog;
+        this.dateCreated = dateCreated;
+        this.pluginSid = pluginSid;
+        this.pluginUrl = pluginUrl;
+        this._private = _private;
+        this.sid = sid;
         this.url = url;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getPluginSid() {
-        return this.pluginSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getVersion() {
-        return this.version;
-    }
-
-    public final URI getPluginUrl() {
-        return this.pluginUrl;
-    }
-
-    public final String getChangelog() {
-        return this.changelog;
-    }
-
-    public final Boolean get_private() {
-        return this._private;
-    }
-
-    public final Boolean getArchived() {
-        return this.archived;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
+        this.version = version;
     }
 
     @Override
@@ -175,34 +171,33 @@ public class PluginVersionArchive extends Resource {
         }
 
         PluginVersionArchive other = (PluginVersionArchive) o;
-
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(pluginSid, other.pluginSid) &&
             Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(version, other.version) &&
-            Objects.equals(pluginUrl, other.pluginUrl) &&
-            Objects.equals(changelog, other.changelog) &&
-            Objects.equals(_private, other._private) &&
             Objects.equals(archived, other.archived) &&
+            Objects.equals(changelog, other.changelog) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(url, other.url)
+            Objects.equals(pluginSid, other.pluginSid) &&
+            Objects.equals(pluginUrl, other.pluginUrl) &&
+            Objects.equals(_private, other._private) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(version, other.version)
         );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            pluginSid,
             accountSid,
-            version,
-            pluginUrl,
-            changelog,
-            _private,
             archived,
+            changelog,
             dateCreated,
-            url
+            pluginSid,
+            pluginUrl,
+            _private,
+            sid,
+            url,
+            version
         );
     }
 }

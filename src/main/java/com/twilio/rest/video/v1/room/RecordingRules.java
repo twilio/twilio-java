@@ -18,26 +18,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.DateConverter;
+import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
+import com.twilio.type.*;
 import com.twilio.type.RecordingRule;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RecordingRules extends Resource {
-
-    private static final long serialVersionUID = 215198002775360L;
 
     public static RecordingRulesFetcher fetcher(final String pathRoomSid) {
         return new RecordingRulesFetcher(pathRoomSid);
@@ -90,38 +93,45 @@ public class RecordingRules extends Resource {
         }
     }
 
-    private final String roomSid;
-    private final List<RecordingRule> rules;
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    @Getter
     private final ZonedDateTime dateCreated;
+
+    @Getter
     private final ZonedDateTime dateUpdated;
+
+    @Getter
+    private final String roomSid;
+
+    @Getter
+    private final List<RecordingRule> rules;
 
     @JsonCreator
     private RecordingRules(
+        @JsonProperty("date_created") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateCreated,
+        @JsonProperty("date_updated") @JsonDeserialize(
+            using = com.twilio.converter.ISO8601Deserializer.class
+        ) final ZonedDateTime dateUpdated,
         @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("rules") final List<RecordingRule> rules,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated
+        @JsonProperty("rules") final List<RecordingRule> rules
     ) {
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
         this.roomSid = roomSid;
         this.rules = rules;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-    }
-
-    public final String getRoomSid() {
-        return this.roomSid;
-    }
-
-    public final List<RecordingRule> getRules() {
-        return this.rules;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
     }
 
     @Override
@@ -135,17 +145,16 @@ public class RecordingRules extends Resource {
         }
 
         RecordingRules other = (RecordingRules) o;
-
         return (
-            Objects.equals(roomSid, other.roomSid) &&
-            Objects.equals(rules, other.rules) &&
             Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated)
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(rules, other.rules)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roomSid, rules, dateCreated, dateUpdated);
+        return Objects.hash(dateCreated, dateUpdated, roomSid, rules);
     }
 }

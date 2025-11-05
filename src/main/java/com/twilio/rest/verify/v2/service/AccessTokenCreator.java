@@ -16,6 +16,8 @@ package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,6 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.*;
 
 public class AccessTokenCreator extends Creator<AccessToken> {
 
@@ -76,9 +79,6 @@ public class AccessTokenCreator extends Creator<AccessToken> {
                 "{" + "ServiceSid" + "}",
                 this.pathServiceSid.toString()
             );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
-        path =
-            path.replace("{" + "FactorType" + "}", this.factorType.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -87,7 +87,9 @@ public class AccessTokenCreator extends Creator<AccessToken> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "AccessToken creation failed: Unable to connect to server"
@@ -114,16 +116,34 @@ public class AccessTokenCreator extends Creator<AccessToken> {
 
     private void addPostParams(final Request request) {
         if (identity != null) {
-            request.addPostParam("Identity", identity);
+            Serializer.toString(
+                request,
+                "Identity",
+                identity,
+                ParameterType.URLENCODED
+            );
         }
+
         if (factorType != null) {
-            request.addPostParam("FactorType", factorType.toString());
+            Serializer.toString(
+                request,
+                "FactorType",
+                factorType,
+                ParameterType.URLENCODED
+            );
         }
+
         if (factorFriendlyName != null) {
-            request.addPostParam("FactorFriendlyName", factorFriendlyName);
+            Serializer.toString(
+                request,
+                "FactorFriendlyName",
+                factorFriendlyName,
+                ParameterType.URLENCODED
+            );
         }
+
         if (ttl != null) {
-            request.addPostParam("Ttl", ttl.toString());
+            Serializer.toString(request, "Ttl", ttl, ParameterType.URLENCODED);
         }
     }
 }

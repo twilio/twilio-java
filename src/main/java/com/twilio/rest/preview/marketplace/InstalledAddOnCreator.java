@@ -16,8 +16,8 @@ package com.twilio.rest.preview.marketplace;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
+import com.twilio.constant.EnumConstants.ParameterType;
+import com.twilio.converter.Serializer;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,14 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.Map;
-import java.util.Map;
+import com.twilio.type.*;
 
 public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
 
     private String availableAddOnSid;
     private Boolean acceptTermsOfService;
-    private Map<String, Object> configuration;
+    private Object configuration;
     private String uniqueName;
 
     public InstalledAddOnCreator(
@@ -58,9 +57,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
         return this;
     }
 
-    public InstalledAddOnCreator setConfiguration(
-        final Map<String, Object> configuration
-    ) {
+    public InstalledAddOnCreator setConfiguration(final Object configuration) {
         this.configuration = configuration;
         return this;
     }
@@ -74,17 +71,6 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     public InstalledAddOn create(final TwilioRestClient client) {
         String path = "/marketplace/InstalledAddOns";
 
-        path =
-            path.replace(
-                "{" + "AvailableAddOnSid" + "}",
-                this.availableAddOnSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AcceptTermsOfService" + "}",
-                this.acceptTermsOfService.toString()
-            );
-
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
@@ -92,7 +78,9 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
         );
         request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
+
         Response response = client.request(request);
+
         if (response == null) {
             throw new ApiConnectionException(
                 "InstalledAddOn creation failed: Unable to connect to server"
@@ -119,22 +107,39 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
 
     private void addPostParams(final Request request) {
         if (availableAddOnSid != null) {
-            request.addPostParam("AvailableAddOnSid", availableAddOnSid);
+            Serializer.toString(
+                request,
+                "AvailableAddOnSid",
+                availableAddOnSid,
+                ParameterType.URLENCODED
+            );
         }
+
         if (acceptTermsOfService != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "AcceptTermsOfService",
-                acceptTermsOfService.toString()
+                acceptTermsOfService,
+                ParameterType.URLENCODED
             );
         }
+
         if (configuration != null) {
-            request.addPostParam(
+            Serializer.toString(
+                request,
                 "Configuration",
-                Converter.mapToJson(configuration)
+                configuration,
+                ParameterType.URLENCODED
             );
         }
+
         if (uniqueName != null) {
-            request.addPostParam("UniqueName", uniqueName);
+            Serializer.toString(
+                request,
+                "UniqueName",
+                uniqueName,
+                ParameterType.URLENCODED
+            );
         }
     }
 }

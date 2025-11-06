@@ -3,6 +3,7 @@ package com.twilio.base;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.exception.ApiException;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -12,9 +13,7 @@ import java.util.List;
 public class TokenPaginationPage<T> extends Page<T> {
     @Getter
     private final String key;
-    @Getter
     private final String nextToken;
-    @Getter
     private final String previousToken;
 
     private TokenPaginationPage(Builder<T> b) {
@@ -22,6 +21,16 @@ public class TokenPaginationPage<T> extends Page<T> {
         this.key = b.key;
         this.nextToken = b.nextToken;
         this.previousToken = b.previousToken;
+    }
+
+    // adding custom getter and not using lombok to handle null token
+    // when token is null, lombok getter returns "null" not a null object
+    public String getNextToken() {
+        return nextToken;
+    }
+
+    public String getPreviousToken() {
+        return previousToken;
     }
 
     @Override
@@ -34,17 +43,32 @@ public class TokenPaginationPage<T> extends Page<T> {
         return getQueryString(nextToken);
     }
 
+    private void addQueryOperators(StringBuilder query) {
+        if(query.length() == 0) {
+            query.append("?");
+        } else {
+            query.append("&");
+        }
+    }
+
     private String getQueryString(String pageToken) {
         StringBuilder query = new StringBuilder();
         if (pageSize > 0) {
-            query.append("?pageSize=").append(pageSize);
+            addQueryOperators(query);
+            query.append("pageSize=").append(pageSize);
         }
         if(pageToken != null && !pageToken.isEmpty()) {
-            query.append("&pageToken=").append(pageToken);
+            addQueryOperators(query);
+            query.append("pageToken=").append(pageToken);
         }
         return query.toString();
     }
 
+    /**
+     * Checks if there is a next page of records available.
+     *
+     * @return true if a next page is available, false otherwise
+     */
     @Override
     public boolean hasNextPage() {
         return (nextToken != null && !nextToken.isEmpty());
@@ -65,14 +89,18 @@ public class TokenPaginationPage<T> extends Page<T> {
         try {
             List<T> results = new ArrayList<>();
             JsonNode root = mapper.readTree(json);
-            JsonNode meta = root.get("meta");
-            String key = meta.get("key").asText();
-            JsonNode records = root.get(key);
-            for (final JsonNode record : records) {
-                results.add(mapper.readValue(record.toString(), recordType));
-            }
+            try {
+                JsonNode meta = root.get("meta");
+                String key = meta.get("key").asText();
+                JsonNode records = root.get(key);
+                for (final JsonNode record : records) {
+                    results.add(mapper.readValue(record.toString(), recordType));
+                }
 
-            return buildPage(meta, results);
+                return buildPage(meta, results);
+            } catch (NullPointerException e) {
+                throw new ApiException("Key not found", e);
+            }
 
         } catch (final IOException e) {
             throw new ApiConnectionException(
@@ -82,19 +110,30 @@ public class TokenPaginationPage<T> extends Page<T> {
     }
 
     private static <T> TokenPaginationPage<T> buildPage(JsonNode meta, List<T> results) {
-        Builder<T> builder = new Builder<T>()
-            .key(meta.get("key").asText());
+        try {
+            Builder<T> builder = new Builder<T>()
+                    .key(meta.get("key").asText());
 
-        builder.nextToken(meta.get("nextToken").asText());
-        builder.previousToken(meta.get("previousToken").asText());
+            JsonNode nextTokenNode = meta.get("nextToken");
+            if (nextTokenNode != null && !nextTokenNode.isNull()) {
+                builder.nextToken(nextTokenNode.asText());
+            }
 
-        JsonNode pageSizeNode = meta.get("pageSize");
-        builder.pageSize(pageSizeNode.asInt()); // pageSize is mandatory
+            JsonNode previousTokenNode = meta.get("previousToken");
+            if (previousTokenNode != null && !previousTokenNode.isNull()) {
+                builder.previousToken(previousTokenNode.asText());
+            }
 
-        return builder.records(results).build();
+            JsonNode pageSizeNode = meta.get("pageSize");
+            builder.pageSize(pageSizeNode.asInt());
+
+            return builder.records(results).build();
+        } catch (NullPointerException e) {
+            throw new ApiException("Key not found", e);
+        }
     }
 
-    private static class Builder<T> extends Page.Builder<T> {
+    protected static class Builder<T> extends Page.Builder<T> {
         private String key;
         private String nextToken;
         private String previousToken;

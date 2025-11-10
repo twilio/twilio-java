@@ -25,6 +25,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
 import java.time.LocalDate;
+import java.util.function.Predicate;
 
 public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
 
@@ -43,6 +44,8 @@ public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
         path = path.replace("{" + "Date" + "}", this.pathDate.toString());
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
@@ -68,6 +71,6 @@ public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 }

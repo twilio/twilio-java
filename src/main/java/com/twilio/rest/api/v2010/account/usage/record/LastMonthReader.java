@@ -33,7 +33,7 @@ import java.time.LocalDate;
 public class LastMonthReader extends Reader<LastMonth> {
 
     private String pathAccountSid;
-    private String category;
+    private LastMonth.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -45,7 +45,7 @@ public class LastMonthReader extends Reader<LastMonth> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public LastMonthReader setCategory(final String category) {
+    public LastMonthReader setCategory(final LastMonth.Category category) {
         this.category = category;
         return this;
     }

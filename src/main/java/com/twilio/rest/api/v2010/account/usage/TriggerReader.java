@@ -34,7 +34,7 @@ public class TriggerReader extends Reader<Trigger> {
     private String pathAccountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
-    private String usageCategory;
+    private Trigger.UsageCategory usageCategory;
     private Long pageSize;
 
     public TriggerReader() {}
@@ -53,7 +53,9 @@ public class TriggerReader extends Reader<Trigger> {
         return this;
     }
 
-    public TriggerReader setUsageCategory(final String usageCategory) {
+    public TriggerReader setUsageCategory(
+        final Trigger.UsageCategory usageCategory
+    ) {
         this.usageCategory = usageCategory;
         return this;
     }

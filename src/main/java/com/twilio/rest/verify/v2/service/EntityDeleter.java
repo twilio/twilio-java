@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class EntityDeleter extends Deleter<Entity> {
 
@@ -50,6 +51,8 @@ public class EntityDeleter extends Deleter<Entity> {
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
@@ -75,6 +78,6 @@ public class EntityDeleter extends Deleter<Entity> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 }

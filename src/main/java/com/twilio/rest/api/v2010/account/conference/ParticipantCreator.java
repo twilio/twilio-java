@@ -83,7 +83,6 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod amdStatusCallbackMethod;
     private String trim;
     private String callToken;
-    private String callerDisplayName;
 
     public ParticipantCreator(
         final String pathConferenceSid,
@@ -464,13 +463,6 @@ public class ParticipantCreator extends Creator<Participant> {
 
     public ParticipantCreator setCallToken(final String callToken) {
         this.callToken = callToken;
-        return this;
-    }
-
-    public ParticipantCreator setCallerDisplayName(
-        final String callerDisplayName
-    ) {
-        this.callerDisplayName = callerDisplayName;
         return this;
     }
 
@@ -960,15 +952,6 @@ public class ParticipantCreator extends Creator<Participant> {
                 request,
                 "CallToken",
                 callToken,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (callerDisplayName != null) {
-            Serializer.toString(
-                request,
-                "CallerDisplayName",
-                callerDisplayName,
                 ParameterType.URLENCODED
             );
         }

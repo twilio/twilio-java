@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class BucketDeleter extends Deleter<Bucket> {
 
@@ -37,11 +38,13 @@ public class BucketDeleter extends Deleter<Bucket> {
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
+        String path = "/v2/RateLimits/Fields/{field}/Bucket/{bucket}";
 
-        path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path = path.replace("{" + "Bucket" + "}", this.pathBucket.toString());
+        path = path.replace("{" + "field" + "}", this.pathField.toString());
+        path = path.replace("{" + "bucket" + "}", this.pathBucket.toString());
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.LOOKUPS.toString(),
@@ -67,6 +70,6 @@ public class BucketDeleter extends Deleter<Bucket> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 }

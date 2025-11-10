@@ -84,7 +84,6 @@ public class Conversation extends Resource {
     }
 
     public enum State {
-        INITIALIZING("initializing"),
         INACTIVE("inactive"),
         ACTIVE("active"),
         CLOSED("closed");

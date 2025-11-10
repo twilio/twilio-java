@@ -26,6 +26,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class ChannelDeleter extends Deleter<Channel> {
 
@@ -56,6 +57,8 @@ public class ChannelDeleter extends Deleter<Channel> {
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
@@ -82,7 +85,7 @@ public class ChannelDeleter extends Deleter<Channel> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 
     private void addHeaderParams(final Request request) {

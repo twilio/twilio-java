@@ -33,7 +33,7 @@ import java.time.LocalDate;
 public class YesterdayReader extends Reader<Yesterday> {
 
     private String pathAccountSid;
-    private String category;
+    private Yesterday.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -45,7 +45,7 @@ public class YesterdayReader extends Reader<Yesterday> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public YesterdayReader setCategory(final String category) {
+    public YesterdayReader setCategory(final Yesterday.Category category) {
         this.category = category;
         return this;
     }

@@ -204,9 +204,6 @@ public class Trunk extends Resource {
     private final String sid;
 
     @Getter
-    private final Boolean symmetricRtpEnabled;
-
-    @Getter
     private final Trunk.TransferCallerId transferCallerId;
 
     @Getter
@@ -238,9 +235,6 @@ public class Trunk extends Resource {
         @JsonProperty("secure") final Boolean secure,
         @JsonProperty("sid") final String sid,
         @JsonProperty(
-            "symmetric_rtp_enabled"
-        ) final Boolean symmetricRtpEnabled,
-        @JsonProperty(
             "transfer_caller_id"
         ) final Trunk.TransferCallerId transferCallerId,
         @JsonProperty("transfer_mode") final Trunk.TransferSetting transferMode,
@@ -260,7 +254,6 @@ public class Trunk extends Resource {
         this.recording = recording;
         this.secure = secure;
         this.sid = sid;
-        this.symmetricRtpEnabled = symmetricRtpEnabled;
         this.transferCallerId = transferCallerId;
         this.transferMode = transferMode;
         this.url = url;
@@ -295,7 +288,6 @@ public class Trunk extends Resource {
             Objects.equals(recording, other.recording) &&
             Objects.equals(secure, other.secure) &&
             Objects.equals(sid, other.sid) &&
-            Objects.equals(symmetricRtpEnabled, other.symmetricRtpEnabled) &&
             Objects.equals(transferCallerId, other.transferCallerId) &&
             Objects.equals(transferMode, other.transferMode) &&
             Objects.equals(url, other.url)
@@ -319,7 +311,6 @@ public class Trunk extends Resource {
             recording,
             secure,
             sid,
-            symmetricRtpEnabled,
             transferCallerId,
             transferMode,
             url

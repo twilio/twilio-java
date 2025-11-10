@@ -151,9 +151,6 @@ public class Service extends Resource {
     private final Boolean lookupEnabled;
 
     @Getter
-    private final Object passkeys;
-
-    @Getter
     private final Boolean psd2Enabled;
 
     @Getter
@@ -199,7 +196,6 @@ public class Service extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("lookup_enabled") final Boolean lookupEnabled,
-        @JsonProperty("passkeys") final Object passkeys,
         @JsonProperty("psd2_enabled") final Boolean psd2Enabled,
         @JsonProperty("push") final Object push,
         @JsonProperty("sid") final String sid,
@@ -223,7 +219,6 @@ public class Service extends Resource {
         this.friendlyName = friendlyName;
         this.links = links;
         this.lookupEnabled = lookupEnabled;
-        this.passkeys = passkeys;
         this.psd2Enabled = psd2Enabled;
         this.push = push;
         this.sid = sid;
@@ -261,7 +256,6 @@ public class Service extends Resource {
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(links, other.links) &&
             Objects.equals(lookupEnabled, other.lookupEnabled) &&
-            Objects.equals(passkeys, other.passkeys) &&
             Objects.equals(psd2Enabled, other.psd2Enabled) &&
             Objects.equals(push, other.push) &&
             Objects.equals(sid, other.sid) &&
@@ -291,7 +285,6 @@ public class Service extends Resource {
             friendlyName,
             links,
             lookupEnabled,
-            passkeys,
             psd2Enabled,
             push,
             sid,

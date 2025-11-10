@@ -67,8 +67,7 @@ public class Transcript extends Resource {
         IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
         FAILED("failed"),
-        CANCELED("canceled"),
-        ERROR("error");
+        CANCELED("canceled");
 
         private final String value;
 
@@ -163,9 +162,6 @@ public class Transcript extends Resource {
     private final Integer duration;
 
     @Getter
-    private final String encryptionCredentialSid;
-
-    @Getter
     private final String languageCode;
 
     @Getter
@@ -202,9 +198,6 @@ public class Transcript extends Resource {
             using = com.twilio.converter.ISO8601Deserializer.class
         ) final ZonedDateTime dateUpdated,
         @JsonProperty("duration") final Integer duration,
-        @JsonProperty(
-            "encryption_credential_sid"
-        ) final String encryptionCredentialSid,
         @JsonProperty("language_code") final String languageCode,
         @JsonProperty("links") final Map<String, String> links,
         @JsonProperty("media_start_time") @JsonDeserialize(
@@ -223,7 +216,6 @@ public class Transcript extends Resource {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.duration = duration;
-        this.encryptionCredentialSid = encryptionCredentialSid;
         this.languageCode = languageCode;
         this.links = links;
         this.mediaStartTime = mediaStartTime;
@@ -253,10 +245,6 @@ public class Transcript extends Resource {
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
             Objects.equals(duration, other.duration) &&
-            Objects.equals(
-                encryptionCredentialSid,
-                other.encryptionCredentialSid
-            ) &&
             Objects.equals(languageCode, other.languageCode) &&
             Objects.equals(links, other.links) &&
             Objects.equals(mediaStartTime, other.mediaStartTime) &&
@@ -278,7 +266,6 @@ public class Transcript extends Resource {
             dateCreated,
             dateUpdated,
             duration,
-            encryptionCredentialSid,
             languageCode,
             links,
             mediaStartTime,

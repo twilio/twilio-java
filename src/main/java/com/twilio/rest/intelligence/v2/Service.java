@@ -159,9 +159,6 @@ public class Service extends Resource {
     private final ZonedDateTime dateUpdated;
 
     @Getter
-    private final String encryptionCredentialSid;
-
-    @Getter
     private final String friendlyName;
 
     @Getter
@@ -203,9 +200,6 @@ public class Service extends Resource {
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.ISO8601Deserializer.class
         ) final ZonedDateTime dateUpdated,
-        @JsonProperty(
-            "encryption_credential_sid"
-        ) final String encryptionCredentialSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("language_code") final String languageCode,
         @JsonProperty("media_redaction") final Boolean mediaRedaction,
@@ -227,7 +221,6 @@ public class Service extends Resource {
         this.dataLogging = dataLogging;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
-        this.encryptionCredentialSid = encryptionCredentialSid;
         this.friendlyName = friendlyName;
         this.languageCode = languageCode;
         this.mediaRedaction = mediaRedaction;
@@ -258,10 +251,6 @@ public class Service extends Resource {
             Objects.equals(dataLogging, other.dataLogging) &&
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(
-                encryptionCredentialSid,
-                other.encryptionCredentialSid
-            ) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(languageCode, other.languageCode) &&
             Objects.equals(mediaRedaction, other.mediaRedaction) &&
@@ -287,7 +276,6 @@ public class Service extends Resource {
             dataLogging,
             dateCreated,
             dateUpdated,
-            encryptionCredentialSid,
             friendlyName,
             languageCode,
             mediaRedaction,

@@ -75,572 +75,20 @@ public class Query extends Resource {
         }
     }
 
-    @JsonDeserialize(builder = LookupBatchRequest.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class LookupBatchRequest {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("correlation_id")
-        @Getter
-        private final String correlationId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("phone_number")
-        @Getter
-        private final String phoneNumber;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("fields")
-        @Getter
-        private final List<Query.Fields> fields;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("country_code")
-        @Getter
-        private final String countryCode;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("identity_match")
-        @Getter
-        private final IdentityMatchParameters identityMatch;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("reassigned_number")
-        @Getter
-        private final ReassignedNumberParameters reassignedNumber;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sms_pumping_risk")
-        @Getter
-        private final RiskParameters smsPumpingRisk;
-
-        private LookupBatchRequest(Builder builder) {
-            this.correlationId = builder.correlationId;
-            this.phoneNumber = builder.phoneNumber;
-            this.fields = builder.fields;
-            this.countryCode = builder.countryCode;
-            this.identityMatch = builder.identityMatch;
-            this.reassignedNumber = builder.reassignedNumber;
-            this.smsPumpingRisk = builder.smsPumpingRisk;
-        }
-
-        public static Builder builder(final String phoneNumber) {
-            return new Builder(phoneNumber);
-        }
-
-        public static LookupBatchRequest fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, LookupBatchRequest.class);
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("correlation_id")
-            private String correlationId;
-
-            @JsonProperty("phone_number")
-            private String phoneNumber;
-
-            @JsonProperty("fields")
-            private List<Query.Fields> fields;
-
-            @JsonProperty("country_code")
-            private String countryCode;
-
-            @JsonProperty("identity_match")
-            private IdentityMatchParameters identityMatch;
-
-            @JsonProperty("reassigned_number")
-            private ReassignedNumberParameters reassignedNumber;
-
-            @JsonProperty("sms_pumping_risk")
-            private RiskParameters smsPumpingRisk;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty("phone_number") final String phoneNumber
-            ) {
-                this.phoneNumber = phoneNumber;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("correlation_id")
-            public Builder correlationId(String correlationId) {
-                this.correlationId = correlationId;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("fields")
-            public Builder fields(List<Query.Fields> fields) {
-                this.fields = fields;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("country_code")
-            public Builder countryCode(String countryCode) {
-                this.countryCode = countryCode;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("identity_match")
-            public Builder identityMatch(
-                IdentityMatchParameters identityMatch
-            ) {
-                this.identityMatch = identityMatch;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("reassigned_number")
-            public Builder reassignedNumber(
-                ReassignedNumberParameters reassignedNumber
-            ) {
-                this.reassignedNumber = reassignedNumber;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sms_pumping_risk")
-            public Builder smsPumpingRisk(RiskParameters smsPumpingRisk) {
-                this.smsPumpingRisk = smsPumpingRisk;
-                return this;
-            }
-
-            public LookupBatchRequest build() {
-                return new LookupBatchRequest(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            LookupBatchRequest other = (LookupBatchRequest) o;
-            return (
-                Objects.equals(correlationId, other.correlationId) &&
-                Objects.equals(phoneNumber, other.phoneNumber) &&
-                Objects.equals(fields, other.fields) &&
-                Objects.equals(countryCode, other.countryCode) &&
-                Objects.equals(identityMatch, other.identityMatch) &&
-                Objects.equals(reassignedNumber, other.reassignedNumber) &&
-                Objects.equals(smsPumpingRisk, other.smsPumpingRisk)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(
-                correlationId,
-                phoneNumber,
-                fields,
-                countryCode,
-                identityMatch,
-                reassignedNumber,
-                smsPumpingRisk
-            );
-        }
-    }
-
-    @JsonDeserialize(builder = LookupBatchResponse.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class LookupBatchResponse {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("correlation_id")
-        @Getter
-        private final String correlationId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("twilio_error_code")
-        @Getter
-        private final Integer twilioErrorCode;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("calling_country_code")
-        @Getter
-        private final String callingCountryCode;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("country_code")
-        @Getter
-        private final String countryCode;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("phone_number")
-        @Getter
-        private final String phoneNumber;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("national_format")
-        @Getter
-        private final String nationalFormat;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("valid")
-        @Getter
-        private final Boolean valid;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("validation_errors")
-        @Getter
-        private final List<String> validationErrors;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("caller_name")
-        @Getter
-        private final CallerName callerName;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sim_swap")
-        @Getter
-        private final SimSwap simSwap;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("call_forwarding")
-        @Getter
-        private final CallForwarding callForwarding;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("line_type_intelligence")
-        @Getter
-        private final LineTypeIntelligence lineTypeIntelligence;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("line_status")
-        @Getter
-        private final LineStatus lineStatus;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("identity_match")
-        @Getter
-        private final IdentityMatch identityMatch;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("reassigned_number")
-        @Getter
-        private final ReassignedNumber reassignedNumber;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("sms_pumping_risk")
-        @Getter
-        private final SmsPumpingRisk smsPumpingRisk;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("phone_number_quality_score")
-        @Getter
-        private final Object phoneNumberQualityScore;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("pre_fill")
-        @Getter
-        private final Object preFill;
-
-        private LookupBatchResponse(Builder builder) {
-            this.correlationId = builder.correlationId;
-            this.twilioErrorCode = builder.twilioErrorCode;
-            this.callingCountryCode = builder.callingCountryCode;
-            this.countryCode = builder.countryCode;
-            this.phoneNumber = builder.phoneNumber;
-            this.nationalFormat = builder.nationalFormat;
-            this.valid = builder.valid;
-            this.validationErrors = builder.validationErrors;
-            this.callerName = builder.callerName;
-            this.simSwap = builder.simSwap;
-            this.callForwarding = builder.callForwarding;
-            this.lineTypeIntelligence = builder.lineTypeIntelligence;
-            this.lineStatus = builder.lineStatus;
-            this.identityMatch = builder.identityMatch;
-            this.reassignedNumber = builder.reassignedNumber;
-            this.smsPumpingRisk = builder.smsPumpingRisk;
-            this.phoneNumberQualityScore = builder.phoneNumberQualityScore;
-            this.preFill = builder.preFill;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static LookupBatchResponse fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, LookupBatchResponse.class);
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("correlation_id")
-            private String correlationId;
-
-            @JsonProperty("twilio_error_code")
-            private Integer twilioErrorCode;
-
-            @JsonProperty("calling_country_code")
-            private String callingCountryCode;
-
-            @JsonProperty("country_code")
-            private String countryCode;
-
-            @JsonProperty("phone_number")
-            private String phoneNumber;
-
-            @JsonProperty("national_format")
-            private String nationalFormat;
-
-            @JsonProperty("valid")
-            private Boolean valid;
-
-            @JsonProperty("validation_errors")
-            private List<String> validationErrors;
-
-            @JsonProperty("caller_name")
-            private CallerName callerName;
-
-            @JsonProperty("sim_swap")
-            private SimSwap simSwap;
-
-            @JsonProperty("call_forwarding")
-            private CallForwarding callForwarding;
-
-            @JsonProperty("line_type_intelligence")
-            private LineTypeIntelligence lineTypeIntelligence;
-
-            @JsonProperty("line_status")
-            private LineStatus lineStatus;
-
-            @JsonProperty("identity_match")
-            private IdentityMatch identityMatch;
-
-            @JsonProperty("reassigned_number")
-            private ReassignedNumber reassignedNumber;
-
-            @JsonProperty("sms_pumping_risk")
-            private SmsPumpingRisk smsPumpingRisk;
-
-            @JsonProperty("phone_number_quality_score")
-            private Object phoneNumberQualityScore;
-
-            @JsonProperty("pre_fill")
-            private Object preFill;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("correlation_id")
-            public Builder correlationId(String correlationId) {
-                this.correlationId = correlationId;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_error_code")
-            public Builder twilioErrorCode(Integer twilioErrorCode) {
-                this.twilioErrorCode = twilioErrorCode;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("calling_country_code")
-            public Builder callingCountryCode(String callingCountryCode) {
-                this.callingCountryCode = callingCountryCode;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("country_code")
-            public Builder countryCode(String countryCode) {
-                this.countryCode = countryCode;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("phone_number")
-            public Builder phoneNumber(String phoneNumber) {
-                this.phoneNumber = phoneNumber;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("national_format")
-            public Builder nationalFormat(String nationalFormat) {
-                this.nationalFormat = nationalFormat;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("valid")
-            public Builder valid(Boolean valid) {
-                this.valid = valid;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("validation_errors")
-            public Builder validationErrors(List<String> validationErrors) {
-                this.validationErrors = validationErrors;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("caller_name")
-            public Builder callerName(CallerName callerName) {
-                this.callerName = callerName;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sim_swap")
-            public Builder simSwap(SimSwap simSwap) {
-                this.simSwap = simSwap;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("call_forwarding")
-            public Builder callForwarding(CallForwarding callForwarding) {
-                this.callForwarding = callForwarding;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("line_type_intelligence")
-            public Builder lineTypeIntelligence(
-                LineTypeIntelligence lineTypeIntelligence
-            ) {
-                this.lineTypeIntelligence = lineTypeIntelligence;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("line_status")
-            public Builder lineStatus(LineStatus lineStatus) {
-                this.lineStatus = lineStatus;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("identity_match")
-            public Builder identityMatch(IdentityMatch identityMatch) {
-                this.identityMatch = identityMatch;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("reassigned_number")
-            public Builder reassignedNumber(ReassignedNumber reassignedNumber) {
-                this.reassignedNumber = reassignedNumber;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sms_pumping_risk")
-            public Builder smsPumpingRisk(SmsPumpingRisk smsPumpingRisk) {
-                this.smsPumpingRisk = smsPumpingRisk;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("phone_number_quality_score")
-            public Builder phoneNumberQualityScore(
-                Object phoneNumberQualityScore
-            ) {
-                this.phoneNumberQualityScore = phoneNumberQualityScore;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("pre_fill")
-            public Builder preFill(Object preFill) {
-                this.preFill = preFill;
-                return this;
-            }
-
-            public LookupBatchResponse build() {
-                return new LookupBatchResponse(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            LookupBatchResponse other = (LookupBatchResponse) o;
-            return (
-                Objects.equals(correlationId, other.correlationId) &&
-                Objects.equals(twilioErrorCode, other.twilioErrorCode) &&
-                Objects.equals(callingCountryCode, other.callingCountryCode) &&
-                Objects.equals(countryCode, other.countryCode) &&
-                Objects.equals(phoneNumber, other.phoneNumber) &&
-                Objects.equals(nationalFormat, other.nationalFormat) &&
-                Objects.equals(valid, other.valid) &&
-                Objects.equals(validationErrors, other.validationErrors) &&
-                Objects.equals(callerName, other.callerName) &&
-                Objects.equals(simSwap, other.simSwap) &&
-                Objects.equals(callForwarding, other.callForwarding) &&
-                Objects.equals(
-                    lineTypeIntelligence,
-                    other.lineTypeIntelligence
-                ) &&
-                Objects.equals(lineStatus, other.lineStatus) &&
-                Objects.equals(identityMatch, other.identityMatch) &&
-                Objects.equals(reassignedNumber, other.reassignedNumber) &&
-                Objects.equals(smsPumpingRisk, other.smsPumpingRisk) &&
-                Objects.equals(
-                    phoneNumberQualityScore,
-                    other.phoneNumberQualityScore
-                ) &&
-                Objects.equals(preFill, other.preFill)
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(
-                correlationId,
-                twilioErrorCode,
-                callingCountryCode,
-                countryCode,
-                phoneNumber,
-                nationalFormat,
-                valid,
-                validationErrors,
-                callerName,
-                simSwap,
-                callForwarding,
-                lineTypeIntelligence,
-                lineStatus,
-                identityMatch,
-                reassignedNumber,
-                smsPumpingRisk,
-                phoneNumberQualityScore,
-                preFill
-            );
-        }
-    }
-
     @JsonDeserialize(builder = LineTypeIntelligence.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
     public static class LineTypeIntelligence {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        private final String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_name")
+        @Getter
+        private final String carrierName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mobile_country_code")
@@ -653,25 +101,15 @@ public class Query extends Resource {
         private final String mobileNetworkCode;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("carrier_name")
-        @Getter
-        private final String carrierName;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("type")
-        @Getter
-        private final String type;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("error_code")
         @Getter
         private final Integer errorCode;
 
         private LineTypeIntelligence(Builder builder) {
+            this.type = builder.type;
+            this.carrierName = builder.carrierName;
             this.mobileCountryCode = builder.mobileCountryCode;
             this.mobileNetworkCode = builder.mobileNetworkCode;
-            this.carrierName = builder.carrierName;
-            this.type = builder.type;
             this.errorCode = builder.errorCode;
         }
 
@@ -689,20 +127,34 @@ public class Query extends Resource {
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
+            @JsonProperty("type")
+            private String type;
+
+            @JsonProperty("carrier_name")
+            private String carrierName;
+
             @JsonProperty("mobile_country_code")
             private String mobileCountryCode;
 
             @JsonProperty("mobile_network_code")
             private String mobileNetworkCode;
 
-            @JsonProperty("carrier_name")
-            private String carrierName;
-
-            @JsonProperty("type")
-            private String type;
-
             @JsonProperty("error_code")
             private Integer errorCode;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            public Builder type(String type) {
+                this.type = type;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("carrier_name")
+            public Builder carrierName(String carrierName) {
+                this.carrierName = carrierName;
+                return this;
+            }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("mobile_country_code")
@@ -715,20 +167,6 @@ public class Query extends Resource {
             @JsonProperty("mobile_network_code")
             public Builder mobileNetworkCode(String mobileNetworkCode) {
                 this.mobileNetworkCode = mobileNetworkCode;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_name")
-            public Builder carrierName(String carrierName) {
-                this.carrierName = carrierName;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            public Builder type(String type) {
-                this.type = type;
                 return this;
             }
 
@@ -756,10 +194,10 @@ public class Query extends Resource {
 
             LineTypeIntelligence other = (LineTypeIntelligence) o;
             return (
+                Objects.equals(type, other.type) &&
+                Objects.equals(carrierName, other.carrierName) &&
                 Objects.equals(mobileCountryCode, other.mobileCountryCode) &&
                 Objects.equals(mobileNetworkCode, other.mobileNetworkCode) &&
-                Objects.equals(carrierName, other.carrierName) &&
-                Objects.equals(type, other.type) &&
                 Objects.equals(errorCode, other.errorCode)
             );
         }
@@ -767,10 +205,10 @@ public class Query extends Resource {
         @Override
         public int hashCode() {
             return Objects.hash(
+                type,
+                carrierName,
                 mobileCountryCode,
                 mobileNetworkCode,
-                carrierName,
-                type,
                 errorCode
             );
         }
@@ -792,9 +230,9 @@ public class Query extends Resource {
         private final String lastNameMatch;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("address_lines_match")
+        @JsonProperty("address_line_match")
         @Getter
-        private final String addressLinesMatch;
+        private final String addressLineMatch;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("city_match")
@@ -812,9 +250,9 @@ public class Query extends Resource {
         private final String postalCodeMatch;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("address_country_match")
+        @JsonProperty("country_code_match")
         @Getter
-        private final String addressCountryMatch;
+        private final String countryCodeMatch;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("national_id_match")
@@ -844,11 +282,11 @@ public class Query extends Resource {
         private IdentityMatch(Builder builder) {
             this.firstNameMatch = builder.firstNameMatch;
             this.lastNameMatch = builder.lastNameMatch;
-            this.addressLinesMatch = builder.addressLinesMatch;
+            this.addressLineMatch = builder.addressLineMatch;
             this.cityMatch = builder.cityMatch;
             this.stateMatch = builder.stateMatch;
             this.postalCodeMatch = builder.postalCodeMatch;
-            this.addressCountryMatch = builder.addressCountryMatch;
+            this.countryCodeMatch = builder.countryCodeMatch;
             this.nationalIdMatch = builder.nationalIdMatch;
             this.dateOfBirthMatch = builder.dateOfBirthMatch;
             this.summaryScore = builder.summaryScore;
@@ -876,8 +314,8 @@ public class Query extends Resource {
             @JsonProperty("last_name_match")
             private String lastNameMatch;
 
-            @JsonProperty("address_lines_match")
-            private String addressLinesMatch;
+            @JsonProperty("address_line_match")
+            private String addressLineMatch;
 
             @JsonProperty("city_match")
             private String cityMatch;
@@ -888,8 +326,8 @@ public class Query extends Resource {
             @JsonProperty("postal_code_match")
             private String postalCodeMatch;
 
-            @JsonProperty("address_country_match")
-            private String addressCountryMatch;
+            @JsonProperty("country_code_match")
+            private String countryCodeMatch;
 
             @JsonProperty("national_id_match")
             private String nationalIdMatch;
@@ -921,9 +359,9 @@ public class Query extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("address_lines_match")
-            public Builder addressLinesMatch(String addressLinesMatch) {
-                this.addressLinesMatch = addressLinesMatch;
+            @JsonProperty("address_line_match")
+            public Builder addressLineMatch(String addressLineMatch) {
+                this.addressLineMatch = addressLineMatch;
                 return this;
             }
 
@@ -949,9 +387,9 @@ public class Query extends Resource {
             }
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("address_country_match")
-            public Builder addressCountryMatch(String addressCountryMatch) {
-                this.addressCountryMatch = addressCountryMatch;
+            @JsonProperty("country_code_match")
+            public Builder countryCodeMatch(String countryCodeMatch) {
+                this.countryCodeMatch = countryCodeMatch;
                 return this;
             }
 
@@ -1009,14 +447,11 @@ public class Query extends Resource {
             return (
                 Objects.equals(firstNameMatch, other.firstNameMatch) &&
                 Objects.equals(lastNameMatch, other.lastNameMatch) &&
-                Objects.equals(addressLinesMatch, other.addressLinesMatch) &&
+                Objects.equals(addressLineMatch, other.addressLineMatch) &&
                 Objects.equals(cityMatch, other.cityMatch) &&
                 Objects.equals(stateMatch, other.stateMatch) &&
                 Objects.equals(postalCodeMatch, other.postalCodeMatch) &&
-                Objects.equals(
-                    addressCountryMatch,
-                    other.addressCountryMatch
-                ) &&
+                Objects.equals(countryCodeMatch, other.countryCodeMatch) &&
                 Objects.equals(nationalIdMatch, other.nationalIdMatch) &&
                 Objects.equals(dateOfBirthMatch, other.dateOfBirthMatch) &&
                 Objects.equals(summaryScore, other.summaryScore) &&
@@ -1030,11 +465,11 @@ public class Query extends Resource {
             return Objects.hash(
                 firstNameMatch,
                 lastNameMatch,
-                addressLinesMatch,
+                addressLineMatch,
                 cityMatch,
                 stateMatch,
                 postalCodeMatch,
-                addressCountryMatch,
+                countryCodeMatch,
                 nationalIdMatch,
                 dateOfBirthMatch,
                 summaryScore,
@@ -1044,76 +479,10 @@ public class Query extends Resource {
         }
     }
 
-    @JsonDeserialize(builder = ReassignedNumberParameters.Builder.class)
+    @JsonDeserialize(builder = ReassignedNumberResponse.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    public static class ReassignedNumberParameters {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("last_verified_date")
-        @Getter
-        private final String lastVerifiedDate;
-
-        private ReassignedNumberParameters(Builder builder) {
-            this.lastVerifiedDate = builder.lastVerifiedDate;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static ReassignedNumberParameters fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(
-                jsonString,
-                ReassignedNumberParameters.class
-            );
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("last_verified_date")
-            private String lastVerifiedDate;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_verified_date")
-            public Builder lastVerifiedDate(String lastVerifiedDate) {
-                this.lastVerifiedDate = lastVerifiedDate;
-                return this;
-            }
-
-            public ReassignedNumberParameters build() {
-                return new ReassignedNumberParameters(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            ReassignedNumberParameters other = (ReassignedNumberParameters) o;
-            return (Objects.equals(lastVerifiedDate, other.lastVerifiedDate));
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(lastVerifiedDate);
-        }
-    }
-
-    @JsonDeserialize(builder = ReassignedNumber.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class ReassignedNumber {
+    public static class ReassignedNumberResponse {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("last_verified_date")
@@ -1130,7 +499,7 @@ public class Query extends Resource {
         @Getter
         private final String errorCode;
 
-        private ReassignedNumber(Builder builder) {
+        private ReassignedNumberResponse(Builder builder) {
             this.lastVerifiedDate = builder.lastVerifiedDate;
             this.isNumberReassigned = builder.isNumberReassigned;
             this.errorCode = builder.errorCode;
@@ -1140,11 +509,11 @@ public class Query extends Resource {
             return new Builder();
         }
 
-        public static ReassignedNumber fromJson(
+        public static ReassignedNumberResponse fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
-            return mapper.readValue(jsonString, ReassignedNumber.class);
+            return mapper.readValue(jsonString, ReassignedNumberResponse.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
@@ -1180,8 +549,8 @@ public class Query extends Resource {
                 return this;
             }
 
-            public ReassignedNumber build() {
-                return new ReassignedNumber(this);
+            public ReassignedNumberResponse build() {
+                return new ReassignedNumberResponse(this);
             }
         }
 
@@ -1195,7 +564,7 @@ public class Query extends Resource {
                 return false;
             }
 
-            ReassignedNumber other = (ReassignedNumber) o;
+            ReassignedNumberResponse other = (ReassignedNumberResponse) o;
             return (
                 Objects.equals(lastVerifiedDate, other.lastVerifiedDate) &&
                 Objects.equals(isNumberReassigned, other.isNumberReassigned) &&
@@ -1213,46 +582,46 @@ public class Query extends Resource {
         }
     }
 
-    @JsonDeserialize(builder = RiskParameters.Builder.class)
+    @JsonDeserialize(builder = ReassignedNumberRequest.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    public static class RiskParameters {
+    public static class ReassignedNumberRequest {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("partner_sub_id")
+        @JsonProperty("last_verified_date")
         @Getter
-        private final String partnerSubId;
+        private final String lastVerifiedDate;
 
-        private RiskParameters(Builder builder) {
-            this.partnerSubId = builder.partnerSubId;
+        private ReassignedNumberRequest(Builder builder) {
+            this.lastVerifiedDate = builder.lastVerifiedDate;
         }
 
         public static Builder builder() {
             return new Builder();
         }
 
-        public static RiskParameters fromJson(
+        public static ReassignedNumberRequest fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
-            return mapper.readValue(jsonString, RiskParameters.class);
+            return mapper.readValue(jsonString, ReassignedNumberRequest.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
-            @JsonProperty("partner_sub_id")
-            private String partnerSubId;
+            @JsonProperty("last_verified_date")
+            private String lastVerifiedDate;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("partner_sub_id")
-            public Builder partnerSubId(String partnerSubId) {
-                this.partnerSubId = partnerSubId;
+            @JsonProperty("last_verified_date")
+            public Builder lastVerifiedDate(String lastVerifiedDate) {
+                this.lastVerifiedDate = lastVerifiedDate;
                 return this;
             }
 
-            public RiskParameters build() {
-                return new RiskParameters(this);
+            public ReassignedNumberRequest build() {
+                return new ReassignedNumberRequest(this);
             }
         }
 
@@ -1266,13 +635,69 @@ public class Query extends Resource {
                 return false;
             }
 
-            RiskParameters other = (RiskParameters) o;
-            return (Objects.equals(partnerSubId, other.partnerSubId));
+            ReassignedNumberRequest other = (ReassignedNumberRequest) o;
+            return (Objects.equals(lastVerifiedDate, other.lastVerifiedDate));
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(partnerSubId);
+            return Objects.hash(lastVerifiedDate);
+        }
+    }
+
+    @JsonDeserialize(builder = LookupRequest1.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class LookupRequest1 {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_numbers")
+        @Getter
+        private final List<LookupRequestWithCorId> phoneNumbers;
+
+        private LookupRequest1(Builder builder) {
+            this.phoneNumbers = builder.phoneNumbers;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static LookupRequest1 fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LookupRequest1.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("phone_numbers")
+            private List<LookupRequestWithCorId> phoneNumbers;
+
+            public LookupRequest1 build() {
+                return new LookupRequest1(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LookupRequest1 other = (LookupRequest1) o;
+            return (Objects.equals(phoneNumbers, other.phoneNumbers));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(phoneNumbers);
         }
     }
 
@@ -1468,39 +893,46 @@ public class Query extends Resource {
         }
     }
 
-    @JsonDeserialize(builder = LookupRequest.Builder.class)
+    @JsonDeserialize(builder = SmsPumpingRiskParameters.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    public static class LookupRequest {
+    public static class SmsPumpingRiskParameters {
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("phone_numbers")
+        @JsonProperty("partner_sub_id")
         @Getter
-        private final List<LookupBatchRequest> phoneNumbers;
+        private final String partnerSubId;
 
-        private LookupRequest(Builder builder) {
-            this.phoneNumbers = builder.phoneNumbers;
+        private SmsPumpingRiskParameters(Builder builder) {
+            this.partnerSubId = builder.partnerSubId;
         }
 
         public static Builder builder() {
             return new Builder();
         }
 
-        public static LookupRequest fromJson(
+        public static SmsPumpingRiskParameters fromJson(
             String jsonString,
             ObjectMapper mapper
         ) throws IOException {
-            return mapper.readValue(jsonString, LookupRequest.class);
+            return mapper.readValue(jsonString, SmsPumpingRiskParameters.class);
         }
 
         @JsonPOJOBuilder(withPrefix = "")
         public static class Builder {
 
-            @JsonProperty("phone_numbers")
-            private List<LookupBatchRequest> phoneNumbers;
+            @JsonProperty("partner_sub_id")
+            private String partnerSubId;
 
-            public LookupRequest build() {
-                return new LookupRequest(this);
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("partner_sub_id")
+            public Builder partnerSubId(String partnerSubId) {
+                this.partnerSubId = partnerSubId;
+                return this;
+            }
+
+            public SmsPumpingRiskParameters build() {
+                return new SmsPumpingRiskParameters(this);
             }
         }
 
@@ -1514,13 +946,357 @@ public class Query extends Resource {
                 return false;
             }
 
-            LookupRequest other = (LookupRequest) o;
-            return (Objects.equals(phoneNumbers, other.phoneNumbers));
+            SmsPumpingRiskParameters other = (SmsPumpingRiskParameters) o;
+            return (Objects.equals(partnerSubId, other.partnerSubId));
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(phoneNumbers);
+            return Objects.hash(partnerSubId);
+        }
+    }
+
+    @JsonDeserialize(builder = LookupResponseWithCorId.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class LookupResponseWithCorId {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("correlation_id")
+        @Getter
+        private final String correlationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio_error_code")
+        @Getter
+        private final Integer twilioErrorCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("calling_country_code")
+        @Getter
+        private final String callingCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country_code")
+        @Getter
+        private final String countryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        private final String phoneNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("national_format")
+        @Getter
+        private final String nationalFormat;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("valid")
+        @Getter
+        private final Boolean valid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("validation_errors")
+        @Getter
+        private final List<String> validationErrors;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("caller_name")
+        @Getter
+        private final CallerName callerName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sim_swap")
+        @Getter
+        private final SimSwap simSwap;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("call_forwarding")
+        @Getter
+        private final CallForwarding callForwarding;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("line_type_intelligence")
+        @Getter
+        private final LineTypeIntelligence lineTypeIntelligence;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("line_status")
+        @Getter
+        private final LineStatus lineStatus;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("identity_match")
+        @Getter
+        private final IdentityMatch identityMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("reassigned_number")
+        @Getter
+        private final ReassignedNumberResponse reassignedNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms_pumping_risk")
+        @Getter
+        private final SmsPumpingRisk smsPumpingRisk;
+
+        private LookupResponseWithCorId(Builder builder) {
+            this.correlationId = builder.correlationId;
+            this.twilioErrorCode = builder.twilioErrorCode;
+            this.callingCountryCode = builder.callingCountryCode;
+            this.countryCode = builder.countryCode;
+            this.phoneNumber = builder.phoneNumber;
+            this.nationalFormat = builder.nationalFormat;
+            this.valid = builder.valid;
+            this.validationErrors = builder.validationErrors;
+            this.callerName = builder.callerName;
+            this.simSwap = builder.simSwap;
+            this.callForwarding = builder.callForwarding;
+            this.lineTypeIntelligence = builder.lineTypeIntelligence;
+            this.lineStatus = builder.lineStatus;
+            this.identityMatch = builder.identityMatch;
+            this.reassignedNumber = builder.reassignedNumber;
+            this.smsPumpingRisk = builder.smsPumpingRisk;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static LookupResponseWithCorId fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LookupResponseWithCorId.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("correlation_id")
+            private String correlationId;
+
+            @JsonProperty("twilio_error_code")
+            private Integer twilioErrorCode;
+
+            @JsonProperty("calling_country_code")
+            private String callingCountryCode;
+
+            @JsonProperty("country_code")
+            private String countryCode;
+
+            @JsonProperty("phone_number")
+            private String phoneNumber;
+
+            @JsonProperty("national_format")
+            private String nationalFormat;
+
+            @JsonProperty("valid")
+            private Boolean valid;
+
+            @JsonProperty("validation_errors")
+            private List<String> validationErrors;
+
+            @JsonProperty("caller_name")
+            private CallerName callerName;
+
+            @JsonProperty("sim_swap")
+            private SimSwap simSwap;
+
+            @JsonProperty("call_forwarding")
+            private CallForwarding callForwarding;
+
+            @JsonProperty("line_type_intelligence")
+            private LineTypeIntelligence lineTypeIntelligence;
+
+            @JsonProperty("line_status")
+            private LineStatus lineStatus;
+
+            @JsonProperty("identity_match")
+            private IdentityMatch identityMatch;
+
+            @JsonProperty("reassigned_number")
+            private ReassignedNumberResponse reassignedNumber;
+
+            @JsonProperty("sms_pumping_risk")
+            private SmsPumpingRisk smsPumpingRisk;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("correlation_id")
+            public Builder correlationId(String correlationId) {
+                this.correlationId = correlationId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_error_code")
+            public Builder twilioErrorCode(Integer twilioErrorCode) {
+                this.twilioErrorCode = twilioErrorCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("calling_country_code")
+            public Builder callingCountryCode(String callingCountryCode) {
+                this.callingCountryCode = callingCountryCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("country_code")
+            public Builder countryCode(String countryCode) {
+                this.countryCode = countryCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone_number")
+            public Builder phoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("national_format")
+            public Builder nationalFormat(String nationalFormat) {
+                this.nationalFormat = nationalFormat;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("valid")
+            public Builder valid(Boolean valid) {
+                this.valid = valid;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("validation_errors")
+            public Builder validationErrors(List<String> validationErrors) {
+                this.validationErrors = validationErrors;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("caller_name")
+            public Builder callerName(CallerName callerName) {
+                this.callerName = callerName;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sim_swap")
+            public Builder simSwap(SimSwap simSwap) {
+                this.simSwap = simSwap;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("call_forwarding")
+            public Builder callForwarding(CallForwarding callForwarding) {
+                this.callForwarding = callForwarding;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("line_type_intelligence")
+            public Builder lineTypeIntelligence(
+                LineTypeIntelligence lineTypeIntelligence
+            ) {
+                this.lineTypeIntelligence = lineTypeIntelligence;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("line_status")
+            public Builder lineStatus(LineStatus lineStatus) {
+                this.lineStatus = lineStatus;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("identity_match")
+            public Builder identityMatch(IdentityMatch identityMatch) {
+                this.identityMatch = identityMatch;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("reassigned_number")
+            public Builder reassignedNumber(
+                ReassignedNumberResponse reassignedNumber
+            ) {
+                this.reassignedNumber = reassignedNumber;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sms_pumping_risk")
+            public Builder smsPumpingRisk(SmsPumpingRisk smsPumpingRisk) {
+                this.smsPumpingRisk = smsPumpingRisk;
+                return this;
+            }
+
+            public LookupResponseWithCorId build() {
+                return new LookupResponseWithCorId(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LookupResponseWithCorId other = (LookupResponseWithCorId) o;
+            return (
+                Objects.equals(correlationId, other.correlationId) &&
+                Objects.equals(twilioErrorCode, other.twilioErrorCode) &&
+                Objects.equals(callingCountryCode, other.callingCountryCode) &&
+                Objects.equals(countryCode, other.countryCode) &&
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                Objects.equals(nationalFormat, other.nationalFormat) &&
+                Objects.equals(valid, other.valid) &&
+                Objects.equals(validationErrors, other.validationErrors) &&
+                Objects.equals(callerName, other.callerName) &&
+                Objects.equals(simSwap, other.simSwap) &&
+                Objects.equals(callForwarding, other.callForwarding) &&
+                Objects.equals(
+                    lineTypeIntelligence,
+                    other.lineTypeIntelligence
+                ) &&
+                Objects.equals(lineStatus, other.lineStatus) &&
+                Objects.equals(identityMatch, other.identityMatch) &&
+                Objects.equals(reassignedNumber, other.reassignedNumber) &&
+                Objects.equals(smsPumpingRisk, other.smsPumpingRisk)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                correlationId,
+                twilioErrorCode,
+                callingCountryCode,
+                countryCode,
+                phoneNumber,
+                nationalFormat,
+                valid,
+                validationErrors,
+                callerName,
+                simSwap,
+                callForwarding,
+                lineTypeIntelligence,
+                lineStatus,
+                identityMatch,
+                reassignedNumber,
+                smsPumpingRisk
+            );
         }
     }
 
@@ -2065,6 +1841,187 @@ public class Query extends Resource {
         }
     }
 
+    @JsonDeserialize(builder = LookupRequestWithCorId.Builder.class)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ToString
+    public static class LookupRequestWithCorId {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("correlation_id")
+        @Getter
+        private final String correlationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        private final String phoneNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fields")
+        @Getter
+        private final List<Query.Fields> fields;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country_code")
+        @Getter
+        private final String countryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("identity_match")
+        @Getter
+        private final IdentityMatchParameters identityMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("reassigned_number")
+        @Getter
+        private final ReassignedNumberRequest reassignedNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms_pumping_risk")
+        @Getter
+        private final SmsPumpingRiskParameters smsPumpingRisk;
+
+        private LookupRequestWithCorId(Builder builder) {
+            this.correlationId = builder.correlationId;
+            this.phoneNumber = builder.phoneNumber;
+            this.fields = builder.fields;
+            this.countryCode = builder.countryCode;
+            this.identityMatch = builder.identityMatch;
+            this.reassignedNumber = builder.reassignedNumber;
+            this.smsPumpingRisk = builder.smsPumpingRisk;
+        }
+
+        public static Builder builder(final String phoneNumber) {
+            return new Builder(phoneNumber);
+        }
+
+        public static LookupRequestWithCorId fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LookupRequestWithCorId.class);
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class Builder {
+
+            @JsonProperty("correlation_id")
+            private String correlationId;
+
+            @JsonProperty("phone_number")
+            private String phoneNumber;
+
+            @JsonProperty("fields")
+            private List<Query.Fields> fields;
+
+            @JsonProperty("country_code")
+            private String countryCode;
+
+            @JsonProperty("identity_match")
+            private IdentityMatchParameters identityMatch;
+
+            @JsonProperty("reassigned_number")
+            private ReassignedNumberRequest reassignedNumber;
+
+            @JsonProperty("sms_pumping_risk")
+            private SmsPumpingRiskParameters smsPumpingRisk;
+
+            @JsonCreator
+            public Builder(
+                @JsonProperty("phone_number") final String phoneNumber
+            ) {
+                this.phoneNumber = phoneNumber;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("correlation_id")
+            public Builder correlationId(String correlationId) {
+                this.correlationId = correlationId;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("fields")
+            public Builder fields(List<Query.Fields> fields) {
+                this.fields = fields;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("country_code")
+            public Builder countryCode(String countryCode) {
+                this.countryCode = countryCode;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("identity_match")
+            public Builder identityMatch(
+                IdentityMatchParameters identityMatch
+            ) {
+                this.identityMatch = identityMatch;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("reassigned_number")
+            public Builder reassignedNumber(
+                ReassignedNumberRequest reassignedNumber
+            ) {
+                this.reassignedNumber = reassignedNumber;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("sms_pumping_risk")
+            public Builder smsPumpingRisk(
+                SmsPumpingRiskParameters smsPumpingRisk
+            ) {
+                this.smsPumpingRisk = smsPumpingRisk;
+                return this;
+            }
+
+            public LookupRequestWithCorId build() {
+                return new LookupRequestWithCorId(this);
+            }
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LookupRequestWithCorId other = (LookupRequestWithCorId) o;
+            return (
+                Objects.equals(correlationId, other.correlationId) &&
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                Objects.equals(fields, other.fields) &&
+                Objects.equals(countryCode, other.countryCode) &&
+                Objects.equals(identityMatch, other.identityMatch) &&
+                Objects.equals(reassignedNumber, other.reassignedNumber) &&
+                Objects.equals(smsPumpingRisk, other.smsPumpingRisk)
+            );
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(
+                correlationId,
+                phoneNumber,
+                fields,
+                countryCode,
+                identityMatch,
+                reassignedNumber,
+                smsPumpingRisk
+            );
+        }
+    }
+
     @JsonDeserialize(builder = CallerName.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
@@ -2307,12 +2264,12 @@ public class Query extends Resource {
     }
 
     @Getter
-    private final List<LookupBatchResponse> phoneNumbers;
+    private final List<LookupResponseWithCorId> phoneNumbers;
 
     @JsonCreator
     private Query(
         @JsonProperty("phone_numbers") final List<
-            LookupBatchResponse
+            LookupResponseWithCorId
         > phoneNumbers
     ) {
         this.phoneNumbers = phoneNumbers;

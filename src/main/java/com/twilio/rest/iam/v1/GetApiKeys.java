@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
@@ -107,9 +106,6 @@ public class GetApiKeys extends Resource {
     private final ZonedDateTime dateUpdated;
 
     @Getter
-    private final List<String> flags;
-
-    @Getter
     private final String friendlyName;
 
     @Getter
@@ -123,13 +119,11 @@ public class GetApiKeys extends Resource {
         @JsonProperty("date_updated") @JsonDeserialize(
             using = com.twilio.converter.RFC2822Deserializer.class
         ) final ZonedDateTime dateUpdated,
-        @JsonProperty("flags") final List<String> flags,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("sid") final String sid
     ) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
-        this.flags = flags;
         this.friendlyName = friendlyName;
         this.sid = sid;
     }
@@ -148,7 +142,6 @@ public class GetApiKeys extends Resource {
         return (
             Objects.equals(dateCreated, other.dateCreated) &&
             Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(flags, other.flags) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(sid, other.sid)
         );
@@ -156,6 +149,6 @@ public class GetApiKeys extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateCreated, dateUpdated, flags, friendlyName, sid);
+        return Objects.hash(dateCreated, dateUpdated, friendlyName, sid);
     }
 }

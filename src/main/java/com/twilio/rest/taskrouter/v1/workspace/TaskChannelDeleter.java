@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class TaskChannelDeleter extends Deleter<TaskChannel> {
 
@@ -49,6 +50,8 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
             );
         path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
@@ -74,6 +77,6 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 }

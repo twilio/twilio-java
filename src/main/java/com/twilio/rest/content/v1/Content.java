@@ -154,28 +154,6 @@ public class Content extends Resource {
         }
     }
 
-    public enum WebviewSizeType {
-        TALL("TALL"),
-        FULL("FULL"),
-        HALF("HALF"),
-        NONE("NONE");
-
-        private final String value;
-
-        private WebviewSizeType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebviewSizeType forValue(final String value) {
-            return Promoter.enumFromString(value, WebviewSizeType.values());
-        }
-    }
-
     public enum CallToActionActionType {
         URL("URL"),
         PHONE_NUMBER("PHONE_NUMBER"),
@@ -403,11 +381,6 @@ public class Content extends Resource {
         @Getter
         private final WhatsappAuthentication whatsappAuthentication;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("whatsapp/flows")
-        @Getter
-        private final WhatsappFlows whatsappFlows;
-
         private Types(Builder builder) {
             this.twilioText = builder.twilioText;
             this.twilioMedia = builder.twilioMedia;
@@ -422,7 +395,6 @@ public class Content extends Resource {
             this.twilioSchedule = builder.twilioSchedule;
             this.whatsappCard = builder.whatsappCard;
             this.whatsappAuthentication = builder.whatsappAuthentication;
-            this.whatsappFlows = builder.whatsappFlows;
         }
 
         public static Builder builder() {
@@ -475,9 +447,6 @@ public class Content extends Resource {
 
             @JsonProperty("whatsapp/authentication")
             private WhatsappAuthentication whatsappAuthentication;
-
-            @JsonProperty("whatsapp/flows")
-            private WhatsappFlows whatsappFlows;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("twilio/text")
@@ -574,13 +543,6 @@ public class Content extends Resource {
                 return this;
             }
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("whatsapp/flows")
-            public Builder whatsappFlows(WhatsappFlows whatsappFlows) {
-                this.whatsappFlows = whatsappFlows;
-                return this;
-            }
-
             public Types build() {
                 return new Types(this);
             }
@@ -613,8 +575,7 @@ public class Content extends Resource {
                 Objects.equals(
                     whatsappAuthentication,
                     other.whatsappAuthentication
-                ) &&
-                Objects.equals(whatsappFlows, other.whatsappFlows)
+                )
             );
         }
 
@@ -633,8 +594,7 @@ public class Content extends Resource {
                 twilioFlows,
                 twilioSchedule,
                 whatsappCard,
-                whatsappAuthentication,
-                whatsappFlows
+                whatsappAuthentication
             );
         }
     }
@@ -2024,198 +1984,6 @@ public class Content extends Resource {
         }
     }
 
-    @JsonDeserialize(builder = WhatsappFlows.Builder.class)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ToString
-    public static class WhatsappFlows {
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("body")
-        @Getter
-        private final String body;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("button_text")
-        @Getter
-        private final String buttonText;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("subtitle")
-        @Getter
-        private final String subtitle;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("media_url")
-        @Getter
-        private final String mediaUrl;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("flow_id")
-        @Getter
-        private final String flowId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("flow_token")
-        @Getter
-        private final String flowToken;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("flow_first_page_id")
-        @Getter
-        private final String flowFirstPageId;
-
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("is_flow_first_page_endpoint")
-        @Getter
-        private final Boolean isFlowFirstPageEndpoint;
-
-        private WhatsappFlows(Builder builder) {
-            this.body = builder.body;
-            this.buttonText = builder.buttonText;
-            this.subtitle = builder.subtitle;
-            this.mediaUrl = builder.mediaUrl;
-            this.flowId = builder.flowId;
-            this.flowToken = builder.flowToken;
-            this.flowFirstPageId = builder.flowFirstPageId;
-            this.isFlowFirstPageEndpoint = builder.isFlowFirstPageEndpoint;
-        }
-
-        public static Builder builder(
-            final String body,
-            final String buttonText,
-            final String flowId
-        ) {
-            return new Builder(body, buttonText, flowId);
-        }
-
-        public static WhatsappFlows fromJson(
-            String jsonString,
-            ObjectMapper mapper
-        ) throws IOException {
-            return mapper.readValue(jsonString, WhatsappFlows.class);
-        }
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class Builder {
-
-            @JsonProperty("body")
-            private String body;
-
-            @JsonProperty("button_text")
-            private String buttonText;
-
-            @JsonProperty("subtitle")
-            private String subtitle;
-
-            @JsonProperty("media_url")
-            private String mediaUrl;
-
-            @JsonProperty("flow_id")
-            private String flowId;
-
-            @JsonProperty("flow_token")
-            private String flowToken;
-
-            @JsonProperty("flow_first_page_id")
-            private String flowFirstPageId;
-
-            @JsonProperty("is_flow_first_page_endpoint")
-            private Boolean isFlowFirstPageEndpoint;
-
-            @JsonCreator
-            public Builder(
-                @JsonProperty("body") final String body,
-                @JsonProperty("button_text") final String buttonText,
-                @JsonProperty("flow_id") final String flowId
-            ) {
-                this.body = body;
-                this.buttonText = buttonText;
-                this.flowId = flowId;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("subtitle")
-            public Builder subtitle(String subtitle) {
-                this.subtitle = subtitle;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("media_url")
-            public Builder mediaUrl(String mediaUrl) {
-                this.mediaUrl = mediaUrl;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("flow_token")
-            public Builder flowToken(String flowToken) {
-                this.flowToken = flowToken;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("flow_first_page_id")
-            public Builder flowFirstPageId(String flowFirstPageId) {
-                this.flowFirstPageId = flowFirstPageId;
-                return this;
-            }
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("is_flow_first_page_endpoint")
-            public Builder isFlowFirstPageEndpoint(
-                Boolean isFlowFirstPageEndpoint
-            ) {
-                this.isFlowFirstPageEndpoint = isFlowFirstPageEndpoint;
-                return this;
-            }
-
-            public WhatsappFlows build() {
-                return new WhatsappFlows(this);
-            }
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            WhatsappFlows other = (WhatsappFlows) o;
-            return (
-                Objects.equals(body, other.body) &&
-                Objects.equals(buttonText, other.buttonText) &&
-                Objects.equals(subtitle, other.subtitle) &&
-                Objects.equals(mediaUrl, other.mediaUrl) &&
-                Objects.equals(flowId, other.flowId) &&
-                Objects.equals(flowToken, other.flowToken) &&
-                Objects.equals(flowFirstPageId, other.flowFirstPageId) &&
-                Objects.equals(
-                    isFlowFirstPageEndpoint,
-                    other.isFlowFirstPageEndpoint
-                )
-            );
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(
-                body,
-                buttonText,
-                subtitle,
-                mediaUrl,
-                flowId,
-                flowToken,
-                flowFirstPageId,
-                isFlowFirstPageEndpoint
-            );
-        }
-    }
-
     @JsonDeserialize(builder = TwilioListPicker.Builder.class)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
@@ -2883,11 +2651,6 @@ public class Content extends Resource {
         @Getter
         private final String code;
 
-        @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("webview_size")
-        @Getter
-        private final Content.WebviewSizeType webviewSize;
-
         private CardAction(Builder builder) {
             this.type = builder.type;
             this.title = builder.title;
@@ -2895,7 +2658,6 @@ public class Content extends Resource {
             this.phone = builder.phone;
             this.id = builder.id;
             this.code = builder.code;
-            this.webviewSize = builder.webviewSize;
         }
 
         public static Builder builder(
@@ -2932,9 +2694,6 @@ public class Content extends Resource {
 
             @JsonProperty("code")
             private String code;
-
-            @JsonProperty("webview_size")
-            private Content.WebviewSizeType webviewSize;
 
             @JsonCreator
             public Builder(
@@ -2973,13 +2732,6 @@ public class Content extends Resource {
                 return this;
             }
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("webview_size")
-            public Builder webviewSize(Content.WebviewSizeType webviewSize) {
-                this.webviewSize = webviewSize;
-                return this;
-            }
-
             public CardAction build() {
                 return new CardAction(this);
             }
@@ -3002,14 +2754,13 @@ public class Content extends Resource {
                 Objects.equals(url, other.url) &&
                 Objects.equals(phone, other.phone) &&
                 Objects.equals(id, other.id) &&
-                Objects.equals(code, other.code) &&
-                Objects.equals(webviewSize, other.webviewSize)
+                Objects.equals(code, other.code)
             );
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(type, title, url, phone, id, code, webviewSize);
+            return Objects.hash(type, title, url, phone, id, code);
         }
     }
 

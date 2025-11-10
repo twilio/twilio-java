@@ -97,9 +97,7 @@ public class InteractionChannel extends Resource {
         ACTIVE("active"),
         FAILED("failed"),
         CLOSED("closed"),
-        INACTIVE("inactive"),
-        PAUSE("pause"),
-        TRANSFER("transfer");
+        INACTIVE("inactive");
 
         private final String value;
 

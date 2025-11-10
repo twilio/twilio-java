@@ -47,10 +47,10 @@ public class BucketUpdater extends Updater<Bucket> {
 
     @Override
     public Bucket update(final TwilioRestClient client) {
-        String path = "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}";
+        String path = "/v2/RateLimits/Fields/{field}/Bucket/{bucket}";
 
-        path = path.replace("{" + "Field" + "}", this.pathField.toString());
-        path = path.replace("{" + "Bucket" + "}", this.pathBucket.toString());
+        path = path.replace("{" + "field" + "}", this.pathField.toString());
+        path = path.replace("{" + "bucket" + "}", this.pathBucket.toString());
 
         Request request = new Request(
             HttpMethod.PUT,

@@ -48,8 +48,7 @@ public class VerificationAttemptsSummary extends Resource {
         SMS("sms"),
         CALL("call"),
         EMAIL("email"),
-        WHATSAPP("whatsapp"),
-        RBM("rbm");
+        WHATSAPP("whatsapp");
 
         private final String value;
 

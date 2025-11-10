@@ -96,8 +96,8 @@ public class Webhook extends Resource {
     }
 
     public enum Method {
-        GET("get"),
-        POST("post");
+        GET("GET"),
+        POST("POST");
 
         private final String value;
 

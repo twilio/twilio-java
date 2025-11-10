@@ -57,10 +57,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private Boolean brandedEnabled;
     private Boolean voiceIntegrityEnabled;
     private String brandedBundleSid;
-    private Boolean brandedLogo;
-    private String brandedType;
-    private String brandedUseCase;
-    private String brandedCallReason;
     private String voiceIntegrityBundleSid;
     private String voiceIntegrityUseCase;
     private String businessProfileIdentity;
@@ -218,28 +214,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         final String brandedBundleSid
     ) {
         this.brandedBundleSid = brandedBundleSid;
-        return this;
-    }
-
-    public CallSummariesReader setBrandedLogo(final Boolean brandedLogo) {
-        this.brandedLogo = brandedLogo;
-        return this;
-    }
-
-    public CallSummariesReader setBrandedType(final String brandedType) {
-        this.brandedType = brandedType;
-        return this;
-    }
-
-    public CallSummariesReader setBrandedUseCase(final String brandedUseCase) {
-        this.brandedUseCase = brandedUseCase;
-        return this;
-    }
-
-    public CallSummariesReader setBrandedCallReason(
-        final String brandedCallReason
-    ) {
-        this.brandedCallReason = brandedCallReason;
         return this;
     }
 
@@ -584,42 +558,6 @@ public class CallSummariesReader extends Reader<CallSummaries> {
                 request,
                 "BrandedBundleSid",
                 brandedBundleSid,
-                ParameterType.QUERY
-            );
-        }
-
-        if (brandedLogo != null) {
-            Serializer.toString(
-                request,
-                "BrandedLogo",
-                brandedLogo,
-                ParameterType.QUERY
-            );
-        }
-
-        if (brandedType != null) {
-            Serializer.toString(
-                request,
-                "BrandedType",
-                brandedType,
-                ParameterType.QUERY
-            );
-        }
-
-        if (brandedUseCase != null) {
-            Serializer.toString(
-                request,
-                "BrandedUseCase",
-                brandedUseCase,
-                ParameterType.QUERY
-            );
-        }
-
-        if (brandedCallReason != null) {
-            Serializer.toString(
-                request,
-                "BrandedCallReason",
-                brandedCallReason,
                 ParameterType.QUERY
             );
         }

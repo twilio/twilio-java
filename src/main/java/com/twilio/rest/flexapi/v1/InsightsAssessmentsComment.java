@@ -136,7 +136,7 @@ public class InsightsAssessmentsComment extends Resource {
     private final Object comment;
 
     @Getter
-    private final String offset;
+    private final BigDecimal offset;
 
     @Getter
     private final Boolean report;
@@ -145,7 +145,7 @@ public class InsightsAssessmentsComment extends Resource {
     private final String segmentId;
 
     @Getter
-    private final String timestamp;
+    private final BigDecimal timestamp;
 
     @Getter
     private final URI url;
@@ -157,7 +157,7 @@ public class InsightsAssessmentsComment extends Resource {
     private final String userName;
 
     @Getter
-    private final String weight;
+    private final BigDecimal weight;
 
     @JsonCreator
     private InsightsAssessmentsComment(
@@ -165,14 +165,14 @@ public class InsightsAssessmentsComment extends Resource {
         @JsonProperty("agent_id") final String agentId,
         @JsonProperty("assessment_sid") final String assessmentSid,
         @JsonProperty("comment") final Object comment,
-        @JsonProperty("offset") final String offset,
+        @JsonProperty("offset") final BigDecimal offset,
         @JsonProperty("report") final Boolean report,
         @JsonProperty("segment_id") final String segmentId,
-        @JsonProperty("timestamp") final String timestamp,
+        @JsonProperty("timestamp") final BigDecimal timestamp,
         @JsonProperty("url") final URI url,
         @JsonProperty("user_email") final String userEmail,
         @JsonProperty("user_name") final String userName,
-        @JsonProperty("weight") final String weight
+        @JsonProperty("weight") final BigDecimal weight
     ) {
         this.accountSid = accountSid;
         this.agentId = agentId;

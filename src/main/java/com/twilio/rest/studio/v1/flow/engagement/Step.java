@@ -149,9 +149,6 @@ public class Step extends Resource {
     private final String transitionedTo;
 
     @Getter
-    private final String type;
-
-    @Getter
     private final URI url;
 
     @JsonCreator
@@ -172,7 +169,6 @@ public class Step extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("transitioned_from") final String transitionedFrom,
         @JsonProperty("transitioned_to") final String transitionedTo,
-        @JsonProperty("type") final String type,
         @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
@@ -187,7 +183,6 @@ public class Step extends Resource {
         this.sid = sid;
         this.transitionedFrom = transitionedFrom;
         this.transitionedTo = transitionedTo;
-        this.type = type;
         this.url = url;
     }
 
@@ -215,7 +210,6 @@ public class Step extends Resource {
             Objects.equals(sid, other.sid) &&
             Objects.equals(transitionedFrom, other.transitionedFrom) &&
             Objects.equals(transitionedTo, other.transitionedTo) &&
-            Objects.equals(type, other.type) &&
             Objects.equals(url, other.url)
         );
     }
@@ -235,7 +229,6 @@ public class Step extends Resource {
             sid,
             transitionedFrom,
             transitionedTo,
-            type,
             url
         );
     }

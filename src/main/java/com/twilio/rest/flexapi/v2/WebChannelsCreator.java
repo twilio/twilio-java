@@ -35,7 +35,6 @@ public class WebChannelsCreator extends Creator<WebChannels> {
     private String chatFriendlyName;
     private String customerFriendlyName;
     private String preEngagementData;
-    private String identity;
 
     public WebChannelsCreator(final String addressSid) {
         this.addressSid = addressSid;
@@ -64,11 +63,6 @@ public class WebChannelsCreator extends Creator<WebChannels> {
         final String preEngagementData
     ) {
         this.preEngagementData = preEngagementData;
-        return this;
-    }
-
-    public WebChannelsCreator setIdentity(final String identity) {
-        this.identity = identity;
         return this;
     }
 
@@ -149,15 +143,6 @@ public class WebChannelsCreator extends Creator<WebChannels> {
                 request,
                 "PreEngagementData",
                 preEngagementData,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (identity != null) {
-            Serializer.toString(
-                request,
-                "Identity",
-                identity,
                 ParameterType.URLENCODED
             );
         }

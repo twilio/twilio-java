@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.type.*;
@@ -54,6 +55,27 @@ public class Log extends Resource {
         final String pathEnvironmentSid
     ) {
         return new LogReader(pathServiceSid, pathEnvironmentSid);
+    }
+
+    public enum Level {
+        INFO("info"),
+        WARN("warn"),
+        ERROR("error");
+
+        private final String value;
+
+        private Level(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Level forValue(final String value) {
+            return Promoter.enumFromString(value, Level.values());
+        }
     }
 
     /**
@@ -130,7 +152,7 @@ public class Log extends Resource {
     private final String functionSid;
 
     @Getter
-    private final String level;
+    private final Log.Level level;
 
     @Getter
     private final String message;
@@ -157,7 +179,7 @@ public class Log extends Resource {
         @JsonProperty("deployment_sid") final String deploymentSid,
         @JsonProperty("environment_sid") final String environmentSid,
         @JsonProperty("function_sid") final String functionSid,
-        @JsonProperty("level") final String level,
+        @JsonProperty("level") final Log.Level level,
         @JsonProperty("message") final String message,
         @JsonProperty("request_sid") final String requestSid,
         @JsonProperty("service_sid") final String serviceSid,

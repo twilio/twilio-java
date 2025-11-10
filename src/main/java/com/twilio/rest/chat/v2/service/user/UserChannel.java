@@ -127,7 +127,7 @@ public class UserChannel extends Resource {
     public enum ChannelStatus {
         JOINED("joined"),
         INVITED("invited"),
-        NOT_PARTICIPATING("notParticipating");
+        NOT_PARTICIPATING("not_participating");
 
         private final String value;
 

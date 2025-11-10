@@ -103,8 +103,7 @@ public class NewFactor extends Resource {
 
     public enum FactorTypes {
         PUSH("push"),
-        TOTP("totp"),
-        PASSKEYS("passkeys");
+        TOTP("totp");
 
         private final String value;
 
@@ -228,9 +227,6 @@ public class NewFactor extends Resource {
     private final Object metadata;
 
     @Getter
-    private final Object options;
-
-    @Getter
     private final String serviceSid;
 
     @Getter
@@ -258,7 +254,6 @@ public class NewFactor extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("identity") final String identity,
         @JsonProperty("metadata") final Object metadata,
-        @JsonProperty("options") final Object options,
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("sid") final String sid,
         @JsonProperty("status") final NewFactor.FactorStatuses status,
@@ -274,7 +269,6 @@ public class NewFactor extends Resource {
         this.friendlyName = friendlyName;
         this.identity = identity;
         this.metadata = metadata;
-        this.options = options;
         this.serviceSid = serviceSid;
         this.sid = sid;
         this.status = status;
@@ -303,7 +297,6 @@ public class NewFactor extends Resource {
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(identity, other.identity) &&
             Objects.equals(metadata, other.metadata) &&
-            Objects.equals(options, other.options) &&
             Objects.equals(serviceSid, other.serviceSid) &&
             Objects.equals(sid, other.sid) &&
             Objects.equals(status, other.status) &&
@@ -324,7 +317,6 @@ public class NewFactor extends Resource {
             friendlyName,
             identity,
             metadata,
-            options,
             serviceSid,
             sid,
             status,

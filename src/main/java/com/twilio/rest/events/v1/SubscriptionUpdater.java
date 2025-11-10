@@ -32,6 +32,7 @@ public class SubscriptionUpdater extends Updater<Subscription> {
 
     private String pathSid;
     private String description;
+    private String sinkSid;
 
     public SubscriptionUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -39,6 +40,11 @@ public class SubscriptionUpdater extends Updater<Subscription> {
 
     public SubscriptionUpdater setDescription(final String description) {
         this.description = description;
+        return this;
+    }
+
+    public SubscriptionUpdater setSinkSid(final String sinkSid) {
+        this.sinkSid = sinkSid;
         return this;
     }
 
@@ -88,6 +94,15 @@ public class SubscriptionUpdater extends Updater<Subscription> {
                 request,
                 "Description",
                 description,
+                ParameterType.URLENCODED
+            );
+        }
+
+        if (sinkSid != null) {
+            Serializer.toString(
+                request,
+                "SinkSid",
+                sinkSid,
                 ParameterType.URLENCODED
             );
         }

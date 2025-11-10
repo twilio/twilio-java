@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
@@ -104,7 +103,7 @@ public class Job extends Resource {
     }
 
     @Getter
-    private final List<Object> details;
+    private final Object details;
 
     @Getter
     private final String email;
@@ -141,7 +140,7 @@ public class Job extends Resource {
 
     @JsonCreator
     private Job(
-        @JsonProperty("details") final List<Object> details,
+        @JsonProperty("details") final Object details,
         @JsonProperty("email") final String email,
         @JsonProperty("end_day") final String endDay,
         @JsonProperty(

@@ -35,7 +35,7 @@ public class TriggerCreator extends Creator<Trigger> {
     private String pathAccountSid;
     private URI callbackUrl;
     private String triggerValue;
-    private String usageCategory;
+    private Trigger.UsageCategory usageCategory;
     private HttpMethod callbackMethod;
     private String friendlyName;
     private Trigger.Recurring recurring;
@@ -44,7 +44,7 @@ public class TriggerCreator extends Creator<Trigger> {
     public TriggerCreator(
         final URI callbackUrl,
         final String triggerValue,
-        final String usageCategory
+        final Trigger.UsageCategory usageCategory
     ) {
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
@@ -55,7 +55,7 @@ public class TriggerCreator extends Creator<Trigger> {
         final String pathAccountSid,
         final URI callbackUrl,
         final String triggerValue,
-        final String usageCategory
+        final Trigger.UsageCategory usageCategory
     ) {
         this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
@@ -77,7 +77,9 @@ public class TriggerCreator extends Creator<Trigger> {
         return this;
     }
 
-    public TriggerCreator setUsageCategory(final String usageCategory) {
+    public TriggerCreator setUsageCategory(
+        final Trigger.UsageCategory usageCategory
+    ) {
         this.usageCategory = usageCategory;
         return this;
     }

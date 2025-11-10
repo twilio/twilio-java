@@ -40,7 +40,6 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean mediaRedaction;
     private String webhookUrl;
     private Service.HttpMethod webhookHttpMethod;
-    private String encryptionCredentialSid;
 
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -85,13 +84,6 @@ public class ServiceUpdater extends Updater<Service> {
         final Service.HttpMethod webhookHttpMethod
     ) {
         this.webhookHttpMethod = webhookHttpMethod;
-        return this;
-    }
-
-    public ServiceUpdater setEncryptionCredentialSid(
-        final String encryptionCredentialSid
-    ) {
-        this.encryptionCredentialSid = encryptionCredentialSid;
         return this;
     }
 
@@ -207,15 +199,6 @@ public class ServiceUpdater extends Updater<Service> {
                 request,
                 "WebhookHttpMethod",
                 webhookHttpMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (encryptionCredentialSid != null) {
-            Serializer.toString(
-                request,
-                "EncryptionCredentialSid",
-                encryptionCredentialSid,
                 ParameterType.URLENCODED
             );
         }

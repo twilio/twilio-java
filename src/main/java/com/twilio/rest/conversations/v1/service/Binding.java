@@ -64,8 +64,7 @@ public class Binding extends Resource {
     public enum BindingType {
         APN("apn"),
         GCM("gcm"),
-        FCM("fcm"),
-        TWILSOCK("twilsock");
+        FCM("fcm");
 
         private final String value;
 

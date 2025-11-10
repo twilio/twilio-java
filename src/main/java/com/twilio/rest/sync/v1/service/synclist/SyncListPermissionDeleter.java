@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
 
@@ -55,6 +56,8 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
         path =
             path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
@@ -80,6 +83,6 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 }

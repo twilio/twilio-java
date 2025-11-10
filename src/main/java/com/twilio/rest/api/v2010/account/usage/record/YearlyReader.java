@@ -33,7 +33,7 @@ import java.time.LocalDate;
 public class YearlyReader extends Reader<Yearly> {
 
     private String pathAccountSid;
-    private String category;
+    private Yearly.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -45,7 +45,7 @@ public class YearlyReader extends Reader<Yearly> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public YearlyReader setCategory(final String category) {
+    public YearlyReader setCategory(final Yearly.Category category) {
         this.category = category;
         return this;
     }

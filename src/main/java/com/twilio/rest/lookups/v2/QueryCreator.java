@@ -29,14 +29,14 @@ import com.twilio.type.*;
 
 public class QueryCreator extends Creator<Query> {
 
-    private Query.LookupRequest lookupRequest;
+    private Query.LookupRequest1 lookupRequest1;
 
     public QueryCreator() {}
 
-    public QueryCreator setLookupRequest(
-        final Query.LookupRequest lookupRequest
+    public QueryCreator setLookupRequest1(
+        final Query.LookupRequest1 lookupRequest1
     ) {
-        this.lookupRequest = lookupRequest;
+        this.lookupRequest1 = lookupRequest1;
         return this;
     }
 
@@ -77,8 +77,8 @@ public class QueryCreator extends Creator<Query> {
 
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
-        if (lookupRequest != null) {
-            request.setBody(Query.toJson(lookupRequest, objectMapper));
+        if (lookupRequest1 != null) {
+            request.setBody(Query.toJson(lookupRequest1, objectMapper));
         }
     }
 }

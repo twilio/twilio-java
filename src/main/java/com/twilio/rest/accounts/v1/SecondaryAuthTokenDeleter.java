@@ -24,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.*;
+import java.util.function.Predicate;
 
 public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
 
@@ -33,6 +34,8 @@ public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/AuthTokens/Secondary";
 
+        Predicate<Integer> deleteStatues = i ->
+            i != null && i >= 200 && i < 300;
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.ACCOUNTS.toString(),
@@ -58,6 +61,6 @@ public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
             }
             throw new ApiException(restException);
         }
-        return response.getStatusCode() == 204;
+        return deleteStatues.test(response.getStatusCode());
     }
 }

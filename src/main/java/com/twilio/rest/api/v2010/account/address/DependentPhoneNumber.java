@@ -22,7 +22,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
@@ -30,11 +29,11 @@ import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
 import com.twilio.type.*;
+import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
@@ -163,13 +162,13 @@ public class DependentPhoneNumber extends Resource {
     private final String apiVersion;
 
     @Getter
-    private final Object capabilities;
+    private final PhoneNumberCapabilities capabilities;
 
     @Getter
-    private final ZonedDateTime dateCreated;
+    private final String dateCreated;
 
     @Getter
-    private final ZonedDateTime dateUpdated;
+    private final String dateUpdated;
 
     @Getter
     private final String emergencyAddressSid;
@@ -238,13 +237,11 @@ public class DependentPhoneNumber extends Resource {
             "address_requirements"
         ) final DependentPhoneNumber.AddressRequirement addressRequirements,
         @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("capabilities") final Object capabilities,
-        @JsonProperty("date_created") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateCreated,
-        @JsonProperty("date_updated") @JsonDeserialize(
-            using = com.twilio.converter.RFC2822Deserializer.class
-        ) final ZonedDateTime dateUpdated,
+        @JsonProperty(
+            "capabilities"
+        ) final PhoneNumberCapabilities capabilities,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("emergency_address_sid") final String emergencyAddressSid,
         @JsonProperty(
             "emergency_status"

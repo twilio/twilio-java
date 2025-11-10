@@ -33,7 +33,7 @@ import java.time.LocalDate;
 public class AllTimeReader extends Reader<AllTime> {
 
     private String pathAccountSid;
-    private String category;
+    private AllTime.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
     private Boolean includeSubaccounts;
@@ -45,7 +45,7 @@ public class AllTimeReader extends Reader<AllTime> {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AllTimeReader setCategory(final String category) {
+    public AllTimeReader setCategory(final AllTime.Category category) {
         this.category = category;
         return this;
     }

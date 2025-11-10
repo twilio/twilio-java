@@ -30,7 +30,6 @@ import com.twilio.type.*;
 import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
@@ -113,7 +112,7 @@ public class ExportCustomJob extends Resource {
     }
 
     @Getter
-    private final List<Object> details;
+    private final Object details;
 
     @Getter
     private final String email;
@@ -147,7 +146,7 @@ public class ExportCustomJob extends Resource {
 
     @JsonCreator
     private ExportCustomJob(
-        @JsonProperty("details") final List<Object> details,
+        @JsonProperty("details") final Object details,
         @JsonProperty("email") final String email,
         @JsonProperty("end_day") final String endDay,
         @JsonProperty(

@@ -39,7 +39,6 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean mediaRedaction;
     private String webhookUrl;
     private Service.HttpMethod webhookHttpMethod;
-    private String encryptionCredentialSid;
 
     public ServiceCreator(final String uniqueName) {
         this.uniqueName = uniqueName;
@@ -89,13 +88,6 @@ public class ServiceCreator extends Creator<Service> {
         final Service.HttpMethod webhookHttpMethod
     ) {
         this.webhookHttpMethod = webhookHttpMethod;
-        return this;
-    }
-
-    public ServiceCreator setEncryptionCredentialSid(
-        final String encryptionCredentialSid
-    ) {
-        this.encryptionCredentialSid = encryptionCredentialSid;
         return this;
     }
 
@@ -212,15 +204,6 @@ public class ServiceCreator extends Creator<Service> {
                 request,
                 "WebhookHttpMethod",
                 webhookHttpMethod,
-                ParameterType.URLENCODED
-            );
-        }
-
-        if (encryptionCredentialSid != null) {
-            Serializer.toString(
-                request,
-                "EncryptionCredentialSid",
-                encryptionCredentialSid,
                 ParameterType.URLENCODED
             );
         }
